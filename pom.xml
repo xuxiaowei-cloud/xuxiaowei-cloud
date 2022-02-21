@@ -21,6 +21,11 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
     </properties>
+
+    <modules>
+        <module>passport</module>
+    </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
