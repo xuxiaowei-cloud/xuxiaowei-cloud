@@ -1,10 +1,10 @@
-package cloud.xuxiaowei;
+package cloud.xuxiaowei.passport;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class XuxiaoweiCloudApplicationTests {
+class PassportApplicationTests {
 
     @Test
     void contextLoads() {

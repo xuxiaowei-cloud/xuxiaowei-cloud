@@ -1,13 +1,13 @@
-package cloud.xuxiaowei;
+package cloud.xuxiaowei.passport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class XuxiaoweiCloudApplication {
+public class PassportApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XuxiaoweiCloudApplication.class, args);
+        SpringApplication.run(PassportApplication.class, args);
     }
 
 }
