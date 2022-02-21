@@ -6,7 +6,7 @@
         <groupId>cloud.xuxiaowei</groupId>
         <artifactId>xuxiaowei-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.xuxiaowei</groupId>
     <artifactId>passport</artifactId>
