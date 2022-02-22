@@ -1,5 +1,6 @@
 #
 # 删除 sh 文件中的特殊符号（line 1: $'\r': command not found）：sed -i 's/\r$//' nacos.sh
+# 位置：/usr/lib/systemd/system/nacos.service
 #
 # 查看状态：systemctl status nacos.service
 # 启动服务：systemctl start nacos.service
