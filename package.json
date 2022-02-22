@@ -15,5 +15,8 @@
     "cloud"
   ],
   "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  }
 }
