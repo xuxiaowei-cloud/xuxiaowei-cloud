@@ -1,0 +1,13 @@
+stages:
+  - pages
+
+pages:
+  stage: pages
+  image: centos:centos8.4.2105
+  script:
+    - mv docs/.vuepress/dist public
+  artifacts:
+    paths:
+      - public
+  only:
+    - pages
