@@ -57,5 +57,5 @@ pnpm-debug.log*
 *.sw?
 
 package-lock.json
-docs/.vuepress/.cache
-docs/.vuepress/.temp
+.cache
+.temp
