@@ -1,3 +1,7 @@
+# 服务器
+server:
+  # 端口
+  port: 1201
 #
 # Spring 配置
 spring:
