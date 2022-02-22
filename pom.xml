@@ -29,6 +29,7 @@
 
     <modules>
         <module>passport</module>
+        <module>gateway</module>
     </modules>
 
     <dependencies>
