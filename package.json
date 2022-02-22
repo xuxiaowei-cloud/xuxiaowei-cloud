@@ -1,0 +1,19 @@
+{
+  "name": "xuxiaowei-cloud.gitee.io",
+  "version": "0.0.1",
+  "description": "徐晓伟微服务",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
+  },
+  "keywords": [
+    "spring",
+    "cloud"
+  ],
+  "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
+  "license": "Apache-2.0"
+}
