@@ -26,7 +26,7 @@
     - [nacos-server-2.0.4.zip](https://github.com/alibaba/nacos/releases/download/2.0.4/nacos-server-2.0.4.zip)
     - 安装目录
         - D:\Alibaba\nacos-server-2.0.4
-- 在 `startup.sh` 文件中添加 `JAVA_HOME`，防止存在多个 Java 环境时启动异常
+- 在 `startup.cmd` 文件中添加 `JAVA_HOME`，防止存在多个 Java 环境时启动异常
     ```shell
     @echo off
     rem Copyright 1999-2018 Alibaba Group Holding Ltd.
