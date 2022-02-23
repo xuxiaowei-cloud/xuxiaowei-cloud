@@ -184,6 +184,7 @@
                 单个文件签名：
                 gpg &#45;&#45;armor &#45;&#45;detach-sign 文件名
              -->
+            <!-- 如果不需要签名，请注释此 plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
