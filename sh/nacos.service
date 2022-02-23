@@ -10,6 +10,14 @@
 # 关闭开启自启：systemctl disable nacos.service
 # 查看开机自启：systemctl list-unit-files | grep nacos.service
 #
+# 开放端口
+# firewall-cmd --zone=public --add-port=8848/tcp --permanent
+# firewall-cmd --zone=public --add-port=9848/tcp --permanent
+# firewall-cmd --zone=public --add-port=9849/tcp --permanent
+# 重载防火墙
+# firewall-cmd --reload
+# 查看所有开放的端口与服务
+# firewall-cmd --list-all
 
 [Unit]
 Description=nacos
