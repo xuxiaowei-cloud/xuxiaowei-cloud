@@ -98,3 +98,10 @@ logging:
     file: "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{serial} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     # 日期时间格式
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+
+# 管理服务
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
