@@ -42,7 +42,8 @@ spring:
             refresh: true
 
 
---- 以下配置可放入 nacos 中
+---
+# 以下配置可放入 nacos 中
 
 
 #
