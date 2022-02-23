@@ -10,6 +10,8 @@
 
     <name>xuxiaowei-cloud</name>
     <description>徐晓伟微服务</description>
+    <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
+    <inceptionYear>2021</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
@@ -104,6 +106,51 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
+        <connection>scm:git:https://git@github.com/xuxiaowei-cloud/xuxiaowei-cloud.git</connection>
+        <developerConnection>http://xuxiaowei.com.cn</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/issues</url>
+    </issueManagement>
+
+    <organization>
+        <name>徐晓伟工作室</name>
+        <url>http://xuxiaowei.com.cn</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>徐晓伟</name>
+            <email>xuxiaowei@xuxiaowei.com.cn</email>
+            <organization>徐晓伟工作室</organization>
+            <organizationUrl>http://xuxiaowei.com.cn</organizationUrl>
+        </developer>
+    </developers>
 
     <build>
 
