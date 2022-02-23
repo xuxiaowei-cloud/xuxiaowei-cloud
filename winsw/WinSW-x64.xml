@@ -1,0 +1,35 @@
+﻿<!--
+  配置示例：https://github.com/winsw/winsw/blob/master/examples/sample-allOptions.xml
+  需要使用管理员身份运行
+  注册服务：WinSW-x64.exe install
+  卸载服务：WinSW-x64.exe uninstall
+  查看状态：sc query nacos
+  启动服务：sc start nacos、net start nacos
+  停止服务：sc stop nacos、net stop nacos
+  如果 nacos 服务在运行时，卸载了 nacos 服务，nacos 服务在 Windows 服务列表中不会消失，消失时间为服务停止后
+-->
+<service>
+    <!-- Windows 服务名 -->
+    <id>nacos</id>
+    <!-- 名称 -->
+    <name>nacos-server-2.0.4</name>
+    <!-- 描述 -->
+    <description>nacos 服务</description>
+    <!-- 执行命令 -->
+    <executable>"D:\Alibaba\nacos-server-2.0.4\bin\startup.cmd"</executable>
+    <!-- 执行参数 -->
+    <arguments>-m standalone</arguments>
+    <!--
+        选项：日志路径
+        为服务包装器生成的所有日志设置自定义日志记录目录
+        默认值：目录，包含执行者
+    -->
+    <logpath>%BASE%\logs</logpath>
+    <!-- 控制日志-->
+    <log mode="roll-by-size">
+        <!-- 一个日志文件大小 20480k（20M），单位是k-->
+        <sizeThreshold>20480</sizeThreshold>
+        <!-- 一共有 10 个日志文件，-->
+        <keepFiles>10</keepFiles>
+    </log>
+</service>
