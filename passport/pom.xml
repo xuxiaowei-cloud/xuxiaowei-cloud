@@ -11,8 +11,10 @@
     <groupId>cloud.xuxiaowei</groupId>
     <artifactId>passport</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>passport</name>
-    <description>Demo project for Spring Boot</description>
+    <description>登录服务</description>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>

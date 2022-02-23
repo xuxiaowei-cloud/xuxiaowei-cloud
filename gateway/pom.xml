@@ -11,8 +11,10 @@
     <groupId>cloud.xuxiaowei.gateway</groupId>
     <artifactId>gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>gateway</name>
-    <description>Demo project for Spring Boot</description>
+    <description>网关服务</description>
+
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>

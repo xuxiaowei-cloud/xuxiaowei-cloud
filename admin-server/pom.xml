@@ -11,8 +11,10 @@
     <groupId>cloud.xuxiaowei.adminserver</groupId>
     <artifactId>admin-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>admin-server</name>
-    <description>Demo project for Spring Boot</description>
+    <description>监控（管理）服务</description>
+
     <properties>
         <java.version>1.8</java.version>
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
