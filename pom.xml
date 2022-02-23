@@ -25,6 +25,9 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies -->
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
+        <!-- 打包时跳过单元测试 -->
+        <skipTests>true</skipTests>
+
     </properties>
 
     <modules>
@@ -196,7 +199,8 @@
                     <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
                     <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
                     <format>json</format>
-                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json</generateGitPropertiesFilename>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json
+                    </generateGitPropertiesFilename>
                 </configuration>
             </plugin>
 
