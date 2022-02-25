@@ -84,3 +84,7 @@
 ## [常用 exe](./exe/README.md)
 
 ## [Docker 说明](./docker/README.md)
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud.svg)](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud)
