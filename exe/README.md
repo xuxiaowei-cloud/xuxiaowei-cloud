@@ -8,3 +8,7 @@
 ## [tail](tail.exe)
 
 - 在 Windows 中实时查看日志
+
+```
+tail.exe -f D:\logs\passport\passport.log
+```
