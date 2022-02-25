@@ -11,7 +11,7 @@
     <name>xuxiaowei-cloud</name>
     <description>徐晓伟微服务</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
-    <inceptionYear>2021</inceptionYear>
+    <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
