@@ -10,23 +10,27 @@
         - /software/dragonwell-8.10.11
     - 环境变量
         - 修改 `/etc/profile` 文件
-          ```shell
-          vim /etc/profile        
-          ```
-          ```shell
-          JAVA_HOME=/software/dragonwell-8.10.11
-          JRE_HOME=$JAVA_HOME/jre
-          CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
-          
-          PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
-          
-          export JAVA_HOME JRE_HOME CLASSPATH PATH
-          ```
-          ```shell
-          source /etc/profile
-          java -version
-          javac -version
-          ```
+            ```shell
+            # CentOS 安装 vim
+            # yum -y install -y vim
+            # Ubuntu 安装 vim
+            # sudo apt-get install -y vim
+            vim /etc/profile
+            ```
+            ```shell
+            JAVA_HOME=/software/dragonwell-8.10.11
+            JRE_HOME=$JAVA_HOME/jre
+            CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+            
+            PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+            
+            export JAVA_HOME JRE_HOME CLASSPATH PATH
+            ```
+            ```shell
+            source /etc/profile
+            java -version
+            javac -version
+            ```
 
 ## [Nacos](https://github.com/alibaba/nacos)
 

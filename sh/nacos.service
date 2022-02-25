@@ -18,6 +18,17 @@
 # firewall-cmd --reload
 # 查看所有开放的端口与服务
 # firewall-cmd --list-all
+#
+# 连接 MySQL 数据库
+# 表结构：nacos-server-2.0.4/conf/nacos-mysql.sql
+# 数据库名：nacos_config
+# 修改：nacos-server-2.0.4/conf/application.properties（注意，一下内容要去掉开头的“#”）
+# spring.datasource.platform=mysql
+# db.num=1
+# db.url.0=jdbc:mysql://192.168.5.4:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+# db.user.0=root
+# db.password.0=root
+#
 
 [Unit]
 Description=nacos
