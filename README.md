@@ -85,7 +85,7 @@ cloud.xuxiaowei
 │    └──utils                               // 工具类
 │    └──gateway                             // 网关
 │    └──passport                            // 登录
-│    └──admin-server                        // 管理（监控）
+│    └──admin-server                        // 监控（管理）
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
