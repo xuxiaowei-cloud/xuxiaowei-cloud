@@ -1,4 +1,4 @@
-## CentOS 安装与配置
+# CentOS 安装与配置
 
 ### [在 CentOS 上安装 Docker 引擎](https://docs.docker.com/engine/install/centos/)
 
