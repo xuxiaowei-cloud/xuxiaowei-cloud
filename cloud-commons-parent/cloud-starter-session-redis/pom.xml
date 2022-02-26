@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cloud.xuxiaowei</groupId>
+        <artifactId>cloud-commons-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>cloud.xuxiaowei</groupId>
+    <artifactId>cloud-starter-session-redis</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>cloud-starter-session-redis</name>
+    <description>Session Redis 组件</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+
+        <!-- Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>cloud-starter-redis</artifactId>
+        </dependency>
+
+        <!-- Session Redis 依赖 -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

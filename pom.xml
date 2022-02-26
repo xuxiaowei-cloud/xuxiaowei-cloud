@@ -91,10 +91,16 @@
                 <artifactId>cloud-starter-loadbalancer</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- Redis组件 -->
+            <!-- Redis 组件 -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>cloud-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Session Redis 组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>cloud-starter-session-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
