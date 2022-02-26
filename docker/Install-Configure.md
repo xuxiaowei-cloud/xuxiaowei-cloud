@@ -52,7 +52,7 @@ systemctl list-unit-files | grep docker
     ```
 
     - CentOS 开放端口
-        ```
+        ```shell
         firewall-cmd --zone=public --add-port=180/tcp --permanent
         firewall-cmd --zone=public --add-port=1443/tcp --permanent
         firewall-cmd --reload
@@ -60,13 +60,13 @@ systemctl list-unit-files | grep docker
         ```
 
     - Ubuntu 开放端口
-        ```
+        ```shell
         sudo ufw allow 180
         sudo ufw allow 1443
         ```
 
     - 访问
-        ```
+        ```shell
         curl http://宿主机IP:180
         ```
 

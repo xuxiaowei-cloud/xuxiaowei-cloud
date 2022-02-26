@@ -4,7 +4,7 @@
 
 - 拉取镜像
 
-```
+```shell
 docker pull mysql:8.0.28
 ```
 
@@ -25,7 +25,7 @@ docker pull mysql:8.0.28
                 vim /etc/profile
                 ```
             - 添加密码
-                ```
+                ```shell
                 # 将密码设置成：xuxiaowei.com.cn
                 MYSQL_ROOT_PASSWORD=xuxiaowei.com.cn
                 ```
@@ -34,7 +34,7 @@ docker pull mysql:8.0.28
                 source /etc/profile
                 ```
             - 查看是否生效
-                ```
+                ```shell
                 echo $MYSQL_ROOT_PASSWORD
                 ```
         1. 执行创建命令
@@ -55,11 +55,11 @@ docker pull mysql:8.0.28
             --collation-server=utf8mb4_general_ci
             ```
         1. 查看日志
-            ```
+            ```shell
             docker logs -f mysql-8.0.28
             ```
         1. 进入容器
-            ```
+            ```shell
             docker exec -it mysql-8.0.28 bash
             ```
         1. 开放端口
