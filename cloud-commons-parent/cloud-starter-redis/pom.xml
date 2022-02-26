@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>cloud-starter-redis</name>
-    <description>Redis组件</description>
+    <description>Redis 组件</description>
 
     <properties>
         <java.version>1.8</java.version>
