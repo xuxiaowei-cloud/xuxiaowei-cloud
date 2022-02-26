@@ -69,7 +69,7 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
+    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
   </a>
 
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
