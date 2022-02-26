@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cloud.xuxiaowei</groupId>
-    <artifactId>xuxiaowei-cloud</artifactId>
+    <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>xuxiaowei-cloud</name>
+    <name>xuxiaowei-cloud-starter-parent</name>
     <description>徐晓伟微服务</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
