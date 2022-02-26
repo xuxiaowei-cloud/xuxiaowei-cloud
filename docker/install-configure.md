@@ -1,6 +1,6 @@
 ## CentOS 安装与配置
 
-### [在CentOS上安装Docker引擎](https://docs.docker.com/engine/install/centos/)
+### [在 CentOS 上安装 Docker 引擎](https://docs.docker.com/engine/install/centos/)
 
 ```shell
 # 安装Tab键提示
