@@ -85,10 +85,16 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- 负载均衡 -->
+            <!-- 负载均衡组件 -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>cloud-starter-loadbalancer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Redis组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>cloud-starter-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
