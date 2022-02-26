@@ -59,3 +59,5 @@ pnpm-debug.log*
 package-lock.json
 .cache
 .temp
+
+pom.xml.versionsBackup
