@@ -21,12 +21,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
         <spring-boot.version>2.6.3</spring-boot.version>
+        <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <!-- Alibaba Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies -->
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <!-- 管理（监控）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
 
@@ -72,6 +76,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Boot 依赖控制 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -79,6 +84,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Spring Cloud 依赖控制 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -86,6 +92,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Alibaba Cloud 依赖控制 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -93,6 +100,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- 管理（监控）依赖控制 -->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
