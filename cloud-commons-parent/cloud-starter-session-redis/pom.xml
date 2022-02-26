@@ -14,6 +14,8 @@
 
     <name>cloud-starter-session-redis</name>
     <description>Session Redis 组件</description>
+    <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
+    <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
