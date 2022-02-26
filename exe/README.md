@@ -9,7 +9,7 @@
 
 - 在 Windows 中实时查看日志
 
-```
+```shell
 tail.exe -f D:\logs\passport\passport.log
 ```
 
@@ -17,6 +17,6 @@ tail.exe -f D:\logs\passport\passport.log
 
 - 查看端口是否开放，同：`telnet`
 
-```
+```shell
 tcping.exe -t www.baidu.com 80
 ```

@@ -4,7 +4,7 @@
 
 - 拉取镜像
 
-```
+```shell
 docker pull nacos/nacos-server:v2.0.4
 ```
 
@@ -42,7 +42,7 @@ docker pull nacos/nacos-server:v2.0.4
                 source /etc/profile
                 ```
             - 查看是否生效
-                ```
+                ```shell
                 echo $MYSQL_SERVICE_HOST
                 echo $MYSQL_SERVICE_PORT
                 echo $MYSQL_SERVICE_DB_NAME
@@ -71,11 +71,11 @@ docker pull nacos/nacos-server:v2.0.4
                 -d nacos/nacos-server:v2.0.4
                 ```
             1. 查看日志
-                ```
+                ```shell
                 docker logs -f nacos-server-v2.0.4
                 ```
             1. 进入容器
-                ```
+                ```shell
                 docker exec -it nacos-server-v2.0.4 bash
                 ```
             1. 开放端口

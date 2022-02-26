@@ -23,7 +23,7 @@ docker pull redis:6.2.6
                 vim /etc/profile
                 ```
             - 添加密码
-                ```
+                ```shell
                 # 将密码设置成：xuxiaowei.com.cn
                 REDIS_PASSWORD=xuxiaowei.com.cn
                 ```
@@ -32,7 +32,7 @@ docker pull redis:6.2.6
                 source /etc/profile
                 ```
             - 查看是否生效
-                ```
+                ```shell
                 echo $REDIS_PASSWORD
                 ```
         1. 执行创建命令
@@ -47,11 +47,11 @@ docker pull redis:6.2.6
             --requirepass $REDIS_PASSWORD
             ```
         1. 查看日志
-            ```
+            ```shell
             docker logs -f redis-6.2.6
             ```
         1. 进入容器
-            ```
+            ```shell
             docker exec -it redis-6.2.6 bash
             ```
         1. 开放端口
