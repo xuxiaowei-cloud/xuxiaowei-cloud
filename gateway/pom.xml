@@ -14,6 +14,8 @@
 
     <name>gateway</name>
     <description>网关服务</description>
+    <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
+    <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
