@@ -48,6 +48,8 @@
         <module>gateway</module>
         <!-- 监控（管理）服务 -->
         <module>admin-server</module>
+        <!-- 工具类 -->
+        <module>utils</module>
     </modules>
 
     <dependencyManagement>
@@ -85,6 +87,12 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- 工具类 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- 负载均衡组件 -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
