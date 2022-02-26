@@ -91,13 +91,13 @@ cloud.xuxiaowei
 │        └──cloud-starter-session-redis     // Session Redis 组件
 ```
 
-## [Linux 脚本说明](./sh/README.md)
+## [Linux 脚本说明](./sh)
 
-## [Windows 脚本说明](./winsw/README.md)
+## [Windows 脚本说明](./winsw)
 
-## [常用 exe](./exe/README.md)
+## [常用 exe 说明](./exe)
 
-## [Docker 说明](./docker/README.md)
+## [Docker 说明](./docker)
 
 ## 其他说明
 
