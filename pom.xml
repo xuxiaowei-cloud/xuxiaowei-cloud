@@ -36,6 +36,7 @@
     </properties>
 
     <modules>
+        <module>cloud-commons-parent</module>
         <module>passport</module>
         <module>gateway</module>
         <module>admin-server</module>
