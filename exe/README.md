@@ -18,5 +18,5 @@ tail.exe -f D:\logs\passport\passport.log
 - 查看端口是否开放，同：`telnet`
 
 ```
-tcping.exe -f www.baidu.com 80
+tcping.exe -t www.baidu.com 80
 ```
