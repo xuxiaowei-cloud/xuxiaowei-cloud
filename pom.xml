@@ -283,7 +283,7 @@
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <offline>true</offline>
                     <!-- 输出详细内容 -->
-                    <verbose>true</verbose>
+                    <!--<verbose>true</verbose>-->
                     <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
                     <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
                     <format>json</format>
