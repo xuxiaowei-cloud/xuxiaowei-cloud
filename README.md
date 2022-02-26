@@ -79,9 +79,17 @@
 
 ## 模块
 
-- [网关](./gateway)
-- [登录](./passport)
-- [管理(监控)](./admin-server)
+```
+cloud.xuxiaowei
+├──xuxiaowei-cloud-starter-parent           // 微服务父模块
+│    └──gateway                             // 网关
+│    └──passport                            // 登录
+│    └──admin-server                        // 管理（监控）
+│    └──cloud-commons-parent                // 微服务公共组件父模块
+│        └──cloud-starter-loadbalancer      // 负载均衡组件
+│        └──cloud-starter-redis             // Redis 组件
+│        └──cloud-starter-session-redis     // Session Redis 组件
+```
 
 ## [Linux 脚本说明](./sh/README.md)
 
