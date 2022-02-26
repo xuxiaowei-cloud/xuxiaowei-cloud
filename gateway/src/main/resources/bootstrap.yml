@@ -24,7 +24,8 @@ spring:
       # 服务发现
       discovery:
         # 服务发现地址
-        server-addr: 192.168.5.4:8848
+        # 环境变量中存在 NACOS_ADDR 时，使用环境变量，不存在时使用 192.168.5.4:8848
+        server-addr: ${NACOS_ADDR:192.168.5.4:8848}
         # 命名空间
         namespace:
       # 服务配置
@@ -32,7 +33,8 @@ spring:
         # 配置文件后缀名
         file-extension: yml
         # 配置服务器地址
-        server-addr: 192.168.5.4:8848
+        # 环境变量中存在 NACOS_ADDR 时，使用环境变量，不存在时使用 192.168.5.4:8848
+        server-addr: ${NACOS_ADDR:192.168.5.4:8848}
         # 命名空间
         namespace:
         # 共享配置
