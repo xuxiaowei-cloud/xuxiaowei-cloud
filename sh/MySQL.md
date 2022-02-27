@@ -20,7 +20,7 @@
             ```shell
             yum -y install wget
             ```
-        1. CentOS 7 下载 `.prm` 包
+        1. CentOS 7 下载 `.rpm` 包
             ```shell
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-8.0.28-1.el7.x86_64.rpm
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-plugins-8.0.28-1.el7.x86_64.rpm
@@ -30,7 +30,7 @@
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-libs-compat-8.0.28-1.el7.x86_64.rpm
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-server-8.0.28-1.el7.x86_64.rpm
             ```
-        1. CentOS 8 下载 `.prm` 包
+        1. CentOS 8 下载 `.rpm` 包
             ```shell
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-8.0.28-1.el8.x86_64.rpm
             wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-plugins-8.0.28-1.el8.x86_64.rpm
