@@ -100,10 +100,6 @@ cloud.xuxiaowei
 
 ## [Docker 说明](./docker)
 
-## 其他说明
-
-- 如果打包后，发现`src/main/java`中的源码报错，请在项目根目录中运行`mvn clean`或手动删除对应模块的`target/generated-sources/delombok`文件夹
-
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud.svg)](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud)
