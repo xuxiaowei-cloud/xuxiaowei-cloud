@@ -2,11 +2,33 @@
   "name": "ui",
   "private": true,
   "version": "0.0.1",
+  "description": "徐晓伟微服务UI",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host"
   },
+  "author": "徐晓伟 <xuxiaowei.com.cn>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/issues"
+  },
+  "homepage": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud#README",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
+  },
+  "keywords": [
+    "axios",
+    "echarts",
+    "element-plus",
+    "jsencrypt",
+    "vite",
+    "vue",
+    "vue-echarts",
+    "vue-router",
+    "vuex"
+  ],
   "dependencies": {
     "vue": "^3.2.31"
   },
