@@ -50,6 +50,8 @@
         <module>admin-server</module>
         <!-- 工具类 -->
         <module>utils</module>
+        <!-- UI -->
+        <module>ui</module>
     </modules>
 
     <dependencyManagement>
@@ -111,7 +113,12 @@
                 <artifactId>cloud-starter-session-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <!-- UI -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

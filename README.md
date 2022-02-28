@@ -82,6 +82,7 @@
 ```
 cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
+│    └──ui                                  // UI
 │    └──utils                               // 工具类
 │    └──gateway                             // 网关
 │    └──passport                            // 登录
