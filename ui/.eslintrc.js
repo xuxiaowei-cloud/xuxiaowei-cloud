@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
+    // 'defineProps' is not defined  no-undef
+    'vue/setup-compiler-macros': true
   },
   extends: [
     'plugin:vue/vue3-essential',
