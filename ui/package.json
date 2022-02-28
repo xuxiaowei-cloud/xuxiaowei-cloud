@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "lint": "vue-cli-service lint",
     "preview": "vite preview --host"
   },
   "author": "徐晓伟 <xuxiaowei.com.cn>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/issues"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   },
   "homepage": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud#README",
   "repository": {
@@ -34,6 +38,15 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.2",
+    "@vue/cli-plugin-eslint": "^5.0.1",
+    "@vue/cli-service": "^5.0.1",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "lint-staged": "^12.3.4",
     "vite": "^2.8.4"
   }
 }

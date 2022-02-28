@@ -11,6 +11,20 @@
 npm create vite@latest ui -- --template vue
 ```
 
+## Dependencies
+
+1. [eslint](https://eslint.vuejs.org/user-guide/#installation)
+    ```
+    # 选择 Standard
+    # 勾选 Lint on save、Lint and fix on commit
+    vue add @vue/cli-plugin-eslint
+    npm i -D @vue/cli-service
+    ```
+
+## 问题
+
+1. `npm install`报错时，可使用`npm install --force`进行强制安装
+
 - 使用 Maven 进行打包
 
 ```shell
