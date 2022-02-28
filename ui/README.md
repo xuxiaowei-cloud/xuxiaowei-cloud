@@ -1,17 +1,47 @@
-# Init
+# ui
 
-- [nodejs](https://nodejs.org/dist/v16.14.0/)
-    - node
-        - v16.14.0
-    - npm
-        - 8.3.1
-- [vitejs](https://cn.vitejs.dev/guide/)
+## 项目设置
+
+```
+npm install
+# 或
+npm install --force
+```
+
+### 编译、热加载
+
+```
+npm run dev
+```
+
+### 生产编译和压缩
+
+```
+npm run build
+```
+
+### lints和修复文件
+
+```
+npm run lint
+```
+
+### 自定义配置
+
+- [配置参考](https://cli.vuejs.org/zh/config/index.html).
+
+## 项目创建
+
+- [nodejs v16.14.0 下载](https://nodejs.org/dist/v16.14.0/)
+    - node v16.14.0
+    - npm 8.3.1
+- [Vite 官方中文文档](https://cn.vitejs.dev/guide/)
+
+1. init
 
 ```shell
 npm create vite@latest ui -- --template vue
 ```
-
-## Dependencies
 
 1. [eslint](https://eslint.vuejs.org/user-guide/#installation)
     ```
@@ -19,6 +49,11 @@ npm create vite@latest ui -- --template vue
     # 勾选 Lint on save、Lint and fix on commit
     vue add @vue/cli-plugin-eslint
     npm i -D @vue/cli-service
+    ```
+
+1. [vue-router](https://router.vuejs.org/installation.html)
+    ```
+    npm install vue-router@4
     ```
 
 ## 问题
@@ -34,10 +69,4 @@ mvn clean package
 
 # Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs,
-check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/)
-- [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+[setup 文档](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup)
