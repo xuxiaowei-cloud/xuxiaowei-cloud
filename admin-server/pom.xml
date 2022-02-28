@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cloud.xuxiaowei.adminserver</groupId>
+    <groupId>cloud.xuxiaowei</groupId>
     <artifactId>admin-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
