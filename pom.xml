@@ -200,7 +200,7 @@
                 <version>1.18.20.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+                    <sourceDirectory>src/main/java</sourceDirectory>
                     <outputDirectory>target/sources/delombok</outputDirectory>
                     <addOutputDirectory>false</addOutputDirectory>
                 </configuration>
@@ -227,14 +227,6 @@
                     <charset>UTF-8</charset>
                     <docencoding>UTF-8</docencoding>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
