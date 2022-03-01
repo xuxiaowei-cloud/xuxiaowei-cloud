@@ -56,9 +56,7 @@ npm create vite@latest ui -- --template vue
     npm install vue-router@4
     ```
 
-## 问题
-
-1. `npm install`报错时，可使用`npm install --force`进行强制安装
+## 说明
 
 - 使用 Maven 进行打包
 
