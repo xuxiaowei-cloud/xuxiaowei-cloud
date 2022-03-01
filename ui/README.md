@@ -48,6 +48,7 @@ npm create vite@latest ui -- --template vue
     # 选择 Standard
     # 勾选 Lint on save、Lint and fix on commit
     vue add @vue/cli-plugin-eslint
+    # vue-cli-service lint 无法运行
     npm i -D @vue/cli-service
     ```
 
