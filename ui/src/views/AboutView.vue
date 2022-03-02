@@ -9,7 +9,7 @@ import { actuator, baidu } from '../api/actuator'
 
 export default {
   name: 'AboutView',
-  mounted() {
+  mounted () {
     this.$ipv4().then(response => {
       console.log(response)
     })

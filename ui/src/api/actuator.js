@@ -3,9 +3,9 @@ import request from '../utils/request'
 /**
  * actuator
  */
-export let actuator = function () {
+export const actuator = function () {
   return request.get('/actuator/health', {
-    baseURL: null // Îª¿Õ£º¿ÉÊ¹ÓÃ´úÀí£¬²»Îª¿Õ£º²»ÄÜÊ¹ÓÃ´úÀí
+    baseURL: null // ä¸ºç©ºï¼šå¯ä½¿ç”¨ä»£ç†ï¼Œä¸ä¸ºç©ºï¼šä¸èƒ½ä½¿ç”¨ä»£ç†
   }).then(response => {
     return response.data
   })
@@ -14,9 +14,9 @@ export let actuator = function () {
 /**
  * baidu
  */
-export let baidu = function () {
+export const baidu = function () {
   return request.get('/baidu', {
-    baseURL: null, // Îª¿Õ£º¿ÉÊ¹ÓÃ´úÀí£¬²»Îª¿Õ£º²»ÄÜÊ¹ÓÃ´úÀí
+    baseURL: null, // ä¸ºç©ºï¼šå¯ä½¿ç”¨ä»£ç†ï¼Œä¸ä¸ºç©ºï¼šä¸èƒ½ä½¿ç”¨ä»£ç†
     withCredentials: false
   }).then(response => {
     return response.data
