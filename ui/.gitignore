@@ -58,3 +58,6 @@ dist-ssr
 *.sw?
 
 node
+
+#Electron-builder output
+/dist_electron

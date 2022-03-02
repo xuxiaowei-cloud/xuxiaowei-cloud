@@ -7,8 +7,10 @@
     "dev": "vite --host",
     "build": "vite build",
     "lint": "vue-cli-service lint",
-    "preview": "vite preview --host"
+    "preview": "vite preview --host",
+    "electron:serve": "node electron/serve.js"
   },
+  "main": "src/background.js",
   "author": "徐晓伟 <xuxiaowei.com.cn>",
   "license": "Apache-2.0",
   "bugs": {
@@ -35,6 +37,7 @@
   ],
   "dependencies": {
     "axios": "^0.26.0",
+    "electron": "^17.1.0",
     "element-plus": "^2.0.4",
     "vue": "^3.2.31",
     "vue-router": "^4.0.13"
@@ -50,6 +53,7 @@
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-vue": "^7.20.0",
     "lint-staged": "^12.3.4",
+    "runjs": "^4.4.2",
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.8.4"
