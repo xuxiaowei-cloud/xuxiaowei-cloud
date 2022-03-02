@@ -10,7 +10,7 @@
 import { ElButton } from 'element-plus'
 export default {
   name: 'HomeView',
-  components: { ElButton },
+  components: { ElButton }
 }
 </script>
 
