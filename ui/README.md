@@ -55,7 +55,50 @@ npm create vite@latest ui -- --template vue
     npm install vue-router@4
     ```
 
-## 说明
+## 依赖说明
+
+1. 创建项目时自动生成
+    - 依赖
+        - vue
+    - 开发依赖
+        - @vitejs/plugin-vue
+        - vite
+
+1. lint
+    - 开发依赖
+        - @vue/cli-plugin-eslint
+        - @vue/cli-service
+        - @vue/eslint-config-standard
+        - eslint
+        - eslint-plugin-import
+        - eslint-plugin-node
+        - eslint-plugin-promise
+        - eslint-plugin-vue
+        - lint-staged
+
+1. 路由
+    - 依赖
+        - vue-router
+
+1. http 请求
+    - 依赖
+        - axios
+
+1. element-plus 前端 UI 框架
+    - 依赖
+        - element-plus
+    - 开发依赖
+        - unplugin-auto-import
+        - unplugin-vue-components
+
+1. electron
+    - 依赖
+        - electron
+
+1. 其他依赖
+    - runjs
+
+## 其他说明
 
 - 使用 Maven 进行打包
 
