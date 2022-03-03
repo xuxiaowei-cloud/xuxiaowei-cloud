@@ -101,6 +101,8 @@ cloud.xuxiaowei
 
 ## [Docker 说明](./docker)
 
+## [SQL](./sql/xuxiaowei_cloud.sql)
+
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud.svg)](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud)
