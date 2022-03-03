@@ -86,6 +86,7 @@ cloud.xuxiaowei
 │    └──utils                               // 工具类
 │    └──gateway                             // 网关
 │    └──passport                            // 登录
+│    └──authorization-server                // 授权服务
 │    └──admin-server                        // 监控（管理）
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
