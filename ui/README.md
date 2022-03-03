@@ -4,8 +4,6 @@
 
 ```
 npm install
-# 或
-npm install --force
 ```
 
 ### 编译、热加载
@@ -44,7 +42,7 @@ npm create vite@latest ui -- --template vue
 ```
 
 1. [eslint](https://eslint.vuejs.org/user-guide/#installation)
-    ```
+    ```shell
     # 选择 Standard
     # 勾选 Lint on save、Lint and fix on commit
     vue add @vue/cli-plugin-eslint
@@ -53,7 +51,7 @@ npm create vite@latest ui -- --template vue
     ```
 
 1. [vue-router](https://router.vuejs.org/installation.html)
-    ```
+    ```shell
     npm install vue-router@4
     ```
 
