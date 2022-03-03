@@ -54,6 +54,8 @@
         <module>ui</module>
         <!-- 授权服务 -->
         <module>authorization-server</module>
+        <!-- 资源服务 -->
+        <module>resource-server</module>
     </modules>
 
     <dependencyManagement>
