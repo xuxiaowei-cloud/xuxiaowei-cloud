@@ -36,26 +36,26 @@
     "vuex"
   ],
   "dependencies": {
-    "axios": "^0.26.0",
-    "electron": "^17.1.0",
-    "element-plus": "^2.0.4",
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.13"
+    "axios": "0.26.0",
+    "electron": "17.1.0",
+    "element-plus": "2.0.5",
+    "vue": "3.2.31",
+    "vue-router": "4.0.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.2",
-    "@vue/cli-plugin-eslint": "^5.0.1",
-    "@vue/cli-service": "^5.0.1",
-    "@vue/eslint-config-standard": "^6.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
-    "eslint-plugin-vue": "^7.20.0",
-    "lint-staged": "^12.3.4",
-    "runjs": "^4.4.2",
-    "unplugin-auto-import": "^0.6.1",
-    "unplugin-vue-components": "^0.17.21",
-    "vite": "^2.8.4"
+    "@vitejs/plugin-vue": "2.2.4",
+    "@vue/cli-plugin-eslint": "5.0.1",
+    "@vue/cli-service": "5.0.1",
+    "@vue/eslint-config-standard": "6.1.0",
+    "eslint": "7.32.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.2.0",
+    "eslint-plugin-vue": "7.20.0",
+    "lint-staged": "12.3.5",
+    "runjs": "4.4.2",
+    "unplugin-auto-import": "0.6.1",
+    "unplugin-vue-components": "0.17.21",
+    "vite": "2.8.6"
   }
 }
