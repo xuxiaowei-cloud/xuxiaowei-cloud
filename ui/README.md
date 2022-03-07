@@ -91,13 +91,6 @@ npm create vite@latest ui -- --template vue
         - unplugin-auto-import
         - unplugin-vue-components
 
-1. electron
-    - 依赖
-        - electron
-
-1. 其他依赖
-    - runjs
-
 ## 其他说明
 
 - 使用 Maven 进行打包
