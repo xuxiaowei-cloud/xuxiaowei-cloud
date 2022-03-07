@@ -91,6 +91,7 @@ cloud.xuxiaowei
 │    └──ui                                  // UI
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
+│        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
