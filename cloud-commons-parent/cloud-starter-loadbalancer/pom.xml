@@ -22,6 +22,12 @@
     </properties>
     <dependencies>
 
+        <!-- 核心组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>cloud-starter-core</artifactId>
+        </dependency>
+
         <!-- 负载均衡 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

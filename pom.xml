@@ -101,6 +101,12 @@
                 <artifactId>utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- 核心组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>cloud-starter-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- 负载均衡组件 -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>

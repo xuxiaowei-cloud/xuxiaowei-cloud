@@ -9,11 +9,11 @@
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.xuxiaowei</groupId>
-    <artifactId>cloud-starter-redis</artifactId>
+    <artifactId>cloud-starter-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>cloud-starter-redis</name>
-    <description>Redis 组件</description>
+    <name>cloud-starter-core</name>
+    <description>核心组件</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
@@ -21,24 +21,6 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-
-        <!-- 核心组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>cloud-starter-core</artifactId>
-        </dependency>
-
-        <!-- Redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- 提供JSON数据处理所需的包，如：ObjectMapper、JavaTimeModule -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
