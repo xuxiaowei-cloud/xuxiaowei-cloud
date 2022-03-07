@@ -25,7 +25,7 @@ spring:
       discovery:
         # 服务发现地址
         # 环境变量中存在 NACOS_ADDR 时，使用环境变量，不存在时使用 192.168.5.4:8848
-        server-addr: ${NACOS_ADDR:192.168.5.4:8848}
+        server-addr: nacos.xuxiaowei.cloud
         # 命名空间
         namespace:
       # 服务配置
@@ -34,7 +34,7 @@ spring:
         file-extension: yml
         # 配置服务器地址
         # 环境变量中存在 NACOS_ADDR 时，使用环境变量，不存在时使用 192.168.5.4:8848
-        server-addr: ${NACOS_ADDR:192.168.5.4:8848}
+        server-addr: nacos.xuxiaowei.cloud
         # 命名空间
         namespace:
         # 共享配置
@@ -136,5 +136,5 @@ spring:
   redis:
     database: 1
     password: xuxiaowei.com.cn
-    host: ${REDIS_HOST:192.168.5.4}
+    host: redis.xuxiaowei.cloud
     port: 6379
