@@ -1,0 +1,55 @@
+{
+  "name": "passport-ui",
+  "private": true,
+  "version": "0.0.1",
+  "description": "登录服务UI",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "lint": "vue-cli-service lint",
+    "preview": "vite preview --host"
+  },
+  "author": "徐晓伟 <xuxiaowei.com.cn>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/issues"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "homepage": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud#README",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
+  },
+  "keywords": [
+    "axios",
+    "element-plus",
+    "jsencrypt",
+    "vite",
+    "vue",
+    "vue-router",
+    "vuex"
+  ],
+  "dependencies": {
+    "axios": "0.26.0",
+    "element-plus": "2.0.5",
+    "vue": "3.2.31",
+    "vue-router": "4.0.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "2.2.4",
+    "@vue/cli-plugin-eslint": "5.0.1",
+    "@vue/cli-service": "5.0.1",
+    "@vue/eslint-config-standard": "6.1.0",
+    "eslint": "7.32.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.2.0",
+    "eslint-plugin-vue": "7.20.0",
+    "lint-staged": "12.3.5",
+    "unplugin-auto-import": "0.6.1",
+    "unplugin-vue-components": "0.17.21",
+    "vite": "2.8.6"
+  }
+}

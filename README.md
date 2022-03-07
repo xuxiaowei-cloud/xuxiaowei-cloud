@@ -85,6 +85,7 @@ cloud.xuxiaowei
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
 │    └──authorization-server                // 授权服务
+│    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
 │    └──resource-server                     // 资源服务
 │    └──ui                                  // UI
