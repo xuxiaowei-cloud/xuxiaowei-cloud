@@ -82,17 +82,32 @@
 ```
 cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
+│    └──gateway                             // 网关服务
+│    └──admin-server                        // 监控（管理）服务
+│    └──authorization-server                // 授权服务
+│    └──passport                            // 登录服务
+│    └──resource-server                     // 资源服务
 │    └──ui                                  // UI
 │    └──utils                               // 工具类
-│    └──gateway                             // 网关
-│    └──passport                            // 登录
-│    └──authorization-server                // 授权服务
-│    └──admin-server                        // 监控（管理）
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 ```
+
+### 端口
+
+| 模块 | 模块名称 | 域名（虚拟） | 端口 |
+| ---- | ---- | ---- | ---- |
+| Nacos | 注册、配置中心 | nacos.xuxiaowei.cloud | 8848 |
+| MySQL | 数据库 | mysql.xuxiaowei.cloud | 3306 |
+| Redis | 数据库 | redis.xuxiaowei.cloud | 6379 |
+|  |  |  |  |
+| gateway | 网关 | gateway.xuxiaowei.cloud | 1101 |
+| admin-server | 监控（管理） | admin-server.xuxiaowei.cloud | 1201 |
+| authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
+| passport | 授权 | passport.xuxiaowei.cloud | 1401 |
+| resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
 
 ## [Linux 脚本说明](./sh)
 
