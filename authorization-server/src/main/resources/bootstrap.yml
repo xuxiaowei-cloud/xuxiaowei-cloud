@@ -138,3 +138,10 @@ spring:
     password: xuxiaowei.com.cn
     host: redis.xuxiaowei.cloud
     port: 6379
+
+---
+
+# 微服务配置
+cloud:
+  # 登录页面地址
+  login-page-url: http://gateway.xuxiaowei.cloud:1101/passport
