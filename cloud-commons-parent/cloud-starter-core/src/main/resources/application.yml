@@ -1,5 +1,0 @@
-#
-# 微服务配置
-cloud:
-  # 登录页面地址
-  login-page-url: http://passport.xuxiaowei.cloud
