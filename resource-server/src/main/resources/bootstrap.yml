@@ -113,7 +113,7 @@ spring:
     # 数据库 驱动名称
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 数据库 连接串
-    url: jdbc:mysql://${MYSQL_IP:192.168.5.4}:3306/xuxiaowei_cloud?useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://mysql.xuxiaowei.cloud:3306/xuxiaowei_cloud?useSSL=false&serverTimezone=GMT%2B8
     # 数据库 用户名
     username: root
     # 数据库 密码
