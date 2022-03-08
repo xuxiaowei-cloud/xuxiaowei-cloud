@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.filter;
 
-import cloud.xuxiaowei.core.properties.CloudProperties;
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
@@ -24,11 +24,11 @@ import java.io.IOException;
 @Component
 public class RedirectLoginPageFilter extends GenericFilterBean {
 
-    private CloudProperties cloudProperties;
+    private CloudSecurityProperties cloudSecurityProperties;
 
     @Autowired
-    public void setCloudProperties(CloudProperties cloudProperties) {
-        this.cloudProperties = cloudProperties;
+    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+        this.cloudSecurityProperties = cloudSecurityProperties;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RedirectLoginPageFilter extends GenericFilterBean {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
         // 重定向到登录页面
-        httpServletResponse.sendRedirect(cloudProperties.getLoginPageUrl());
+        httpServletResponse.sendRedirect(cloudSecurityProperties.getLoginPageUrl());
 
     }
 

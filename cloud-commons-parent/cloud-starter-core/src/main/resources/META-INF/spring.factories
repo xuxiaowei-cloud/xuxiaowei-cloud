@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cloud.xuxiaowei.core.properties.CloudProperties
+  cloud.xuxiaowei.core.properties.CloudSecurityProperties
