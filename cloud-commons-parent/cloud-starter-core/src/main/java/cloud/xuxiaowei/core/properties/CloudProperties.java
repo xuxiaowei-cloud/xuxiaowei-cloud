@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.authorizationserver.properties;
+package cloud.xuxiaowei.core.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
