@@ -18,6 +18,6 @@ public class CloudProperties {
     /**
      * 登录页面地址
      */
-    private String loginPageUrl;
+    private String loginPageUrl = "http://passport.xuxiaowei.cloud";
 
 }
