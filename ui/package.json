@@ -34,6 +34,7 @@
     "vuex"
   ],
   "dependencies": {
+    "@element-plus/icons-vue": "1.1.1",
     "axios": "0.26.0",
     "element-plus": "2.0.5",
     "vue": "3.2.31",
