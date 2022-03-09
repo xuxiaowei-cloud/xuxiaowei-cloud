@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.authorizationserver;
+package cloud.xuxiaowei.authorizationserver.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -22,6 +22,17 @@ class PasswordEncoderTests {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encode = passwordEncoder.encode("123");
         log.info(encode);
+    }
+
+    /**
+     * 密码比较
+     */
+    @Test
+    void matches() {
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        String encodedPassword = "{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK";
+        boolean matches = passwordEncoder.matches("123", encodedPassword);
+        log.info(String.valueOf(matches));
     }
 
 }
