@@ -115,15 +115,55 @@ cloud.xuxiaowei
 | passport | 授权 | passport.xuxiaowei.cloud | 1401 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
 
-## [Linux 脚本说明](./sh)
+### [Linux 脚本说明](./sh)
 
-## [Windows 脚本说明](./winsw)
+### [Windows 脚本说明](./winsw)
 
-## [常用 exe 说明](./exe)
+### [常用 exe 说明](./exe)
 
-## [Docker 说明](./docker)
+### [Docker 说明](./docker)
 
-## [SQL](./sql/xuxiaowei_cloud.sql)
+### [SQL](./sql/xuxiaowei_cloud.sql)
+
+## 仓库与分支？
+
+1. 使用了哪四个仓库？
+    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
+    1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    1. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+
+1. 上述四个仓库以哪个为准？其余仓库合适同步？
+    1. 以 [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
+    1. 其余仓库每日同步
+
+1. 各个仓库的作用？
+    1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
+    1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
+       用于在将来替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+       的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines)
+       ，如果免费的话（目前[GitCode](https://gitcode.net)
+       的 [CICD 流水线](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 暂未开放此功能）
+    1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+       使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
+       每日扫描项目中的 `main` 分支是否存在漏洞
+    1. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 使用 GitLab
+       的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 自动构建资源（`.jar`、`.jar.asc`
+       、`.pom`、`.pom.asc`、`-javadoc.jar`、`-javadoc.jar.asc`、`-sources.jar`、`-sources.jar.asc`
+       ），自动将资源发布到 [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
+
+1. 各分支的作用？
+    1. main
+        - 主分支
+        - 不可推送，只能合并
+    1. xuxiaowei
+        - 个人分支，按功能`PR`到主分支`main`
+    1. pages
+        - 文档分支
+
+## 文档
+
+1. [十二要素应用宣言](https://12factor.net/zh_cn)
 
 ## Stargazers over time
 
