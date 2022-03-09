@@ -36,8 +36,8 @@ public class RedirectLoginPageFilter extends GenericFilterBean {
 
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        // 重定向到登录页面
-        httpServletResponse.sendRedirect(cloudSecurityProperties.getLoginPageUrl());
+        // 重定向到：默认登录页面地址
+        httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
 
     }
 
