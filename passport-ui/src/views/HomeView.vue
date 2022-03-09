@@ -41,7 +41,10 @@
     </el-main>
 
     <el-footer class="cloud-footer">
-      版权信息
+      <el-link :underline="false" class="cloud-span">&copy;</el-link>&nbsp;
+      <el-link :underline="false" class="cloud-span">2022</el-link>&nbsp;
+      <el-link target="_blank" type="primary" href="http://xuxiaowei.com.cn">徐晓伟工作室</el-link>&nbsp;
+      <el-link target="_blank" type="primary" href="http://beian.miit.gov.cn">鲁ICP备19009036号</el-link>
     </el-footer>
 
   </el-main>
@@ -97,6 +100,18 @@ const submitCloudForm = () => {
   margin-right: auto;
 }
 
+.cloud-footer {
+  /* 版权信息：绝对位置 */
+  position: absolute;
+  bottom: 30px;
+  width: calc(100% - 110px);
+}
+
+.cloud-span:hover {
+  /* 版权：鼠标覆盖不变色 */
+  color: var(--el-link-default-text-color);
+}
+
 /* xs<768px 响应式栅格数或者栅格属性对象 */
 @media only screen and (max-width: 768px) {
 
@@ -132,6 +147,7 @@ const submitCloudForm = () => {
   }
 
   .cloud-form {
+    /* 非 xs ：表单宽度 */
     width: 375px;
   }
 }
