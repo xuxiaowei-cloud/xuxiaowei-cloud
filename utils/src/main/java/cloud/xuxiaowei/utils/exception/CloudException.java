@@ -42,6 +42,11 @@ public class CloudException extends Exception {
     @Setter(AccessLevel.NONE)
     public String explain;
 
+    public CloudException() {
+        this.code = CodeEnums.ERROR.code;
+        this.msg = CodeEnums.ERROR.msg;
+    }
+
     public CloudException(String msg) {
         this.code = CodeEnums.ERROR.code;
         this.msg = msg;
