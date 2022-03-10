@@ -41,7 +41,10 @@
     </el-main>
 
     <el-footer class="cloud-footer">
-      版权信息
+      <el-link :underline="false" class="cloud-span">&copy;</el-link>&nbsp;
+      <el-link :underline="false" class="cloud-span">2022</el-link>&nbsp;
+      <el-link target="_blank" type="primary" href="http://xuxiaowei.com.cn">徐晓伟工作室</el-link>&nbsp;
+      <el-link target="_blank" type="primary" href="http://beian.miit.gov.cn">鲁ICP备19009036号</el-link>
     </el-footer>
 
   </el-main>
@@ -51,6 +54,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
+import { login } from '../api/user'
 
 // 表单中的值
 const cloudForm = reactive({
@@ -74,7 +78,11 @@ const cloudFormRef = ref(null)
 const submitCloudForm = () => {
   cloudFormRef.value.validate(valid => {
     if (valid) {
-      console.log(cloudForm)
+      login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0]).then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.error(error)
+      })
     }
   })
 }
@@ -95,6 +103,18 @@ const submitCloudForm = () => {
   /* form 居中 */
   margin-left: auto;
   margin-right: auto;
+}
+
+.cloud-footer {
+  /* 版权信息：绝对位置 */
+  position: absolute;
+  bottom: 30px;
+  width: calc(100% - 110px);
+}
+
+.cloud-span:hover {
+  /* 版权：鼠标覆盖不变色 */
+  color: var(--el-link-default-text-color);
 }
 
 /* xs<768px 响应式栅格数或者栅格属性对象 */
@@ -132,6 +152,7 @@ const submitCloudForm = () => {
   }
 
   .cloud-form {
+    /* 非 xs ：表单宽度 */
     width: 375px;
   }
 }
