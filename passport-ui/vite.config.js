@@ -19,8 +19,8 @@ export default defineConfig({
   server: {
     // 代理
     proxy: {
-      '/actuator': {
-        target: 'http://127.0.0.1:1101'
+      '/login': {
+        target: 'http://127.0.0.1:1401'
       },
       '/baidu': {
         target: 'https://www.baidu.com',
