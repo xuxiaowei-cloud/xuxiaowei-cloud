@@ -54,6 +54,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
+import { login } from '../api/user'
 
 // 表单中的值
 const cloudForm = reactive({
@@ -77,7 +78,11 @@ const cloudFormRef = ref(null)
 const submitCloudForm = () => {
   cloudFormRef.value.validate(valid => {
     if (valid) {
-      console.log(cloudForm)
+      login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0]).then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.error(error)
+      })
     }
   })
 }
