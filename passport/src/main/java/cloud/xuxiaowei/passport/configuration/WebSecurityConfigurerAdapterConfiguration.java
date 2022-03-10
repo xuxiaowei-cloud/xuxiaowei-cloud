@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
@@ -31,11 +30,18 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     private UserDetailsService userDetailsService;
 
+    private PasswordEncoder passwordEncoder;
+
     private CloudSecurityProperties cloudSecurityProperties;
 
     @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Autowired
@@ -48,11 +54,9 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 用户密码编辑器
-        PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         // 查询登录用户
-        auth.userDetailsService(userDetailsService).passwordEncoder(delegatingPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     /**
