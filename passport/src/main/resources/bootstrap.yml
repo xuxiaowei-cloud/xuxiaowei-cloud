@@ -106,6 +106,21 @@ management:
       exposure:
         include: '*'
 
+# 数据库配置
+spring:
+  # 数据库
+  datasource:
+    # 数据库 驱动名称
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库 连接串
+    url: jdbc:mysql://mysql.xuxiaowei.cloud:3306/xuxiaowei_cloud?useSSL=false&serverTimezone=GMT%2B8
+    # 数据库 用户名
+    username: root
+    # 数据库 密码
+    password: xuxiaowei.com.cn
+
+---
+
 # Redis 配置
 spring:
   redis:
