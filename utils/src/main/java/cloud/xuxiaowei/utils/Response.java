@@ -58,6 +58,11 @@ public class Response implements Serializable {
     private String field;
 
     /**
+     * 说明
+     */
+    private String explain;
+
+    /**
      * 请求ID
      * <p>
      * 只有 Getter 方法，无 Setter 方法
