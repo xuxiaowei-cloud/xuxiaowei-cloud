@@ -28,9 +28,9 @@ public class SessionRedisSerializerConfiguration {
      * @return 返回 Spring {@link HttpSession} 默认 Redis 序列化程序
      * @see RedisHttpSessionConfiguration#setDefaultRedisSerializer(RedisSerializer) 自定义 Spring {@link HttpSession} 默认 Redis 序列化程序
      */
-    @Bean
-    public RedisSerializer<?> springSessionDefaultRedisSerializer(RedisTemplate<?, ?> redisTemplate) {
-        return redisTemplate.getValueSerializer();
-    }
+//    @Bean
+//    public RedisSerializer<?> springSessionDefaultRedisSerializer(RedisTemplate<?, ?> redisTemplate) {
+//        return redisTemplate.getValueSerializer();
+//    }
 
 }
