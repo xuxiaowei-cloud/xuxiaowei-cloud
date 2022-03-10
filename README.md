@@ -123,7 +123,7 @@ cloud.xuxiaowei
 
 ### [Docker 说明](./docker)
 
-### [SQL](./sql/xuxiaowei_cloud.sql)
+### [SQL](./sql)
 
 ## 仓库与分支？
 
@@ -138,7 +138,7 @@ cloud.xuxiaowei
     1. 其余仓库每日同步
 
 1. 各个仓库的作用？
-    1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
+    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
     1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
        用于在将来替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines)
@@ -163,7 +163,7 @@ cloud.xuxiaowei
 
 ## 文档
 
-1. [十二要素应用宣言](https://12factor.net/zh_cn)
+1. [十二要素应用宣言](https://12factor.net/zh_cn/)
 
 ## Stargazers over time
 
