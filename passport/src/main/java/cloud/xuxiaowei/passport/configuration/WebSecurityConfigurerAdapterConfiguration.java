@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
 /**
  * Spring Security 配置
@@ -34,6 +38,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     private CloudSecurityProperties cloudSecurityProperties;
 
+    private RequestMatcher csrfRequestMatcher;
+
     @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -47,6 +53,12 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     @Autowired
     public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
         this.cloudSecurityProperties = cloudSecurityProperties;
+    }
+
+    @Autowired
+    @Qualifier(CSRF_REQUEST_MATCHER_BEAN_NAME)
+    public void setCsrfRequestMatcher(RequestMatcher csrfRequestMatcher) {
+        this.csrfRequestMatcher = csrfRequestMatcher;
     }
 
     /**
@@ -80,8 +92,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         // 所有地址，均需要认证后才能访问
         http.authorizeRequests().anyRequest().authenticated();
 
-        // 禁用 CSRF
-        http.csrf().disable();
+        // CSRF 配置
+        http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
 
     }
 

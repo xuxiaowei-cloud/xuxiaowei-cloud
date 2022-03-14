@@ -2,9 +2,13 @@ package cloud.xuxiaowei.core.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * 微服务 Security 配置
@@ -53,5 +57,18 @@ public class CloudSecurityProperties {
      * @see FormLoginConfigurer#successForwardUrl(String)
      */
     private String successForwardUrl = "/login/success";
+
+    /**
+     * 是否开启 CSRF
+     */
+    private boolean csrfEnabled = true;
+
+    /**
+     * 禁用 CSRF URL与 HTTP 方法
+     * <p>
+     * 1、URL 支持通配符<p>
+     * 2、存在设置中的优先级（越靠前，优先级越高）
+     */
+    private LinkedHashMap<String, List<HttpMethod>> csrfDisableUrl;
 
 }
