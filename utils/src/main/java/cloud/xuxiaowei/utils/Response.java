@@ -9,11 +9,12 @@ import java.io.Serializable;
 /**
  * 响应数据
  *
+ * @param <T> 泛型
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Data
-public class Response implements Serializable {
+public class Response<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,12 +29,36 @@ public class Response implements Serializable {
         this.field = field;
     }
 
-    public static Response ok() {
-        return new Response(CodeEnums.OK.code, CodeEnums.OK.msg);
+    public static Response<?> ok() {
+        return new Response<>(CodeEnums.OK.code, CodeEnums.OK.msg);
     }
 
-    public static Response ok(String msg) {
-        return new Response(CodeEnums.OK.code, msg);
+    public static Response<?> ok(String msg) {
+        return new Response<>(CodeEnums.OK.code, msg);
+    }
+
+    public static <T> Response<?> ok(T data) {
+        Response<T> response = new Response<>(CodeEnums.OK.code, CodeEnums.OK.msg);
+        response.setData(data);
+        return response;
+    }
+
+    public static <T> Response<?> ok(T data, String msg) {
+        Response<T> response = new Response<>(CodeEnums.OK.code, CodeEnums.OK.msg);
+        response.setData(data);
+        return response;
+    }
+
+    public static Response<?> error() {
+        return new Response<>(CodeEnums.ERROR.code, CodeEnums.ERROR.msg);
+    }
+
+    public static Response<?> error(String msg) {
+        return new Response<>(CodeEnums.ERROR.code, msg);
+    }
+
+    public static Response<?> error(String code, String msg) {
+        return new Response<>(code, msg);
     }
 
     /**
@@ -49,6 +74,11 @@ public class Response implements Serializable {
      * @see CodeEnums#msg
      */
     private String msg;
+
+    /**
+     * 返回数据
+     */
+    private T data;
 
     /**
      * 错误字段
