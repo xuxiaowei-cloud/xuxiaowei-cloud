@@ -3,7 +3,6 @@ package cloud.xuxiaowei.passport.service.impl;
 import cloud.xuxiaowei.passport.configuration.DefaultBeanConfiguration;
 import cloud.xuxiaowei.utils.exception.LoginParamPasswordNonExistException;
 import cloud.xuxiaowei.utils.exception.LoginParamPasswordValidException;
-import lombok.SneakyThrows;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
@@ -18,24 +17,29 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultPasswordEncoderImpl implements PasswordEncoder {
 
-    @SneakyThrows
     @Override
     public String encode(CharSequence rawPassword) {
         if (StringUtils.hasText(rawPassword)) {
             return rawPassword.toString();
         } else {
-            throw new LoginParamPasswordNonExistException();
+            throw new LoginParamPasswordNonExistException("登录参数不存在密码");
         }
     }
 
-    @SneakyThrows
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);
-        if (!matches) {
-            throw new LoginParamPasswordValidException();
+
+        boolean matches;
+        try {
+            matches = passwordEncoder.matches(rawPassword, encodedPassword);
+        } catch (Exception e) {
+            throw new LoginParamPasswordValidException("比较密码时异常", e);
         }
+        if (!matches) {
+            throw new LoginParamPasswordValidException("密码不匹配");
+        }
+
         return true;
     }
 
