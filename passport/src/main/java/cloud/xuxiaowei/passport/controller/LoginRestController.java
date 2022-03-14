@@ -1,13 +1,15 @@
 package cloud.xuxiaowei.passport.controller;
 
+import cloud.xuxiaowei.passport.service.LoginService;
+import cloud.xuxiaowei.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.ProviderNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 登录
@@ -19,34 +21,25 @@ import java.util.Map;
 @RequestMapping("/login")
 public class LoginRestController {
 
+    private LoginService loginService;
+
+    @Autowired
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     /**
      * 登录失败
      *
      * @param request  请求
      * @param response 响应
-     * @param session  Session，不存在时自动创建
      * @return 返回 登录失败提示语
+     * @see ProviderNotFoundException
+     * @see BadCredentialsException
      */
     @RequestMapping("/failure")
-    public Map<String, Object> failure(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        Map<String, Object> map = new HashMap<>(4);
-
-        String referer = request.getHeader("Referer");
-
-        // Spring Security 最后一次异常
-        // 跨域时，需要 Session 共享才能获取到
-        Object springSecurityLastException = session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-        // Session 创建时间
-        long creationTime = session.getCreationTime();
-        // 最后一次访问时间
-        long lastAccessedTime = session.getLastAccessedTime();
-        // 最大非活动时间
-        int maxInactiveInterval = session.getMaxInactiveInterval();
-
-        map.put("code", "500");
-        map.put("msg", "登录失败");
-
-        return map;
+    public Response<?> failure(HttpServletRequest request, HttpServletResponse response) {
+        return loginService.failure(request);
     }
 
     /**
@@ -57,11 +50,8 @@ public class LoginRestController {
      * @return 返回 登录成功提示语
      */
     @RequestMapping("/success")
-    public Map<String, Object> success(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> map = new HashMap<>(4);
-        map.put("code", "200");
-        map.put("msg", "登录成功");
-        return map;
+    public Response<?> success(HttpServletRequest request, HttpServletResponse response) {
+        return Response.ok("登录成功");
     }
 
 }

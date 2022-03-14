@@ -1,5 +1,7 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.passport.service.LoginService;
+import cloud.xuxiaowei.passport.service.impl.DefaultLoginServiceImpl;
 import cloud.xuxiaowei.passport.service.impl.DefaultPasswordEncoderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -55,6 +57,19 @@ public class DefaultBeanConfiguration {
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder() {
         return new DefaultPasswordEncoderImpl();
+    }
+
+    /**
+     * 默认 登录 服务 {@link LoginService} {@link Bean}
+     * <p>
+     * 在 {@link LoginService} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
+     *
+     * @return 返回 默认 登录 服务 {@link Bean}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public LoginService loginService() {
+        return new DefaultLoginServiceImpl();
     }
 
 }
