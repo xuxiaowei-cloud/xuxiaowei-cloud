@@ -1,17 +1,23 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
+import cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl;
 import cloud.xuxiaowei.passport.service.impl.DefaultLoginServiceImpl;
 import cloud.xuxiaowei.passport.service.impl.DefaultPasswordEncoderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.sql.DataSource;
+
+import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
 /**
  * 默认 {@link Bean} 配置
@@ -24,9 +30,23 @@ public class DefaultBeanConfiguration {
 
     private DataSource dataSource;
 
+    private ServerProperties serverProperties;
+
+    private CloudSecurityProperties cloudSecurityProperties;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    @Autowired
+    public void setServerProperties(ServerProperties serverProperties) {
+        this.serverProperties = serverProperties;
+    }
+
+    @Autowired
+    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+        this.cloudSecurityProperties = cloudSecurityProperties;
     }
 
     /**
@@ -70,6 +90,19 @@ public class DefaultBeanConfiguration {
     @ConditionalOnMissingBean
     public LoginService loginService() {
         return new DefaultLoginServiceImpl();
+    }
+
+    /**
+     * 默认 CSRF 请求匹配匹配 {@link Bean} 配置
+     *
+     * @return 返回 默认 CSRF 请求匹配匹配 {@link Bean}
+     */
+    @Bean(CSRF_REQUEST_MATCHER_BEAN_NAME)
+    @ConditionalOnMissingBean(name = CSRF_REQUEST_MATCHER_BEAN_NAME)
+    public RequestMatcher defaultCsrfRequestMatcher() {
+        ServerProperties.Servlet servlet = serverProperties.getServlet();
+        String contextPath = servlet.getContextPath();
+        return new DefaultCsrfRequestMatcherImpl(contextPath, cloudSecurityProperties);
     }
 
 }
