@@ -22,6 +22,46 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <dependencies>
+
+        <!-- 仅为了提供：AuthenticationException -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 仅为了提供：WebAttributes#AUTHENTICATION_EXCEPTION -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 仅为了提供：HttpServletRequest -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
     <licenses>
         <license>
             <name>Apache 2</name>
