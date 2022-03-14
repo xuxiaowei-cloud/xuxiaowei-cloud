@@ -34,6 +34,7 @@ public class DefaultPasswordEncoderImpl implements PasswordEncoder {
         try {
             matches = passwordEncoder.matches(rawPassword, encodedPassword);
         } catch (Exception e) {
+            // 可能根据用户名没有找到用户信息（即：密码），导致比较失败
             throw new LoginParamPasswordValidException("比较密码时异常", e);
         }
         if (!matches) {
