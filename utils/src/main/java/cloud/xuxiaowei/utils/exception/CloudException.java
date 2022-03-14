@@ -78,4 +78,16 @@ public class CloudException extends Exception {
         this.explain = explain;
     }
 
+    public CloudException(Throwable cause) {
+        super(CodeEnums.ERROR.msg, cause);
+        this.code = CodeEnums.ERROR.code;
+        this.msg = CodeEnums.ERROR.msg;
+    }
+
+    public CloudException(String msg, Throwable cause) {
+        super(msg, cause);
+        this.code = CodeEnums.ERROR.code;
+        this.msg = msg;
+    }
+
 }
