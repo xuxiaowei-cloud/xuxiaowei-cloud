@@ -8,6 +8,9 @@ import lombok.Setter;
 
 /**
  * 微服务 异常父类
+ * <p>
+ * 注意：<p>
+ * 1、{@link LoginException} 及其子异常不属于此异常的子类
  *
  * @author xuxiaowei
  * @since 0.0.1
