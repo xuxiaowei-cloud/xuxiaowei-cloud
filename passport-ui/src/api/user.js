@@ -13,9 +13,7 @@ export const login = function (username, password, rememberMe) {
   formData.append('username', username)
   formData.append('password', password)
   formData.append('remember-me', rememberMe)
-  return request.post('/login', formData, {
-    baseURL: null // 为空：可使用代理，不为空：不能使用代理
-  }).then(response => {
+  return request.post('/login', formData).then(response => {
     return response.data
   })
 }
