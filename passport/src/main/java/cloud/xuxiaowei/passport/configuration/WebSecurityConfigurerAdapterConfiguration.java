@@ -83,11 +83,14 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 // 登录请求地址
                 .loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
                 // 登录失败地址
-                .failureUrl(cloudSecurityProperties.getFailureUrl())
+                .failureUrl(cloudSecurityProperties.getFailureAllUrl())
                 // 登录成功地址
                 .successForwardUrl(cloudSecurityProperties.getSuccessForwardUrl())
                 // 已上地址，允许任何人访问
                 .permitAll();
+
+        // 登录服务（单服务）地址：匿名访问
+        http.authorizeRequests().antMatchers(cloudSecurityProperties.getFailureUrl()).permitAll();
 
         // 所有地址，均需要认证后才能访问
         http.authorizeRequests().anyRequest().authenticated();
