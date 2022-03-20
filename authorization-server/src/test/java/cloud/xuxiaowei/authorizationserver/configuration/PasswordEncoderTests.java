@@ -20,7 +20,7 @@ class PasswordEncoderTests {
     @Test
     void encode() {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String encode = passwordEncoder.encode("123");
+        String encode = passwordEncoder.encode("xuxiaowei_client_secret");
         log.info(encode);
     }
 
@@ -30,8 +30,8 @@ class PasswordEncoderTests {
     @Test
     void matches() {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String encodedPassword = "{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK";
-        boolean matches = passwordEncoder.matches("123", encodedPassword);
+        String encodedPassword = "{bcrypt}$2a$10$s/3CEiHunH9wo2qr7JfeD.SRa8kK2Y8lOriHWrWhidQX3hyhuORlO";
+        boolean matches = passwordEncoder.matches("xuxiaowei_client_secret", encodedPassword);
         log.info(String.valueOf(matches));
     }
 
