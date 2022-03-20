@@ -115,6 +115,34 @@ cloud.xuxiaowei
 | passport | 授权 | passport.xuxiaowei.cloud | 1401 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
 
+### 用户名与密码
+
+| 账户名 | 密码 | 启用 |
+| ---- | ---- | ---- |
+| xuxiaowei | 123 | 1 |
+
+### 客户ID与秘钥
+
+| 客户`client_id` | 秘钥`client_secret` | 资源`resource_ids` | 授权类型`authorized_grant_types` | 权限`authorities` | Token有效时间`access_token_validity` | 刷新Token有限时间`refresh_token_validity` | 范围`scope` | 重定向 | 自动授权范围 |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| xuxiaowei_client_id | xuxiaowei_client_secret  |  |  |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123 | true |
+
+- access_token_validity
+    - 默认值：43200秒，即12小时，参见：
+        ```
+        org.springframework.security.oauth2.provider.token.DefaultTokenServices#accessTokenValiditySeconds
+        ```
+- refresh_token_validity
+    - 默认值：2592000秒，即30天，参见：
+        ```
+        org.springframework.security.oauth2.provider.token.DefaultTokenServices#refreshTokenValiditySeconds
+        ```
+- autoapprove
+    - true
+        - 全部自动授权
+    - 填写scope
+        - 指定范围自动授权
+
 ### [Linux 脚本说明](./sh)
 
 ### [Windows 脚本说明](./winsw)
