@@ -128,3 +128,14 @@ spring:
     password: xuxiaowei.com.cn
     host: redis.xuxiaowei.cloud
     port: 6379
+
+---
+
+# CSRF 配置
+cloud:
+  security:
+    csrfDisableUrl:
+      # 禁用登录请求验证 CSRF Token
+      /login:
+        - POST
+        - GET
