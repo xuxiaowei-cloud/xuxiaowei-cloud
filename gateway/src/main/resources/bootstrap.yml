@@ -122,3 +122,22 @@ management:
     web:
       exposure:
         include: '*'
+
+---
+
+# 跨域配置
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        # 跨域配置
+        corsConfigurations:
+          '[/**]':
+            # 携带 Cookie 等信息
+            allow-credentials: true
+            # 允许跨域的来源(协议、域名、ip)，全部：*
+            allowedOrigins: "http://127.0.0.1:1411,http://localhost:1411,http://gateway.xuxiaowei.cloud:1411"
+            # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
+            allowedMethods: "GET,POST"
+            # 允许跨域请求中的请求头字段，全部：*
+            allowedHeaders: "*"
