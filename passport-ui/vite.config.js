@@ -19,9 +19,6 @@ export default defineConfig({
   server: {
     // 代理
     proxy: {
-      '/login': {
-        target: 'http://127.0.0.1:1401'
-      },
       '/baidu': {
         target: 'https://www.baidu.com',
         // 将主机标头的来源更改为目标 URL。
