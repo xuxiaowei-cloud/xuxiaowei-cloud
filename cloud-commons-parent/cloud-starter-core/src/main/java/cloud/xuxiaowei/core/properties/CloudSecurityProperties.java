@@ -46,10 +46,25 @@ public class CloudSecurityProperties {
 
     /**
      * 登录失败地址
+     * <p>
+     * 登录服务（单服务）地址
+     * <p>
+     * 匿名访问
      *
      * @see FormLoginConfigurer#failureUrl(String)
      */
     private String failureUrl = "/login/failure";
+
+    /**
+     * 登录失败地址
+     * <p>
+     * 通过网关代理后的重定向地址
+     * <p>
+     * 匿名访问
+     *
+     * @see FormLoginConfigurer#failureUrl(String)
+     */
+    private String failureAllUrl = "http://gateway.xuxiaowei.cloud:1101/passport/login/failure";
 
     /**
      * 登录成功地址
