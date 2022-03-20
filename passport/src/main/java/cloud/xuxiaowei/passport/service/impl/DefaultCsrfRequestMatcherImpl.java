@@ -28,7 +28,7 @@ public class DefaultCsrfRequestMatcherImpl implements RequestMatcher {
     private final CloudSecurityProperties cloudSecurityProperties;
 
     public DefaultCsrfRequestMatcherImpl(String contextPath, CloudSecurityProperties cloudSecurityProperties) {
-        this.contextPath = contextPath;
+        this.contextPath = contextPath == null ? "" : contextPath;
         this.cloudSecurityProperties = cloudSecurityProperties;
     }
 
