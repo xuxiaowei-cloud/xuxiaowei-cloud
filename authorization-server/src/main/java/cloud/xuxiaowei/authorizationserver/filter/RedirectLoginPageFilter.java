@@ -2,7 +2,10 @@ package cloud.xuxiaowei.authorizationserver.filter;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -36,9 +39,16 @@ public class RedirectLoginPageFilter extends GenericFilterBean {
 
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        // 重定向到：默认登录页面地址
-        httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
-
+        SecurityContext context = SecurityContextHolder.getContext();
+        if (context == null) {
+            // 重定向到：默认登录页面地址
+            httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
+        } else if (context.getAuthentication() instanceof UsernamePasswordAuthenticationToken) {
+            chain.doFilter(request, response);
+        } else {
+            // 重定向到：默认登录页面地址
+            httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
+        }
     }
 
 }
