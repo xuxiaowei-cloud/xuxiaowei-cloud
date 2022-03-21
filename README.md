@@ -113,7 +113,7 @@ cloud.xuxiaowei
 | gateway | 网关 | gateway.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
-| passport | 授权 | passport.xuxiaowei.cloud | 1401 |
+| passport | 登录 | passport.xuxiaowei.cloud | 1401 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
 
 ### [Linux 脚本说明](./sh)
