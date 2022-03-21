@@ -2,6 +2,7 @@ package cloud.xuxiaowei.core.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 微服务 Cookie 配置
+ * <p>
+ * 运行时刷新
  *
  * @author xuxiaowei
  * @see DefaultCookieSerializer
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Data
 @Component
+@RefreshScope
 @ConfigurationProperties("cloud.cookie")
 public class CloudCookieProperties {
 

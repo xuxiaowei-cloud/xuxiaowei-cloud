@@ -2,6 +2,7 @@ package cloud.xuxiaowei.core.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
@@ -12,12 +13,15 @@ import java.util.List;
 
 /**
  * 微服务 Security 配置
+ * <p>
+ * 运行时刷新
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Data
 @Component
+@RefreshScope
 @ConfigurationProperties("cloud.security")
 public class CloudSecurityProperties {
 
