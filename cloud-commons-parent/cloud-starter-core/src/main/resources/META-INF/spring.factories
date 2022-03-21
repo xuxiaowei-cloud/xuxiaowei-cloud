@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cloud.xuxiaowei.core.properties.CloudSecurityProperties,\
-  cloud.xuxiaowei.core.properties.CloudJwtProperties,\
   cloud.xuxiaowei.core.properties.CloudCookieProperties
