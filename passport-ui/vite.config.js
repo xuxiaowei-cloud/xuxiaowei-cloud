@@ -22,6 +22,18 @@ export default defineConfig({
       '@': resolve('./src')
     }
   },
+  build: {
+    terserOptions: {
+      compress: {
+        // 生产环境移除console日志
+        drop_console: true,
+        // 生产环境移除debugger测试
+        drop_debugger: true
+      }
+    },
+    // 打包后静态资源文件夹
+    assetsDir: 'passport'
+  },
   server: {
     // 代理
     proxy: {
