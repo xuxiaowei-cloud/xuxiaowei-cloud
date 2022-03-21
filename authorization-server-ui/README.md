@@ -1,4 +1,4 @@
-# Vue 3 + Vite
+# authorization-server-ui
 
 ## 项目设置
 
@@ -62,3 +62,74 @@ npm create vite@latest authorization-server-ui -- --template vue
     ```
 
 1. [axios](https://www.npmjs.com/package/axios)
+
+## 依赖说明
+
+1. 创建项目时自动生成
+    - 依赖
+        - vue
+    - 开发依赖
+        - @vitejs/plugin-vue
+        - vite
+
+1. lint
+    - 开发依赖
+        - @vue/cli-plugin-eslint
+        - @vue/cli-service
+        - @vue/eslint-config-standard
+        - eslint
+        - eslint-plugin-import
+        - eslint-plugin-node
+        - eslint-plugin-promise
+        - eslint-plugin-vue
+        - lint-staged
+
+1. 路由
+    - 依赖
+        - vue-router
+
+1. http 请求
+    - 依赖
+        - axios
+
+1. element-plus 前端 UI 框架
+    - 依赖
+        - element-plus
+    - 开发依赖
+        - unplugin-auto-import
+        - unplugin-vue-components
+
+## 依赖地址
+
+- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
+- [axios](https://www.npmjs.com/package/axios)
+- [element-plus](https://www.npmjs.com/package/element-plus)
+- [vue](https://www.npmjs.com/package/vue)
+- [vue-router](https://www.npmjs.com/package/vue-router)
+
+- [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
+- [@vue/cli-plugin-eslint](https://www.npmjs.com/package/@vue/cli-plugin-eslint)
+- [@vue/cli-service](https://www.npmjs.com/package/@vue/cli-service)
+- [@vue/eslint-config-standard](https://www.npmjs.com/package/@vue/eslint-config-standard)
+- [eslint](https://www.npmjs.com/package/eslint)
+- [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
+- [eslint-plugin-node](https://www.npmjs.com/package/eslint-plugin-node)
+- [eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise)
+- [eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue)
+- [lint-staged](https://www.npmjs.com/package/lint-staged)
+- [unplugin-auto-import](https://www.npmjs.com/package/unplugin-auto-import)
+- [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
+- [vite](https://www.npmjs.com/package/vite)
+
+## 其他说明
+
+- 使用 Maven 进行打包
+
+```shell
+cd ui
+mvn clean package
+```
+
+# Vue 3 + Vite
+
+[setup 文档](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup)

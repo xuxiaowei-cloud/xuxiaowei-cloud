@@ -56,6 +56,15 @@ npm create vite@latest ui -- --template vue
     npm install vue-router
     ```
 
+1. [element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)
+    ```shell
+    npm i element-plus
+    ```
+
+1. [axios](https://www.npmjs.com/package/axios)
+
+1. [vuex](https://www.npmjs.com/package/vuex)
+
 ## 依赖说明
 
 1. 创建项目时自动生成
@@ -91,6 +100,30 @@ npm create vite@latest ui -- --template vue
     - 开发依赖
         - unplugin-auto-import
         - unplugin-vue-components
+
+## 依赖地址
+
+- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
+- [axios](https://www.npmjs.com/package/axios)
+- [element-plus](https://www.npmjs.com/package/element-plus)
+- [jsencrypt](https://www.npmjs.com/package/jsencrypt)
+- [vue](https://www.npmjs.com/package/vue)
+- [vue-router](https://www.npmjs.com/package/vue-router)
+- [vuex](https://www.npmjs.com/package/vuex)
+
+- [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
+- [@vue/cli-plugin-eslint](https://www.npmjs.com/package/@vue/cli-plugin-eslint)
+- [@vue/cli-service](https://www.npmjs.com/package/@vue/cli-service)
+- [@vue/eslint-config-standard](https://www.npmjs.com/package/@vue/eslint-config-standard)
+- [eslint](https://www.npmjs.com/package/eslint)
+- [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
+- [eslint-plugin-node](https://www.npmjs.com/package/eslint-plugin-node)
+- [eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise)
+- [eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue)
+- [lint-staged](https://www.npmjs.com/package/lint-staged)
+- [unplugin-auto-import](https://www.npmjs.com/package/unplugin-auto-import)
+- [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
+- [vite](https://www.npmjs.com/package/vite)
 
 ## 其他说明
 
