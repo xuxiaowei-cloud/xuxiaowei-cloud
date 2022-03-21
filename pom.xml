@@ -34,6 +34,10 @@
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
 
+        <!-- OAuth2 配置 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
+        <spring-security-oauth2-autoconfigure.version>2.6.3</spring-security-oauth2-autoconfigure.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -95,6 +99,13 @@
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
+            <dependency>
+                <groupId>org.springframework.security.oauth.boot</groupId>
+                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+                <version>${spring-security-oauth2-autoconfigure.version}</version>
             </dependency>
 
             <!-- 工具类 -->
