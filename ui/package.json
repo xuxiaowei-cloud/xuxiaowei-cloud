@@ -35,15 +35,15 @@
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.1",
-    "axios": "0.26.0",
-    "element-plus": "2.0.5",
+    "axios": "0.26.1",
+    "element-plus": "2.1.4",
     "vue": "3.2.31",
-    "vue-router": "4.0.13"
+    "vue-router": "4.0.14"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.2.4",
-    "@vue/cli-plugin-eslint": "5.0.1",
-    "@vue/cli-service": "5.0.1",
+    "@vue/cli-plugin-eslint": "5.0.3",
+    "@vue/cli-service": "5.0.3",
     "@vue/eslint-config-standard": "6.1.0",
     "eslint": "7.32.0",
     "eslint-plugin-import": "2.25.4",
@@ -51,7 +51,7 @@
     "eslint-plugin-promise": "5.2.0",
     "eslint-plugin-vue": "7.20.0",
     "lint-staged": "12.3.5",
-    "unplugin-auto-import": "0.6.1",
+    "unplugin-auto-import": "0.6.6",
     "unplugin-vue-components": "0.17.21",
     "vite": "2.8.6"
   }
