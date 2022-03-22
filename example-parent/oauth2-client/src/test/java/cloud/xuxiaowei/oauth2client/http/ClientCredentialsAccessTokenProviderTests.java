@@ -25,7 +25,7 @@ import java.util.Map;
 class ClientCredentialsAccessTokenProviderTests {
 
     /**
-     * 凭证式：client_credentials
+     * 客户端凭证模式：client_credentials
      */
     @Test
     void clientCredentials() {
