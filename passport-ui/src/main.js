@@ -3,6 +3,8 @@ import App from '@/App.vue'
 import router from '@/router'
 import { ipv4, ipv6 } from '@/api/ipify'
 import request from '@/utils/request'
+// 防止 ElMessage 无效
+import 'element-plus/theme-chalk/el-message.css'
 
 const app = createApp(App)
 
