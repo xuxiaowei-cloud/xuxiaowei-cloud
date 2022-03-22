@@ -22,6 +22,28 @@
     </properties>
     <dependencies>
 
+        <!-- 仅为了提供：JsonToken、JsonGenerator、JsonParser -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
+        <!-- 仅为了提供：SerializerProvider、SerializerProvider、StdSerializer、StdDeserializer -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 仅为了提供：JacksonAnnotation（防止打包报错） -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
         <!-- 仅为了提供：HttpServletRequest -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
