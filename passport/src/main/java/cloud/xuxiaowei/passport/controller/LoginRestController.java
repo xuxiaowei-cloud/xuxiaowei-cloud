@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.passport.controller;
 
+import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * 登录
@@ -23,9 +25,16 @@ public class LoginRestController {
 
     private LoginService loginService;
 
+    private CloudClientProperties cloudClientProperties;
+
     @Autowired
     public void setLoginService(LoginService loginService) {
         this.loginService = loginService;
+    }
+
+    @Autowired
+    public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
+        this.cloudClientProperties = cloudClientProperties;
     }
 
     /**
@@ -51,7 +60,9 @@ public class LoginRestController {
      */
     @RequestMapping("/success")
     public Response<?> success(HttpServletRequest request, HttpServletResponse response) {
-        return Response.ok("登录成功");
+        String scope = "snsapi_base";
+        String state = UUID.randomUUID().toString();
+        return Response.ok(cloudClientProperties.authorizeUri(scope, state), "登录成功");
     }
 
 }
