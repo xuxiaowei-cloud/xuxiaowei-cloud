@@ -140,6 +140,10 @@ cloud:
       /login:
         - POST
         - GET
+      # 授权码
+      /code:
+        - POST
+        - GET
 
 ---
 
