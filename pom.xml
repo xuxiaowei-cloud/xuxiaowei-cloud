@@ -64,6 +64,8 @@
         <module>utils</module>
         <!-- 微服务公共组件父模块 -->
         <module>cloud-commons-parent</module>
+        <!-- 示例父模块 -->
+        <module>example-parent</module>
     </modules>
 
     <dependencyManagement>
