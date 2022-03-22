@@ -59,7 +59,7 @@ class RestTemplateTests {
         log.info(String.valueOf(oauth2AccessToken.getRefreshToken()));
 
 //        // 以下为使用 String 接收数据
-//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, httpEntity, String.class, map);
+//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, String.class, map);
 //        HttpStatus statusCode = responseEntity.getStatusCode();
 //        String body = responseEntity.getBody();
 //        log.info(String.valueOf(statusCode));
