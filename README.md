@@ -132,6 +132,15 @@ cloud.xuxiaowei
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
 |  | xuxiaowei_client_id | xuxiaowei_client_secret  |  |  |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123 | true |
 
+- authorized_grant_types
+    - 默认值：authorization_code,refresh_token
+        ```
+        org.springframework.security.oauth2.provider.client.BaseClientDetails#BaseClientDetails(String, String, String, String, String, String) 
+        ```
+    - 授权码模式 authorization_code
+    - 刷新Token权限 refresh_token
+    - 客户端凭证模式 client_credentials
+    - 密码模式 password
 - access_token_validity
     - 默认值：43200秒，即12小时，参见：
         ```
