@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
+import java.util.UUID;
+
 /**
  * Spring Security 配置
  *
@@ -33,6 +35,11 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // 启用登录页面，但不启用登录请求验证用户名与密码（即：随机登录请求URL）
+        http.formLogin()
+                .loginPage(DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL)
+                .loginProcessingUrl("/" + UUID.randomUUID());
 
         // 任何路径均需要授权后才能访问
         http.authorizeRequests().anyRequest().authenticated();

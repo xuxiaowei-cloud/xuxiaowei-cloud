@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import { ipv4, ipv6 } from './api/ipify'
-import request from './utils/request'
+import App from '@/App.vue'
+import router from '@/router'
+import { ipv4, ipv6 } from '@/api/ipify'
+import request from '@/utils/request'
 
 const app = createApp(App)
 

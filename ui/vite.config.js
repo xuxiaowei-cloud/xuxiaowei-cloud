@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,6 +17,23 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     })
   ],
+  resolve: {
+    alias: {
+      '@': resolve('./src')
+    }
+  },
+  build: {
+    terserOptions: {
+      compress: {
+        // 生产环境移除console日志
+        drop_console: true,
+        // 生产环境移除debugger测试
+        drop_debugger: true
+      }
+    },
+    // 打包后静态资源文件夹
+    assetsDir: 'ui'
+  },
   server: {
     // 代理
     proxy: {

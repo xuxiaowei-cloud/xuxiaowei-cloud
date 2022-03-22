@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { actuator, baidu } from '../api/actuator'
+import { actuator, baidu } from '@/api/actuator'
 
 export default {
   name: 'AboutView',

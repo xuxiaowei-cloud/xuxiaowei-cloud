@@ -1,14 +1,13 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
-import cloud.xuxiaowei.core.properties.CloudJwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.security.jwt.crypto.sign.RsaSigner;
-import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
@@ -16,17 +15,12 @@ import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCo
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RedisAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.*;
 import org.springframework.security.oauth2.provider.token.store.jwk.JwkTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
-import java.security.InvalidKeyException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import java.security.KeyPair;
 
 /**
  * 默认 {@link Bean} 配置
@@ -39,7 +33,10 @@ public class DefaultBeanConfiguration {
 
     private DataSource dataSource;
 
-    private CloudJwtProperties cloudJwtProperties;
+    /**
+     * 来自 spring-cloud-context-*.*.*.jar
+     */
+    private KeyProperties keyProperties;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -47,8 +44,8 @@ public class DefaultBeanConfiguration {
     }
 
     @Autowired
-    public void setCloudJwtProperties(CloudJwtProperties cloudJwtProperties) {
-        this.cloudJwtProperties = cloudJwtProperties;
+    public void setKeyProperties(KeyProperties keyProperties) {
+        this.keyProperties = keyProperties;
     }
 
     /**
@@ -96,26 +93,36 @@ public class DefaultBeanConfiguration {
     }
 
     /**
+     * {@link KeyPair} {@link Bean}
+     * <p>
+     * 在 {@link KeyPair} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
+     *
+     * @return 在 {@link KeyPair} 对应的 {@link Bean} 不存在时，才会返回此 {@link Bean}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public KeyPair keyPair() {
+        KeyProperties.KeyStore keyStore = keyProperties.getKeyStore();
+        Resource location = keyStore.getLocation();
+        String alias = keyStore.getAlias();
+        String password = keyStore.getPassword();
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(location, password.toCharArray());
+        return keyStoreKeyFactory.getKeyPair(alias, password.toCharArray());
+    }
+
+    /**
      * 加密 Token {@link Bean}
      * <p>
      * 在 {@link JwtAccessTokenConverter} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
      *
      * @return 在 {@link JwtAccessTokenConverter} 对应的 {@link Bean} 不存在时，才会返回此 {@link Bean}
-     * @throws InvalidKeyException 秘钥不合法
      */
     @Bean
     @ConditionalOnMissingBean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() throws InvalidKeyException {
+    public JwtAccessTokenConverter jwtAccessTokenConverter(KeyPair keyPair) {
         // 加密 Token
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-
-        CloudJwtProperties.Rsa rsa = cloudJwtProperties.getRsa();
-
-        RSAPrivateKey rsaPrivateKey = rsa.privateKey();
-        RSAPublicKey rsaPublicKey = rsa.publicKey();
-        jwtAccessTokenConverter.setSigner(new RsaSigner(rsaPrivateKey));
-        // 可省略公钥
-        jwtAccessTokenConverter.setVerifier(new RsaVerifier(rsaPublicKey));
+        jwtAccessTokenConverter.setKeyPair(keyPair);
         return jwtAccessTokenConverter;
     }
 
