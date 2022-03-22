@@ -55,7 +55,7 @@ class OAuth2RestTemplateTests {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-        String checkTokenUrl  = "http://authorization-server.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
+        String checkTokenUrl = "http://authorization-server.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
 
         // 检查 Token
         @SuppressWarnings("rawtypes")
