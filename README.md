@@ -117,6 +117,7 @@ cloud.xuxiaowei
 | authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.xuxiaowei.cloud | 1401 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
+| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
 
