@@ -27,7 +27,6 @@ docker pull nacos/nacos-server:v2.0.4
             - 添加参数
                 ```shell
                 # 默认：1
-                MYSQL_DATABASE_NUM=1
                 MYSQL_SERVICE_HOST=192.168.5.4
                 # 默认：3306
                 MYSQL_SERVICE_PORT=3306
@@ -61,7 +60,6 @@ docker pull nacos/nacos-server:v2.0.4
                 -p 8848:8848 \
                 -e MODE=standalone \
                 -e SPRING_DATASOURCE_PLATFORM=mysql \
-                -e MYSQL_DATABASE_NUM=$MYSQL_DATABASE_NUM \
                 -e MYSQL_SERVICE_HOST=$MYSQL_SERVICE_HOST \
                 -e MYSQL_SERVICE_PORT=$MYSQL_SERVICE_PORT \
                 -e MYSQL_SERVICE_DB_NAME=$MYSQL_SERVICE_DB_NAME \

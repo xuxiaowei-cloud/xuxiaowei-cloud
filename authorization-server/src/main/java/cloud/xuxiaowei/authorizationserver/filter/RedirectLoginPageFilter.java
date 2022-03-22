@@ -2,10 +2,8 @@ package cloud.xuxiaowei.authorizationserver.filter;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -14,6 +12,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -35,20 +34,43 @@ public class RedirectLoginPageFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
+    }
 
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+    private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-        SecurityContext context = SecurityContextHolder.getContext();
-        if (context == null) {
+        if (isLoginUrlRequest(request)) {
             // 重定向到：默认登录页面地址
-            httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
-        } else if (context.getAuthentication() instanceof UsernamePasswordAuthenticationToken) {
-            chain.doFilter(request, response);
-        } else {
-            // 重定向到：默认登录页面地址
-            httpServletResponse.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
+            response.sendRedirect(cloudSecurityProperties.getDefaultLoginPageUrl());
+            return;
         }
+        chain.doFilter(request, response);
+    }
+
+    private boolean isLoginUrlRequest(HttpServletRequest request) {
+        return matches(request);
+    }
+
+    private boolean matches(HttpServletRequest request) {
+        if (!HttpMethod.GET.toString().equals(request.getMethod())) {
+            return false;
+        }
+        String uri = request.getRequestURI();
+        int pathParamIndex = uri.indexOf(';');
+        if (pathParamIndex > 0) {
+            // strip everything after the first semi-colon
+            uri = uri.substring(0, pathParamIndex);
+        }
+        if (request.getQueryString() != null) {
+            uri += "?" + request.getQueryString();
+        }
+        if ("".equals(request.getContextPath())) {
+            return uri.equals(DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL);
+        }
+        return uri.equals(request.getContextPath() + DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL);
     }
 
 }

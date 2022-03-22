@@ -54,7 +54,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
-import { login } from '../api/user'
+import { login } from '@/api/user'
 
 // 表单中的值
 const cloudForm = reactive({

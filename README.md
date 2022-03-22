@@ -88,6 +88,7 @@ cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
+│    └──authorization-server-ui             // 授权服务UI
 │    └──authorization-server                // 授权服务
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
@@ -99,6 +100,8 @@ cloud.xuxiaowei
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
+│    └──example-parent                      // 示例模块（独立模块）
+│        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 ```
 
 ### 端口
@@ -112,8 +115,9 @@ cloud.xuxiaowei
 | gateway | 网关 | gateway.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
-| passport | 授权 | passport.xuxiaowei.cloud | 1401 |
+| passport | 登录 | passport.xuxiaowei.cloud | 1401 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
+| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
 
@@ -123,10 +127,20 @@ cloud.xuxiaowei
 
 ### 客户ID与秘钥
 
-| 客户`client_id` | 秘钥`client_secret` | 资源`resource_ids` | 授权类型`authorized_grant_types` | 权限`authorities` | Token有效时间`access_token_validity` | 刷新Token有限时间`refresh_token_validity` | 范围`scope` | 重定向 | 自动授权范围 |
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| xuxiaowei_client_id | xuxiaowei_client_secret  |  |  |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123 | true |
+| 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123 | true |
 
+- authorized_grant_types
+    - 默认值：authorization_code,refresh_token
+        ```
+        org.springframework.security.oauth2.provider.client.BaseClientDetails#BaseClientDetails(String, String, String, String, String, String) 
+        ```
+    - 授权码模式 authorization_code
+    - 刷新Token权限 refresh_token
+    - 客户端凭证模式 client_credentials
+    - 密码模式 password
 - access_token_validity
     - 默认值：43200秒，即12小时，参见：
         ```
