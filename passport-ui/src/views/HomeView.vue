@@ -1,6 +1,5 @@
 <template>
-
-  <el-main>
+  <el-container>
 
     <el-header class="cloud-header">
       <h1>Login</h1>
@@ -47,8 +46,7 @@
       <el-link target="_blank" type="primary" href="http://beian.miit.gov.cn">鲁ICP备19009036号</el-link>
     </el-footer>
 
-  </el-main>
-
+  </el-container>
 </template>
 
 <script setup>
