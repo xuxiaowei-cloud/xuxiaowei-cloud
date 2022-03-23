@@ -9,6 +9,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { authorizationCode } from '@/api/code'
+import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const code = route.query.code
@@ -21,11 +22,11 @@ console.log('state', state)
 useRouter().push({ query: {} })
 
 if (!code && !state) {
-  console.log('code 与 state 都不存在')
+  ElMessage.error('错误，授权码、状态码不存在')
 } else if (code && !state) {
-  console.log('code 存在，state 不存在')
+  ElMessage.error('错误，状态码不存在')
 } else if (!code && state) {
-  console.log('code 不存在，state 存在')
+  ElMessage.error('错误，授权码不存在')
 } else {
   // 参数存在时，获取 Token
   authorizationCode(code, state).then(response => {
