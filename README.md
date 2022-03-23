@@ -203,8 +203,10 @@ cloud.xuxiaowei
     1. pages
         - 文档分支
 
-## 文档
+## 参考文档
 
+1. [alibaba p3c](https://github.com/alibaba/p3c)
+    - [GitCode](https://gitcode.net/mirrors/alibaba/p3c)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
 
 ## Stargazers over time
