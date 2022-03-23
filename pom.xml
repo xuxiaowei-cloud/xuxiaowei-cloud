@@ -38,6 +38,19 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <spring-security-oauth2-autoconfigure.version>2.6.3</spring-security-oauth2-autoconfigure.version>
 
+        <!-- MyBatis -->
+        <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <!-- MyBatis Plus -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+        <!-- MyBatis Plus Generator -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
+        <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
+        <!-- Velocity -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
+        <spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -103,11 +116,41 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- OAuth2 配置 -->
             <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
             <dependency>
                 <groupId>org.springframework.security.oauth.boot</groupId>
                 <artifactId>spring-security-oauth2-autoconfigure</artifactId>
                 <version>${spring-security-oauth2-autoconfigure.version}</version>
+            </dependency>
+
+            <!-- MyBatis -->
+            <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- MyBatis Plus -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <!-- MyBatis Plus Generator -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <!-- Velocity -->
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-velocity</artifactId>
+                <version>${spring-boot-starter-velocity.version}</version>
             </dependency>
 
             <!-- 工具类 -->
@@ -126,6 +169,12 @@
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>cloud-starter-loadbalancer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- MyBatis 组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>cloud-starter-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- Redis 组件 -->

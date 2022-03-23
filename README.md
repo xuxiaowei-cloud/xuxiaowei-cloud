@@ -203,9 +203,17 @@ cloud.xuxiaowei
     1. pages
         - 文档分支
 
-## 文档
+## 参考文档
 
+1. [alibaba p3c](https://github.com/alibaba/p3c)
+    - [GitCode](https://gitcode.net/mirrors/alibaba/p3c)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
+
+## 开发工具
+
+1. IDEA 2021.1.3
+1. Alibaba dragonwell 8.10.11
+1. Apache Maven 3.6.3
 
 ## Stargazers over time
 

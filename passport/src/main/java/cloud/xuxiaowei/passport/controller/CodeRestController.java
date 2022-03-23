@@ -2,11 +2,14 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.passport.bo.CodeState;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -28,32 +31,40 @@ public class CodeRestController {
 
     private CloudClientProperties cloudClientProperties;
 
+    /**
+     * 在这里只使用 {@link RestTemplate} 而不使用 <code>@FeignClient</code>，
+     * 原因是：本服务调用其他服务较少，单独引入 <code>@FeignClient</code> 并不合适
+     */
+    private RestTemplate restTemplate;
+
     @Autowired
     public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
         this.cloudClientProperties = cloudClientProperties;
     }
 
+    @Autowired
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     /**
      * 根据 授权码、状态码 获取 Token
      *
-     * @param request  请求
-     * @param response 响应
-     * @param code     授权码
-     * @param state    状态码
+     * @param request   请求
+     * @param response  响应
+     * @param codeState 授权码、状态码
      * @return 返回 Token
      */
-    @RequestMapping(params = {"code", "state"})
+    @PostMapping
     private Response<?> index(HttpServletRequest request, HttpServletResponse response,
-                              String code, String state) {
-
-        RestTemplate restTemplate = new RestTemplate();
+                              @RequestBody CodeState codeState) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> map = new HashMap<>(8);
-        map.put("code", code);
-        map.put("state", state);
+        map.put("code", codeState.getCode());
+        map.put("state", codeState.getState());
         map.put("client_id", cloudClientProperties.getClientId());
         map.put("client_secret", cloudClientProperties.getClientSecret());
         map.put("redirect_uri", cloudClientProperties.getRedirectUri());

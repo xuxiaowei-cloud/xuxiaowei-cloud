@@ -9,11 +9,11 @@
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.xuxiaowei</groupId>
-    <artifactId>cloud-starter-loadbalancer</artifactId>
+    <artifactId>cloud-starter-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>cloud-starter-loadbalancer</name>
-    <description>负载均衡组件</description>
+    <name>cloud-starter-mybatis</name>
+    <description>Redis 组件</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
@@ -21,29 +21,51 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-
-        <!-- 仅为了提供：RestTemplate -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- 核心组件 -->
+        <!-- MyBatis Plus -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>cloud-starter-core</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>test</scope>
         </dependency>
 
-        <!-- 负载均衡 -->
+        <!-- MyBatis Plus Generator -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Velocity -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-velocity</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.5.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
