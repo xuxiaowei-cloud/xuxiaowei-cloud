@@ -13,7 +13,7 @@ import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const code = route.query.code
-const state = route.query.code
+const state = route.query.state
 
 console.log('code', code)
 console.log('state', state)

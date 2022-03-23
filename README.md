@@ -112,10 +112,13 @@ cloud.xuxiaowei
 | MySQL | 数据库 | mysql.xuxiaowei.cloud | 3306 |
 | Redis | 数据库 | redis.xuxiaowei.cloud | 6379 |
 |  |  |  |  |
+| ui | UI |  | 1001 |
 | gateway | 网关 | gateway.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
+| authorization-server-ui | 授权UI |  | 1311 |
 | passport | 登录 | passport.xuxiaowei.cloud | 1401 |
+| passport-ui | 登录UI |  | 1411 |
 | resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
