@@ -1,7 +1,9 @@
 <template>
-  <div>
-    Code
-  </div>
+  <el-container>
+    <el-header>
+      <h1>请求授权</h1>
+    </el-header>
+  </el-container>
 </template>
 
 <script setup>
