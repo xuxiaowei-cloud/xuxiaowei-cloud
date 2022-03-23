@@ -4,66 +4,68 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cloud.xuxiaowei</groupId>
-        <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
+        <artifactId>cloud-commons-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.xuxiaowei</groupId>
-    <artifactId>cloud-commons-parent</artifactId>
+    <artifactId>cloud-starter-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
-    <name>cloud-commons-parent</name>
-    <description>微服务公共组件父模块</description>
+    <name>cloud-starter-mybatis</name>
+    <description>Redis 组件</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
-    <modules>
-        <!-- 核心组件 -->
-        <module>cloud-starter-core</module>
-        <!-- 负载均衡组件 -->
-        <module>cloud-starter-loadbalancer</module>
-        <!-- MyBatis 组件 -->
-        <module>cloud-starter-mybatis</module>
-        <!-- Redis 组件 -->
-        <module>cloud-starter-redis</module>
-        <!-- Session Redis 组件 -->
-        <module>cloud-starter-session-redis</module>
-    </modules>
-
     <dependencies>
-
-        <!-- Spring Cloud Starter 引导程序 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- 端点 -->
+        <!-- MyBatis Plus -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MyBatis Plus Generator -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Velocity -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-velocity</artifactId>
+            <scope>test</scope>
         </dependency>
 
-        <!-- 工具类 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>utils</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.5.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
