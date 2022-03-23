@@ -82,6 +82,8 @@ const submitCloudForm = () => {
         if (response.code === '00000') {
           ElMessage({
             message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
             type: 'success',
             onClose: () => {
               location.href = response.data // 'http://authorization-server.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7'
