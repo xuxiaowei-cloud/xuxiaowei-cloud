@@ -28,9 +28,20 @@ public class CodeRestController {
 
     private CloudClientProperties cloudClientProperties;
 
+    /**
+     * 在这里只使用 {@link RestTemplate} 而不使用 <code>@FeignClient</code>，
+     * 原因是：本服务调用其他服务较少，单独引入 <code>@FeignClient</code> 并不合适
+     */
+    private RestTemplate restTemplate;
+
     @Autowired
     public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
         this.cloudClientProperties = cloudClientProperties;
+    }
+
+    @Autowired
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     /**
@@ -45,8 +56,6 @@ public class CodeRestController {
     @RequestMapping(params = {"code", "state"})
     private Response<?> index(HttpServletRequest request, HttpServletResponse response,
                               String code, String state) {
-
-        RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
