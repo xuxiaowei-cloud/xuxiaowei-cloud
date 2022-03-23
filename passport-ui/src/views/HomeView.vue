@@ -1,6 +1,5 @@
 <template>
-
-  <el-main>
+  <el-container>
 
     <el-header class="cloud-header">
       <h1>Login</h1>
@@ -47,8 +46,7 @@
       <el-link target="_blank" type="primary" href="http://beian.miit.gov.cn">鲁ICP备19009036号</el-link>
     </el-footer>
 
-  </el-main>
-
+  </el-container>
 </template>
 
 <script setup>
@@ -84,6 +82,8 @@ const submitCloudForm = () => {
         if (response.code === '00000') {
           ElMessage({
             message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
             type: 'success',
             onClose: () => {
               location.href = response.data // 'http://authorization-server.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7'

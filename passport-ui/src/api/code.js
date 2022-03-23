@@ -7,7 +7,10 @@ import request from '@/utils/request'
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const authorizationCode = function (code, state) {
-  return request.get(`/code?code=${code}&state=${state}`).then(response => {
+  return request.post('/code', {
+    code: code,
+    state: state
+  }).then(response => {
     return response.data
   })
 }
