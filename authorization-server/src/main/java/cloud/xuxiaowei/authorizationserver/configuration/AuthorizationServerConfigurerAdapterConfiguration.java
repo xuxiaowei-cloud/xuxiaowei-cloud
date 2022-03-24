@@ -57,7 +57,7 @@ import java.util.Map;
  * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://127.0.0.1:123&response_type=token&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 Token（implicit，简化模式）</a>
  * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/token?code=&client_id=xuxiaowei_client_id&client_secret=xuxiaowei_client_secret&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code">获取 Token</a>
  * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/token?client_id=xuxiaowei_client_id&client_secret=xuxiaowei_client_secret&grant_type=refresh_token&refresh_token=">刷新 Token</a>
- * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/token?grant_type=client_credentials&client_id=xuxiaowei_client_id&client_secret=xuxiaowei_client_secret&scope=snsapi_base snsapi_userinfo">凭证式 client_credentials</a>
+ * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/token?grant_type=client_credentials&client_id=xuxiaowei_client_id&client_secret=xuxiaowei_client_secret&scope=snsapi_base%20snsapi_userinfo">凭证式 client_credentials</a>
  * @see <a href="http://authorization-server.xuxiaowei.cloud:1301/oauth/check_token?token=">检查 Token（需要使用 POST）</a>
  * @since 0.0.1
  */
