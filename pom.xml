@@ -50,6 +50,9 @@
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+        <!-- guava -->
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <guava.version>31.1-jre</guava.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -152,6 +155,13 @@
                 <artifactId>spring-boot-starter-velocity</artifactId>
                 <version>${spring-boot-starter-velocity.version}</version>
             </dependency>
+            <!-- guava -->
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
 
             <!-- 工具类 -->
             <dependency>
@@ -212,7 +222,7 @@
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>authorization-server-ui</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
