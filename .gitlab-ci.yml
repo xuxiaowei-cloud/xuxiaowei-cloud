@@ -50,4 +50,4 @@ package:
       - ui/target/ui-*
       - utils/target/utils-*
   only:
-    - package
+    - main
