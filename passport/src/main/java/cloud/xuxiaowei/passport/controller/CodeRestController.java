@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class CodeRestController {
      */
     @PostMapping
     private Response<?> index(HttpServletRequest request, HttpServletResponse response,
-                              @RequestBody CodeState codeState) {
+                             @Valid @RequestBody CodeState codeState) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
