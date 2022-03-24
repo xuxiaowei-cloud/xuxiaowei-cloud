@@ -62,6 +62,12 @@
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
+        <!-- 验证组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>cloud-starter-validation</artifactId>
+        </dependency>
+
         <!-- 登录服务UI -->
         <dependency>
             <groupId>cloud.xuxiaowei</groupId>
@@ -71,11 +77,6 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
         <dependency>

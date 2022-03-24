@@ -189,6 +189,13 @@
                 <artifactId>cloud-starter-session-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- 验证组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei</groupId>
+                <artifactId>cloud-starter-validation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- UI -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
