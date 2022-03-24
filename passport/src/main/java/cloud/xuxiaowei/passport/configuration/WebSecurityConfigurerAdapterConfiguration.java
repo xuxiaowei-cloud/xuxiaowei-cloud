@@ -61,9 +61,6 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         this.csrfRequestMatcher = csrfRequestMatcher;
     }
 
-    /**
-     * @see super.configure(AuthenticationManagerBuilder)
-     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -71,9 +68,6 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    /**
-     * @see super#configure(HttpSecurity)
-     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -102,8 +96,6 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     /**
      * 资源（静态）不拦截
-     *
-     * @see super#configure(WebSecurity)
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
