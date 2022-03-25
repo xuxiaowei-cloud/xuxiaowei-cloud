@@ -69,12 +69,6 @@
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
-        <!-- 登录服务UI -->
-        <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>passport-ui</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
