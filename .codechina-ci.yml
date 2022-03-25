@@ -1,0 +1,57 @@
+stages:
+  - package
+
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+cache:
+  paths:
+    - .m2/repository
+    - authorization-server-ui/node_modules/
+    - passport-ui/node_modules/
+    - ui/node_modules/
+
+#
+# package
+package:
+  stage: package
+  image: maven:3.6.3-jdk-8
+  script:
+    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    - echo $GPG_FILE
+    - gpg --import $GPG_FILE
+    - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
+    - echo $SETTINGS_FILE
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>mirror</id><mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf><name>mirror</name><url>https://maven.aliyun.com/nexus/content/groups/public</url></mirror>&#" $SETTINGS_FILE
+    - git --version
+    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 当前分支：$CI_COMMIT_BRANCH
+    - echo 主分支：$CI_DEFAULT_BRANCH
+    - echo 项目路径：$CI_PROJECT_DIR
+    - mvn clean -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
+  artifacts:
+    name: package
+    paths:
+      - target/xuxiaowei-cloud-starter-parent-*
+      - admin-server/target/admin-server-*
+      - authorization-server/target/authorization-server-*
+      - authorization-server-ui/target/authorization-server-ui-*
+      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
+      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
+      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
+      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
+      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
+      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
+      - cloud-commons-parent/target/cloud-commons-parent-*
+      - example-parent/target/example-parent-*
+      - example-parent/oauth2-client/target/oauth2-client-*
+      - gateway/target/gateway-*
+      - passport/target/passport-*
+      - passport-ui/target/passport-ui-*
+      - resource-server/target/resource-server-*
+      - ui/target/ui-*
+      - utils/target/utils-*
+  only:
+    - main
