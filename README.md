@@ -218,6 +218,10 @@ cloud.xuxiaowei
 1. Alibaba dragonwell 8.10.11
 1. Apache Maven 3.6.3
 
+## 鸣谢
+
+1. 感谢 [![墨菲安全](./static/murphysec.png)](https://www.murphysec.com/) 提供安全技术支持，邀请码：[http://xxw.ac.cn/murphysec](http://xxw.ac.cn/murphysec)
+
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud.svg)](https://starchart.cc/xuxiaowei-cloud/xuxiaowei-cloud)
