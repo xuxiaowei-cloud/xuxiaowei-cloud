@@ -437,6 +437,44 @@
             </build>
         </profile>
 
+        <profile>
+
+            <!-- 使用 -Pexec 激活此构建打包可执行 jar 包 -->
+            <id>exec</id>
+            <build>
+
+                <finalName>${artifactId}-${version}-exec</finalName>
+
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot.version}</version>
+                        <!-- 打包为 Spring Boot jar -->
+                        <executions>
+                            <execution>
+                                <id>repackage</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>
+
     </profiles>
 
 </project>
