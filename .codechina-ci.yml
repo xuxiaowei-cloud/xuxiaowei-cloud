@@ -31,6 +31,9 @@ package:
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     - mvn clean -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
+    - mvn -pl authorization-server-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 授权服务前端可执行jar包打包完成
+    - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
+    - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
   artifacts:
     name: package
     paths:
