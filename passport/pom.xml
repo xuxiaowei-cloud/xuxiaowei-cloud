@@ -43,6 +43,13 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+        <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
+        <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
         <!-- Nacos 配置 -->
         <dependency>
@@ -60,12 +67,6 @@
         <dependency>
             <groupId>cloud.xuxiaowei</groupId>
             <artifactId>cloud-starter-session-redis</artifactId>
-        </dependency>
-
-        <!-- 登录服务UI -->
-        <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>passport-ui</artifactId>
         </dependency>
 
         <dependency>
