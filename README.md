@@ -217,6 +217,9 @@ cloud.xuxiaowei
 1. IDEA 2021.1.3
 1. Alibaba dragonwell 8.10.11
 1. Apache Maven 3.6.3
+1. node v16.14.0
+1. npm 8.3.1
+1. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
 
 ## 鸣谢
 
