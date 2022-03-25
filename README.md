@@ -186,16 +186,16 @@ cloud.xuxiaowei
     1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
     1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
        用于在将来替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
-       的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines)
-       ，如果免费的话（目前[GitCode](https://gitcode.net)
-       的 [CICD 流水线](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 暂未开放此功能）
+       的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) ，
+       [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 流水线配额 `1000` 分钟（已申请到内侧资格）
     1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
     1. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 使用 GitLab
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 自动构建资源（`.jar`、`.jar.asc`
-       、`.pom`、`.pom.asc`、`-javadoc.jar`、`-javadoc.jar.asc`、`-sources.jar`、`-sources.jar.asc`
-       ），自动将资源发布到 [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
+       、`.pom`、`.pom.asc`、`-javadoc.jar`、`-javadoc.jar.asc`、`-sources.jar`、`-sources.jar.asc`），
+       自动将资源发布（目前仅[打包](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/blob/main/.gitlab-ci.yml)，未发布）到
+       [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
 
 1. 各分支的作用？
     1. main
