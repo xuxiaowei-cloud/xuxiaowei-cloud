@@ -443,7 +443,7 @@
             <id>exec</id>
             <build>
 
-                <finalName>${artifactId}-${version}-exec</finalName>
+                <finalName>${project.artifactId}-${project.version}-exec</finalName>
 
                 <plugins>
 
