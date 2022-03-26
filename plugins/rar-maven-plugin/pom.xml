@@ -29,7 +29,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <junit-jupiter-api.version>5.8.2</junit-jupiter-api.version>
