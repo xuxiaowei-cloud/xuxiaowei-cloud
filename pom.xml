@@ -232,6 +232,13 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- Maven 打包插件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.plugins</groupId>
+                <artifactId>rar-maven-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- UI -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
