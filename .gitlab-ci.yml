@@ -8,8 +8,11 @@ variables:
 cache:
   paths:
     - .m2/repository
+    - authorization-server-ui/node/
     - authorization-server-ui/node_modules/
+    - passport-ui/node/
     - passport-ui/node_modules/
+    - ui/node/
     - ui/node_modules/
 
 #
