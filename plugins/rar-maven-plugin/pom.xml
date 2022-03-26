@@ -25,9 +25,12 @@
         <lombok.version>1.18.22</lombok.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api -->
-        <maven.version>3.1.0</maven.version>
+        <maven-plugin-api.version>3.1.0</maven-plugin-api.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-archiver -->
+        <maven-archiver.version>3.1.0</maven-archiver.version>
+
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <commons-io.version>2.6</commons-io.version>
 
@@ -58,7 +61,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>${maven.version}</version>
+            <version>${maven-plugin-api.version}</version>
         </dependency>
 
         <!-- 提供：@Mojo -->
@@ -74,7 +77,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-archiver</artifactId>
-            <version>${maven.version}</version>
+            <version>${maven-archiver.version}</version>
         </dependency>
 
         <!-- 提供：FileUtils -->
