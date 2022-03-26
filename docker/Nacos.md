@@ -14,6 +14,7 @@ docker pull nacos/nacos-server:v2.0.4
         1. 表结构
             - [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
             - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/tree/develop/distribution/conf/nacos-mysql.sql)
+            - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/nacos-mysql.sql)
     - 创建
         1. 设置密码
             - 编辑环境变量文件
