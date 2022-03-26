@@ -141,7 +141,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>install --registry https://registry.npm.taobao.org</arguments>
                         </configuration>
                     </execution>
                     <execution>
