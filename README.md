@@ -209,7 +209,8 @@ cloud.xuxiaowei
 ## 参考文档
 
 1. [alibaba p3c](https://github.com/alibaba/p3c)
-    - [GitCode](https://gitcode.net/mirrors/alibaba/p3c)
+    - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
+    - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
 
 ## 开发工具
