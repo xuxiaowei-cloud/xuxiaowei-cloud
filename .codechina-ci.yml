@@ -57,6 +57,8 @@ package:
       - gateway/target/gateway-*
       - passport/target/passport-*
       - passport-ui/target/passport-ui-*
+      - plugins/target/plugins-*
+      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
       - resource-server/target/resource-server-*
       - ui/target/ui-*
       - utils/target/utils-*
