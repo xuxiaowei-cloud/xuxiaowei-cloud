@@ -131,6 +131,12 @@
                         <configuration>
                             <nodeVersion>v16.14.0</nodeVersion>
                             <npmVersion>8.3.1</npmVersion>
+                            <nodeDownloadRoot>http://mirrors.aliyun.com/nodejs-release/</nodeDownloadRoot>
+                            <!--
+                                http://npm.taobao.org 和 http://registry.npm.taobao.org 将在 2022.06.30 号正式下线和停止 DNS 解析
+                                https://developer.aliyun.com/mirror/NPM
+                             -->
+                            <npmDownloadRoot>http://registry.npmmirror.com/npm/-/</npmDownloadRoot>
                         </configuration>
                     </execution>
                     <!-- 该步骤首次执行可能需要管理员权限 -->
