@@ -473,6 +473,31 @@
             </build>
         </profile>
 
+        <profile>
+            <!-- 使用 -Prar 激活此构建打包将指定资源 .rar -->
+            <id>rar</id>
+            <build>
+                <plugins>
+                    <!-- mvn clean package rar:rar -Prar -->
+                    <plugin>
+                        <groupId>cloud.xuxiaowei.plugins</groupId>
+                        <artifactId>rar-maven-plugin</artifactId>
+                        <version>${project.version}</version>
+                        <configuration>
+                            <workDirectory>${project.build.directory}/rar</workDirectory>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <addMavenDescriptor>false</addMavenDescriptor>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/dist</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
 </project>
