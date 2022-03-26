@@ -100,6 +100,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
+│    └──plugins                             // 插件
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 ```
