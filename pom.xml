@@ -90,6 +90,8 @@
         <module>cloud-commons-parent</module>
         <!-- 示例父模块 -->
         <module>example-parent</module>
+        <!-- 插件 -->
+        <module>plugins</module>
     </modules>
 
     <dependencyManagement>
@@ -399,13 +401,10 @@
     <profiles>
 
         <profile>
-
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
-
                 <plugins>
-
                     <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
                     <!-- 安装：https://www.gpg4win.org/thanks-for-download.html -->
                     <!--
@@ -431,22 +430,16 @@
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
-
             </build>
         </profile>
 
         <profile>
-
             <!-- 使用 -Pexec 激活此构建打包可执行 jar 包 -->
             <id>exec</id>
             <build>
-
                 <finalName>${project.artifactId}-${project.version}-exec</finalName>
-
                 <plugins>
-
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -469,9 +462,7 @@
                             </excludes>
                         </configuration>
                     </plugin>
-
                 </plugins>
-
             </build>
         </profile>
 
