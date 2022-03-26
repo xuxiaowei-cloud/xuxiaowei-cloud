@@ -180,6 +180,22 @@
                 </executions>
             </plugin>
 
+            <!-- mvn clean package rar:rar -->
+            <!-- 在打包过程中，将指定资源复制到指定目录中，并打包成 .rar -->
+            <plugin>
+                <groupId>cloud.xuxiaowei.plugins</groupId>
+                <artifactId>rar-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}/dist</directory>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
