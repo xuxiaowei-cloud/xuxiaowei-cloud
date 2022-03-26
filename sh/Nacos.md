@@ -2,6 +2,7 @@
 
 - [GitHUb](https://github.com/alibaba/nacos)
 - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos)
+- [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos)
 
 - 本项目使用版本
     - [2.0.4](https://github.com/alibaba/nacos/releases/tag/2.0.4)

@@ -100,6 +100,8 @@ cloud.xuxiaowei
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
+│    └──plugins                             // 插件
+│        └──rar-maven-plugin                // Mave 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 ```
@@ -133,7 +135,7 @@ cloud.xuxiaowei
 | 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123 | true |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123,http://passport.xuxiaowei.cloud:1411/code | true |
 
 - authorized_grant_types
     - 默认值：authorization_code,refresh_token
@@ -209,7 +211,8 @@ cloud.xuxiaowei
 ## 参考文档
 
 1. [alibaba p3c](https://github.com/alibaba/p3c)
-    - [GitCode](https://gitcode.net/mirrors/alibaba/p3c)
+    - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
+    - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
 
 ## 开发工具
