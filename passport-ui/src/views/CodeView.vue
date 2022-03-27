@@ -9,8 +9,10 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { authorizationCode } from '@/api/code'
+import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
+const store = useStore()
 const route = useRoute()
 const code = route.query.code
 const state = route.query.state
@@ -31,6 +33,7 @@ if (!code && !state) {
   // 参数存在时，获取 Token
   authorizationCode(code, state).then(response => {
     console.log(response)
+    store.commit('setToken', response.data)
   })
 }
 
