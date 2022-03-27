@@ -33,7 +33,12 @@ if (!code && !state) {
   // 参数存在时，获取 Token
   authorizationCode(code, state).then(response => {
     console.log(response)
-    store.commit('setToken', response.data)
+    const code = response.code
+    if (code === '00000') {
+      store.commit('setToken', response.data)
+    } else {
+      ElMessage.error(response.msg)
+    }
   })
 }
 

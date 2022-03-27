@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,19 +55,27 @@ public class CodeRestController {
      *
      * @param request   请求
      * @param response  响应
+     * @param session   Session，不存在时自动创建
      * @param codeState 授权码、状态码
      * @return 返回 Token
      */
     @PostMapping
-    private Response<?> index(HttpServletRequest request, HttpServletResponse response,
-                             @Valid @RequestBody CodeState codeState) {
+    private Response<?> index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                              @Valid @RequestBody CodeState codeState) {
+
+        String state = codeState.getState();
+
+        String sessionState = session.getAttribute(cloudClientProperties.getStateName()) + "";
+        if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
+            return Response.error("非法获取Token");
+        }
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> map = new HashMap<>(8);
         map.put("code", codeState.getCode());
-        map.put("state", codeState.getState());
+        map.put("state", state);
         map.put("client_id", cloudClientProperties.getClientId());
         map.put("client_secret", cloudClientProperties.getClientSecret());
         map.put("redirect_uri", cloudClientProperties.getRedirectUri());

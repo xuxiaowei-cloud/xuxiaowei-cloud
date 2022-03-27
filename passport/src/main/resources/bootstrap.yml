@@ -157,3 +157,5 @@ cloud:
     authorize-uri: http://authorization-server.xuxiaowei.cloud:1301/oauth/authorize
     redirect-uri: http://passport.xuxiaowei.cloud:1411/code
     access-token-uri: http://authorization-server/oauth/token
+    scope: snsapi_base
+    state-name: STATE_NAME

@@ -58,6 +58,25 @@ public class CloudClientProperties {
     private String accessTokenUri;
 
     /**
+     * 范围
+     */
+    private String scope;
+
+    /**
+     * 状态码名称
+     */
+    private String stateName = "STATE_NAME";
+
+    /**
+     * 授权码 完整 URI
+     *
+     * @return 授权码 完整 URI
+     */
+    public String authorizeUri(String state) {
+        return String.format(AUTHORIZE_URI_PARAMETER_FORMAT, this.authorizeUri, this.clientId, this.redirectUri, this.scope, state);
+    }
+
+    /**
      * 授权码 完整 URI
      *
      * @return 授权码 完整 URI
