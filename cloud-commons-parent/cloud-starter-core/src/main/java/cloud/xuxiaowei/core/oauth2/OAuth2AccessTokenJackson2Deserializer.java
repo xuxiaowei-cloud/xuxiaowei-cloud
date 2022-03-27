@@ -65,7 +65,7 @@ public class OAuth2AccessTokenJackson2Deserializer extends StdDeserializer<OAuth
         accessToken.setAccessToken(tokenValue);
         accessToken.setTokenType(tokenType);
         if (expiresIn != null && expiresIn != 0) {
-            LocalDateTime expiration = LocalDateTime.now().minusSeconds(expiresIn);
+            LocalDateTime expiration = LocalDateTime.now().plusSeconds(expiresIn);
             accessToken.setExpiration(expiration);
             accessToken.setExpiresIn(expiresIn);
         }

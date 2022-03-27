@@ -1,17 +1,18 @@
 package cloud.xuxiaowei.core.oauth2;
 
+import cloud.xuxiaowei.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Set;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * OAuth2 Token 序列化
@@ -38,8 +39,9 @@ public class OAuth2AccessTokenJackson2Serializer extends StdSerializer<OAuth2Acc
         LocalDateTime expiration = token.getExpiration();
         if (expiration != null) {
             LocalDateTime now = LocalDateTime.now();
-            long expiresIn = ChronoUnit.SECONDS.between(expiration, now);
+            long expiresIn = ChronoUnit.SECONDS.between(now, expiration);
             jgen.writeNumberField(OAuth2AccessToken.EXPIRES_IN, expiresIn);
+            jgen.writeStringField(OAuth2AccessToken.EXPIRATION, DateUtils.format(expiration, DEFAULT_DATE_TIME_FORMAT));
         }
         Set<String> scope = token.getScope();
         if (scope != null && !scope.isEmpty()) {
