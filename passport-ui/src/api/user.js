@@ -24,7 +24,11 @@ export const login = function (username, password, rememberMe) {
  * @returns {Promise<AxiosResponse<any>>}
  */
 export const checkToken = function () {
-  return request.post(store.getters.checkTokenUri + store.getters.accessToken).then(response => {
-    return response.data
-  })
+  const checkTokenUri = store.getters.checkTokenUri
+  const accessToken = store.getters.accessToken
+  if (checkTokenUri != null && accessToken != null) {
+    return request.post(checkTokenUri + accessToken).then(response => {
+      return response.data
+    })
+  }
 }
