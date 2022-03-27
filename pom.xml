@@ -32,7 +32,7 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <!-- 监控（管理）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
-        <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.3</spring-boot-admin.version>
 
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
