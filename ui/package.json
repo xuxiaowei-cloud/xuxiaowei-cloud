@@ -34,13 +34,15 @@
     "vuex"
   ],
   "dependencies": {
-    "@element-plus/icons-vue": "1.1.1",
+    "@element-plus/icons-vue": "1.1.4",
     "axios": "0.26.1",
-    "element-plus": "2.1.5",
+    "element-plus": "2.1.6",
+    "js-cookie": "^3.0.1",
     "jsencrypt": "3.2.1",
     "vue": "3.2.31",
     "vue-router": "4.0.14",
-    "vuex": "4.0.2"
+    "vuex": "4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.2.4",
