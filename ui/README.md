@@ -106,6 +106,7 @@ npm create vite@latest ui -- --template vue
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
 - [axios](https://www.npmjs.com/package/axios)
 - [element-plus](https://www.npmjs.com/package/element-plus)
+- [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
 - [vue](https://www.npmjs.com/package/vue)
 - [vue-router](https://www.npmjs.com/package/vue-router)
