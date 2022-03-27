@@ -111,6 +111,7 @@ npm create vite@latest ui -- --template vue
 - [vue](https://www.npmjs.com/package/vue)
 - [vue-router](https://www.npmjs.com/package/vue-router)
 - [vuex](https://www.npmjs.com/package/vuex)
+- [vuex-persistedstate](https://www.npmjs.com/package/vuex-persistedstate)
 
 - [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
 - [@vue/cli-plugin-eslint](https://www.npmjs.com/package/@vue/cli-plugin-eslint)
