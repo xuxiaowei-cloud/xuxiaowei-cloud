@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import store from '@/store/index'
 
 /**
  * 登录
@@ -14,6 +15,16 @@ export const login = function (username, password, rememberMe) {
   formData.append('password', password)
   formData.append('remember-me', rememberMe)
   return request.post('/login', formData).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 检查 Token
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const checkToken = function () {
+  return request.post(store.getters.checkTokenUri + store.getters.accessToken).then(response => {
     return response.data
   })
 }

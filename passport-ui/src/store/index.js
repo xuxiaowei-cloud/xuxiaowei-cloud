@@ -19,6 +19,17 @@ export default createStore({
       return state.token
     },
     /**
+     * 获取 Token 值
+     * @param state 单一状态树
+     * @returns {null|*} Token 值
+     */
+    accessToken (state) {
+      if (state.token == null) {
+        return null
+      }
+      return state.token.access_token
+    },
+    /**
      * 获取 授权 URI
      * @param state 单一状态树
      * @returns 返回 授权 URI

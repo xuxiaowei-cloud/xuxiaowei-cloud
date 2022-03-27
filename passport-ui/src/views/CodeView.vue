@@ -9,6 +9,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { authorizationCode } from '@/api/code'
+import { checkToken } from '@/api/user'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
@@ -24,7 +25,14 @@ console.log('state', state)
 useRouter().push({ query: {} })
 
 if (!code && !state) {
-  ElMessage.error('错误，授权码、状态码不存在')
+  checkToken().then(response => {
+    console.log(response)
+    if (response.active === true) {
+      ElMessage({ message: '已成功授权', type: 'success' })
+    } else {
+      ElMessage.error('错误，授权码、状态码不存在')
+    }
+  })
 } else if (code && !state) {
   ElMessage.error('错误，状态码不存在')
 } else if (!code && state) {
@@ -35,6 +43,7 @@ if (!code && !state) {
     console.log(response)
     const code = response.code
     if (code === '00000') {
+      ElMessage({ message: '已成功授权', type: 'success' })
       store.commit('setToken', response.data)
     } else {
       ElMessage.error(response.msg)
