@@ -37,7 +37,8 @@
     "element-plus": "2.1.5",
     "jsencrypt": "3.2.1",
     "vue": "3.2.31",
-    "vue-router": "4.0.14"
+    "vue-router": "4.0.14",
+    "vuex": "4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.2.4",
