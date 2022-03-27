@@ -53,7 +53,10 @@
 import { ref, reactive } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
 import { login } from '@/api/user'
+import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+
+const store = useStore()
 
 // 表单中的值
 const cloudForm = reactive({
@@ -79,16 +82,25 @@ const submitCloudForm = () => {
     if (valid) {
       login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0]).then(response => {
         console.log(response)
+        const msg = response.msg
+
         if (response.code === '00000') {
           ElMessage({
-            message: response.msg,
+            message: msg,
             // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
             duration: 1500,
             type: 'success',
             onClose: () => {
-              location.href = response.data // 'http://authorization-server.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7'
+              const data = response.data
+              const authorizeUri = data.authorizeUri
+              const checkTokenUri = data.checkTokenUri
+              store.commit('setAuthorizeUri', authorizeUri)
+              store.commit('setCheckTokenUri', checkTokenUri)
+              location.href = authorizeUri
             }
           })
+        } else {
+          ElMessage.error(msg)
         }
       }).catch(error => {
         console.error(error)

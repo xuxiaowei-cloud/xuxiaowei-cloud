@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderNotFoundException;
@@ -64,7 +65,13 @@ public class LoginRestController {
     public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         String state = UUID.randomUUID().toString();
         session.setAttribute(cloudClientProperties.getStateName(), state);
-        return Response.ok(cloudClientProperties.authorizeUri(state), "登录成功");
+
+        ResponseMap ok = ResponseMap.ok("登录成功");
+
+        String authorizeUri = cloudClientProperties.authorizeUri(state);
+        String checkTokenUri = cloudClientProperties.getCheckTokenUri();
+
+        return ok.put("authorizeUri", authorizeUri).put("checkTokenUri", checkTokenUri);
     }
 
 }

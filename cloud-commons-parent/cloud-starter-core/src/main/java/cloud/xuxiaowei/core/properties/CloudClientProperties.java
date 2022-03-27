@@ -53,6 +53,11 @@ public class CloudClientProperties {
     private String authorizeUri;
 
     /**
+     * 检查 Token URI
+     */
+    private String checkTokenUri;
+
+    /**
      * 授权 Token URI
      */
     private String accessTokenUri;
