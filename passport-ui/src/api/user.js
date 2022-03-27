@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import store from '@/store/index'
 
 /**
  * 登录
@@ -16,4 +17,18 @@ export const login = function (username, password, rememberMe) {
   return request.post('/login', formData).then(response => {
     return response.data
   })
+}
+
+/**
+ * 检查 Token
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const checkToken = function () {
+  const checkTokenUri = store.getters.checkTokenUri
+  const accessToken = store.getters.accessToken
+  if (checkTokenUri != null && accessToken != null) {
+    return request.post(checkTokenUri + accessToken).then(response => {
+      return response.data
+    })
+  }
 }

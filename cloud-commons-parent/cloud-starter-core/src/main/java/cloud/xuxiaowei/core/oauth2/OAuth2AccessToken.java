@@ -1,6 +1,5 @@
 package cloud.xuxiaowei.core.oauth2;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -35,6 +34,8 @@ public class OAuth2AccessToken {
 
     public static String SCOPE = "scope";
 
+    public static String EXPIRATION = "expiration";
+
     private String accessToken;
 
     private String refreshToken;
@@ -47,7 +48,6 @@ public class OAuth2AccessToken {
 
     private String jti;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expiration;
 
     private Map<String, Object> additionalInformation;

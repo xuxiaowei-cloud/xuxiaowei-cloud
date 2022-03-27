@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 /**
@@ -56,13 +58,20 @@ public class LoginRestController {
      *
      * @param request  请求
      * @param response 响应
+     * @param session  Session，不存在时自动创建
      * @return 返回 登录成功提示语
      */
     @RequestMapping("/success")
-    public Response<?> success(HttpServletRequest request, HttpServletResponse response) {
-        String scope = "snsapi_base";
+    public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         String state = UUID.randomUUID().toString();
-        return Response.ok(cloudClientProperties.authorizeUri(scope, state), "登录成功");
+        session.setAttribute(cloudClientProperties.getStateName(), state);
+
+        ResponseMap ok = ResponseMap.ok("登录成功");
+
+        String authorizeUri = cloudClientProperties.authorizeUri(state);
+        String checkTokenUri = cloudClientProperties.getCheckTokenUri();
+
+        return ok.put("authorizeUri", authorizeUri).put("checkTokenUri", checkTokenUri);
     }
 
 }

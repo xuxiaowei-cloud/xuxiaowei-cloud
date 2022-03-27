@@ -1,10 +1,13 @@
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
+import store from '@/store'
 import { ipv4, ipv6 } from '@/api/ipify'
 import request from '@/utils/request'
 
 const app = createApp(App)
+
+app.use(store)
 
 // 需要放在 mount 之前
 app.use(router)

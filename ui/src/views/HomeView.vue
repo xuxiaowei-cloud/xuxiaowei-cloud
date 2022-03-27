@@ -6,12 +6,8 @@
   </div>
 </template>
 
-<script>
-import { ElButton } from 'element-plus'
-export default {
-  name: 'HomeView',
-  components: { ElButton }
-}
+<script setup>
+
 </script>
 
 <style scoped>
