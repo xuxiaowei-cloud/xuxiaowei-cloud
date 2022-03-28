@@ -166,19 +166,19 @@ cloud.xuxiaowei
     - 填写scope
         - 指定范围自动授权
 
-### [Linux 脚本说明](./sh)
-
-### [Windows 脚本说明](./winsw)
-
-### [常用 exe 说明](./exe)
-
 ### [Docker 说明](./docker)
 
-### [SQL](./sql)
+### [常用 exe 说明](./exe)
 
 ### [Git](./git)
 
 ### [Gitlab Runner](./gitlab-runner)
+
+### [Linux 脚本说明](./sh)
+
+### [SQL](./sql)
+
+### [Windows 脚本说明](./winsw)
 
 ## 仓库与分支？
 
