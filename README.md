@@ -174,6 +174,8 @@ cloud.xuxiaowei
 
 ### [Git](./git)
 
+### [Gitlab Runner](./gitlab-runner)
+
 ## 仓库与分支？
 
 1. 使用了哪四个仓库？
