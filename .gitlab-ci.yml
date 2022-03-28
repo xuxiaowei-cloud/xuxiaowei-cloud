@@ -81,7 +81,7 @@ gateway:
     - echo 项目路径：$CI_PROJECT_DIR
     - MODULE='gateway'
     - echo MODULE：$MODULE
-    - mvn clean -e -U -pl $MODULE package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
     - echo JAR_PATH：$JAR_PATH
