@@ -16,6 +16,7 @@ docker pull nginx:1.21.6
       --restart=always \
       --privileged=true \
       -p 80:80 -p 443:443 \
+      -v /software/ssl:/software/ssl \
       --name nginx-1.21.6 \
       -d nginx:1.21.6
       ```
