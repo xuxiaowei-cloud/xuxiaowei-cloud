@@ -138,6 +138,8 @@ spring:
             # 允许跨域的来源(协议、域名、ip)，全部：*
             # 因使用了 Session 共享，请使用 xuxiaowei.cloud 子域
             allowedOrigins:
+              - http://passport.example.xuxiaowei.cloud
+              - https://passport.example.xuxiaowei.cloud
               - http://passport.xuxiaowei.cloud
               - https://passport.xuxiaowei.cloud
               # 登录服务将前端打包后使用
