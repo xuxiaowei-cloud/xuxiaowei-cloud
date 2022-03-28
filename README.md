@@ -101,7 +101,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │    └──plugins                             // 插件
-│        └──rar-maven-plugin                // Mave 打包插件（独立模块）
+│        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 ```
