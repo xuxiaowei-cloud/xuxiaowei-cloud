@@ -92,7 +92,7 @@ gateway:
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
     - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
-    - APP_NAME=$NAME-$VERSION.$PACKAGING
+    - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
