@@ -144,7 +144,7 @@ cloud:
   # Security 配置
   security:
     # 登录页面地址
-    login-page-url: http://gateway.xuxiaowei.cloud:1101/passport
+    login-page-url: ${login_page_url:http://passport.xuxiaowei.cloud:1411}
 
 ---
 
