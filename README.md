@@ -218,6 +218,10 @@ cloud.xuxiaowei
     - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
     - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
+1. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
+1. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
+1. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
+1. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
 
 ## 开发工具
 
