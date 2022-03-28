@@ -2,6 +2,8 @@ package cloud.xuxiaowei.plugins;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import java.io.File;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Mojo(name = "cos", defaultPhase = LifecyclePhase.PACKAGE)
 public class CosMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project.build.directory}/cos", required = true)
