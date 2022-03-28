@@ -101,7 +101,11 @@ cloud.xuxiaowei
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │    └──plugins                             // 插件
-│        └──rar-maven-plugin                // Mave 打包插件（独立模块）
+│        └──bos-maven-plugin                // 百度云 BOS Maven 上传插件
+│        └──cos-maven-plugin                // 腾讯云 COS Maven 上传插件
+│        └──obs-maven-plugin                // 华为云 OBS Maven 上传插件
+│        └──oss-maven-plugin                // 阿里云 OSS Maven 上传插件
+│        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 ```
@@ -162,17 +166,19 @@ cloud.xuxiaowei
     - 填写scope
         - 指定范围自动授权
 
-### [Linux 脚本说明](./sh)
-
-### [Windows 脚本说明](./winsw)
+### [Docker 说明](./docker)
 
 ### [常用 exe 说明](./exe)
 
-### [Docker 说明](./docker)
+### [Git](./git)
+
+### [Gitlab Runner](./gitlab-runner)
+
+### [Linux 脚本说明](./sh)
 
 ### [SQL](./sql)
 
-### [Git](./git)
+### [Windows 脚本说明](./winsw)
 
 ## 仓库与分支？
 
@@ -216,6 +222,10 @@ cloud.xuxiaowei
     - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
     - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
+1. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
+1. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
+1. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
+1. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
 
 ## 开发工具
 

@@ -1,7 +1,7 @@
 # 服务器
 server:
   # 端口
-  port: 1301
+  port: ${authorization_server_port:1301}
 #
 # Spring 配置
 spring:
@@ -24,7 +24,7 @@ spring:
       # 服务发现
       discovery:
         # 服务发现地址
-        server-addr: nacos.xuxiaowei.cloud
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
       # 服务配置
@@ -32,7 +32,7 @@ spring:
         # 配置文件后缀名
         file-extension: yml
         # 配置服务器地址
-        server-addr: nacos.xuxiaowei.cloud
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
         # 共享配置
@@ -113,11 +113,11 @@ spring:
     # 数据库 驱动名称
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 数据库 连接串
-    url: jdbc:mysql://mysql.xuxiaowei.cloud:3306/xuxiaowei_cloud?useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&serverTimezone=GMT%2B8
     # 数据库 用户名
-    username: root
+    username: ${mysql_xuxiaowei_cloud_username:root}
     # 数据库 密码
-    password: xuxiaowei.com.cn
+    password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}
 
 ---
 
@@ -132,10 +132,10 @@ spring:
 # Redis 配置
 spring:
   redis:
-    database: 1
-    password: xuxiaowei.com.cn
-    host: redis.xuxiaowei.cloud
-    port: 6379
+    database: ${redis_xuxiaowei_cloud_database:1}
+    password: ${redis_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+    host: ${redis_xuxiaowei_cloud_host:redis.xuxiaowei.cloud}
+    port: ${redis_xuxiaowei_cloud_port:6379}
 
 ---
 

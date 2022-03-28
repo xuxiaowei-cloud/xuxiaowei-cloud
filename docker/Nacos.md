@@ -27,7 +27,6 @@ docker pull nacos/nacos-server:v2.0.4
                 ```
             - 添加参数
                 ```shell
-                # 默认：1
                 MYSQL_SERVICE_HOST=192.168.5.4
                 # 默认：3306
                 MYSQL_SERVICE_PORT=3306
@@ -51,40 +50,40 @@ docker pull nacos/nacos-server:v2.0.4
                 echo $MYSQL_SERVICE_PASSWORD
                 ```
 
-            1. 执行创建命令
+        1. 执行创建命令
+            ```shell
+            docker run \
+            -itd \
+            --restart always \
+            --privileged=true \
+            --name nacos-server-v2.0.4 \
+            -p 8848:8848 \
+            -e MODE=standalone \
+            -e SPRING_DATASOURCE_PLATFORM=mysql \
+            -e MYSQL_SERVICE_HOST=$MYSQL_SERVICE_HOST \
+            -e MYSQL_SERVICE_PORT=$MYSQL_SERVICE_PORT \
+            -e MYSQL_SERVICE_DB_NAME=$MYSQL_SERVICE_DB_NAME \
+            -e MYSQL_SERVICE_DB_PARAM=$MYSQL_SERVICE_DB_PARAM \
+            -e MYSQL_SERVICE_USER=$MYSQL_SERVICE_USER \
+            -e MYSQL_SERVICE_PASSWORD=$MYSQL_SERVICE_PASSWORD \
+            -d nacos/nacos-server:v2.0.4
+            ```
+        1. 查看日志
+            ```shell
+            docker logs -f nacos-server-v2.0.4
+            ```
+        1. 进入容器
+            ```shell
+            docker exec -it nacos-server-v2.0.4 bash
+            ```
+        1. 开放端口
+            - CentOS
                 ```shell
-                docker run \
-                -itd \
-                --restart always \
-                --privileged=true \
-                --name nacos-server-v2.0.4 \
-                -p 8848:8848 \
-                -e MODE=standalone \
-                -e SPRING_DATASOURCE_PLATFORM=mysql \
-                -e MYSQL_SERVICE_HOST=$MYSQL_SERVICE_HOST \
-                -e MYSQL_SERVICE_PORT=$MYSQL_SERVICE_PORT \
-                -e MYSQL_SERVICE_DB_NAME=$MYSQL_SERVICE_DB_NAME \
-                -e MYSQL_SERVICE_DB_PARAM=$MYSQL_SERVICE_DB_PARAM \
-                -e MYSQL_SERVICE_USER=$MYSQL_SERVICE_USER \
-                -e MYSQL_SERVICE_PASSWORD=$MYSQL_SERVICE_PASSWORD \
-                -d nacos/nacos-server:v2.0.4
+                firewall-cmd --zone=public --add-port=8848/tcp --permanent
+                firewall-cmd --reload
+                firewall-cmd --list-all
                 ```
-            1. 查看日志
+            - Ubuntu
                 ```shell
-                docker logs -f nacos-server-v2.0.4
+                sudo ufw allow 8848
                 ```
-            1. 进入容器
-                ```shell
-                docker exec -it nacos-server-v2.0.4 bash
-                ```
-            1. 开放端口
-                - CentOS
-                    ```shell
-                    firewall-cmd --zone=public --add-port=8848/tcp --permanent
-                    firewall-cmd --reload
-                    firewall-cmd --list-all
-                    ```
-                - Ubuntu
-                    ```shell
-                    sudo ufw allow 8848
-                    ```

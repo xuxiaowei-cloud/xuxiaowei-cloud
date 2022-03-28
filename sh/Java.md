@@ -4,6 +4,8 @@
     - 本项目使用版本
         - [dragonwell-8.10.11_jdk8u322-ga](https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga)
         - [Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz](https://github.com/alibaba/dragonwell8/releases/download/dragonwell-8.10.11_jdk8u322-ga/Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz)
+        - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))        
+        - [阿里云 OSS 下载地址 Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz)
     - 安装目录
         - /software/dragonwell-8.10.11
     - 环境变量
