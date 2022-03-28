@@ -1,4 +1,4 @@
 # 服务器
 server:
   # 端口
-  port: 1311
+  port: ${authorization-server-ui_port:1311}

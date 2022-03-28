@@ -1,4 +1,4 @@
 # 服务器
 server:
   # 端口
-  port: 1411
+  port: ${passport_ui_port:1411}
