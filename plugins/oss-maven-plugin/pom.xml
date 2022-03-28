@@ -6,7 +6,7 @@
     <packaging>maven-plugin</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>rar-maven-plugin</name>
+    <name>oss-maven-plugin</name>
     <description>阿里云 OSS Maven 上传插件</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
