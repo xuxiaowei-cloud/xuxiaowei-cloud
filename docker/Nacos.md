@@ -27,7 +27,6 @@ docker pull nacos/nacos-server:v2.0.4
                 ```
             - 添加参数
                 ```shell
-                # 默认：1
                 MYSQL_SERVICE_HOST=192.168.5.4
                 # 默认：3306
                 MYSQL_SERVICE_PORT=3306
