@@ -72,6 +72,9 @@ package:
 # gateway
 gateway:
   stage: gateway
+  variables:
+    MAVEN_OPTS: ''
+    MAVEN_CLI_OPTS: ''
   script:
     - source /etc/profile && echo 刷新环境变量
     - git --version
