@@ -101,6 +101,10 @@ cloud.xuxiaowei
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │    └──plugins                             // 插件
+│        └──bos-maven-plugin                // 百度云 BOS Maven 上传插件
+│        └──cos-maven-plugin                // 腾讯云 COS Maven 上传插件
+│        └──obs-maven-plugin                // 华为云 OBS Maven 上传插件
+│        └──oss-maven-plugin                // 阿里云 OSS Maven 上传插件
 │        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
