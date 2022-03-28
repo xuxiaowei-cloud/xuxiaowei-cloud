@@ -126,6 +126,15 @@ gateway:
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
   cache:
     paths:
+      - authorization-server-ui/node/
+      - authorization-server-ui/node_modules/
+      - authorization-server-ui/package-lock.json
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - passport-ui/package-lock.json
+      - ui/node/
+      - ui/node_modules/
+      - ui/package-lock.json
   artifacts:
     paths:
       - target/xuxiaowei-cloud-starter-parent-*
@@ -210,6 +219,15 @@ authorization-server:
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
   cache:
     paths:
+      - authorization-server-ui/node/
+      - authorization-server-ui/node_modules/
+      - authorization-server-ui/package-lock.json
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - passport-ui/package-lock.json
+      - ui/node/
+      - ui/node_modules/
+      - ui/package-lock.json
   artifacts:
     paths:
       - target/xuxiaowei-cloud-starter-parent-*
@@ -294,6 +312,15 @@ passport:
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
   cache:
     paths:
+      - authorization-server-ui/node/
+      - authorization-server-ui/node_modules/
+      - authorization-server-ui/package-lock.json
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - passport-ui/package-lock.json
+      - ui/node/
+      - ui/node_modules/
+      - ui/package-lock.json
   artifacts:
     paths:
       - target/xuxiaowei-cloud-starter-parent-*
