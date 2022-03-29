@@ -24,7 +24,7 @@ spring:
       # 服务发现
       discovery:
         # 服务发现地址
-        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.xuxiaowei.cloud:8848}
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
       # 服务配置
@@ -32,7 +32,7 @@ spring:
         # 配置文件后缀名
         file-extension: yml
         # 配置服务器地址
-        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.xuxiaowei.cloud:8848}
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
         # 共享配置
@@ -136,16 +136,16 @@ spring:
             # 携带 Cookie 等信息
             allow-credentials: true
             # 允许跨域的来源(协议、域名、ip)，全部：*
-            # 因使用了 Session 共享，请使用 xuxiaowei.cloud 子域
+            # 因使用了 Session 共享，请使用 example.xuxiaowei.cloud 子域
             allowedOrigins:
+              - http://gateway.example.xuxiaowei.cloud
+              - https://gateway.example.xuxiaowei.cloud
               - http://passport.example.xuxiaowei.cloud
               - https://passport.example.xuxiaowei.cloud
-              - http://passport.xuxiaowei.cloud
-              - https://passport.xuxiaowei.cloud
               # 登录服务将前端打包后使用
-              - http://passport.xuxiaowei.cloud:1401
+              - http://passport.example.xuxiaowei.cloud:1401
               # 直接访问前端
-              - http://passport.xuxiaowei.cloud:1411
+              - http://passport.example.xuxiaowei.cloud:1411
             # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
             allowedMethods: "GET,POST"
             # 允许跨域请求中的请求头字段，全部：*

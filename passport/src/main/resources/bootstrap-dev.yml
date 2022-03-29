@@ -1,0 +1,16 @@
+
+---
+
+# 客户端 配置
+cloud:
+  security:
+    failure-all-url: http://gateway.example.xuxiaowei.cloud:1101/passport/login/failure
+  client:
+    client-id: xuxiaowei_client_id
+    client-secret: xuxiaowei_client_secret
+    authorize-uri: http://gateway.example.xuxiaowei.cloud:1101/authorization-server/oauth/authorize
+    check-token-uri: http://gateway.example.xuxiaowei.cloud:1101/authorization-server/oauth/check_token?token=
+    redirect-uri: http://passport.example.xuxiaowei.cloud:1411/code
+    access-token-uri: http://authorization-server/oauth/token
+    scope: snsapi_base
+    state-name: STATE_NAME

@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 export default createStore({
   state: { // 单一状态树
-    domain: '.xuxiaowei.cloud', // Cookie 主域
+    domain: '.example.xuxiaowei.cloud', // Cookie 主域
     token: null, // Token
     authorizeUri: null, // 授权 URI
     checkTokenUri: null // 检查 Token URI

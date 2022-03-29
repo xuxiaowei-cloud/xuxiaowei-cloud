@@ -30,7 +30,7 @@ public class CloudSecurityProperties {
      *
      * @see DefaultLoginPageGeneratingFilter#DEFAULT_LOGIN_PAGE_URL
      */
-    private String defaultLoginPageUrl = "http://passport.xuxiaowei.cloud:1411";
+    private String defaultLoginPageUrl = "http://passport.example.xuxiaowei.cloud:1411";
 
     /**
      * 登录页面地址
@@ -68,7 +68,7 @@ public class CloudSecurityProperties {
      *
      * @see FormLoginConfigurer#failureUrl(String)
      */
-    private String failureAllUrl = "http://gateway.xuxiaowei.cloud:1101/passport/login/failure";
+    private String failureAllUrl = "http://gateway.example.xuxiaowei.cloud:1101/passport/login/failure";
 
     /**
      * 登录成功地址

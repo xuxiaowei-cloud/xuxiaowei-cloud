@@ -38,7 +38,7 @@ class RestTemplateTests {
 
         HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-        String accessTokenUri = "http://authorization-server.xuxiaowei.cloud:1301/oauth/token" +
+        String accessTokenUri = "http://authorization-server.example.xuxiaowei.cloud:1301/oauth/token" +
                 "?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials&scope={scope}";
 
         ResponseEntity<OAuth2AccessToken> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, OAuth2AccessToken.class, map);
@@ -65,7 +65,7 @@ class RestTemplateTests {
 //        log.info(String.valueOf(statusCode));
 //        log.info(body);
 
-        String checkTokenUrl = "http://authorization-server.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
+        String checkTokenUrl = "http://authorization-server.example.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
 
         System.out.println();
 

@@ -114,18 +114,18 @@ cloud.xuxiaowei
 
 | 模块 | 模块名称 | 域名（虚拟） | 端口 |
 | ---- | ---- | ---- | ---- |
-| Nacos | 注册、配置中心 | nacos.xuxiaowei.cloud | 8848 |
-| MySQL | 数据库 | mysql.xuxiaowei.cloud | 3306 |
-| Redis | 数据库 | redis.xuxiaowei.cloud | 6379 |
+| Nacos | 注册、配置中心 | nacos.example.xuxiaowei.cloud | 8848 |
+| MySQL | 数据库 | mysql.example.xuxiaowei.cloud | 3306 |
+| Redis | 数据库 | redis.example.xuxiaowei.cloud | 6379 |
 |  |  |  |  |
 | ui | UI |  | 1001 |
-| gateway | 网关 | gateway.xuxiaowei.cloud | 1101 |
-| admin-server | 监控（管理） | admin-server.xuxiaowei.cloud | 1201 |
-| authorization-server | 授权 | authorization-server.xuxiaowei.cloud | 1301 |
+| gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
+| admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
+| authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | authorization-server-ui | 授权UI |  | 1311 |
-| passport | 登录 | passport.xuxiaowei.cloud | 1401 |
+| passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI |  | 1411 |
-| resource-server | 资源 | resource-server.xuxiaowei.cloud | 1501 |
+| resource-server | 资源 | resource-server.example.xuxiaowei.cloud | 1501 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
@@ -139,7 +139,7 @@ cloud.xuxiaowei
 | 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://127.0.0.1:123,http://passport.xuxiaowei.cloud:1411/code | true |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://passport.example.xuxiaowei.cloud:1411/code | true |
 
 - authorized_grant_types
     - 默认值：authorization_code,refresh_token
