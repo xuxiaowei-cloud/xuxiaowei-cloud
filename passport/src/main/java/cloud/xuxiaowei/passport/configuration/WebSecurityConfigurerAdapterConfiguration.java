@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
+import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -85,6 +86,9 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
         // 登录服务（单服务）地址：匿名访问
         http.authorizeRequests().antMatchers(cloudSecurityProperties.getFailureUrl()).permitAll();
+
+        // 端点放行
+        http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
         // 所有地址，均需要认证后才能访问
         http.authorizeRequests().anyRequest().authenticated();
