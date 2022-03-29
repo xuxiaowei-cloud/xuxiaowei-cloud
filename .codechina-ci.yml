@@ -63,6 +63,10 @@ package:
       - passport/target/passport-*
       - passport-ui/target/passport-ui-*
       - plugins/target/plugins-*
+      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
+      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
+      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
+      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
       - plugins/rar-maven-plugin/target/rar-maven-plugin-*
       - resource-server/target/resource-server-*
       - ui/target/ui-*

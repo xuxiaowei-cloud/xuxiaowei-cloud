@@ -37,7 +37,7 @@ class OAuth2RestTemplateTests {
         clientCredentialsResourceDetails.setClientSecret("xuxiaowei_client_secret");
         clientCredentialsResourceDetails.setScope(Arrays.asList("snsapi_base", "snsapi_userinfo"));
         clientCredentialsResourceDetails.setGrantType("client_credentials");
-        clientCredentialsResourceDetails.setAccessTokenUri("http://authorization-server.xuxiaowei.cloud:1301/oauth/token");
+        clientCredentialsResourceDetails.setAccessTokenUri("http://authorization-server.example.xuxiaowei.cloud:1301/oauth/token");
 
         OAuth2RestTemplate oauth2RestTemplate = new OAuth2RestTemplate(clientCredentialsResourceDetails);
         OAuth2AccessToken oauth2AccessToken = oauth2RestTemplate.getAccessToken();
@@ -55,7 +55,7 @@ class OAuth2RestTemplateTests {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-        String checkTokenUrl = "http://authorization-server.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
+        String checkTokenUrl = "http://authorization-server.example.xuxiaowei.cloud:1301/oauth/check_token?token=" + oauth2AccessToken.getValue();
 
         // 检查 Token
         @SuppressWarnings("rawtypes")

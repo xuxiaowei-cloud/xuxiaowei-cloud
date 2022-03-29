@@ -68,7 +68,7 @@ public class CloudCookieProperties {
      *
      * @see DefaultCookieSerializer#setDomainName(String)
      */
-    private String cookieDomain = "xuxiaowei.cloud";
+    private String cookieDomain = "example.xuxiaowei.cloud";
 
     /**
      * 设置是否应使用 cookie 值的 Base64 编码。
