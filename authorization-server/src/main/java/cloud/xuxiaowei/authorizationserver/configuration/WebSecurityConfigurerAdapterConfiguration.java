@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.authorizationserver.filter.RedirectLoginPageFilter;
+import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -40,6 +41,9 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         http.formLogin()
                 .loginPage(DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL)
                 .loginProcessingUrl("/" + UUID.randomUUID());
+
+        // 端点放行
+        http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
         // 任何路径均需要授权后才能访问
         http.authorizeRequests().anyRequest().authenticated();
