@@ -24,7 +24,7 @@ public class BlackListGlobalFilter implements GlobalFilter, Ordered {
      * <p>
      * 大于 0 无效
      */
-    public static final int DEFAULT_ORDER = 0;
+    public static final int ORDERED = ActuatorGlobalFilter.ORDERED + 10000;
 
     private CloudBlackListProperties cloudBlackListProperties;
 
@@ -34,7 +34,7 @@ public class BlackListGlobalFilter implements GlobalFilter, Ordered {
     }
 
     @Setter
-    private int order = DEFAULT_ORDER;
+    private int order = ORDERED;
 
     @Override
     public int getOrder() {

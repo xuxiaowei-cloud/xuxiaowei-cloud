@@ -54,6 +54,10 @@ docker pull mysql:8.0.28
             --character-set-server=utf8mb4 \
             --collation-server=utf8mb4_general_ci
             ```
+        1. 修改插件（防止JDBC无法连接）
+            ```sql
+            ALTER USER `root`@`%` IDENTIFIED WITH mysql_native_password BY 'MySQL密码';
+            ```
         1. 查看日志
             ```shell
             docker logs -f mysql-8.0.28

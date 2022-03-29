@@ -7,6 +7,11 @@ server:
 spring:
   application:
     name: resource-server
+  # 配置环境
+  profiles:
+    # 激活
+    active:
+      - dev
   # Cloud 配置
   cloud:
     # 网络工具
