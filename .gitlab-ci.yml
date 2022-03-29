@@ -100,7 +100,7 @@ gateway:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
@@ -182,7 +182,7 @@ authorization-server:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
@@ -264,7 +264,7 @@ passport:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
