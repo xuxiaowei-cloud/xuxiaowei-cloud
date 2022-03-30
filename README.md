@@ -222,10 +222,19 @@ cloud.xuxiaowei
     - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
     - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
 1. [十二要素应用宣言](https://12factor.net/zh_cn/)
+
 1. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
 1. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
 1. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
 1. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
+
+1. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
+1. [阿里云镜像站 CentOS](https://developer.aliyun.com/mirror/centos)
+1. [网易镜像 CentOS](https://mirrors.163.com/.help/centos.html)
+
+1. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
+1. [阿里云镜像站 Ubuntu](https://developer.aliyun.com/mirror/ubuntu)
+1. [网易镜像 Ubuntu](http://mirrors.163.com/.help/ubuntu.html)
 
 ## 开发工具
 
@@ -238,7 +247,8 @@ cloud.xuxiaowei
 
 ## 鸣谢
 
-1. 感谢 [![墨菲安全](./static/murphysec.png)](https://www.murphysec.com/) 提供安全技术支持，邀请码：[http://xxw.ac.cn/murphysec](http://xxw.ac.cn/murphysec)
+1. 感谢 [![墨菲安全](./static/murphysec.png)](https://www.murphysec.com/)
+   提供安全技术支持，邀请码：[http://xxw.ac.cn/murphysec](http://xxw.ac.cn/murphysec)
 
 ## Stargazers over time
 
