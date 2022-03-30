@@ -11,11 +11,11 @@ import cloud.xuxiaowei.utils.CodeEnums;
 public class LoginParamPasswordNonExistException extends LoginParamNonExistException {
 
     public LoginParamPasswordNonExistException() {
-        super(CodeEnums.A1102.code, CodeEnums.A1102.msg);
+        super(CodeEnums.A10003.code, CodeEnums.A10003.msg);
     }
 
     public LoginParamPasswordNonExistException(String msg) {
-        super(CodeEnums.A1102.code, msg);
+        super(CodeEnums.A10003.code, msg);
     }
 
     public LoginParamPasswordNonExistException(String code, String msg) {
@@ -35,14 +35,14 @@ public class LoginParamPasswordNonExistException extends LoginParamNonExistExcep
     }
 
     public LoginParamPasswordNonExistException(Throwable cause) {
-        super(CodeEnums.A1102.msg, cause);
-        this.code = CodeEnums.A1102.code;
-        this.msg = CodeEnums.A1102.msg;
+        super(CodeEnums.A10003.msg, cause);
+        this.code = CodeEnums.A10003.code;
+        this.msg = CodeEnums.A10003.msg;
     }
 
     public LoginParamPasswordNonExistException(String msg, Throwable cause) {
         super(msg, cause);
-        this.code = CodeEnums.A1102.code;
+        this.code = CodeEnums.A10003.code;
         this.msg = msg;
     }
 

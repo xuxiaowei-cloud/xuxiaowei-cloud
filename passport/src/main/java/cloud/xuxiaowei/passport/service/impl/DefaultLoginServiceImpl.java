@@ -34,7 +34,7 @@ public class DefaultLoginServiceImpl implements LoginService {
 
         // Session 不存在，说明非法访问
         if (session == null) {
-            return new Response<>(CodeEnums.A1000.code, CodeEnums.A1000.msg);
+            return new Response<>(CodeEnums.A10000.code, CodeEnums.A10000.msg);
         }
 
         return session(request);

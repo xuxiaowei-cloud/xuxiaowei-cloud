@@ -53,19 +53,19 @@ public class LoginException extends AuthenticationException {
     public String explain;
 
     public LoginException() {
-        super(CodeEnums.A1000.msg);
-        this.code = CodeEnums.A1000.code;
-        this.msg = CodeEnums.A1000.msg;
+        super(CodeEnums.A10000.msg);
+        this.code = CodeEnums.A10000.code;
+        this.msg = CodeEnums.A10000.msg;
     }
 
     public LoginException(String msg) {
         super(msg);
-        this.code = CodeEnums.A1000.code;
+        this.code = CodeEnums.A10000.code;
         this.msg = msg;
     }
 
     public LoginException(String code, String msg) {
-        super(CodeEnums.A1000.msg);
+        super(CodeEnums.A10000.msg);
         this.code = code;
         this.msg = msg;
     }
@@ -92,14 +92,14 @@ public class LoginException extends AuthenticationException {
     }
 
     public LoginException(Throwable cause) {
-        super(CodeEnums.A1000.msg, cause);
-        this.code = CodeEnums.A1000.code;
-        this.msg = CodeEnums.A1000.msg;
+        super(CodeEnums.A10000.msg, cause);
+        this.code = CodeEnums.A10000.code;
+        this.msg = CodeEnums.A10000.msg;
     }
 
     public LoginException(String msg, Throwable cause) {
         super(msg, cause);
-        this.code = CodeEnums.A1000.code;
+        this.code = CodeEnums.A10000.code;
         this.msg = msg;
     }
 
