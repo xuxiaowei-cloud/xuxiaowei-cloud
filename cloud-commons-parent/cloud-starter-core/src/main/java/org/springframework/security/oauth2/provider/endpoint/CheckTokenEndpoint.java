@@ -27,11 +27,7 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,10 +35,10 @@ import java.util.Map;
  * Controller which decodes access tokens for clients who are not able to do so (or where opaque token values are used).
  *
  * <p>
- * @deprecated See the <a href="https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide">OAuth 2.0 Migration Guide</a> for Spring Security 5.
  *
  * @author Luke Taylor
  * @author Joel D'sa
+ * @deprecated See the <a href="https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide">OAuth 2.0 Migration Guide</a> for Spring Security 5.
  */
 @FrameworkEndpoint
 @Deprecated
@@ -89,10 +85,10 @@ public class CheckTokenEndpoint {
 
         OAuth2Authentication authentication = resourceServerTokenServices.loadAuthentication(token.getValue());
 
-        Map<String, Object> response = (Map<String, Object>)accessTokenConverter.convertAccessToken(token, authentication);
+        Map<String, Object> response = (Map<String, Object>) accessTokenConverter.convertAccessToken(token, authentication);
 
         // gh-1070
-        response.put("active", true);	// Always true if token exists and not expired
+        response.put("active", true);    // Always true if token exists and not expired
 
         return response;
     }
