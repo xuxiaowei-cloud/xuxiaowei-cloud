@@ -101,7 +101,7 @@ gateway:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
@@ -113,7 +113,7 @@ gateway:
     - echo "" >> $SERVICE
     - echo "[Service]" >> $SERVICE
     - echo "EnvironmentFile=/etc/profile" >> $SERVICE
-    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
     - echo "" >> $SERVICE
     - echo "[Install]" >> $SERVICE
     - echo "WantedBy=multi-user.target" >> $SERVICE
@@ -183,7 +183,7 @@ authorization-server:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
@@ -195,7 +195,7 @@ authorization-server:
     - echo "" >> $SERVICE
     - echo "[Service]" >> $SERVICE
     - echo "EnvironmentFile=/etc/profile" >> $SERVICE
-    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
     - echo "" >> $SERVICE
     - echo "[Install]" >> $SERVICE
     - echo "WantedBy=multi-user.target" >> $SERVICE
@@ -265,7 +265,7 @@ passport:
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
-    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME --spring.profiles.active=prod && echo 复制新jar包完成
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.10.11
@@ -277,7 +277,7 @@ passport:
     - echo "" >> $SERVICE
     - echo "[Service]" >> $SERVICE
     - echo "EnvironmentFile=/etc/profile" >> $SERVICE
-    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
     - echo "" >> $SERVICE
     - echo "[Install]" >> $SERVICE
     - echo "WantedBy=multi-user.target" >> $SERVICE
