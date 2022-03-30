@@ -18,7 +18,7 @@ import java.net.URI;
 /**
  * 端点 过滤器
  * <p>
- * 禁止通过网关访问个服务的端点
+ * 禁止通过网关访问 服务的端点
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -44,7 +44,7 @@ public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
         String path = uri.getPath();
         if (path.contains(Constant.ACTUATOR)) {
             ServerHttpResponse response = exchange.getResponse();
-            Response<?> error = Response.error();
+            Response<?> error = Response.error("禁止通过网关访问 服务端点");
             return ResponseUtils.writeWith(response, error);
         }
 
