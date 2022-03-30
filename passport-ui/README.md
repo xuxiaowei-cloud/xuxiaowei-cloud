@@ -135,7 +135,6 @@ npm create vite@latest passport-ui -- --template vue
 - 使用 Maven 进行打包
 
 ```shell
-cd ui
 mvn clean package
 ```
 

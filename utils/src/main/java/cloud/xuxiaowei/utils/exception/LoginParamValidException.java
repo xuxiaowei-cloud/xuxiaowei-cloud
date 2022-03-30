@@ -11,11 +11,11 @@ import cloud.xuxiaowei.utils.CodeEnums;
 public class LoginParamValidException extends LoginException {
 
     public LoginParamValidException() {
-        super(CodeEnums.A1200.code, CodeEnums.A1200.msg);
+        super(CodeEnums.A20001.code, CodeEnums.A20001.msg);
     }
 
     public LoginParamValidException(String msg) {
-        super(CodeEnums.A1200.code, msg);
+        super(CodeEnums.A20001.code, msg);
     }
 
     public LoginParamValidException(String code, String msg) {
@@ -35,14 +35,14 @@ public class LoginParamValidException extends LoginException {
     }
 
     public LoginParamValidException(Throwable cause) {
-        super(CodeEnums.A1200.msg, cause);
-        this.code = CodeEnums.A1200.code;
-        this.msg = CodeEnums.A1200.msg;
+        super(CodeEnums.A20001.msg, cause);
+        this.code = CodeEnums.A20001.code;
+        this.msg = CodeEnums.A20001.msg;
     }
 
     public LoginParamValidException(String msg, Throwable cause) {
         super(msg, cause);
-        this.code = CodeEnums.A1200.code;
+        this.code = CodeEnums.A20001.code;
         this.msg = msg;
     }
 

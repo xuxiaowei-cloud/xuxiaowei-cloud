@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 /**
  * 黑名单 过滤器
+ * <p>
+ * 指定 IP、URL、用户、客户、域名（非授权域名解析）等禁止访问
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -24,7 +26,7 @@ public class BlackListGlobalFilter implements GlobalFilter, Ordered {
      * <p>
      * 大于 0 无效
      */
-    public static final int ORDERED = ActuatorGlobalFilter.ORDERED + 10000;
+    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 30000;
 
     private CloudBlackListProperties cloudBlackListProperties;
 

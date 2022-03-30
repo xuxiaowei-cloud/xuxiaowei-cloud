@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.gateway.filter;
 
-import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.ServiceConstant;
 import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -16,17 +16,17 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 /**
- * 端点 过滤器
+ * 监控（管理）服务 过滤器
  * <p>
- * 禁止通过网关访问 服务的端点
+ * 禁止通过网关访问 监控（管理）服务
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Component
-public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
+public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
 
-    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
+    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 20000;
 
     @Setter
     private int order = ORDERED;
@@ -42,9 +42,9 @@ public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
-        if (path.contains(Constant.ACTUATOR)) {
+        if (path.contains(ServiceConstant.ADMIN_SERVER)) {
             ServerHttpResponse response = exchange.getResponse();
-            Response<?> error = Response.error("禁止通过网关访问 服务端点");
+            Response<?> error = Response.error("禁止通过网关访问 监控（管理）服务");
             return ResponseUtils.writeWith(response, error);
         }
 
