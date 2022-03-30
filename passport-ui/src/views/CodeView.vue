@@ -47,7 +47,7 @@ if (!code && !state) {
   authorizationCode(code, state).then(response => {
     console.log(response)
     const code = response.code
-    if (code === '00000') {
+    if (code === store.state.settings.okCode) {
       ElMessage({ message: '已成功授权', type: 'success' })
       store.commit('setToken', response.data)
     } else {
