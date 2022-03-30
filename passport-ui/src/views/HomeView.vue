@@ -95,7 +95,7 @@ const submitCloudForm = () => {
         console.log(response)
         const msg = response.msg
 
-        if (response.code === '00000') {
+        if (response.code === store.state.settings.okCode) {
           ElMessage({
             message: msg,
             // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
