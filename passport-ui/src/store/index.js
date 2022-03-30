@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import Cookies from 'js-cookie'
+import settings from '@/settings'
 
 export default createStore({
   state: { // 单一状态树
@@ -88,6 +89,7 @@ export default createStore({
   actions: {
   },
   modules: {
+    settings
   },
   plugins: [
     createPersistedState({
