@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.gateway.filter;
 
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
@@ -44,7 +45,7 @@ public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
         String path = uri.getPath();
         if (path.contains(Constant.ACTUATOR)) {
             ServerHttpResponse response = exchange.getResponse();
-            Response<?> error = Response.error("禁止通过网关访问 服务端点");
+            Response<?> error = Response.error(CodeEnums.X10001.code,CodeEnums.X10001.msg);
             return ResponseUtils.writeWith(response, error);
         }
 
