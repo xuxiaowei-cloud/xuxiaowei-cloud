@@ -59,6 +59,12 @@
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
+        <!-- 验证组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>cloud-starter-validation</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>

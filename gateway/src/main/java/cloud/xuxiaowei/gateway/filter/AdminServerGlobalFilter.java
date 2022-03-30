@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.gateway.filter;
 
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.ServiceConstant;
@@ -44,7 +45,7 @@ public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
         String path = uri.getPath();
         if (path.contains(ServiceConstant.ADMIN_SERVER)) {
             ServerHttpResponse response = exchange.getResponse();
-            Response<?> error = Response.error("禁止通过网关访问 监控（管理）服务");
+            Response<?> error = Response.error(CodeEnums.X10002.code, CodeEnums.X10002.msg);
             return ResponseUtils.writeWith(response, error);
         }
 

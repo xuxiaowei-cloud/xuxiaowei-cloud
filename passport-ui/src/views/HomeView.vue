@@ -59,15 +59,7 @@ import { ElMessage } from 'element-plus'
 
 const store = useStore()
 
-const ct = checkToken()
-if (ct != null) {
-  ct.then(response => {
-    console.log(response)
-    if (response.active === true) {
-      ElMessage({ message: '已成功授权', type: 'success' })
-    }
-  })
-}
+checkToken()
 
 // 表单中的值
 const cloudForm = reactive({
@@ -95,7 +87,7 @@ const submitCloudForm = () => {
         console.log(response)
         const msg = response.msg
 
-        if (response.code === '00000') {
+        if (response.code === store.state.settings.okCode) {
           ElMessage({
             message: msg,
             // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
