@@ -17,6 +17,11 @@ import reactor.core.publisher.Mono;
 @Component
 public class LogGlobalFilter implements GlobalFilter, Ordered {
 
+    /**
+     * 最低优先级（最大值）：0
+     * <p>
+     * 大于 0 无效
+     */
     public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE;
 
     @Setter
