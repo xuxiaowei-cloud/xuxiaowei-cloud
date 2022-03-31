@@ -20,6 +20,6 @@ public class Constant implements Serializable {
     /**
      * 请求ID
      */
-    public static final String REQUEST_ID = "requestId";
+    public static final String REQUEST_ID = "REQUEST_ID";
 
 }
