@@ -59,7 +59,14 @@ import { ElMessage } from 'element-plus'
 
 const store = useStore()
 
-checkToken()
+const ct = checkToken()
+if (ct != null) {
+  ct.then(response => {
+    if (response.active === true) {
+      ElMessage({ message: '已成功授权', type: 'success' })
+    }
+  })
+}
 
 // 表单中的值
 const cloudForm = reactive({

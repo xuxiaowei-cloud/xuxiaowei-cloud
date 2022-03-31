@@ -25,8 +25,19 @@ console.log('state', state)
 useRouter().push({ query: {} })
 
 if (!code && !state) {
-  checkToken()
-  ElMessage.error('错误，授权码、状态码不存在')
+  const ct = checkToken()
+  if (ct == null) {
+    ElMessage.error('错误，授权码、状态码不存在')
+  } else {
+    ct.then(response => {
+      if (response.active === true) {
+        ElMessage({ message: '已成功授权', type: 'success' })
+      } else {
+        const clearVuex = response.data == null ? null : response.data.clearVuex
+        ElMessage.error(response.msg + '，是否需要清空vuex：' + clearVuex)
+      }
+    })
+  }
 } else if (code && !state) {
   ElMessage.error('错误，状态码不存在')
 } else if (!code && state) {
