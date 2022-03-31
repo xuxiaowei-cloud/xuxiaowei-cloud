@@ -59,18 +59,6 @@
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
-        <!-- 系统组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-system</artifactId>
-        </dependency>
-
-        <!-- 验证组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-validation</artifactId>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
@@ -101,9 +89,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- 系统组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-system</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+
+        <!-- 验证组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-validation</artifactId>
         </dependency>
 
         <dependency>
