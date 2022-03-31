@@ -1,10 +1,6 @@
 stages:
   - package
-  - gateway
-  - admin-server
-  - authorization-server
-  - passport
-  - passport-ui
+  - s2
 
 variables:
   MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
@@ -37,7 +33,7 @@ package:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
     - mvn -pl authorization-server-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 授权服务前端可执行jar包打包完成
     - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
@@ -77,9 +73,9 @@ package:
     - main
 
 #
-# gateway
-gateway:
-  stage: gateway
+# s2
+s2:
+  stage: s2
   variables:
     MAVEN_OPTS: ''
     MAVEN_CLI_OPTS: ''
@@ -90,13 +86,14 @@ gateway:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+    -
     - MODULE='gateway'
     - echo MODULE：$MODULE
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
     - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
@@ -126,59 +123,9 @@ gateway:
     - sudo systemctl status $MODULE.service && echo 查看项目状态
     - sleep 45 && echo 增加延时
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
-  artifacts:
-    paths:
-      - target/xuxiaowei-cloud-starter-parent-*
-      - admin-server/target/admin-server-*
-      - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
-      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
-      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
-      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
-      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
-      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
-      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
-      - cloud-commons-parent/target/cloud-commons-parent-*
-      - example-parent/target/example-parent-*
-      - example-parent/oauth2-client/target/oauth2-client-*
-      - gateway/target/gateway-*
-      - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
-      - plugins/target/plugins-*
-      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
-      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
-      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
-      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
-      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
-      - ui/target/ui-*
-      - utils/target/utils-*
-  tags:
-    - gateway
-  only:
-    - gateway
-
-#
-# admin-server
-admin-server:
-  stage: admin-server
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
-  script:
-    - source /etc/profile && echo 刷新环境变量
-    - git --version
-    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-    - echo 当前分支：$CI_COMMIT_BRANCH
-    - echo 主分支：$CI_DEFAULT_BRANCH
-    - echo 项目路径：$CI_PROJECT_DIR
+    -
     - MODULE='admin-server'
     - echo MODULE：$MODULE
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
     - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
@@ -208,59 +155,9 @@ admin-server:
     - sudo systemctl status $MODULE.service && echo 查看项目状态
     - sleep 45 && echo 增加延时
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
-  artifacts:
-    paths:
-      - target/xuxiaowei-cloud-starter-parent-*
-      - admin-server/target/admin-server-*
-      - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
-      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
-      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
-      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
-      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
-      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
-      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
-      - cloud-commons-parent/target/cloud-commons-parent-*
-      - example-parent/target/example-parent-*
-      - example-parent/oauth2-client/target/oauth2-client-*
-      - gateway/target/gateway-*
-      - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
-      - plugins/target/plugins-*
-      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
-      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
-      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
-      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
-      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
-      - ui/target/ui-*
-      - utils/target/utils-*
-  tags:
-    - admin-server
-  only:
-    - admin-server
-
-#
-# authorization-server
-authorization-server:
-  stage: authorization-server
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
-  script:
-    - source /etc/profile && echo 刷新环境变量
-    - git --version
-    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-    - echo 当前分支：$CI_COMMIT_BRANCH
-    - echo 主分支：$CI_DEFAULT_BRANCH
-    - echo 项目路径：$CI_PROJECT_DIR
+    -
     - MODULE='authorization-server'
     - echo MODULE：$MODULE
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
     - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
@@ -290,59 +187,9 @@ authorization-server:
     - sudo systemctl status $MODULE.service && echo 查看项目状态
     - sleep 45 && echo 增加延时
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
-  artifacts:
-    paths:
-      - target/xuxiaowei-cloud-starter-parent-*
-      - admin-server/target/admin-server-*
-      - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
-      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
-      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
-      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
-      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
-      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
-      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
-      - cloud-commons-parent/target/cloud-commons-parent-*
-      - example-parent/target/example-parent-*
-      - example-parent/oauth2-client/target/oauth2-client-*
-      - gateway/target/gateway-*
-      - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
-      - plugins/target/plugins-*
-      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
-      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
-      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
-      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
-      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
-      - ui/target/ui-*
-      - utils/target/utils-*
-  tags:
-    - authorization-server
-  only:
-    - authorization-server
-
-#
-# passport
-passport:
-  stage: passport
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
-  script:
-    - source /etc/profile && echo 刷新环境变量
-    - git --version
-    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-    - echo 当前分支：$CI_COMMIT_BRANCH
-    - echo 主分支：$CI_DEFAULT_BRANCH
-    - echo 项目路径：$CI_PROJECT_DIR
+    -
     - MODULE='passport'
     - echo MODULE：$MODULE
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
     - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
     - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
@@ -372,55 +219,9 @@ passport:
     - sudo systemctl status $MODULE.service && echo 查看项目状态
     - sleep 45 && echo 增加延时
     - sudo systemctl status $MODULE.service && echo 延时查看项目状态
-  artifacts:
-    paths:
-      - target/xuxiaowei-cloud-starter-parent-*
-      - admin-server/target/admin-server-*
-      - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
-      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
-      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
-      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
-      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
-      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
-      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
-      - cloud-commons-parent/target/cloud-commons-parent-*
-      - example-parent/target/example-parent-*
-      - example-parent/oauth2-client/target/oauth2-client-*
-      - gateway/target/gateway-*
-      - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
-      - plugins/target/plugins-*
-      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
-      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
-      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
-      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
-      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
-      - ui/target/ui-*
-      - utils/target/utils-*
-  tags:
-    - passport
-  only:
-    - passport
-
-#
-# passport-ui
-passport-ui:
-  stage: passport-ui
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
-  script:
-    - source /etc/profile && echo 刷新环境变量
-    - git --version
-    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-    - echo 当前分支：$CI_COMMIT_BRANCH
-    - echo 主分支：$CI_DEFAULT_BRANCH
-    - echo 项目路径：$CI_PROJECT_DIR
+    - a
     - MODULE='passport-ui'
     - echo MODULE：$MODULE
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建文件夹完成; fi
     - RELEASE_PATH=/home/gitlab-runner/node/$MODULE
@@ -455,6 +256,6 @@ passport-ui:
       - ui/target/ui-*
       - utils/target/utils-*
   tags:
-    - passport-ui
+    - s2
   only:
-    - passport-ui
+    - s2
