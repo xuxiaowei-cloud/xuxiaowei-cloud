@@ -76,7 +76,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅为了提供：CheckTokenEndpoint 相关类 -->
+        <!-- 仅为了提供：CheckTokenEndpoint、WebResponseExceptionTranslator、OAuth2Exception -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>

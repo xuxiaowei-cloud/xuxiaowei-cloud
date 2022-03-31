@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cloud.xuxiaowei.core.oauth2.configuration.WebResponseExceptionTranslatorConfiguration,\
   cloud.xuxiaowei.core.properties.CloudBlackListProperties,\
   cloud.xuxiaowei.core.properties.CloudClientProperties,\
   cloud.xuxiaowei.core.properties.CloudSecurityProperties,\
