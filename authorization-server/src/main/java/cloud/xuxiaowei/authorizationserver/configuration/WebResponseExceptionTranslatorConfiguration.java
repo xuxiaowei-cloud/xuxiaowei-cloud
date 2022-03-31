@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.core.oauth2.configuration;
+package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
