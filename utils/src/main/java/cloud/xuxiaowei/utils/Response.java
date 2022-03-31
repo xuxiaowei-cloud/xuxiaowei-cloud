@@ -18,6 +18,18 @@ public class Response<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String CODE = "code";
+
+    public static final String MSG = "msg";
+
+    public static final String DATA = "data";
+
+    public static final String FIELD = "field";
+
+    public static final String EXPLAIN = "explain";
+
+    public static final String REQUEST_ID = "requestId";
+
     public Response(String code, String msg) {
         this.code = code;
         this.msg = msg;
