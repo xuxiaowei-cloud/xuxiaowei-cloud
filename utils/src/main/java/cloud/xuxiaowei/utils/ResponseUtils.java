@@ -10,6 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
+
 /**
  * 响应 工具类
  *
@@ -42,6 +46,46 @@ public class ResponseUtils {
 
         DataBuffer dataBuffer = response.bufferFactory().wrap(bytes);
         return response.writeWith(Mono.just(dataBuffer));
+    }
+
+    /**
+     * 响应数据
+     *
+     * @param response 响应
+     * @param json     String 类型的数据
+     * @throws IOException IO 异常
+     */
+    public static void response(HttpServletResponse response, String json) throws IOException {
+        response(response, (Object) json);
+    }
+
+    /**
+     * 响应数据
+     *
+     * @param response 响应
+     * @param map      Map 类型的数据
+     * @throws IOException IO 异常
+     */
+    @SuppressWarnings("rawtypes")
+    public static void response(HttpServletResponse response, Map map) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(map);
+        response(response, json);
+    }
+
+    /**
+     * 响应数据
+     *
+     * @param response 响应
+     * @param object   Object 类型的数据
+     * @throws IOException IO 异常
+     */
+    @SuppressWarnings({"deprecation"})
+    public static void response(HttpServletResponse response, Object object) throws IOException {
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8.toString());
+        response.getWriter().println(object);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
     }
 
 }

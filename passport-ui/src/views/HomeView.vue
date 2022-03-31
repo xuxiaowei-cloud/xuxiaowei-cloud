@@ -52,14 +52,12 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
-import { login, checkToken } from '@/api/user'
+import { login } from '@/api/user'
 
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
 const store = useStore()
-
-checkToken()
 
 // 表单中的值
 const cloudForm = reactive({
