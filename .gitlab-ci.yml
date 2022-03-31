@@ -123,7 +123,7 @@ s2:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
-    - sleep 45 && echo 增加延时
+    - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
@@ -159,7 +159,7 @@ s2:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
-    - sleep 45 && echo 增加延时
+    - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
@@ -195,7 +195,7 @@ s2:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
-    - sleep 45 && echo 增加延时
+    - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
@@ -231,7 +231,7 @@ s2:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
-    - sleep 45 && echo 增加延时
+    - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
