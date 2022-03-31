@@ -22,4 +22,9 @@ public class Constant implements Serializable {
      */
     public static final String REQUEST_ID = "REQUEST_ID";
 
+    /**
+     * IP
+     */
+    public static final String IP = "IP";
+
 }
