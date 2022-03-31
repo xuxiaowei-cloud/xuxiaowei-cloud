@@ -1,5 +1,3 @@
-import { ElMessage } from 'element-plus'
-
 import request from '@/utils/request'
 import store from '@/store/index'
 
