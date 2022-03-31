@@ -36,7 +36,8 @@ export const checkToken = function () {
         ElMessage({ message: '已成功授权', type: 'success' })
       } else {
         const msg = data.msg
-        ElMessage.error(msg + '，是否需要清空vuex：' + data.data.clear)
+        const clearVuex = data.data == null ? null: data.data.clearVuex
+        ElMessage.error(msg + '，是否需要清空vuex：' + clearVuex)
       }
       return response
     })
