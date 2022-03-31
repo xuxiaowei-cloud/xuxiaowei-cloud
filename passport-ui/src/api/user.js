@@ -1,6 +1,4 @@
 import request from '@/utils/request'
-import store from '@/store/index'
-import { ElMessage } from 'element-plus'
 
 /**
  * 登录
