@@ -18,6 +18,8 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
+import java.net.ConnectException;
+
 /**
  * 网关 异常 响应处理 {@link WebExceptionHandler}
  * <p>
@@ -81,6 +83,9 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
             } else {
                 error.setExplain("异常代码待划分");
             }
+        } else if (ex instanceof ConnectException) {
+            error.setCode(CodeEnums.S10002.code);
+            error.setMsg(CodeEnums.S10002.msg);
         }
 
         return ResponseUtils.writeWith(response, error);
