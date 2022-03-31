@@ -120,9 +120,13 @@ s2:
     - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
     - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && echo 查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - sleep 45 && echo 增加延时
-    - sudo systemctl status $MODULE.service && echo 延时查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - echo
     - MODULE='admin-server'
     - echo MODULE：$MODULE
@@ -152,9 +156,13 @@ s2:
     - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
     - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && echo 查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - sleep 45 && echo 增加延时
-    - sudo systemctl status $MODULE.service && echo 延时查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - echo
     - MODULE='authorization-server'
     - echo MODULE：$MODULE
@@ -184,9 +192,13 @@ s2:
     - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
     - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && echo 查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - sleep 45 && echo 增加延时
-    - sudo systemctl status $MODULE.service && echo 延时查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - echo
     - MODULE='passport'
     - echo MODULE：$MODULE
@@ -216,9 +228,13 @@ s2:
     - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
     - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && echo 查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - sleep 45 && echo 增加延时
-    - sudo systemctl status $MODULE.service && echo 延时查看项目状态
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
     - echo
     - MODULE='passport-ui'
     - echo MODULE：$MODULE
