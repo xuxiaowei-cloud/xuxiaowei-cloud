@@ -33,7 +33,9 @@ export default defineConfig({
       }
     },
     // 构建后是否生成 source map 文件。默认： false
-    sourcemap: false
+    sourcemap: false,
+    // 指定生成静态资源的存放路径（相对于 build.outDir）。默认： assets
+    assetsDir: 'assets'
   },
   server: {
     // 代理
