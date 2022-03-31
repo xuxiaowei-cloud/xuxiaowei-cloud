@@ -9,7 +9,6 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { authorizationCode } from '@/api/code'
-import { checkToken } from '@/api/user'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
@@ -24,38 +23,18 @@ console.log('state', state)
 // 清空参数
 useRouter().push({ query: {} })
 
-if (!code && !state) {
-  const ct = checkToken()
-  if (ct == null) {
-    ElMessage.error('错误，授权码、状态码不存在')
+// 参数存在时，获取 Token
+authorizationCode(code, state).then(response => {
+  console.log(response)
+  const code = response.code
+  if (code === store.state.settings.okCode) {
+    ElMessage({ message: '已成功授权', type: 'success' })
+    store.commit('setToken', response.data.oauth2AccessToken)
+    location.href = response.data.homePage
   } else {
-    ct.then(response => {
-      if (response.active === true) {
-        ElMessage({ message: '已成功授权', type: 'success' })
-      } else {
-        const clearVuex = response.data == null ? null : response.data.clearVuex
-        ElMessage.error(response.msg + '，是否需要清空vuex：' + clearVuex)
-      }
-    })
+    ElMessage.error(response.msg)
   }
-} else if (code && !state) {
-  ElMessage.error('错误，状态码不存在')
-} else if (!code && state) {
-  ElMessage.error('错误，授权码不存在')
-} else {
-  // 参数存在时，获取 Token
-  authorizationCode(code, state).then(response => {
-    console.log(response)
-    const code = response.code
-    if (code === store.state.settings.okCode) {
-      ElMessage({ message: '已成功授权', type: 'success' })
-      store.commit('setToken', response.data.oauth2AccessToken)
-      location.href = response.data.oauth2LoginSuccessHomePage
-    } else {
-      ElMessage.error(response.msg)
-    }
-  })
-}
+})
 
 </script>
 

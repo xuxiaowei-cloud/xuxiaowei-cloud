@@ -86,10 +86,9 @@ public class CodeRestController {
         OAuth2AccessToken oauth2AccessToken = restTemplate.postForObject(cloudClientProperties.accessTokenUri(),
                 httpEntity, OAuth2AccessToken.class, map);
 
-        String oauth2LoginSuccessHomePage = cloudClientProperties.getOauth2LoginSuccessHomePage();
+        String homePage = cloudClientProperties.getHomePage();
 
-        return ResponseMap.ok().put("oauth2AccessToken", oauth2AccessToken)
-                .put("oauth2LoginSuccessHomePage", oauth2LoginSuccessHomePage);
+        return ResponseMap.ok().put("oauth2AccessToken", oauth2AccessToken).put("homePage", homePage);
     }
 
 }

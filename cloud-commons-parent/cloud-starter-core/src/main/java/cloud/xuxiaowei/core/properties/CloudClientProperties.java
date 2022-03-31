@@ -73,9 +73,9 @@ public class CloudClientProperties {
     private String stateName = "STATE_NAME";
 
     /**
-     * OAuth2登录成功主页
+     * 登录成功主页
      */
-    private String oauth2LoginSuccessHomePage = "http://example.xuxiaowei.cloud:1001";
+    private String homePage = "http://example.xuxiaowei.cloud:1001";
 
     /**
      * 授权码 完整 URI
