@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "徐晓伟微服务UI",
   "scripts": {
-    "dev": "vite --host --port 1311",
+    "dev": "vite --host --port 1001",
     "build": "vite build",
     "lint": "vue-cli-service lint",
     "preview": "vite preview --host"

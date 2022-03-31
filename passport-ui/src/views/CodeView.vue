@@ -49,7 +49,8 @@ if (!code && !state) {
     const code = response.code
     if (code === store.state.settings.okCode) {
       ElMessage({ message: '已成功授权', type: 'success' })
-      store.commit('setToken', response.data)
+      store.commit('setToken', response.data.oauth2AccessToken)
+      location.href = response.data.oauth2LoginSuccessHomePage
     } else {
       ElMessage.error(response.msg)
     }
