@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cloud.xuxiaowei</groupId>
+    <groupId>cloud.xuxiaowei.commons</groupId>
     <artifactId>cloud-starter-loadbalancer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -30,7 +30,7 @@
 
         <!-- 核心组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
+            <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-core</artifactId>
         </dependency>
 

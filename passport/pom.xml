@@ -59,13 +59,13 @@
 
         <!-- 负载均衡组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
+            <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-loadbalancer</artifactId>
         </dependency>
 
         <!-- Session Redis 组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
+            <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
@@ -76,7 +76,7 @@
 
         <!-- 验证组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
+            <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-validation</artifactId>
         </dependency>
 
