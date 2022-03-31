@@ -23,6 +23,7 @@ export default defineConfig({
     }
   },
   build: {
+    minify: 'terser',
     terserOptions: {
       compress: {
         // 生产环境移除console日志
@@ -30,7 +31,9 @@ export default defineConfig({
         // 生产环境移除debugger测试
         drop_debugger: true
       }
-    }
+    },
+    // 构建后是否生成 source map 文件。默认： false
+    sourcemap: false
   },
   server: {
     // 代理

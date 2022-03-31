@@ -27,6 +27,11 @@ import java.net.URI;
 @Component
 public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
 
+    /**
+     * 最低优先级（最大值）：0
+     * <p>
+     * 大于 0 无效
+     */
     public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 20000;
 
     @Setter

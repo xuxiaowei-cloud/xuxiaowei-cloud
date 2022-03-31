@@ -14,3 +14,4 @@ cloud:
     access-token-uri: http://authorization-server/oauth/token
     scope: snsapi_base
     state-name: STATE_NAME
+    home-page: http://example.xuxiaowei.cloud:1001

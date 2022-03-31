@@ -12,3 +12,4 @@
 | ActuatorGlobalFilter | + 10000 | 禁止通过网关访问 服务的端点 |
 | AdminServerGlobalFilter | + 20000 | 禁止通过网关访问 监控（管理）服务 |
 | BlackListGlobalFilter | + 30000 | 指定 IP、URL、用户、客户、域名（非授权域名解析）等禁止访问 |
+| HeaderGlobalFilter | + 40000 | 将请求ID传递给服务 |

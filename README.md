@@ -99,6 +99,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
+│        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │        └──cloud-starter-validation        // 验证组件
@@ -120,13 +121,13 @@ cloud.xuxiaowei
 | MySQL | 数据库 | mysql.example.xuxiaowei.cloud | 3306 |
 | Redis | 数据库 | redis.example.xuxiaowei.cloud | 6379 |
 |  |  |  |  |
-| ui | UI |  | 1001 |
+| ui | UI | example.xuxiaowei.cloud | 1001 |
 | gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
-| authorization-server-ui | 授权UI |  | 1311 |
+| authorization-server-ui | 授权UI | authorization-server.example.xuxiaowei.cloud | 1311 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
-| passport-ui | 登录UI |  | 1411 |
+| passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
 | resource-server | 资源 | resource-server.example.xuxiaowei.cloud | 1501 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
