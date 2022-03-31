@@ -23,6 +23,7 @@ export default defineConfig({
     }
   },
   build: {
+    minify: 'terser',
     terserOptions: {
       compress: {
         // 生产环境移除console日志
