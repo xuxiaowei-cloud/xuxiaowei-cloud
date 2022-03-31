@@ -78,6 +78,8 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
             if (status.value() == HttpStatus.NOT_FOUND.value()) {
                 error.setCode(CodeEnums.S10001.code);
                 error.setMsg(CodeEnums.S10001.msg);
+            } else {
+                error.setExplain("异常代码待划分");
             }
         }
 
