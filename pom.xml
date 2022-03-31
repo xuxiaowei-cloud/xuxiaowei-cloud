@@ -197,37 +197,49 @@
             </dependency>
             <!-- 核心组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 负载均衡组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-loadbalancer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- MyBatis 组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- OpenFeign 组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-openfeign</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- Redis 组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- Session Redis 组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-session-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 系统组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 验证组件 -->
             <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
+                <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-validation</artifactId>
                 <version>${project.version}</version>
             </dependency>

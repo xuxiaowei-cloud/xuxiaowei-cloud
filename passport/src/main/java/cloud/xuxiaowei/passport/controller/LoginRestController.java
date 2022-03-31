@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,23 @@ public class LoginRestController {
         String checkTokenUri = cloudClientProperties.getCheckTokenUri();
 
         return ok.put("authorizeUri", authorizeUri).put("checkTokenUri", checkTokenUri);
+    }
+
+    /**
+     * 登录成功主页
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param session  Session，不存在时自动创建
+     * @return 返回 登录成功主页
+     */
+    @RequestMapping("/home-page")
+    public Response<?> homePage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+        // 返回的主页可根据权限，或者用户设置的默认系统等信息返回不同的主页
+        String homePage = cloudClientProperties.getHomePage();
+
+        return Response.ok(homePage, CodeEnums.OK.msg);
     }
 
 }

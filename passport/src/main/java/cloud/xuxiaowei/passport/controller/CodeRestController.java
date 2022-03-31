@@ -4,6 +4,7 @@ import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.passport.bo.CodeState;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -85,7 +86,9 @@ public class CodeRestController {
         OAuth2AccessToken oauth2AccessToken = restTemplate.postForObject(cloudClientProperties.accessTokenUri(),
                 httpEntity, OAuth2AccessToken.class, map);
 
-        return Response.ok(oauth2AccessToken);
+        String homePage = cloudClientProperties.getHomePage();
+
+        return ResponseMap.ok().put("oauth2AccessToken", oauth2AccessToken).put("homePage", homePage);
     }
 
 }

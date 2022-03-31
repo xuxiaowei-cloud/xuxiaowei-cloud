@@ -73,6 +73,11 @@ public class CloudClientProperties {
     private String stateName = "STATE_NAME";
 
     /**
+     * 登录成功主页
+     */
+    private String homePage = "http://example.xuxiaowei.cloud:1001";
+
+    /**
      * 授权码 完整 URI
      *
      * @return 授权码 完整 URI
