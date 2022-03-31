@@ -99,6 +99,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
+│        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │        └──cloud-starter-validation        // 验证组件
