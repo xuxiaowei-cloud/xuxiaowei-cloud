@@ -10,7 +10,7 @@ cloud:
     client-secret: xuxiaowei_client_secret
     authorize-uri: https://gateway.example.xuxiaowei.cloud/authorization-server/oauth/authorize
     check-token-uri: https://gateway.example.xuxiaowei.cloud/authorization-server/oauth/check_token?token=
-    redirect-uri: https://passport.example.xuxiaowei.cloud/code
+    redirect-uri: https://gateway.example.xuxiaowei.cloud/passport/code
     access-token-uri: http://authorization-server/oauth/token
     scope: snsapi_base
     state-name: STATE_NAME
