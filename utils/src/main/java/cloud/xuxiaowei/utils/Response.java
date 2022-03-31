@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.utils;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
+import org.slf4j.MDC;
 
 import java.io.Serializable;
 
@@ -106,10 +105,19 @@ public class Response<T> implements Serializable {
 
     /**
      * 请求ID
-     * <p>
-     * 只有 Getter 方法，无 Setter 方法
      */
-    @Setter(value = AccessLevel.NONE)
     private String requestId;
+
+    /**
+     * 获取 请求ID
+     *
+     * @return 在请求ID 为 null，返回 MDC 中的 请求ID
+     */
+    public String getRequestId() {
+        if (this.requestId == null) {
+            return MDC.get(REQUEST_ID);
+        }
+        return this.requestId;
+    }
 
 }
