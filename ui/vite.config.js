@@ -30,7 +30,9 @@ export default defineConfig({
         // 生产环境移除debugger测试
         drop_debugger: true
       }
-    }
+    },
+    // 构建后是否生成 source map 文件。默认： false
+    sourcemap: false
   },
   server: {
     // 代理
