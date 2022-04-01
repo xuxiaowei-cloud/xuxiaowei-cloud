@@ -69,6 +69,7 @@ public class ResponseUtils {
     @SuppressWarnings("rawtypes")
     public static void response(HttpServletResponse response, Map map) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         String json = objectMapper.writeValueAsString(map);
         response(response, json);
     }
@@ -83,7 +84,10 @@ public class ResponseUtils {
     @SuppressWarnings({"deprecation"})
     public static void response(HttpServletResponse response, Object object) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8.toString());
-        response.getWriter().println(object);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        String json = objectMapper.writeValueAsString(object);
+        response.getWriter().println(json);
         response.setStatus(HttpServletResponse.SC_OK);
         response.flushBuffer();
     }
