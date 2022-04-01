@@ -51,6 +51,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
 import { login } from '@/api/user'
 
 import { useStore } from 'vuex'
