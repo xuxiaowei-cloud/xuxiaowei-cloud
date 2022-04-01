@@ -130,6 +130,21 @@ management:
 
 ---
 
+# 数据库配置
+spring:
+  # 数据库
+  datasource:
+    # 数据库 驱动名称
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库 连接串
+    url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&serverTimezone=GMT%2B8
+    # 数据库 用户名
+    username: ${mysql_xuxiaowei_cloud_username:root}
+    # 数据库 密码
+    password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+
+---
+
 # 跨域配置
 spring:
   cloud:
