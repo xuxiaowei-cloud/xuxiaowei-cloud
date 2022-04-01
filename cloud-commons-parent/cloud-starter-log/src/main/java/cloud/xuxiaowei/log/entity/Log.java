@@ -173,9 +173,19 @@ public class Log implements Serializable {
     private String createIp;
 
     /**
+     * 主机
+     */
+    private String createHostName;
+
+    /**
      * 更新者IP，未更新时为空
      */
     private String updateIp;
+
+    /**
+     * 主机
+     */
+    private String updateHostName;
 
     /**
      * 逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。
