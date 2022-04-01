@@ -50,6 +50,10 @@
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+        <!-- 多数据源 -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+        <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+
         <!-- guava -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>31.1-jre</guava.version>
@@ -165,6 +169,14 @@
                 <artifactId>spring-boot-starter-velocity</artifactId>
                 <version>${spring-boot-starter-velocity.version}</version>
             </dependency>
+            <!-- 多数据源 -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot-starter.version}</version>
+            </dependency>
+
             <!-- guava -->
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
