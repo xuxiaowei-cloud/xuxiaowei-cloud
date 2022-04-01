@@ -30,6 +30,7 @@ public class ResponseUtils {
      * @return 返回 响应结果
      */
     @SneakyThrows
+    @SuppressWarnings({"deprecation"})
     public static Mono<Void> writeWith(ServerHttpResponse response, Object object) {
 
         // 响应状态码
