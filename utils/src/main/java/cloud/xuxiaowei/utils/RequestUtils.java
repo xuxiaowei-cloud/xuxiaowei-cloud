@@ -80,4 +80,25 @@ public class RequestUtils {
         return null;
     }
 
+    /**
+     * 获取标识
+     *
+     * @param request 请求
+     * @return 返回 标识
+     */
+    public static String getUserAgent(HttpServletRequest request) {
+        return request.getHeader(HttpHeaders.USER_AGENT);
+    }
+
+    /**
+     * 获取标识
+     *
+     * @param request 请求
+     * @return 返回 标识
+     */
+    public static String getUserAgent(ServerHttpRequest request) {
+        HttpHeaders httpHeaders = request.getHeaders();
+        return httpHeaders.getFirst(HttpHeaders.USER_AGENT);
+    }
+
 }
