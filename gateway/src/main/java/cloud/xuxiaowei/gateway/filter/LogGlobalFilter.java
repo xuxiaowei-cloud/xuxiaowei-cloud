@@ -2,7 +2,11 @@ package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.log.entity.Log;
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.*;
+import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.ServiceConstant;
+import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -20,6 +24,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static cloud.xuxiaowei.utils.Constant.IP;
@@ -68,7 +73,6 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         InetSocketAddress remoteAddress = request.getRemoteAddress();
         if (remoteAddress == null) {
             Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
-
             return ResponseUtils.writeWith(response, error);
         }
 
@@ -124,6 +128,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         log.setSessionId(null);
         log.setCreateUsername("该字段待确认");
         log.setCreateIp(remoteHost);
+        log.setCreateDate(LocalDateTime.now());
 
         logService.save(log);
     }
