@@ -50,6 +50,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
     @NonNull
     @Override
+    @SuppressWarnings({"deprecation"})
     public Mono<Void> handle(@NonNull ServerWebExchange exchange, @NonNull Throwable ex) {
 
         ServerHttpRequest request = exchange.getRequest();
