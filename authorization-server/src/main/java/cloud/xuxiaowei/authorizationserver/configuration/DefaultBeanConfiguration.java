@@ -28,6 +28,7 @@ import java.security.KeyPair;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@SuppressWarnings({"deprecation"})
 @Configuration
 public class DefaultBeanConfiguration {
 

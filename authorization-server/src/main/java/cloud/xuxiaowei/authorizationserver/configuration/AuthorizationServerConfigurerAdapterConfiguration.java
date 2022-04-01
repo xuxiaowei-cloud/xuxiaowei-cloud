@@ -61,6 +61,7 @@ import java.util.Map;
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/check_token?token=">检查 Token（需要使用 POST）</a>
  * @since 0.0.1
  */
+@SuppressWarnings({"deprecation"})
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {

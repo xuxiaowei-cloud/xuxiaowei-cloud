@@ -65,7 +65,7 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.5">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.6">
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -98,6 +98,7 @@ cloud.xuxiaowei
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
+│        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
 │        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件

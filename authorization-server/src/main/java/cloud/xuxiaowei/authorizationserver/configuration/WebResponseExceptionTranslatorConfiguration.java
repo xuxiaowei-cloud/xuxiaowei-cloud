@@ -31,6 +31,7 @@ import java.io.IOException;
  * @see DefaultWebResponseExceptionTranslator
  * @since 0.0.1
  */
+@SuppressWarnings({"deprecation"})
 @Configuration
 public class WebResponseExceptionTranslatorConfiguration implements WebResponseExceptionTranslator<OAuth2Exception> {
 

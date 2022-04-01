@@ -23,7 +23,7 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.6.5</spring-boot.version>
+        <spring-boot.version>2.6.6</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -50,6 +50,10 @@
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+        <!-- 多数据源 -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+        <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+
         <!-- guava -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>31.1-jre</guava.version>
@@ -165,6 +169,14 @@
                 <artifactId>spring-boot-starter-velocity</artifactId>
                 <version>${spring-boot-starter-velocity.version}</version>
             </dependency>
+            <!-- 多数据源 -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot-starter.version}</version>
+            </dependency>
+
             <!-- guava -->
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
@@ -205,6 +217,12 @@
             <dependency>
                 <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-loadbalancer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 日志组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- MyBatis 组件 -->
