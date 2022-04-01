@@ -47,6 +47,12 @@
             <artifactId>cloud-starter-loadbalancer</artifactId>
         </dependency>
 
+        <!-- MyBatis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-mybatis</artifactId>
+        </dependency>
+
         <!-- 网关 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
