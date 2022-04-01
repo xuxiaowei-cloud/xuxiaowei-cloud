@@ -23,4 +23,18 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  const query = to.query
+  const accessToken = query.accessToken
+  if (accessToken) {
+    delete query.accessToken
+    console.log('获取到URL中的Token', accessToken)
+    router.push({ query: query }).then(response => {
+      console.log('已清空URL中的Token，准备缓存Token')
+    })
+  }
+
+  next()
+})
+
 export default router
