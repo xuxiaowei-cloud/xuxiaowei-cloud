@@ -207,6 +207,12 @@
                 <artifactId>cloud-starter-loadbalancer</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- 日志组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- MyBatis 组件 -->
             <dependency>
                 <groupId>cloud.xuxiaowei.commons</groupId>
