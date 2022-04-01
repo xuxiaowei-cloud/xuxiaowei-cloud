@@ -47,6 +47,12 @@
             <artifactId>cloud-starter-loadbalancer</artifactId>
         </dependency>
 
+        <!-- 日志组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-log</artifactId>
+        </dependency>
+
         <!-- 核心组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
