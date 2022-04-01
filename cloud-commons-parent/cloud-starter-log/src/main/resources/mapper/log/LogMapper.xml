@@ -18,6 +18,7 @@
         <result column="user_agent" property="userAgent" />
         <result column="request_id" property="requestId" />
         <result column="session_id" property="sessionId" />
+        <result column="exception" property="exception" />
         <result column="browscap" property="browscap" />
         <result column="browser" property="browser" />
         <result column="browser_type" property="browserType" />

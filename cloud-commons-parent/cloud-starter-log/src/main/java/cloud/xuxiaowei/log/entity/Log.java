@@ -99,6 +99,11 @@ public class Log implements Serializable {
     private String sessionId;
 
     /**
+     * 异常
+     */
+    private String exception;
+
+    /**
      * browscap 是否处理
      */
     private Boolean browscap;

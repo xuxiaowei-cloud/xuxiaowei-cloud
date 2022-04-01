@@ -6,6 +6,7 @@ import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.ServiceConstant;
+import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -80,7 +81,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         String remoteHost = address.getHostAddress();
         MDC.put(IP, remoteHost);
 
-        save(logService, request, remoteHost);
+        save(logService, request, remoteHost, null);
 
         return chain.filter(exchange);
     }
@@ -91,8 +92,9 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
      * @param logService 日志服务
      * @param request    请求
      * @param remoteHost 用户IP
+     * @param ex         异常
      */
-    public static void save(ILogService logService, ServerHttpRequest request, String remoteHost) {
+    public static void save(ILogService logService, ServerHttpRequest request, String remoteHost, Throwable ex) {
 
         LocalDate localDate = LocalDate.now();
         int year = localDate.getYear();
@@ -126,6 +128,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         log.setUserAgent(userAgent);
         log.setRequestId(requestId);
         log.setSessionId(null);
+        log.setException(ex == null ? null : ExceptionUtils.getStackTrace(ex));
         log.setCreateUsername("该字段待确认");
         log.setCreateIp(remoteHost);
         log.setCreateDate(LocalDateTime.now());
