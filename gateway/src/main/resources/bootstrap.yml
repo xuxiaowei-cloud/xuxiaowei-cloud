@@ -134,14 +134,28 @@ management:
 spring:
   # 数据库
   datasource:
-    # 数据库 驱动名称
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    # 数据库 连接串
-    url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&serverTimezone=GMT%2B8
-    # 数据库 用户名
-    username: ${mysql_xuxiaowei_cloud_username:root}
-    # 数据库 密码
-    password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+    dynamic:
+      primary: xuxiaowei_cloud #设置默认的数据源或者数据源组,默认值即为master
+      strict: true #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        xuxiaowei_cloud:
+          # 数据库 连接串
+          url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&serverTimezone=GMT%2B8
+          # 数据库 用户名
+          username: ${mysql_xuxiaowei_cloud_username:root}
+          # 数据库 密码
+          password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+          # 数据库 驱动名称
+          driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
+        xuxiaowei_cloud_log:
+          # 数据库 连接串
+          url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database_log:xuxiaowei_cloud_log}?useSSL=false&serverTimezone=GMT%2B8
+          # 数据库 用户名
+          username: ${mysql_xuxiaowei_cloud_username:root}
+          # 数据库 密码
+          password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+          # 数据库 驱动名称
+          driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
 
 ---
 
