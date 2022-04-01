@@ -40,10 +40,9 @@
     </el-main>
 
     <el-footer class="cloud-footer">
-      <el-link :underline="false" class="cloud-span">&copy;</el-link>&nbsp;
-      <el-link :underline="false" class="cloud-span">2022</el-link>&nbsp;
-      <el-link target="_blank" type="primary" href="http://xuxiaowei.com.cn">徐晓伟工作室</el-link>&nbsp;
-      <el-link target="_blank" type="primary" href="http://beian.miit.gov.cn">鲁ICP备19009036号</el-link>
+      <span>&copy;&nbsp;2022</span>&nbsp;
+      <a target="_blank" href="http://xuxiaowei.com.cn">徐晓伟工作室</a>&nbsp;
+      <a target="_blank" href="http://beian.miit.gov.cn">鲁ICP备19009036号</a>
     </el-footer>
 
   </el-container>
@@ -127,12 +126,8 @@ const submitCloudForm = () => {
   /* 版权信息：绝对位置 */
   position: absolute;
   bottom: 30px;
-  width: calc(100% - 110px);
-}
-
-.cloud-span:hover {
-  /* 版权：鼠标覆盖不变色 */
-  color: var(--el-link-default-text-color);
+  width: calc(100% - 40px);
+  padding: 0;
 }
 
 /* xs<768px 响应式栅格数或者栅格属性对象 */
