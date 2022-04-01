@@ -112,7 +112,8 @@ class MyBatisPlusGeneratorTests {
                 new Module("authorization-server", "cloud.xuxiaowei.authorizationserver"),
                 new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-core", "cloud.xuxiaowei.core"),
                 new Module("resource-server", "cloud.xuxiaowei.resourceserver"),
-                new Module("gateway", "cloud.xuxiaowei.gateway")
+                new Module("gateway", "cloud.xuxiaowei.gateway"),
+                new Module("system", "cloud.xuxiaowei.system")
         );
 
         System.out.println("项目文件夹：" + userDir);
