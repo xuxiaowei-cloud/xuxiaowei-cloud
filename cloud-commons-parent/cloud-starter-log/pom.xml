@@ -29,6 +29,12 @@
             <artifactId>cloud-starter-core</artifactId>
         </dependency>
 
+        <!-- MyBatis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-mybatis</artifactId>
+        </dependency>
+
         <!-- 仅为了提供：LogHttpFilter -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
