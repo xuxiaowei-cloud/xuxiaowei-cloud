@@ -5,6 +5,7 @@ import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,10 @@ import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 import java.net.ConnectException;
+import java.net.InetSocketAddress;
+
+import static cloud.xuxiaowei.utils.Constant.IP;
+import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 
 /**
  * 网关 异常 响应处理 {@link WebExceptionHandler}
@@ -56,6 +61,19 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
+        // 日志中放入请求ID
+        String requestId = request.getId();
+        MDC.put(REQUEST_ID, requestId);
+
+        // 请求中放入用户IP
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+        if (remoteAddress == null) {
+            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
+            return ResponseUtils.writeWith(response, error);
+        }
+        String remoteHost = remoteAddress.getHostName();
+        MDC.put(IP, remoteHost);
+
         MediaType contentType = request.getHeaders().getContentType();
 
         if (contentType == null) {
@@ -69,7 +87,6 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         response.getHeaders().setAccept(request.getHeaders().getAccept());
         response.setStatusCode(HttpStatus.OK);
 
-        String requestId = request.getId();
         log.error(requestId, ex);
 
         Response<?> error = Response.error(CodeEnums.S10000.code, CodeEnums.S10000.msg);
