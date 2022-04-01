@@ -1,11 +1,14 @@
 package cloud.xuxiaowei.gateway.handler;
 
+import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
+import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
@@ -45,6 +48,13 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
     public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
 
+    private ILogService logService;
+
+    @Autowired
+    public void setLogService(ILogService logService) {
+        this.logService = logService;
+    }
+
     @Setter
     private int order = ORDERED;
 
@@ -73,6 +83,8 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         }
         String remoteHost = remoteAddress.getHostName();
         MDC.put(IP, remoteHost);
+
+        LogGlobalFilter.save(logService, request, remoteHost, ex);
 
         MediaType contentType = request.getHeaders().getContentType();
 
