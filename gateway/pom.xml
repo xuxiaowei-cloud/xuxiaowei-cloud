@@ -43,7 +43,7 @@
 
         <!-- 负载均衡组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
+            <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-loadbalancer</artifactId>
         </dependency>
 

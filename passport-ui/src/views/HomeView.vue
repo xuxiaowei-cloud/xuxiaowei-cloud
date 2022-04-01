@@ -50,23 +50,13 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
-import { login, checkToken } from '@/api/user'
+import { reactive, ref } from 'vue'
+import { login } from '@/api/user'
 
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
 const store = useStore()
-
-const ct = checkToken()
-if (ct != null) {
-  ct.then(response => {
-    if (response.active === true) {
-      ElMessage({ message: '已成功授权', type: 'success' })
-    }
-  })
-}
 
 // 表单中的值
 const cloudForm = reactive({
@@ -101,12 +91,7 @@ const submitCloudForm = () => {
             duration: 1500,
             type: 'success',
             onClose: () => {
-              const data = response.data
-              const authorizeUri = data.authorizeUri
-              const checkTokenUri = data.checkTokenUri
-              store.commit('setAuthorizeUri', authorizeUri)
-              store.commit('setCheckTokenUri', checkTokenUri)
-              location.href = authorizeUri
+              location.href = response.data.authorizeUri
             }
           })
         } else {

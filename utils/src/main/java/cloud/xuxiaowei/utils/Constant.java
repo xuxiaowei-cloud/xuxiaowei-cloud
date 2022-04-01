@@ -17,4 +17,14 @@ public class Constant implements Serializable {
      */
     public static final String ACTUATOR = "actuator";
 
+    /**
+     * 请求ID
+     */
+    public static final String REQUEST_ID = "REQUEST_ID";
+
+    /**
+     * IP
+     */
+    public static final String IP = "IP";
+
 }

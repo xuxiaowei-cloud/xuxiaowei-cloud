@@ -1,14 +1,11 @@
-import { ElMessage } from 'element-plus'
-
 import request from '@/utils/request'
-import store from '@/store/index'
 
 /**
  * 登录
  * @param username 用户名
  * @param password 密码
  * @param rememberMe 记住我
- * @returns {Promise<AxiosResponse<any>>}
+ * @returns {*}
  */
 export const login = function (username, password, rememberMe) {
   // 以 form 提交
@@ -19,18 +16,4 @@ export const login = function (username, password, rememberMe) {
   return request.post('/login', formData).then(response => {
     return response.data
   })
-}
-
-/**
- * 检查 Token
- * @returns {Promise<AxiosResponse<any>>}
- */
-export const checkToken = function () {
-  const checkTokenUri = store.getters.checkTokenUri
-  const accessToken = store.getters.accessToken
-  if (checkTokenUri != null && accessToken != null) {
-   return request.post(checkTokenUri + accessToken).then(response => {
-      return response.data
-    })
-  }
 }

@@ -2,15 +2,13 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
-import cloud.xuxiaowei.passport.bo.CodeState;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,28 +51,28 @@ public class CodeRestController {
     /**
      * 根据 授权码、状态码 获取 Token
      *
-     * @param request   请求
-     * @param response  响应
-     * @param session   Session，不存在时自动创建
-     * @param codeState 授权码、状态码
-     * @return 返回 Token
+     * @param request  请求
+     * @param response 响应
+     * @param session  Session，不存在时自动创建
+     * @param code     授权码
+     * @param state    状态码
      */
-    @PostMapping
-    private Response<?> index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                              @Valid @RequestBody CodeState codeState) {
-
-        String state = codeState.getState();
+    @RequestMapping(params = {"code", "state"})
+    private void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                       String code, String state) throws IOException {
 
         String sessionState = session.getAttribute(cloudClientProperties.getStateName()) + "";
         if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
-            return Response.error("非法获取Token");
+            Response<?> error = Response.error("非法获取Token");
+            ResponseUtils.response(response, error);
+            return;
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> map = new HashMap<>(8);
-        map.put("code", codeState.getCode());
+        map.put("code", code);
         map.put("state", state);
         map.put("client_id", cloudClientProperties.getClientId());
         map.put("client_secret", cloudClientProperties.getClientSecret());
@@ -85,7 +83,12 @@ public class CodeRestController {
         OAuth2AccessToken oauth2AccessToken = restTemplate.postForObject(cloudClientProperties.accessTokenUri(),
                 httpEntity, OAuth2AccessToken.class, map);
 
-        return Response.ok(oauth2AccessToken);
+        String homePage = cloudClientProperties.getHomePage();
+
+        assert oauth2AccessToken != null;
+        String accessToken = oauth2AccessToken.getAccessToken();
+
+        response.sendRedirect(homePage + "?accessToken=" + accessToken);
     }
 
 }
