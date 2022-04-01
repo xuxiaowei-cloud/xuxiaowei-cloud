@@ -23,6 +23,7 @@ import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 import static cloud.xuxiaowei.utils.Constant.IP;
@@ -81,10 +82,12 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
             Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
             return ResponseUtils.writeWith(response, error);
         }
-        String remoteHost = remoteAddress.getHostName();
-        MDC.put(IP, remoteHost);
+        InetAddress address = remoteAddress.getAddress();
+        String hostName = address.getHostName();
+        String hostAddress = address.getHostAddress();
+        MDC.put(IP, hostAddress);
 
-        LogGlobalFilter.save(logService, request, remoteHost, ex);
+        LogGlobalFilter.save(logService, request, hostAddress, hostName, ex);
 
         MediaType contentType = request.getHeaders().getContentType();
 

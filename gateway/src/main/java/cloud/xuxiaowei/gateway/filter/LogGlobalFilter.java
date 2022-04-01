@@ -78,10 +78,11 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         }
 
         InetAddress address = remoteAddress.getAddress();
-        String remoteHost = address.getHostAddress();
-        MDC.put(IP, remoteHost);
+        String hostName = address.getHostName();
+        String hostAddress = address.getHostAddress();
+        MDC.put(IP, hostAddress);
 
-        save(logService, request, remoteHost, null);
+        save(logService, request, hostAddress, hostName, null);
 
         return chain.filter(exchange);
     }
@@ -89,12 +90,13 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
     /**
      * 根据请求保存数据
      *
-     * @param logService 日志服务
-     * @param request    请求
-     * @param remoteHost 用户IP
-     * @param ex         异常
+     * @param logService  日志服务
+     * @param request     请求
+     * @param hostAddress 用户IP
+     * @param hostName    用户访问域名
+     * @param ex          异常
      */
-    public static void save(ILogService logService, ServerHttpRequest request, String remoteHost, Throwable ex) {
+    public static void save(ILogService logService, ServerHttpRequest request, String hostAddress, String hostName, Throwable ex) {
 
         LocalDate localDate = LocalDate.now();
         int year = localDate.getYear();
@@ -130,7 +132,8 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         log.setSessionId(null);
         log.setException(ex == null ? null : ExceptionUtils.getStackTrace(ex));
         log.setCreateUsername("该字段待确认");
-        log.setCreateIp(remoteHost);
+        log.setCreateIp(hostAddress);
+        log.setCreateHostName(hostName);
         log.setCreateDate(LocalDateTime.now());
 
         logService.save(log);
