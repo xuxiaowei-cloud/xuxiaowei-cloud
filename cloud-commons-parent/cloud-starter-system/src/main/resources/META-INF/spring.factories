@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cloud.xuxiaowei.log.filter.LogHttpFilter
+  cloud.xuxiaowei.system.filter.LogHttpFilter
