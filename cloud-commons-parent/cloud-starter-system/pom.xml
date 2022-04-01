@@ -29,6 +29,12 @@
             <artifactId>cloud-starter-core</artifactId>
         </dependency>
 
+        <!-- 日志组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-log</artifactId>
+        </dependency>
+
         <!-- 仅为了提供：LogHttpFilter -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
