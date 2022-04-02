@@ -162,6 +162,11 @@ cloud.xuxiaowei
         ```
         org.springframework.security.oauth2.provider.token.DefaultTokenServices#refreshTokenValiditySeconds
         ```
+- scope
+    - 缺省时，全部授权
+- web_server_redirect_uri
+    - 缺省时，数据库只有一个重定向地址时，不报错。
+    - 缺省时，数据库存在多个重定向地址时，报错。
 - autoapprove
     - true
         - 全部自动授权
