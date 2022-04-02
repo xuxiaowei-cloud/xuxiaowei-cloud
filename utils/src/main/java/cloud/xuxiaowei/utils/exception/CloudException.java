@@ -56,6 +56,7 @@ public class CloudException extends Exception {
     }
 
     public CloudException(String code, String msg) {
+        super(msg);
         this.code = code;
         this.msg = msg;
     }

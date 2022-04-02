@@ -65,7 +65,7 @@ public class LoginException extends AuthenticationException {
     }
 
     public LoginException(String code, String msg) {
-        super(CodeEnums.A10000.msg);
+        super(msg);
         this.code = code;
         this.msg = msg;
     }
