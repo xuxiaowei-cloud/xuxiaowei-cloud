@@ -1,19 +1,16 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
-import org.springframework.lang.NonNull;
+import cloud.xuxiaowei.utils.Response;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,17 +28,25 @@ public class ConfirmErrorController {
     /**
      * 自定义 用于显示授权服务器的错误页面（响应）。
      *
+     * @param request      请求
+     * @param response     响应
+     * @param clientId     客户ID
+     * @param redirectUri  重定向URI
+     * @param responseType 响应类型
+     * @param scope        范围
+     * @param state        状态码
+     * @param model        页面中的值
+     * @return 错误页面
      * @see WhitelabelErrorEndpoint
      * @see SessionAttributes
      */
     @RequestMapping("/oauth/customize_error")
-    public ModelAndView customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response,
-                                               @RequestParam(value = "client_id", required = false) String clientId,
-                                               @RequestParam(value = "redirect_uri", required = false) String redirectUri,
-                                               @RequestParam(value = "response_type", required = false) String responseType,
-                                               String scope, String state) {
+    public String customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response,
+                                         @RequestParam(value = "client_id", required = false) String clientId,
+                                         @RequestParam(value = "redirect_uri", required = false) String redirectUri,
+                                         @RequestParam(value = "response_type", required = false) String responseType,
+                                         String scope, String state, Model model) {
 
-        Map<String, Object> model = new HashMap<>(4);
         Object error = request.getAttribute("error");
 
         // 错误摘要可能包含恶意用户输入，
@@ -50,30 +55,31 @@ public class ConfirmErrorController {
         if (error instanceof OAuth2Exception) {
             OAuth2Exception oauthError = (OAuth2Exception) error;
 
-            oauthError.addAdditionalInformation("client_id", clientId);
-            oauthError.addAdditionalInformation("redirect_uri", redirectUri);
-            oauthError.addAdditionalInformation("response_type", responseType);
-            oauthError.addAdditionalInformation("scope", scope);
-            oauthError.addAdditionalInformation("state", state);
+            model.addAttribute("oauth2ErrorCode", oauthError.getOAuth2ErrorCode());
+            model.addAttribute("message", oauthError.getMessage());
 
-            errorSummary = HtmlUtils.htmlEscape(oauthError.getSummary());
+            model.addAttribute("httpErrorCode", oauthError.getHttpErrorCode());
+
+            Map<String, String> additionalInformation = oauthError.getAdditionalInformation();
+
+            model.addAttribute("message", oauthError.getMessage());
+
+            model.addAttribute(Response.CODE, additionalInformation.get(Response.CODE));
+            model.addAttribute(Response.MSG, additionalInformation.get(Response.MSG));
+            model.addAttribute(Response.DATA, additionalInformation.get(Response.DATA));
+            model.addAttribute(Response.FIELD, additionalInformation.get(Response.FIELD));
+            model.addAttribute(Response.EXPLAIN, additionalInformation.get(Response.EXPLAIN));
+            model.addAttribute(Response.REQUEST_ID, additionalInformation.get(Response.REQUEST_ID));
+
+            errorSummary = "OAuth2Exception";
         } else {
-            errorSummary = "Unknown error";
+            errorSummary = "未知错误，需要增加错误类型判断";
+            model.addAttribute("error", error);
         }
-        String errorContent = ERROR.replace("%errorSummary%", errorSummary);
-        View errorView = new View() {
-            @Override
-            public String getContentType() {
-                return "text/html;charset=UTF-8";
-            }
 
-            @Override
-            public void render(Map<String, ?> model, @NonNull HttpServletRequest request, HttpServletResponse response) throws Exception {
-                response.setContentType(getContentType());
-                response.getWriter().append(errorContent);
-            }
-        };
-        return new ModelAndView(errorView, model);
+        model.addAttribute("errorSummary", errorSummary);
+
+        return "oauth/customize_error";
     }
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth 错误</title>
+</head>
+<body>
+
+<h1>OAuth 错误</h1>
+
+<ul>
+    <li th:text="${'错误总结：'+errorSummary}"></li>
+
+    <li th:text="${'oauth2ErrorCode：'+oauth2ErrorCode}"></li>
+    <li th:text="${'message：'+message}"></li>
+
+    <li th:text="${'httpErrorCode：'+httpErrorCode}"></li>
+
+    <li th:text="${'code：'+code}"></li>
+    <li th:text="${'msg：'+msg}"></li>
+    <li th:text="${'client_id：'+#request.getParameter('client_id')}"></li>
+    <li th:text="${'redirect_uri：'+#request.getParameter('redirect_uri')}"></li>
+    <li th:text="${'response_type：'+#request.getParameter('response_type')}"></li>
+    <li th:text="${'scope：'+#request.getParameter('scope')}"></li>
+    <li th:text="${'state：'+#request.getParameter('state')}"></li>
+    <li th:text="${'explain：'+explain}"></li>
+    <li th:text="${'data：'+data}"></li>
+    <li th:text="${'field：'+field}"></li>
+    <li th:text="${'requestId：'+requestId}"></li>
+</ul>
+
+</body>
+</html>
