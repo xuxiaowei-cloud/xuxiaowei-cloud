@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.utils.exception;
 
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.exception.client.ClientException;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

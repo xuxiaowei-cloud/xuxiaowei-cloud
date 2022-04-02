@@ -1,6 +1,7 @@
-package cloud.xuxiaowei.utils.exception;
+package cloud.xuxiaowei.utils.exception.token;
 
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.exception.CloudException;
 
 /**
  * Token 异常父类

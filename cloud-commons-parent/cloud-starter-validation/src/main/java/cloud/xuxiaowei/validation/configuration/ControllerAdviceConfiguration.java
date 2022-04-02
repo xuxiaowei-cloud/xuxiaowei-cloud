@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.validation.configuration;
 
 import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.exception.ClientException;
-import cloud.xuxiaowei.utils.exception.TokenException;
+import cloud.xuxiaowei.utils.exception.client.ClientException;
+import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;

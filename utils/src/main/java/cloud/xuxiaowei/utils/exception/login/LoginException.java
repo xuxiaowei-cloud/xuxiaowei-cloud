@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.utils.exception;
+package cloud.xuxiaowei.utils.exception.login;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import lombok.EqualsAndHashCode;

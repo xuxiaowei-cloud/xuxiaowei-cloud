@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.passport.configuration.DefaultBeanConfiguration;
-import cloud.xuxiaowei.utils.exception.LoginParamPasswordNonExistException;
-import cloud.xuxiaowei.utils.exception.LoginParamPasswordValidException;
+import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordNonExistException;
+import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;

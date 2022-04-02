@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.utils.exception;
+package cloud.xuxiaowei.utils.exception.client;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 
