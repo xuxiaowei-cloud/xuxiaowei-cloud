@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -16,14 +15,13 @@ import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.io.IOException;
@@ -85,16 +83,17 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
 
             if (oauth2Exception instanceof UnsupportedResponseTypeException) {
 
-                MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-                multiValueMap.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML_VALUE);
-
                 oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20003.code);
                 oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20003.msg);
 
                 log.error("不支持的响应类型异常：", oauth2Exception);
 
-                return new ResponseEntity<>(oauth2Exception, multiValueMap, HttpStatus.OK);
+            } else if (oauth2Exception instanceof RedirectMismatchException) {
 
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20004.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20004.msg);
+
+                log.error("重定向不匹配异常：", oauth2Exception);
             } else {
                 String message = oauth2Exception.getMessage();
                 if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
@@ -107,9 +106,9 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
                 }
-            }
 
-            log.error("授权异常：", oauth2Exception);
+                log.error("授权异常：", oauth2Exception);
+            }
 
             return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
         }
