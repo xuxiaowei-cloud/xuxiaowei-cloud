@@ -107,9 +107,28 @@ public class CodeRestController {
      */
     @RequestMapping(params = {"error", "error_description", "state"})
     private Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                                   String error, @RequestParam("error_description") String errorDescription, String state) {
+                                   String error, @RequestParam("error_description") String errorDescription,
+                                   String code, String msg, String data, String explain, String field, String requestId,
+                                   String scope, String state) {
 
-        return ResponseMap.error().put("error", error).put("error_description", errorDescription).put("state", state);
+        ResponseMap responseMap = ResponseMap.error()
+                .put("error", error)
+                .put("error_description", errorDescription)
+                .put("data", data)
+                .put("explain", explain)
+                .put("field", field)
+                .put("requestId", requestId)
+                .put("scope", scope)
+                .put("state", state);
+
+        if (StringUtils.hasText(code)) {
+            responseMap.setCode(code);
+        }
+        if (StringUtils.hasText(msg)) {
+            responseMap.setMsg(msg);
+        }
+
+        return responseMap;
     }
 
     /**
@@ -124,9 +143,14 @@ public class CodeRestController {
      */
     @RequestMapping(params = {"error", "error_description"})
     private Response<?> error(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                              String error, @RequestParam("error_description") String errorDescription) {
+                              String error, @RequestParam("error_description") String errorDescription,
+                              String code, String msg, String data, String explain, String field, String requestId,
+                              String scope) {
 
-        return errorState(request, response, session, error, errorDescription, null);
+        return errorState(request, response, session,
+                error, errorDescription,
+                code, msg, data, explain, field, requestId,
+                scope, null);
     }
 
 }
