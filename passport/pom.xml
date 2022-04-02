@@ -44,6 +44,7 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
+        <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
         <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
