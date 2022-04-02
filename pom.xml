@@ -36,7 +36,7 @@
 
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
-        <spring-security-oauth2-autoconfigure.version>2.6.3</spring-security-oauth2-autoconfigure.version>
+        <spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -193,6 +193,7 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <!-- 修复 spring-security-oauth2-autoconfigure 引入 bcpkix-jdk15on 的漏洞 -->
+            <!-- 子模块中引入 spring-security-oauth2-autoconfigure 可缺省引入 -->
             <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
             <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
             <dependency>
