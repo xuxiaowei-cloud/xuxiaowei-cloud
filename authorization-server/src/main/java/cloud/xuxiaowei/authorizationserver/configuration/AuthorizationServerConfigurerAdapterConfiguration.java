@@ -139,6 +139,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         // Token 增强
         endpoints.tokenEnhancer(tokenEnhancer);
 
+        // 自定义显示授权服务器的批准页面。
+        endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
+
     }
 
 }

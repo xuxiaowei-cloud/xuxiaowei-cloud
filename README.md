@@ -88,7 +88,6 @@ cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
-│    └──authorization-server-ui             // 授权服务UI
 │    └──authorization-server                // 授权服务
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
@@ -126,7 +125,6 @@ cloud.xuxiaowei
 | gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
-| authorization-server-ui | 授权UI | authorization-server.example.xuxiaowei.cloud | 1311 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
 | resource-server | 资源 | resource-server.example.xuxiaowei.cloud | 1501 |
