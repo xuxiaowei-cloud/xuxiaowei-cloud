@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOauthClientDetailsService extends IService<OauthClientDetails> {
 
+    /**
+     * 根据 客户端ID 查询 客户端的详细信息
+     *
+     * @param clientId 客户端ID
+     * @return 返回 客户端的详细信息
+     */
+    OauthClientDetails getByClientId(String clientId);
+
 }
