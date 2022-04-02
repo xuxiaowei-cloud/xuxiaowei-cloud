@@ -1,5 +1,12 @@
 # exe
 
+## 阿里云盘分享
+
+1. [MySQL-Windows-Installer-5.5](https://www.aliyundrive.com/s/Aar2JF9bEtm)
+1. [MySQL-Windows-Installer-5.6](https://www.aliyundrive.com/s/SfS3o467KaA)
+1. [MySQL-Windows-Installer-5.7](https://www.aliyundrive.com/s/FVnS4ar5c6d)
+1. [MySQL-Windows-Installer-8.0](https://www.aliyundrive.com/s/FoL6dYLL3wp)
+
 ## [cports](cports.exe)
 
 - Windows 端口管理工具
