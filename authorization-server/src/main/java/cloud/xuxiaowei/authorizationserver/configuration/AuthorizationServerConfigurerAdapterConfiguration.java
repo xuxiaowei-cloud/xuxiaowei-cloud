@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,9 +15,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.*;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Map;
 
@@ -68,7 +68,7 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    private DataSource dataSource;
+    private ClientDetailsService clientDetailsService;
 
     private TokenStore tokenStore;
 
@@ -79,8 +79,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setClientDetailsService(@Qualifier("clientDetailsServiceImpl") ClientDetailsService clientDetailsService) {
+        this.clientDetailsService = clientDetailsService;
     }
 
     @Autowired
@@ -119,7 +119,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         // 查询客户端
-        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+        clients.withClientDetails(clientDetailsService);
 
     }
 
