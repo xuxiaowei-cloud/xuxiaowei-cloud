@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,9 +15,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.*;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -25,9 +26,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ import java.util.Map;
  * @see JwtAccessTokenConverter#enhance(OAuth2AccessToken, OAuth2Authentication) 增强Token
  * @see JwtTokenStore#readAccessToken(String) 解密Token
  * @see AuthorizationServerTokenServicesConfiguration
+ * @see ExceptionHandlerExceptionResolver
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_userinfo&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=token&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 Token（implicit，简化模式）</a>
@@ -66,7 +68,7 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    private DataSource dataSource;
+    private ClientDetailsService clientDetailsService;
 
     private TokenStore tokenStore;
 
@@ -77,8 +79,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setClientDetailsService(@Qualifier("clientDetailsServiceImpl") ClientDetailsService clientDetailsService) {
+        this.clientDetailsService = clientDetailsService;
     }
 
     @Autowired
@@ -117,7 +119,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         // 查询客户端
-        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+        clients.withClientDetails(clientDetailsService);
 
     }
 
@@ -138,6 +140,12 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
         // Token 增强
         endpoints.tokenEnhancer(tokenEnhancer);
+
+        // 自定义显示授权服务器的批准页面。
+        endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
+
+        // 自定义 用于显示授权服务器的错误页面（响应）。
+        endpoints.pathMapping("/oauth/error", "/oauth/customize_error");
 
     }
 

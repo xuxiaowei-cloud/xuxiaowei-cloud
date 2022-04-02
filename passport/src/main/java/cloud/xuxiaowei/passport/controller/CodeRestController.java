@@ -4,12 +4,14 @@ import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,6 +58,7 @@ public class CodeRestController {
      * @param session  Session，不存在时自动创建
      * @param code     授权码
      * @param state    状态码
+     * @throws IOException 重定向异常
      */
     @RequestMapping(params = {"code", "state"})
     private void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
@@ -89,6 +92,65 @@ public class CodeRestController {
         String accessToken = oauth2AccessToken.getAccessToken();
 
         response.sendRedirect(homePage + "?accessToken=" + accessToken);
+    }
+
+    /**
+     * 错误
+     *
+     * @param request          请求
+     * @param response         响应
+     * @param session          Session，不存在时自动创建
+     * @param error            错误类型
+     * @param errorDescription 错误描述
+     * @param state            状态码
+     * @return 返回 错误原因
+     */
+    @RequestMapping(params = {"error", "error_description", "state"})
+    private Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                   String error, @RequestParam("error_description") String errorDescription,
+                                   String code, String msg, String data, String explain, String field, String requestId,
+                                   String scope, String state) {
+
+        ResponseMap responseMap = ResponseMap.error()
+                .put("error", error)
+                .put("error_description", errorDescription)
+                .put("data", data)
+                .put("explain", explain)
+                .put("field", field)
+                .put("requestId", requestId)
+                .put("scope", scope)
+                .put("state", state);
+
+        if (StringUtils.hasText(code)) {
+            responseMap.setCode(code);
+        }
+        if (StringUtils.hasText(msg)) {
+            responseMap.setMsg(msg);
+        }
+
+        return responseMap;
+    }
+
+    /**
+     * 错误
+     *
+     * @param request          请求
+     * @param response         响应
+     * @param session          Session，不存在时自动创建
+     * @param error            错误类型
+     * @param errorDescription 错误描述
+     * @return 返回 错误原因
+     */
+    @RequestMapping(params = {"error", "error_description"})
+    private Response<?> error(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                              String error, @RequestParam("error_description") String errorDescription,
+                              String code, String msg, String data, String explain, String field, String requestId,
+                              String scope) {
+
+        return errorState(request, response, session,
+                error, errorDescription,
+                code, msg, data, explain, field, requestId,
+                scope, null);
     }
 
 }

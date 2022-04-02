@@ -4,7 +4,7 @@ import settings from '@/settings'
 
 export default createStore({
   state: { // 单一状态树
-    token: null, // Token
+    token: null // Token
   },
   getters: {
     /**

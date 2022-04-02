@@ -9,8 +9,6 @@ variables:
 cache:
   paths:
     - .m2/repository
-    - authorization-server-ui/node/
-    - authorization-server-ui/node_modules/
     - passport-ui/node/
     - passport-ui/node_modules/
     - ui/node/
@@ -34,11 +32,9 @@ package:
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
-    - mvn -pl authorization-server-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 授权服务前端可执行jar包打包完成
     - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
     - echo "以下命令再执行 package 后才能执行"
-    - mvn -pl authorization-server-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign authorization-server-ui/target/*.rar && echo 登录服务前端可执行jar包打包完成
     - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo 登录服务前端可执行jar包打包完成
   artifacts:
@@ -47,7 +43,6 @@ package:
       - target/xuxiaowei-cloud-starter-parent-*
       - admin-server/target/admin-server-*
       - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
       - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
       - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
       - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
@@ -236,15 +231,6 @@ s2:
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - echo
-    - MODULE='authorization-server-ui'
-    - echo MODULE：$MODULE
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建文件夹完成; fi
-    - RELEASE_PATH=/home/gitlab-runner/node/$MODULE
-    - echo RELEASE_PATH：$RELEASE_PATH
-    - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建发布文件夹完成; fi
-    - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
-    - echo
     - MODULE='passport-ui'
     - echo MODULE：$MODULE
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
@@ -258,7 +244,6 @@ s2:
       - target/xuxiaowei-cloud-starter-parent-*
       - admin-server/target/admin-server-*
       - authorization-server/target/authorization-server-*
-      - authorization-server-ui/target/authorization-server-ui-*
       - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
       - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
       - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*

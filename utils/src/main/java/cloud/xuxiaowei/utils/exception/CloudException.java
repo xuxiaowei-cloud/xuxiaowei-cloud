@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.utils.exception;
 
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.exception.client.ClientException;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +12,8 @@ import lombok.Setter;
  * 微服务 异常父类
  * <p>
  * 注意：<p>
- * 1、{@link LoginException} 及其子异常不属于此异常的子类
+ * 1、{@link LoginException} 及其子异常不属于此异常的子类<p>
+ * 1、{@link ClientException} 及其子异常不属于此异常的子类<p>
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -56,6 +59,7 @@ public class CloudException extends Exception {
     }
 
     public CloudException(String code, String msg) {
+        super(msg);
         this.code = code;
         this.msg = msg;
     }

@@ -4,8 +4,8 @@ import cloud.xuxiaowei.passport.configuration.DefaultBeanConfiguration;
 import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.exception.LoginException;
-import cloud.xuxiaowei.utils.exception.LoginParamPasswordValidException;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
+import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
