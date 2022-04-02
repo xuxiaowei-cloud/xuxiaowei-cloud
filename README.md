@@ -236,16 +236,33 @@ cloud.xuxiaowei
 1. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
 
 1. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
-1. [阿里云镜像站 CentOS](https://developer.aliyun.com/mirror/centos)
-1. [网易镜像 CentOS](https://mirrors.163.com/.help/centos.html)
-
 1. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
+
+1. [阿里云镜像站 CentOS](https://developer.aliyun.com/mirror/centos)
 1. [阿里云镜像站 Ubuntu](https://developer.aliyun.com/mirror/ubuntu)
+
+1. [网易镜像 CentOS](https://mirrors.163.com/.help/centos.html)
 1. [网易镜像 Ubuntu](http://mirrors.163.com/.help/ubuntu.html)
+
+1. [阿里云 Maven 镜像](https://developer.aliyun.com/mirror/maven)
+1. [阿里云云效 使用指南](https://developer.aliyun.com/mvn/guide)
+1. [阿里云云效 文件搜索](https://developer.aliyun.com/mvn/search)
+1. [阿里云云效 仓库文件](https://developer.aliyun.com/mvn/view)
+
+1. [阿里云 NPM](https://developer.aliyun.com/mirror/NPM)
+1. [阿里云 nodejs-release镜像](https://developer.aliyun.com/mirror/nodejs-release)
+1. [阿里云 mysql镜像](https://developer.aliyun.com/mirror/mysql)
+1. [阿里云 ubuntu-releases 镜像](https://developer.aliyun.com/mirror/ubuntu-releases)
+1. [阿里云 CentOS 镜像](https://developer.aliyun.com/mirror/centos)
 
 ## 开发工具
 
 1. IDEA 2021.1.3
+    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.exe)
+    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.win.zip)
+    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.tar.gz)
+    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.dmg)
+    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.3.3-aarch64.dmg)
     - 插件
         1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
         1. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
@@ -257,8 +274,16 @@ cloud.xuxiaowei
         1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
         1. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
 1. Alibaba dragonwell 8.10.11
+    - [Alibaba_Dragonwell_jdk-8.10.11_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_aarch64_linux.tar.gz)
+    - [Alibaba_Dragonwell_jdk-8.10.11_x64_alpine-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_alpine-linux.tar.gz)
+    - [Alibaba_Dragonwell_jdk-8.10.11_x64-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz)
+    - [Alibaba_Dragonwell_jdk-8.10.11_x86_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x86_windows.zip)
 1. Apache Maven 3.6.3
+    - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
+    - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
 1. node v16.14.0
+    - [nodejs](https://nodejs.org/dist/v16.14.0)
+    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.14.0)
 1. npm 8.3.1
 1. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
 1. [SVG转PNG](https://www.aconvert.com/cn/image/svg-to-png/)
