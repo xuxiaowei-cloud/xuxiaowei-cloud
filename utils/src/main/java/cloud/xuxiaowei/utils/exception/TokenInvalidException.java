@@ -35,11 +35,11 @@ public class TokenInvalidException extends TokenException {
     }
 
     public TokenInvalidException(Throwable cause) {
-        super(cause);
+        this(CodeEnums.T10001.code, CodeEnums.T10001.msg, cause);
     }
 
     public TokenInvalidException(String msg, Throwable cause) {
-        super(msg, cause);
+        this(CodeEnums.T10001.code, msg, cause);
     }
 
 }
