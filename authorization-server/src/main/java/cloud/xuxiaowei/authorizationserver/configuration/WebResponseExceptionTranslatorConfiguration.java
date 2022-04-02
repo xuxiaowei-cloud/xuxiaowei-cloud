@@ -2,11 +2,13 @@ package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -14,10 +16,14 @@ import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
+import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.io.IOException;
@@ -34,6 +40,7 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
  * @see DefaultWebResponseExceptionTranslator
  * @since 0.0.1
  */
+@Slf4j
 @SuppressWarnings({"deprecation"})
 @Configuration
 public class WebResponseExceptionTranslatorConfiguration implements WebResponseExceptionTranslator<OAuth2Exception> {
@@ -41,6 +48,11 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
     @Autowired
     public void setCheckTokenEndpoint(CheckTokenEndpoint checkTokenEndpoint) {
         checkTokenEndpoint.setExceptionTranslator(this);
+    }
+
+    @Autowired
+    public void setAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
+        authorizationEndpoint.setProviderExceptionHandler(this);
     }
 
     /**
@@ -66,22 +78,38 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             @SuppressWarnings("all")
             OAuth2Exception oauth2Exception = (OAuth2Exception) ase;
 
-            String message = oauth2Exception.getMessage();
-            if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
-                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10001.code);
-                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10001.msg);
-            } else if (CODE_ENUMS_T10002_MESSAGE.equals(message)) {
-                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10002.code);
-                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10002.msg);
-            } else {
-                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
-                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
-            }
-
             oauth2Exception.addAdditionalInformation(Response.DATA, null);
             oauth2Exception.addAdditionalInformation(Response.FIELD, null);
             oauth2Exception.addAdditionalInformation(Response.EXPLAIN, null);
             oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(REQUEST_ID));
+
+            if (oauth2Exception instanceof UnsupportedResponseTypeException) {
+
+                MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+                multiValueMap.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML_VALUE);
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20003.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20003.msg);
+
+                log.error("不支持的响应类型异常：", oauth2Exception);
+
+                return new ResponseEntity<>(oauth2Exception, multiValueMap, HttpStatus.OK);
+
+            } else {
+                String message = oauth2Exception.getMessage();
+                if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
+                    oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10001.code);
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10001.msg);
+                } else if (CODE_ENUMS_T10002_MESSAGE.equals(message)) {
+                    oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10002.code);
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10002.msg);
+                } else {
+                    oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
+                }
+            }
+
+            log.error("授权异常：", oauth2Exception);
 
             return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
         }
