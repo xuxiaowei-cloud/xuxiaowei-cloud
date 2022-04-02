@@ -2,6 +2,7 @@ package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,8 @@ import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.io.IOException;
+
+import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 
 /**
  * Web 响应异常翻译器 配置
@@ -78,7 +81,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             oauth2Exception.addAdditionalInformation(Response.DATA, null);
             oauth2Exception.addAdditionalInformation(Response.FIELD, null);
             oauth2Exception.addAdditionalInformation(Response.EXPLAIN, null);
-            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, null);
+            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(REQUEST_ID));
 
             return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
         }
