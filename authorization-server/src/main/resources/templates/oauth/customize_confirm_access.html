@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>请求授权</title>
+</head>
+<body>
+
+<h3>您是否授权“[[${clientId}]]”访问受保护的资源？</h3>
+
+<form id="form-authorize" action="" method="post">
+
+    <input type="hidden" name="_csrf" th:value="${_csrf}">
+    <input type="hidden" name="user_oauth_approval" value="true">
+
+    <ul>
+        <li th:each="scope:${scopes}">
+            <div>
+                [[${'scope.' + scope}]]
+                <label>
+                    <input type="radio" th:name="${'scope.' + scope}" th:id="${'scope-' + scope + '-true'}"
+                           value="true" th:text="同意">
+                </label>
+                <label>
+                    <input type="radio" th:name="${'scope.' + scope}" th:id="${'scope-' + scope + '-false'}"
+                           value="false" th:text="拒绝" checked>
+                </label>
+            </div>
+        </li>
+    </ul>
+
+    <button name="authorize" type="submit" id="submit">授权</button>
+</form>
+
+</body>
+
+<script th:inline="javascript" type="text/javascript">
+    window.onload = function () {
+        if ([[${silentAuth}]] === true) {
+            document.getElementById("scope-snsapi_base-true").checked = true
+            document.getElementById("submit").click()
+        }
+    }
+</script>
+
+</html>

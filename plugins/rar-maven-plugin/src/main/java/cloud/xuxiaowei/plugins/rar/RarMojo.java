@@ -98,10 +98,11 @@ public class RarMojo extends AbstractMojo {
     protected MavenSession session;
 
     protected static File getRarFile(File basedir, String finalName, String classifier) {
+        String separate = "-";
         if (classifier == null) {
             classifier = "";
-        } else if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
-            classifier = "-" + classifier;
+        } else if (classifier.trim().length() > 0 && !classifier.startsWith(separate)) {
+            classifier = separate + classifier;
         }
         return new File(basedir, finalName + classifier + ".rar");
     }

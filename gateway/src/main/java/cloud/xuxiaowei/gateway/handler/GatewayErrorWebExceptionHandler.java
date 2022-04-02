@@ -1,10 +1,14 @@
 package cloud.xuxiaowei.gateway.handler;
 
+import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
+import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,11 @@ import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+
+import static cloud.xuxiaowei.utils.Constant.IP;
+import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 
 /**
  * 网关 异常 响应处理 {@link WebExceptionHandler}
@@ -40,6 +49,13 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
     public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
 
+    private ILogService logService;
+
+    @Autowired
+    public void setLogService(ILogService logService) {
+        this.logService = logService;
+    }
+
     @Setter
     private int order = ORDERED;
 
@@ -50,10 +66,28 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
     @NonNull
     @Override
+    @SuppressWarnings({"deprecation"})
     public Mono<Void> handle(@NonNull ServerWebExchange exchange, @NonNull Throwable ex) {
 
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
+
+        // 日志中放入请求ID
+        String requestId = request.getId();
+        MDC.put(REQUEST_ID, requestId);
+
+        // 请求中放入用户IP
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+        if (remoteAddress == null) {
+            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
+            return ResponseUtils.writeWith(response, error);
+        }
+        InetAddress address = remoteAddress.getAddress();
+        String hostName = address.getHostName();
+        String hostAddress = address.getHostAddress();
+        MDC.put(IP, hostAddress);
+
+        LogGlobalFilter.save(logService, request, hostAddress, hostName, ex);
 
         MediaType contentType = request.getHeaders().getContentType();
 
@@ -68,7 +102,6 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         response.getHeaders().setAccept(request.getHeaders().getAccept());
         response.setStatusCode(HttpStatus.OK);
 
-        String requestId = request.getId();
         log.error(requestId, ex);
 
         Response<?> error = Response.error(CodeEnums.S10000.code, CodeEnums.S10000.msg);

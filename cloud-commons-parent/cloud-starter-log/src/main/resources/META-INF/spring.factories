@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cloud.xuxiaowei.log.service.impl.LogServiceImpl

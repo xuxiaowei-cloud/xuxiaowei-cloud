@@ -65,7 +65,7 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.5">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.6">
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -88,7 +88,6 @@ cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
-│    └──authorization-server-ui             // 授权服务UI
 │    └──authorization-server                // 授权服务
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
@@ -98,6 +97,7 @@ cloud.xuxiaowei
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
+│        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
 │        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件
@@ -125,7 +125,6 @@ cloud.xuxiaowei
 | gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
-| authorization-server-ui | 授权UI | authorization-server.example.xuxiaowei.cloud | 1311 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
 | resource-server | 资源 | resource-server.example.xuxiaowei.cloud | 1501 |
@@ -142,7 +141,7 @@ cloud.xuxiaowei
 | 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://passport.example.xuxiaowei.cloud:1411/code | true |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
 
 - authorized_grant_types
     - 默认值：authorization_code,refresh_token
@@ -163,6 +162,11 @@ cloud.xuxiaowei
         ```
         org.springframework.security.oauth2.provider.token.DefaultTokenServices#refreshTokenValiditySeconds
         ```
+- scope
+    - 缺省时，全部授权
+- web_server_redirect_uri
+    - 缺省时，数据库只有一个重定向地址时，不报错。
+    - 缺省时，数据库存在多个重定向地址时，报错。
 - autoapprove
     - true
         - 全部自动授权

@@ -11,7 +11,9 @@ import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,12 +29,80 @@ import java.util.Scanner;
 @Slf4j
 class MyBatisPlusGeneratorTests {
 
+    /**
+     * 数据源
+     *
+     * @author xuxiaowei
+     * @since 0.0.1
+     */
+    @Getter
+    private enum DataSource {
+
+        /**
+         * 微服务
+         */
+        XUXIAOWEI_CLOUD("jdbc:mysql://127.0.0.1:3306/xuxiaowei_cloud", "root", "root", "微服务 数据库"),
+
+        /**
+         * 微服务-日志
+         */
+        XUXIAOWEI_CLOUD_LOG("jdbc:mysql://127.0.0.1:3306/xuxiaowei_cloud_log", "root", "root", "微服务 日志 数据库"),
+
+        ;
+
+        private final String url;
+
+        private final String username;
+
+        private final String password;
+
+        private final String explain;
+
+        DataSource(String url, String username, String password, String explain) {
+            this.url = url;
+            this.username = username;
+            this.password = password;
+            this.explain = explain;
+        }
+
+    }
+
     public static void main(String[] args) {
 
+        DataSource[] values = DataSource.values();
+
+        for (int i = 0; i < values.length; i++) {
+            DataSource value = values[i];
+            System.out.printf("数据库序号：%s 数据库说明：%s 数据库连接串：%s 数据库用户名：%s%n",
+                    i, value.explain, value.url, value.username);
+        }
+
+        String dataSourceScanner = scanner("请选择数据库序号");
+        int dataSourceNum;
+
+        try {
+            int integer = Integer.parseInt(dataSourceScanner);
+
+            if (integer >= 0 && integer < values.length) {
+                dataSourceNum = integer;
+            } else {
+                System.err.println("输入数据库序号不在有效范围内");
+                main(args);
+                return;
+            }
+
+        } catch (Exception e) {
+            System.err.println("输入数据库序号不正确");
+            e.printStackTrace();
+            main(args);
+            return;
+        }
+
+        DataSource dataSource = values[dataSourceNum];
+
         DataSourceConfig.Builder dataSourceConfig =
-                new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/xuxiaowei_cloud", "root", "root")
+                new DataSourceConfig.Builder(dataSource.url, dataSource.username, dataSource.password)
                         .dbQuery(new MySqlQuery())
-                        .schema("users")
                         .typeConvert(new MySqlTypeConvert())
                         .keyWordsHandler(new MySqlKeyWordsHandler());
 
@@ -40,8 +110,11 @@ class MyBatisPlusGeneratorTests {
         String fileSeparator = System.getProperty("file.separator");
         List<Module> moduleList = Arrays.asList(
                 new Module("authorization-server", "cloud.xuxiaowei.authorizationserver"),
+                new Module("resource-server", "cloud.xuxiaowei.resourceserver"),
+                new Module("gateway", "cloud.xuxiaowei.gateway"),
                 new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-core", "cloud.xuxiaowei.core"),
-                new Module("resource-server", "cloud.xuxiaowei.resourceserver")
+                new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-log", "cloud.xuxiaowei.log"),
+                new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-system", "cloud.xuxiaowei.system")
         );
 
         System.out.println("项目文件夹：" + userDir);
@@ -120,6 +193,21 @@ class MyBatisPlusGeneratorTests {
 
         private String packageName;
 
+    }
+
+    /**
+     * 读取控制台内容
+     */
+    private static String scanner(String tip) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(("请输入" + tip + "："));
+        if (scanner.hasNext()) {
+            String ipt = scanner.next();
+            if (StringUtils.isNotBlank(ipt)) {
+                return ipt;
+            }
+        }
+        throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
     /**

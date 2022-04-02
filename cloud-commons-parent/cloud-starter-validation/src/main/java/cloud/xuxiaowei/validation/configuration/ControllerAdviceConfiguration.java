@@ -1,7 +1,8 @@
 package cloud.xuxiaowei.validation.configuration;
 
 import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.exception.TokenException;
+import cloud.xuxiaowei.utils.exception.client.ClientException;
+import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +30,26 @@ import java.util.List;
 @Slf4j
 @ControllerAdvice(basePackages = {
         "cloud.xuxiaowei",
-        "org.springframework.security.oauth2.provider.endpoint"
+        "org.springframework.security.oauth2.provider.endpoint",
+        "org.springframework.security.oauth2.provider.request"
 })
 public class ControllerAdviceConfiguration {
+
+    /**
+     * 客户端 异常父类
+     *
+     * @param exception 客户端 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(ClientException.class)
+    public Response<?> clientException(ClientException exception, WebRequest request) {
+
+        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+
+        return Response.error(exception.code, exception.msg);
+    }
 
     /**
      * Token 异常父类

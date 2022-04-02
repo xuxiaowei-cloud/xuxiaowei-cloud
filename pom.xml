@@ -23,7 +23,7 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.6.5</spring-boot.version>
+        <spring-boot.version>2.6.6</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -36,7 +36,7 @@
 
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
-        <spring-security-oauth2-autoconfigure.version>2.6.3</spring-security-oauth2-autoconfigure.version>
+        <spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -50,6 +50,10 @@
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+        <!-- 多数据源 -->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+        <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+
         <!-- guava -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>31.1-jre</guava.version>
@@ -74,8 +78,6 @@
         <module>admin-server</module>
         <!-- 授权服务 -->
         <module>authorization-server</module>
-        <!-- 授权服务UI -->
-        <module>authorization-server-ui</module>
         <!-- 登录服务UI -->
         <module>passport-ui</module>
         <!-- 登录服务 -->
@@ -165,6 +167,14 @@
                 <artifactId>spring-boot-starter-velocity</artifactId>
                 <version>${spring-boot-starter-velocity.version}</version>
             </dependency>
+            <!-- 多数据源 -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot-starter.version}</version>
+            </dependency>
+
             <!-- guava -->
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
@@ -173,6 +183,7 @@
                 <version>${guava.version}</version>
             </dependency>
             <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
+            <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
             <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
             <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
             <dependency>
@@ -181,6 +192,7 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <!-- 修复 spring-security-oauth2-autoconfigure 引入 bcpkix-jdk15on 的漏洞 -->
+            <!-- 子模块中引入 spring-security-oauth2-autoconfigure 可缺省引入 -->
             <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
             <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
             <dependency>
@@ -205,6 +217,12 @@
             <dependency>
                 <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-loadbalancer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 日志组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- MyBatis 组件 -->
@@ -261,12 +279,6 @@
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>passport-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 授权服务UI -->
-            <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
-                <artifactId>authorization-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
