@@ -246,11 +246,22 @@ cloud.xuxiaowei
 ## 开发工具
 
 1. IDEA 2021.1.3
+    - 插件
+        1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
+        1. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
+        1. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
+        1. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
+        1. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
+        1. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
+        1. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
+        1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
+        1. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
 1. Alibaba dragonwell 8.10.11
 1. Apache Maven 3.6.3
 1. node v16.14.0
 1. npm 8.3.1
 1. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
+1. [SVG转PNG](https://www.aconvert.com/cn/image/svg-to-png/)
 
 ## 鸣谢
 
