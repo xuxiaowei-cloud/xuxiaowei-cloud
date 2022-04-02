@@ -25,6 +25,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
@@ -52,6 +53,7 @@ import java.util.Map;
  * @see JwtAccessTokenConverter#enhance(OAuth2AccessToken, OAuth2Authentication) 增强Token
  * @see JwtTokenStore#readAccessToken(String) 解密Token
  * @see AuthorizationServerTokenServicesConfiguration
+ * @see ExceptionHandlerExceptionResolver
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=code&scope=snsapi_userinfo&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
  * @see <a href="http://authorization-server.example.xuxiaowei.cloud:1301/oauth/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://passport.example.xuxiaowei.cloud:1411/code&response_type=token&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 Token（implicit，简化模式）</a>
@@ -141,6 +143,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
         // 自定义显示授权服务器的批准页面。
         endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
+
+        // 自定义 用于显示授权服务器的错误页面（响应）。
+        endpoints.pathMapping("/oauth/error", "/oauth/customize_error");
 
     }
 
