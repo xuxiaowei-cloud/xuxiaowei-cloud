@@ -13,10 +13,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
-import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
+import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
@@ -94,6 +91,14 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20004.msg);
 
                 log.error("重定向不匹配异常：", oauth2Exception);
+
+            } else if (oauth2Exception instanceof InvalidScopeException) {
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20005.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20005.msg);
+
+                log.error("范围不匹配异常：", oauth2Exception);
+
             } else {
                 String message = oauth2Exception.getMessage();
                 if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
