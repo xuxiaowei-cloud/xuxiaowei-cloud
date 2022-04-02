@@ -2,23 +2,17 @@ package cloud.xuxiaowei.utils.exception;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 /**
- * 微服务 异常父类
- * <p>
+ * 客户端 异常父类
  * 注意：<p>
- * 1、{@link LoginException} 及其子异常不属于此异常的子类<p>
- * 1、{@link ClientException} 及其子异常不属于此异常的子类<p>
+ * 1、{@link ClientException} 及其子异常不属于 {@link CloudException} 异常的子类<p>
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class CloudException extends Exception {
+public class ClientException extends RuntimeException {
 
     /**
      * 错误码
@@ -46,36 +40,36 @@ public class CloudException extends Exception {
     @Setter(AccessLevel.NONE)
     public String explain;
 
-    public CloudException() {
-        this.code = CodeEnums.ERROR.code;
-        this.msg = CodeEnums.ERROR.msg;
+    public ClientException() {
+        this.code = CodeEnums.C10000.code;
+        this.msg = CodeEnums.C10000.msg;
     }
 
-    public CloudException(String msg) {
-        this.code = CodeEnums.ERROR.code;
+    public ClientException(String msg) {
+        this.code = CodeEnums.C10000.code;
         this.msg = msg;
     }
 
-    public CloudException(String code, String msg) {
+    public ClientException(String code, String msg) {
         super(msg);
         this.code = code;
         this.msg = msg;
     }
 
-    public CloudException(String code, String msg, Throwable cause) {
+    public ClientException(String code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = code;
         this.msg = msg;
     }
 
-    public CloudException(String code, String msg, String field, Throwable cause) {
+    public ClientException(String code, String msg, String field, Throwable cause) {
         super(msg, cause);
         this.code = code;
         this.msg = msg;
         this.field = field;
     }
 
-    public CloudException(String code, String msg, String field, String explain, Throwable cause) {
+    public ClientException(String code, String msg, String field, String explain, Throwable cause) {
         super(msg, cause);
         this.code = code;
         this.msg = msg;
@@ -83,15 +77,15 @@ public class CloudException extends Exception {
         this.explain = explain;
     }
 
-    public CloudException(Throwable cause) {
-        super(CodeEnums.ERROR.msg, cause);
-        this.code = CodeEnums.ERROR.code;
-        this.msg = CodeEnums.ERROR.msg;
+    public ClientException(Throwable cause) {
+        super(CodeEnums.C10000.msg, cause);
+        this.code = CodeEnums.C10000.code;
+        this.msg = CodeEnums.C10000.msg;
     }
 
-    public CloudException(String msg, Throwable cause) {
+    public ClientException(String msg, Throwable cause) {
         super(msg, cause);
-        this.code = CodeEnums.ERROR.code;
+        this.code = CodeEnums.C10000.code;
         this.msg = msg;
     }
 
