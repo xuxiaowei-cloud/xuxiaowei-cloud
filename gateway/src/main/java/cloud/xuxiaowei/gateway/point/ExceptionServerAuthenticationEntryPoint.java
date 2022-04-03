@@ -11,6 +11,9 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.server.resource.BearerTokenError;
+import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.security.oauth2.server.resource.web.server.BearerTokenServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -43,9 +46,9 @@ public class ExceptionServerAuthenticationEntryPoint implements ServerAuthentica
 
         String requestId = request.getId();
 
-        Mono<Void> log = GatewayErrorWebExceptionHandler.log(logService, request, response, ex, requestId);
-        if (log != null) {
-            return log;
+        Mono<Void> logHandler = GatewayErrorWebExceptionHandler.log(logService, request, response, ex, requestId);
+        if (logHandler != null) {
+            return logHandler;
         }
 
         Response<?> error = Response.error(CodeEnums.T10001.code, CodeEnums.T10001.msg);
@@ -54,6 +57,21 @@ public class ExceptionServerAuthenticationEntryPoint implements ServerAuthentica
         if (ex instanceof AuthenticationCredentialsNotFoundException) {
             error.setCode(CodeEnums.T10003.code);
             error.setMsg(CodeEnums.T10003.msg);
+        } else if (ex instanceof InvalidBearerTokenException) {
+            InvalidBearerTokenException invalidBearerTokenException = (InvalidBearerTokenException) ex;
+            OAuth2Error oauth2Error = invalidBearerTokenException.getError();
+
+            if (oauth2Error instanceof BearerTokenError) {
+                BearerTokenError bearerTokenError = (BearerTokenError) oauth2Error;
+
+                error.setCode(CodeEnums.T10002.code);
+                error.setMsg(CodeEnums.T10002.msg);
+                error.setExplain(bearerTokenError.getDescription());
+            } else {
+                error.setCode(CodeEnums.T10004.code);
+                error.setMsg(CodeEnums.T10004.msg);
+            }
+
         } else {
             error.setExplain("异常代码待划分");
         }

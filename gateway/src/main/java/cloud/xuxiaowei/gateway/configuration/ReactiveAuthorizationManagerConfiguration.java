@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
+import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -35,6 +36,7 @@ import java.util.List;
  *
  * @author xuxiaowei
  * @see EnableWebFluxSecurity
+ * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级 <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
  * @since 0.0.1
  */
 @Slf4j
@@ -70,6 +72,9 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
         // 启用 OAuth2 JWT 资源服务器支持
         http.oauth2ResourceServer().jwt().publicKey((RSAPublicKey) publicKey);
+
+        // 资源服务异常切入点（验证Token异常）
+        http.oauth2ResourceServer().authenticationEntryPoint(serverAuthenticationEntryPoint);
 
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
 
