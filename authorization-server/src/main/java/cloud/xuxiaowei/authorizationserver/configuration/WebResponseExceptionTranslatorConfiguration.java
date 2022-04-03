@@ -5,6 +5,7 @@ import cloud.xuxiaowei.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,13 +42,29 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 public class WebResponseExceptionTranslatorConfiguration implements WebResponseExceptionTranslator<OAuth2Exception> {
 
     /**
+     * 响应JSON数据
+     */
+    private boolean responseJson;
+
+    /**
+     * 用于配置成 {@link Bean}
+     */
+    public WebResponseExceptionTranslatorConfiguration() {
+
+    }
+
+    public WebResponseExceptionTranslatorConfiguration(boolean responseJson) {
+        this.responseJson = responseJson;
+    }
+
+    /**
      * 修改 检查Token桶 的异常翻译器为本类
      *
      * @param checkTokenEndpoint 检查Token桶
      */
     @Autowired
     public void setCheckTokenEndpoint(CheckTokenEndpoint checkTokenEndpoint) {
-        checkTokenEndpoint.setExceptionTranslator(this);
+        checkTokenEndpoint.setExceptionTranslator(new WebResponseExceptionTranslatorConfiguration(true));
     }
 
     /**
@@ -57,7 +74,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
      */
     @Autowired
     public void setAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
-        authorizationEndpoint.setProviderExceptionHandler(this);
+        authorizationEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(false));
     }
 
     /**
@@ -133,7 +150,11 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 log.error("授权异常：", oauth2Exception);
             }
 
-            return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
+            if (responseJson) {
+                return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
+            }
+
+            return handleOAuth2Exception(oauth2Exception);
         }
 
         ///////////////////////////////以下异常待开发/////////////////////////////
