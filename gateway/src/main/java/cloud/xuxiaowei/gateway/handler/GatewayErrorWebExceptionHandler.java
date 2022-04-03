@@ -3,6 +3,7 @@ package cloud.xuxiaowei.gateway.handler;
 import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -71,6 +73,13 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
+        HttpHeaders headers = response.getHeaders();
+
+        // 解决服务未发现时跨域问题
+        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+        headers.setAccessControlAllowOrigin(RequestUtils.getOrigin(request));
+        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
+        headers.setAccessControlAllowCredentials(true);
 
         // 日志中放入请求ID
         String requestId = request.getId();
@@ -92,14 +101,14 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         MediaType contentType = request.getHeaders().getContentType();
 
         if (contentType == null) {
-            response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         } else if (contentType.equals(MediaType.APPLICATION_JSON)) {
-            response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         } else {
-            response.getHeaders().setContentType(contentType);
+            headers.setContentType(contentType);
         }
 
-        response.getHeaders().setAccept(request.getHeaders().getAccept());
+        headers.setAccept(request.getHeaders().getAccept());
         response.setStatusCode(HttpStatus.OK);
 
         log.error(requestId, ex);
