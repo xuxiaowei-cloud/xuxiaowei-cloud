@@ -40,11 +40,21 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 @Configuration
 public class WebResponseExceptionTranslatorConfiguration implements WebResponseExceptionTranslator<OAuth2Exception> {
 
+    /**
+     * 修改 检查Token桶 的异常翻译器为本类
+     *
+     * @param checkTokenEndpoint 检查Token桶
+     */
     @Autowired
     public void setCheckTokenEndpoint(CheckTokenEndpoint checkTokenEndpoint) {
         checkTokenEndpoint.setExceptionTranslator(this);
     }
 
+    /**
+     * 修改 授权桶 的异常处理程序为本类
+     *
+     * @param authorizationEndpoint 授权桶
+     */
     @Autowired
     public void setAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
         authorizationEndpoint.setProviderExceptionHandler(this);
