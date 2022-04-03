@@ -5,7 +5,7 @@ import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
-import cloud.xuxiaowei.utils.ServiceConstant;
+import cloud.xuxiaowei.utils.ServiceEnums;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
@@ -117,7 +117,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         String queryString = uri.getQuery();
 
         Log log = new Log();
-        log.setModule(ServiceConstant.GATEWAY);
+        log.setModule(ServiceEnums.GATEWAY.value);
         log.setDate(localDate);
         log.setYear(year);
         log.setMonth(month);

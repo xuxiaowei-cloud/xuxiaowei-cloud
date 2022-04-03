@@ -2,10 +2,7 @@ package cloud.xuxiaowei.gateway.handler;
 
 import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.RequestUtils;
-import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.*;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -27,6 +24,7 @@ import reactor.core.publisher.Mono;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.URI;
 
 import static cloud.xuxiaowei.utils.Constant.IP;
 import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
@@ -121,7 +119,22 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
             HttpStatus status = rse.getStatus();
             if (status.value() == HttpStatus.NOT_FOUND.value()) {
                 error.setCode(CodeEnums.S10001.code);
-                error.setMsg(CodeEnums.S10001.msg);
+
+                URI uri = request.getURI();
+                String path = uri.getPath();
+                String[] split = path.split("/");
+                if (split.length < 1) {
+                    error.setMsg(CodeEnums.S10001.msg);
+                } else {
+                    String service = split[1];
+                    ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
+                    if (serviceEnums == null) {
+                        error.setMsg(CodeEnums.S10001.msg);
+                    } else {
+                        error.setMsg(CodeEnums.S10001.msg + "：" + serviceEnums.name);
+                    }
+                }
+
             } else {
                 error.setExplain("异常代码待划分");
             }

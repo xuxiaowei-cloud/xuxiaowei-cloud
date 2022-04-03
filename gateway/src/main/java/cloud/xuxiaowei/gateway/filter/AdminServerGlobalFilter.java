@@ -3,7 +3,7 @@ package cloud.xuxiaowei.gateway.filter;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
-import cloud.xuxiaowei.utils.ServiceConstant;
+import cloud.xuxiaowei.utils.ServiceEnums;
 import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -48,7 +48,7 @@ public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
-        if (path.contains(ServiceConstant.ADMIN_SERVER)) {
+        if (path.contains(ServiceEnums.ADMIN_SERVER.value)) {
             ServerHttpResponse response = exchange.getResponse();
             Response<?> error = Response.error(CodeEnums.X10002.code, CodeEnums.X10002.msg);
             return ResponseUtils.writeWith(response, error);
