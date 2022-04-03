@@ -66,50 +66,17 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
     @NonNull
     @Override
-    @SuppressWarnings({"deprecation"})
     public Mono<Void> handle(@NonNull ServerWebExchange exchange, @NonNull Throwable ex) {
 
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-        HttpHeaders headers = response.getHeaders();
 
-        // 解决服务未发现时跨域问题
-        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-        headers.setAccessControlAllowOrigin(RequestUtils.getOrigin(request));
-        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
-        headers.setAccessControlAllowCredentials(true);
-
-        // 日志中放入请求ID
         String requestId = request.getId();
-        MDC.put(REQUEST_ID, requestId);
 
-        // 请求中放入用户IP
-        InetSocketAddress remoteAddress = request.getRemoteAddress();
-        if (remoteAddress == null) {
-            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
-            return ResponseUtils.writeWith(response, error);
+        Mono<Void> log = log(logService, request, response, ex, requestId);
+        if (log != null) {
+            return log;
         }
-        InetAddress address = remoteAddress.getAddress();
-        String hostName = address.getHostName();
-        String hostAddress = address.getHostAddress();
-        MDC.put(IP, hostAddress);
-
-        LogGlobalFilter.save(logService, request, hostAddress, hostName, ex);
-
-        MediaType contentType = request.getHeaders().getContentType();
-
-        if (contentType == null) {
-            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        } else if (contentType.equals(MediaType.APPLICATION_JSON)) {
-            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        } else {
-            headers.setContentType(contentType);
-        }
-
-        headers.setAccept(request.getHeaders().getAccept());
-        response.setStatusCode(HttpStatus.OK);
-
-        log.error(requestId, ex);
 
         Response<?> error = Response.error(CodeEnums.S10000.code, CodeEnums.S10000.msg);
         error.setRequestId(requestId);
@@ -144,6 +111,63 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         }
 
         return ResponseUtils.writeWith(response, error);
+    }
+
+    /**
+     * 日志储存
+     * <p>
+     * 代码抽取
+     *
+     * @param logService 日志服务接口
+     * @param request    请求
+     * @param response   响应
+     * @param ex         异常
+     * @param requestId  请求ID
+     * @return 返回日志，不为空时，直接在调用出返回。为空时，继续执行
+     */
+    @SuppressWarnings({"deprecation"})
+    public static Mono<Void> log(ILogService logService, ServerHttpRequest request, ServerHttpResponse response,
+                                 Throwable ex, String requestId) {
+        HttpHeaders headers = response.getHeaders();
+
+        // 解决服务未发现时跨域问题
+        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+        headers.setAccessControlAllowOrigin(RequestUtils.getOrigin(request));
+        // Access to XMLHttpRequest at '……' from origin '……' has been blocked by CORS policy: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
+        headers.setAccessControlAllowCredentials(true);
+
+        // 日志中放入请求ID
+        MDC.put(REQUEST_ID, requestId);
+
+        // 请求中放入用户IP
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+        if (remoteAddress == null) {
+            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
+            return ResponseUtils.writeWith(response, error);
+        }
+        InetAddress address = remoteAddress.getAddress();
+        String hostName = address.getHostName();
+        String hostAddress = address.getHostAddress();
+        MDC.put(IP, hostAddress);
+
+        LogGlobalFilter.save(logService, request, hostAddress, hostName, ex);
+
+        MediaType contentType = request.getHeaders().getContentType();
+
+        if (contentType == null) {
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        } else if (contentType.equals(MediaType.APPLICATION_JSON)) {
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        } else {
+            headers.setContentType(contentType);
+        }
+
+        headers.setAccept(request.getHeaders().getAccept());
+        response.setStatusCode(HttpStatus.OK);
+
+        log.error(requestId, ex);
+
+        return null;
     }
 
 }
