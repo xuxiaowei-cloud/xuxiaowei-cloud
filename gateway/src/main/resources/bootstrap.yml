@@ -192,3 +192,16 @@ spring:
             allowedMethods: "GET,POST"
             # 允许跨域请求中的请求头字段，全部：*
             allowedHeaders: "*"
+
+---
+
+# 加密配置
+encrypt:
+  key-store:
+    # keytool -genkeypair -alias "xuxiaowei.cloud-alias" -keyalg RSA -validity 3650 -keystore xuxiaowei.cloud.jks -storepass "xuxiaowei.cloud-storepass" -dname "CN=徐晓伟,OU=徐晓伟工作室,O=徐晓伟工作室,L=青岛,ST=山东,C=CH"
+    # 密钥口令和密钥库口令相同（否则可能验证失败）
+    location: classpath:/xuxiaowei.cloud.jks
+    # 别名
+    alias: xuxiaowei.cloud-alias
+    # 密码
+    password: xuxiaowei.cloud-storepass
