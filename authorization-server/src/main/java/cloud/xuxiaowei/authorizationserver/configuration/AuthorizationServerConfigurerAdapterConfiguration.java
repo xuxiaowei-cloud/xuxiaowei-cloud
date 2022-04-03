@@ -29,6 +29,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Map;
 
@@ -68,6 +69,11 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {
 
+    /**
+     * 可选配置，用于查询客户端信息
+     */
+    private DataSource dataSource;
+
     private ClientDetailsService clientDetailsService;
 
     private TokenStore tokenStore;
@@ -77,6 +83,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     private AuthorizationCodeServices authorizationCodeServices;
 
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Autowired
     public void setClientDetailsService(@Qualifier("clientDetailsServiceImpl") ClientDetailsService clientDetailsService) {
@@ -118,7 +129,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        // 查询客户端
+        // 查询客户端：<code>clients.withClientDetails(new JdbcClientDetailsService(dataSource));</code>
+
+        // 自定义查询客户信息
         clients.withClientDetails(clientDetailsService);
 
     }
