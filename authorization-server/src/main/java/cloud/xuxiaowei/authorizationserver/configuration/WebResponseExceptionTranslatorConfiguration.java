@@ -99,6 +99,13 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
 
                 log.error("范围不匹配异常：", oauth2Exception);
 
+            } else if (oauth2Exception instanceof BadClientCredentialsException) {
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20000.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20000.msg);
+
+                log.error("客户端验证异常：", oauth2Exception);
+
             } else {
                 String message = oauth2Exception.getMessage();
                 if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
