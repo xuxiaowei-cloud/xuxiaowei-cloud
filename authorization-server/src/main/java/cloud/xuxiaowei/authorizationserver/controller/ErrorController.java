@@ -21,7 +21,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Controller
-public class ConfirmErrorController {
+public class ErrorController {
 
     private static final String ERROR = "<html><body><h1>OAuth 错误</h1><p>%errorSummary%</p></body></html>";
 
