@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,7 @@ public class ResponseUtils {
      */
     @SneakyThrows
     @SuppressWarnings({"deprecation"})
-    public static Mono<Void> writeWith(ServerHttpResponse response, Object object) {
+    public static Mono<Void> writeWith(@NonNull ServerHttpResponse response, Object object) {
 
         // 响应状态码
         response.setStatusCode(HttpStatus.OK);
@@ -56,7 +57,7 @@ public class ResponseUtils {
      * @param json     String 类型的数据
      * @throws IOException IO 异常
      */
-    public static void response(HttpServletResponse response, String json) throws IOException {
+    public static void response(@NonNull HttpServletResponse response, String json) throws IOException {
         response(response, (Object) json);
     }
 
@@ -68,7 +69,7 @@ public class ResponseUtils {
      * @throws IOException IO 异常
      */
     @SuppressWarnings("rawtypes")
-    public static void response(HttpServletResponse response, Map map) throws IOException {
+    public static void response(@NonNull HttpServletResponse response, Map map) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         String json = objectMapper.writeValueAsString(map);
@@ -83,7 +84,7 @@ public class ResponseUtils {
      * @throws IOException IO 异常
      */
     @SuppressWarnings({"deprecation"})
-    public static void response(HttpServletResponse response, Object object) throws IOException {
+    public static void response(@NonNull HttpServletResponse response, Object object) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8.toString());
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
