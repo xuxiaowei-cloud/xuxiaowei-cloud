@@ -49,11 +49,6 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         // 反应式授权管理器
         http.authorizeExchange().anyExchange().access(this);
 
-        // 临时禁用 跨域资源访问 CORS
-        http.cors().disable();
-        // 临时禁用 跨站请求伪造 CSRF
-        http.csrf().disable();
-
         PublicKey publicKey = keyPair.getPublic();
 
         // 启用 OAuth2 JWT 资源服务器支持
