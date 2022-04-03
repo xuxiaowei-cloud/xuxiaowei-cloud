@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,12 +13,17 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.security.KeyPair;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 反应式授权管理器
@@ -38,9 +44,16 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
     private KeyPair keyPair;
 
+    private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
+
     @Autowired
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
+    }
+
+    @Autowired
+    public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
+        this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
     }
 
     @Bean
@@ -49,6 +62,10 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         // 反应式授权管理器
         http.authorizeExchange().anyExchange().access(this);
 
+        // 临时禁用 跨站请求伪造 CSRF
+        // 待转化为配置文件
+        http.csrf().disable();
+
         PublicKey publicKey = keyPair.getPublic();
 
         // 启用 OAuth2 JWT 资源服务器支持
@@ -56,11 +73,25 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
 
+        // 身份验证入口点
+        http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
+
         return http.build();
     }
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, AuthorizationContext authorizationContext) {
+
+        ServerWebExchange exchange = authorizationContext.getExchange();
+        ServerHttpRequest request = exchange.getRequest();
+        URI uri = request.getURI();
+        String path = uri.getPath();
+
+        // 待转换为配置文件
+        List<String> pathList = Arrays.asList("/passport/login", "/passport/code", "/authorization-server/oauth/authorize");
+        if (pathList.contains(path)) {
+            return Mono.just(new AuthorizationDecision(true));
+        }
 
         return authentication.map(requestAuthentication -> {
             // 已通过认证授权
