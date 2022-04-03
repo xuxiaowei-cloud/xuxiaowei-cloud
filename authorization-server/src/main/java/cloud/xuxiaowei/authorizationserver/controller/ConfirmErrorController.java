@@ -60,16 +60,18 @@ public class ConfirmErrorController {
 
             model.addAttribute("httpErrorCode", oauthError.getHttpErrorCode());
 
-            Map<String, String> additionalInformation = oauthError.getAdditionalInformation();
-
             model.addAttribute("message", oauthError.getMessage());
 
-            model.addAttribute(Response.CODE, additionalInformation.get(Response.CODE));
-            model.addAttribute(Response.MSG, additionalInformation.get(Response.MSG));
-            model.addAttribute(Response.DATA, additionalInformation.get(Response.DATA));
-            model.addAttribute(Response.FIELD, additionalInformation.get(Response.FIELD));
-            model.addAttribute(Response.EXPLAIN, additionalInformation.get(Response.EXPLAIN));
-            model.addAttribute(Response.REQUEST_ID, additionalInformation.get(Response.REQUEST_ID));
+            Map<String, String> additionalInformation = oauthError.getAdditionalInformation();
+
+            if (additionalInformation != null) {
+                model.addAttribute(Response.CODE, additionalInformation.get(Response.CODE));
+                model.addAttribute(Response.MSG, additionalInformation.get(Response.MSG));
+                model.addAttribute(Response.DATA, additionalInformation.get(Response.DATA));
+                model.addAttribute(Response.FIELD, additionalInformation.get(Response.FIELD));
+                model.addAttribute(Response.EXPLAIN, additionalInformation.get(Response.EXPLAIN));
+                model.addAttribute(Response.REQUEST_ID, additionalInformation.get(Response.REQUEST_ID));
+            }
 
             errorSummary = "OAuth2Exception";
         } else {
