@@ -110,6 +110,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 } else {
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
+                    oauth2Exception.addAdditionalInformation(Response.EXPLAIN, "异常代码待划分");
                 }
 
                 log.error("授权异常：", oauth2Exception);
