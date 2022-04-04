@@ -83,6 +83,8 @@
 
 ## 模块
 
+- [依赖分析](./README-dependencies.md)
+
 ```
 cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
