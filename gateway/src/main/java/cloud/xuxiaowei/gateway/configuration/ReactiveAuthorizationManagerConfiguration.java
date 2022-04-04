@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.gateway.configuration;
 
+import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
@@ -77,6 +79,9 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         http.oauth2ResourceServer().authenticationEntryPoint(serverAuthenticationEntryPoint);
 
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
+
+        // 在 CORS 之前执行
+        http.addFilterBefore(new CorsBeforeWebFilter(), SecurityWebFiltersOrder.CORS);
 
         // 身份验证入口点
         http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
