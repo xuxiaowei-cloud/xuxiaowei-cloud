@@ -4,6 +4,7 @@ import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.exception.CloudException;
 import lombok.AccessLevel;
 import lombok.Setter;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * 客户端 异常父类
@@ -13,7 +14,7 @@ import lombok.Setter;
  * @author xuxiaowei
  * @since 0.0.1
  */
-public class ClientException extends RuntimeException {
+public class ClientException extends OAuth2Exception {
 
     /**
      * 错误码
@@ -42,11 +43,13 @@ public class ClientException extends RuntimeException {
     public String explain;
 
     public ClientException() {
+        super(CodeEnums.C10000.msg);
         this.code = CodeEnums.C10000.code;
         this.msg = CodeEnums.C10000.msg;
     }
 
     public ClientException(String msg) {
+        super(msg);
         this.code = CodeEnums.C10000.code;
         this.msg = msg;
     }
