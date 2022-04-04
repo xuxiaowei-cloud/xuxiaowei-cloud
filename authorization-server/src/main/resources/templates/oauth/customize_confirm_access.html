@@ -85,12 +85,13 @@
     const vm = app.mount('#app')
     console.log(vm.count) // => 4
 
-    // window.onload = function () {
-    //     if ([[${silentAuth}]] === true) {
-    //         document.getElementById("scope-snsapi_base-true").checked = true
-    //         document.getElementById("submit").click()
-    //     }
-    // }
+    // 当且仅当只有范围 snsapi_base 时，自动授权
+    window.onload = function () {
+        if ([[${silentAuth}]] === true) {
+            document.getElementById("scope-snsapi_base-true").checked = true
+            document.getElementById("submit").click()
+        }
+    }
 </script>
 
 </html>
