@@ -22,6 +22,8 @@ import java.util.Map;
 
 /**
  * 提供有关 OAuth2 客户端的详细信息的服务。
+ * <p>
+ * 可自定义查询，比如给查询语句添加逻辑删除等条件限制
  *
  * @author xuxiaowei
  * @see ExceptionHandlerExceptionResolver
