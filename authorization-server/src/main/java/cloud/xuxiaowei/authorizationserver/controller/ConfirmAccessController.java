@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,6 +55,12 @@ public class ConfirmAccessController {
 
         model.addAttribute("clientId", clientId);
         model.addAttribute("scopes", scopes);
+
+        List<Boolean> scopeOptions = new ArrayList<>();
+        for (int i = 0; i < scopes.size(); i++) {
+            scopeOptions.add(Boolean.TRUE);
+        }
+        model.addAttribute("scopeOptions", scopeOptions);
 
         // 静默授权的情况判断
         if (scopes.size() == 1 && scopes.contains(SNSAPI_BASE)) {
