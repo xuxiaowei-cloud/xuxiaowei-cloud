@@ -3,31 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <title>OAuth 错误</title>
+
+    <!-- 导入样式 element-plus -->
+    <!--<divnk rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />-->
+    <!-- 导入样式 element-plus，使用固定版本 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@2.1.8/dist/index.css">
+
+    <!-- 导入 Vue 3 -->
+    <!--<script src="https://unpkg.com/vue@next"></script>-->
+    <!-- 导入 Vue 3，使用固定版本，开发版本 -->
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <!-- 导入 Vue 3，使用固定版本，生产版本 -->
+    <!--<script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>-->
+
+    <!-- 导入组件库 element-plus -->
+    <!--<script src="https://unpkg.com/element-plus"></script>-->
+    <!-- 导入组件库 element-plus，使用固定版本，开发版本 -->
+    <script src="https://unpkg.com/element-plus@2.1.8/dist/index.full.js"></script>
+    <!-- 导入组件库 element-plus，使用固定版本，生产版本 -->
+    <!--<script src="https://unpkg.com/element-plus@2.1.8/dist/index.full.min.js"></script>-->
+
+    <style type="text/css">
+        .el-form-item__label {
+            width: 128px !important;
+        }
+    </style>
+
 </head>
 <body>
 
-<h1>OAuth 错误</h1>
+<div id="app">
 
-<ul>
-    <li th:text="${'错误总结：'+errorSummary}"></li>
+    <el-container>
 
-    <li th:text="${'oauth2ErrorCode：'+oauth2ErrorCode}"></li>
-    <li th:text="${'message：'+message}"></li>
+        <el-card class="box-card" style="margin-left: auto; margin-right: auto;">
+            <template #header>
+                <div class="card-header">
+                    <h3>OAuth 错误</h3>
+                </div>
+            </template>
 
-    <li th:text="${'httpErrorCode：'+httpErrorCode}"></li>
+            <el-form label-width="100px">
+            <el-form-item label="错误总结">
+                <div th:text="${errorSummary}"></div>
+            </el-form-item>
 
-    <li th:text="${'code：'+code}"></li>
-    <li th:text="${'msg：'+msg}"></li>
-    <li th:text="${'client_id：'+#request.getParameter('client_id')}"></li>
-    <li th:text="${'redirect_uri：'+#request.getParameter('redirect_uri')}"></li>
-    <li th:text="${'response_type：'+#request.getParameter('response_type')}"></li>
-    <li th:text="${'scope：'+#request.getParameter('scope')}"></li>
-    <li th:text="${'state：'+#request.getParameter('state')}"></li>
-    <li th:text="${'explain：'+explain}"></li>
-    <li th:text="${'data：'+data}"></li>
-    <li th:text="${'field：'+field}"></li>
-    <li th:text="${'requestId：'+requestId}"></li>
-</ul>
+            <el-form-item label="oauth2ErrorCode">
+                <div th:text="${oauth2ErrorCode}"></div>
+            </el-form-item>
+
+            <el-form-item label="message">
+                <div th:text="${message}"></div>
+            </el-form-item>
+
+            <el-form-item label="httpErrorCode">
+                <div th:text="${httpErrorCode}"></div>
+            </el-form-item>
+
+            <el-form-item label="code">
+                <div th:text="${code}"></div>
+            </el-form-item>
+
+            <el-form-item label="msg">
+                <div th:text="${msg}"></div>
+            </el-form-item>
+
+            <el-form-item label="client_id">
+                <div th:text="${#request.getParameter('client_id')}"></div>
+            </el-form-item>
+
+            <el-form-item label="redirect_uri">
+                <div th:text="${#request.getParameter('redirect_uri')}"></div>
+            </el-form-item>
+
+            <el-form-item label="response_type">
+                <div th:text="${#request.getParameter('response_type')}"></div>
+            </el-form-item>
+
+            <el-form-item label="scope">
+                <div th:text="${#request.getParameter('scope')}"></div>
+            </el-form-item>
+
+            <el-form-item label="state">
+                <div th:text="${#request.getParameter('state')}"></div>
+            </el-form-item>
+
+            <el-form-item label="explain">
+                <div th:text="${explain}"></div>
+            </el-form-item>
+
+            <el-form-item label="data">
+                <div th:text="${data}"></div>
+            </el-form-item>
+
+            <el-form-item label="field">
+                <div th:text="${field}"></div>
+            </el-form-item>
+
+            <el-form-item label="requestId">
+                <div th:text="${requestId}"></div>
+            </el-form-item>
+
+            </el-form>
+
+        </el-card>
+
+    </el-container>
+</div>
 
 </body>
+
+<script th:inline="javascript" type="text/javascript">
+
+    const app = Vue.createApp({
+        /* 选项 */
+        data() {
+            return {
+                count: 4
+            }
+        }
+    })
+
+    app.use(ElementPlus)
+
+    const vm = app.mount('#app')
+    console.log(vm.count) // => 4
+
+</script>
+
 </html>
