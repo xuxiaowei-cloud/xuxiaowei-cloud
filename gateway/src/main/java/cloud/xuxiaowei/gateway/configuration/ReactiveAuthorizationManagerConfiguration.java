@@ -73,6 +73,9 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         // 启用 OAuth2 JWT 资源服务器支持
         http.oauth2ResourceServer().jwt().publicKey((RSAPublicKey) publicKey);
 
+        // 资源服务异常切入点（验证Token异常）
+        http.oauth2ResourceServer().authenticationEntryPoint(serverAuthenticationEntryPoint);
+
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
 
         // 身份验证入口点
