@@ -3,6 +3,8 @@ package cloud.xuxiaowei.gateway.configuration;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -27,6 +29,7 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 反应式授权管理器
@@ -39,6 +42,7 @@ import java.util.List;
  * @author xuxiaowei
  * @see EnableWebFluxSecurity
  * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级 <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
+ * @see ReactiveUserDetailsServiceAutoConfiguration
  * @since 0.0.1
  */
 @Slf4j
@@ -65,6 +69,14 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     @Autowired
     public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
         this.corsBeforeWebFilter = corsBeforeWebFilter;
+    }
+
+    /**
+     * 禁止控制室台输出默认用户的密码
+     */
+    @Autowired
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        securityProperties.getUser().setPassword(UUID.randomUUID().toString());
     }
 
     @Bean
