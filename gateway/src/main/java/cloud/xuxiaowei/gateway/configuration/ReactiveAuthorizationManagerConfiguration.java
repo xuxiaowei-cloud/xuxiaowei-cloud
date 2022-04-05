@@ -50,6 +50,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
     private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
 
+    private CorsBeforeWebFilter corsBeforeWebFilter;
+
     @Autowired
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
@@ -58,6 +60,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     @Autowired
     public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
         this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
+    }
+
+    @Autowired
+    public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
+        this.corsBeforeWebFilter = corsBeforeWebFilter;
     }
 
     @Bean
@@ -81,7 +88,7 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
 
         // 在 CORS 之前执行
-        http.addFilterBefore(new CorsBeforeWebFilter(), SecurityWebFiltersOrder.CORS);
+        http.addFilterBefore(corsBeforeWebFilter, SecurityWebFiltersOrder.CORS);
 
         // 身份验证入口点
         http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
