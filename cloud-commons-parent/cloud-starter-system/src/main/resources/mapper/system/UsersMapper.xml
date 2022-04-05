@@ -7,6 +7,9 @@
         <id column="username" property="username" />
         <result column="password" property="password" />
         <result column="enabled" property="enabled" />
+        <result column="account_non_expired" property="accountNonExpired" />
+        <result column="credentials_non_expired" property="credentialsNonExpired" />
+        <result column="account_non_locked" property="accountNonLocked" />
 
         <!-- 权限 -->
         <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
@@ -22,6 +25,9 @@
             u.username,
             u.`password`,
             u.enabled,
+            u.account_non_expired,
+            u.credentials_non_expired,
+            u.account_non_locked,
             a.username AS a_username,
             a.authority AS a_authority
         FROM
