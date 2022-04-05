@@ -1,3 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cloud.xuxiaowei.system.filter.LogHttpFilter,\
-  cloud.xuxiaowei.system.service.impl.OauthClientDetailsServiceImpl
+  cloud.xuxiaowei.system.service.impl.AuthoritiesServiceImpl,\
+  cloud.xuxiaowei.system.service.impl.OauthClientDetailsServiceImpl,\
+  cloud.xuxiaowei.system.service.impl.UserDetailsServiceImpl,\
+  cloud.xuxiaowei.system.service.impl.UsersServiceImpl
