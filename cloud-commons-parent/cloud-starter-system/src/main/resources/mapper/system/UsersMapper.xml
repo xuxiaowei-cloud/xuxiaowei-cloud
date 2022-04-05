@@ -7,6 +7,28 @@
         <id column="username" property="username" />
         <result column="password" property="password" />
         <result column="enabled" property="enabled" />
+
+        <!-- 权限 -->
+        <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
+            <result column="a_username" property="username" />
+            <result column="a_authority" property="authority" />
+        </collection>
+
     </resultMap>
+
+    <!-- 根据 用户名 查询用户信息及权限 -->
+    <select id="getByUsername" resultMap="BaseResultMap">
+        SELECT
+            u.username,
+            u.`password`,
+            u.enabled,
+            a.username AS a_username,
+            a.authority AS a_authority
+        FROM
+            users AS u
+                JOIN authorities AS a ON u.username = a.username
+        WHERE
+            u.username = #{username}
+    </select>
 
 </mapper>

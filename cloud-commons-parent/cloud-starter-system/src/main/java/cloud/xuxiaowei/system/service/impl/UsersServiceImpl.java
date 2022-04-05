@@ -17,4 +17,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
 
+    /**
+     * 根据 用户名 查询用户信息及权限
+     *
+     * @param username 用户名
+     * @return 返回 用户信息及权限
+     */
+    @Override
+    public Users getByUsername(String username) {
+        return baseMapper.getByUsername(username);
+    }
+
 }

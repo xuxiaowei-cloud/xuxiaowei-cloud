@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -27,5 +28,10 @@ public class Users implements Serializable {
 
     private Boolean enabled;
 
+    /**
+     * 权限
+     */
+    @TableField(exist = false)
+    private List<Authorities> authoritiesList;
 
 }
