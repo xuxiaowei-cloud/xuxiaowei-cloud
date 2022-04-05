@@ -205,3 +205,11 @@ encrypt:
     alias: xuxiaowei.cloud-alias
     # 密码
     password: xuxiaowei.cloud-storepass
+
+---
+
+cloud:
+  cors:
+    allow-orgin-null-list:
+      # 授权操作使用 form action post，无 Origin
+      - /authorization-server/oauth/authorize
