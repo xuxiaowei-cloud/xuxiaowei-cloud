@@ -6,7 +6,7 @@ INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOm
 -- ----------------------------
 -- Records of authorities
 -- ----------------------------
-INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', 1, 0, 0, 0);
+INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', 1, 1, 1, 1);
 
 -- ----------------------------
 -- Records of oauth_client_details
