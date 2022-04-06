@@ -1,9 +1,5 @@
 <template>
-  <div>
-    Home
-    <br>
-    <el-button>I am ElButton</el-button>
-  </div>
+  <h1>Console</h1>
 </template>
 
 <script setup>

@@ -1,14 +1,24 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { queryToken } from '@/store'
 
-import HomeView from '@/views/HomeView.vue'
+import ConsoleView from '@/views/home/ConsoleView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'console',
     // 首页不能使用 import
-    component: HomeView
+    component: ConsoleView
+  },
+  {
+    path: '/home/homepage1',
+    name: 'homepage1',
+    component: import('@/views/home/homepage1.vue')
+  },
+  {
+    path: '/home/homepage2',
+    name: 'homepage2',
+    component: import('@/views/home/homepage2.vue')
   },
   {
     path: '/about',
