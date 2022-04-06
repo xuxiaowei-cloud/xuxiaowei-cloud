@@ -1,7 +1,7 @@
 <template>
   <el-container>
 
-    <el-aside width="200px">
+    <el-aside id="cloud-el-aside">
 
       <el-menu :default-active="defaultActive" class="el-menu-vertical" :collapse="isCollapse" :router="true"
                @open="handleOpen" @close="handleClose">
@@ -70,8 +70,16 @@ const isCollapseClick = () => {
 
 <style scoped>
 
+#cloud-el-aside {
+  /* 最侧边框无宽度（内部填充） */
+  --el-aside-width: none;
+}
+
+/* 左侧菜单 */
 .el-menu-vertical:not(.el-menu--collapse) {
+  /* 宽度 */
   width: 200px;
+  /* 最小高度 */
   min-height: 400px;
 }
 
