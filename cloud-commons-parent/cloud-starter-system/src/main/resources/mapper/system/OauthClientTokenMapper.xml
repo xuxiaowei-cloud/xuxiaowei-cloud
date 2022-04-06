@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.OauthClientTokenMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.OauthClientToken">
+        <id column="authentication_id" property="authenticationId" />
+        <result column="token_id" property="tokenId" />
+        <result column="token" property="token" />
+        <result column="user_name" property="userName" />
+        <result column="client_id" property="clientId" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>
