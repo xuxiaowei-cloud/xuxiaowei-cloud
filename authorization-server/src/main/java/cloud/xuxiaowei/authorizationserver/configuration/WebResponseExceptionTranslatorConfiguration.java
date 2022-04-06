@@ -2,6 +2,7 @@ package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
@@ -32,6 +34,7 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
  * 使用 {@link OAuth2Exception#addAdditionalInformation(String, String)} 替换重写 {@link CheckTokenEndpoint}
  *
  * @author xuxiaowei
+ * @see AuthorizationEndpoint
  * @see CheckTokenEndpoint
  * @see DefaultWebResponseExceptionTranslator
  * @since 0.0.1
@@ -75,6 +78,16 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
     @Autowired
     public void setAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
         authorizationEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(false));
+    }
+
+    /**
+     * 修改 授权确认桶 的异常处理程序为本类
+     *
+     * @param tokenEndpoint 授权确认桶
+     */
+    @Autowired
+    public void setTokenEndpoint(TokenEndpoint tokenEndpoint) {
+        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(false));
     }
 
     /**
@@ -132,6 +145,15 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20000.msg);
 
                 log.error("客户端验证异常：", oauth2Exception);
+
+            } else if (oauth2Exception instanceof AuthorizationCodeException) {
+                AuthorizationCodeException authorizationCodeException = (AuthorizationCodeException) oauth2Exception;
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, authorizationCodeException.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, authorizationCodeException.msg);
+                oauth2Exception.addAdditionalInformation(Response.EXPLAIN, authorizationCodeException.getAuthorizationCode());
+
+                log.error("授权码异常：", oauth2Exception);
 
             } else {
                 String message = oauth2Exception.getMessage();

@@ -23,8 +23,6 @@ import java.util.Map;
 @Controller
 public class ErrorController {
 
-    private static final String ERROR = "<html><body><h1>OAuth 错误</h1><p>%errorSummary%</p></body></html>";
-
     /**
      * 自定义 用于显示授权服务器的错误页面（响应）。
      *

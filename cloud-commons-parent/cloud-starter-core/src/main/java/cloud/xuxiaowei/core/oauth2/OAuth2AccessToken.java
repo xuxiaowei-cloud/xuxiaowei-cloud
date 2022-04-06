@@ -34,6 +34,8 @@ public class OAuth2AccessToken {
 
     public static String SCOPE = "scope";
 
+    public static String JTI = "jti";
+
     public static String EXPIRATION = "expiration";
 
     private String accessToken;

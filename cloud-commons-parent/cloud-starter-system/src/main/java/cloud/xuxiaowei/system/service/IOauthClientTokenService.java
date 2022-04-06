@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.service;
 
-import cloud.xuxiaowei.system.entity.OauthCode;
+import cloud.xuxiaowei.system.entity.OauthClientToken;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,24 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author xuxiaowei
- * @since 2022-04-05
+ * @since 2022-04-06
  */
-public interface IOauthCodeService extends IService<OauthCode> {
-
-    /**
-     * 根据 授权码 查询授权信息
-     *
-     * @param code 授权码
-     * @return 返回 授权信息
-     */
-    OauthCode getByCode(String code);
-
-    /**
-     * 根据 授权码 删除
-     *
-     * @param code 删除
-     * @return 返回 删除结果
-     */
-    boolean removeByCode(String code);
+public interface IOauthClientTokenService extends IService<OauthClientToken> {
 
 }

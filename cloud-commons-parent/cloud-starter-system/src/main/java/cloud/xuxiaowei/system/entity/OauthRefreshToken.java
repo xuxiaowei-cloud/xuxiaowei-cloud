@@ -18,32 +18,21 @@ import java.time.LocalDateTime;
  * @since 2022-04-06
  */
 @Data
-@TableName("oauth_client_details")
-public class OauthClientDetails implements Serializable {
+@TableName("oauth_refresh_token")
+public class OauthRefreshToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String clientId;
+    private String tokenId;
 
-    private String resourceIds;
+    private byte[] token;
 
-    private String clientSecret;
+    private String tokenJson;
 
-    private String scope;
+    @TableField("`authentication`")
+    private byte[] authentication;
 
-    private String authorizedGrantTypes;
-
-    private String webServerRedirectUri;
-
-    private String authorities;
-
-    private Integer accessTokenValidity;
-
-    private Integer refreshTokenValidity;
-
-    private String additionalInformation;
-
-    private String autoapprove;
+    private String authenticationJson;
 
     /**
      * 更新时间，未更新时为空
