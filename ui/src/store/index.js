@@ -8,7 +8,7 @@ const store = createStore({
     refreshToken: null, // 刷新Token
     jti: null, // 票据
     defaultActive: '/', // 获取默认激活菜单
-    isCollapse: false, // 是否折叠菜单
+    isCollapse: false // 是否折叠菜单
   },
   getters: {
     /**
@@ -48,7 +48,7 @@ const store = createStore({
      * @param state
      * @returns {any}
      */
-    isCollapse(state) {
+    isCollapse (state) {
       return state.isCollapse
     }
   },
@@ -92,7 +92,7 @@ const store = createStore({
      */
     setIsCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
-    },
+    }
   },
   actions: {
   },

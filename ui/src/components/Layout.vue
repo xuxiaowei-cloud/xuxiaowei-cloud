@@ -25,6 +25,8 @@
         <el-button v-if="isCollapse" @click="isCollapseClick"><el-icon><expand /></el-icon></el-button>
         <el-button v-else @click="isCollapseClick"><el-icon><fold /></el-icon></el-button>
 
+        <el-button @click="refreshClick"><el-icon><refresh /></el-icon></el-button>
+
       </el-header>
       <el-main>
 
@@ -38,7 +40,7 @@
 </template>
 
 <script setup>
-import { HomeFilled, Expand, Fold } from '@element-plus/icons-vue'
+import { HomeFilled, Expand, Fold, Refresh } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import store from '@/store'
 
@@ -64,6 +66,11 @@ const menuItem = (key) => {
 const isCollapseClick = () => {
   isCollapse.value = !isCollapse.value
   store.commit('setIsCollapse', isCollapse)
+}
+
+// 刷新当前页面（局部刷新）
+const refreshClick = () => {
+  console.log('局部刷新，未完成')
 }
 
 </script>

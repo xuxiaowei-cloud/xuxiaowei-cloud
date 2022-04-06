@@ -36,7 +36,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
   queryToken(to.query, router)
 
   next()
