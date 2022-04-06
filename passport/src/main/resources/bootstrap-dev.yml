@@ -15,3 +15,16 @@ cloud:
     scope: snsapi_base
     state-name: STATE_NAME
     home-page: http://example.xuxiaowei.cloud:1001/#/
+
+---
+
+#
+# Nacos 极速上线
+spring:
+  cloud:
+    nacos:
+      discovery:
+        metadata:
+          preserved.heart.beat.interval: 1000
+          preserved.heart.beat.timeout: 3000
+          preserved.ip.delete.timeout: 3000
