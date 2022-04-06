@@ -154,7 +154,6 @@ cloud.xuxiaowei:authorization-server:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:jar:2.6.6:compile
 │        └──org.bouncycastle:bcpkix-jdk15on:jar:1.70:compile
-│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-security:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.6:compile
@@ -173,7 +172,6 @@ cloud.xuxiaowei:passport-ui:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-security:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.6:compile
