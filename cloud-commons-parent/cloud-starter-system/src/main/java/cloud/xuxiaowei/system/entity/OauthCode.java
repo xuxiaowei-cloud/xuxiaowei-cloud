@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -39,6 +40,12 @@ public class OauthCode implements Serializable {
      */
     @TableField("authentication_json")
     private String authenticationJson;
+
+    /**
+     * 创建时间，不为空，数据库自动生成
+     */
+    @TableField("create_date")
+    private LocalDateTime createDate;
 
 
 }
