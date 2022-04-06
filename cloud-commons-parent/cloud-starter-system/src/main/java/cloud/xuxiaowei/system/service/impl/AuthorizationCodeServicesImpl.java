@@ -2,6 +2,8 @@ package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.entity.OauthCode;
 import cloud.xuxiaowei.system.service.IOauthCodeService;
+import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeEmptyException;
+import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -14,6 +16,7 @@ import org.springframework.security.oauth2.common.util.SerializationUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -81,10 +84,17 @@ public class AuthorizationCodeServicesImpl implements AuthorizationCodeServices 
     public OAuth2Authentication consumeAuthorizationCode(String code) throws InvalidGrantException {
 
         log.info("查询授权码：{}", code);
+
+        if (!StringUtils.hasText(code)) {
+            throw new AuthorizationCodeEmptyException();
+        }
+
         OauthCode oauthCode = oauthCodeService.getByCode(code);
 
         if (oauthCode == null) {
-            throw new InvalidGrantException("授权码无效：" + code);
+            AuthorizationCodeException authorizationCodeException = new AuthorizationCodeException();
+            authorizationCodeException.setAuthorizationCode(code);
+            throw authorizationCodeException;
         }
 
         oauthCodeService.removeByCode(code);
