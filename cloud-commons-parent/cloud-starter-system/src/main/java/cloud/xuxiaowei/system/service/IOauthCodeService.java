@@ -21,4 +21,12 @@ public interface IOauthCodeService extends IService<OauthCode> {
      */
     OauthCode getByCode(String code);
 
+    /**
+     * 根据 授权码 删除
+     *
+     * @param code 删除
+     * @return 返回 删除结果
+     */
+    boolean removeByCode(String code);
+
 }

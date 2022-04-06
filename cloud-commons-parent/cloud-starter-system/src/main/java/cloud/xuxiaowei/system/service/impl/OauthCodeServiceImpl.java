@@ -31,4 +31,17 @@ public class OauthCodeServiceImpl extends ServiceImpl<OauthCodeMapper, OauthCode
         return getOne(queryWrapper);
     }
 
+    /**
+     * 根据 授权码 删除
+     *
+     * @param code 删除
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByCode(String code) {
+        QueryWrapper<OauthCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("code", code);
+        return remove(queryWrapper);
+    }
+
 }
