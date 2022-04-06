@@ -6,8 +6,6 @@ import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
@@ -47,23 +45,6 @@ public class DefaultBeanConfiguration {
     @Autowired
     public void setKeyProperties(KeyProperties keyProperties) {
         this.keyProperties = keyProperties;
-    }
-
-    /**
-     * 默认用户信息 {@link UserDetailsService} {@link Bean}
-     * <p>
-     * 在 {@link UserDetailsService} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
-     * <p>
-     * 存在 {@link UserDetailsService} 对应的 {@link Bean} 时，控制台不会输出默认用户名为“user”的密码
-     *
-     * @return 在 {@link UserDetailsService} 对应的 {@link Bean} 不存在时，才会返回此 {@link Bean}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public UserDetailsService userDetailsService() {
-        JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
-        jdbcDao.setDataSource(dataSource);
-        return jdbcDao;
     }
 
     /**

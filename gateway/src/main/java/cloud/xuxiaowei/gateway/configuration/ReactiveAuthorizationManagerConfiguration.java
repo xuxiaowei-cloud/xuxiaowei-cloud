@@ -117,7 +117,19 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         String path = uri.getPath();
 
         // 待转换为配置文件
-        List<String> pathList = Arrays.asList("/passport/login", "/passport/code", "/authorization-server/oauth/authorize");
+        List<String> pathList = Arrays.asList(
+                // 登录请求
+                "/passport/login",
+                // 登录失败
+                "/passport/login/failure",
+                // 登录成功，可缺省
+                "/login/success",
+                // 登录成功主页，可缺省
+                "/login/home-page",
+                // 获取Token
+                "/passport/code",
+                // 授权请求
+                "/authorization-server/oauth/authorize");
         if (pathList.contains(path)) {
             return Mono.just(new AuthorizationDecision(true));
         }
