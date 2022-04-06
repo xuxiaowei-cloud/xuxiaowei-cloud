@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOauthCodeService extends IService<OauthCode> {
 
+    /**
+     * 根据 授权码 查询授权信息
+     *
+     * @param code 授权码
+     * @return 返回 授权信息
+     */
+    OauthCode getByCode(String code);
+
 }

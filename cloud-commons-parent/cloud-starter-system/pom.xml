@@ -35,6 +35,14 @@
             <artifactId>cloud-starter-log</artifactId>
         </dependency>
 
+        <!-- 提供JSON数据处理所需的包，如：ObjectMapper、JavaTimeModule -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
         <!-- 仅为了提供：LogHttpFilter -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
