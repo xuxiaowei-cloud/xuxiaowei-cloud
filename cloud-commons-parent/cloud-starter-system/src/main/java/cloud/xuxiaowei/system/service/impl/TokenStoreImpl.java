@@ -4,12 +4,14 @@ import cloud.xuxiaowei.system.entity.OauthAccessToken;
 import cloud.xuxiaowei.system.entity.OauthRefreshToken;
 import cloud.xuxiaowei.system.service.IOauthAccessTokenService;
 import cloud.xuxiaowei.system.service.IOauthRefreshTokenService;
+import cloud.xuxiaowei.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.util.SerializationUtils;
@@ -28,9 +30,12 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * Token 储存 实现类
@@ -190,7 +195,21 @@ public class TokenStoreImpl implements TokenStore {
 
         String refreshTokenJson;
         try {
-            refreshTokenJson = objectMapper.writeValueAsString(refreshToken);
+            if (refreshToken instanceof DefaultExpiringOAuth2RefreshToken) {
+                DefaultExpiringOAuth2RefreshToken defaultExpiringOauth2RefreshToken =
+                        (DefaultExpiringOAuth2RefreshToken) refreshToken;
+
+                String value = defaultExpiringOauth2RefreshToken.getValue();
+                Date expiration = defaultExpiringOauth2RefreshToken.getExpiration();
+                String expirationFormat = DateUtils.format(expiration, DEFAULT_DATE_TIME_FORMAT);
+
+                Map<String, Object> map = new HashMap<>(4);
+                map.put("refreshToken", value);
+                map.put("expiration", expirationFormat);
+                refreshTokenJson = objectMapper.writeValueAsString(map);
+            } else {
+                refreshTokenJson = objectMapper.writeValueAsString(refreshToken);
+            }
         } catch (JsonProcessingException e) {
             log.error("refreshToken转JSON异常", e);
             refreshTokenJson = null;
