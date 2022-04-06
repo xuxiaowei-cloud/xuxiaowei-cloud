@@ -82,6 +82,11 @@ public class AuthorizationCodeServicesImpl implements AuthorizationCodeServices 
 
         log.info("查询授权码：{}", code);
         OauthCode oauthCode = oauthCodeService.getByCode(code);
+
+        if (oauthCode == null) {
+            throw new InvalidGrantException("授权码无效：" + code);
+        }
+
         log.info("授权信息：{}", oauthCode.getAuthenticationJson());
 
         byte[] authentication = oauthCode.getAuthentication();
