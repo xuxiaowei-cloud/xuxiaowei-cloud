@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import store from '@/store'
+import { queryToken } from '@/store'
 
 import HomeView from '@/views/HomeView.vue'
 
@@ -26,19 +26,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const query = to.query
-  const accessToken = query.accessToken
-  if (accessToken) {
-    delete query.accessToken
-    console.log('获取到URL中的Token', accessToken)
-    router.push({ query: query }).then(response => {
-      console.log('已清空URL中的Token，准备缓存Token')
-      store.commit('setToken', accessToken)
-      console.log('缓存Token已完成，store中的Token：', store.getters.token)
-    })
-  } else {
-    console.log('store中的Token：', store.getters.token)
-  }
+
+  queryToken(to.query, router)
+
   next()
 })
 

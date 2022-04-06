@@ -90,8 +90,10 @@ public class CodeRestController {
 
         assert oauth2AccessToken != null;
         String accessToken = oauth2AccessToken.getAccessToken();
+        String refreshToken = oauth2AccessToken.getRefreshToken();
+        String jti = oauth2AccessToken.getJti();
 
-        response.sendRedirect(homePage + "?accessToken=" + accessToken);
+        response.sendRedirect(String.format("%s?accessToken=%s&refreshToken=%s&jti=%s",homePage,accessToken, refreshToken, jti));
     }
 
     /**
