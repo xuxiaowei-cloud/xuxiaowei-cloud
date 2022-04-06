@@ -34,6 +34,7 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
  * 使用 {@link OAuth2Exception#addAdditionalInformation(String, String)} 替换重写 {@link CheckTokenEndpoint}
  *
  * @author xuxiaowei
+ * @see AuthorizationEndpoint
  * @see CheckTokenEndpoint
  * @see DefaultWebResponseExceptionTranslator
  * @since 0.0.1
