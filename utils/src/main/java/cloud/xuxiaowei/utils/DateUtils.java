@@ -1,7 +1,10 @@
 package cloud.xuxiaowei.utils;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * 日期工具类
@@ -36,6 +39,20 @@ public class DateUtils {
     public static String format(LocalDateTime localDateTime, String pattern) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
         return localDateTime.format(dateTimeFormatter);
+    }
+
+    /**
+     * 根据 日期时间、格式 处理为字符串
+     *
+     * @param date    日期
+     * @param pattern 格式
+     * @return 返回 字符串
+     */
+    public static String format(Date date, String pattern) {
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime expirationDateTime = instant.atZone(zoneId).toLocalDateTime();
+        return format(expirationDateTime, DEFAULT_DATE_TIME_FORMAT);
     }
 
 }
