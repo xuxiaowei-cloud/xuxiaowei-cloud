@@ -1,9 +1,7 @@
 package cloud.xuxiaowei.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,19 +12,18 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author xuxiaowei
- * @since 2022-04-05
+ * @since 2022-04-06
  */
-@Getter
-@Setter
+@Data
 @TableName("oauth_code")
 public class OauthCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 授权码
+     * 授权码，唯一键：uk__oauth_code__code
      */
-    @TableField("`code`")
+    @TableId("`code`")
     private String code;
 
     /**
@@ -38,14 +35,25 @@ public class OauthCode implements Serializable {
     /**
      * 权限JSON
      */
-    @TableField("authentication_json")
     private String authenticationJson;
+
+    /**
+     * 更新时间，未更新时为空
+     */
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateDate;
 
     /**
      * 创建时间，不为空，数据库自动生成
      */
-    @TableField("create_date")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
+
+    /**
+     * 逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。
+     */
+    @TableLogic
+    private Boolean deleted;
 
 
 }

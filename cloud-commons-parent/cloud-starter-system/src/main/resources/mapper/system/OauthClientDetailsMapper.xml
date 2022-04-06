@@ -15,6 +15,9 @@
         <result column="refresh_token_validity" property="refreshTokenValidity" />
         <result column="additional_information" property="additionalInformation" />
         <result column="autoapprove" property="autoapprove" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>

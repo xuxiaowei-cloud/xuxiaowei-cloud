@@ -7,6 +7,9 @@
         <result column="token_id" property="tokenId" />
         <result column="token" property="token" />
         <result column="authentication" property="authentication" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>

@@ -4,9 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.OauthCode">
-        <result column="code" property="code" />
+        <id column="code" property="code" />
         <result column="authentication" property="authentication" />
         <result column="authentication_json" property="authenticationJson" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>

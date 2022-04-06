@@ -10,11 +10,17 @@
         <result column="account_non_expired" property="accountNonExpired" />
         <result column="credentials_non_expired" property="credentialsNonExpired" />
         <result column="account_non_locked" property="accountNonLocked" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
 
         <!-- 权限 -->
         <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
-            <result column="a_username" property="username" />
-            <result column="a_authority" property="authority" />
+            <id column="a_username" property="username" />
+            <id column="a_authority" property="authority" />
+            <result column="a_update_date" property="updateDate" />
+            <result column="a_create_date" property="createDate" />
+            <result column="a_deleted" property="deleted" />
         </collection>
 
     </resultMap>
@@ -28,13 +34,19 @@
             u.account_non_expired,
             u.credentials_non_expired,
             u.account_non_locked,
-            a.username AS a_username,
-            a.authority AS a_authority
+            u.update_date,
+            u.create_date,
+            u.deleted,
+            a.username      AS a_username,
+            a.authority     AS a_authority,
+            a.update_date   AS a_update_date,
+            a.create_date   AS a_create_date,
+            a.deleted       AS a_deleted
         FROM
             users AS u
-                JOIN authorities AS a ON u.username = a.username
+                JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
         WHERE
-            u.username = #{username}
+            u.username = #{username} AND u.deleted = 0
     </select>
 
 </mapper>
