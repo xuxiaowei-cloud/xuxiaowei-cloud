@@ -1,12 +1,12 @@
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', 1);
+INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', 1, 1, 1, 1);
 
 -- ----------------------------
 -- Records of authorities
 -- ----------------------------
-INSERT INTO `users` VALUES ('xuxiaowei', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', 1, 1, 1, 1);
+INSERT INTO `authorities` VALUES ('xuxiaowei', 'user');
 
 -- ----------------------------
 -- Records of oauth_client_details
