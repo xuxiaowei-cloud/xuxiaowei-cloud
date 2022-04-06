@@ -125,7 +125,12 @@ cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springframework.boot:spring-boot-starter-json:jar:2.6.6:provided
+│        └──com.fasterxml.jackson.core:jackson-databind:jar:2.13.2.2:provided
+│        └──com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.13.2:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.60:provided
+│        └──org.springframework.security:spring-security-core:jar:5.6.2:provided
+│        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.0.RELEASE:provided
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.6:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.1:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.6.6:compile
