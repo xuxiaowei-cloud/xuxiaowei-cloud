@@ -27,6 +27,8 @@
 
         <el-button @click="refreshClick"><el-icon><refresh /></el-icon></el-button>
 
+        <el-button @click="fullScreenClick"><el-icon><full-screen /></el-icon></el-button>
+
       </el-header>
       <el-main>
 
@@ -40,7 +42,7 @@
 </template>
 
 <script setup>
-import { HomeFilled, Expand, Fold, Refresh } from '@element-plus/icons-vue'
+import { HomeFilled, Expand, Fold, Refresh, FullScreen } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import store from '@/store'
 
@@ -71,6 +73,11 @@ const isCollapseClick = () => {
 // 刷新当前页面（局部刷新）
 const refreshClick = () => {
   console.log('局部刷新，未完成')
+}
+
+// 全屏
+const fullScreenClick = () => {
+  document.documentElement.requestFullscreen();
 }
 
 </script>
