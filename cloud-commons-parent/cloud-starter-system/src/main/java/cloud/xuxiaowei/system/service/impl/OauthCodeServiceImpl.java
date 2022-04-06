@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.entity.OauthCode;
 import cloud.xuxiaowei.system.mapper.OauthCodeMapper;
 import cloud.xuxiaowei.system.service.IOauthCodeService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,18 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OauthCodeServiceImpl extends ServiceImpl<OauthCodeMapper, OauthCode> implements IOauthCodeService {
+
+    /**
+     * 根据 授权码 查询授权信息
+     *
+     * @param code 授权码
+     * @return 返回 授权信息
+     */
+    @Override
+    public OauthCode getByCode(String code) {
+        QueryWrapper<OauthCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("code", code);
+        return getOne(queryWrapper);
+    }
 
 }

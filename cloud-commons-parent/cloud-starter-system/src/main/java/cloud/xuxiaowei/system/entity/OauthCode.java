@@ -32,7 +32,13 @@ public class OauthCode implements Serializable {
      * 权限
      */
     @TableField("`authentication`")
-    private String authentication;
+    private byte[] authentication;
+
+    /**
+     * 权限JSON
+     */
+    @TableField("authentication_json")
+    private String authenticationJson;
 
 
 }
