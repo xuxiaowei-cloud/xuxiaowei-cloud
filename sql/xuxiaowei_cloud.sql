@@ -111,7 +111,7 @@ CREATE TABLE `oauth_refresh_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名，唯一键：uk__users__username',
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名，不能为空，唯一键：uk__users__username',
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码，不能为空',
   `enabled` tinyint(1) NOT NULL COMMENT '是否启用，不能为空',
   `account_non_expired` tinyint(1) NOT NULL COMMENT '帐户未过期，不能为空',

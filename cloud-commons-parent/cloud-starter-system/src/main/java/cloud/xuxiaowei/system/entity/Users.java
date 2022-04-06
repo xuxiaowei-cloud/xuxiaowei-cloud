@@ -22,7 +22,7 @@ public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户名，唯一键：uk__users__username
+     * 用户名，不能为空，唯一键：uk__users__username
      */
     private String username;
 
