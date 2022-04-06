@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.gateway.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
     private CorsBeforeWebFilter corsBeforeWebFilter;
 
+    private CloudWhiteListProperties cloudWhiteListProperties;
+
     @Autowired
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
@@ -69,6 +72,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     @Autowired
     public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
         this.corsBeforeWebFilter = corsBeforeWebFilter;
+    }
+
+    @Autowired
+    public void setCloudWhiteListProperties(CloudWhiteListProperties cloudWhiteListProperties) {
+        this.cloudWhiteListProperties = cloudWhiteListProperties;
     }
 
     /**
@@ -116,21 +124,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         URI uri = request.getURI();
         String path = uri.getPath();
 
-        // 待转换为配置文件
-        List<String> pathList = Arrays.asList(
-                // 登录请求
-                "/passport/login",
-                // 登录失败
-                "/passport/login/failure",
-                // 登录成功，可缺省
-                "/login/success",
-                // 登录成功主页，可缺省
-                "/login/home-page",
-                // 获取Token
-                "/passport/code",
-                // 授权请求
-                "/authorization-server/oauth/authorize");
-        if (pathList.contains(path)) {
+        boolean whiteList = whiteList(path);
+        if (whiteList) {
             return Mono.just(new AuthorizationDecision(true));
         }
 
@@ -148,6 +143,35 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
                 // 无认证授权
                 // 拒绝放行
                 .defaultIfEmpty(new AuthorizationDecision(false));
+    }
+
+    /**
+     * 白名单配置
+     *
+     * @param path 路径
+     * @return 返回匹配结果
+     */
+    private boolean whiteList(String path) {
+        String[] pathSplit = path.split("/");
+        if (pathSplit.length > 1) {
+            String serviceName = pathSplit[1];
+
+            List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
+
+            for (CloudWhiteListProperties.Service service : services) {
+                String name = service.getName();
+                List<String> pathList = service.getPathList();
+
+                if (serviceName.equals(name)) {
+                    String substring = path.substring(serviceName.length() + 1);
+
+                    if (pathList.contains(substring)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override

@@ -213,3 +213,27 @@ cloud:
     allow-orgin-null-list:
       # 授权操作使用 form action post，无 Origin
       - /authorization-server/oauth/authorize
+
+---
+
+#
+# 网关白名单，不进行权限验证
+cloud:
+  white-list:
+    services:
+      - name: passport
+        path-list:
+          # 登录请求
+          - /login
+          # 登录失败
+          - /login/failure
+          # 获取Token
+          - /code
+      - name: authorization-server
+        path-list:
+          # 授权请求
+          - /oauth/authorize
+          # 检查Token
+          - /oauth/check_token
+          # 获取Token
+          - /oauth/token
