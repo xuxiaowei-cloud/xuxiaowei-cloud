@@ -27,6 +27,8 @@ public class OauthClientToken implements Serializable {
 
     private byte[] token;
 
+    private String tokenJson;
+
     private String authenticationId;
 
     private String userName;

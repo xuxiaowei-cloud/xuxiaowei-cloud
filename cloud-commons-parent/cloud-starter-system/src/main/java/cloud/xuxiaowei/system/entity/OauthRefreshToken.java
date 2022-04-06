@@ -27,8 +27,12 @@ public class OauthRefreshToken implements Serializable {
 
     private byte[] token;
 
+    private String tokenJson;
+
     @TableField("`authentication`")
     private byte[] authentication;
+
+    private String authenticationJson;
 
     /**
      * 更新时间，未更新时为空

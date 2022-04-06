@@ -27,6 +27,8 @@ public class OauthAccessToken implements Serializable {
 
     private byte[] token;
 
+    private String tokenJson;
+
     private String authenticationId;
 
     private String userName;
@@ -35,6 +37,8 @@ public class OauthAccessToken implements Serializable {
 
     @TableField("`authentication`")
     private byte[] authentication;
+
+    private String authenticationJson;
 
     private String refreshToken;
 
