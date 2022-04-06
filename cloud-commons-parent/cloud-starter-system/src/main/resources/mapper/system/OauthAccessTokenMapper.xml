@@ -7,9 +7,11 @@
         <id column="authentication_id" property="authenticationId" />
         <result column="token_id" property="tokenId" />
         <result column="token" property="token" />
+        <result column="token_json" property="tokenJson" />
         <result column="user_name" property="userName" />
         <result column="client_id" property="clientId" />
         <result column="authentication" property="authentication" />
+        <result column="authentication_json" property="authenticationJson" />
         <result column="refresh_token" property="refreshToken" />
         <result column="update_date" property="updateDate" />
         <result column="create_date" property="createDate" />
