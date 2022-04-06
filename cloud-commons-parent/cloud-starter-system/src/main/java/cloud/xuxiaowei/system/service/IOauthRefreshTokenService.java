@@ -16,11 +16,13 @@ public interface IOauthRefreshTokenService extends IService<OauthRefreshToken> {
     /**
      * 保存 刷新 Token
      *
-     * @param tokenId        Token ID
-     * @param refreshToken   刷新 Token
-     * @param authentication 权限
+     * @param tokenId            Token ID
+     * @param refreshToken       刷新 Token
+     * @param refreshTokenJson   刷新 Token JSon
+     * @param authentication     权限
+     * @param authenticationJson 权限 JSON
      */
-    void save(String tokenId, byte[] refreshToken, byte[] authentication);
+    void save(String tokenId, byte[] refreshToken, String refreshTokenJson, byte[] authentication, String authenticationJson);
 
     /**
      * 根据 Token ID 获取 刷新 Token

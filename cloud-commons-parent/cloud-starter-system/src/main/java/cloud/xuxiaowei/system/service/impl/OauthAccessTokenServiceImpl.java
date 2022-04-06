@@ -46,16 +46,18 @@ public class OauthAccessTokenServiceImpl extends ServiceImpl<OauthAccessTokenMap
      * @return 返回 保存结果
      */
     @Override
-    public boolean save(String tokenId, byte[] token, String authenticationId, String userName, String clientId,
-                        byte[] authentication, String refreshToken) {
+    public boolean save(String tokenId, byte[] token, String tokenJson, String authenticationId, String userName, String clientId,
+                        byte[] authentication, String authenticationJson, String refreshToken) {
         OauthAccessToken oauthAccessToken = new OauthAccessToken();
 
         oauthAccessToken.setTokenId(tokenId);
         oauthAccessToken.setToken(token);
+        oauthAccessToken.setTokenJson(tokenJson);
         oauthAccessToken.setAuthenticationId(authenticationId);
         oauthAccessToken.setUserName(userName);
         oauthAccessToken.setClientId(clientId);
         oauthAccessToken.setAuthentication(authentication);
+        oauthAccessToken.setAuthenticationJson(authenticationJson);
         oauthAccessToken.setRefreshToken(refreshToken);
 
         return save(oauthAccessToken);

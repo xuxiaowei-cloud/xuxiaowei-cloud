@@ -26,17 +26,19 @@ public interface IOauthAccessTokenService extends IService<OauthAccessToken> {
     /**
      * 保存 Token
      *
-     * @param tokenId          token_id
-     * @param token            token
-     * @param authenticationId authentication_id
-     * @param userName         user_name
-     * @param clientId         client_id
-     * @param authentication   authentication
-     * @param refreshToken     refresh_token
+     * @param tokenId            token_id
+     * @param token              token
+     * @param tokenJson          token_json
+     * @param authenticationId   authentication_id
+     * @param userName           user_name
+     * @param clientId           client_id
+     * @param authentication     authentication
+     * @param authenticationJson authentication_json
+     * @param refreshToken       refresh_token
      * @return 返回 保存结果
      */
-    boolean save(String tokenId, byte[] token, String authenticationId, String userName, String clientId,
-                 byte[] authentication, String refreshToken);
+    boolean save(String tokenId, byte[] token, String tokenJson, String authenticationId, String userName, String clientId,
+                 byte[] authentication, String authenticationJson, String refreshToken);
 
     /**
      * 根据 Token ID 删除 Token

@@ -21,17 +21,21 @@ public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenM
     /**
      * 保存 刷新 Token
      *
-     * @param tokenId        Token ID
-     * @param refreshToken   刷新 Token
-     * @param authentication 权限
+     * @param tokenId            Token ID
+     * @param refreshToken       刷新 Token
+     * @param refreshTokenJson   刷新 Token JSon
+     * @param authentication     权限
+     * @param authenticationJson 权限 JSON
      */
     @Override
-    public void save(String tokenId, byte[] refreshToken, byte[] authentication) {
+    public void save(String tokenId, byte[] refreshToken, String refreshTokenJson, byte[] authentication, String authenticationJson) {
         OauthRefreshToken oauthRefreshToken = new OauthRefreshToken();
 
         oauthRefreshToken.setTokenId(tokenId);
         oauthRefreshToken.setToken(refreshToken);
+        oauthRefreshToken.setTokenJson(refreshTokenJson);
         oauthRefreshToken.setAuthentication(authentication);
+        oauthRefreshToken.setAuthenticationJson(authenticationJson);
 
         save(oauthRefreshToken);
     }

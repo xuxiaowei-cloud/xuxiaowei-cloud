@@ -4,6 +4,9 @@ import cloud.xuxiaowei.system.entity.OauthAccessToken;
 import cloud.xuxiaowei.system.entity.OauthRefreshToken;
 import cloud.xuxiaowei.system.service.IOauthAccessTokenService;
 import cloud.xuxiaowei.system.service.IOauthRefreshTokenService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -118,11 +121,28 @@ public class TokenStoreImpl implements TokenStore {
         byte[] authenticationByte = SerializationUtils.serialize(authentication);
         String refreshTokenExtractTokenKey = extractTokenKey(refreshToken);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        String tokenJson;
+        try {
+            tokenJson = objectMapper.writeValueAsString(token);
+        } catch (JsonProcessingException e) {
+            log.error("token转JSON异常", e);
+            tokenJson = null;
+        }
+
+        String authenticationJson;
+        try {
+            authenticationJson = objectMapper.writeValueAsString(authentication);
+        } catch (JsonProcessingException e) {
+            log.error("authentication转JSON异常", e);
+            authenticationJson = null;
+        }
+
         oauthAccessTokenService.save(tokenId,
-                tokenByte, extractKey,
-                name,
-                clientId,
-                authenticationByte, refreshTokenExtractTokenKey);
+                tokenByte, tokenJson, extractKey, name, clientId,
+                authenticationByte, authenticationJson, refreshTokenExtractTokenKey);
 
     }
 
@@ -161,9 +181,30 @@ public class TokenStoreImpl implements TokenStore {
     @Override
     public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
         String tokenId = extractTokenKey(refreshToken.getValue());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
         byte[] refreshTokenByte = SerializationUtils.serialize(refreshToken);
         byte[] authenticationByte = SerializationUtils.serialize(authentication);
-        oauthRefreshTokenService.save(tokenId, refreshTokenByte, authenticationByte);
+
+        String refreshTokenJson;
+        try {
+            refreshTokenJson = objectMapper.writeValueAsString(refreshToken);
+        } catch (JsonProcessingException e) {
+            log.error("refreshToken转JSON异常", e);
+            refreshTokenJson = null;
+        }
+
+        String authenticationJson;
+        try {
+            authenticationJson = objectMapper.writeValueAsString(authentication);
+        } catch (JsonProcessingException e) {
+            log.error("authentication转JSON异常", e);
+            authenticationJson = null;
+        }
+
+        oauthRefreshTokenService.save(tokenId, refreshTokenByte, refreshTokenJson, authenticationByte, authenticationJson);
     }
 
     @Override
