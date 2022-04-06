@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.entity.OauthRefreshToken;
 import cloud.xuxiaowei.system.mapper.OauthRefreshTokenMapper;
 import cloud.xuxiaowei.system.service.IOauthRefreshTokenService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,49 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenMapper, OauthRefreshToken> implements IOauthRefreshTokenService {
+
+    /**
+     * 保存 刷新 Token
+     *
+     * @param tokenId        Token ID
+     * @param refreshToken   刷新 Token
+     * @param authentication 权限
+     */
+    @Override
+    public void save(String tokenId, byte[] refreshToken, byte[] authentication) {
+        OauthRefreshToken oauthRefreshToken = new OauthRefreshToken();
+
+        oauthRefreshToken.setTokenId(tokenId);
+        oauthRefreshToken.setToken(refreshToken);
+        oauthRefreshToken.setAuthentication(authentication);
+
+        save(oauthRefreshToken);
+    }
+
+    /**
+     * 根据 Token ID 获取 刷新 Token
+     *
+     * @param tokenId Token ID
+     * @return 返回 刷新 Token
+     */
+    @Override
+    public OauthRefreshToken getByTokenId(String tokenId) {
+        QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("token_id", tokenId);
+        return getOne(queryWrapper);
+    }
+
+    /**
+     * 根据 Token ID 删除 刷新Token
+     *
+     * @param tokenId Token ID
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByTokenId(String tokenId) {
+        QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("token_id", tokenId);
+        return remove(queryWrapper);
+    }
 
 }

@@ -25,10 +25,10 @@ public class OauthRefreshToken implements Serializable {
 
     private String tokenId;
 
-    private Blob token;
+    private byte[] token;
 
     @TableField("`authentication`")
-    private Blob authentication;
+    private byte[] authentication;
 
 
 }

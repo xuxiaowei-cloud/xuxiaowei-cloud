@@ -13,4 +13,29 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOauthRefreshTokenService extends IService<OauthRefreshToken> {
 
+    /**
+     * 保存 刷新 Token
+     *
+     * @param tokenId        Token ID
+     * @param refreshToken   刷新 Token
+     * @param authentication 权限
+     */
+    void save(String tokenId, byte[] refreshToken, byte[] authentication);
+
+    /**
+     * 根据 Token ID 获取 刷新 Token
+     *
+     * @param tokenId Token ID
+     * @return 返回 刷新 Token
+     */
+    OauthRefreshToken getByTokenId(String tokenId);
+
+    /**
+     * 根据 Token ID 删除 刷新Token
+     *
+     * @param tokenId Token ID
+     * @return 返回 删除结果
+     */
+    boolean removeByTokenId(String tokenId);
+
 }
