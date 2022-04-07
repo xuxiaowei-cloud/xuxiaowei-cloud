@@ -44,6 +44,10 @@
     <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xuxiaowei-cloud/xuxiaowei-cloud?logo=github">
   </a>
 
+  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-cloud/xuxiaowei-cloud?style=flat-square">
+  </a>
+
   <a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="码云Gitee stars" src="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud/badge/star.svg?theme=blue">
   </a>
