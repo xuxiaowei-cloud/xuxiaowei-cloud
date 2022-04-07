@@ -22,6 +22,71 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <modules>
+        <!-- 审计服务 -->
+        <module>audit</module>
+    </modules>
+
+    <dependencies>
+
+        <!-- Nacos 注册 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
+        <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
+        <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!-- Nacos 配置 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- 负载均衡组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- 日志组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-log</artifactId>
+        </dependency>
+
+        <!-- 核心组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-core</artifactId>
+        </dependency>
+
+        <!-- MyBatis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-mybatis</artifactId>
+        </dependency>
+
+        <!-- 工具类 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
+
+        <!-- OAuth2 资源 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+
+    </dependencies>
+
     <licenses>
         <license>
             <name>Apache 2</name>

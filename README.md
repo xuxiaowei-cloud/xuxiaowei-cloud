@@ -99,6 +99,7 @@ cloud.xuxiaowei
 │    └──passport                            // 登录服务
 │    └──ui                                  // UI
 │    └──resource-services-parent            // 资源服务父模块
+│        └──audit                           // 审计服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -133,6 +134,7 @@ cloud.xuxiaowei
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
+| audit | 审计服务 | audit.example.xuxiaowei.cloud | 1501 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
