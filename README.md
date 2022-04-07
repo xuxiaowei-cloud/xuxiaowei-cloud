@@ -106,6 +106,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
+│        └──cloud-starter-oauth2            // OAuth2 组件
 │        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
