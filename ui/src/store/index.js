@@ -7,6 +7,8 @@ const store = createStore({
     accessToken: null, // Token
     refreshToken: null, // 刷新Token
     jti: null, // 票据
+    defaultActive: '/', // 获取默认激活菜单
+    isCollapse: false // 是否折叠菜单
   },
   getters: {
     /**
@@ -14,7 +16,7 @@ const store = createStore({
      * @param state 单一状态树
      * @returns 返回 Token
      */
-    accessToken(state) {
+    accessToken (state) {
       return state.accessToken
     },
     /**
@@ -22,7 +24,7 @@ const store = createStore({
      * @param state 单一状态树
      * @returns 返回 刷新Token
      */
-    refreshToken(state) {
+    refreshToken (state) {
       return state.refreshToken
     },
     /**
@@ -30,8 +32,24 @@ const store = createStore({
      * @param state 单一状态树
      * @returns 返回 票据
      */
-    jti(state) {
+    jti (state) {
       return state.jti
+    },
+    /**
+     * 获取默认激活菜单
+     * @param state
+     * @returns {string}
+     */
+    defaultActive (state) {
+      return state.defaultActive
+    },
+    /**
+     * 是否折叠菜单
+     * @param state
+     * @returns {any}
+     */
+    isCollapse (state) {
+      return state.isCollapse
     }
   },
   mutations: { // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
@@ -40,7 +58,7 @@ const store = createStore({
      * @param state 单一状态树
      * @param accessToken Token
      */
-    setAccessToken(state, accessToken) {
+    setAccessToken (state, accessToken) {
       state.accessToken = accessToken // 设置 accessToken
     },
     /**
@@ -48,7 +66,7 @@ const store = createStore({
      * @param state 单一状态树
      * @param refreshToken 刷新Token
      */
-    setRefreshToken(state, refreshToken) {
+    setRefreshToken (state, refreshToken) {
       state.refreshToken = refreshToken // 设置 refreshToken
     },
     /**
@@ -56,8 +74,24 @@ const store = createStore({
      * @param state 单一状态树
      * @param jti 票据
      */
-    setJti(state, jti) {
+    setJti (state, jti) {
       state.jti = jti // 设置 jti
+    },
+    /**
+     * 设置默认激活菜单
+     * @param state
+     * @param defaultActive
+     */
+    setDefaultActive (state, defaultActive) {
+      state.defaultActive = defaultActive
+    },
+    /**
+     * 设置是否折叠菜单
+     * @param state
+     * @param isCollapse
+     */
+    setIsCollapse (state, isCollapse) {
+      state.isCollapse = isCollapse
     }
   },
   actions: {
@@ -75,7 +109,6 @@ const store = createStore({
 export default store
 
 export const queryToken = function (query, router) {
-
   const accessToken = query.accessToken
   const refreshToken = query.refreshToken
   const jti = query.jti
@@ -83,7 +116,7 @@ export const queryToken = function (query, router) {
   if (accessToken) {
     delete query.accessToken
     console.log('获取到URL中的accessToken', accessToken)
-    router.push({query: query}).then(response => {
+    router.push({ query: query }).then(response => {
       console.log('已清空URL中的accessToken，准备缓存accessToken')
       store.commit('setAccessToken', accessToken)
       console.log('缓存Token已完成，store中的accessToken：', store.getters.accessToken)
@@ -95,7 +128,7 @@ export const queryToken = function (query, router) {
   if (refreshToken) {
     delete query.refreshToken
     console.log('获取到URL中的refreshToken', refreshToken)
-    router.push({query: query}).then(response => {
+    router.push({ query: query }).then(response => {
       console.log('已清空URL中的refreshToken，准备缓存refreshToken')
       store.commit('setRefreshToken', refreshToken)
       console.log('缓存Token已完成，store中的refreshToken：', store.getters.refreshToken)
@@ -107,7 +140,7 @@ export const queryToken = function (query, router) {
   if (jti) {
     delete query.jti
     console.log('获取到URL中的jti', jti)
-    router.push({query: query}).then(response => {
+    router.push({ query: query }).then(response => {
       console.log('已清空URL中的jti，准备缓存jti')
       store.commit('setJti', jti)
       console.log('缓存Token已完成，store中的jti：', store.getters.jti)
