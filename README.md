@@ -272,6 +272,7 @@ cloud.xuxiaowei
         1. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
         1. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
         1. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
+        1. [RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit)
         1. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
         1. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
         1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
