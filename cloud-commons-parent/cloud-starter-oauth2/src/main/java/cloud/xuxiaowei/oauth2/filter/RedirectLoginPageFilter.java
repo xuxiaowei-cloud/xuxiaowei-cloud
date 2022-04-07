@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.authorizationserver.filter;
+package cloud.xuxiaowei.oauth2.filter;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;

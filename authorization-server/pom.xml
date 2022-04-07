@@ -60,6 +60,12 @@
             <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
+        <!-- OAuth2 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-oauth2</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
