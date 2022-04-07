@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 授权码Code
  *
+ * <code>
+ * 用户权限判断：@PreAuthorize("hasAuthority('user')")
+ * </code>
+ * <code>
+ * 客户范围判断：@PreAuthorize("#oauth2.hasScope('snsapi_base')")
+ * </code>
+ *
  * @author xuxiaowei
  * @since 0.0.1
  */

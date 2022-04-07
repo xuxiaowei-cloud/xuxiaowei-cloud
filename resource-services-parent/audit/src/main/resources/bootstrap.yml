@@ -5,6 +5,9 @@ server:
 #
 # Spring 配置
 spring:
+  main:
+    # 覆盖 Bean
+    allow-bean-definition-overriding: true
   application:
     name: audit
   # 配置环境
