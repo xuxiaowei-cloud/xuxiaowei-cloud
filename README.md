@@ -266,6 +266,7 @@ cloud.xuxiaowei
     - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.dmg)
     - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.3.3-aarch64.dmg)
     - 插件
+        1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
         1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
         1. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
         1. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
