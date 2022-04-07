@@ -4,10 +4,12 @@
     <el-aside id="cloud-el-aside">
 
       <el-menu :default-active="defaultActive" class="el-menu-vertical" :collapse="isCollapse" :router="true"
-               @open="handleOpen" @close="handleClose">
+               @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><home-filled /></el-icon>
+            <el-icon>
+              <house/>
+            </el-icon>
             <span>主页</span>
           </template>
           <el-menu-item-group>
@@ -16,18 +18,71 @@
             <el-menu-item index="/home/homepage2" @click="menuItem">主页二</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
+
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon>
+              <aim/>
+            </el-icon>
+            <span>审计</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/audit/code" @click="menuItem">授权Code</el-menu-item>
+            <el-menu-item index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
+            <el-menu-item index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
       </el-menu>
 
     </el-aside>
     <el-container>
-      <el-header>
+      <el-header id="cloud-el-header">
 
-        <el-button v-if="isCollapse" @click="isCollapseClick"><el-icon><expand /></el-icon></el-button>
-        <el-button v-else @click="isCollapseClick"><el-icon><fold /></el-icon></el-button>
+        <!-- 左侧菜单打开/关闭按钮 -->
+        <el-button v-if="isCollapse" @click="isCollapseClick">
+          <el-icon>
+            <expand/>
+          </el-icon>
+        </el-button>
+        <el-button v-else @click="isCollapseClick">
+          <el-icon>
+            <fold/>
+          </el-icon>
+        </el-button>
 
-        <el-button @click="refreshClick"><el-icon><refresh /></el-icon></el-button>
+        <!-- 刷新 -->
+        <el-button @click="refreshClick">
+          <el-icon>
+            <refresh/>
+          </el-icon>
+        </el-button>
 
-        <el-button @click="fullScreenClick"><el-icon><full-screen /></el-icon></el-button>
+        <!-- 全屏 -->
+        <el-button @click="fullScreenClick">
+          <el-icon>
+            <full-screen/>
+          </el-icon>
+        </el-button>
+
+        <!-- 用户菜单 -->
+        <el-dropdown id="cloud-el-dropdown" @command="handleCommand">
+          <span class="el-dropdown-link">
+            {{ nickname }}
+            <el-icon class="el-icon--right">
+              <arrow-down/>
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+              <el-dropdown-item command="security">安全设置</el-dropdown-item>
+              <el-dropdown-item command="account">账户绑定</el-dropdown-item>
+              <el-dropdown-item command="social">社交绑定</el-dropdown-item>
+              <el-dropdown-item command="signout">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
 
       </el-header>
       <el-main>
@@ -42,7 +97,7 @@
 </template>
 
 <script setup>
-import { HomeFilled, Expand, Fold, Refresh, FullScreen } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import store from '@/store'
 
@@ -50,6 +105,8 @@ import store from '@/store'
 const defaultActive = ref(store.getters.defaultActive)
 // 是否折叠菜单
 const isCollapse = ref(store.getters.isCollapse)
+// 昵称
+const nickname = ref(store.getters.nickname)
 
 const handleOpen = (key, keyPath) => {
   console.log(key, keyPath)
@@ -77,7 +134,12 @@ const refreshClick = () => {
 
 // 全屏
 const fullScreenClick = () => {
-  document.documentElement.requestFullscreen();
+  document.documentElement.requestFullscreen()
+}
+
+// 用户菜单
+const handleCommand = (command, number) => {
+  console.log(command, number)
 }
 
 </script>
@@ -95,6 +157,30 @@ const fullScreenClick = () => {
   width: 200px;
   /* 最小高度 */
   min-height: 400px;
+}
+
+/* 左侧菜单 */
+#cloud-aside-el-menu {
+  --el-menu-item-height: 50px;
+}
+
+/* 左侧菜单 */
+#cloud-aside-el-menu .el-menu-item {
+  height: 40px;
+}
+
+/* 顶部导航 */
+#cloud-el-header {
+  --el-header-height: 50px;
+  line-height: var(--el-header-height);
+}
+
+/* 用户菜单 */
+#cloud-el-dropdown {
+  height: 34px;
+  line-height: 34px;
+  padding: 8px;
+  float: right;
 }
 
 </style>

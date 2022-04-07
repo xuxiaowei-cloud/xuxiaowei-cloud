@@ -4,6 +4,8 @@ import settings from '@/settings'
 
 const store = createStore({
   state: { // 单一状态树
+    username: 'xuxiaowei', // 用户名
+    nickname: '徐晓伟', // 昵称
     accessToken: null, // Token
     refreshToken: null, // 刷新Token
     jti: null, // 票据
@@ -11,6 +13,22 @@ const store = createStore({
     isCollapse: false // 是否折叠菜单
   },
   getters: {
+    /**
+     * 获取 用户名
+     * @param state 单一状态树
+     * @returns 返回 用户名
+     */
+    username (state) {
+      return state.username
+    },
+    /**
+     * 获取 昵称
+     * @param state 单一状态树
+     * @returns 返回 昵称
+     */
+    nickname (state) {
+      return state.nickname
+    },
     /**
      * 获取 Token
      * @param state 单一状态树
@@ -54,12 +72,28 @@ const store = createStore({
   },
   mutations: { // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
     /**
+     * 设置 用户名
+     * @param state 单一状态树
+     * @param username Token
+     */
+    setUsername (state, username) {
+      state.username = username
+    },
+    /**
+     * 设置 昵称
+     * @param state 单一状态树
+     * @param nickname Token
+     */
+    setNickname (state, nickname) {
+      state.nickname = nickname
+    },
+    /**
      * 设置 Token
      * @param state 单一状态树
      * @param accessToken Token
      */
     setAccessToken (state, accessToken) {
-      state.accessToken = accessToken // 设置 accessToken
+      state.accessToken = accessToken
     },
     /**
      * 设置 刷新Token
@@ -67,7 +101,7 @@ const store = createStore({
      * @param refreshToken 刷新Token
      */
     setRefreshToken (state, refreshToken) {
-      state.refreshToken = refreshToken // 设置 refreshToken
+      state.refreshToken = refreshToken
     },
     /**
      * 设置 票据
@@ -75,7 +109,7 @@ const store = createStore({
      * @param jti 票据
      */
     setJti (state, jti) {
-      state.jti = jti // 设置 jti
+      state.jti = jti
     },
     /**
      * 设置默认激活菜单
