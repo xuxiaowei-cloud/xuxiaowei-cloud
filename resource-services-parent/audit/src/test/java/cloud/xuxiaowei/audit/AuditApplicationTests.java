@@ -1,10 +1,10 @@
-package cloud.xuxiaowei.resourceserver;
+package cloud.xuxiaowei.audit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ResourceServerApplicationTests {
+class AuditApplicationTests {
 
     @Test
     void contextLoads() {

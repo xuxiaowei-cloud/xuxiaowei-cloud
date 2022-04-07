@@ -1,19 +1,19 @@
-package cloud.xuxiaowei.resourceserver;
+package cloud.xuxiaowei.audit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 程序执行入口
+ * 程序启动入口
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @SpringBootApplication
-public class ResourceServerApplication {
+public class AuditApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ResourceServerApplication.class, args);
+        SpringApplication.run(AuditApplication.class, args);
     }
 
 }

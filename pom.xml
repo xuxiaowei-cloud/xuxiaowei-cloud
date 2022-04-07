@@ -84,10 +84,10 @@
         <module>passport-ui</module>
         <!-- 登录服务 -->
         <module>passport</module>
-        <!-- 资源服务 -->
-        <module>resource-server</module>
         <!-- UI -->
         <module>ui</module>
+        <!-- 资源服务父模块 -->
+        <module>resource-services-parent</module>
         <!-- 工具类 -->
         <module>utils</module>
         <!-- 微服务公共组件父模块 -->
