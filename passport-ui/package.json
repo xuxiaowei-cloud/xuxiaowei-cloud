@@ -47,13 +47,13 @@
     "@vue/cli-service": "5.0.4",
     "@vue/eslint-config-standard": "6.1.0",
     "eslint": "7.32.0",
-    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "eslint-plugin-vue": "7.20.0",
     "lint-staged": "12.3.7",
-    "unplugin-auto-import": "0.6.6",
+    "unplugin-auto-import": "0.6.9",
     "unplugin-vue-components": "0.18.5",
-    "vite": "2.8.6"
+    "vite": "2.9.1"
   }
 }

@@ -104,6 +104,15 @@ npm create vite@latest passport-ui -- --template vue
         - unplugin-auto-import
         - unplugin-vue-components
 
+1. 加密
+    - jsencrypt
+        - RSA
+
+1. 缓存
+    - vuex
+    - vuex-persistedstate
+        - 缓存刷新时保留
+
 ## 依赖地址
 
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)

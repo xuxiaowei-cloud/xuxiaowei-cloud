@@ -32,13 +32,13 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <!-- 监控（管理）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
-        <spring-boot-admin.version>2.6.3</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.5</spring-boot-admin.version>
 
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
-        <spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -439,6 +439,17 @@
     </build>
 
     <profiles>
+
+        <profile>
+            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
+            <id>oss</id>
+            <repositories>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
+                </repository>
+            </repositories>
+        </profile>
 
         <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
