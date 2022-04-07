@@ -6,7 +6,7 @@ server:
 # Spring 配置
 spring:
   main:
-    # 覆盖 Bean
+    # 覆盖Bean（前面固定的中文与英文之间不能有空格，否则索引越界）
     allow-bean-definition-overriding: true
   application:
     name: audit
