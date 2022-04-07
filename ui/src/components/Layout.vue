@@ -8,7 +8,7 @@
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
-              <home-filled/>
+              <house/>
             </el-icon>
             <span>主页</span>
           </template>
@@ -18,6 +18,21 @@
             <el-menu-item index="/home/homepage2" @click="menuItem">主页二</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
+
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon>
+              <aim/>
+            </el-icon>
+            <span>审计</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/audit/code" @click="menuItem">授权Code</el-menu-item>
+            <el-menu-item index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
+            <el-menu-item index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
       </el-menu>
 
     </el-aside>
@@ -82,7 +97,7 @@
 </template>
 
 <script setup>
-import { HomeFilled, Expand, Fold, Refresh, FullScreen, ArrowDown } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import store from '@/store'
 
