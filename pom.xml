@@ -86,6 +86,8 @@
         <module>passport</module>
         <!-- UI -->
         <module>ui</module>
+        <!-- 资源服务父模块 -->
+        <module>resource-services-parent</module>
         <!-- 工具类 -->
         <module>utils</module>
         <!-- 微服务公共组件父模块 -->

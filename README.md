@@ -94,6 +94,7 @@ cloud.xuxiaowei
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
 │    └──ui                                  // UI
+│    └──resource-services-parent            // 资源服务父模块
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
