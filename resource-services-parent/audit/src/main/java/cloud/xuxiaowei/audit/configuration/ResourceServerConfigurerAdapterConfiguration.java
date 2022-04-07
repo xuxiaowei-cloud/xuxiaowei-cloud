@@ -37,8 +37,8 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // 配置资源路径 /sns/** 需要的权限 scope
-        http.antMatcher("/sns/**").authorizeRequests()
-                .antMatchers("/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')");
+        // http.antMatcher("/sns/**").authorizeRequests()
+        //        .antMatchers("/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')");
 
         // OAuth2 授权后可访问
         http.antMatcher("/**").authorizeRequests()
