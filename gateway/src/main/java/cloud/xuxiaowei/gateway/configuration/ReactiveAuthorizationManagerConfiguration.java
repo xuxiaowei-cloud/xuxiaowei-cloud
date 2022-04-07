@@ -2,6 +2,7 @@ package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
+import cloud.xuxiaowei.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -123,6 +124,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
+
+        // 放行端点
+        if (path.contains(Constant.ACTUATOR)) {
+            return Mono.just(new AuthorizationDecision(true));
+        }
 
         boolean whiteList = whiteList(path);
         if (whiteList) {
