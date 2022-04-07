@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.audit.configuration;
 
+import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,6 +40,9 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         // 配置资源路径 /sns/** 需要的权限 scope
         // http.antMatcher("/sns/**").authorizeRequests()
         //        .antMatchers("/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')");
+
+        // 端点放行
+        http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
         // OAuth2 授权后可访问
         http.antMatcher("/**").authorizeRequests()

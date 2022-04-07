@@ -93,11 +93,7 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 .loginPage(DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL)
                 .loginProcessingUrl("/" + UUID.randomUUID());
 
-        // 端点放行
-        http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
-
-        // 任何路径均需要授权后才能访问
-        http.authorizeRequests().anyRequest().authenticated();
+        // 由于 本组件已引入了 spring-security-oauth2-autoconfigure，权限配置适用于 OAuth2 进行管理
 
         // 自定义：默认登录页面URL（在未配置登录页面URL时，即未设置：HttpSecurity#formLogin()）
         http.addFilterAt(redirectLoginPageFilter, DefaultLoginPageGeneratingFilter.class);
