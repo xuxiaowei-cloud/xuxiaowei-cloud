@@ -84,8 +84,6 @@
         <module>passport-ui</module>
         <!-- 登录服务 -->
         <module>passport</module>
-        <!-- 资源服务 -->
-        <module>resource-server</module>
         <!-- UI -->
         <module>ui</module>
         <!-- 工具类 -->

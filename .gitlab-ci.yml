@@ -61,7 +61,6 @@ package:
       - plugins/obs-maven-plugin/target/obs-maven-plugin-*
       - plugins/oss-maven-plugin/target/oss-maven-plugin-*
       - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
@@ -271,7 +270,6 @@ s2:
       - plugins/obs-maven-plugin/target/obs-maven-plugin-*
       - plugins/oss-maven-plugin/target/oss-maven-plugin-*
       - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-server/target/resource-server-*
       - ui/target/ui-*
       - utils/target/utils-*
   tags:
