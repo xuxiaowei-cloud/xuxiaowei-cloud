@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +25,6 @@ public class CloudCorsProperties {
     /**
      * 允许来源为空
      */
-    private List<String> allowOrginNullList;
+    private List<String> allowOrginNullList = Collections.emptyList();
 
 }

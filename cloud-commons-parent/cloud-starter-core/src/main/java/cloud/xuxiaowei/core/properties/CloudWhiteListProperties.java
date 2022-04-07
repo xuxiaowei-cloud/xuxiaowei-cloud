@@ -52,7 +52,7 @@ public class CloudWhiteListProperties {
         /**
          * 路径
          */
-        private List<String> pathList;
+        private List<String> pathList = Collections.emptyList();
 
     }
 
