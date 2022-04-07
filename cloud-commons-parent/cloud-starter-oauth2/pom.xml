@@ -4,62 +4,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cloud.xuxiaowei</groupId>
-        <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
+        <artifactId>cloud-commons-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cloud.xuxiaowei</groupId>
-    <artifactId>resource-services-parent</artifactId>
+    <groupId>cloud.xuxiaowei.commons</groupId>
+    <artifactId>cloud-starter-oauth2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
-    <name>resource-services-parent</name>
-    <description>资源服务父模块</description>
+    <name>cloud-starter-oauth2</name>
+    <description>OAuth2 组件</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
-    <modules>
-        <!-- 审计服务 -->
-        <module>audit</module>
-    </modules>
-
     <dependencies>
-
-        <!-- Nacos 注册 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
-        <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
-        <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <!-- Nacos 配置 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-
-        <!-- 负载均衡组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-loadbalancer</artifactId>
-        </dependency>
-
-        <!-- 日志组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-log</artifactId>
-        </dependency>
 
         <!-- 核心组件 -->
         <dependency>
@@ -67,51 +28,30 @@
             <artifactId>cloud-starter-core</artifactId>
         </dependency>
 
-        <!-- MyBatis 组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-mybatis</artifactId>
-        </dependency>
-
-        <!-- 系统组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-system</artifactId>
-        </dependency>
-
-        <!-- 工具类 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>utils</artifactId>
-        </dependency>
-
-        <!-- OAuth2 组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-oauth2</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
+        <!-- 修复 spring-security-oauth2-autoconfigure 引入 bcpkix-jdk15on 的漏洞 -->
+        <!-- 子模块中引入 spring-security-oauth2-autoconfigure 可缺省引入 -->
+        <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <licenses>

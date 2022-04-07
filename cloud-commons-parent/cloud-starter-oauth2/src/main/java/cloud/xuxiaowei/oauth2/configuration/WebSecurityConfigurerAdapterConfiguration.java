@@ -1,25 +1,40 @@
-package cloud.xuxiaowei.authorizationserver.configuration;
+package cloud.xuxiaowei.oauth2.configuration;
 
+import cloud.xuxiaowei.oauth2.filter.RedirectLoginPageFilter;
+import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
 import java.security.KeyPair;
+import java.util.UUID;
 
 /**
- * 默认 {@link Bean} 配置
+ * Spring Security 配置
  *
  * @author xuxiaowei
+ * @see UsernamePasswordAuthenticationFilter 用户名密码认证过滤器
+ * @see DefaultLoginPageGeneratingFilter 默认登录页面
+ * @see HttpSecurity#formLogin() 登录配置
  * @since 0.0.1
  */
-@SuppressWarnings({"deprecation"})
 @Configuration
-public class DefaultBeanConfiguration {
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
+
+    private RedirectLoginPageFilter redirectLoginPageFilter;
 
     /**
      * 来自 spring-cloud-context-*.*.*.jar
@@ -29,6 +44,11 @@ public class DefaultBeanConfiguration {
     @Autowired
     public void setKeyProperties(KeyProperties keyProperties) {
         this.keyProperties = keyProperties;
+    }
+
+    @Autowired
+    public void setRedirectLoginPageFilter(RedirectLoginPageFilter redirectLoginPageFilter) {
+        this.redirectLoginPageFilter = redirectLoginPageFilter;
     }
 
     /**
@@ -63,6 +83,21 @@ public class DefaultBeanConfiguration {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setKeyPair(keyPair);
         return jwtAccessTokenConverter;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        // 启用登录页面，但不启用登录请求验证用户名与密码（即：随机登录请求URL）
+        http.formLogin()
+                .loginPage(DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL)
+                .loginProcessingUrl("/" + UUID.randomUUID());
+
+        // 由于 本组件已引入了 spring-security-oauth2-autoconfigure，权限配置适用于 OAuth2 进行管理
+
+        // 自定义：默认登录页面URL（在未配置登录页面URL时，即未设置：HttpSecurity#formLogin()）
+        http.addFilterAt(redirectLoginPageFilter, DefaultLoginPageGeneratingFilter.class);
+
     }
 
 }
