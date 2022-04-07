@@ -25,11 +25,12 @@ import org.springframework.security.web.server.authorization.AuthorizationContex
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.security.KeyPair;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -121,16 +122,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, AuthorizationContext authorizationContext) {
 
         ServerWebExchange exchange = authorizationContext.getExchange();
-        ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
-        String path = uri.getPath();
 
-        // 放行端点
-        if (path.contains(Constant.ACTUATOR)) {
-            return Mono.just(new AuthorizationDecision(true));
-        }
-
-        boolean whiteList = whiteList(path);
+        boolean whiteList = whiteList(exchange);
         if (whiteList) {
             return Mono.just(new AuthorizationDecision(true));
         }
@@ -154,10 +147,28 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     /**
      * 白名单配置
      *
-     * @param path 路径
+     * @param exchange 服务器网络交换
      * @return 返回匹配结果
      */
-    private boolean whiteList(String path) {
+    private boolean whiteList(ServerWebExchange exchange) {
+
+        ServerHttpRequest request = exchange.getRequest();
+        URI uri = request.getURI();
+        String path = uri.getPath();
+
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+
+        assert remoteAddress != null;
+        InetAddress address = remoteAddress.getAddress();
+        String hostAddress = address.getHostAddress();
+
+        List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
+
+        // 放行指定IP访问端点
+        if (path.contains(Constant.ACTUATOR) && actuatorIpList.contains(hostAddress)) {
+            return true;
+        }
+
         String[] pathSplit = path.split("/");
         if (pathSplit.length > 1) {
             String serviceName = pathSplit[1];

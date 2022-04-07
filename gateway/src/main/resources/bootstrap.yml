@@ -237,3 +237,7 @@ cloud:
           - /oauth/check_token
           # 获取Token
           - /oauth/token
+    actuator-ip-list:
+      - 192.168.5.3
+      - 192.168.5.4
+      - 10.0.4.13
