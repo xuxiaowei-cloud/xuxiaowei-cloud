@@ -4,7 +4,7 @@
     <el-aside id="cloud-el-aside">
 
       <el-menu :default-active="defaultActive" class="el-menu-vertical" :collapse="isCollapse" :router="true"
-               @open="handleOpen" @close="handleClose">
+               @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -142,6 +142,16 @@ const handleCommand = (command, number) => {
   width: 200px;
   /* 最小高度 */
   min-height: 400px;
+}
+
+/* 左侧菜单 */
+#cloud-aside-el-menu {
+  --el-menu-item-height: 50px;
+}
+
+/* 左侧菜单 */
+#cloud-aside-el-menu .el-menu-item {
+  height: 40px;
 }
 
 /* 顶部导航 */
