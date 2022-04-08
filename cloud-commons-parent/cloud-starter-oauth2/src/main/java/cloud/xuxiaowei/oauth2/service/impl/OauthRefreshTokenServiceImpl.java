@@ -1,8 +1,8 @@
-package cloud.xuxiaowei.authorizationserver.service.impl;
+package cloud.xuxiaowei.oauth2.service.impl;
 
-import cloud.xuxiaowei.authorizationserver.entity.OauthRefreshToken;
-import cloud.xuxiaowei.authorizationserver.mapper.OauthRefreshTokenMapper;
-import cloud.xuxiaowei.authorizationserver.service.IOauthRefreshTokenService;
+import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
+import cloud.xuxiaowei.oauth2.mapper.OauthRefreshTokenMapper;
+import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

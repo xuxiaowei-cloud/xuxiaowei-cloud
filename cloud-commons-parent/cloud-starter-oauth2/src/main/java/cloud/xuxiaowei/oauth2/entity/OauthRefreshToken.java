@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.authorizationserver.entity;
+package cloud.xuxiaowei.oauth2.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

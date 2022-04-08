@@ -1,9 +1,9 @@
-package cloud.xuxiaowei.authorizationserver.service.impl;
+package cloud.xuxiaowei.oauth2.service.impl;
 
-import cloud.xuxiaowei.authorizationserver.entity.OauthAccessToken;
-import cloud.xuxiaowei.authorizationserver.entity.OauthRefreshToken;
-import cloud.xuxiaowei.authorizationserver.service.IOauthAccessTokenService;
-import cloud.xuxiaowei.authorizationserver.service.IOauthRefreshTokenService;
+import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
+import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
+import cloud.xuxiaowei.oauth2.service.IOauthAccessTokenService;
+import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
 import cloud.xuxiaowei.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

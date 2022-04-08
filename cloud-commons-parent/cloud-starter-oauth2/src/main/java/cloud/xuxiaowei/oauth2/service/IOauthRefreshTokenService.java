@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.authorizationserver.service;
+package cloud.xuxiaowei.oauth2.service;
 
-import cloud.xuxiaowei.authorizationserver.entity.OauthRefreshToken;
+import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

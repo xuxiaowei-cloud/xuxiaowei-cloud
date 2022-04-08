@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.authorizationserver.mapper;
+package cloud.xuxiaowei.oauth2.mapper;
 
-import cloud.xuxiaowei.authorizationserver.entity.OauthAccessToken;
+import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author xuxiaowei
  * @since 2022-04-06
  */
-public interface OauthAccessTokenMapper extends BaseMapper<OauthAccessToken> {
+public interface OauthRefreshTokenMapper extends BaseMapper<OauthRefreshToken> {
 
 }
