@@ -156,6 +156,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         URI uri = request.getURI();
         String path = uri.getPath();
 
+        List<String> ignores = cloudWhiteListProperties.getIgnores();
+        if (ignores.contains(path)) {
+            return true;
+        }
+
         InetSocketAddress remoteAddress = request.getRemoteAddress();
 
         assert remoteAddress != null;
