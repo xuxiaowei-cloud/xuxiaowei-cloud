@@ -18,19 +18,19 @@ public enum ServiceEnums {
 
     ;
 
-    public final String value;
+    public final String service;
 
     public final String name;
 
     ServiceEnums(String service, String serviceName) {
-        this.value = service;
+        this.service = service;
         this.name = serviceName;
     }
 
     public static ServiceEnums getEnum(String value) {
         ServiceEnums[] enums = ServiceEnums.values();
         for (ServiceEnums e : enums) {
-            if (e.value.equals(value)) {
+            if (e.service.equals(value)) {
                 return e;
             }
         }

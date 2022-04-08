@@ -1,3 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cloud.xuxiaowei.oauth2.filter.RedirectLoginPageFilter,\
-  cloud.xuxiaowei.oauth2.configuration.WebSecurityConfigurerAdapterConfiguration
+  cloud.xuxiaowei.oauth2.configuration.WebSecurityConfigurerAdapterConfiguration,\
+  cloud.xuxiaowei.oauth2.service.impl.OauthAccessTokenServiceImpl,\
+  cloud.xuxiaowei.oauth2.service.impl.OauthRefreshTokenServiceImpl,\
+  cloud.xuxiaowei.oauth2.service.impl.TokenStoreImpl

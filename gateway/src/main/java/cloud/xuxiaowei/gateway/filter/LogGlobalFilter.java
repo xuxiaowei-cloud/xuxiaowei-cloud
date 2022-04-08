@@ -117,7 +117,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         String queryString = uri.getQuery();
 
         Log log = new Log();
-        log.setModule(ServiceEnums.GATEWAY.value);
+        log.setModule(ServiceEnums.GATEWAY.service);
         log.setDate(localDate);
         log.setYear(year);
         log.setMonth(month);
