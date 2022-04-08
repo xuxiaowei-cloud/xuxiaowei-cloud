@@ -1,13 +1,19 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
+import org.springframework.security.oauth2.common.util.SerializationUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
@@ -20,6 +26,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
+import java.sql.Types;
 
 /**
  * 默认 {@link Bean} 配置
@@ -27,6 +34,7 @@ import java.security.KeyPair;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @Configuration
 public class DefaultBeanConfiguration {
 
@@ -86,6 +94,24 @@ public class DefaultBeanConfiguration {
                 store(code, authentication);
                 return code;
             }
+
+            @Override
+            protected void store(String code, OAuth2Authentication authentication) {
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                String authenticationJson;
+                try {
+                    authenticationJson = objectMapper.writeValueAsString(authentication);
+                } catch (JsonProcessingException e) {
+                    log.error("OAuth2Authentication 格式化为 JSON 异常", e);
+                    authenticationJson = null;
+                }
+
+                new JdbcTemplate(dataSource).update("insert into oauth_code (code, authentication, authentication_json) values (?, ?, ?)",
+                        new Object[]{code, new SqlLobValue(SerializationUtils.serialize(authentication)), authenticationJson}, new int[]{
+                                Types.VARCHAR, Types.BLOB, Types.VARCHAR});
+            }
+
         };
     }
 
