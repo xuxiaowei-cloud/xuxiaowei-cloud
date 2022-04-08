@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
+import cloud.xuxiaowei.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.common.util.SerializationUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -19,6 +23,8 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RedisAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
+import org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.*;
 import org.springframework.security.oauth2.provider.token.store.jwk.JwkTokenStore;
@@ -27,6 +33,10 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.sql.Types;
+import java.util.HashMap;
+import java.util.Map;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * 默认 {@link Bean} 配置
@@ -104,7 +114,7 @@ public class DefaultBeanConfiguration {
                     authenticationJson = objectMapper.writeValueAsString(authentication);
                 } catch (JsonProcessingException e) {
                     log.error("OAuth2Authentication 格式化为 JSON 异常", e);
-                    authenticationJson = null;
+                    authenticationJson = "{}";
                 }
 
                 new JdbcTemplate(dataSource).update("insert into oauth_code (code, authentication, authentication_json) values (?, ?, ?)",
@@ -159,7 +169,82 @@ public class DefaultBeanConfiguration {
      */
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource);
+        return new JdbcTokenStore(dataSource) {
+
+            private final AuthenticationKeyGenerator authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
+
+            @Override
+            public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
+                String refreshToken = null;
+                if (token.getRefreshToken() != null) {
+                    refreshToken = token.getRefreshToken().getValue();
+                }
+
+                if (readAccessToken(token.getValue()) != null) {
+                    removeAccessToken(token.getValue());
+                }
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                String tokenJson;
+                try {
+                    tokenJson = objectMapper.writeValueAsString(token);
+                } catch (JsonProcessingException e) {
+                    log.error("OAuth2AccessToken 格式化为 JSON 异常", e);
+                    tokenJson = "{}";
+                }
+                String authenticationJson;
+                try {
+                    authenticationJson = objectMapper.writeValueAsString(authentication);
+                } catch (JsonProcessingException e) {
+                    log.error("OAuth2Authentication 格式化为 JSON 异常", e);
+                    authenticationJson = "{}";
+                }
+
+                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, authentication_id, user_name, client_id, authentication, authentication_json, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        new Object[]{extractTokenKey(
+                                token.getValue()),
+                                new SqlLobValue(serializeAccessToken(token)), tokenJson,
+                                authenticationKeyGenerator.extractKey(authentication),
+                                authentication.isClientOnly() ? null : authentication.getName(),
+                                authentication.getOAuth2Request().getClientId(),
+                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson,
+                                extractTokenKey(refreshToken)}, new int[]{
+                                Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR});
+            }
+
+            @Override
+            public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                String refreshTokenJson;
+
+                try {
+                    DefaultExpiringOAuth2RefreshToken oauth2RefreshToken = (DefaultExpiringOAuth2RefreshToken) refreshToken;
+                    Map<String, String> map = new HashMap<>(4);
+                    map.put("refreshToken", oauth2RefreshToken.getValue());
+                    map.put("expiration", DateUtils.format(oauth2RefreshToken.getExpiration(), DEFAULT_DATE_TIME_FORMAT));
+                    refreshTokenJson = objectMapper.writeValueAsString(map);
+                } catch (JsonProcessingException e) {
+                    log.error("OAuth2RefreshToken 格式化为 JSON 异常", e);
+                    refreshTokenJson = "{}";
+                }
+                String authenticationJson;
+                try {
+                    authenticationJson = objectMapper.writeValueAsString(authentication);
+                } catch (JsonProcessingException e) {
+                    log.error("OAuth2Authentication 格式化为 JSON 异常", e);
+                    authenticationJson = "{}";
+                }
+
+                new JdbcTemplate(dataSource).update(
+                        "insert into oauth_refresh_token (token_id, token, token_json, authentication, authentication_json) values (?, ?, ?, ?, ?)",
+                        new Object[]{extractTokenKey(refreshToken.getValue()),
+                                new SqlLobValue(serializeRefreshToken(refreshToken)), refreshTokenJson,
+                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson},
+                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.BLOB, Types.VARCHAR});
+            }
+
+        };
     }
 
 }
