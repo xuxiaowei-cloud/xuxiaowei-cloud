@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.audit.controller;
 
+import cloud.xuxiaowei.audit.feign.AuthorizationServerFeignService;
 import cloud.xuxiaowei.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/code")
 public class CodeRestController {
 
+    private AuthorizationServerFeignService authorizationServerFeignService;
+
+    @Autowired
+    public void setAuthorizationServerFeignService(AuthorizationServerFeignService authorizationServerFeignService) {
+        this.authorizationServerFeignService = authorizationServerFeignService;
+    }
+
     /**
      * 分页查询授权码
      *
@@ -33,7 +42,7 @@ public class CodeRestController {
      */
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response) {
-        return Response.ok();
+        return authorizationServerFeignService.codePage();
     }
 
 }
