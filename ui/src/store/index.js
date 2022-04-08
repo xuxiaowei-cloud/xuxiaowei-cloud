@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import settings from '@/settings'
+import { check_token } from '@/api/authorization-server'
 
 const store = createStore({
   state: { // 单一状态树
@@ -155,8 +156,14 @@ export const queryToken = function (query, router) {
       store.commit('setAccessToken', accessToken)
       console.log('缓存Token已完成，store中的accessToken：', store.getters.accessToken)
     })
+    check_token(store.getters.accessToken).then(response => {
+      console.log(response)
+    })
   } else {
     console.log('store中的accessToken：', store.getters.accessToken)
+    check_token(store.getters.accessToken).then(response => {
+      console.log(response)
+    })
   }
 
   if (refreshToken) {
