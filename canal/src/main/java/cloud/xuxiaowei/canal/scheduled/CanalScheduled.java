@@ -113,7 +113,7 @@ public class CanalScheduled {
                 }
                 sql.append(") VALUES (");
                 for (int i = 0; i < columnList.size(); i++) {
-                    sql.append("'").append(columnList.get(i).getValue()).append("'");
+                    sql.append("\"").append(columnList.get(i).getValue()).append("\"");
                     if (i != columnList.size() - 1) {
                         sql.append(",");
                     }
