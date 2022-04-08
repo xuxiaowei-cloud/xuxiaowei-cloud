@@ -7,6 +7,7 @@ INSERT INTO `users`(`username`, `password`, `enabled`, `account_non_expired`, `c
 -- Records of authorities
 -- ----------------------------
 INSERT INTO `authorities`(`username`, `authority`, `update_date`, `create_date`, `deleted`) VALUES ('xuxiaowei', 'user', NULL, '2022-04-06 17:33:16', 0);
+INSERT INTO `authorities`(`username`, `authority`, `update_date`, `create_date`, `deleted`) VALUES ('xuxiaowei', 'audit_code_read', NULL, '2022-04-08 05:16:41', 0);
 
 -- ----------------------------
 -- Records of oauth_client_details
