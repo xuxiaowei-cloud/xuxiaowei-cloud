@@ -81,13 +81,13 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
     }
 
     /**
-     * 修改 授权确认桶 的异常处理程序为本类
+     * 修改 Token桶 的异常处理程序为本类
      *
      * @param tokenEndpoint 授权确认桶
      */
     @Autowired
     public void setTokenEndpoint(TokenEndpoint tokenEndpoint) {
-        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(false));
+        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(true));
     }
 
     /**
