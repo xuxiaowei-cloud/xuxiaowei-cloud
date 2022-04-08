@@ -1,6 +1,7 @@
-package cloud.xuxiaowei.canal.runner;
+package cloud.xuxiaowei.canal.scheduled;
 
 import cloud.xuxiaowei.canal.properties.CloudCanalProperties;
+import cloud.xuxiaowei.canal.service.CanalService;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -8,13 +9,12 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Canal 命令行运行器
@@ -24,30 +24,28 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 @Slf4j
 @Component
-public class CanalCommandLineRunner implements CommandLineRunner {
-
-    private final Queue<String> SQL_QUEUE = new ConcurrentLinkedQueue<>();
+@EnableAsync
+public class CanalScheduled {
 
     private CloudCanalProperties cloudCanalProperties;
+
+    private CanalService canalService;
+
+    @Autowired
+    public void setCanalService(CanalService canalService) {
+        this.canalService = canalService;
+    }
 
     @Autowired
     public void setCloudCanalProperties(CloudCanalProperties cloudCanalProperties) {
         this.cloudCanalProperties = cloudCanalProperties;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                canal();
-            }
-        }).start();
-
-    }
-
+    @Scheduled(initialDelay = 1000, fixedRate = 1000)
     private void canal() {
+
+        log.info("canal 启动 ……");
+
         String hostname = cloudCanalProperties.getHostname();
         int port = cloudCanalProperties.getPort();
         String destination = cloudCanalProperties.getDestination();
@@ -60,7 +58,7 @@ public class CanalCommandLineRunner implements CommandLineRunner {
 
         try {
             connector.connect();
-            connector.subscribe(".*\\..*");
+            connector.subscribe("xuxiaowei_cloud\\.oauth.*");
             connector.rollback();
             try {
                 while (true) {
@@ -75,10 +73,6 @@ public class CanalCommandLineRunner implements CommandLineRunner {
                     }
                     connector.ack(batchId);
 
-                    // 当队列里面堆积的sql大于一定数值的时候就模拟执行
-                    if (SQL_QUEUE.size() >= 1) {
-                        executeQueueSql();
-                    }
                 }
             } catch (InterruptedException | InvalidProtocolBufferException e) {
                 log.error("Canal异常：", e);
@@ -104,14 +98,6 @@ public class CanalCommandLineRunner implements CommandLineRunner {
         }
     }
 
-    public void executeQueueSql() {
-        int size = SQL_QUEUE.size();
-        for (int i = 0; i < size; i++) {
-            String sql = SQL_QUEUE.poll();
-            log.info("[sql]----> \n" + sql);
-        }
-    }
-
     private void insertSql(CanalEntry.Entry entry) {
         try {
             CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
@@ -133,7 +119,11 @@ public class CanalCommandLineRunner implements CommandLineRunner {
                     }
                 }
                 sql.append(")");
-                SQL_QUEUE.add(sql.toString());
+
+                log.info("准备插入：{}", sql);
+                int insert = canalService.insert(sql.toString());
+                log.info("插入结果：{}", insert);
+
             }
         } catch (InvalidProtocolBufferException e) {
             log.error("Calan 插入异常：", e);
@@ -162,7 +152,11 @@ public class CanalCommandLineRunner implements CommandLineRunner {
                         break;
                     }
                 }
-                SQL_QUEUE.add(sql.toString());
+
+                log.info("准备更新：{}", sql);
+                int update = canalService.update(sql.toString());
+                log.info("更新结果：{}", update);
+
             }
         } catch (InvalidProtocolBufferException e) {
             log.error("Calan 更新异常：", e);
@@ -183,7 +177,11 @@ public class CanalCommandLineRunner implements CommandLineRunner {
                         break;
                     }
                 }
-                SQL_QUEUE.add(sql.toString());
+
+                log.info("准备删除：{}", sql);
+                int delete = canalService.delete(sql.toString());
+                log.info("删除结果：{}", delete);
+
             }
         } catch (InvalidProtocolBufferException e) {
             log.error("Calan 删除异常：", e);
