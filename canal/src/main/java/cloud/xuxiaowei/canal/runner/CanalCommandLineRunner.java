@@ -38,6 +38,16 @@ public class CanalCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                canal();
+            }
+        }).start();
+
+    }
+
+    private void canal() {
         String hostname = cloudCanalProperties.getHostname();
         int port = cloudCanalProperties.getPort();
         String destination = cloudCanalProperties.getDestination();
@@ -76,7 +86,6 @@ public class CanalCommandLineRunner implements CommandLineRunner {
         } finally {
             connector.disconnect();
         }
-
     }
 
     private void dataHandle(List<CanalEntry.Entry> entries) throws InvalidProtocolBufferException {
