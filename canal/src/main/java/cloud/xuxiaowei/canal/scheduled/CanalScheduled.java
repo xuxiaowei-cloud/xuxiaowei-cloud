@@ -41,7 +41,7 @@ public class CanalScheduled {
         this.cloudCanalProperties = cloudCanalProperties;
     }
 
-    @Scheduled(initialDelay = 1000, fixedRate = 1000)
+    @Scheduled(initialDelay = 1000, fixedRate = Integer.MAX_VALUE)
     private void canal() {
 
         log.info("canal 启动 ……");
@@ -106,18 +106,46 @@ public class CanalScheduled {
                 List<CanalEntry.Column> columnList = rowData.getAfterColumnsList();
                 StringBuilder sql = new StringBuilder("insert into " + entry.getHeader().getTableName() + " (");
                 for (int i = 0; i < columnList.size(); i++) {
-                    sql.append(columnList.get(i).getName());
+                    CanalEntry.Column column = columnList.get(i);
+                    String mysqlType = column.getMysqlType();
+                    if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    }
+
+                    sql.append(column.getName());
                     if (i != columnList.size() - 1) {
                         sql.append(",");
                     }
                 }
+
+                String s1 = sql.toString();
+                int s1Length = s1.length();
+                String s1Substring = s1.substring(s1Length - 1, s1Length);
+                if (",".equals(s1Substring)) {
+                    sql = new StringBuilder(s1.substring(0, s1Length - 1));
+                }
+
                 sql.append(") VALUES (");
                 for (int i = 0; i < columnList.size(); i++) {
-                    sql.append("\"").append(columnList.get(i).getValue()).append("\"");
+                    CanalEntry.Column column = columnList.get(i);
+                    String mysqlType = column.getMysqlType();
+                    if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    }
+
+                    sql.append("'").append(column.getValue()).append("'");
                     if (i != columnList.size() - 1) {
                         sql.append(",");
                     }
                 }
+
+                String s2 = sql.toString();
+                int s2Length = s2.length();
+                String s2Substring = s2.substring(s2Length - 1, s2Length);
+                if (",".equals(s2Substring)) {
+                    sql = new StringBuilder(s2.substring(0, s2Length - 1));
+                }
+
                 sql.append(")");
 
                 log.info("准备插入：{}", sql);
@@ -138,7 +166,14 @@ public class CanalScheduled {
                 List<CanalEntry.Column> newColumnList = rowData.getAfterColumnsList();
                 StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName() + " set ");
                 for (int i = 0; i < newColumnList.size(); i++) {
-                    sql.append(" ").append(newColumnList.get(i).getName()).append(" = '").append(newColumnList.get(i).getValue()).append("'");
+
+                    CanalEntry.Column newColumn = newColumnList.get(i);
+                    String mysqlType = newColumn.getMysqlType();
+                    if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    }
+
+                    sql.append(" ").append(newColumn.getName()).append(" = '").append(newColumn.getValue()).append("'");
                     if (i != newColumnList.size() - 1) {
                         sql.append(",");
                     }
