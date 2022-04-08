@@ -55,6 +55,11 @@
         <!-- 多数据源 -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
         <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
+        <mybatis-plus-extension.version>3.5.1</mybatis-plus-extension.version>
+        <!-- SQL 性能分析 -->
+        <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+        <p6spy.version>3.9.1</p6spy.version>
 
         <!-- guava -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -67,6 +72,11 @@
         <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
         <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
+
+        <!-- 阿里巴巴 MySQL binlog 增量订阅、消费组件 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
+        <canal.version>1.1.5</canal.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -183,6 +193,19 @@
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-datasource-spring-boot-starter.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus-extension.version}</version>
+            </dependency>
+            <!-- SQL 性能分析 -->
+            <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
 
             <!-- guava -->
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -208,6 +231,20 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bcpkix-jdk15on.version}</version>
+            </dependency>
+
+            <!-- 阿里巴巴 MySQL binlog 增量订阅、消费组件 -->
+            <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.client</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.protocol</artifactId>
+                <version>${canal.version}</version>
             </dependency>
 
             <!-- 工具类 -->
