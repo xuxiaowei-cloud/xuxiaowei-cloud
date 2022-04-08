@@ -81,13 +81,13 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
     }
 
     /**
-     * 修改 授权确认桶 的异常处理程序为本类
+     * 修改 Token桶 的异常处理程序为本类
      *
      * @param tokenEndpoint 授权确认桶
      */
     @Autowired
     public void setTokenEndpoint(TokenEndpoint tokenEndpoint) {
-        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(false));
+        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(true));
     }
 
     /**
@@ -167,6 +167,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
                     oauth2Exception.addAdditionalInformation(Response.EXPLAIN, "异常代码待划分");
+                    oauth2Exception.addAdditionalInformation(OAuth2Exception.DESCRIPTION, oauth2Exception.getMessage());
                 }
 
                 log.error("授权异常：", oauth2Exception);

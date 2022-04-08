@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * 响应 工具类
@@ -59,21 +58,6 @@ public class ResponseUtils {
      */
     public static void response(@NonNull HttpServletResponse response, String json) throws IOException {
         response(response, (Object) json);
-    }
-
-    /**
-     * 响应数据
-     *
-     * @param response 响应
-     * @param map      Map 类型的数据
-     * @throws IOException IO 异常
-     */
-    @SuppressWarnings("rawtypes")
-    public static void response(@NonNull HttpServletResponse response, Map map) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        String json = objectMapper.writeValueAsString(map);
-        response(response, json);
     }
 
     /**

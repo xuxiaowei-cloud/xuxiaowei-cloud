@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -89,11 +90,19 @@ public class CodeRestController {
         String homePage = cloudClientProperties.getHomePage();
 
         assert oauth2AccessToken != null;
+
+        Map<String, Object> additionalInformation = oauth2AccessToken.getAdditionalInformation();
+        Object codeObj = additionalInformation.get(Response.CODE);
+        if (!CodeEnums.OK.code.equals(codeObj)) {
+            ResponseUtils.response(response, additionalInformation);
+            return;
+        }
+
         String accessToken = oauth2AccessToken.getAccessToken();
         String refreshToken = oauth2AccessToken.getRefreshToken();
         String jti = oauth2AccessToken.getJti();
 
-        response.sendRedirect(String.format("%s?accessToken=%s&refreshToken=%s&jti=%s",homePage,accessToken, refreshToken, jti));
+        response.sendRedirect(String.format("%s?accessToken=%s&refreshToken=%s&jti=%s", homePage, accessToken, refreshToken, jti));
     }
 
     /**

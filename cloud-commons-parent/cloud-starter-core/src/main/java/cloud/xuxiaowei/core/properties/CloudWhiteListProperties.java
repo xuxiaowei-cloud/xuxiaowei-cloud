@@ -31,6 +31,11 @@ public class CloudWhiteListProperties {
     private List<String> actuatorIpList = Collections.emptyList();
 
     /**
+     * 忽略
+     */
+    private List<String> ignores = Collections.emptyList();
+
+    /**
      * 服务列表
      */
     private List<Service> services;

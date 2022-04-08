@@ -1,12 +1,12 @@
 # 服务器
 server:
   # 端口
-  port: ${gateway_port:1101}
+  port: ${canal_port:1601}
 #
 # Spring 配置
 spring:
   application:
-    name: gateway
+    name: canal
   # 配置环境
   profiles:
     # 激活
@@ -24,7 +24,7 @@ spring:
         # 忽略 VirtualBox 虚拟机网卡
         - VirtualBox.*
     #
-    # Nacos-配置
+    # Nacos 配置
     nacos:
       # 服务发现
       discovery:
@@ -50,23 +50,6 @@ spring:
 ---
 # 以下配置可放入 nacos 中
 
-
-#
-# Spring 配置
-spring:
-  # 微服务 配置
-  cloud:
-    # 网关 配置
-    gateway:
-      # 发现 配置
-      discovery:
-        # 定位器
-        locator:
-          # 服务名小写
-          lowerCaseServiceId: true
-          # 启用 DiscoveryClient 网关集成的标志。
-          # 服务自动映射
-          enabled: true
 
 #
 # 日志 配置
@@ -128,8 +111,6 @@ management:
       exposure:
         include: '*'
 
----
-
 # 数据库配置
 spring:
   # 数据库
@@ -167,80 +148,11 @@ spring:
 
 ---
 
-# 跨域配置
-spring:
-  cloud:
-    gateway:
-      globalcors:
-        # 跨域配置
-        corsConfigurations:
-          '[/**]':
-            # 携带 Cookie 等信息
-            allow-credentials: true
-            # 允许跨域的来源(协议、域名、ip)，全部：*
-            # 因使用了 Session 共享，请使用 example.xuxiaowei.cloud 子域
-            allowedOrigins:
-              - http://gateway.example.xuxiaowei.cloud
-              - https://gateway.example.xuxiaowei.cloud
-              - http://passport.example.xuxiaowei.cloud
-              - https://passport.example.xuxiaowei.cloud
-              - http://passport.example.xuxiaowei.cloud:1401
-              - http://passport.example.xuxiaowei.cloud:1411
-              - http://example.xuxiaowei.cloud
-              - https://example.xuxiaowei.cloud
-              - http://example.xuxiaowei.cloud:1001
-            # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
-            allowedMethods: "GET,POST"
-            # 允许跨域请求中的请求头字段，全部：*
-            allowedHeaders: "*"
-
----
-
-# 加密配置
-encrypt:
-  key-store:
-    # keytool -genkeypair -alias "xuxiaowei.cloud-alias" -keyalg RSA -validity 3650 -keystore xuxiaowei.cloud.jks -storepass "xuxiaowei.cloud-storepass" -dname "CN=徐晓伟,OU=徐晓伟工作室,O=徐晓伟工作室,L=青岛,ST=山东,C=CH"
-    # 密钥口令和密钥库口令相同（否则可能验证失败）
-    location: classpath:/xuxiaowei.cloud.jks
-    # 别名
-    alias: xuxiaowei.cloud-alias
-    # 密码
-    password: xuxiaowei.cloud-storepass
-
----
-
-cloud:
-  cors:
-    allow-orgin-null-list:
-      # 授权操作使用 form action post，无 Origin
-      - /authorization-server/oauth/authorize
-
----
-
 #
-# 网关白名单，不进行权限验证
+# Canal 配置
 cloud:
-  white-list:
-    ignores:
-      - /favicon.ico
-    services:
-      - name: passport
-        path-list:
-          # 登录请求
-          - /login
-          # 登录失败
-          - /login/failure
-          # 获取Token
-          - /code
-      - name: authorization-server
-        path-list:
-          # 授权请求
-          - /oauth/authorize
-          # 检查Token
-          - /oauth/check_token
-          # 获取Token
-          - /oauth/token
-    actuator-ip-list:
-      - 192.168.5.3
-      - 192.168.5.4
-      - 10.0.4.13
+  canal:
+    hostname: 192.168.5.4
+    port: 11111
+    destination: example
+    batch-size: 1000

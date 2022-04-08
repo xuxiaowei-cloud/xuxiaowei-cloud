@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
 import cloud.xuxiaowei.utils.Response;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,7 @@ public class CodeRestController {
      * @param response 响应
      * @return 返回 分页查询结果
      */
+    @PreAuthorize("hasAuthority('audit_code_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response) {
         return Response.ok();
