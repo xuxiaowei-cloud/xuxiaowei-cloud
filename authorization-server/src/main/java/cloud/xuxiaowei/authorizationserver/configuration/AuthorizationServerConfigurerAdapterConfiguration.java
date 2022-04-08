@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.*;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Map;
 
@@ -68,7 +70,7 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    private ClientDetailsService clientDetailsService;
+    private DataSource dataSource;
 
     private TokenStore tokenStore;
 
@@ -79,8 +81,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public void setClientDetailsService(@Qualifier("clientDetailsServiceImpl") ClientDetailsService clientDetailsService) {
-        this.clientDetailsService = clientDetailsService;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Autowired
@@ -118,10 +120,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        // 查询客户端：<code>clients.withClientDetails(new JdbcClientDetailsService(dataSource));</code>
-
-        // 自定义查询客户信息
-        clients.withClientDetails(clientDetailsService);
+        // 查询客户端
+        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
 
     }
 

@@ -221,6 +221,8 @@ cloud:
 # 网关白名单，不进行权限验证
 cloud:
   white-list:
+    ignores:
+      - /favicon.ico
     services:
       - name: passport
         path-list:

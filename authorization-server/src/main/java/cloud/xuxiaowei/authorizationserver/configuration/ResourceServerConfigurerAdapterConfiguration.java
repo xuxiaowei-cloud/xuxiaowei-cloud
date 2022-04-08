@@ -43,10 +43,6 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
-        // OAuth2 授权后可访问
-        http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/**").access("#oauth2.isOAuth()");
-
     }
 
 }
