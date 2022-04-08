@@ -93,6 +93,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- MyBatis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-mybatis</artifactId>
+        </dependency>
+
         <!-- 系统组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>

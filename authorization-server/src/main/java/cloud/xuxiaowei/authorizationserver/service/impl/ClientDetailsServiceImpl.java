@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.authorizationserver.service.impl;
 
 import cloud.xuxiaowei.authorizationserver.bo.ClientDetailsBo;
-import cloud.xuxiaowei.system.entity.OauthClientDetails;
-import cloud.xuxiaowei.system.service.IOauthClientDetailsService;
+import cloud.xuxiaowei.authorizationserver.entity.OauthClientDetails;
+import cloud.xuxiaowei.authorizationserver.service.IOauthClientDetailsService;
 import cloud.xuxiaowei.utils.exception.client.ClientIdEmptyException;
 import cloud.xuxiaowei.utils.exception.client.ClientIdException;
 import lombok.extern.slf4j.Slf4j;
