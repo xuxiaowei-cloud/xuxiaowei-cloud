@@ -84,7 +84,7 @@ CREATE TABLE `oauth_access_token`  (
 DROP TABLE IF EXISTS `oauth_code`;
 CREATE TABLE `oauth_code`  (
   `code_id` bigint NOT NULL,
-  `code` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
   `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
