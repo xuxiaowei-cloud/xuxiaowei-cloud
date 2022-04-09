@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RedisAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -242,16 +243,33 @@ public class DefaultBeanConfiguration {
                     authenticationJson = "{}";
                 }
 
-                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, authentication_id, user_name, client_id, authentication, authentication_json, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                Map<String, Object> additionalInformation = token.getAdditionalInformation();
+
+                String jti = String.valueOf(additionalInformation.get(AccessTokenConverter.JTI));
+                String scope = authentication.getOAuth2Request().getRequestParameters().get(OAuth2Utils.SCOPE);
+                Date expiration = token.getExpiration();
+                String tokenType = token.getTokenType();
+                String accessToken = token.getValue();
+
+                String refreshTokenEncryption = token.getRefreshToken().getValue();
+                Date refreshTokenExpiration;
+                if (token.getRefreshToken() instanceof DefaultExpiringOAuth2RefreshToken) {
+                    DefaultExpiringOAuth2RefreshToken oauth2RefreshToken = (DefaultExpiringOAuth2RefreshToken) token.getRefreshToken();
+                    refreshTokenExpiration = oauth2RefreshToken.getExpiration();
+                } else {
+                    refreshTokenExpiration = null;
+                }
+
+                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, jti, `scope`, expiration, token_type, access_token, refresh_token_encryption, refresh_token_expiration, authentication_id, user_name, client_id, authentication, authentication_json, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         new Object[]{extractTokenKey(
                                 token.getValue()),
-                                new SqlLobValue(serializeAccessToken(token)), tokenJson,
+                                new SqlLobValue(serializeAccessToken(token)), tokenJson, jti, scope, expiration, tokenType, accessToken, refreshTokenEncryption, refreshTokenExpiration,
                                 authenticationKeyGenerator.extractKey(authentication),
                                 authentication.isClientOnly() ? null : authentication.getName(),
                                 authentication.getOAuth2Request().getClientId(),
                                 new SqlLobValue(serializeAuthentication(authentication)), authenticationJson,
                                 extractTokenKey(refreshToken)}, new int[]{
-                                Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR});
+                                Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR});
             }
 
             @Override
