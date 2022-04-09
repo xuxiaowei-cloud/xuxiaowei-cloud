@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-04-10
  */
 @RestController
-@RequestMapping("//oauth-code")
+@RequestMapping("/oauth-code")
 public class OauthCodeController {
 
 }
