@@ -260,16 +260,46 @@ public class DefaultBeanConfiguration {
                     refreshTokenExpiration = null;
                 }
 
-                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, jti, `scope`, expiration, token_type, access_token, refresh_token_encryption, refresh_token_expiration, authentication_id, user_name, client_id, authentication, authentication_json, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        new Object[]{extractTokenKey(
-                                token.getValue()),
+                String username = authentication.getName();
+
+                Authentication userAuthentication = authentication.getUserAuthentication();
+                Object details = userAuthentication.getDetails();
+
+                String remoteAddress;
+                String sessionId;
+                if (details instanceof WebAuthenticationDetails) {
+                    WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
+                    remoteAddress = webAuthenticationDetails.getRemoteAddress();
+                    sessionId = webAuthenticationDetails.getSessionId();
+                } else {
+                    remoteAddress = null;
+                    sessionId = null;
+                }
+
+                Collection<GrantedAuthority> authorities = authentication.getAuthorities();
+                String authoritiesJson;
+                try {
+                    authoritiesJson = objectMapper.writeValueAsString(authorities);
+                } catch (JsonProcessingException e) {
+                    log.error("GrantedAuthority 格式化为 JSON 异常", e);
+                    authoritiesJson = "{}";
+                }
+
+                OAuth2Request oauth2Request = authentication.getOAuth2Request();
+                String clientId = oauth2Request.getClientId();
+                String redirectUri = oauth2Request.getRedirectUri();
+
+                Map<String, String> requestParameters = oauth2Request.getRequestParameters();
+                String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
+                String state = requestParameters.get(OAuth2Utils.STATE);
+
+                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, jti, `scope`, expiration, token_type, access_token, refresh_token_encryption, refresh_token_expiration, authentication_id, user_name, client_id, authentication, authentication_json, username, remote_address, session_id, authorities_json, redirect_uri, response_type, `state`, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        new Object[]{extractTokenKey(token.getValue()),
                                 new SqlLobValue(serializeAccessToken(token)), tokenJson, jti, scope, expiration, tokenType, accessToken, refreshTokenEncryption, refreshTokenExpiration,
-                                authenticationKeyGenerator.extractKey(authentication),
-                                authentication.isClientOnly() ? null : authentication.getName(),
-                                authentication.getOAuth2Request().getClientId(),
-                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson,
-                                extractTokenKey(refreshToken)}, new int[]{
-                                Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR});
+                                authenticationKeyGenerator.extractKey(authentication), authentication.isClientOnly() ? null : authentication.getName(), authentication.getOAuth2Request().getClientId(),
+                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, username, remoteAddress, sessionId, authoritiesJson, redirectUri, responseType, state,
+                                extractTokenKey(refreshToken)},
+                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
             @Override
