@@ -3,6 +3,7 @@ package cloud.xuxiaowei.gateway.filter;
 import cloud.xuxiaowei.core.properties.CloudCorsProperties;
 import cloud.xuxiaowei.utils.RequestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.lang.NonNull;
@@ -57,6 +58,9 @@ public class CorsBeforeWebFilter implements WebFilter {
                     response.getHeaders().setAccessControlAllowOrigin(schemeHost);
                 }
             }
+        } else {
+            // 允许跨域时携带授权信息
+            response.getHeaders().addAll(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, request.getHeaders().getAccessControlRequestHeaders());
         }
 
         return chain.filter(exchange);
