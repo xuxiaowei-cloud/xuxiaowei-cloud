@@ -100,6 +100,11 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
      */
     public final String CODE_ENUMS_T10002_MESSAGE = "Token has expired";
 
+    /**
+     * @see CodeEnums#C20006
+     */
+    public final String CODE_ENUMS_C20006_MESSAGE = "Invalid authorization code";
+
     private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     @Override
@@ -163,11 +168,13 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 } else if (CODE_ENUMS_T10002_MESSAGE.equals(message)) {
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10002.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10002.msg);
+                } else if (message.contains(CODE_ENUMS_C20006_MESSAGE)) {
+                    oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20006.code);
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20006.msg);
                 } else {
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
                     oauth2Exception.addAdditionalInformation(Response.EXPLAIN, "异常代码待划分");
-                    oauth2Exception.addAdditionalInformation(OAuth2Exception.DESCRIPTION, oauth2Exception.getMessage());
                 }
 
                 log.error("授权异常：", oauth2Exception);
