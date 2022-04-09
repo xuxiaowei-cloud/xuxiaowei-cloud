@@ -5,6 +5,11 @@
 </template>
 
 <script setup>
+import { page } from '@/api/audit/code'
+
+page({}).then(response => {
+  console.log(response)
+})
 
 </script>
 
