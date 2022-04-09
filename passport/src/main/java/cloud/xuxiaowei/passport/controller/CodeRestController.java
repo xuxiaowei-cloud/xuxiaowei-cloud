@@ -96,7 +96,7 @@ public class CodeRestController {
 
         Map<String, Object> additionalInformation = oauth2AccessToken.getAdditionalInformation();
         Object codeObj = additionalInformation.get(Response.CODE);
-        if (!CodeEnums.OK.code.equals(codeObj)) {
+        if (codeObj != null && !CodeEnums.OK.code.equals(codeObj)) {
             ResponseUtils.response(response, additionalInformation);
             log.error(String.valueOf(oauth2AccessToken));
             return;
