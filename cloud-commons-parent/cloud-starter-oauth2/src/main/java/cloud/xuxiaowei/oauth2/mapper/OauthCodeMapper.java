@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.authorizationserver.mapper;
+package cloud.xuxiaowei.oauth2.mapper;
 
-import cloud.xuxiaowei.authorizationserver.entity.OauthCode;
+import cloud.xuxiaowei.oauth2.entity.OauthCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

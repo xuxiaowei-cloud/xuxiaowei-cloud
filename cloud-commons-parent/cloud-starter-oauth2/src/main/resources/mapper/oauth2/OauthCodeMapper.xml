@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cloud.xuxiaowei.authorizationserver.mapper.OauthRefreshTokenMapper">
+<mapper namespace="cloud.xuxiaowei.oauth2.mapper.OauthCodeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.authorizationserver.entity.OauthRefreshToken">
-        <result column="oauth_refresh_token_id" property="oauthRefreshTokenId" />
-        <result column="token_id" property="tokenId" />
-        <result column="token" property="token" />
-        <result column="token_json" property="tokenJson" />
-        <result column="refresh_token" property="refreshToken" />
-        <result column="expiration" property="expiration" />
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.oauth2.entity.OauthCode">
+        <result column="code" property="code" />
+        <result column="code_id" property="codeId" />
         <result column="authentication" property="authentication" />
         <result column="authentication_json" property="authenticationJson" />
         <result column="username" property="username" />

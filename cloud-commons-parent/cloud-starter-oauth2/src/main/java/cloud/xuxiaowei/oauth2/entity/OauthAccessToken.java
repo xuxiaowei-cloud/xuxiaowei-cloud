@@ -2,7 +2,6 @@ package cloud.xuxiaowei.oauth2.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -11,11 +10,11 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql	GitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql	Gitee 镜像仓库：https://gitee.com/mirrors/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl
+ * 原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql	GitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql	Gitee 镜像仓库：https://gitee.com/mirrors/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
  * </p>
  *
  * @author xuxiaowei
- * @since 2022-04-06
+ * @since 2022-04-10
  */
 @Data
 @TableName("oauth_access_token")
@@ -23,11 +22,27 @@ public class OauthAccessToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private Long oauthAccessTokenId;
+
     private String tokenId;
 
     private byte[] token;
 
     private String tokenJson;
+
+    private String jti;
+
+    private String scope;
+
+    private LocalDateTime expiration;
+
+    private String tokenType;
+
+    private String accessToken;
+
+    private String refreshTokenEncryption;
+
+    private LocalDateTime refreshTokenExpiration;
 
     private String authenticationId;
 
@@ -40,25 +55,33 @@ public class OauthAccessToken implements Serializable {
 
     private String authenticationJson;
 
+    private String username;
+
+    private String remoteAddress;
+
+    private String sessionId;
+
+    private String authoritiesJson;
+
+    private String redirectUri;
+
+    private String responseType;
+
+    private String state;
+
     private String refreshToken;
 
     /**
-     * 更新时间，未更新时为空
-     */
-    @TableField(fill = FieldFill.UPDATE)
-    private LocalDateTime updateDate;
-
-    /**
-     * 创建时间，不为空，数据库自动生成
+     * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
     /**
-     * 逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。
+     * 更新时间
      */
-    @TableLogic
-    private Boolean deleted;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateDate;
 
 
 }

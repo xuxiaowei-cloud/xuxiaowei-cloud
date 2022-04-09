@@ -1,13 +1,11 @@
-package cloud.xuxiaowei.authorizationserver.entity;
+package cloud.xuxiaowei.oauth2.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 /**
@@ -18,27 +16,19 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2022-04-10
  */
-@Getter
-@Setter
-@TableName("oauth_refresh_token")
-public class OauthRefreshToken implements Serializable {
+@Data
+@TableName("oauth_code")
+public class OauthCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long oauthRefreshTokenId;
+    @TableField("`code`")
+    private String code;
 
-    private String tokenId;
-
-    private Blob token;
-
-    private String tokenJson;
-
-    private String refreshToken;
-
-    private LocalDateTime expiration;
+    private Long codeId;
 
     @TableField("`authentication`")
-    private Blob authentication;
+    private byte[] authentication;
 
     private String authenticationJson;
 
