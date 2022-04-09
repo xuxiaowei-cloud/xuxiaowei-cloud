@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import settings from '@/settings'
-import { check_token } from '@/api/authorization-server'
+import { checkToken } from '@/api/authorization-server'
 
 const store = createStore({
   state: { // 单一状态树
@@ -144,49 +144,39 @@ const store = createStore({
 export default store
 
 export const queryToken = function (query, router) {
-  const accessToken = query.accessToken
-  const refreshToken = query.refreshToken
-  const jti = query.jti
+  if (query.store === 'true') {
+    const accessToken = query.accessToken
+    const refreshToken = query.refreshToken
+    const jti = query.jti
 
-  if (accessToken) {
+    delete query.store
+
     delete query.accessToken
-    console.log('获取到URL中的accessToken', accessToken)
-    router.push({ query: query }).then(response => {
-      console.log('已清空URL中的accessToken，准备缓存accessToken')
-      store.commit('setAccessToken', accessToken)
-      console.log('缓存Token已完成，store中的accessToken：', store.getters.accessToken)
-    })
-    check_token(store.getters.accessToken).then(response => {
-      console.log(response)
-    })
-  } else {
-    console.log('store中的accessToken：', store.getters.accessToken)
-    check_token(store.getters.accessToken).then(response => {
-      console.log(response)
-    })
-  }
-
-  if (refreshToken) {
     delete query.refreshToken
-    console.log('获取到URL中的refreshToken', refreshToken)
-    router.push({ query: query }).then(response => {
-      console.log('已清空URL中的refreshToken，准备缓存refreshToken')
-      store.commit('setRefreshToken', refreshToken)
-      console.log('缓存Token已完成，store中的refreshToken：', store.getters.refreshToken)
-    })
-  } else {
-    console.log('store中的refreshToken：', store.getters.refreshToken)
-  }
-
-  if (jti) {
     delete query.jti
+
+    console.log('获取到URL中的accessToken', accessToken)
+    console.log('获取到URL中的refreshToken', refreshToken)
     console.log('获取到URL中的jti', jti)
+
+    store.commit('setAccessToken', accessToken)
+    store.commit('setRefreshToken', refreshToken)
+    store.commit('setJti', jti)
+
+    console.log('已完成store中的accessToken缓存：', store.getters.accessToken)
+    console.log('已完成store中的refreshToken缓存：', store.getters.refreshToken)
+    console.log('已完成store中的jti缓存：', store.getters.jti)
+
+    checkToken(store.getters.accessToken).then(response => {
+      console.log('完成store中的Token缓存后检查Token', response)
+    })
+
     router.push({ query: query }).then(response => {
-      console.log('已清空URL中的jti，准备缓存jti')
-      store.commit('setJti', jti)
-      console.log('缓存Token已完成，store中的jti：', store.getters.jti)
+
     })
   } else {
-    console.log('store中的jti：', store.getters.jti)
+    checkToken(store.getters.accessToken).then(response => {
+      console.log('检查Token', response)
+    })
   }
 }
