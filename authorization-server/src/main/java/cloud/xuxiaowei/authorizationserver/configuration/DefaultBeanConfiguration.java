@@ -39,6 +39,7 @@ import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.sql.Types;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -259,15 +260,21 @@ public class DefaultBeanConfiguration {
                 ObjectMapper objectMapper = new ObjectMapper();
                 String refreshTokenJson;
 
+                String refreshTokenStr;
+                Date expiration;
                 try {
                     DefaultExpiringOAuth2RefreshToken oauth2RefreshToken = (DefaultExpiringOAuth2RefreshToken) refreshToken;
                     Map<String, String> map = new HashMap<>(4);
-                    map.put("refreshToken", oauth2RefreshToken.getValue());
-                    map.put("expiration", DateUtils.format(oauth2RefreshToken.getExpiration(), DEFAULT_DATE_TIME_FORMAT));
+                    refreshTokenStr = oauth2RefreshToken.getValue();
+                    expiration = oauth2RefreshToken.getExpiration();
+                    map.put("refreshToken", refreshTokenStr);
+                    map.put("expiration", DateUtils.format(expiration, DEFAULT_DATE_TIME_FORMAT));
                     refreshTokenJson = objectMapper.writeValueAsString(map);
                 } catch (JsonProcessingException e) {
                     log.error("OAuth2RefreshToken 格式化为 JSON 异常", e);
                     refreshTokenJson = "{}";
+                    refreshTokenStr = null;
+                    expiration = null;
                 }
                 String authenticationJson;
                 try {
@@ -277,12 +284,46 @@ public class DefaultBeanConfiguration {
                     authenticationJson = "{}";
                 }
 
+                String username = authentication.getName();
+
+                Authentication userAuthentication = authentication.getUserAuthentication();
+                Object details = userAuthentication.getDetails();
+
+                String remoteAddress;
+                String sessionId;
+                if (details instanceof WebAuthenticationDetails) {
+                    WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
+                    remoteAddress = webAuthenticationDetails.getRemoteAddress();
+                    sessionId = webAuthenticationDetails.getSessionId();
+                } else {
+                    remoteAddress = null;
+                    sessionId = null;
+                }
+
+                Collection<GrantedAuthority> authorities = authentication.getAuthorities();
+                String authoritiesJson;
+                try {
+                    authoritiesJson = objectMapper.writeValueAsString(authorities);
+                } catch (JsonProcessingException e) {
+                    log.error("GrantedAuthority 格式化为 JSON 异常", e);
+                    authoritiesJson = "{}";
+                }
+
+                OAuth2Request oauth2Request = authentication.getOAuth2Request();
+                String clientId = oauth2Request.getClientId();
+                String redirectUri = oauth2Request.getRedirectUri();
+
+                Map<String, String> requestParameters = oauth2Request.getRequestParameters();
+                String scope = requestParameters.get(OAuth2Utils.SCOPE);
+                String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
+                String state = requestParameters.get(OAuth2Utils.STATE);
+
                 new JdbcTemplate(dataSource).update(
-                        "insert into oauth_refresh_token (token_id, token, token_json, authentication, authentication_json) values (?, ?, ?, ?, ?)",
+                        "insert into oauth_refresh_token (token_id, token, token_json, refresh_token, expiration, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         new Object[]{extractTokenKey(refreshToken.getValue()),
-                                new SqlLobValue(serializeRefreshToken(refreshToken)), refreshTokenJson,
-                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson},
-                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.BLOB, Types.VARCHAR});
+                                new SqlLobValue(serializeRefreshToken(refreshToken)), refreshTokenJson, refreshTokenStr, expiration,
+                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId},
+                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
         };
