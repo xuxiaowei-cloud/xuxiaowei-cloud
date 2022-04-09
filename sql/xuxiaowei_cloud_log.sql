@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 10/04/2022 01:05:00
+ Date: 10/04/2022 01:56:30
 */
 
 SET NAMES utf8mb4;
@@ -87,17 +87,17 @@ CREATE TABLE `oauth_code`  (
   `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
-  `name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(`authentication_json`,_utf8mb4'$.name'),_utf8mb4'"',_utf8mb4'')) VIRTUAL COMMENT '虚拟列，从authentication_json取的name' NULL,
-  `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (json_extract(`authentication_json`,_utf8mb4'$.authorities')) VIRTUAL NULL,
-  `remote_address` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(json_extract(json_extract(`authentication_json`,_utf8mb4'$.userAuthentication'),_utf8mb4'$.details'),_utf8mb4'$.remoteAddress'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
-  `client_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(json_extract(`authentication_json`,_utf8mb4'$.oauth2Request'),_utf8mb4'$.clientId'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(json_extract(json_extract(`authentication_json`,_utf8mb4'$.oauth2Request'),_utf8mb4'$.requestParameters'),_utf8mb4'$.scope'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
-  `response_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (json_extract(json_extract(`authentication_json`,_utf8mb4'$.oauth2Request'),_utf8mb4'$.responseTypes')) VIRTUAL NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `remote_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `authorities_json` json NULL,
+  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `response_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
-  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  INDEX `idx__oauth_code__name`(`name`) USING BTREE,
-  INDEX `idx__oauth_code__client_id`(`client_id`) USING BTREE,
-  INDEX `idx__oauth_code__scope`(`scope`) USING BTREE
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql\r\nGitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql\r\nGitee 镜像仓库：https://gitee.com/mirrors/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -112,9 +112,6 @@ CREATE TABLE `oauth_refresh_token`  (
   `expiration` datetime GENERATED ALWAYS AS (replace(json_extract(`token_json`,_utf8mb4'$.expiration'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
-  `name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(`authentication_json`,_utf8mb4'$.name'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
-  `client_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(json_extract(`authentication_json`,_utf8mb4'$.oauth2Request'),_utf8mb4'$.clientId'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (replace(json_extract(json_extract(json_extract(`authentication_json`,_utf8mb4'$.oauth2Request'),_utf8mb4'$.requestParameters'),_utf8mb4'$.scope'),_utf8mb4'"',_utf8mb4'')) VIRTUAL NULL,
   `create_date` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql\r\nGitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql\r\nGitee 镜像仓库：https://gitee.com/mirrors/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl' ROW_FORMAT = DYNAMIC;

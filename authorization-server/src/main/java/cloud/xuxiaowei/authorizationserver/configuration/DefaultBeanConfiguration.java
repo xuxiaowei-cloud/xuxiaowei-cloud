@@ -11,14 +11,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.SqlLobValue;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.common.util.SerializationUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
@@ -29,10 +33,12 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.*;
 import org.springframework.security.oauth2.provider.token.store.jwk.JwkTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.sql.Types;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,9 +123,44 @@ public class DefaultBeanConfiguration {
                     authenticationJson = "{}";
                 }
 
-                new JdbcTemplate(dataSource).update("insert into oauth_code (code, authentication, authentication_json) values (?, ?, ?)",
-                        new Object[]{code, new SqlLobValue(SerializationUtils.serialize(authentication)), authenticationJson}, new int[]{
-                                Types.VARCHAR, Types.BLOB, Types.VARCHAR});
+                String username = authentication.getName();
+
+                Authentication userAuthentication = authentication.getUserAuthentication();
+                Object details = userAuthentication.getDetails();
+
+                String remoteAddress;
+                String sessionId;
+                if (details instanceof WebAuthenticationDetails) {
+                    WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
+                    remoteAddress = webAuthenticationDetails.getRemoteAddress();
+                    sessionId = webAuthenticationDetails.getSessionId();
+                } else {
+                    remoteAddress = null;
+                    sessionId = null;
+                }
+
+                Collection<GrantedAuthority> authorities = authentication.getAuthorities();
+                String authoritiesJson;
+                try {
+                    authoritiesJson = objectMapper.writeValueAsString(authorities);
+                } catch (JsonProcessingException e) {
+                    log.error("GrantedAuthority 格式化为 JSON 异常", e);
+                    authoritiesJson = "{}";
+                }
+
+                OAuth2Request oauth2Request = authentication.getOAuth2Request();
+                String clientId = oauth2Request.getClientId();
+                String redirectUri = oauth2Request.getRedirectUri();
+
+                Map<String, String> requestParameters = oauth2Request.getRequestParameters();
+                String scope = requestParameters.get(OAuth2Utils.SCOPE);
+                String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
+                String state = requestParameters.get(OAuth2Utils.STATE);
+
+                new JdbcTemplate(dataSource).update(
+                        "insert into oauth_code (code, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        new Object[]{code, new SqlLobValue(SerializationUtils.serialize(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId},
+                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
         };
