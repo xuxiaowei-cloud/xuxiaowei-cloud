@@ -102,7 +102,11 @@ import { ref } from 'vue'
 import store from '@/store'
 
 // 默认激活菜单
-const defaultActive = ref(store.getters.defaultActive)
+// 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单
+const hash = location.hash
+const path = hash.split('#')[1].split('?')[0]
+const defaultActive = ref(store.getters.defaultActive === path ? path : path)
+
 // 是否折叠菜单
 const isCollapse = ref(store.getters.isCollapse)
 // 昵称
