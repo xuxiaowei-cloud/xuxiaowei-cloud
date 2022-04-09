@@ -108,7 +108,10 @@ public class CanalScheduled {
                 for (int i = 0; i < columnList.size(); i++) {
                     CanalEntry.Column column = columnList.get(i);
                     String mysqlType = column.getMysqlType();
+                    String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -129,11 +132,14 @@ public class CanalScheduled {
                 for (int i = 0; i < columnList.size(); i++) {
                     CanalEntry.Column column = columnList.get(i);
                     String mysqlType = column.getMysqlType();
+                    String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
-                    sql.append("'").append(column.getValue()).append("'");
+                    sql.append("'").append(value).append("'");
                     if (i != columnList.size() - 1) {
                         sql.append(",");
                     }
@@ -169,11 +175,14 @@ public class CanalScheduled {
 
                     CanalEntry.Column newColumn = newColumnList.get(i);
                     String mysqlType = newColumn.getMysqlType();
+                    String value = newColumn.getValue();
                     if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
-                    sql.append(" ").append(newColumn.getName()).append(" = '").append(newColumn.getValue()).append("'");
+                    sql.append(" ").append(newColumn.getName()).append(" = '").append(value).append("'");
                     if (i != newColumnList.size() - 1) {
                         sql.append(",");
                     }
