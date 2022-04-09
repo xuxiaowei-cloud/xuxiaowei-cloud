@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 09/04/2022 22:37:27
+ Date: 10/04/2022 00:29:35
 */
 
 SET NAMES utf8mb4;
@@ -102,7 +102,7 @@ CREATE TABLE `oauth_client_token`  (
 DROP TABLE IF EXISTS `oauth_code`;
 CREATE TABLE `oauth_code`  (
   `code_id` bigint NOT NULL AUTO_INCREMENT,
-  `code` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空，数据库自动生成',
