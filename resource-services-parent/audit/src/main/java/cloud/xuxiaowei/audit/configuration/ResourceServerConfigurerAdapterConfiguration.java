@@ -7,8 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * 资源服务配置
@@ -21,17 +22,17 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableResourceServer
 public class ResourceServerConfigurerAdapterConfiguration extends ResourceServerConfigurerAdapter {
 
-    private TokenStore tokenStore;
+    private DataSource dataSource;
 
     @Autowired
-    public void setTokenStore(TokenStore tokenStore) {
-        this.tokenStore = tokenStore;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 
-        resources.tokenStore(tokenStore);
+        resources.tokenStore(new JdbcTokenStore(dataSource));
 
     }
 

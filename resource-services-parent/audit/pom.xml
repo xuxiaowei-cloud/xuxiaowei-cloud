@@ -21,6 +21,28 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <dependencies>
+
+        <!-- 负载均衡组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- OpenFeign 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- 熔断 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+
+    </dependencies>
+
     <licenses>
         <license>
             <name>Apache 2</name>

@@ -2,6 +2,7 @@ package cloud.xuxiaowei.canal.scheduled;
 
 import cloud.xuxiaowei.canal.properties.CloudCanalProperties;
 import cloud.xuxiaowei.canal.service.CanalService;
+import cloud.xuxiaowei.utils.DateUtils;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.util.List;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * Canal 命令行运行器
@@ -89,6 +92,7 @@ public class CanalScheduled {
                 CanalEntry.EventType eventType = rowChange.getEventType();
                 if (eventType == CanalEntry.EventType.DELETE) {
 //                    deleteSql(entry);
+                    deleteLogicSql(entry);
                 } else if (eventType == CanalEntry.EventType.UPDATE) {
                     updateSql(entry);
                 } else if (eventType == CanalEntry.EventType.INSERT) {
@@ -111,7 +115,9 @@ public class CanalScheduled {
                     String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
+                        continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -135,7 +141,9 @@ public class CanalScheduled {
                     String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
+                        continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -178,7 +186,9 @@ public class CanalScheduled {
                     String value = newColumn.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
+                        continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -204,6 +214,38 @@ public class CanalScheduled {
             }
         } catch (InvalidProtocolBufferException e) {
             log.error("Calan 更新异常：", e);
+        }
+    }
+
+    private void deleteLogicSql(CanalEntry.Entry entry) {
+
+        CanalEntry.Header header = entry.getHeader();
+        long executeTime = header.getExecuteTime();
+
+        String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+
+        try {
+            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
+            for (CanalEntry.RowData rowData : rowDatasList) {
+                StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName());
+                sql.append(" set deleted = 1, update_date = '").append(executeTimeFormat).append("' where ");
+                List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
+                for (CanalEntry.Column column : oldColumnList) {
+                    if (column.getIsKey()) {
+                        // 暂时只支持单一主键
+                        sql.append(column.getName()).append("=").append(column.getValue());
+                        break;
+                    }
+                }
+
+                log.info("准备逻辑删除：{}", sql);
+                int update = canalService.update(sql.toString());
+                log.info("逻辑删除结果：{}", update);
+
+            }
+        } catch (InvalidProtocolBufferException e) {
+            log.error("Calan 逻辑删除异常：", e);
         }
     }
 

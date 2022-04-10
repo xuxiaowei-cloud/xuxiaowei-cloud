@@ -8,13 +8,35 @@ package cloud.xuxiaowei.utils;
  */
 public enum ServiceEnums {
 
+    /**
+     * 监控（管理）服务
+     */
     ADMIN_SERVER("admin-server", "监控（管理）服务"),
 
+    /**
+     * 网关服务
+     */
     GATEWAY("gateway", "网关服务"),
 
+    /**
+     * 授权服务
+     */
     AUTHORIZATION_SERVER("authorization-server", "授权服务"),
 
+    /**
+     * 登录服务
+     */
     PASSPORT("passport", "登录服务"),
+
+    /**
+     * 审计服务
+     */
+    audit("audit", "审计服务"),
+
+    /**
+     * 阿里巴巴 MySQL binlog 增量订阅、消费服务
+     */
+    canal("canal", "阿里巴巴 MySQL binlog 增量订阅、消费服务"),
 
     ;
 

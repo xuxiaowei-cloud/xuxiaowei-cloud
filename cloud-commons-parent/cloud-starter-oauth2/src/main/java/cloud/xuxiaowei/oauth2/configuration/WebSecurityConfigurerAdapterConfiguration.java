@@ -1,7 +1,6 @@
 package cloud.xuxiaowei.oauth2.configuration;
 
 import cloud.xuxiaowei.oauth2.filter.RedirectLoginPageFilter;
-import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;

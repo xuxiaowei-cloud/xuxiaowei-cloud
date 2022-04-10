@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cloud.xuxiaowei</groupId>
-        <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
+        <artifactId>resource-services-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>canal</name>
-    <description>阿里巴巴 MySQL binlog 增量订阅、消费组件</description>
+    <description>阿里巴巴 MySQL binlog 增量订阅、消费服务</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
@@ -21,38 +21,6 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-
-        <!-- Nacos 注册 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
-        <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
-        <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <!-- Nacos 配置 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-
-        <!-- 端点 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!-- mybatis 组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-mybatis</artifactId>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
         <dependency>
@@ -75,21 +43,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

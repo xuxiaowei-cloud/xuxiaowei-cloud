@@ -25,6 +25,8 @@
     <modules>
         <!-- 审计服务 -->
         <module>audit</module>
+        <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
+        <module>canal</module>
     </modules>
 
     <dependencies>
@@ -47,12 +49,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-
-        <!-- 负载均衡组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-loadbalancer</artifactId>
         </dependency>
 
         <!-- 日志组件 -->
@@ -91,10 +87,9 @@
             <artifactId>cloud-starter-oauth2</artifactId>
         </dependency>
 
-        <!-- OpenFeign 组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-openfeign</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <dependency>
