@@ -14,7 +14,7 @@
       <el-table-column prop="scope" label="scope" width="130"/>
       <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
       <el-table-column prop="responseType" label="responseType" width="130"/>
-      <el-table-column prop="tokenJson" label="tokenJson" width="130" :show-overflow-tooltip="true"/>
+      <el-table-column prop="tokenJson" label="tokenJson" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="tokenType" label="tokenType" width="95"/>
       <el-table-column prop="accessToken" label="accessToken" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="expiration" label="expiration" width="160"/>
