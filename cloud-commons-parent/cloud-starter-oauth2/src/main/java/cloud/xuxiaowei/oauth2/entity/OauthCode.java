@@ -3,10 +3,13 @@ package cloud.xuxiaowei.oauth2.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * <p>
@@ -17,22 +20,15 @@ import java.time.LocalDateTime;
  * @since 2022-04-10
  */
 @Data
-@TableName("oauth_refresh_token")
-public class OauthRefreshToken implements Serializable {
+@TableName("oauth_code")
+public class OauthCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long oauthRefreshTokenId;
+    @TableField("`code`")
+    private String code;
 
-    private String tokenId;
-
-    private byte[] token;
-
-    private String tokenJson;
-
-    private String refreshToken;
-
-    private LocalDateTime expiration;
+    private Long codeId;
 
     @TableField("`authentication`")
     private byte[] authentication;
@@ -61,12 +57,14 @@ public class OauthRefreshToken implements Serializable {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime createDate;
 
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.UPDATE)
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updateDate;
 
 

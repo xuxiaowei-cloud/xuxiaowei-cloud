@@ -20,7 +20,7 @@ public interface AuthorizationServerFeignService {
      *
      * @return 返回 分页查询授权码 结果
      */
-    @PostMapping("/code/page")
+    @PostMapping("/oauth-code/page")
     Response<?> codePage();
 
 }

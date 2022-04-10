@@ -106,7 +106,9 @@ public class CodeRestController {
         String refreshToken = oauth2AccessToken.getRefreshToken();
         String jti = oauth2AccessToken.getJti();
 
-        response.sendRedirect(String.format("%s?accessToken=%s&refreshToken=%s&jti=%s", homePage, accessToken, refreshToken, jti));
+        // store=true：更新缓存Token相关信息
+
+        response.sendRedirect(String.format("%s?store=true&accessToken=%s&refreshToken=%s&jti=%s", homePage, accessToken, refreshToken, jti));
     }
 
     /**

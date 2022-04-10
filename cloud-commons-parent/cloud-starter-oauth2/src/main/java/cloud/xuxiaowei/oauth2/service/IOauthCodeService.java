@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.oauth2.service;
 
-import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
+import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
+import cloud.xuxiaowei.oauth2.entity.OauthCode;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +13,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author xuxiaowei
  * @since 2022-04-10
  */
-public interface IOauthAccessTokenService extends IService<OauthAccessToken> {
+public interface IOauthCodeService extends IService<OauthCode> {
+
+    /**
+     * 分页查询授权码
+     *
+     * @param auditCodePageBo 审计授权码分页参数
+     * @return 返回 分页查询结果
+     */
+    IPage<OauthCode> pageByAuditCode(AuditCodePageBo auditCodePageBo);
 
 }
