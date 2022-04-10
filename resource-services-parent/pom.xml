@@ -51,12 +51,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!-- 负载均衡组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-loadbalancer</artifactId>
-        </dependency>
-
         <!-- 日志组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
@@ -91,12 +85,6 @@
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-oauth2</artifactId>
-        </dependency>
-
-        <!-- OpenFeign 组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>
