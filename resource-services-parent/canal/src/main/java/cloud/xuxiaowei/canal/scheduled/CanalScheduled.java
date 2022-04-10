@@ -89,6 +89,7 @@ public class CanalScheduled {
                 CanalEntry.EventType eventType = rowChange.getEventType();
                 if (eventType == CanalEntry.EventType.DELETE) {
 //                    deleteSql(entry);
+                    deleteLogicSql(entry);
                 } else if (eventType == CanalEntry.EventType.UPDATE) {
                     updateSql(entry);
                 } else if (eventType == CanalEntry.EventType.INSERT) {
@@ -210,6 +211,32 @@ public class CanalScheduled {
             }
         } catch (InvalidProtocolBufferException e) {
             log.error("Calan 更新异常：", e);
+        }
+    }
+
+    private void deleteLogicSql(CanalEntry.Entry entry) {
+        try {
+            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
+            for (CanalEntry.RowData rowData : rowDatasList) {
+                StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName());
+                sql.append(" set deleted = 1 where ");
+                List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
+                for (CanalEntry.Column column : oldColumnList) {
+                    if (column.getIsKey()) {
+                        // 暂时只支持单一主键
+                        sql.append(column.getName()).append("=").append(column.getValue());
+                        break;
+                    }
+                }
+
+                log.info("准备逻辑删除：{}", sql);
+                int update = canalService.update(sql.toString());
+                log.info("逻辑删除结果：{}", update);
+
+            }
+        } catch (InvalidProtocolBufferException e) {
+            log.error("Calan 逻辑删除异常：", e);
         }
     }
 
