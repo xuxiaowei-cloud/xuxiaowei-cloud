@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 授权服务 feign 接口
  *
  * @author xuxiaowei
- * @see FeignClient#contextId() 防止出现相同的 {@link FeignClient#value()} 时异常
  * @since 0.0.1
  */
 @FeignClient(value = "authorization-server", contextId = "authorization-server", configuration = {AuthorizationRequestInterceptor.class})
