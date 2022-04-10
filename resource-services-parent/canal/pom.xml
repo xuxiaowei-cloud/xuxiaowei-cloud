@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>canal</name>
-    <description>阿里巴巴 MySQL binlog 增量订阅、消费组件</description>
+    <description>阿里巴巴 MySQL binlog 增量订阅、消费服务</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
