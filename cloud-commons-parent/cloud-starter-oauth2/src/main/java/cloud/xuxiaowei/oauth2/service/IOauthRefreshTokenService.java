@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.oauth2.service;
 
+import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
 import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +14,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-04-10
  */
 public interface IOauthRefreshTokenService extends IService<OauthRefreshToken> {
+
+    /**
+     * 分页查询刷新Token
+     *
+     * @param auditRefreshTokenPageBo 审计刷新Token分页参数
+     * @return 返回 分页查询结果
+     */
+    IPage<OauthRefreshToken> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo);
 
 }

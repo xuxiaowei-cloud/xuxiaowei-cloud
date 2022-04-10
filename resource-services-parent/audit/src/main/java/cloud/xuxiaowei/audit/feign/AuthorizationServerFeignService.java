@@ -2,6 +2,7 @@ package cloud.xuxiaowei.audit.feign;
 
 import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
 import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
+import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
 import cloud.xuxiaowei.openfeign.interceptor.AuthorizationRequestInterceptor;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -34,6 +35,15 @@ public interface AuthorizationServerFeignService {
      */
     @PostMapping("/oauth-access-token/page")
     Response<?> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo);
+
+    /**
+     * 分页查询刷新Token
+     *
+     * @param auditRefreshTokenPageBo 审计刷新Token分页参数
+     * @return 返回 分页查询结果
+     */
+    @PostMapping("/oauth-refresh-token/page")
+    Response<?> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo);
 
 
 }

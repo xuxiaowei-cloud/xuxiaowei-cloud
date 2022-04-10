@@ -1,8 +1,14 @@
 package cloud.xuxiaowei.oauth2.service.impl;
 
+import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
+import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
 import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import cloud.xuxiaowei.oauth2.mapper.OauthRefreshTokenMapper;
 import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +22,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenMapper, OauthRefreshToken> implements IOauthRefreshTokenService {
+
+    /**
+     * 分页查询刷新Token
+     *
+     * @param auditRefreshTokenPageBo 审计刷新Token分页参数
+     * @return 返回 分页查询结果
+     */
+    @Override
+    @DS("xuxiaowei_cloud_log")
+    public IPage<OauthRefreshToken> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo) {
+        QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        Long current = auditRefreshTokenPageBo.getCurrent();
+        Long size = auditRefreshTokenPageBo.getSize();
+
+        IPage<OauthRefreshToken> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
+        return page(page, queryWrapper);
+    }
 
 }

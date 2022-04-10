@@ -3,6 +3,7 @@ package cloud.xuxiaowei.audit.resilience4j;
 import cloud.xuxiaowei.audit.feign.AuthorizationServerFeignService;
 import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
 import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
+import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
 import cloud.xuxiaowei.utils.Response;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,17 @@ public class AuthorizationServerResilience4jService {
     @CircuitBreaker(name = "pageByAuditAccessToken", fallbackMethod = "fallbackMethod")
     public Response<?> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo) {
         return authorizationServerFeignService.pageByAuditAccessToken(auditAccessTokenPageBo);
+    }
+
+    /**
+     * 分页查询刷新Token
+     *
+     * @param auditRefreshTokenPageBo 审计刷新Token分页参数
+     * @return 返回 分页查询结果
+     */
+    @CircuitBreaker(name = "pageByAuditAccessToken", fallbackMethod = "fallbackMethod")
+    public Response<?> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo) {
+        return authorizationServerFeignService.pageByAuditRefreshToken(auditRefreshTokenPageBo);
     }
 
     /**
