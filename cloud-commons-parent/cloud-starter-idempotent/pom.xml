@@ -21,6 +21,13 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+
+        <!-- Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-redis</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
