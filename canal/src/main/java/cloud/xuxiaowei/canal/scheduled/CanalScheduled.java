@@ -113,6 +113,8 @@ public class CanalScheduled {
                         continue;
                     } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
                         continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
+                        continue;
                     }
 
                     sql.append(column.getName());
@@ -136,6 +138,8 @@ public class CanalScheduled {
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
                     } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                        continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -179,6 +183,8 @@ public class CanalScheduled {
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
                     } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                        continue;
+                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
