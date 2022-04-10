@@ -35,10 +35,26 @@ public class OauthCodeServiceImpl extends ServiceImpl<OauthCodeMapper, OauthCode
         QueryWrapper<OauthCode> queryWrapper = new QueryWrapper<>();
         Long current = auditCodePageBo.getCurrent();
         Long size = auditCodePageBo.getSize();
+        String codeId = auditCodePageBo.getCodeId();
+        String code = auditCodePageBo.getCode();
         String username = auditCodePageBo.getUsername();
+        String clientId = auditCodePageBo.getClientId();
+        String remoteAddress = auditCodePageBo.getRemoteAddress();
 
+        if (StringUtils.hasText(codeId)) {
+            queryWrapper.eq("code_id", codeId);
+        }
+        if (StringUtils.hasText(code)) {
+            queryWrapper.eq("code", code);
+        }
         if (StringUtils.hasText(username)) {
-            queryWrapper.like("username", username);
+            queryWrapper.eq("username", username);
+        }
+        if (StringUtils.hasText(clientId)) {
+            queryWrapper.eq("client_id", clientId);
+        }
+        if (StringUtils.hasText(remoteAddress)) {
+            queryWrapper.eq("remote_address", remoteAddress);
         }
 
         IPage<OauthCode> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);

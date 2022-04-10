@@ -19,6 +19,14 @@ public class AuditCodePageBo implements Serializable {
 
     private Long size;
 
+    private String codeId;
+
+    private String code;
+
     private String username;
+
+    private String clientId;
+
+    private String remoteAddress;
 
 }
