@@ -46,7 +46,8 @@ public class OauthCodeController {
      */
     @PreAuthorize("hasAuthority('audit_code_read')")
     @RequestMapping("/page")
-    public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody AuditCodePageBo auditCodePageBo) {
+    public Response<?> page(HttpServletRequest request, HttpServletResponse response,
+                            @RequestBody AuditCodePageBo auditCodePageBo) {
 
         return authorizationServerResilience4jService.pageByAuditCode(auditCodePageBo);
     }
