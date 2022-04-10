@@ -51,6 +51,7 @@ public class OauthAccessToken implements Serializable {
 
     private String authenticationId;
 
+    @TableField("user_name")
     private String userName;
 
     private String clientId;
@@ -59,8 +60,6 @@ public class OauthAccessToken implements Serializable {
     private byte[] authentication;
 
     private String authenticationJson;
-
-    private String username;
 
     private String remoteAddress;
 

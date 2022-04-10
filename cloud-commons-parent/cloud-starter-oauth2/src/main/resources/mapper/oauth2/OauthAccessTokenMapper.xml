@@ -20,7 +20,6 @@
         <result column="client_id" property="clientId" />
         <result column="authentication" property="authentication" />
         <result column="authentication_json" property="authenticationJson" />
-        <result column="username" property="username" />
         <result column="remote_address" property="remoteAddress" />
         <result column="session_id" property="sessionId" />
         <result column="authorities_json" property="authoritiesJson" />

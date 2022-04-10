@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 10/04/2022 16:54:43
+ Date: 10/04/2022 19:15:58
 */
 
 SET NAMES utf8mb4;
@@ -79,7 +79,6 @@ CREATE TABLE `oauth_access_token`  (
   `client_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `remote_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `authorities_json` json NULL,
