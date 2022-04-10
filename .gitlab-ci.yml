@@ -62,6 +62,9 @@ package:
       - plugins/obs-maven-plugin/target/obs-maven-plugin-*
       - plugins/oss-maven-plugin/target/oss-maven-plugin-*
       - plugins/rar-maven-plugin/target/rar-maven-plugin-*
+      - resource-services-parent/target/resource-services-parent-*
+      - resource-services-parent/audit/target/audit-*
+      - resource-services-parent/canal/target/canal-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
