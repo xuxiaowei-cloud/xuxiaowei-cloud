@@ -230,6 +230,9 @@ s2:
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - echo
+    - cd resource-services-parent
+    - pwd
+    - echo
     - MODULE='audit'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -301,6 +304,9 @@ s2:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
+    - echo
+    - cd ..
+    - pwd
     - echo
     - MODULE='ui'
     - echo MODULE：$MODULE
