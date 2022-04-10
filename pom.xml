@@ -90,8 +90,6 @@
         <module>admin-server</module>
         <!-- 授权服务 -->
         <module>authorization-server</module>
-        <!-- 阿里巴巴 MySQL binlog 增量订阅、消费组件 -->
-        <module>canal</module>
         <!-- 登录服务UI -->
         <module>passport-ui</module>
         <!-- 登录服务 -->
