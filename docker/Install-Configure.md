@@ -165,6 +165,14 @@ sudo systemctl status docker.service
 systemctl list-unit-files | grep docker
 ```
 
+- 修改docker时区
+
+```
+cd /usr/share/zoneinfo/Asia
+cp -i Shanghai /etc/localtime
+# 然后重启docker
+```
+
 - 其他命令
 
     ```shell

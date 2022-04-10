@@ -2,9 +2,11 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.map.ResponseMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +30,7 @@ import java.util.Map;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 @RequestMapping("/code")
 public class CodeRestController {
@@ -68,6 +71,7 @@ public class CodeRestController {
         if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
             Response<?> error = Response.error("非法获取Token");
             ResponseUtils.response(response, error);
+            log.error(String.valueOf(error));
             return;
         }
 
@@ -89,9 +93,22 @@ public class CodeRestController {
         String homePage = cloudClientProperties.getHomePage();
 
         assert oauth2AccessToken != null;
-        String accessToken = oauth2AccessToken.getAccessToken();
 
-        response.sendRedirect(homePage + "?accessToken=" + accessToken);
+        Map<String, Object> additionalInformation = oauth2AccessToken.getAdditionalInformation();
+        Object codeObj = additionalInformation.get(Response.CODE);
+        if (codeObj != null && !CodeEnums.OK.code.equals(codeObj)) {
+            ResponseUtils.response(response, additionalInformation);
+            log.error(String.valueOf(oauth2AccessToken));
+            return;
+        }
+
+        String accessToken = oauth2AccessToken.getAccessToken();
+        String refreshToken = oauth2AccessToken.getRefreshToken();
+        String jti = oauth2AccessToken.getJti();
+
+        // store=true：更新缓存Token相关信息
+
+        response.sendRedirect(String.format("%s?store=true&accessToken=%s&refreshToken=%s&jti=%s", homePage, accessToken, refreshToken, jti));
     }
 
     /**

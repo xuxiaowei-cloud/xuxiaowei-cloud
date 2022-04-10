@@ -2,6 +2,7 @@ package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
@@ -32,6 +34,7 @@ import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
  * 使用 {@link OAuth2Exception#addAdditionalInformation(String, String)} 替换重写 {@link CheckTokenEndpoint}
  *
  * @author xuxiaowei
+ * @see AuthorizationEndpoint
  * @see CheckTokenEndpoint
  * @see DefaultWebResponseExceptionTranslator
  * @since 0.0.1
@@ -78,6 +81,16 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
     }
 
     /**
+     * 修改 Token桶 的异常处理程序为本类
+     *
+     * @param tokenEndpoint 授权确认桶
+     */
+    @Autowired
+    public void setTokenEndpoint(TokenEndpoint tokenEndpoint) {
+        tokenEndpoint.setProviderExceptionHandler(new WebResponseExceptionTranslatorConfiguration(true));
+    }
+
+    /**
      * @see CodeEnums#T10001
      */
     public final String CODE_ENUMS_T10001_MESSAGE = "Token was not recognised";
@@ -86,6 +99,11 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
      * @see CodeEnums#T10001
      */
     public final String CODE_ENUMS_T10002_MESSAGE = "Token has expired";
+
+    /**
+     * @see CodeEnums#C20006
+     */
+    public final String CODE_ENUMS_C20006_MESSAGE = "Invalid authorization code";
 
     private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
@@ -133,6 +151,15 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
 
                 log.error("客户端验证异常：", oauth2Exception);
 
+            } else if (oauth2Exception instanceof AuthorizationCodeException) {
+                AuthorizationCodeException authorizationCodeException = (AuthorizationCodeException) oauth2Exception;
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, authorizationCodeException.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, authorizationCodeException.msg);
+                oauth2Exception.addAdditionalInformation(Response.EXPLAIN, authorizationCodeException.getAuthorizationCode());
+
+                log.error("授权码异常：", oauth2Exception);
+
             } else {
                 String message = oauth2Exception.getMessage();
                 if (CODE_ENUMS_T10001_MESSAGE.equals(message)) {
@@ -141,6 +168,9 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 } else if (CODE_ENUMS_T10002_MESSAGE.equals(message)) {
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10002.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10002.msg);
+                } else if (message.contains(CODE_ENUMS_C20006_MESSAGE)) {
+                    oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C20006.code);
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C20006.msg);
                 } else {
                     oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
                     oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);

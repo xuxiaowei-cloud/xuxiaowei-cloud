@@ -1,7 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,9 +14,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.*;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -69,12 +68,7 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurerAdapterConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    /**
-     * 可选配置，用于查询客户端信息
-     */
     private DataSource dataSource;
-
-    private ClientDetailsService clientDetailsService;
 
     private TokenStore tokenStore;
 
@@ -87,11 +81,6 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public void setClientDetailsService(@Qualifier("clientDetailsServiceImpl") ClientDetailsService clientDetailsService) {
-        this.clientDetailsService = clientDetailsService;
     }
 
     @Autowired
@@ -129,10 +118,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        // 查询客户端：<code>clients.withClientDetails(new JdbcClientDetailsService(dataSource));</code>
-
-        // 自定义查询客户信息
-        clients.withClientDetails(clientDetailsService);
+        // 查询客户端
+        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
 
     }
 

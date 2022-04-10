@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.UsersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Users">
+        <id column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="enabled" property="enabled" />
+        <result column="account_non_expired" property="accountNonExpired" />
+        <result column="credentials_non_expired" property="credentialsNonExpired" />
+        <result column="account_non_locked" property="accountNonLocked" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_date" property="createDate" />
+        <result column="deleted" property="deleted" />
+
+        <!-- 权限 -->
+        <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
+            <id column="a_username" property="username" />
+            <id column="a_authority" property="authority" />
+            <result column="a_update_date" property="updateDate" />
+            <result column="a_create_date" property="createDate" />
+            <result column="a_deleted" property="deleted" />
+        </collection>
+
+    </resultMap>
+
+    <!-- 根据 用户名 查询用户信息及权限 -->
+    <select id="getByUsername" resultMap="BaseResultMap">
+        SELECT
+            u.username,
+            u.`password`,
+            u.enabled,
+            u.account_non_expired,
+            u.credentials_non_expired,
+            u.account_non_locked,
+            u.update_date,
+            u.create_date,
+            u.deleted,
+            a.username      AS a_username,
+            a.authority     AS a_authority,
+            a.update_date   AS a_update_date,
+            a.create_date   AS a_create_date,
+            a.deleted       AS a_deleted
+        FROM
+            users AS u
+                JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+        WHERE
+            u.username = #{username} AND u.deleted = 0
+    </select>
+
+</mapper>

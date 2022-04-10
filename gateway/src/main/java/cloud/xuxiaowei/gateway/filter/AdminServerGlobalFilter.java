@@ -48,7 +48,7 @@ public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
-        if (path.contains(ServiceEnums.ADMIN_SERVER.value)) {
+        if (path.contains(ServiceEnums.ADMIN_SERVER.service)) {
             ServerHttpResponse response = exchange.getResponse();
             Response<?> error = Response.error(CodeEnums.X10002.code, CodeEnums.X10002.msg);
             return ResponseUtils.writeWith(response, error);

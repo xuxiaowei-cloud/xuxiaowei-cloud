@@ -184,10 +184,11 @@ spring:
               - https://gateway.example.xuxiaowei.cloud
               - http://passport.example.xuxiaowei.cloud
               - https://passport.example.xuxiaowei.cloud
-              # 登录服务将前端打包后使用
               - http://passport.example.xuxiaowei.cloud:1401
-              # 直接访问前端
               - http://passport.example.xuxiaowei.cloud:1411
+              - http://example.xuxiaowei.cloud
+              - https://example.xuxiaowei.cloud
+              - http://example.xuxiaowei.cloud:1001
             # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
             allowedMethods: "GET,POST"
             # 允许跨域请求中的请求头字段，全部：*
@@ -205,3 +206,41 @@ encrypt:
     alias: xuxiaowei.cloud-alias
     # 密码
     password: xuxiaowei.cloud-storepass
+
+---
+
+cloud:
+  cors:
+    allow-orgin-null-list:
+      # 授权操作使用 form action post，无 Origin
+      - /authorization-server/oauth/authorize
+
+---
+
+#
+# 网关白名单，不进行权限验证
+cloud:
+  white-list:
+    ignores:
+      - /favicon.ico
+    services:
+      - name: passport
+        path-list:
+          # 登录请求
+          - /login
+          # 登录失败
+          - /login/failure
+          # 获取Token
+          - /code
+      - name: authorization-server
+        path-list:
+          # 授权请求
+          - /oauth/authorize
+          # 检查Token
+          - /oauth/check_token
+          # 获取Token
+          - /oauth/token
+    actuator-ip-list:
+      - 192.168.5.3
+      - 192.168.5.4
+      - 10.0.4.13

@@ -1,14 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import store from '@/store'
+import { queryToken } from '@/store'
+import home from '@/router/home'
+import audit from '@/router/audit'
 
-import HomeView from '@/views/HomeView.vue'
+import ConsoleView from '@/views/home/ConsoleView.vue'
 
-const routes = [
+let routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'console',
     // 首页不能使用 import
-    component: HomeView
+    component: ConsoleView
   },
   {
     path: '/about',
@@ -20,25 +22,17 @@ const routes = [
   }
 ]
 
+routes = routes.concat(home)
+routes = routes.concat(audit)
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  const query = to.query
-  const accessToken = query.accessToken
-  if (accessToken) {
-    delete query.accessToken
-    console.log('获取到URL中的Token', accessToken)
-    router.push({ query: query }).then(response => {
-      console.log('已清空URL中的Token，准备缓存Token')
-      store.commit('setToken', accessToken)
-      console.log('缓存Token已完成，store中的Token：', store.getters.token)
-    })
-  } else {
-    console.log('store中的Token：', store.getters.token)
-  }
+  queryToken(to.query, router)
+
   next()
 })
 

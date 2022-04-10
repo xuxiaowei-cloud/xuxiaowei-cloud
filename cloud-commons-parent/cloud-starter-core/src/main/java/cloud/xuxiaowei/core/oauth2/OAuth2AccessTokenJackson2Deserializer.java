@@ -34,6 +34,7 @@ public class OAuth2AccessTokenJackson2Deserializer extends StdDeserializer<OAuth
         String refreshToken = null;
         Long expiresIn = null;
         Set<String> scope = null;
+        String jti = null;
         Map<String, Object> additionalInformation = new LinkedHashMap<>();
 
         while (jp.nextToken() != JsonToken.END_OBJECT) {
@@ -56,7 +57,9 @@ public class OAuth2AccessTokenJackson2Deserializer extends StdDeserializer<OAuth
                 }
             } else if (OAuth2AccessToken.SCOPE.equals(name)) {
                 scope = parseScope(jp);
-            } else {
+            } else if (OAuth2AccessToken.JTI.equals(name)) {
+                jti = jp.getText();
+            } else  {
                 additionalInformation.put(name, jp.readValueAs(Object.class));
             }
         }
@@ -71,6 +74,7 @@ public class OAuth2AccessTokenJackson2Deserializer extends StdDeserializer<OAuth
         }
         accessToken.setRefreshToken(refreshToken);
         accessToken.setScope(scope);
+        accessToken.setJti(jti);
         accessToken.setAdditionalInformation(additionalInformation);
 
         return accessToken;

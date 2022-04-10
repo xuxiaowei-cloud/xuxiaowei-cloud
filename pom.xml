@@ -32,13 +32,13 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <!-- 监控（管理）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
-        <spring-boot-admin.version>2.6.3</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
 
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
-        <spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -55,6 +55,11 @@
         <!-- 多数据源 -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
         <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
+        <mybatis-plus-extension.version>3.5.1</mybatis-plus-extension.version>
+        <!-- SQL 性能分析 -->
+        <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+        <p6spy.version>3.9.1</p6spy.version>
 
         <!-- guava -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -67,6 +72,11 @@
         <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
         <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
+
+        <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
+        <canal.version>1.1.5</canal.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -84,10 +94,10 @@
         <module>passport-ui</module>
         <!-- 登录服务 -->
         <module>passport</module>
-        <!-- 资源服务 -->
-        <module>resource-server</module>
         <!-- UI -->
         <module>ui</module>
+        <!-- 资源服务父模块 -->
+        <module>resource-services-parent</module>
         <!-- 工具类 -->
         <module>utils</module>
         <!-- 微服务公共组件父模块 -->
@@ -183,6 +193,19 @@
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-datasource-spring-boot-starter.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus-extension.version}</version>
+            </dependency>
+            <!-- SQL 性能分析 -->
+            <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
 
             <!-- guava -->
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -208,6 +231,20 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bcpkix-jdk15on.version}</version>
+            </dependency>
+
+            <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
+            <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.client</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.protocol</artifactId>
+                <version>${canal.version}</version>
             </dependency>
 
             <!-- 工具类 -->
@@ -238,6 +275,12 @@
             <dependency>
                 <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- OAuth2 组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-oauth2</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- OpenFeign 组件 -->
@@ -439,6 +482,17 @@
     </build>
 
     <profiles>
+
+        <profile>
+            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
+            <id>oss</id>
+            <repositories>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
+                </repository>
+            </repositories>
+        </profile>
 
         <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->

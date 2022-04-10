@@ -27,4 +27,9 @@ public class Constant implements Serializable {
      */
     public static final String IP = "IP";
 
+    /**
+     * null 值
+     */
+    public static final String NULL = "null";
+
 }

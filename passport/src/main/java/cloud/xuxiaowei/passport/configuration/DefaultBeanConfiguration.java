@@ -10,12 +10,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-
-import javax.sql.DataSource;
 
 import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
@@ -28,16 +24,9 @@ import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImp
 @Configuration
 public class DefaultBeanConfiguration {
 
-    private DataSource dataSource;
-
     private ServerProperties serverProperties;
 
     private CloudSecurityProperties cloudSecurityProperties;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Autowired
     public void setServerProperties(ServerProperties serverProperties) {
@@ -47,23 +36,6 @@ public class DefaultBeanConfiguration {
     @Autowired
     public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
         this.cloudSecurityProperties = cloudSecurityProperties;
-    }
-
-    /**
-     * 默认用户信息 {@link UserDetailsService} {@link Bean}
-     * <p>
-     * 在 {@link UserDetailsService} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
-     * <p>
-     * 存在 {@link UserDetailsService} 对应的 {@link Bean} 时，控制台不会输出默认用户名为“user”的密码
-     *
-     * @return 在 {@link UserDetailsService} 对应的 {@link Bean} 不存在时，才会返回此 {@link Bean}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public UserDetailsService userDetailsService() {
-        JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
-        jdbcDao.setDataSource(dataSource);
-        return jdbcDao;
     }
 
     /**

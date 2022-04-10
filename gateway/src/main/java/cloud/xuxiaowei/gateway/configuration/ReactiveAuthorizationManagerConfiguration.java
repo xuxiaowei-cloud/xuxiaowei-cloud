@@ -1,8 +1,12 @@
 package cloud.xuxiaowei.gateway.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
+import cloud.xuxiaowei.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -21,12 +25,14 @@ import org.springframework.security.web.server.authorization.AuthorizationContex
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.security.KeyPair;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 反应式授权管理器
@@ -39,6 +45,7 @@ import java.util.List;
  * @author xuxiaowei
  * @see EnableWebFluxSecurity
  * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级 <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
+ * @see ReactiveUserDetailsServiceAutoConfiguration
  * @since 0.0.1
  */
 @Slf4j
@@ -50,6 +57,10 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
     private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
 
+    private CorsBeforeWebFilter corsBeforeWebFilter;
+
+    private CloudWhiteListProperties cloudWhiteListProperties;
+
     @Autowired
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
@@ -58,6 +69,24 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     @Autowired
     public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
         this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
+    }
+
+    @Autowired
+    public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
+        this.corsBeforeWebFilter = corsBeforeWebFilter;
+    }
+
+    @Autowired
+    public void setCloudWhiteListProperties(CloudWhiteListProperties cloudWhiteListProperties) {
+        this.cloudWhiteListProperties = cloudWhiteListProperties;
+    }
+
+    /**
+     * 禁止控制室台输出默认用户的密码
+     */
+    @Autowired
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        securityProperties.getUser().setPassword(UUID.randomUUID().toString());
     }
 
     @Bean
@@ -81,7 +110,7 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
 
         // 在 CORS 之前执行
-        http.addFilterBefore(new CorsBeforeWebFilter(), SecurityWebFiltersOrder.CORS);
+        http.addFilterBefore(corsBeforeWebFilter, SecurityWebFiltersOrder.CORS);
 
         // 身份验证入口点
         http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
@@ -93,13 +122,9 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, AuthorizationContext authorizationContext) {
 
         ServerWebExchange exchange = authorizationContext.getExchange();
-        ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
-        String path = uri.getPath();
 
-        // 待转换为配置文件
-        List<String> pathList = Arrays.asList("/passport/login", "/passport/code", "/authorization-server/oauth/authorize");
-        if (pathList.contains(path)) {
+        boolean whiteList = whiteList(exchange);
+        if (whiteList) {
             return Mono.just(new AuthorizationDecision(true));
         }
 
@@ -117,6 +142,58 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
                 // 无认证授权
                 // 拒绝放行
                 .defaultIfEmpty(new AuthorizationDecision(false));
+    }
+
+    /**
+     * 白名单配置
+     *
+     * @param exchange 服务器网络交换
+     * @return 返回匹配结果
+     */
+    private boolean whiteList(ServerWebExchange exchange) {
+
+        ServerHttpRequest request = exchange.getRequest();
+        URI uri = request.getURI();
+        String path = uri.getPath();
+
+        List<String> ignores = cloudWhiteListProperties.getIgnores();
+        if (ignores.contains(path)) {
+            return true;
+        }
+
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+
+        assert remoteAddress != null;
+        InetAddress address = remoteAddress.getAddress();
+        String hostAddress = address.getHostAddress();
+
+        List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
+
+        // 放行指定IP访问端点
+        if (path.contains(Constant.ACTUATOR) && actuatorIpList.contains(hostAddress)) {
+            return true;
+        }
+
+        String[] pathSplit = path.split("/");
+        if (pathSplit.length > 1) {
+            String serviceName = pathSplit[1];
+
+            List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
+
+            for (CloudWhiteListProperties.Service service : services) {
+                String name = service.getName();
+                List<String> pathList = service.getPathList();
+
+                if (serviceName.equals(name)) {
+                    String substring = path.substring(serviceName.length() + 1);
+
+                    if (pathList.contains(substring)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override

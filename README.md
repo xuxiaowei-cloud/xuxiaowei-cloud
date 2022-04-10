@@ -44,6 +44,10 @@
     <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xuxiaowei-cloud/xuxiaowei-cloud?logo=github">
   </a>
 
+  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-cloud/xuxiaowei-cloud?style=flat-square">
+  </a>
+
   <a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="码云Gitee stars" src="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud/badge/star.svg?theme=blue">
   </a>
@@ -83,6 +87,8 @@
 
 ## 模块
 
+- [依赖分析](./README-dependencies.md)
+
 ```
 cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
@@ -91,14 +97,17 @@ cloud.xuxiaowei
 │    └──authorization-server                // 授权服务
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
-│    └──resource-server                     // 资源服务
 │    └──ui                                  // UI
+│    └──resource-services-parent            // 资源服务父模块
+│        └──audit                           // 审计服务
+│        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
+│        └──cloud-starter-oauth2            // OAuth2 组件
 │        └──cloud-starter-openfeign         // OpenFeign 组件
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
@@ -127,7 +136,8 @@ cloud.xuxiaowei
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
-| resource-server | 资源 | resource-server.example.xuxiaowei.cloud | 1501 |
+| audit | 审计服务 | audit.example.xuxiaowei.cloud | 1501 |
+| canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
@@ -264,11 +274,13 @@ cloud.xuxiaowei
     - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.dmg)
     - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.3.3-aarch64.dmg)
     - 插件
+        1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
         1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
         1. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
         1. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
         1. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
         1. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
+        1. [RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit)
         1. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
         1. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
         1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
