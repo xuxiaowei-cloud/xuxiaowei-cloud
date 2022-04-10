@@ -83,5 +83,12 @@ public class OauthAccessToken implements Serializable {
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateDate;
 
+    /**
+     * 逻辑删除，0 未删除，1 删除
+     * <p>
+     * 不添加逻辑删除的注解
+     */
+    private Boolean deleted;
+
 
 }

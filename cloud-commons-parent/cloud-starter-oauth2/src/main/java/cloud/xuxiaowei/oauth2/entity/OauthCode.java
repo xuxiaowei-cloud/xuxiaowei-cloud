@@ -67,5 +67,12 @@ public class OauthCode implements Serializable {
     @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime updateDate;
 
+    /**
+     * 逻辑删除，0 未删除，1 删除
+     * <p>
+     * 不添加逻辑删除的注解
+     */
+    private Boolean deleted;
+
 
 }
