@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.audit.feign;
 
+import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
 import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
 import cloud.xuxiaowei.openfeign.interceptor.AuthorizationRequestInterceptor;
 import cloud.xuxiaowei.utils.Response;
@@ -24,5 +25,15 @@ public interface AuthorizationServerFeignService {
      */
     @PostMapping("/oauth-code/page")
     Response<?> pageByAuditCode(AuditCodePageBo auditCodePageBo);
+
+    /**
+     * 分页查询授权Token
+     *
+     * @param auditAccessTokenPageBo 审计授权Token分页参数
+     * @return 返回 分页查询结果
+     */
+    @PostMapping("/oauth-access-token/page")
+    Response<?> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo);
+
 
 }

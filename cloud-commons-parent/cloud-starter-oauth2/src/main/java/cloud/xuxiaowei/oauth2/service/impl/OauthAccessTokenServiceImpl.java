@@ -1,8 +1,13 @@
 package cloud.xuxiaowei.oauth2.service.impl;
 
+import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
 import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
 import cloud.xuxiaowei.oauth2.mapper.OauthAccessTokenMapper;
 import cloud.xuxiaowei.oauth2.service.IOauthAccessTokenService;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +21,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OauthAccessTokenServiceImpl extends ServiceImpl<OauthAccessTokenMapper, OauthAccessToken> implements IOauthAccessTokenService {
+
+    /**
+     * 分页查询授权Token
+     *
+     * @param auditAccessTokenPageBo 审计授权Token分页参数
+     * @return 返回 分页查询结果
+     */
+    @Override
+    @DS("xuxiaowei_cloud_log")
+    public IPage<OauthAccessToken> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo) {
+        QueryWrapper<OauthAccessToken> queryWrapper = new QueryWrapper<>();
+        Long current = auditAccessTokenPageBo.getCurrent();
+        Long size = auditAccessTokenPageBo.getSize();
+
+        IPage<OauthAccessToken> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
+        return page(page, queryWrapper);
+    }
 
 }
