@@ -5,7 +5,7 @@
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="445">
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
-      <el-table-column prop="username" label="username" width="130"/>
+      <el-table-column prop="userName" label="userName" width="130"/>
       <el-table-column prop="clientId" label="clientId" width="160"/>
       <el-table-column prop="remoteAddress" label="remoteAddress" width="130"/>
       <el-table-column prop="createDate" label="createDate" width="160"/>
