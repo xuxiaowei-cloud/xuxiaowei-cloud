@@ -9,7 +9,7 @@ import java.io.IOException;
  * 处理依赖分析
  * <p>
  * 命令
- * <code>mvn dependency:tree >D:/tree.txt</code>
+ * <code>mvn dependency:tree &lt; D:/tree.txt</code>
  *
  * @author xuxiaowei
  * @since 0.0.1
