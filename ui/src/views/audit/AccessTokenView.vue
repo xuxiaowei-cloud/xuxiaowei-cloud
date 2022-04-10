@@ -12,10 +12,21 @@
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
       <el-table-column prop="deleted" label="deleted" width="100"/>
       <el-table-column prop="scope" label="scope" width="130"/>
-      <el-table-column prop="redirectUri" label="redirectUri" width="130" :show-overflow-tooltip="true"/>
+      <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
       <el-table-column prop="responseType" label="responseType" width="130"/>
-      <el-table-column prop="sessionId" label="sessionId" width="130" :show-overflow-tooltip="true"/>
-      <el-table-column prop="state" label="state" width="130" :show-overflow-tooltip="true"/>
+      <el-table-column prop="tokenJson" label="tokenJson" width="130" :show-overflow-tooltip="true"/>
+      <el-table-column prop="tokenType" label="tokenType" width="95"/>
+      <el-table-column prop="accessToken" label="accessToken" width="130" :show-overflow-tooltip="true"/>
+      <el-table-column prop="expiration" label="expiration" width="160"/>
+      <el-table-column prop="authenticationId" label="authenticationId" width="270"/>
+      <el-table-column prop="jti" label="jti" width="260"/>
+      <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
+      <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
+      <el-table-column prop="refreshTokenEncryption" label="refreshTokenEncryption" width="190" :show-overflow-tooltip="true"/>
+      <el-table-column prop="refreshTokenExpiration" label="refreshTokenExpiration" width="190"/>
+      <el-table-column prop="tokenId" label="tokenId" width="300"/>
+      <el-table-column prop="sessionId" label="sessionId" width="300"/>
+      <el-table-column prop="state" label="state" width="300"/>
       <el-table-column prop="authoritiesJson" label="authorities" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="authenticationJson" label="authentication" width="160" :show-overflow-tooltip="true"/>
     </el-table>
