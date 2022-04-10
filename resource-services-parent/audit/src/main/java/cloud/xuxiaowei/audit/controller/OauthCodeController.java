@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.audit.controller;
 
-import cloud.xuxiaowei.audit.feign.AuthorizationServerFeignService;
+import cloud.xuxiaowei.audit.resilience4j.AuthorizationServerResilience4jService;
 import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,11 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/oauth-code")
 public class OauthCodeController {
 
-    private AuthorizationServerFeignService authorizationServerFeignService;
+    private AuthorizationServerResilience4jService authorizationServerResilience4jService;
 
     @Autowired
-    public void setAuthorizationServerFeignService(AuthorizationServerFeignService authorizationServerFeignService) {
-        this.authorizationServerFeignService = authorizationServerFeignService;
+    public void setAuthorizationServerResilience4jService(AuthorizationServerResilience4jService authorizationServerResilience4jService) {
+        this.authorizationServerResilience4jService = authorizationServerResilience4jService;
     }
 
     /**
@@ -48,7 +48,7 @@ public class OauthCodeController {
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody AuditCodePageBo auditCodePageBo) {
 
-        return authorizationServerFeignService.pageByAuditCode(auditCodePageBo);
+        return authorizationServerResilience4jService.pageByAuditCode(auditCodePageBo);
     }
 
 }
