@@ -104,6 +104,7 @@ cloud.xuxiaowei
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
+│        └──cloud-starter-idempotent        // 幂等组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
