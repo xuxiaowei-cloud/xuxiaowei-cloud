@@ -115,7 +115,7 @@ public class CanalScheduled {
                     String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
                         continue;
                     } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
@@ -141,7 +141,7 @@ public class CanalScheduled {
                     String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
                         continue;
                     } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
@@ -186,7 +186,7 @@ public class CanalScheduled {
                     String value = newColumn.getValue();
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
-                    } else if ("datetime(0)".equals(mysqlType) && "".equals(value)) {
+                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
                         continue;
                     } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
