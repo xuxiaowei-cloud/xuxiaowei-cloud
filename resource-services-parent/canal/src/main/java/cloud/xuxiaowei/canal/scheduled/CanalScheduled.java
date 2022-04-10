@@ -2,6 +2,7 @@ package cloud.xuxiaowei.canal.scheduled;
 
 import cloud.xuxiaowei.canal.properties.CloudCanalProperties;
 import cloud.xuxiaowei.canal.service.CanalService;
+import cloud.xuxiaowei.utils.DateUtils;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.util.List;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * Canal 命令行运行器
@@ -215,12 +218,18 @@ public class CanalScheduled {
     }
 
     private void deleteLogicSql(CanalEntry.Entry entry) {
+
+        CanalEntry.Header header = entry.getHeader();
+        long executeTime = header.getExecuteTime();
+
+        String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+
         try {
             CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
             List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
             for (CanalEntry.RowData rowData : rowDatasList) {
                 StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName());
-                sql.append(" set deleted = 1 where ");
+                sql.append(" set deleted = 1, update_date = '").append(executeTimeFormat).append("' where ");
                 List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
                 for (CanalEntry.Column column : oldColumnList) {
                     if (column.getIsKey()) {

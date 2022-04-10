@@ -3,6 +3,7 @@ package cloud.xuxiaowei.utils;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -52,7 +53,27 @@ public class DateUtils {
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         LocalDateTime expirationDateTime = instant.atZone(zoneId).toLocalDateTime();
-        return format(expirationDateTime, DEFAULT_DATE_TIME_FORMAT);
+        return format(expirationDateTime, pattern);
+    }
+
+    /**
+     * 时间戳转日期时间
+     *
+     * @param currentTimeMillis 时间戳
+     */
+    public static LocalDateTime parse(long currentTimeMillis) {
+        return LocalDateTime.ofEpochSecond(currentTimeMillis / 1000, 0, ZoneOffset.of("+8"));
+    }
+
+    /**
+     * 时间戳转日期时间
+     *
+     * @param currentTimeMillis 时间戳
+     * @param pattern           格式
+     */
+    public static String format(long currentTimeMillis, String pattern) {
+        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(currentTimeMillis / 1000, 0, ZoneOffset.of("+8"));
+        return format(localDateTime, pattern);
     }
 
 }
