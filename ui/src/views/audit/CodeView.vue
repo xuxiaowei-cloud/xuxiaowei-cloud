@@ -15,6 +15,8 @@
       <el-table-column prop="clientId" label="clientId" width="160"/>
       <el-table-column prop="remoteAddress" label="remoteAddress" width="130"/>
       <el-table-column prop="createDate" label="createDate" width="160"/>
+      <el-table-column prop="updateDate" label="updateDate" width="160"/>
+      <el-table-column prop="deleted" label="deleted" width="100"/>
       <el-table-column prop="scope" label="scope" width="130"/>
       <el-table-column prop="redirectUri" label="redirectUri" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="responseType" label="responseType" width="130"/>
@@ -22,7 +24,6 @@
       <el-table-column prop="state" label="state" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="authoritiesJson" label="authorities" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="authenticationJson" label="authentication" width="160" :show-overflow-tooltip="true"/>
-      <el-table-column prop="updateDate" label="updateDate" width="160"/>
     </el-table>
   </el-container>
   <el-container>
