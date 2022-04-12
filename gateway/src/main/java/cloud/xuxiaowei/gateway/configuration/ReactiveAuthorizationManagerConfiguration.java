@@ -123,6 +123,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
         ServerWebExchange exchange = authorizationContext.getExchange();
 
+        log.info(exchange.getRequest().getURI().toString());
+
         boolean whiteList = whiteList(exchange);
         if (whiteList) {
             return Mono.just(new AuthorizationDecision(true));
