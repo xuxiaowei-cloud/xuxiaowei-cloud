@@ -112,12 +112,7 @@ public class CanalScheduled {
                 for (int i = 0; i < columnList.size(); i++) {
                     CanalEntry.Column column = columnList.get(i);
                     String mysqlType = column.getMysqlType();
-                    String value = column.getValue();
                     if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
-                        continue;
-                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
@@ -137,20 +132,11 @@ public class CanalScheduled {
                 sql.append(") VALUES (");
                 for (int i = 0; i < columnList.size(); i++) {
                     CanalEntry.Column column = columnList.get(i);
-                    String mysqlType = column.getMysqlType();
                     String value = column.getValue();
 
                     boolean isNull = column.getIsNull();
                     if (isNull) {
                         value = null;
-                    }
-
-                    if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
-                        continue;
-                    } else if ("json".equals(mysqlType) && "".equals(value)) {
-                        continue;
                     }
 
                     sql.append("'").append(value).append("'");
@@ -197,10 +183,6 @@ public class CanalScheduled {
                     }
 
                     if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    } else if (mysqlType.contains("datetime") && "".equals(value)) {
-                        continue;
-                    } else if ("json".equals(mysqlType) && "".equals(value)) {
                         continue;
                     }
 
