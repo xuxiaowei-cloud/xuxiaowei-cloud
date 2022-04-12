@@ -104,6 +104,7 @@ cloud.xuxiaowei
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
+│        └──cloud-starter-idempotent        // 幂等组件
 │        └──cloud-starter-loadbalancer      // 负载均衡组件
 │        └──cloud-starter-log               // 日志组件
 │        └──cloud-starter-mybatis           // MyBatis 组件
@@ -129,6 +130,7 @@ cloud.xuxiaowei
 | Nacos | 注册、配置中心 | nacos.example.xuxiaowei.cloud | 8848 |
 | MySQL | 数据库 | mysql.example.xuxiaowei.cloud | 3306 |
 | Redis | 数据库 | redis.example.xuxiaowei.cloud | 6379 |
+| canal-deployer |  | canal-deployer.example.xuxiaowei.cloud | 11111 |
 |  |  |  |  |
 | ui | UI | example.xuxiaowei.cloud | 1001 |
 | gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |

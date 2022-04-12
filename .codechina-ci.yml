@@ -46,6 +46,7 @@ package:
       - admin-server/target/admin-server-*
       - authorization-server/target/authorization-server-*
       - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
+      - cloud-commons-parent/cloud-starter-idempotent/target/cloud-starter-idempotent-*
       - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
       - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
       - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*

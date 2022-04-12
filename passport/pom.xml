@@ -83,6 +83,12 @@
             <artifactId>cloud-starter-validation</artifactId>
         </dependency>
 
+        <!-- 登录服务UI -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>passport-ui</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
