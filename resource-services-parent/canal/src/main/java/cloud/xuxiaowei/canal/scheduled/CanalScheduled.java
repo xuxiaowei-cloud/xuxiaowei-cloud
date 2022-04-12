@@ -139,6 +139,12 @@ public class CanalScheduled {
                     CanalEntry.Column column = columnList.get(i);
                     String mysqlType = column.getMysqlType();
                     String value = column.getValue();
+
+                    boolean isNull = column.getIsNull();
+                    if (isNull) {
+                        value = null;
+                    }
+
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
                     } else if (mysqlType.contains("datetime") && "".equals(value)) {
@@ -184,6 +190,12 @@ public class CanalScheduled {
                     CanalEntry.Column newColumn = newColumnList.get(i);
                     String mysqlType = newColumn.getMysqlType();
                     String value = newColumn.getValue();
+
+                    boolean isNull = newColumn.getIsNull();
+                    if (isNull) {
+                        value = null;
+                    }
+
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
                     } else if (mysqlType.contains("datetime") && "".equals(value)) {
