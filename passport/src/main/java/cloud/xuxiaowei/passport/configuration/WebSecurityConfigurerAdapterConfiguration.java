@@ -15,6 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.csrf.LazyCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
@@ -26,6 +30,10 @@ import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImp
  * @see UsernamePasswordAuthenticationFilter 用户名密码认证过滤器
  * @see DefaultLoginPageGeneratingFilter 默认登录页面
  * @see HttpSecurity#formLogin() 登录配置
+ * @see CsrfFilter
+ * @see CsrfTokenRepository
+ * @see LazyCsrfTokenRepository
+ * @see HttpSessionCsrfTokenRepository
  * @since 0.0.1
  */
 @Configuration

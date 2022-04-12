@@ -95,7 +95,6 @@ cloud.xuxiaowei
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
 │    └──authorization-server                // 授权服务
-│    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
 │    └──ui                                  // UI
 │    └──resource-services-parent            // 资源服务父模块
@@ -137,7 +136,6 @@ cloud.xuxiaowei
 | admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
-| passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
 | audit | 审计服务 | audit.example.xuxiaowei.cloud | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
@@ -153,7 +151,7 @@ cloud.xuxiaowei
 | 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
 
 - authorized_grant_types
     - 默认值：authorization_code,refresh_token

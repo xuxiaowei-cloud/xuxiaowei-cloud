@@ -10,8 +10,6 @@ variables:
 #cache:
 #  paths:
 #    - .m2/repository
-#    - passport-ui/node/
-#    - passport-ui/node_modules/
 #    - ui/node/
 #    - ui/node_modules/
 
@@ -34,10 +32,8 @@ package:
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     - mvn clean -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
-    - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
     - echo "以下命令再执行 package 后才能执行"
-    - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo 登录服务前端可执行jar包打包完成
   artifacts:
     name: package
@@ -57,7 +53,6 @@ package:
       - example-parent/oauth2-client/target/oauth2-client-*
       - gateway/target/gateway-*
       - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
       - plugins/target/plugins-*
       - plugins/bos-maven-plugin/target/bos-maven-plugin-*
       - plugins/cos-maven-plugin/target/cos-maven-plugin-*

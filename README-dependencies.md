@@ -171,11 +171,6 @@ cloud.xuxiaowei:authorization-server:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.6:test
 
 
-cloud.xuxiaowei:passport-ui:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.6.6:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.6:compile
-
-
 cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-security:jar:2.6.6:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.6.6:compile

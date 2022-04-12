@@ -210,7 +210,6 @@ spring:
               - http://passport.example.xuxiaowei.cloud
               - https://passport.example.xuxiaowei.cloud
               - http://passport.example.xuxiaowei.cloud:1401
-              - http://passport.example.xuxiaowei.cloud:1411
               - http://example.xuxiaowei.cloud
               - https://example.xuxiaowei.cloud
               - http://example.xuxiaowei.cloud:1001
@@ -246,9 +245,9 @@ cloud:
 # 网关白名单，不进行权限验证
 cloud:
   white-list:
-    # 暂时禁用，Linux索引越界
-#    ignores:
-#      - /favicon.ico
+    ignores:
+      - /passport
+      - "/favicon.ico"
     services:
       - name: passport
         path-list:

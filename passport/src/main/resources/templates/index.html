@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <!-- 导入样式 element-plus -->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />-->
+    <!-- 导入样式 element-plus，使用固定版本 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@2.1.8/dist/index.css">
+
+    <!-- 导入 Vue 3 -->
+    <!--<script src="https://unpkg.com/vue@next"></script>-->
+    <!-- 导入 Vue 3，使用固定版本，开发版本 -->
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <!-- 导入 Vue 3，使用固定版本，生产版本 -->
+    <!--<script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>-->
+
+    <!-- 导入组件库 element-plus -->
+    <!--<script src="https://unpkg.com/element-plus"></script>-->
+    <!-- 导入组件库 element-plus，使用固定版本，开发版本 -->
+    <script src="https://unpkg.com/element-plus@2.1.8/dist/index.full.js"></script>
+    <!-- 导入组件库 element-plus，使用固定版本，生产版本 -->
+    <!--<script src="https://unpkg.com/element-plus@2.1.8/dist/index.full.min.js"></script>-->
+
+    <!-- 导入 axios -->
+    <!-- 开发版本 -->
+    <script src="https://unpkg.com/axios@0.26.1/dist/axios.js"></script>
+    <!-- 生产版本 -->
+    <!--<script src="https://unpkg.com/axios@0.26.1/dist/axios.min.js"></script>-->
+
+    <style scoped>
+
+        #app {
+            font-family: Avenir, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .cloud-header,
+        .cloud-footer {
+            /* 上下左右外边距 */
+            margin: 20px;
+            /* 高度自动，原 el-header、el-footer 均为固定高度 */
+            height: auto;
+        }
+
+        .cloud-form {
+            /* form 居中 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cloud-footer {
+            /* 版权信息：绝对位置 */
+            position: absolute;
+            bottom: 30px;
+            width: calc(100% - 40px);
+            padding: 0;
+        }
+
+        /* xs<768px 响应式栅格数或者栅格属性对象 */
+        @media only screen and (max-width: 768px) {
+
+            /* xs 主内容无内边距 */
+            .cloud-main {
+                --el-main-padding: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            /* 表达宽度 */
+            .cloud-form {
+                width: 300px;
+            }
+
+            .cloud-form .el-input,
+            .remember-me,
+            .submit-cloud-form {
+                /* xs ：输入框、按钮宽度 */
+                width: 280px;
+            }
+
+        }
+
+        /* sm≥768px 响应式栅格数或者栅格属性对象 */
+        @media only screen and (min-width: 768px) {
+
+            .cloud-form .el-input,
+            .remember-me,
+            .submit-cloud-form {
+                /* 非 xs ：输入框、按钮宽度 */
+                width: 335px;
+            }
+
+            .cloud-form {
+                /* 非 xs ：表单宽度 */
+                width: 375px;
+            }
+        }
+
+        /* md≥992px 响应式栅格数或者栅格属性对象 */
+        @media only screen and (min-width: 992px) {
+
+        }
+
+        /* lg≥1200px 响应式栅格数或者栅格属性对象 */
+        @media only screen and (min-width: 1200px) {
+
+        }
+
+        /* xl≥1920px 响应式栅格数或者栅格属性对象 */
+        @media only screen and (min-width: 1920px) {
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div id="app">
+
+    <el-container>
+
+        <el-header class="cloud-header">
+            <h1>Login</h1>
+            <span>登录服务-徐晓伟微服务</span>
+        </el-header>
+
+        <el-main class="cloud-main">
+
+            <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm">
+
+                <el-form-item label="" prop="username" :rules="[{ required: true, message: '用户名必填' }]">
+                    <el-input v-model.trim="cloudForm.username" placeholder="用户名"></el-input>
+                </el-form-item>
+
+                <el-form-item label="" prop="password" :rules="[{ required: true, message: '密码必填' }]">
+                    <el-input v-model.trim="cloudForm.password" placeholder="密码" :type="passwordType">
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item label="" prop="rememberMe" class="remember-me">
+                    <el-checkbox-group v-model="cloudForm.rememberMe">
+                        <el-checkbox label="true" name="rememberMe" v-bind="true">记住我</el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button class="submit-cloud-form" @click="submitCloudForm()">登录</el-button>
+                </el-form-item>
+
+            </el-form>
+
+        </el-main>
+
+        <el-footer class="cloud-footer">
+            <span>&copy;&nbsp;2022</span>&nbsp;
+            <a target="_blank" href="http://xuxiaowei.com.cn">徐晓伟工作室</a>&nbsp;
+            <a target="_blank" href="http://beian.miit.gov.cn">鲁ICP备19009036号</a>
+        </el-footer>
+
+    </el-container>
+
+</div>
+</body>
+
+<script th:inline="javascript" type="text/javascript">
+
+    const app = Vue.createApp({
+        /* 选项 */
+        data() {
+            return {
+                count: 4,
+                cloudForm: {
+                    username: '',
+                    password: '',
+                    rememberMe: []
+                },
+                passwordType: 'password',
+                _csrf_header: [[${_csrf.headerName}]],
+                _csrf: [[${_csrf.token}]]
+            }
+        },
+        methods: {
+            passwordTypeClick: function () {
+                this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
+            },
+            /**
+             *  提交表单
+             */
+            submitCloudForm: function () {
+                const _this = this
+                this.$refs.cloudFormRef.validate(valid => {
+                    if (valid) {
+                        // 以 form 提交
+                        const formData = new FormData()
+                        formData.append('username', _this.cloudForm.username)
+                        formData.append('password', _this.cloudForm.password)
+                        formData.append('remember-me', _this.cloudForm.rememberMe[0])
+                        const headers = {}
+                        headers[_this._csrf_header] = _this._csrf
+                        axios.post('/login', formData, {
+                            headers: headers
+                        }).then(response => {
+                            const data = response.data
+                            const msg = data.msg
+                            if (data.code === '000000') {
+                                this.$message({
+                                    message: msg,
+                                    // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+                                    duration: 1500,
+                                    type: 'success',
+                                    onClose: () => {
+                                        location.href = data.data.authorizeUri
+                                    }
+                                })
+                            } else {
+                                this.$message.error(msg)
+                            }
+                        }).catch(error => {
+                            console.error(error)
+                        })
+                    }
+                })
+            }
+        }
+    })
+
+    app.use(ElementPlus)
+
+    const vm = app.mount('#app')
+    console.log(vm.count) // => 4
+
+</script>
+
+</html>

@@ -30,7 +30,7 @@ public class CloudSecurityProperties {
      *
      * @see DefaultLoginPageGeneratingFilter#DEFAULT_LOGIN_PAGE_URL
      */
-    private String defaultLoginPageUrl = "http://passport.example.xuxiaowei.cloud:1411";
+    private String defaultLoginPageUrl = "http://passport.example.xuxiaowei.cloud:1401";
 
     /**
      * 登录页面地址

@@ -43,6 +43,9 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
+        // 任何路径均需要授权后才能访问
+        http.authorizeRequests().anyRequest().authenticated();
+
     }
 
 }

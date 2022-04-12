@@ -90,8 +90,6 @@
         <module>admin-server</module>
         <!-- 授权服务 -->
         <module>authorization-server</module>
-        <!-- 登录服务UI -->
-        <module>passport-ui</module>
         <!-- 登录服务 -->
         <module>passport</module>
         <!-- UI -->
@@ -325,12 +323,6 @@
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
                 <artifactId>ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 登录服务UI -->
-            <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
-                <artifactId>passport-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
