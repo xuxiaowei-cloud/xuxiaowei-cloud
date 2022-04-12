@@ -35,7 +35,17 @@ export default defineConfig({
     // 构建后是否生成 source map 文件。默认： false
     sourcemap: false,
     // 指定生成静态资源的存放路径（相对于 build.outDir）。默认： assets
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        // entryFileNames: `assets/[name].${timestamp}.js`,
+        // chunkFileNames: `assets/[name].${timestamp}.js`,
+        // assetFileNames: `assets/[name].${timestamp}.[ext]`
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
+      }
+    }
   },
   server: {
     // 代理
