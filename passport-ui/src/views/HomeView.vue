@@ -80,7 +80,13 @@ const cloudFormRef = ref(null)
 const submitCloudForm = () => {
   cloudFormRef.value.validate(valid => {
     if (valid) {
-      login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0]).then(response => {
+      let header = 'header'
+      let token = 'token'
+      if (process.env.NODE_ENV === 'production') {
+        header = document.head.querySelector("[name=_csrf_header][content]").content
+        token = document.head.querySelector("[name=_csrf][content]").content
+      }
+      login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0], header, token).then(response => {
         console.log(response)
         const msg = response.msg
 
