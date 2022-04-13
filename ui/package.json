@@ -36,10 +36,10 @@
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
     "axios": "0.26.1",
-    "element-plus": "2.1.8",
+    "element-plus": "2.1.9",
     "js-cookie": "3.0.1",
     "jsencrypt": "3.2.1",
-    "vue": "3.2.31",
+    "vue": "3.2.32",
     "vue-router": "4.0.14",
     "vuex": "4.0.2",
     "vuex-persistedstate": "4.1.0"
@@ -57,6 +57,6 @@
     "lint-staged": "12.3.7",
     "unplugin-auto-import": "0.6.9",
     "unplugin-vue-components": "0.18.5",
-    "vite": "2.9.1"
+    "vite": "2.9.4"
   }
 }
