@@ -38,7 +38,7 @@ public class CloudWhiteListProperties {
     /**
      * 服务列表
      */
-    private List<Service> services;
+    private List<Service> services = Collections.emptyList();
 
     /**
      * 服务
