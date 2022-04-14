@@ -80,19 +80,24 @@ public class CloudClientProperties {
     /**
      * 授权码 完整 URI
      *
+     * @param state       状态码
+     * @param redirectUri 授权重定向地址
      * @return 授权码 完整 URI
      */
-    public String authorizeUri(String state) {
-        return String.format(AUTHORIZE_URI_PARAMETER_FORMAT, this.authorizeUri, this.clientId, this.redirectUri, this.scope, state);
+    public String authorizeUri(String state, String redirectUri) {
+        return String.format(AUTHORIZE_URI_PARAMETER_FORMAT, this.authorizeUri, this.clientId, redirectUri, this.scope, state);
     }
 
     /**
      * 授权码 完整 URI
      *
+     * @param scope       范围
+     * @param state       状态码
+     * @param redirectUri 授权重定向地址
      * @return 授权码 完整 URI
      */
-    public String authorizeUri(String scope, String state) {
-        return String.format(AUTHORIZE_URI_PARAMETER_FORMAT, this.authorizeUri, this.clientId, this.redirectUri, scope, state);
+    public String authorizeUri(String scope, String state, String redirectUri) {
+        return String.format(AUTHORIZE_URI_PARAMETER_FORMAT, this.authorizeUri, this.clientId, redirectUri, scope, state);
     }
 
     /**

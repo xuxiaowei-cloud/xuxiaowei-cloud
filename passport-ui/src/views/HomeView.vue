@@ -51,6 +51,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
+import JsEncrypt from 'jsencrypt/bin/jsencrypt.min'
+
 import { login } from '@/api/user'
 
 import { useStore } from 'vuex'
@@ -82,11 +84,19 @@ const submitCloudForm = () => {
     if (valid) {
       let header = 'header'
       let token = 'token'
+      let password = cloudForm.password
+      let rememberMeParameter = 'remember-me';
       if (process.env.NODE_ENV === 'production') {
         header = document.head.querySelector("[name=_csrf_header][content]").content
         token = document.head.querySelector("[name=_csrf][content]").content
+        const rsa_public_key_base64 = document.head.querySelector("[name=rsa_public_key_base64][content]").content
+        rememberMeParameter = document.head.querySelector("[name=rememberMeParameter][content]").content
+        JsEncrypt.prototype.setPublicKey(rsa_public_key_base64)
+        password = JsEncrypt.prototype.encrypt(password)
       }
-      login(cloudForm.username, cloudForm.password, cloudForm.rememberMe[0], header, token).then(response => {
+      // 可填写：授权重定向地址
+      const redirectUri = ''
+      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri).then(response => {
         console.log(response)
         const msg = response.msg
 

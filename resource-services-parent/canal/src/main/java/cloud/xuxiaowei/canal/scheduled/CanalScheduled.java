@@ -132,14 +132,20 @@ public class CanalScheduled {
                 sql.append(") VALUES (");
                 for (int i = 0; i < columnList.size(); i++) {
                     CanalEntry.Column column = columnList.get(i);
+                    String mysqlType = column.getMysqlType();
+                    if ("mediumblob".equals(mysqlType)) {
+                        continue;
+                    }
+
                     String value = column.getValue();
 
                     boolean isNull = column.getIsNull();
                     if (isNull) {
-                        value = null;
+                        sql.append("null");
+                    } else {
+                        sql.append("'").append(value).append("'");
                     }
 
-                    sql.append("'").append(value).append("'");
                     if (i != columnList.size() - 1) {
                         sql.append(",");
                     }

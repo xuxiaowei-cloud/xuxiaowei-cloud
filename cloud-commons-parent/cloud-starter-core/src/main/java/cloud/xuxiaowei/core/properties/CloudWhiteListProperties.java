@@ -5,7 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class CloudWhiteListProperties {
     /**
      * 服务列表
      */
-    private List<Service> services;
+    private List<Service> services = Collections.emptyList();
 
     /**
      * 服务
