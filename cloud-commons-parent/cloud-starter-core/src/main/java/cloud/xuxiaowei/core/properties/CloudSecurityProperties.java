@@ -90,4 +90,9 @@ public class CloudSecurityProperties {
      */
     private LinkedHashMap<String, List<HttpMethod>> csrfDisableUrl;
 
+    /**
+     * 是否开启RSA密码解密
+     */
+    private boolean enabledRsa = false;
+
 }

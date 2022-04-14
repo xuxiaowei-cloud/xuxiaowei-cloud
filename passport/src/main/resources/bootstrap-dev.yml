@@ -46,3 +46,5 @@ cloud:
         - POST
         - GET
         - OPTIONS
+    # 启动RSA密码加密
+    enabled-rsa: false
