@@ -4,13 +4,11 @@ import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl;
 import cloud.xuxiaowei.passport.service.impl.DefaultLoginServiceImpl;
-import cloud.xuxiaowei.passport.service.impl.DefaultPasswordEncoderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
@@ -36,19 +34,6 @@ public class DefaultBeanConfiguration {
     @Autowired
     public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
         this.cloudSecurityProperties = cloudSecurityProperties;
-    }
-
-    /**
-     * 默认密码编辑器 {@link PasswordEncoder} {@link Bean}
-     * <p>
-     * 在 {@link PasswordEncoder} 对应的 {@link Bean} 不存在时，才会创建此 {@link Bean}
-     *
-     * @return 返回 默认密码编辑器 {@link Bean}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public PasswordEncoder passwordEncoder() {
-        return new DefaultPasswordEncoderImpl();
     }
 
     /**
