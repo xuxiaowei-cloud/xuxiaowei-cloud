@@ -85,14 +85,16 @@ const submitCloudForm = () => {
       let header = 'header'
       let token = 'token'
       let password = cloudForm.password
+      let rememberMeParameter = 'remember-me';
       if (process.env.NODE_ENV === 'production') {
         header = document.head.querySelector("[name=_csrf_header][content]").content
         token = document.head.querySelector("[name=_csrf][content]").content
         const rsa_public_key_base64 = document.head.querySelector("[name=rsa_public_key_base64][content]").content
+        rememberMeParameter = document.head.querySelector("[name=rememberMeParameter][content]").content
         JsEncrypt.prototype.setPublicKey(rsa_public_key_base64)
         password = JsEncrypt.prototype.encrypt(password)
       }
-      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token).then(response => {
+      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter).then(response => {
         console.log(response)
         const msg = response.msg
 

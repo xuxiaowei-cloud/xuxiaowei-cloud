@@ -188,3 +188,11 @@ spring:
     password: ${redis_xuxiaowei_cloud_password:xuxiaowei.com.cn}
     host: ${redis_xuxiaowei_cloud_host:redis.example.xuxiaowei.cloud}
     port: ${redis_xuxiaowei_cloud_port:6379}
+
+---
+
+# 记住我配置
+cloud:
+  remember-me:
+    key: xuxiaowei.com.cn
+    remember-me-cookie-domain: example.xuxiaowei.cloud
