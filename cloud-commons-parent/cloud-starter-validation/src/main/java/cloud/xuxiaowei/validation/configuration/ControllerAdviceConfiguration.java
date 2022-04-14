@@ -1,22 +1,32 @@
 package cloud.xuxiaowei.validation.configuration;
 
+import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.client.ClientException;
 import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cloud.xuxiaowei.validation.utils.FieldErrorUtils;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * {@link Controller}、{@link RestController} 异常处理
@@ -43,7 +53,7 @@ public class ControllerAdviceConfiguration {
      */
     @ResponseBody
     @ExceptionHandler(ClientException.class)
-    public Response<?> clientException(ClientException exception, WebRequest request) {
+    public Response<?> clientException(ClientException exception, HttpServletRequest request) {
 
         log.error(String.format("%s：%s", exception.code, exception.msg), exception);
 
@@ -59,7 +69,7 @@ public class ControllerAdviceConfiguration {
      */
     @ResponseBody
     @ExceptionHandler(TokenException.class)
-    public Response<?> tokenException(TokenException exception, WebRequest request) {
+    public Response<?> tokenException(TokenException exception, HttpServletRequest request) {
 
         log.error(String.format("%s：%s", exception.code, exception.msg), exception);
 
@@ -68,24 +78,139 @@ public class ControllerAdviceConfiguration {
     }
 
     /**
-     * 请求时数据转换失败处理
+     * 缺少 Servlet 请求参数异常
      *
-     * @param exception 异常
+     * @param exception 缺少 Servlet 请求参数异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Response<?> missingServletRequestParameterException(MissingServletRequestParameterException exception,
+                                                               HttpServletRequest request) {
+
+        String message = exception.getMessage();
+        String parameterName = exception.getParameterName();
+        String parameterType = exception.getParameterType();
+
+        log.error(String.format("缺少 Servlet 请求参数异常：%s：%s：%s", message, parameterName, parameterType), exception);
+
+        ResponseMap error = ResponseMap.error(CodeEnums.P00001.code, CodeEnums.P00001.msg);
+        error.put(Constant.PARAMETER_NAME, parameterName);
+        error.put(Constant.PARAMETER_TYPE, parameterType);
+
+        return error;
+    }
+
+    /**
+     * 当资源服务器处理请求时，表示令牌范围不足的异常
+     *
+     * @param exception 当资源服务器处理请求时，表示令牌范围不足的异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(InsufficientScopeException.class)
+    public Response<?> insufficientScopeException(InsufficientScopeException exception,
+                                                  HttpServletRequest request) {
+
+        log.error("范围不足异常", exception);
+
+        Map<String, String> additionalInformation = exception.getAdditionalInformation();
+
+        ResponseMap error = ResponseMap.error(CodeEnums.T00006.code, CodeEnums.T00006.msg);
+
+        if (additionalInformation != null) {
+            error.put(Constant.SCOPE, additionalInformation.get(Constant.SCOPE));
+        }
+
+        return error;
+    }
+
+    /**
+     * 不支持的请求类型
+     *
+     * @param exception 不支持的请求类型
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public Response<?> httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException exception,
+                                                          HttpServletRequest request) {
+
+        MediaType contentType = exception.getContentType();
+        log.error(String.format("%s：%s", CodeEnums.B10001.msg, contentType), exception);
+
+        Response<?> error = Response.error();
+        error.setCode(CodeEnums.B10001.code);
+        error.setMsg(String.format("%s：%s", CodeEnums.B10001.msg, contentType));
+        return error;
+    }
+
+    /**
+     * 缺少所需的请求正文、无效格式异常
+     *
+     * @param exception 缺少所需的请求正文、无效格式异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Response<?> httpMessageNotReadableException(HttpMessageNotReadableException exception,
+                                                       HttpServletRequest request) {
+
+        Response<?> error = Response.error();
+
+        Throwable cause = exception.getCause();
+        if (cause instanceof InvalidFormatException) {
+
+            InvalidFormatException invalidFormatException = (InvalidFormatException) cause;
+
+            log.error(CodeEnums.B10004.msg, exception);
+
+            error.setCode(CodeEnums.B10004.code);
+
+            Object value = invalidFormatException.getValue();
+            Class<?> targetType = invalidFormatException.getTargetType();
+            List<JsonMappingException.Reference> pathList = invalidFormatException.getPath();
+            String reference = FieldErrorUtils.reference(pathList);
+
+            String name = targetType.getName();
+            error.setMsg(String.format("%s：%s：转换为：%s 失败", CodeEnums.B10004.msg, value, name));
+            error.setField(reference);
+
+            log.error(String.valueOf(error));
+        } else {
+            log.error(CodeEnums.B10002.msg, exception);
+
+            error.setCode(CodeEnums.B10002.code);
+            error.setMsg(CodeEnums.B10002.msg);
+        }
+
+        return error;
+    }
+
+    /**
+     * 方法参数无效异常
+     *
+     * @param exception 方法参数无效异常
      * @param request   请求
      * @return 返回 验证结果
      */
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Response<?> methodArgumentNotValidException(MethodArgumentNotValidException exception, WebRequest request) {
+    public Response<?> methodArgumentNotValidException(MethodArgumentNotValidException exception,
+                                                       HttpServletRequest request) {
 
-        Response<?> error = Response.error("方法参数无效异常");
+        ResponseMap error = ResponseMap.error();
+        error.setCode(CodeEnums.B10003.code);
+        error.setMsg(CodeEnums.B10003.msg);
 
         BindingResult bindingResult = exception.getBindingResult();
         List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
 
         FieldErrorUtils.list(error, fieldErrorList);
-
-        log.error("方法参数无效异常：{}，异常：{}", error, exception);
 
         return error;
     }
