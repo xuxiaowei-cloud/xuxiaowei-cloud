@@ -4,7 +4,7 @@ import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.client.ClientException;
 import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
-import com.google.common.base.Joiner;
+import cloud.xuxiaowei.validation.utils.FieldErrorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,34 +83,11 @@ public class ControllerAdviceConfiguration {
         BindingResult bindingResult = exception.getBindingResult();
         List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
 
-        fieldErrorList(error, fieldErrorList);
+        FieldErrorUtils.list(error, fieldErrorList);
 
         log.error("方法参数无效异常：{}，异常：{}", error, exception);
 
         return error;
-    }
-
-    /**
-     * 字段转换异常统一处理
-     *
-     * @param error          异常
-     * @param fieldErrorList 异常字段列表
-     */
-    private void fieldErrorList(Response<?> error, List<FieldError> fieldErrorList) {
-
-        List<String> fieldList = new ArrayList<>();
-        List<String> messageList = new ArrayList<>();
-
-        for (FieldError fieldError : fieldErrorList) {
-            String field = fieldError.getField();
-            fieldList.add(field);
-
-            String defaultMessage = fieldError.getDefaultMessage();
-            messageList.add(defaultMessage);
-        }
-
-        error.setField(Joiner.on(",").join(fieldList));
-        error.setMsg(Joiner.on(",").join(messageList));
     }
 
 }
