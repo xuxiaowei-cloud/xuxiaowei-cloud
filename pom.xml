@@ -78,6 +78,9 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
         <canal.version>1.1.5</canal.version>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <hutool-all.version>5.7.22</hutool-all.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -245,6 +248,13 @@
                 <groupId>com.alibaba.otter</groupId>
                 <artifactId>canal.protocol</artifactId>
                 <version>${canal.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
             </dependency>
 
             <!-- 工具类 -->
