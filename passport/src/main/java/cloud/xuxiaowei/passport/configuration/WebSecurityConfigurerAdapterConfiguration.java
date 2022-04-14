@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     private CloudSecurityProperties cloudSecurityProperties;
 
+    private CloudRememberMeProperties cloudRememberMeProperties;
+
     private RequestMatcher csrfRequestMatcher;
 
     @Autowired
@@ -49,6 +52,11 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    public void setCloudRememberMeProperties(CloudRememberMeProperties cloudRememberMeProperties) {
+        this.cloudRememberMeProperties = cloudRememberMeProperties;
     }
 
     @Autowired
@@ -83,6 +91,13 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 .successForwardUrl(cloudSecurityProperties.getSuccessForwardUrl())
                 // 已上地址，允许任何人访问
                 .permitAll();
+
+        http.rememberMe()
+                .rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter())
+                .rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName())
+                .rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
+                .key(cloudRememberMeProperties.getKey())
+                .tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds());
 
         // 登录服务（单服务）地址：匿名访问
         http.authorizeRequests().antMatchers(cloudSecurityProperties.getFailureUrl()).permitAll();

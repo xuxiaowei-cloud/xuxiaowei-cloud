@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.passport.controller;
 
+import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
 import cn.hutool.crypto.asymmetric.RSA;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,13 @@ public class IndexController {
 
     public static final String RSA_PUBLIC_KEY_BASE64 = "RSA_PUBLIC_KEY_BASE64";
 
+    private CloudRememberMeProperties cloudRememberMeProperties;
+
+    @Autowired
+    public void setCloudRememberMeProperties(CloudRememberMeProperties cloudRememberMeProperties) {
+        this.cloudRememberMeProperties = cloudRememberMeProperties;
+    }
+
     /**
      * 主页
      *
@@ -33,6 +42,9 @@ public class IndexController {
      */
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+
+        String rememberMeParameter = cloudRememberMeProperties.getRememberMeParameter();
+        model.addAttribute("rememberMeParameter", rememberMeParameter);
 
         Object privateKeyBase64 = session.getAttribute(RSA_PRIVATE_KEY_BASE64);
         Object publicKeyBase64 = session.getAttribute(RSA_PUBLIC_KEY_BASE64);
