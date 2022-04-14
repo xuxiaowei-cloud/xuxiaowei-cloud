@@ -5,9 +5,11 @@ import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderNotFoundException;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,7 @@ import java.util.UUID;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 @RequestMapping("/login")
 public class LoginRestController {
@@ -57,19 +60,27 @@ public class LoginRestController {
     /**
      * 登录成功
      *
-     * @param request  请求
-     * @param response 响应
-     * @param session  Session，不存在时自动创建
+     * @param request     请求
+     * @param response    响应
+     * @param session     Session，不存在时自动创建
+     * @param redirectUri 授权重定向地址
      * @return 返回 登录成功提示语
      */
     @RequestMapping("/success")
-    public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                               String redirectUri) {
         String state = UUID.randomUUID().toString();
         session.setAttribute(cloudClientProperties.getStateName(), state);
 
         ResponseMap ok = ResponseMap.ok("登录成功");
 
-        String authorizeUri = cloudClientProperties.authorizeUri(state);
+        if (StringUtils.hasText(redirectUri)) {
+            log.info("使用登录参数中的授权重定向地址：{}", redirectUri);
+        } else {
+            redirectUri = cloudClientProperties.getRedirectUri();
+        }
+
+        String authorizeUri = cloudClientProperties.authorizeUri(state, redirectUri);
         String checkTokenUri = cloudClientProperties.getCheckTokenUri();
 
         return ok.put("authorizeUri", authorizeUri).put("checkTokenUri", checkTokenUri);
