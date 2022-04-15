@@ -112,12 +112,12 @@ const isCollapse = ref(store.getters.isCollapse)
 // 昵称
 const nickname = ref(store.getters.nickname)
 
-const handleOpen = (key: any, keyPath: any) => {
-  console.log(key, keyPath)
+const handleOpen = (key: number, keyPath: string) => {
+  console.log('handleOpen：', key, keyPath)
 }
 
-const handleClose = (key: any, keyPath: any) => {
-  console.log(key, keyPath)
+const handleClose = (key: number, keyPath: string) => {
+  console.log('handleClose：', key, keyPath)
 }
 
 // 默认激活菜单

@@ -64,7 +64,7 @@ const cloudSearch = () => {
 cloudSearch()
 
 // 改变时触发
-const currentChange = (e: any) => {
+const currentChange = (e: number) => {
   param.current = e
   cloudSearch()
 }
