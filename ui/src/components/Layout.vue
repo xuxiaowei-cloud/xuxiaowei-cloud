@@ -22,6 +22,18 @@
         <el-sub-menu index="2">
           <template #title>
             <el-icon>
+              <notebook/>
+            </el-icon>
+            <span>富文本</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/editor/wangeditor" @click="menuItem">WangEditor</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
+        <el-sub-menu index="3">
+          <template #title>
+            <el-icon>
               <aim/>
             </el-icon>
             <span>审计</span>
@@ -97,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import store from '../store'
 
