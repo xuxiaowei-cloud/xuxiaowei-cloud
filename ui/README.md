@@ -110,9 +110,13 @@ npm create vite@latest ui -- --template vue
     - vuex-persistedstate
         - 缓存刷新时保留
 
+1. 富文本
+    - @wangeditor/editor-for-vue
+
 ## 依赖地址
 
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
+- [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
 - [axios](https://www.npmjs.com/package/axios)
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
