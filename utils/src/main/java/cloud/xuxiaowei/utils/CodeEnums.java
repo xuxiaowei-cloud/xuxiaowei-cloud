@@ -1,5 +1,8 @@
 package cloud.xuxiaowei.utils;
 
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 /**
  * 错误代码
  *
@@ -108,6 +111,12 @@ public enum CodeEnums {
     A20010("A20010", "登录参数无法解密", null),
 
     /**
+     * 请求Body异常
+     * <p>
+     * 仅包含 {@link RequestBody}
+     */
+    B10000("B10000", "请求Body异常", "通用代码"),
+    /**
      * 不支持的请求类型
      */
     B10001("B10001", "不支持的请求类型", null),
@@ -184,7 +193,7 @@ public enum CodeEnums {
     /**
      * 未进行身份认证
      */
-    T00000("T00000", "未进行身份认证", null),
+    T00000("T00000", "未进行身份认证", "通用代码"),
     /**
      * 令牌未被识别
      */
@@ -194,22 +203,16 @@ public enum CodeEnums {
      */
     T00002("T00002", "令牌已过期", null),
     /**
-     * 缺少授权类型
-     */
-    T00003("T00003", "缺少授权类型", null),
-    /**
-     * 不支持的授权类型
-     */
-    T00004("T00004", "不支持的授权类型", null),
-    /**
-     * 错误的客户端凭据
-     */
-    T00005("T00005", "错误的客户端凭据", null),
-    /**
      * 范围不足异常
      */
-    T00006("T00006", "范围不足异常", null),
+    T00003("T00003", "范围不足异常", null),
 
+    /**
+     * 参数异常
+     * <p>
+     * 仅指URL参数，如：{@link RequestParam}（不包含 {@link RequestBody}）
+     */
+    P00000("P00000", "参数异常", "通用代码"),
     /**
      * 缺少参数
      */

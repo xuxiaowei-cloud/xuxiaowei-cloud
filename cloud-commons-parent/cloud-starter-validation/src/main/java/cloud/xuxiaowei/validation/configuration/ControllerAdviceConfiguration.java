@@ -93,7 +93,7 @@ public class ControllerAdviceConfiguration {
         String parameterName = exception.getParameterName();
         String parameterType = exception.getParameterType();
 
-        log.error(String.format("缺少 Servlet 请求参数异常：%s：%s：%s", message, parameterName, parameterType), exception);
+        log.error(String.format("%s：%s：%s：%s", CodeEnums.P00001.msg, message, parameterName, parameterType), exception);
 
         ResponseMap error = ResponseMap.error(CodeEnums.P00001.code, CodeEnums.P00001.msg);
         error.put(Constant.PARAMETER_NAME, parameterName);
@@ -114,11 +114,11 @@ public class ControllerAdviceConfiguration {
     public Response<?> insufficientScopeException(InsufficientScopeException exception,
                                                   HttpServletRequest request) {
 
-        log.error("范围不足异常", exception);
+        log.error(CodeEnums.T00003.msg, exception);
 
         Map<String, String> additionalInformation = exception.getAdditionalInformation();
 
-        ResponseMap error = ResponseMap.error(CodeEnums.T00006.code, CodeEnums.T00006.msg);
+        ResponseMap error = ResponseMap.error(CodeEnums.T00003.code, CodeEnums.T00003.msg);
 
         if (additionalInformation != null) {
             error.put(Constant.SCOPE, additionalInformation.get(Constant.SCOPE));
