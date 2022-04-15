@@ -27,6 +27,7 @@
             <span>富文本</span>
           </template>
           <el-menu-item-group>
+            <el-menu-item index="/editor/tui-ui-editor" @click="menuItem">Tui UI Editor</el-menu-item>
             <el-menu-item index="/editor/wangeditor" @click="menuItem">WangEditor</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
