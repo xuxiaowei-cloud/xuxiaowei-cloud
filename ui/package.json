@@ -26,20 +26,25 @@
     "axios",
     "echarts",
     "element-plus",
+    "js-cookie",
     "jsencrypt",
-    "vite",
     "vue",
     "vue-echarts",
     "vue-router",
-    "vuex"
+    "vuex",
+    "vuex-persistedstate",
+    "typescript",
+    "vite"
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
     "axios": "0.26.1",
+    "echarts": "5.3.2",
     "element-plus": "2.1.9",
     "js-cookie": "3.0.1",
     "jsencrypt": "3.2.1",
     "vue": "3.2.32",
+    "vue-echarts": "6.0.2",
     "vue-router": "4.0.14",
     "vuex": "4.0.2",
     "vuex-persistedstate": "4.1.0"
