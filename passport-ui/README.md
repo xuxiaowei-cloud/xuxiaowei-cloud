@@ -65,7 +65,7 @@ npm create vite@latest passport-ui -- --template vue
 
 ## 项目说明
 
-- 由于本项目使用了 Session 共享，故：需要访问`xuxiaowei.cloud`的子域
+- 由于本项目使用了 Session 共享，故：需要访问`example.xuxiaowei.cloud`的子域
     - 否则在使用密码登录失败时，无法获取到登录失败的原因
 
 ## 依赖说明
