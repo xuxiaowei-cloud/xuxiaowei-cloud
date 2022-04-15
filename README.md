@@ -275,6 +275,7 @@ cloud.xuxiaowei
     - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.tar.gz)
     - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.dmg)
     - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.3.3-aarch64.dmg)
+    - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
     - 插件
         1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
         1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)

@@ -32,4 +32,19 @@ public class Constant implements Serializable {
      */
     public static final String NULL = "null";
 
+    /**
+     * 参数名
+     */
+    public static final String PARAMETER_NAME = "parameterName";
+
+    /**
+     * 参数类型
+     */
+    public static final String PARAMETER_TYPE = "parameterType";
+
+    /**
+     * 范围
+     */
+    public static final String SCOPE = "scope";
+
 }

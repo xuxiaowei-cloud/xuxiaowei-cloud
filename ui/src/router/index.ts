@@ -1,9 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { queryToken } from '@/store'
-import home from '@/router/home'
-import audit from '@/router/audit'
+import { queryToken } from '../store'
+import home from './home'
+import audit from './audit'
+import editor from './editor'
 
-import ConsoleView from '@/views/home/ConsoleView.vue'
+import ConsoleView from '../views/home/ConsoleView.vue'
 
 let routes = [
   {
@@ -24,6 +25,7 @@ let routes = [
 
 routes = routes.concat(home)
 routes = routes.concat(audit)
+routes = routes.concat(editor)
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -31,7 +33,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  queryToken(to.query, router)
+  // queryToken(to.query, router)
 
   next()
 })

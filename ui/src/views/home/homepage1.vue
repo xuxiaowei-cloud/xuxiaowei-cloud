@@ -2,7 +2,7 @@
   <h1>homepage1</h1>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'homepage1'
 }
