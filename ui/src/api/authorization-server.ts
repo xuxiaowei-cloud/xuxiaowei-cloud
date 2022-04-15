@@ -1,10 +1,10 @@
-import request from '@/utils/request'
+import request from '../utils/request'
 
 /**
  * 检查 Token
- * @returns {Promise<AxiosResponse<any>>}
+ * @param token
  */
-export const checkToken = function (token) {
+export const checkToken = function (token: String) {
   return request.post('/authorization-server/oauth/check_token?token=' + token).then(response => {
     return response.data
   })

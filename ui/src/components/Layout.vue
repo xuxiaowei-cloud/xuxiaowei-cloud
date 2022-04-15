@@ -96,10 +96,10 @@
   </el-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import store from '@/store'
+import store from '../store'
 
 // 默认激活菜单
 // 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单
@@ -112,16 +112,16 @@ const isCollapse = ref(store.getters.isCollapse)
 // 昵称
 const nickname = ref(store.getters.nickname)
 
-const handleOpen = (key, keyPath) => {
+const handleOpen = (key: any, keyPath: any) => {
   console.log(key, keyPath)
 }
 
-const handleClose = (key, keyPath) => {
+const handleClose = (key: any, keyPath: any) => {
   console.log(key, keyPath)
 }
 
 // 默认激活菜单
-const menuItem = (key) => {
+const menuItem = (key: any) => {
   store.commit('setDefaultActive', key.index)
 }
 
@@ -142,7 +142,7 @@ const fullScreenClick = () => {
 }
 
 // 用户菜单
-const handleCommand = (command, number) => {
+const handleCommand = (command: any, number: any) => {
   console.log(command, number)
 }
 

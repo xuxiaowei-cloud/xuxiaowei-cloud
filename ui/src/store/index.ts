@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import settings from '@/settings'
-import { checkToken } from '@/api/authorization-server'
+import settings from '../settings'
+import { checkToken } from '../api/authorization-server'
+import { LocationQuery, Router } from 'vue-router'
 
 const store = createStore({
   state: { // 单一状态树
@@ -143,7 +144,7 @@ const store = createStore({
 
 export default store
 
-export const queryToken = function (query, router) {
+export const queryToken = function (query: LocationQuery, router: Router) {
   if (query.store === 'true') {
     const accessToken = query.accessToken
     const refreshToken = query.refreshToken
@@ -171,7 +172,7 @@ export const queryToken = function (query, router) {
       console.log('完成store中的Token缓存后检查Token', response)
     })
 
-    router.push({ query: query }).then(response => {
+    router.push({ query: query }).then(() => {
 
     })
   } else {

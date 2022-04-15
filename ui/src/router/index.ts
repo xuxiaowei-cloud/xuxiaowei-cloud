@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { queryToken } from '@/store'
-import home from '@/router/home'
-import audit from '@/router/audit'
+import { queryToken } from '../store'
+import home from './home'
+import audit from './audit'
 
-import ConsoleView from '@/views/home/ConsoleView.vue'
+import ConsoleView from '../views/home/ConsoleView.vue'
 
 let routes = [
   {

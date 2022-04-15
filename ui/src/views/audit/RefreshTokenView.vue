@@ -29,8 +29,8 @@
   </el-container>
 </template>
 
-<script setup>
-import { page } from '@/api/audit/refresh-token'
+<script setup lang="ts">
+import { page } from '../../api/audit/refresh-token'
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
@@ -64,7 +64,7 @@ const cloudSearch = () => {
 cloudSearch()
 
 // 改变时触发
-const currentChange = (e) => {
+const currentChange = (e: any) => {
   param.current = e
   cloudSearch()
 }
