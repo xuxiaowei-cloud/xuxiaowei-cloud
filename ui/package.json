@@ -23,6 +23,8 @@
     "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
   },
   "keywords": [
+    "@toast-ui/editor",
+    "@wangeditor/editor-for-vue",
     "axios",
     "echarts",
     "element-plus",
@@ -38,6 +40,7 @@
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
+    "@toast-ui/editor": "3.1.4",
     "@wangeditor/editor-for-vue": "5.1.10",
     "axios": "0.26.1",
     "echarts": "5.3.2",
@@ -51,8 +54,10 @@
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "5.19.0",
     "@vitejs/plugin-vue": "2.3.1",
     "@vue/cli-plugin-eslint": "5.0.4",
+    "@vue/cli-plugin-typescript": "5.0.4",
     "@vue/cli-service": "5.0.4",
     "@vue/eslint-config-standard": "6.1.0",
     "eslint": "7.32.0",
