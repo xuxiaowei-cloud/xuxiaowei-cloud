@@ -23,6 +23,8 @@
     "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
   },
   "keywords": [
+    "@toast-ui/editor",
+    "@wangeditor/editor-for-vue",
     "axios",
     "echarts",
     "element-plus",
