@@ -8,8 +8,7 @@ import { onMounted } from 'vue'
 import '@wangeditor/editor/dist/css/style.css'
 import { createEditor, createToolbar, IEditorConfig, IDomEditor } from '@wangeditor/editor'
 
-onMounted(() =>{
-
+onMounted(() => {
   const editorConfig: Partial<IEditorConfig> = {}
   editorConfig.placeholder = '请输入内容'
   editorConfig.onChange = (editor: IDomEditor) => {
@@ -26,12 +25,11 @@ onMounted(() =>{
   })
 
   // 创建工具栏
-  const toolbar = createToolbar({
+  createToolbar({
     editor,
     selector: '#toolbar-container',
     mode: 'default' // 或 'simple' 参考下文
   })
-
 })
 
 </script>

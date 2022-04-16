@@ -8,6 +8,7 @@ module.exports = {
     '@vue/standard'
   ],
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     ecmaVersion: 2020
   },
   rules: {

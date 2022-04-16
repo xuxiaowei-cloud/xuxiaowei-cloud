@@ -8,7 +8,6 @@ import Editor from '@toast-ui/editor'
 import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
 
 onMounted(() => {
-
   const querySelectorEditor = document.querySelector('#editor')
   if (querySelectorEditor instanceof HTMLElement) {
     const editor = new Editor({

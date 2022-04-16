@@ -23,7 +23,6 @@ if (currentInstance != null) {
   baidu().then((response: any) => {
     console.log(response)
   })
-
 }
 </script>
 
