@@ -11,3 +11,12 @@ git filter-branch --tree-filter "rm -f 要删除的文件路径" -- --all
 git push -f --all
 # 重新检出克隆，查看文件是否已被删除
 ```
+
+## 推送
+
+```
+git push --all --progress "gitcode"
+git push --all --progress "gitee"
+git push --all --progress "github"
+git push --all --progress "gitlab"
+```
