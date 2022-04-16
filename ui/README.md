@@ -38,7 +38,7 @@ npm run lint
 1. init
 
 ```shell
-npm create vite@latest ui -- --template vue
+npm create vite@latest ui -- --template vue-ts
 ```
 
 1. [eslint](https://eslint.vuejs.org/user-guide/#installation)
@@ -49,6 +49,9 @@ npm create vite@latest ui -- --template vue
     vue add @vue/cli-plugin-eslint
     # vue-cli-service lint 无法运行
     npm i -D @vue/cli-service
+    
+    npm i -D @typescript-eslint/parser
+    npm i -D @vue/cli-plugin-typescript
     ```
 
 1. [vue-router](https://router.vuejs.org/installation.html)
