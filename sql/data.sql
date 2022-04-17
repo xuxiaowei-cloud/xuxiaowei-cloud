@@ -6,14 +6,17 @@ INSERT INTO `users`(`username`, `password`, `enabled`, `account_non_expired`, `c
 -- ----------------------------
 -- Records of authorities
 -- ----------------------------
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (1, 'xuxiaowei', 'user_info', '2022-04-07 01:33:16', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (2, 'xuxiaowei', 'audit_code_read', '2022-04-08 13:16:41', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (3, 'xuxiaowei', 'audit_accessToken_read', '2022-04-10 18:31:17', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (4, 'xuxiaowei', 'audit_refreshToken_read', '2022-04-10 19:42:32', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (5, 'xuxiaowei', 'user_authorities', '2022-04-17 15:56:32', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (6, 'xuxiaowei', 'user_details', '2022-04-17 15:57:08', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (7, 'xuxiaowei', 'user_oauth2_userAuthentication', '2022-04-17 16:08:04', NULL, 0);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (8, 'xuxiaowei', 'user_oauth2_oauth2Request', '2022-04-17 16:08:14', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (1, 'xuxiaowei', 'audit_accessToken_delete', '2022-04-17 22:39:46', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (2, 'xuxiaowei', 'audit_accessToken_read', '2022-04-10 18:31:17', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (3, 'xuxiaowei', 'audit_code_delete', '2022-04-17 21:19:18', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (4, 'xuxiaowei', 'audit_code_read', '2022-04-08 13:16:41', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (5, 'xuxiaowei', 'audit_refreshToken_delete', '2022-04-17 22:51:25', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (6, 'xuxiaowei', 'audit_refreshToken_read', '2022-04-10 19:42:32', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (7, 'xuxiaowei', 'user_authorities', '2022-04-17 15:56:32', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (8, 'xuxiaowei', 'user_details', '2022-04-17 15:57:08', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (9, 'xuxiaowei', 'user_info', '2022-04-07 01:33:16', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (10, 'xuxiaowei', 'user_oauth2_oauth2Request', '2022-04-17 16:08:14', NULL, 0);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (11, 'xuxiaowei', 'user_oauth2_userAuthentication', '2022-04-17 16:08:04', NULL, 0);
 
 -- ----------------------------
 -- Records of oauth_client_details
