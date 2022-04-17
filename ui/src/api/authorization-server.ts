@@ -9,10 +9,9 @@ import settings from '../settings'
 export const checkToken = function (token: string) {
   return request.post('/authorization-server/oauth/check_token?token=' + token).then(response => {
     const responseData = response.data
-    if (responseData.code === settings.state.okCode) {
-      const data = responseData.data
-      const authoritiesList = data.authoritiesList
-      store.commit('setAuthoritiesList', authoritiesList)
+    if (responseData.active === true) {
+      const authorities = responseData.authorities
+      store.commit('setAuthorities', authorities)
     }
     return response.data
   })

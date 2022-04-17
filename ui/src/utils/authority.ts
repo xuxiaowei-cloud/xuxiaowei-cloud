@@ -5,7 +5,7 @@ import store from '../store'
  * @param authority 权限
  */
 export const hasAuthority = function (authority: string) {
-  return store.getters.authoritiesList.indexOf(authority) !== -1
+  return store.getters.authorities.indexOf(authority) !== -1
 }
 
 /**
@@ -14,7 +14,7 @@ export const hasAuthority = function (authority: string) {
  */
 export const hasAnyAuthority = function (authoritys: string[]) {
   for (const authority in authoritys) {
-    if (store.getters.authoritiesList.indexOf(authority) !== -1) {
+    if (store.getters.authorities.indexOf(authority) !== -1) {
       return true
     }
   }
