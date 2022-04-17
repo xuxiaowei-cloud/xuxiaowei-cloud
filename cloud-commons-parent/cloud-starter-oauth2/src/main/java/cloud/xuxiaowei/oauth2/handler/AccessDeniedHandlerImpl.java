@@ -28,7 +28,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
         log.error("访问被拒绝异常：", accessDeniedException);
 
-        Response<?> error = Response.error(CodeEnums.T00004.code, CodeEnums.T00004.msg);
+        Response<?> error = Response.error(CodeEnums.T00002.code, CodeEnums.T00002.msg);
 
         ResponseUtils.response(response, error);
     }

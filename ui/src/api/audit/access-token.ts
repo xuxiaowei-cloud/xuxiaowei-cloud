@@ -9,3 +9,13 @@ export const page = function (data: any) {
     return response.data
   })
 }
+
+/**
+ * 根据 授权Token主键 删除
+ * @param oauthAccessTokenId 授权Token主键
+ */
+export const removeById = function (oauthAccessTokenId: number) {
+  return request.post('/audit/oauth-access-token/removeById/' + oauthAccessTokenId).then(response => {
+    return response.data
+  })
+}

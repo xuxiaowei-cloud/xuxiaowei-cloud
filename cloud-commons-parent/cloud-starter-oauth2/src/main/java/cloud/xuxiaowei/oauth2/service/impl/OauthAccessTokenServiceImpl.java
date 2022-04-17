@@ -32,6 +32,7 @@ public class OauthAccessTokenServiceImpl extends ServiceImpl<OauthAccessTokenMap
     @DS("xuxiaowei_cloud_log")
     public IPage<OauthAccessToken> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo) {
         QueryWrapper<OauthAccessToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("oauth_access_token_id");
         Long current = auditAccessTokenPageBo.getCurrent();
         Long size = auditAccessTokenPageBo.getSize();
 

@@ -10,7 +10,7 @@ const store = createStore({
     usersId: null, // 用户主键
     username: null, // 用户名
     nickname: null, // 昵称
-    authoritiesList: [], // 权限
+    authorities: [], // 权限
     accessToken: null, // Token
     refreshToken: null, // 刷新Token
     jti: null, // 票据
@@ -43,8 +43,8 @@ const store = createStore({
      * 获取 权限
      * @param state 单一状态树
      */
-    authoritiesList (state) {
-      return state.authoritiesList
+    authorities (state) {
+      return state.authorities
     },
     /**
      * 获取 Token
@@ -110,10 +110,10 @@ const store = createStore({
     /**
      * 设置 权限
      * @param state 单一状态树
-     * @param authoritiesList 权限
+     * @param authorities 权限
      */
-    setAuthoritiesList (state, authoritiesList) {
-      state.authoritiesList = authoritiesList
+    setAuthorities (state, authorities) {
+      state.authorities = authorities
     },
     /**
      * 设置 Token
@@ -210,7 +210,6 @@ export const queryToken = function (query: LocationQuery, router: Router) {
   } else {
     checkToken(store.getters.accessToken).then(response => {
       console.log('检查Token', response)
-      info().then(() => {})
     })
   }
 }

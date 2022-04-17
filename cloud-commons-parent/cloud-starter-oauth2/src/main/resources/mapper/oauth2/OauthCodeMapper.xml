@@ -4,8 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.oauth2.entity.OauthCode">
+        <id column="code_id" property="codeId" />
         <result column="code" property="code" />
-        <result column="code_id" property="codeId" />
         <result column="authentication" property="authentication" />
         <result column="authentication_json" property="authenticationJson" />
         <result column="username" property="username" />

@@ -5,5 +5,18 @@ import store from '../store'
  * @param authority 权限
  */
 export const hasAuthority = function (authority: string) {
-  return store.getters.authoritiesList.indexOf(authority) !== -1
+  return store.getters.authorities.indexOf(authority) !== -1
+}
+
+/**
+ * 判断是否拥有某项权限
+ * @param authoritys 权限
+ */
+export const hasAnyAuthority = function (authoritys: string[]) {
+  for (const authority in authoritys) {
+    if (store.getters.authorities.indexOf(authority) !== -1) {
+      return true
+    }
+  }
+  return false
 }

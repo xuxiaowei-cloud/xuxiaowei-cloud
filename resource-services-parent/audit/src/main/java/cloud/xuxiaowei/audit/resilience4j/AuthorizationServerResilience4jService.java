@@ -28,6 +28,39 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param codeId 授权码Code主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditCodeId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditCodeId(Long codeId) {
+        return authorizationServerFeignService.removeByAuditCodeId(codeId);
+    }
+
+    /**
+     * 根据 授权Token主键 删除
+     *
+     * @param oauthAccessTokenId 授权Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditAccessTokenId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditAccessTokenId(Long oauthAccessTokenId) {
+        return authorizationServerFeignService.removeByAuditAccessTokenId(oauthAccessTokenId);
+    }
+
+    /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param oauthRefreshTokenId 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditRefreshTokenId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditRefreshTokenId(Long oauthRefreshTokenId) {
+        return authorizationServerFeignService.removeByAuditRefreshTokenId(oauthRefreshTokenId);
+    }
+
+    /**
      * 分页查询授权码
      *
      * @param auditCodePageBo 审计授权码分页参数
