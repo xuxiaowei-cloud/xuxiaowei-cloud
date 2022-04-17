@@ -28,6 +28,17 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param codeId   授权码Code主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditCodeId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditCodeId(Long codeId) {
+        return authorizationServerFeignService.removeByAuditCodeId(codeId);
+    }
+
+    /**
      * 分页查询授权码
      *
      * @param auditCodePageBo 审计授权码分页参数

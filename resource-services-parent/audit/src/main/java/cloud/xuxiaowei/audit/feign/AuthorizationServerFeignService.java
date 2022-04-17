@@ -6,6 +6,7 @@ import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
 import cloud.xuxiaowei.openfeign.interceptor.AuthorizationRequestInterceptor;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -16,6 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @FeignClient(value = "authorization-server", contextId = "authorization-server", configuration = {AuthorizationRequestInterceptor.class})
 public interface AuthorizationServerFeignService {
+
+    /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param codeId   授权码Code主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-code/removeById/{codeId}")
+    Response<?> removeByAuditCodeId(@PathVariable("codeId") Long codeId);
 
     /**
      * 分页查询授权码

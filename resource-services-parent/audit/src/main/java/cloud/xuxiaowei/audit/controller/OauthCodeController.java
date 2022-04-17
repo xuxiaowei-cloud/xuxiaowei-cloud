@@ -5,6 +5,7 @@ import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,21 @@ public class OauthCodeController {
     @Autowired
     public void setAuthorizationServerResilience4jService(AuthorizationServerResilience4jService authorizationServerResilience4jService) {
         this.authorizationServerResilience4jService = authorizationServerResilience4jService;
+    }
+
+    /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param codeId   授权码Code主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_code_delete')")
+    @RequestMapping("/removeById/{codeId}")
+    public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("codeId") Long codeId) {
+
+        return authorizationServerResilience4jService.removeByAuditCodeId(codeId);
     }
 
     /**
