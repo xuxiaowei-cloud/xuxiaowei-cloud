@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * 资源服务配置
@@ -25,6 +26,8 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
 
     private AuthenticationEntryPoint authenticationEntryPoint;
 
+    private AccessDeniedHandler accessDeniedHandler;
+
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
@@ -35,6 +38,11 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
+    @Autowired
+    public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 
@@ -42,6 +50,9 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
 
         // 身份验证入口点
         resources.authenticationEntryPoint(authenticationEntryPoint);
+
+        // 访问拒绝处理程序
+        resources.accessDeniedHandler(accessDeniedHandler);
 
     }
 
