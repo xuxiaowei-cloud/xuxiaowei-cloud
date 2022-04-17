@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.user.controller;
 
+import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +24,33 @@ import java.util.Collection;
  */
 @RestController
 public class UserRestController {
+
+    private IUsersService usersService;
+
+    @Autowired
+    public void setUsersService(IUsersService usersService) {
+        this.usersService = usersService;
+    }
+
+    /**
+     * 用户信息
+     *
+     * @param request  请求
+     * @param response 响应
+     * @return 返回 结果
+     */
+    @PreAuthorize("hasAuthority('user_info')")
+    @RequestMapping("/info")
+    public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+
+        String name = authentication.getName();
+        UsersVo usersVo = usersService.getUsersVoByUsername(name);
+        if (usersVo == null) {
+            return Response.error();
+        }
+
+        return Response.ok(usersVo);
+    }
 
     /**
      * 用户权限
