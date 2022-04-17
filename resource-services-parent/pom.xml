@@ -27,6 +27,8 @@
         <module>audit</module>
         <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
         <module>canal</module>
+        <!-- 用户服务 -->
+        <module>user</module>
     </modules>
 
     <dependencies>
