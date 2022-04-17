@@ -1,6 +1,5 @@
 import request from '../utils/request'
 import store from '../store'
-import settings from '../settings'
 
 /**
  * 检查 Token
