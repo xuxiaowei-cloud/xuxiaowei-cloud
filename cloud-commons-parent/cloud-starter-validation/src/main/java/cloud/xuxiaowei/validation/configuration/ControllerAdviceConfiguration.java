@@ -114,11 +114,11 @@ public class ControllerAdviceConfiguration {
     public Response<?> insufficientScopeException(InsufficientScopeException exception,
                                                   HttpServletRequest request) {
 
-        log.error(CodeEnums.T00003.msg, exception);
+        log.error(CodeEnums.T00001.msg, exception);
 
         Map<String, String> additionalInformation = exception.getAdditionalInformation();
 
-        ResponseMap error = ResponseMap.error(CodeEnums.T00003.code, CodeEnums.T00003.msg);
+        ResponseMap error = ResponseMap.error(CodeEnums.T00001.code, CodeEnums.T00001.msg);
 
         if (additionalInformation != null) {
             error.put(Constant.SCOPE, additionalInformation.get(Constant.SCOPE));
