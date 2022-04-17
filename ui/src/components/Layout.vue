@@ -40,9 +40,9 @@
             <span>审计</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/audit/code" @click="menuItem">授权Code</el-menu-item>
-            <el-menu-item index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
-            <el-menu-item index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">授权Code</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
@@ -111,8 +111,9 @@
 
 <script setup lang="ts">
 import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import store from '../store'
+import { hasAuthority } from '../utils/authority'
 
 // 默认激活菜单
 // 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单
@@ -158,6 +159,13 @@ const fullScreenClick = () => {
 const handleCommand = (command: any, number: any) => {
   console.log(command, number)
 }
+
+onMounted(() => {
+  // 延时获取昵称并显示
+  setTimeout(function () {
+    nickname.value = store.getters.nickname
+  }, 500)
+})
 
 </script>
 
