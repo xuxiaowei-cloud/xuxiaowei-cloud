@@ -1,6 +1,5 @@
 package cloud.xuxiaowei.system.service.impl;
 
-import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
@@ -8,10 +7,6 @@ import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * <p>
@@ -54,16 +49,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
         UsersVo usersVo = new UsersVo();
         BeanUtils.copyProperties(users, usersVo);
-        Set<String> authorities = new TreeSet<>();
-        usersVo.setAuthoritiesList(authorities);
-
-        List<Authorities> authoritiesList = users.getAuthoritiesList();
-        if (authoritiesList != null) {
-            for (Authorities auth : authoritiesList) {
-                String authority = auth.getAuthority();
-                authorities.add(authority);
-            }
-        }
 
         return usersVo;
     }

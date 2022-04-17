@@ -15,12 +15,10 @@ export const info = function () {
       const usersId = data.usersId
       const username = data.username
       const nickname = data.nickname
-      const authoritiesList = data.authoritiesList
 
       store.commit('setUsersId', usersId)
       store.commit('setUsername', username)
       store.commit('setNickname', nickname)
-      store.commit('setAuthoritiesList', authoritiesList)
     } else {
       ElMessage({
         message: responseData.msg,
