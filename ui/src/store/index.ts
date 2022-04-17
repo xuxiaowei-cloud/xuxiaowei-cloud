@@ -3,11 +3,14 @@ import createPersistedState from 'vuex-persistedstate'
 import settings from '../settings'
 import { checkToken } from '../api/authorization-server'
 import { LocationQuery, Router } from 'vue-router'
+import { info } from '../api/user'
 
 const store = createStore({
   state: { // 单一状态树
-    username: 'xuxiaowei', // 用户名
-    nickname: '徐晓伟', // 昵称
+    usersId: null, // 用户主键
+    username: null, // 用户名
+    nickname: null, // 昵称
+    authoritiesList: [], // 权限
     accessToken: null, // Token
     refreshToken: null, // 刷新Token
     jti: null, // 票据
@@ -15,6 +18,13 @@ const store = createStore({
     isCollapse: false // 是否折叠菜单
   },
   getters: {
+    /**
+     * 获取 用户主键
+     * @param state 单一状态树
+     */
+    usersId (state) {
+      return state.usersId
+    },
     /**
      * 获取 用户名
      * @param state 单一状态树
@@ -28,6 +38,13 @@ const store = createStore({
      */
     nickname (state) {
       return state.nickname
+    },
+    /**
+     * 获取 权限
+     * @param state 单一状态树
+     */
+    authoritiesList (state) {
+      return state.authoritiesList
     },
     /**
      * 获取 Token
@@ -69,7 +86,15 @@ const store = createStore({
     /**
      * 设置 用户名
      * @param state 单一状态树
-     * @param username Token
+     * @param usersId Token
+     */
+    setUsersId (state, usersId) {
+      state.usersId = usersId
+    },
+    /**
+     * 设置 用户名
+     * @param state 单一状态树
+     * @param username 用户名
      */
     setUsername (state, username) {
       state.username = username
@@ -77,15 +102,23 @@ const store = createStore({
     /**
      * 设置 昵称
      * @param state 单一状态树
-     * @param nickname Token
+     * @param nickname 用户昵称
      */
     setNickname (state, nickname) {
       state.nickname = nickname
     },
     /**
+     * 设置 权限
+     * @param state 单一状态树
+     * @param authoritiesList 权限
+     */
+    setAuthoritiesList (state, authoritiesList) {
+      state.authoritiesList = authoritiesList
+    },
+    /**
      * 设置 Token
      * @param state 单一状态树
-     * @param accessToken Token
+     * @param accessToken 授权Token
      */
     setAccessToken (state, accessToken) {
       state.accessToken = accessToken
@@ -108,16 +141,16 @@ const store = createStore({
     },
     /**
      * 设置默认激活菜单
-     * @param state
-     * @param defaultActive
+     * @param state 单一状态树
+     * @param defaultActive 默认激活
      */
     setDefaultActive (state, defaultActive) {
       state.defaultActive = defaultActive
     },
     /**
      * 设置是否折叠菜单
-     * @param state
-     * @param isCollapse
+     * @param state 单一状态树
+     * @param isCollapse 是否折叠菜单
      */
     setIsCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
@@ -137,6 +170,11 @@ const store = createStore({
 
 export default store
 
+/**
+ * 参数中的Token缓存
+ * @param query 参数
+ * @param router 路由
+ */
 export const queryToken = function (query: LocationQuery, router: Router) {
   if (query.store === 'true') {
     const accessToken = query.accessToken
@@ -163,6 +201,7 @@ export const queryToken = function (query: LocationQuery, router: Router) {
 
     checkToken(store.getters.accessToken).then(response => {
       console.log('完成store中的Token缓存后检查Token', response)
+      info().then(() => {})
     })
 
     router.push({ query: query }).then(() => {
@@ -171,6 +210,7 @@ export const queryToken = function (query: LocationQuery, router: Router) {
   } else {
     checkToken(store.getters.accessToken).then(response => {
       console.log('检查Token', response)
+      info().then(() => {})
     })
   }
 }

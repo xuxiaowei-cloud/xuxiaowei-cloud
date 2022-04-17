@@ -111,7 +111,7 @@
 
 <script setup lang="ts">
 import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import store from '../store'
 
 // 默认激活菜单
@@ -158,6 +158,14 @@ const fullScreenClick = () => {
 const handleCommand = (command: any, number: any) => {
   console.log(command, number)
 }
+
+onMounted(() => {
+
+  // 延时获取昵称并显示
+  setTimeout(function () {
+    nickname.value = store.getters.nickname
+  }, 500)
+})
 
 </script>
 
