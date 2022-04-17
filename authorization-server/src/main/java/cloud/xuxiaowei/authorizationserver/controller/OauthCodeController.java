@@ -7,7 +7,10 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +48,7 @@ public class OauthCodeController {
      * @return 返回 删除结果
      */
     @PreAuthorize("hasAuthority('audit_code_delete')")
-    @DeleteMapping("/removeById/{codeId}")
+    @RequestMapping("/removeById/{codeId}")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("codeId") Long codeId) {
 
         boolean removeById = oauthCodeService.removeById(codeId);
