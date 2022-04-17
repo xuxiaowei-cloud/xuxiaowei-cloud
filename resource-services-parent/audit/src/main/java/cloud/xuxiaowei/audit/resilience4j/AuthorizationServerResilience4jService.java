@@ -30,12 +30,23 @@ public class AuthorizationServerResilience4jService {
     /**
      * 根据 授权码Code主键 删除
      *
-     * @param codeId   授权码Code主键
+     * @param codeId 授权码Code主键
      * @return 返回 删除结果
      */
     @CircuitBreaker(name = "removeByAuditCodeId", fallbackMethod = "fallbackMethod")
     public Response<?> removeByAuditCodeId(Long codeId) {
         return authorizationServerFeignService.removeByAuditCodeId(codeId);
+    }
+
+    /**
+     * 根据 授权Token主键 删除
+     *
+     * @param oauthAccessTokenId 授权Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditAccessTokenId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditAccessTokenId(Long oauthAccessTokenId) {
+        return authorizationServerFeignService.removeByAuditAccessTokenId(oauthAccessTokenId);
     }
 
     /**

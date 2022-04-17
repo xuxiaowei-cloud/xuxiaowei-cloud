@@ -21,11 +21,20 @@ public interface AuthorizationServerFeignService {
     /**
      * 根据 授权码Code主键 删除
      *
-     * @param codeId   授权码Code主键
+     * @param codeId 授权码Code主键
      * @return 返回 删除结果
      */
     @PostMapping("/oauth-code/removeById/{codeId}")
     Response<?> removeByAuditCodeId(@PathVariable("codeId") Long codeId);
+
+    /**
+     * 根据 授权Token主键 删除
+     *
+     * @param oauthAccessTokenId 授权Token主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-access-token/removeById/{oauthAccessTokenId}")
+    Response<?> removeByAuditAccessTokenId(@PathVariable("oauthAccessTokenId") Long oauthAccessTokenId);
 
     /**
      * 分页查询授权码
