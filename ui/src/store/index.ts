@@ -18,7 +18,6 @@ const store = createStore({
     /**
      * 获取 用户名
      * @param state 单一状态树
-     * @returns 返回 用户名
      */
     username (state) {
       return state.username
@@ -26,7 +25,6 @@ const store = createStore({
     /**
      * 获取 昵称
      * @param state 单一状态树
-     * @returns 返回 昵称
      */
     nickname (state) {
       return state.nickname
@@ -34,7 +32,6 @@ const store = createStore({
     /**
      * 获取 Token
      * @param state 单一状态树
-     * @returns 返回 Token
      */
     accessToken (state) {
       return state.accessToken
@@ -42,7 +39,6 @@ const store = createStore({
     /**
      * 获取 刷新Token
      * @param state 单一状态树
-     * @returns 返回 刷新Token
      */
     refreshToken (state) {
       return state.refreshToken
@@ -50,15 +46,13 @@ const store = createStore({
     /**
      * 获取 票据
      * @param state 单一状态树
-     * @returns 返回 票据
      */
     jti (state) {
       return state.jti
     },
     /**
      * 获取默认激活菜单
-     * @param state
-     * @returns {string}
+     * @param state 单一状态树
      */
     defaultActive (state) {
       return state.defaultActive
@@ -66,7 +60,6 @@ const store = createStore({
     /**
      * 是否折叠菜单
      * @param state
-     * @returns {any}
      */
     isCollapse (state) {
       return state.isCollapse
