@@ -1,6 +1,7 @@
 import request from '../utils/request'
 import store from '../store'
 import settings from '../settings'
+import { ElMessage } from 'element-plus'
 
 /**
  * 用户信息
@@ -20,6 +21,13 @@ export const info = function () {
       store.commit('setUsername', username)
       store.commit('setNickname', nickname)
       store.commit('setAuthoritiesList', authoritiesList)
+    } else {
+      ElMessage({
+        message: responseData.msg,
+        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+        duration: 3000,
+        type: 'error'
+      })
     }
   })
 }
