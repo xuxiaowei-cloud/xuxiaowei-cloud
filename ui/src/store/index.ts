@@ -210,7 +210,6 @@ export const queryToken = function (query: LocationQuery, router: Router) {
   } else {
     checkToken(store.getters.accessToken).then(response => {
       console.log('检查Token', response)
-      info().then(() => {})
     })
   }
 }
