@@ -89,6 +89,11 @@ docker pull mysql:8.0.28
             # 查看编码
             show VARIABLES like 'character%';
 
+            # 查看最大连接数
+            show variables like "max_connections";
+            # 设置最大连接数
+            set global max_connections=1000;
+
             # 查看二进制文件
             show binary logs;
             # 当前二进制文件名

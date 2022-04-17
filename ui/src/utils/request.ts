@@ -1,5 +1,7 @@
 import axios from 'axios'
 import store from '../store'
+import settings from '../settings'
+import { ElMessage } from 'element-plus'
 
 // create an axios instance
 const service = axios.create({
@@ -25,7 +27,19 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
-    return response
+    if (settings.state.loginRequiredCode.indexOf(response.data.code) === -1) {
+      return response
+    } else {
+      ElMessage({
+        message: response.data.msg,
+        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+        duration: 3000,
+        type: 'error',
+        onClose: () => {
+          location.href = settings.state.loginPage
+        }
+      })
+    }
   },
   error => {
     return error

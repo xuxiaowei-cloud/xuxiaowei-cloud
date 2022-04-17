@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 
@@ -24,15 +26,35 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
 
     private DataSource dataSource;
 
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    private AccessDeniedHandler accessDeniedHandler;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    @Autowired
+    public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
+
+    @Autowired
+    public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 
         resources.tokenStore(new JdbcTokenStore(dataSource));
+
+        // 身份验证入口点
+        resources.authenticationEntryPoint(authenticationEntryPoint);
+
+        // 访问拒绝处理程序
+        resources.accessDeniedHandler(accessDeniedHandler);
 
     }
 
