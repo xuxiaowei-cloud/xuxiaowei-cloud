@@ -27,7 +27,7 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
-    if (settings.state.loginRequiredCode.indexOf(response.data.code) == -1) {
+    if (settings.state.loginRequiredCode.indexOf(response.data.code) === -1) {
       return response
     } else {
       ElMessage({
