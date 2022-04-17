@@ -9,3 +9,13 @@ export const page = function (data: any) {
     return response.data
   })
 }
+
+/**
+ * 根据 授权码Code主键 删除
+ * @param codeId 授权码Code主键
+ */
+export const removeById = function (codeId: number) {
+  return request.delete('/audit/oauth-code/removeById/' + codeId).then(response => {
+    return response.data
+  })
+}
