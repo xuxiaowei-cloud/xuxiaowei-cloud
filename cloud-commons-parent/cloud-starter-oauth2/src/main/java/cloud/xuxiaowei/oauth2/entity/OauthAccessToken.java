@@ -1,8 +1,6 @@
 package cloud.xuxiaowei.oauth2.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -17,7 +15,7 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  * </p>
  *
  * @author xuxiaowei
- * @since 2022-04-10
+ * @since 2022-04-17
  */
 @Data
 @TableName("oauth_access_token")
@@ -25,11 +23,14 @@ public class OauthAccessToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "oauth_access_token_id", type = IdType.AUTO)
     private Long oauthAccessTokenId;
 
     private String tokenId;
 
     private byte[] token;
+
+    private String authenticationId;
 
     private String tokenJson;
 
@@ -49,9 +50,6 @@ public class OauthAccessToken implements Serializable {
     @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
     private LocalDateTime refreshTokenExpiration;
 
-    private String authenticationId;
-
-    @TableField("user_name")
     private String userName;
 
     private String clientId;

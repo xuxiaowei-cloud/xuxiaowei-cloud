@@ -1,8 +1,6 @@
 package cloud.xuxiaowei.oauth2.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -17,7 +15,7 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  * </p>
  *
  * @author xuxiaowei
- * @since 2022-04-10
+ * @since 2022-04-17
  */
 @Data
 @TableName("oauth_refresh_token")
@@ -25,6 +23,7 @@ public class OauthRefreshToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "oauth_refresh_token_id", type = IdType.AUTO)
     private Long oauthRefreshTokenId;
 
     private String tokenId;
