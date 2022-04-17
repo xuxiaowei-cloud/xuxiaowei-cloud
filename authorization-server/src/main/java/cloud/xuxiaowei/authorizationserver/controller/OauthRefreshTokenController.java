@@ -7,6 +7,7 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,24 @@ public class OauthRefreshTokenController {
     @Autowired
     public void setOauthRefreshTokenService(IOauthRefreshTokenService oauthRefreshTokenService) {
         this.oauthRefreshTokenService = oauthRefreshTokenService;
+    }
+
+    /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param request             请求
+     * @param response            响应
+     * @param oauthRefreshTokenId 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_refreshToken_delete')")
+    @RequestMapping("/removeById/{oauthRefreshTokenId}")
+    public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
+                                  @PathVariable("oauthRefreshTokenId") Long oauthRefreshTokenId) {
+
+        boolean removeById = oauthRefreshTokenService.removeById(oauthRefreshTokenId);
+
+        return Response.ok(removeById);
     }
 
     /**

@@ -50,6 +50,17 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param oauthRefreshTokenId 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditRefreshTokenId", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditRefreshTokenId(Long oauthRefreshTokenId) {
+        return authorizationServerFeignService.removeByAuditRefreshTokenId(oauthRefreshTokenId);
+    }
+
+    /**
      * 分页查询授权码
      *
      * @param auditCodePageBo 审计授权码分页参数

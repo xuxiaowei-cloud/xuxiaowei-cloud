@@ -37,6 +37,15 @@ public interface AuthorizationServerFeignService {
     Response<?> removeByAuditAccessTokenId(@PathVariable("oauthAccessTokenId") Long oauthAccessTokenId);
 
     /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param oauthRefreshTokenId 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-refresh-token/removeById/{oauthRefreshTokenId}")
+    Response<?> removeByAuditRefreshTokenId(@PathVariable("oauthRefreshTokenId") Long oauthRefreshTokenId);
+
+    /**
      * 分页查询授权码
      *
      * @param auditCodePageBo 审计授权码分页参数
