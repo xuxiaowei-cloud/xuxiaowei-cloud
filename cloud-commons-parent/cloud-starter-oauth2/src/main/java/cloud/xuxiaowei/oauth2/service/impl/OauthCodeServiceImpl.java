@@ -33,6 +33,7 @@ public class OauthCodeServiceImpl extends ServiceImpl<OauthCodeMapper, OauthCode
     @DS("xuxiaowei_cloud_log")
     public IPage<OauthCode> pageByAuditCode(AuditCodePageBo auditCodePageBo) {
         QueryWrapper<OauthCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("code_id");
         Long current = auditCodePageBo.getCurrent();
         Long size = auditCodePageBo.getSize();
         String codeId = auditCodePageBo.getCodeId();

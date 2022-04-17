@@ -33,6 +33,7 @@ public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenM
     @DS("xuxiaowei_cloud_log")
     public IPage<OauthRefreshToken> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo) {
         QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("oauth_refresh_token_id");
         Long current = auditRefreshTokenPageBo.getCurrent();
         Long size = auditRefreshTokenPageBo.getSize();
 
