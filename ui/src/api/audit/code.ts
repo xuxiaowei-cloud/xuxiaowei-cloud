@@ -15,7 +15,7 @@ export const page = function (data: any) {
  * @param codeId 授权码Code主键
  */
 export const removeById = function (codeId: number) {
-  return request.delete('/audit/oauth-code/removeById/' + codeId).then(response => {
+  return request.post('/audit/oauth-code/removeById/' + codeId).then(response => {
     return response.data
   })
 }
