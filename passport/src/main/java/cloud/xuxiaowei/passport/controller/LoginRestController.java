@@ -78,6 +78,7 @@ public class LoginRestController {
             log.info("使用登录参数中的授权重定向地址：{}", redirectUri);
         } else {
             redirectUri = cloudClientProperties.getRedirectUri();
+            log.info("使用默认授权重定向地址：{}", redirectUri);
         }
 
         String authorizeUri = cloudClientProperties.authorizeUri(state, redirectUri);
