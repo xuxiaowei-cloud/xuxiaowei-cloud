@@ -80,7 +80,6 @@ s2:
     MAVEN_OPTS: ''
     MAVEN_CLI_OPTS: ''
   script:
-    - rm -rf ui/node_modules
     - source /etc/profile && echo 刷新环境变量
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
