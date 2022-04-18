@@ -151,6 +151,7 @@ cloud.xuxiaowei
 | xuxiaowei | 123 | 1 |
 
 ### 权限
+
 | 账户名 | 权限 | 说明 |
 | ---- | ---- | ---- |
 | xuxiaowei | audit_accessToken_delete       | 删除授权Token |
@@ -251,6 +252,8 @@ cloud.xuxiaowei
         - 个人分支，按功能`PR`到主分支`main`
     1. pages
         - 文档分支
+    1. only-passport
+        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐）
 
 ## 参考文档
 
