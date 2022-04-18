@@ -65,7 +65,7 @@ package:
       - resource-services-parent/target/resource-services-parent-*
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
-      - resource-services-parent/canal/target/user-*
+      - resource-services-parent/user/target/user-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
@@ -384,7 +384,7 @@ s2:
       - resource-services-parent/target/resource-services-parent-*
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
-      - resource-services-parent/canal/target/user-*
+      - resource-services-parent/user/target/user-*
       - ui/target/ui-*
       - utils/target/utils-*
   tags:
