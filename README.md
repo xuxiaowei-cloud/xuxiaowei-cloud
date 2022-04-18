@@ -146,9 +146,24 @@ cloud.xuxiaowei
 
 ### 用户名与密码
 
-| 账户名 | 密码 | 启用 | 权限 |
-| ---- | ---- | ---- | ---- | 
-| xuxiaowei | 123 | 1 | user |
+| 账户名 | 密码 | 启用 |
+| ---- | ---- | ---- |
+| xuxiaowei | 123 | 1 |
+
+### 权限
+| 账户名 | 权限 | 说明 |
+| ---- | ---- | ---- |
+| xuxiaowei | audit_accessToken_delete       | 删除授权Token |
+| xuxiaowei | audit_accessToken_read         | 查看授权Token |
+| xuxiaowei | audit_code_delete              | 删除授权码Code |
+| xuxiaowei | audit_code_read                | 查看授权码Code |
+| xuxiaowei | audit_refreshToken_delete      | 删除刷新Token |
+| xuxiaowei | audit_refreshToken_read        | 查看刷新Token |
+| xuxiaowei | user_authorities               | 查看用户权限 |
+| xuxiaowei | user_details                   | 查看用户详情 |
+| xuxiaowei | user_info                      | 查看用户信息 |
+| xuxiaowei | user_oauth2_oauth2Request      | 查看 oauth2 用户请求 |
+| xuxiaowei | user_oauth2_userAuthentication | 查看 oauth2 用户身份验证 |
 
 ### 客户ID与秘钥
 
