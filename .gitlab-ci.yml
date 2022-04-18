@@ -7,12 +7,12 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 cache:
- paths:
-   - .m2/repository
-   - passport-ui/node/
-   - passport-ui/node_modules/
-   - ui/node/
-   - ui/node_modules/
+  paths:
+    - .m2/repository
+    - passport-ui/node/
+    - passport-ui/node_modules/
+    - ui/node/
+    - ui/node_modules/
 
 #
 # package
