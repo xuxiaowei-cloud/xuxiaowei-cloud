@@ -139,7 +139,7 @@ cloud.xuxiaowei
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
-| audit | 审计服务 | audit.example.xuxiaowei.cloud | 1501 |
+| audit | 审计服务 |  | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
