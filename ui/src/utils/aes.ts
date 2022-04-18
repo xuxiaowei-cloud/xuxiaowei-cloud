@@ -1,3 +1,5 @@
+// TS 未能识别，其实不存在问题
+// @ts-ignore
 import CryptoJS from 'crypto-js'
 
 /**
