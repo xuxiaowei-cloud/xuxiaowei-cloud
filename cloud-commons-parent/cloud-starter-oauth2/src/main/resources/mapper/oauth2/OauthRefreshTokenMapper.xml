@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.oauth2.entity.OauthRefreshToken">
-        <result column="oauth_refresh_token_id" property="oauthRefreshTokenId" />
+        <id column="oauth_refresh_token_id" property="oauthRefreshTokenId" />
         <result column="token_id" property="tokenId" />
         <result column="token" property="token" />
         <result column="token_json" property="tokenJson" />

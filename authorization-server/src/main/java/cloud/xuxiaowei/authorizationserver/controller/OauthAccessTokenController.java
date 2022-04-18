@@ -7,6 +7,7 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,24 @@ public class OauthAccessTokenController {
     @Autowired
     public void setOauthAccessTokenService(IOauthAccessTokenService oauthAccessTokenService) {
         this.oauthAccessTokenService = oauthAccessTokenService;
+    }
+
+    /**
+     * 根据 授权Token主键 删除
+     *
+     * @param request            请求
+     * @param response           响应
+     * @param oauthAccessTokenId 授权Token主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_accessToken_delete')")
+    @RequestMapping("/removeById/{oauthAccessTokenId}")
+    public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
+                                  @PathVariable("oauthAccessTokenId") Long oauthAccessTokenId) {
+
+        boolean removeById = oauthAccessTokenService.removeById(oauthAccessTokenId);
+
+        return Response.ok(removeById);
     }
 
     /**

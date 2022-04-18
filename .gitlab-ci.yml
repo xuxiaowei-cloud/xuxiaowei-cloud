@@ -31,7 +31,8 @@ package:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
     - echo "以下命令再执行 package 后才能执行"
@@ -65,6 +66,7 @@ package:
       - resource-services-parent/target/resource-services-parent-*
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
+      - resource-services-parent/user/target/user-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
@@ -309,6 +311,42 @@ s2:
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - echo
+    - MODULE='user'
+    - echo MODULE：$MODULE
+    - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
+    - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
+    - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
+    - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
+    - echo APP_NAME：$APP_NAME
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - echo SERVICE：$SERVICE
+    - JAVA_HOME=/software/dragonwell-8.10.11
+    - echo JAVA_HOME：$JAVA_HOME
+    - echo "" > $SERVICE
+    - echo "[Unit]" >> $SERVICE
+    - echo "Description=$MODULE" >> $SERVICE
+    - echo "After=syslog.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Service]" >> $SERVICE
+    - echo "EnvironmentFile=/etc/profile" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Install]" >> $SERVICE
+    - echo "WantedBy=multi-user.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo 创建新启动脚本完成
+    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl daemon-reload
+    - sudo systemctl restart $MODULE.service && echo 重启项目完成
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
+    - sleep 30 && echo 增加延时
+    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
+    - echo
     - cd ..
     - pwd
     - echo
@@ -347,6 +385,7 @@ s2:
       - resource-services-parent/target/resource-services-parent-*
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
+      - resource-services-parent/user/target/user-*
       - ui/target/ui-*
       - utils/target/utils-*
   tags:

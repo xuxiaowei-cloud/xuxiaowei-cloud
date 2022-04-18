@@ -54,6 +54,6 @@
     "lint-staged": "12.3.7",
     "unplugin-auto-import": "0.6.9",
     "unplugin-vue-components": "0.18.5",
-    "vite": "2.9.4"
+    "vite": "2.9.5"
   }
 }

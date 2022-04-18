@@ -1,12 +1,16 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import settings from '@/settings'
-import { checkToken } from '@/api/authorization-server'
+import settings from '../settings'
+import { checkToken } from '../api/authorization-server'
+import { LocationQuery, Router } from 'vue-router'
+import { info } from '../api/user'
 
 const store = createStore({
   state: { // 单一状态树
-    username: 'xuxiaowei', // 用户名
-    nickname: '徐晓伟', // 昵称
+    usersId: null, // 用户主键
+    username: null, // 用户名
+    nickname: null, // 昵称
+    authorities: [], // 权限
     accessToken: null, // Token
     refreshToken: null, // 刷新Token
     jti: null, // 票据
@@ -15,9 +19,15 @@ const store = createStore({
   },
   getters: {
     /**
+     * 获取 用户主键
+     * @param state 单一状态树
+     */
+    usersId (state) {
+      return state.usersId
+    },
+    /**
      * 获取 用户名
      * @param state 单一状态树
-     * @returns 返回 用户名
      */
     username (state) {
       return state.username
@@ -25,15 +35,20 @@ const store = createStore({
     /**
      * 获取 昵称
      * @param state 单一状态树
-     * @returns 返回 昵称
      */
     nickname (state) {
       return state.nickname
     },
     /**
+     * 获取 权限
+     * @param state 单一状态树
+     */
+    authorities (state) {
+      return state.authorities
+    },
+    /**
      * 获取 Token
      * @param state 单一状态树
-     * @returns 返回 Token
      */
     accessToken (state) {
       return state.accessToken
@@ -41,7 +56,6 @@ const store = createStore({
     /**
      * 获取 刷新Token
      * @param state 单一状态树
-     * @returns 返回 刷新Token
      */
     refreshToken (state) {
       return state.refreshToken
@@ -49,15 +63,13 @@ const store = createStore({
     /**
      * 获取 票据
      * @param state 单一状态树
-     * @returns 返回 票据
      */
     jti (state) {
       return state.jti
     },
     /**
      * 获取默认激活菜单
-     * @param state
-     * @returns {string}
+     * @param state 单一状态树
      */
     defaultActive (state) {
       return state.defaultActive
@@ -65,7 +77,6 @@ const store = createStore({
     /**
      * 是否折叠菜单
      * @param state
-     * @returns {any}
      */
     isCollapse (state) {
       return state.isCollapse
@@ -75,7 +86,15 @@ const store = createStore({
     /**
      * 设置 用户名
      * @param state 单一状态树
-     * @param username Token
+     * @param usersId Token
+     */
+    setUsersId (state, usersId) {
+      state.usersId = usersId
+    },
+    /**
+     * 设置 用户名
+     * @param state 单一状态树
+     * @param username 用户名
      */
     setUsername (state, username) {
       state.username = username
@@ -83,15 +102,23 @@ const store = createStore({
     /**
      * 设置 昵称
      * @param state 单一状态树
-     * @param nickname Token
+     * @param nickname 用户昵称
      */
     setNickname (state, nickname) {
       state.nickname = nickname
     },
     /**
+     * 设置 权限
+     * @param state 单一状态树
+     * @param authorities 权限
+     */
+    setAuthorities (state, authorities) {
+      state.authorities = authorities
+    },
+    /**
      * 设置 Token
      * @param state 单一状态树
-     * @param accessToken Token
+     * @param accessToken 授权Token
      */
     setAccessToken (state, accessToken) {
       state.accessToken = accessToken
@@ -114,16 +141,16 @@ const store = createStore({
     },
     /**
      * 设置默认激活菜单
-     * @param state
-     * @param defaultActive
+     * @param state 单一状态树
+     * @param defaultActive 默认激活
      */
     setDefaultActive (state, defaultActive) {
       state.defaultActive = defaultActive
     },
     /**
      * 设置是否折叠菜单
-     * @param state
-     * @param isCollapse
+     * @param state 单一状态树
+     * @param isCollapse 是否折叠菜单
      */
     setIsCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
@@ -143,7 +170,12 @@ const store = createStore({
 
 export default store
 
-export const queryToken = function (query, router) {
+/**
+ * 参数中的Token缓存
+ * @param query 参数
+ * @param router 路由
+ */
+export const queryToken = function (query: LocationQuery, router: Router) {
   if (query.store === 'true') {
     const accessToken = query.accessToken
     const refreshToken = query.refreshToken
@@ -169,9 +201,10 @@ export const queryToken = function (query, router) {
 
     checkToken(store.getters.accessToken).then(response => {
       console.log('完成store中的Token缓存后检查Token', response)
+      info().then(() => {})
     })
 
-    router.push({ query: query }).then(response => {
+    router.push({ query: query }).then(() => {
 
     })
   } else {

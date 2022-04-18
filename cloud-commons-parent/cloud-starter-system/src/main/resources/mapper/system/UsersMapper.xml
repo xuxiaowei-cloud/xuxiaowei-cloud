@@ -4,7 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Users">
-        <id column="username" property="username" />
+        <id column="users_id" property="usersId" />
+        <result column="username" property="username" />
+        <result column="nickname" property="nickname" />
         <result column="password" property="password" />
         <result column="enabled" property="enabled" />
         <result column="account_non_expired" property="accountNonExpired" />
@@ -28,7 +30,9 @@
     <!-- 根据 用户名 查询用户信息及权限 -->
     <select id="getByUsername" resultMap="BaseResultMap">
         SELECT
+            u.users_id,
             u.username,
+            u.nickname,
             u.`password`,
             u.enabled,
             u.account_non_expired,

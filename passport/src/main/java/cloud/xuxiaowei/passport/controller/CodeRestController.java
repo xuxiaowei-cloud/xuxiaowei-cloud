@@ -67,12 +67,15 @@ public class CodeRestController {
     private void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                        String code, String state) throws IOException {
 
-        String sessionState = session.getAttribute(cloudClientProperties.getStateName()) + "";
+        String stateName = cloudClientProperties.getStateName();
+        String sessionState = session.getAttribute(stateName) + "";
         if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
             Response<?> error = Response.error("非法获取Token");
             ResponseUtils.response(response, error);
             log.error(String.valueOf(error));
             return;
+        } else {
+            session.removeAttribute(stateName);
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();

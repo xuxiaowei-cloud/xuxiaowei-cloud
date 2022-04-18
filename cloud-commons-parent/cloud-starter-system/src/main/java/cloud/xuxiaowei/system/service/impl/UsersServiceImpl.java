@@ -3,7 +3,9 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +21,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     /**
      * 根据 用户名 查询用户信息及权限
+     * <p>
+     * 待加入Redis注解进行数据缓存
+     * <p>
+     * 与 {@link IUsersService#getUsersVoByUsername(String)} 可以考虑合并成一个接口
      *
      * @param username 用户名
      * @return 返回 用户信息及权限
@@ -26,6 +32,25 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public Users getByUsername(String username) {
         return baseMapper.getByUsername(username);
+    }
+
+    /**
+     * 根据 用户名 查询用户信息及权限
+     *
+     * @param username 用户名
+     * @return 返回 用户信息及权限
+     */
+    @Override
+    public UsersVo getUsersVoByUsername(String username) {
+        Users users = baseMapper.getByUsername(username);
+        if (users == null) {
+            return null;
+        }
+
+        UsersVo usersVo = new UsersVo();
+        BeanUtils.copyProperties(users, usersVo);
+
+        return usersVo;
     }
 
 }

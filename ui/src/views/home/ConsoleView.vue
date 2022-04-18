@@ -2,7 +2,7 @@
   <h1>Console</h1>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 </script>
 

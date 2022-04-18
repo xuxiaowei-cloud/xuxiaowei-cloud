@@ -22,14 +22,27 @@
         <el-sub-menu index="2">
           <template #title>
             <el-icon>
+              <notebook/>
+            </el-icon>
+            <span>富文本</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/editor/tui-ui-editor" @click="menuItem">Tui UI Editor</el-menu-item>
+            <el-menu-item index="/editor/wangeditor" @click="menuItem">WangEditor</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
+        <el-sub-menu index="3">
+          <template #title>
+            <el-icon>
               <aim/>
             </el-icon>
             <span>审计</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/audit/code" @click="menuItem">授权Code</el-menu-item>
-            <el-menu-item index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
-            <el-menu-item index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">授权Code</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
@@ -96,10 +109,12 @@
   </el-container>
 </template>
 
-<script setup>
-import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-import store from '@/store'
+<script setup lang="ts">
+import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
+import { onMounted, ref } from 'vue'
+import store from '../store'
+import { hasAuthority } from '../utils/authority'
+import { signout } from '../api/user'
 
 // 默认激活菜单
 // 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单
@@ -112,16 +127,16 @@ const isCollapse = ref(store.getters.isCollapse)
 // 昵称
 const nickname = ref(store.getters.nickname)
 
-const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
+const handleOpen = (key: number, keyPath: string) => {
+  console.log('handleOpen：', key, keyPath)
 }
 
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
+const handleClose = (key: number, keyPath: string) => {
+  console.log('handleClose：', key, keyPath)
 }
 
 // 默认激活菜单
-const menuItem = (key) => {
+const menuItem = (key: any) => {
   store.commit('setDefaultActive', key.index)
 }
 
@@ -142,9 +157,21 @@ const fullScreenClick = () => {
 }
 
 // 用户菜单
-const handleCommand = (command, number) => {
+const handleCommand = (command: any, number: any) => {
   console.log(command, number)
+  switch (command) {
+    case 'signout':
+      signout()
+      break
+  }
 }
+
+onMounted(() => {
+  // 延时获取昵称并显示
+  setTimeout(function () {
+    nickname.value = store.getters.nickname
+  }, 500)
+})
 
 </script>
 

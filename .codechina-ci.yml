@@ -33,7 +33,8 @@ package:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -U package source:jar javadoc:jar install -Pgpg -DskipTests && echo 打包完成
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl passport-ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo 登录服务前端可执行jar包打包完成
     - mvn -pl ui package source:jar javadoc:jar install -Pgpg -Pexec -DskipTests && echo UI服务前端可执行jar包打包完成
     - echo "以下命令再执行 package 后才能执行"
@@ -67,6 +68,7 @@ package:
       - resource-services-parent/target/resource-services-parent-*
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
+      - resource-services-parent/user/target/user-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:

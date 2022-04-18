@@ -38,7 +38,7 @@ npm run lint
 1. init
 
 ```shell
-npm create vite@latest ui -- --template vue
+npm create vite@latest ui -- --template vue-ts
 ```
 
 1. [eslint](https://eslint.vuejs.org/user-guide/#installation)
@@ -49,6 +49,9 @@ npm create vite@latest ui -- --template vue
     vue add @vue/cli-plugin-eslint
     # vue-cli-service lint 无法运行
     npm i -D @vue/cli-service
+    
+    npm i -D @typescript-eslint/parser
+    npm i -D @vue/cli-plugin-typescript
     ```
 
 1. [vue-router](https://router.vuejs.org/installation.html)
@@ -104,16 +107,25 @@ npm create vite@latest ui -- --template vue
 1. 加密
     - jsencrypt
         - RSA
+    - crypto-js
+        - AES
 
 1. 缓存
     - vuex
     - vuex-persistedstate
         - 缓存刷新时保留
 
+1. 富文本
+    - @toast-ui/editor
+    - @wangeditor/editor-for-vue
+
 ## 依赖地址
 
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
+- [@toast-ui/editor](https://www.npmjs.com/package/@toast-ui/editor)
+- [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
 - [axios](https://www.npmjs.com/package/axios)
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
