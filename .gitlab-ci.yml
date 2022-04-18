@@ -11,10 +11,8 @@ cache:
     - .m2/repository
     - passport-ui/node/
     - passport-ui/node_modules/
-    - passport-ui/package-lock.json
     - ui/node/
     - ui/node_modules/
-    - ui/package-lock.json
 
 #
 # package
