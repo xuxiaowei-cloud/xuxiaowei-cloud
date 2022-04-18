@@ -107,6 +107,8 @@ npm create vite@latest ui -- --template vue-ts
 1. 加密
     - jsencrypt
         - RSA
+    - crypto-js
+        - AES
 
 1. 缓存
     - vuex
@@ -123,6 +125,7 @@ npm create vite@latest ui -- --template vue-ts
 - [@toast-ui/editor](https://www.npmjs.com/package/@toast-ui/editor)
 - [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
 - [axios](https://www.npmjs.com/package/axios)
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)

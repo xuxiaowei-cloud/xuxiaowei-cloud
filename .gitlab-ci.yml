@@ -11,8 +11,9 @@ cache:
     - .m2/repository
     - passport-ui/node/
     - passport-ui/node_modules/
-    - ui/node/
-    - ui/node_modules/
+    # 临时删除 ui 缓存（使用缓存时不能正确安装依赖）
+#    - ui/node/
+#    - ui/node_modules/
 
 #
 # package
