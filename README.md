@@ -139,16 +139,32 @@ cloud.xuxiaowei
 | authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
-| audit | 审计服务 | audit.example.xuxiaowei.cloud | 1501 |
+| audit | 审计服务 |  | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码
 
-| 账户名 | 密码 | 启用 | 权限 |
-| ---- | ---- | ---- | ---- | 
-| xuxiaowei | 123 | 1 | user |
+| 账户名 | 密码 | 启用 |
+| ---- | ---- | ---- |
+| xuxiaowei | 123 | 1 |
+
+### 权限
+
+| 账户名 | 权限 | 说明 |
+| ---- | ---- | ---- |
+| xuxiaowei | audit_accessToken_delete       | 删除授权Token |
+| xuxiaowei | audit_accessToken_read         | 查看授权Token |
+| xuxiaowei | audit_code_delete              | 删除授权码Code |
+| xuxiaowei | audit_code_read                | 查看授权码Code |
+| xuxiaowei | audit_refreshToken_delete      | 删除刷新Token |
+| xuxiaowei | audit_refreshToken_read        | 查看刷新Token |
+| xuxiaowei | user_authorities               | 查看用户权限 |
+| xuxiaowei | user_details                   | 查看用户详情 |
+| xuxiaowei | user_info                      | 查看用户信息 |
+| xuxiaowei | user_oauth2_oauth2Request      | 查看 oauth2 用户请求 |
+| xuxiaowei | user_oauth2_userAuthentication | 查看 oauth2 用户身份验证 |
 
 ### 客户ID与秘钥
 
@@ -236,6 +252,8 @@ cloud.xuxiaowei
         - 个人分支，按功能`PR`到主分支`main`
     1. pages
         - 文档分支
+    1. only-passport
+        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐）
 
 ## 参考文档
 

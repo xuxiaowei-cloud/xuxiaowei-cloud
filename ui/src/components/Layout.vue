@@ -114,6 +114,7 @@ import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } fr
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority } from '../utils/authority'
+import { signout } from '../api/user'
 
 // 默认激活菜单
 // 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单
@@ -158,6 +159,11 @@ const fullScreenClick = () => {
 // 用户菜单
 const handleCommand = (command: any, number: any) => {
   console.log(command, number)
+  switch (command) {
+    case 'signout':
+      signout()
+      break
+  }
 }
 
 onMounted(() => {
