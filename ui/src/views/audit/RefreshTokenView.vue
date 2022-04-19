@@ -1,7 +1,17 @@
 <template>
-  <el-container id="cloud-el-search">
+  <div id="cloud-el-search">
+    <el-input class="cloud-el-input" clearable v-model="param.oauthRefreshTokenId" placeholder="Please input oauthRefreshTokenId" />
+    <el-input class="cloud-el-input" clearable v-model="param.tokenId" placeholder="Please input tokenId" />
+    <el-input class="cloud-el-input" clearable v-model="param.username" placeholder="Please input username" />
+    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId" />
+    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress" />
+    <el-input class="cloud-el-input" clearable v-model="param.scope" placeholder="Please input scope" />
+    <el-input class="cloud-el-input" clearable v-model="param.redirectUri" placeholder="Please input redirectUri" />
+    <el-input class="cloud-el-input" clearable v-model="param.refreshToken" placeholder="Please input refreshToken" />
+    <el-input class="cloud-el-input" clearable v-model="param.sessionId" placeholder="Please input sessionId" />
+    <el-input class="cloud-el-input" clearable v-model="param.state" placeholder="Please input state" />
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
-  </el-container>
+  </div>
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="oauthRefreshTokenId" label="oauthRefreshTokenId" width="175"/>
@@ -47,7 +57,17 @@ const tableData = ref([])
 const param = reactive({
   current: 1,
   size: 10,
-  total: 0
+  total: 0,
+  oauthRefreshTokenId: null,
+  tokenId: null,
+  username: null,
+  clientId: null,
+  remoteAddress: null,
+  scope: null,
+  redirectUri: null,
+  refreshToken: null,
+  sessionId: null,
+  state: null
 })
 const loading = ref(true)
 
@@ -105,6 +125,10 @@ const deleteRefreshTokenId = (e: number) => {
 </script>
 
 <style scoped>
+
+.cloud-el-input {
+  width: 300px;
+}
 
 .cloud-el-input, .cloud-el-search {
   margin-left: 5px;
