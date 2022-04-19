@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2022-04-01
  */
 @Service
-@DS("xuxiaowei_cloud_log")
+@DS("log")
 public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogService {
 
 }

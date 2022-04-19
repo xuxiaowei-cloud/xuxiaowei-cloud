@@ -30,7 +30,7 @@ public class OauthCodeServiceImpl extends ServiceImpl<OauthCodeMapper, OauthCode
      * @return 返回 分页查询结果
      */
     @Override
-    @DS("xuxiaowei_cloud_log")
+    @DS("log")
     public IPage<OauthCode> pageByAuditCode(AuditCodePageBo auditCodePageBo) {
         QueryWrapper<OauthCode> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("code_id");

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { queryToken } from '../store'
+import { hasAnyAuthority } from '../utils/authority'
 import home from './home'
 import audit from './audit'
 import editor from './editor'
@@ -11,7 +12,7 @@ let routes = [
     path: '/',
     name: 'console',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     // 首页不能使用 import
     component: ConsoleView
@@ -20,7 +21,7 @@ let routes = [
     path: '/non-authority',
     name: 'non-authority',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     component: () => import('@/views/NonAuthorityView.vue')
   },
@@ -50,9 +51,10 @@ router.beforeEach((to, from, next) => {
   console.log(to)
   queryToken(to.query, router)
   const meta = to.meta
-
-  // 判断是否允许访问
-  if (meta.authority) {
+  const authority = meta.authority
+  if (to.path === '/non-authority') {
+    next()
+  } else if (authority instanceof Array && hasAnyAuthority(authority)) { // 判断是否允许访问
     next()
   } else {
     // 不允许访问，跳转到无权限页面

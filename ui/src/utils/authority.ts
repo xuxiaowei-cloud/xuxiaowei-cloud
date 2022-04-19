@@ -13,8 +13,8 @@ export const hasAuthority = function (authority: string) {
  * @param authoritys 权限
  */
 export const hasAnyAuthority = function (authoritys: string[]) {
-  for (const authority in authoritys) {
-    if (store.getters.authorities.indexOf(authority) !== -1) {
+  for (const i in authoritys) {
+    if (store.getters.authorities.indexOf(authoritys[i]) !== -1) {
       return true
     }
   }

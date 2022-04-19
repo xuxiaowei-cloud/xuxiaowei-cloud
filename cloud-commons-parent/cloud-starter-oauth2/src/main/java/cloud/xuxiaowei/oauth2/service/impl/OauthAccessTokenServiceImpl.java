@@ -29,7 +29,7 @@ public class OauthAccessTokenServiceImpl extends ServiceImpl<OauthAccessTokenMap
      * @return 返回 分页查询结果
      */
     @Override
-    @DS("xuxiaowei_cloud_log")
+    @DS("log")
     public IPage<OauthAccessToken> pageByAuditAccessToken(AuditAccessTokenPageBo auditAccessTokenPageBo) {
         QueryWrapper<OauthAccessToken> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("oauth_access_token_id");
