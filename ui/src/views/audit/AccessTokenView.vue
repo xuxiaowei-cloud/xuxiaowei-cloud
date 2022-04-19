@@ -1,7 +1,22 @@
 <template>
-  <el-container id="cloud-el-search">
+  <div id="cloud-el-search">
+    <el-input class="cloud-el-input" clearable v-model="param.oauthAccessTokenId" placeholder="Please input oauthAccessTokenId" />
+    <el-input class="cloud-el-input" clearable v-model="param.refreshToken" placeholder="Please input refreshToken" />
+    <el-input class="cloud-el-input" clearable v-model="param.userName" placeholder="Please input userName" />
+    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId" />
+    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress" />
+    <el-input class="cloud-el-input" clearable v-model="param.scope" placeholder="Please input scope" />
+    <el-input class="cloud-el-input" clearable v-model="param.redirectUri" placeholder="Please input redirectUri" />
+    <el-input class="cloud-el-input" clearable v-model="param.responseType" placeholder="Please input responseType" />
+    <el-input class="cloud-el-input" clearable v-model="param.accessToken" placeholder="Please input accessToken" />
+    <el-input class="cloud-el-input" clearable v-model="param.authenticationId" placeholder="Please input authenticationId" />
+    <el-input class="cloud-el-input" clearable v-model="param.jti" placeholder="Please input jti" />
+    <el-input class="cloud-el-input" clearable v-model="param.refreshTokenEncryption" placeholder="Please input refreshTokenEncryption" />
+    <el-input class="cloud-el-input" clearable v-model="param.tokenId" placeholder="Please input tokenId" />
+    <el-input class="cloud-el-input" clearable v-model="param.sessionId" placeholder="Please input sessionId" />
+    <el-input class="cloud-el-input" clearable v-model="param.state" placeholder="Please input state" />
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
-  </el-container>
+  </div>
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
@@ -53,7 +68,22 @@ const tableData = ref([])
 const param = reactive({
   current: 1,
   size: 10,
-  total: 0
+  total: 0,
+  oauthAccessTokenId: null,
+  refreshToken: null,
+  userName: null,
+  clientId: null,
+  remoteAddress: null,
+  scope: null,
+  redirectUri: null,
+  responseType: null,
+  accessToken: null,
+  authenticationId: null,
+  jti: null,
+  refreshTokenEncryption: null,
+  tokenId: null,
+  sessionId: null,
+  state: null
 })
 const loading = ref(true)
 
@@ -111,6 +141,10 @@ const deleteAccessTokenId = (e: number) => {
 </script>
 
 <style scoped>
+
+.cloud-el-input {
+  width: 300px;
+}
 
 .cloud-el-input, .cloud-el-search {
   margin-left: 5px;
