@@ -70,13 +70,12 @@ public class CodeRestController {
 
         String stateName = cloudClientProperties.getStateName();
         String sessionState = session.getAttribute(stateName) + "";
+        session.removeAttribute(stateName);
         if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
             Response<?> error = Response.error("非法获取Token");
             ResponseUtils.response(response, error);
             log.error(String.valueOf(error));
             return;
-        } else {
-            session.removeAttribute(stateName);
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -96,6 +95,7 @@ public class CodeRestController {
 
         String homePage;
         final Object sessionHomePageObj = session.getAttribute(sessionState);
+        session.removeAttribute(sessionState);
         if (sessionHomePageObj == null) {
             homePage = cloudClientProperties.getHomePage();
         } else {
