@@ -18,6 +18,13 @@ git push -f --all
 git clone --progress -v "https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
 ```
 
+## 分支切换
+
+```
+git checkout -b xuxiaowei remotes/origin/xuxiaowei
+git checkout xuxiaowei
+```
+
 ## 推送
 
 ```
