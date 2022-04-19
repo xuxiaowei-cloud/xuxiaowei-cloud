@@ -7,6 +7,9 @@
     <a href="https://996.icu/#/zh_CN">
         <img alt="Link-996" src="https://img.shields.io/badge/Link-996.icu-red.svg">
     </a>
+    <div>
+        <img alt="QQ群" src="https://img.shields.io/badge/QQ群-696503132-blue.svg"/>
+    </div>
 </div>
 
 <p align="center">
@@ -78,6 +81,10 @@
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
+  </a>
+
+  <a href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
+    <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_322-blue.svg"/>
   </a>
 
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
