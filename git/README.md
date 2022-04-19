@@ -20,3 +20,9 @@ git push --all --progress "gitee"
 git push --all --progress "github"
 git push --all --progress "gitlab"
 ```
+
+## 拉取
+
+```
+git pull --progress -v --no-rebase "origin"
+```
