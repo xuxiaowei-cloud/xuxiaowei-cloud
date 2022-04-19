@@ -39,3 +39,11 @@ git push --all --progress "gitlab"
 ```
 git pull --progress -v --no-rebase "origin"
 ```
+
+## 其他命令
+```
+git branch
+git branch -a
+
+git status
+```
