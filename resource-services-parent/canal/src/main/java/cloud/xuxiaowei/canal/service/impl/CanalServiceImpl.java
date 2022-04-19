@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @since 0.0.1
  */
 @Service
-@DS("xuxiaowei_cloud_log")
+@DS("log")
 public class CanalServiceImpl implements CanalService {
 
     @Resource

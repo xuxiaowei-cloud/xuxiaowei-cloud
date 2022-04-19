@@ -30,7 +30,7 @@ public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenM
      * @return 返回 分页查询结果
      */
     @Override
-    @DS("xuxiaowei_cloud_log")
+    @DS("log")
     public IPage<OauthRefreshToken> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo) {
         QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("oauth_refresh_token_id");
