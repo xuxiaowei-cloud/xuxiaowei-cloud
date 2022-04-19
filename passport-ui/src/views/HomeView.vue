@@ -57,6 +57,9 @@ import { login } from '@/api/user'
 
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const store = useStore()
 
@@ -94,9 +97,9 @@ const submitCloudForm = () => {
         JsEncrypt.prototype.setPublicKey(rsa_public_key_base64)
         password = JsEncrypt.prototype.encrypt(password)
       }
-      // 可填写：授权重定向地址
-      const redirectUri = ''
-      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri).then(response => {
+      const redirectUri = route.query.redirectUri
+      const homePage = route.query.homePage
+      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then(response => {
         console.log(response)
         const msg = response.msg
 
