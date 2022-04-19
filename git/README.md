@@ -12,6 +12,12 @@ git push -f --all
 # 重新检出克隆，查看文件是否已被删除
 ```
 
+## 克隆
+
+```
+git clone --progress -v "https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
+```
+
 ## 推送
 
 ```
