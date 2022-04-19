@@ -5,6 +5,7 @@
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="oauthRefreshTokenId" label="oauthRefreshTokenId" width="175"/>
+      <el-table-column prop="tokenId" label="tokenId" width="300"/>
       <el-table-column prop="username" label="username" width="130"/>
       <el-table-column prop="clientId" label="clientId" width="160"/>
       <el-table-column prop="remoteAddress" label="remoteAddress" width="130"/>
@@ -21,7 +22,6 @@
       <el-table-column prop="expiration" label="expiration" width="160"/>
       <el-table-column prop="sessionId" label="sessionId" width="300"/>
       <el-table-column prop="state" label="state" width="300"/>
-      <el-table-column prop="tokenId" label="authorities" width="300"/>
       <el-table-column fixed="right" label="Operations" width="100">
         <template #default="scope">
           <el-button type="text" size="small" v-if="scope.row.deleted" disabled>Delete</el-button>

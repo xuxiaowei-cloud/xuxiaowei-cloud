@@ -5,6 +5,7 @@
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
+      <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="userName" label="userName" width="130"/>
       <el-table-column prop="clientId" label="clientId" width="160"/>
       <el-table-column prop="remoteAddress" label="remoteAddress" width="130"/>
@@ -20,8 +21,6 @@
       <el-table-column prop="expiration" label="expiration" width="160"/>
       <el-table-column prop="authenticationId" label="authenticationId" width="270"/>
       <el-table-column prop="jti" label="jti" width="260"/>
-      <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
-      <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="refreshTokenEncryption" label="refreshTokenEncryption" width="190" :show-overflow-tooltip="true"/>
       <el-table-column prop="refreshTokenExpiration" label="refreshTokenExpiration" width="190"/>
       <el-table-column prop="tokenId" label="tokenId" width="300"/>
