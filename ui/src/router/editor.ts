@@ -3,7 +3,7 @@ const audit = [
     path: '/editor/tui-ui-editor',
     name: 'tui-editor',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     component: () => import('../views/editor/ToastUiEditorView.vue')
   },
@@ -11,7 +11,7 @@ const audit = [
     path: '/editor/wangeditor',
     name: 'wangeditor',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     component: () => import('../views/editor/WangEditorView.vue')
   }

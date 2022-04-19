@@ -3,7 +3,7 @@ const home = [
     path: '/home/homepage1',
     name: 'homepage1',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     component: () => import('@/views/home/homepage1.vue')
   },
@@ -11,7 +11,7 @@ const home = [
     path: '/home/homepage2',
     name: 'homepage2',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     component: () => import('@/views/home/homepage2.vue')
   }
