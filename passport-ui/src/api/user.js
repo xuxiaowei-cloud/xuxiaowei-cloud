@@ -9,15 +9,17 @@ import request from '@/utils/request'
  * @param token CSRF Token Value
  * @param rememberMeParameter 记住我参数名
  * @param redirectUri 授权重定向地址
+ * @param homePage 登录成功主页
  * @returns {*}
  */
-export const login = function (username, password, rememberMe, header, token, rememberMeParameter, redirectUri) {
+export const login = function (username, password, rememberMe, header, token, rememberMeParameter, redirectUri, homePage) {
   // 以 form 提交
   const formData = new FormData()
   formData.append('username', username)
   formData.append('password', password)
   formData.append(rememberMeParameter, rememberMe)
   formData.append('redirectUri', redirectUri)
+  formData.append('homePage', homePage)
   const headers = {}
   headers[header] = token
   return request.post('/login', formData, {
