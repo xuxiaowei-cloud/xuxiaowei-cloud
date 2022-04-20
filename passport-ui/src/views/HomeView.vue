@@ -98,6 +98,8 @@ const submitCloudForm = () => {
         password = JsEncrypt.prototype.encrypt(password)
       }
       const redirectUri = route.query.redirectUri
+
+      // encodeURIComponent()
       const homePage = route.query.homePage
       login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then(response => {
         console.log(response)

@@ -31,12 +31,12 @@ public enum ServiceEnums {
     /**
      * 审计服务
      */
-    audit("audit", "审计服务"),
+    AUDIT("audit", "审计服务"),
 
     /**
      * 阿里巴巴 MySQL binlog 增量订阅、消费服务
      */
-    canal("canal", "阿里巴巴 MySQL binlog 增量订阅、消费服务"),
+    CANAL("canal", "阿里巴巴 MySQL binlog 增量订阅、消费服务"),
 
     ;
 

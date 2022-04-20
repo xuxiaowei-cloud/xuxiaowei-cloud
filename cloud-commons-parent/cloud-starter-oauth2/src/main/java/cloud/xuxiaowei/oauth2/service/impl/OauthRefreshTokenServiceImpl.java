@@ -1,7 +1,6 @@
 package cloud.xuxiaowei.oauth2.service.impl;
 
 import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
-import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
 import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import cloud.xuxiaowei.oauth2.mapper.OauthRefreshTokenMapper;
 import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
@@ -11,6 +10,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -36,6 +36,56 @@ public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenM
         queryWrapper.orderByDesc("oauth_refresh_token_id");
         Long current = auditRefreshTokenPageBo.getCurrent();
         Long size = auditRefreshTokenPageBo.getSize();
+
+        Long oauthRefreshTokenId = auditRefreshTokenPageBo.getOauthRefreshTokenId();
+        if (oauthRefreshTokenId != null) {
+            queryWrapper.eq("oauth_refresh_token_id", oauthRefreshTokenId);
+        }
+
+        String tokenId = auditRefreshTokenPageBo.getTokenId();
+        if (StringUtils.hasText(tokenId)) {
+            queryWrapper.eq("token_id", tokenId);
+        }
+
+        String username = auditRefreshTokenPageBo.getUsername();
+        if (StringUtils.hasText(username)) {
+            queryWrapper.eq("username", username);
+        }
+
+        String clientId = auditRefreshTokenPageBo.getClientId();
+        if (StringUtils.hasText(clientId)) {
+            queryWrapper.eq("client_id", clientId);
+        }
+
+        String remoteAddress = auditRefreshTokenPageBo.getRemoteAddress();
+        if (StringUtils.hasText(remoteAddress)) {
+            queryWrapper.eq("remote_address", remoteAddress);
+        }
+
+        String scope = auditRefreshTokenPageBo.getScope();
+        if (StringUtils.hasText(scope)) {
+            queryWrapper.eq("scope", scope);
+        }
+
+        String redirectUri = auditRefreshTokenPageBo.getRedirectUri();
+        if (StringUtils.hasText(redirectUri)) {
+            queryWrapper.eq("redirect_uri", redirectUri);
+        }
+
+        String refreshToken = auditRefreshTokenPageBo.getRefreshToken();
+        if (StringUtils.hasText(refreshToken)) {
+            queryWrapper.eq("refresh_token", refreshToken);
+        }
+
+        String sessionId = auditRefreshTokenPageBo.getSessionId();
+        if (StringUtils.hasText(sessionId)) {
+            queryWrapper.eq("session_id", sessionId);
+        }
+
+        String state = auditRefreshTokenPageBo.getState();
+        if (StringUtils.hasText(state)) {
+            queryWrapper.eq("state", state);
+        }
 
         IPage<OauthRefreshToken> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
         return page(page, queryWrapper);

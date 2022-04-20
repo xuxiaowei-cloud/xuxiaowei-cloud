@@ -22,6 +22,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
+import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -57,6 +58,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
     private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
 
+    private ServerAccessDeniedHandler serverAccessDeniedHandler;
+
     private CorsBeforeWebFilter corsBeforeWebFilter;
 
     private CloudWhiteListProperties cloudWhiteListProperties;
@@ -69,6 +72,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
     @Autowired
     public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
         this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
+    }
+
+    @Autowired
+    public void setServerAccessDeniedHandler(ServerAccessDeniedHandler serverAccessDeniedHandler) {
+        this.serverAccessDeniedHandler = serverAccessDeniedHandler;
     }
 
     @Autowired
@@ -114,6 +122,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
         // 身份验证入口点
         http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
+        // 服务器访问被拒绝处理程序
+        http.oauth2ResourceServer().accessDeniedHandler(serverAccessDeniedHandler);
 
         return http.build();
     }
@@ -185,6 +195,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
             for (CloudWhiteListProperties.Service service : services) {
                 String name = service.getName();
                 List<String> pathList = service.getPathList();
+
+                // 放行所有：/**
+                if (pathList.contains("/**")) {
+                    return true;
+                }
 
                 if (serviceName.equals(name)) {
                     String substring = path.substring(serviceName.length() + 1);
