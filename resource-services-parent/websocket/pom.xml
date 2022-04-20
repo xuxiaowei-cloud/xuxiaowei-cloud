@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>websocket</name>
-    <description>WebSocket服务</description>
+    <description>WebSocket 服务</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 

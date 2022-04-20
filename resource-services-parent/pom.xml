@@ -29,6 +29,8 @@
         <module>canal</module>
         <!-- 用户服务 -->
         <module>user</module>
+        <!-- WebSocket 服务 -->
+        <module>websocket</module>
     </modules>
 
     <dependencies>
