@@ -1,7 +1,7 @@
 # 服务器
 server:
   # 端口
-  port: ${websocket_port:1501}
+  port: ${websocket_port:1801}
 #
 # Spring 配置
 spring:
