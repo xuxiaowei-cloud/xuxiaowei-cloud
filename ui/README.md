@@ -119,6 +119,10 @@ npm create vite@latest ui -- --template vue-ts
     - @toast-ui/editor
     - @wangeditor/editor-for-vue
 
+1. WebSocket
+    - sockjs-client
+    - stompjs
+
 ## 依赖地址
 
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
@@ -129,6 +133,8 @@ npm create vite@latest ui -- --template vue-ts
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
+- [sockjs-client](https://www.npmjs.com/package/sockjs-client)
+- [stompjs](https://www.npmjs.com/package/stompjs)
 - [vue](https://www.npmjs.com/package/vue)
 - [vue-echarts](https://www.npmjs.com/package/vue-echarts)
 - [vue-router](https://www.npmjs.com/package/vue-router)

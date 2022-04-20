@@ -196,6 +196,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
                 String name = service.getName();
                 List<String> pathList = service.getPathList();
 
+                // 放行所有：/**
+                if (pathList.contains("/**")) {
+                    return true;
+                }
+
                 if (serviceName.equals(name)) {
                     String substring = path.substring(serviceName.length() + 1);
 

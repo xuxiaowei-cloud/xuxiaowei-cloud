@@ -55,6 +55,8 @@ public class CloudWhiteListProperties {
 
         /**
          * 路径
+         * <p>
+         * 放行所有：/**
          */
         private List<String> pathList = Collections.emptyList();
 

@@ -276,6 +276,11 @@ cloud:
           - /oauth/check_token
           # 获取Token
           - /oauth/token
+      - name: websocket
+        path-list:
+          # 放行所有路径
+          # WebSocket 服务不使用网关进行鉴权
+          - /**
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
