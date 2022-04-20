@@ -13,7 +13,7 @@ import Stomp from 'stompjs'
 
 import store from '../../store'
 
-let stompClient = null
+let stompClient: any = null
 
 const connect = () => {
   const socket = new SockJS(import.meta.env.VITE_APP_BASE_API + '/websocket/broadcast?access_token=' + store.getters.accessToken)
@@ -23,10 +23,10 @@ const connect = () => {
 
   stompClient.connect({
     authorization: 'Bearer ' + store.getters.accessToken
-  }, function (frame) {
+  }, function (frame: any) {
     console.log('Stomp SockJS 已连接')
 
-    stompClient.subscribe('/topic/broadcast', function (message) {
+    stompClient.subscribe('/topic/broadcast', function (message: { body: string }) {
       const body = JSON.parse(message.body)
       if (body.online === true) {
         console.log('上线通知', body)
@@ -35,7 +35,7 @@ const connect = () => {
       } else {
         console.log('消息', body)
       }
-    }, function (err) { // 连接异常
+    }, function (err: any) { // 连接异常
       console.log('连接异常：', err)
     })
   })
