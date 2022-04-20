@@ -10,6 +10,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
+import org.springframework.web.socket.handler.WebSocketHandlerDecoratorFactory;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 /**
@@ -30,6 +31,8 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
 
     private HandshakeInterceptor handshakeInterceptor;
 
+    private WebSocketHandlerDecoratorFactory webSocketHandlerDecoratorFactory;
+
     @Autowired
     public void setCloudWebSocketProperties(CloudWebSocketProperties cloudWebSocketProperties) {
         this.cloudWebSocketProperties = cloudWebSocketProperties;
@@ -38,6 +41,11 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
     @Autowired
     public void setHandshakeInterceptor(HandshakeInterceptor handshakeInterceptor) {
         this.handshakeInterceptor = handshakeInterceptor;
+    }
+
+    @Autowired
+    public void setWebSocketHandlerDecoratorFactory(WebSocketHandlerDecoratorFactory webSocketHandlerDecoratorFactory) {
+        this.webSocketHandlerDecoratorFactory = webSocketHandlerDecoratorFactory;
     }
 
     /**
@@ -85,7 +93,7 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
      */
     @Override
     public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
-        registry.addDecoratorFactory(WebSocketHandlerDecoratorConfiguration::new);
+        registry.addDecoratorFactory(webSocketHandlerDecoratorFactory);
     }
 
 }
