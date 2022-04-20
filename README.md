@@ -109,6 +109,7 @@ cloud.xuxiaowei
 │        └──audit                           // 审计服务
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──user                            // 用户服务
+│        └──websocket                       // WebSocket 服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -149,6 +150,7 @@ cloud.xuxiaowei
 | audit | 审计服务 |  | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
+| websocket | WebSocket 服务 |  | 1801 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
 
 ### 用户名与密码

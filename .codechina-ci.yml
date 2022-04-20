@@ -69,6 +69,7 @@ package:
       - resource-services-parent/audit/target/audit-*
       - resource-services-parent/canal/target/canal-*
       - resource-services-parent/user/target/user-*
+      - resource-services-parent/websocket/target/websocket-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
