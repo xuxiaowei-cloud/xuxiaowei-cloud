@@ -5,4 +5,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cloud.xuxiaowei.core.properties.CloudCorsProperties,\
   cloud.xuxiaowei.core.properties.CloudRememberMeProperties,\
   cloud.xuxiaowei.core.properties.CloudSecurityProperties,\
+  cloud.xuxiaowei.core.properties.CloudWebSocketProperties,\
   cloud.xuxiaowei.core.properties.CloudWhiteListProperties

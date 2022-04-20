@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.websocket.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudWebSocketProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -25,7 +26,14 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 @EnableWebSocketMessageBroker
 public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketMessageBrokerConfigurer {
 
+    private CloudWebSocketProperties cloudWebSocketProperties;
+
     private HandshakeInterceptor handshakeInterceptor;
+
+    @Autowired
+    public void setCloudWebSocketProperties(CloudWebSocketProperties cloudWebSocketProperties) {
+        this.cloudWebSocketProperties = cloudWebSocketProperties;
+    }
 
     @Autowired
     public void setHandshakeInterceptor(HandshakeInterceptor handshakeInterceptor) {
@@ -66,8 +74,8 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
         // 启用 SockJS 后备选项。
         registry.addEndpoint("/broadcast")
                 .addInterceptors(handshakeInterceptor)
-                // 由于通过网关进行调用，故无需在此配置跨域
-                // .setAllowedOrigins()
+                // 跨域配置，未配置将返回HTTP代码403
+                .setAllowedOrigins(cloudWebSocketProperties.getAllowedOrigins())
                 .withSockJS();
 
     }
