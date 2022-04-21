@@ -8,7 +8,11 @@
 </template>
 
 <script setup lang="ts">
+// TS 打包不处理
+// @ts-ignore
 import SockJS from 'sockjs-client/dist/sockjs.min'
+// TS 打包不处理
+// @ts-ignore
 import Stomp from 'stompjs'
 
 import store from '../../store'
