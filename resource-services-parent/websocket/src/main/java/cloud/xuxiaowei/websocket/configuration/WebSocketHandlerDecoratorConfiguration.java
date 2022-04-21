@@ -1,11 +1,22 @@
 package cloud.xuxiaowei.websocket.configuration;
 
 import cloud.xuxiaowei.utils.UrlUtils;
+import cloud.xuxiaowei.websocket.message.OnlineMessage;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.lang.NonNull;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * WebSocket 消息和生命周期事件的处理程序。
@@ -15,6 +26,23 @@ import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
  */
 @Slf4j
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
+
+    /**
+     * 总在线用户
+     */
+    private static final Map<String, WebSocketSession> ALL_WEB_SOCKET_SESSION = new ConcurrentHashMap<>();
+
+    private SimpMessagingTemplate messagingTemplate;
+
+    private TokenStore tokenStore;
+
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        messagingTemplate = applicationContext.getBean(SimpMessagingTemplate.class);
+        tokenStore = applicationContext.getBean(TokenStore.class);
+
+        log.info("使用 ApplicationContext 获取 SimpMessagingTemplate：{}", messagingTemplate);
+        log.info("使用 ApplicationContext 获取 TokenStore：{}", tokenStore);
+    }
 
     public WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
         super(delegate);
@@ -37,7 +65,15 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         // 需要解析授权Token
         String accessToken = UrlUtils.getAccessToken(session.getUri());
 
-//        log.info("上线: " + name);
+        OAuth2Authentication oauth2Authentication = tokenStore.readAuthentication(accessToken);
+        String name = oauth2Authentication.getName();
+        log.info("上线: " + name);
+
+        ALL_WEB_SOCKET_SESSION.put(name, session);
+
+        // 用户上线通知
+        // 放在添加用户后面
+        online(name, true);
 
     }
 
@@ -53,7 +89,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         // 需要解析授权Token
         String accessToken = UrlUtils.getAccessToken(session.getUri());
 
-//        log.info("接收到用户: " + name + " 的消息");
+        OAuth2Authentication oauth2Authentication = tokenStore.readAuthentication(accessToken);
+        String name = oauth2Authentication.getName();
+        log.info("接收到用户: " + name + " 的消息");
         log.info("消息内容：\n" + message.getPayload());
 
     }
@@ -70,7 +108,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         // 需要解析授权Token
         String accessToken = UrlUtils.getAccessToken(session.getUri());
 
-//        log.info("接收到用户: " + name + " 的异常");
+        OAuth2Authentication oauth2Authentication = tokenStore.readAuthentication(accessToken);
+        String name = oauth2Authentication.getName();
+        log.info("接收到用户: " + name + " 的异常");
         log.info("异常信息：" + exception.getMessage());
 
     }
@@ -89,8 +129,45 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         // 需要解析授权Token
         String accessToken = UrlUtils.getAccessToken(session.getUri());
 
-//        log.info("离线: " + name);
+        OAuth2Authentication oauth2Authentication = tokenStore.readAuthentication(accessToken);
+        String name = oauth2Authentication.getName();
+        log.info("离线: " + name);
 
+        ALL_WEB_SOCKET_SESSION.remove(name);
+
+        // 用户下线通知
+        // 放在移除用户后面
+        online(name, false);
+
+    }
+
+    /**
+     * 用户上线/下线通知
+     * <p>
+     * 放在添加用户后面
+     *
+     * @param username 上线用户名
+     * @param online   true 上线，false 下线
+     */
+    private void online(String username, boolean online) {
+
+        OnlineMessage onlineMessage = new OnlineMessage();
+        onlineMessage.setOnline(online);
+        onlineMessage.setUsername(username);
+        onlineMessage.setNumber(ALL_WEB_SOCKET_SESSION.size());
+
+        String payload = JSONObject.toJSONString(onlineMessage);
+
+        for (Map.Entry<String, WebSocketSession> entry : ALL_WEB_SOCKET_SESSION.entrySet()) {
+            String key = entry.getKey();
+            if (!username.equals(key)) {
+                WebSocketSession value = entry.getValue();
+
+                messagingTemplate.convertAndSend("/topic/broadcast", payload,
+                        Collections.singletonMap(SimpMessageHeaderAccessor.SESSION_ID_HEADER, value.getId()));
+
+            }
+        }
     }
 
 }
