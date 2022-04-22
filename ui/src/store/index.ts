@@ -1,8 +1,10 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import settings from '../settings'
-import { checkToken } from '../api/authorization-server'
 import { LocationQuery, Router } from 'vue-router'
+
+import settings from '../settings'
+
+import { checkToken } from '../api/authorization-server'
 import { info } from '../api/user'
 
 const store = createStore({
@@ -12,6 +14,7 @@ const store = createStore({
     nickname: null, // 昵称
     authorities: [], // 权限
     accessToken: null, // Token
+    checkTokenTime: null, // 检查Token时间
     refreshToken: null, // 刷新Token
     jti: null, // 票据
     defaultActive: '/', // 获取默认激活菜单
@@ -52,6 +55,13 @@ const store = createStore({
      */
     accessToken (state) {
       return state.accessToken
+    },
+    /**
+     * 获取 检查Token时间
+     * @param state 单一状态树
+     */
+    checkTokenTime (state) {
+      return state.checkTokenTime
     },
     /**
      * 获取 刷新Token
@@ -122,6 +132,14 @@ const store = createStore({
      */
     setAccessToken (state, accessToken) {
       state.accessToken = accessToken
+    },
+    /**
+     * 设置 检查Token时间
+     * @param state
+     * @param checkTokenTime
+     */
+    setCheckTokenTime (state, checkTokenTime) {
+      state.checkTokenTime = checkTokenTime
     },
     /**
      * 设置 刷新Token
@@ -199,8 +217,10 @@ export const queryToken = function (query: LocationQuery, router: Router) {
     console.log('已完成store中的refreshToken缓存：', store.getters.refreshToken)
     console.log('已完成store中的jti缓存：', store.getters.jti)
 
+    // 此次检查Token，不受 settings.state.checkTokenInterval 控制
     checkToken(store.getters.accessToken).then(response => {
       console.log('完成store中的Token缓存后检查Token', response)
+      store.commit('setCheckTokenTime', new Date().getTime())
       info().then(() => {})
     })
 
@@ -208,8 +228,21 @@ export const queryToken = function (query: LocationQuery, router: Router) {
 
     })
   } else {
-    checkToken(store.getters.accessToken).then(response => {
-      console.log('检查Token', response)
-    })
+    const checkTokenInterval = settings.state.checkTokenInterval
+    console.log(new Date().getTime() - store.getters.checkTokenTime)
+
+    if (checkTokenInterval === -1) {
+      console.log('路由不检查Token')
+    } else if (checkTokenInterval === 0) {
+      checkToken(store.getters.accessToken).then(response => {
+        console.log('检查Token', response)
+        store.commit('setCheckTokenTime', new Date().getTime())
+      })
+    } else if (checkTokenInterval > 0 && new Date().getTime() - store.getters.checkTokenTime > checkTokenInterval) {
+      checkToken(store.getters.accessToken).then(response => {
+        console.log('超过检查Token时间间隔后，检查Token结果', response)
+        store.commit('setCheckTokenTime', new Date().getTime())
+      })
+    }
   }
 }

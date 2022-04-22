@@ -32,7 +32,15 @@ const settings = {
       'T10003',
       // 令牌无效
       'T10004'
-    ]
+    ],
+    /**
+     * 路由切换时 检查Token 时间间隔（单位：毫秒）
+     *
+     * -1：不检查
+     * 0：每次都检查
+     * > 0：按照时间间隔查询
+     */
+    checkTokenInterval: -1
   },
   mutations: {},
   actions: {}
