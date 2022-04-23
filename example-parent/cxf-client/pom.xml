@@ -26,6 +26,7 @@
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
         <cxf.version>3.5.2</cxf.version>
 
         <!-- 打包时跳过单元测试 -->
@@ -44,6 +45,13 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>${cxf.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-features-logging</artifactId>
+            <version>${cxf.version}</version>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
