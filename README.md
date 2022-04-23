@@ -153,7 +153,7 @@ cloud.xuxiaowei
 | user | 用户服务 |  | 1701 |
 | websocket | WebSocket 服务 |  | 1801 |
 | webservice | WebService 服务 |  | 1901 |
-| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
+| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
 
 ### 用户名与密码
 
