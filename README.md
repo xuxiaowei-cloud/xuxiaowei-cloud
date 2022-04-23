@@ -131,6 +131,7 @@ cloud.xuxiaowei
 │        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
+│        └──cxf-client                      // CXF 2.0 客户端（独立服务）
 ```
 
 ### 端口
@@ -154,6 +155,7 @@ cloud.xuxiaowei
 | websocket | WebSocket 服务 |  | 1801 |
 | webservice | WebService 服务 |  | 1901 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
+| cxf-client | CXF 客户端（独立服务） |  | 10002 |
 
 ### 用户名与密码
 
