@@ -46,7 +46,7 @@ public class WebServiceConfiguration {
      * @return 返回 CXF {@link ServletRegistrationBean}
      */
     @Bean
-    public ServletRegistrationBean<CXFServlet> ws() {
+    public ServletRegistrationBean<CXFServlet> cxfServlet() {
         return new ServletRegistrationBean<>(new CXFServlet(), "/cxf/*");
     }
 
