@@ -2,7 +2,9 @@ package cloud.xuxiaowei.webservice.configuration;
 
 import cloud.xuxiaowei.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -36,7 +38,7 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
     }
 
     @Autowired
-    public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
+    public void setAuthenticationEntryPoint(@Qualifier("cxfAuthenticationEntryPointImpl") AuthenticationEntryPoint authenticationEntryPoint) {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
@@ -66,6 +68,11 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
 
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
+
+        // 放行 CXF GET 请求
+        http.antMatcher("/cxf/**")
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/cxf/**").permitAll();
 
         // OAuth2 授权后可访问
         http.antMatcher("/**").authorizeRequests()
