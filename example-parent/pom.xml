@@ -22,6 +22,8 @@
     </properties>
 
     <modules>
+        <!-- CXF 客户端 -->
+        <module>cxf-client</module>
         <!-- OAuth 2.0 客户端 -->
         <module>oauth2-client</module>
     </modules>

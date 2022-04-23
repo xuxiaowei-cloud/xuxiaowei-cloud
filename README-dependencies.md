@@ -292,6 +292,22 @@ cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.7:test
 
 
+cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
+│        └──commons-io:commons-io:jar:2.11.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
+│        └──org.projectlombok:lombok:jar:1.18.24:compile
+│        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.7:test
+
+
 cloud.xuxiaowei:websocket:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-websocket:jar:2.6.7:compile
 │        └──com.alibaba:fastjson:jar:2.0.1:compile

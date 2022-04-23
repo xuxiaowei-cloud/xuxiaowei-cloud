@@ -84,6 +84,11 @@
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <hutool-all.version>5.7.22</hutool-all.version>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
+        <cxf.version>3.5.2</cxf.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -265,6 +270,26 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-features-logging</artifactId>
+                <version>${cxf.version}</version>
+                <!--<scope>test</scope>-->
             </dependency>
 
             <!-- 工具类 -->

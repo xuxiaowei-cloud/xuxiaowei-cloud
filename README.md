@@ -110,6 +110,7 @@ cloud.xuxiaowei
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
+│        └──webservice                      // WebService 服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -130,6 +131,7 @@ cloud.xuxiaowei
 │        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
+│        └──cxf-client                      // CXF 2.0 客户端（独立服务）
 ```
 
 ### 端口
@@ -151,7 +153,9 @@ cloud.xuxiaowei
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
 | websocket | WebSocket 服务 |  | 1801 |
-| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
+| webservice | WebService 服务 |  | 1901 |
+| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
+| cxf-client | CXF 客户端（独立服务） |  | 10002 |
 
 ### 用户名与密码
 

@@ -3,12 +3,16 @@ package cloud.xuxiaowei.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.web.server.ServerWebExchange;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
@@ -110,6 +114,43 @@ public class RequestUtils {
      */
     public static String getUserAgent(@NonNull HttpServletRequest request) {
         return request.getHeader(HttpHeaders.USER_AGENT);
+    }
+
+    /**
+     * 请求参数流
+     *
+     * @param request 请求
+     * @return 返回 请求参数流
+     * @throws IOException 读取流异常
+     * @see HttpServletRequest#getContentLength()  请关注是否为负数
+     */
+    public static String getInputStream(HttpServletRequest request) throws IOException {
+        ServletInputStream inputStream = request.getInputStream();
+        int contentLength = request.getContentLength();
+        if (contentLength == -1) {
+            // GET 请求时
+            // DELETE、HEAD、OPTIONS 请求未设置流时
+            return null;
+        } else {
+            byte[] bytes = new byte[contentLength];
+            String characterEncoding = request.getCharacterEncoding();
+            inputStream.read(bytes);
+            return new String(bytes, characterEncoding);
+        }
+    }
+
+    /**
+     * 请求参数流
+     *
+     * @param request 请求
+     * @return 返回 请求参数流
+     * @throws IOException 读取流异常
+     * @see HttpServletRequest#getContentLength()  无需关注是否为负数
+     */
+    public static String copyInputStream(HttpServletRequest request) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        IOUtils.copy(request.getInputStream(), byteArrayOutputStream);
+        return byteArrayOutputStream.toString();
     }
 
 }
