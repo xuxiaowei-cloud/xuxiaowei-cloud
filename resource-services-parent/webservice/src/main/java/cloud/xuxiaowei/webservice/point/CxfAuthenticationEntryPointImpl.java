@@ -7,6 +7,7 @@ import com.google.common.net.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
 import org.dom4j.*;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
@@ -21,8 +22,12 @@ import javax.xml.soap.SOAPConstants;
 import java.io.IOException;
 import java.util.List;
 
+import static cloud.xuxiaowei.utils.Response.REQUEST_ID;
+
 /**
  * CXF 身份验证入口点
+ * <p>
+ * 1、要求 WebService 命名空间在 {@link CloudWebServiceProperties#getNamespaceUriList()} 中<p>
  *
  * @author xuxiaowei
  * @see MediaType#XML_UTF_8 SOAP 1.1
@@ -73,6 +78,19 @@ public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint
             return;
         }
 
+        response(requestDocument, response, authException);
+
+    }
+
+    /**
+     * 响应数据
+     *
+     * @param requestDocument XML Document
+     * @param response        响应
+     * @param authException   异常
+     * @throws IOException 响应异常
+     */
+    private void response(Document requestDocument, HttpServletResponse response, AuthenticationException authException) throws IOException {
         // 获取父节点
         Element rootElement = requestDocument.getRootElement();
 
@@ -126,39 +144,24 @@ public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint
 
         Element responseElement = methodNameResponse.addElement("response");
 
-        Element codeElement = responseElement.addElement("code");
-        Element msgElement = responseElement.addElement("msg");
-        Element dataElement = responseElement.addElement("data");
-        Element fieldElement = responseElement.addElement("field");
-        Element explainElement = responseElement.addElement("explain");
-        Element requestIdElement = responseElement.addElement("requestId");
-
-        Response<?> error = Response.error(CodeEnums.T00000.code, CodeEnums.T00000.msg);
+        Element codeElement = responseElement.addElement(Response.CODE);
+        Element msgElement = responseElement.addElement(Response.MSG);
+        Element dataElement = responseElement.addElement(Response.DATA);
+        Element fieldElement = responseElement.addElement(Response.FIELD);
+        Element explainElement = responseElement.addElement(Response.EXPLAIN);
+        Element requestIdElement = responseElement.addElement(Response.REQUEST_ID);
 
         if (!(authException instanceof InsufficientAuthenticationException)) {
-            error.setExplain(authException.getMessage());
+            explainElement.setText(authException.getMessage());
         }
-        String code = error.getCode();
-        String msg = error.getMsg();
-        String field = error.getField();
-        String explain = error.getExplain();
-        String requestId = error.getRequestId();
 
-        if (code != null) {
-            codeElement.setText(code);
-        }
-        if (msg != null) {
-            msgElement.setText(msg);
-        }
-        if (field != null) {
-            fieldElement.setText(field);
-        }
-        if (explain != null) {
-            explainElement.setText(explain);
-        }
+        String requestId = MDC.get(REQUEST_ID);
         if (requestId != null) {
             requestIdElement.setText(requestId);
         }
+
+        codeElement.setText(CodeEnums.T00000.code);
+        msgElement.setText(CodeEnums.T00000.msg);
 
         String asXml = Dom4jUtils.asXml(responseDocument);
         log.info("CXF 身份验证入口点-响应：{}", asXml);
