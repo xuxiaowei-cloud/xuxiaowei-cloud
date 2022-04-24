@@ -19,10 +19,7 @@ public class ResponseUserVo implements Serializable {
 
     public static final String REQUEST_ID = "requestId";
 
-    /**
-     * 仅为自动装载数据使用
-     */
-    private ResponseUserVo() {
+    public ResponseUserVo() {
 
     }
 

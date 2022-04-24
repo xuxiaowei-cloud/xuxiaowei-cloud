@@ -184,3 +184,9 @@ encrypt:
     alias: xuxiaowei.cloud-alias
     # 密码
     password: xuxiaowei.cloud-storepass
+
+
+cloud:
+  web-service:
+    namespace-uri-list:
+      - http://webservice.xuxiaowei.cloud
