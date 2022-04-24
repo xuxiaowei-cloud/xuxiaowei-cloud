@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 
 import java.util.List;
@@ -14,6 +15,13 @@ import java.util.List;
  */
 @Slf4j
 class RequestMatcherTests {
+
+    @Test
+    void ipAddressMatcher() {
+        IpAddressMatcher ipAddressMatcher = new IpAddressMatcher("192.168.5.1/24");
+        boolean matches = ipAddressMatcher.matches("192.168.5.2");
+        System.out.println(matches);
+    }
 
     @Test
     void patternsRequestCondition() {
