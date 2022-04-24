@@ -42,6 +42,12 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
+        <!-- 提供：HttpServletRequest -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- 负载均衡组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
