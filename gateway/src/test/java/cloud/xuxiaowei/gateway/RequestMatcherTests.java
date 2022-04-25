@@ -1,23 +1,21 @@
 package cloud.xuxiaowei.gateway;
 
+import cloud.xuxiaowei.utils.IpAddressMatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.web.util.matcher.*;
-import org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition;
-import org.springframework.web.reactive.result.method.RequestMappingInfo;
 
 /**
  * 路径、IP匹配 测试类
  *
  * @author xuxiaowei
- * @see RequestMatcher
- * @see IpAddressMatcher
- * @see ELRequestMatcher
- * @see RequestHeaderRequestMatcher
- * @see MediaTypeRequestMatcher
- * @see RegexRequestMatcher
- * @see RequestMethodsRequestCondition
- * @see RequestMappingInfo
+ * @see org.springframework.security.web.util.matcher.RequestMatcher
+ * @see org.springframework.security.web.util.matcher.IpAddressMatcher
+ * @see org.springframework.security.web.util.matcher.ELRequestMatcher
+ * @see org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher
+ * @see org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
+ * @see org.springframework.security.web.util.matcher.RegexRequestMatcher
+ * @see org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition
+ * @see org.springframework.web.reactive.result.method.RequestMappingInfo
  * @since 0.0.1
  */
 @Slf4j
