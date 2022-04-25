@@ -116,10 +116,12 @@ spring:
   # 数据库
   datasource:
     dynamic:
-      primary: xuxiaowei_cloud #设置默认的数据源或者数据源组,默认值即为master
-      strict: true #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      # 设置默认的数据源或者数据源组，默认值即为 master
+      primary: master
+      # 严格匹配数据源，默认false。true未匹配到指定数据源时抛异常，false使用默认数据源
+      strict: true
       datasource:
-        xuxiaowei_cloud:
+        master:
           # 数据库 连接串
           # url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&serverTimezone=GMT%2B8
           # 数据库 连接串 - 测试环境使用

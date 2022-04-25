@@ -18,6 +18,7 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+import org.springframework.security.oauth2.server.resource.web.server.ServerBearerTokenAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
@@ -47,6 +48,7 @@ import java.util.UUID;
  * @author xuxiaowei
  * @see EnableWebFluxSecurity
  * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级 <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
+ * @see ServerBearerTokenAuthenticationConverter
  * @see ReactiveUserDetailsServiceAutoConfiguration
  * @since 0.0.1
  */
@@ -120,6 +122,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 
         // 在 CORS 之前执行
         http.addFilterBefore(corsBeforeWebFilter, SecurityWebFiltersOrder.CORS);
+
+        // 设置是否支持使用 URI 查询参数传输访问令牌。默认为 {@code false}。
+        ServerBearerTokenAuthenticationConverter bearerTokenConverter = new ServerBearerTokenAuthenticationConverter();
+        bearerTokenConverter.setAllowUriQueryParameter(true);
+        http.oauth2ResourceServer().bearerTokenConverter(bearerTokenConverter);
 
         // 身份验证入口点
         http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
