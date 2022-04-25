@@ -23,7 +23,7 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.6.6</spring-boot.version>
+        <spring-boot.version>2.6.7</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -78,8 +78,19 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
         <canal.version>1.1.5</canal.version>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <fastjson.version>2.0.1</fastjson.version>
+
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <hutool-all.version>5.7.22</hutool-all.version>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
+        <cxf.version>3.5.2</cxf.version>
+
+        <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+        <dom4j.version>2.1.3</dom4j.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -250,11 +261,45 @@
                 <version>${canal.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-features-logging -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-features-logging</artifactId>
+                <version>${cxf.version}</version>
+                <!--<scope>test</scope>-->
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
             </dependency>
 
             <!-- 工具类 -->

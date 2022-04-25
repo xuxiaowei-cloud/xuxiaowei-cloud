@@ -119,6 +119,10 @@ npm create vite@latest ui -- --template vue-ts
     - @toast-ui/editor
     - @wangeditor/editor-for-vue
 
+1. WebSocket
+    - sockjs-client
+    - stompjs
+
 ## 依赖地址
 
 - [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
@@ -129,13 +133,18 @@ npm create vite@latest ui -- --template vue-ts
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
+- [sockjs-client](https://www.npmjs.com/package/sockjs-client)
+- [stompjs](https://www.npmjs.com/package/stompjs)
 - [vue](https://www.npmjs.com/package/vue)
+- [vue-echarts](https://www.npmjs.com/package/vue-echarts)
 - [vue-router](https://www.npmjs.com/package/vue-router)
 - [vuex](https://www.npmjs.com/package/vuex)
 - [vuex-persistedstate](https://www.npmjs.com/package/vuex-persistedstate)
 
+- [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)
 - [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
 - [@vue/cli-plugin-eslint](https://www.npmjs.com/package/@vue/cli-plugin-eslint)
+- [@vue/cli-plugin-typescript](https://www.npmjs.com/package/@vue/cli-plugin-typescript)
 - [@vue/cli-service](https://www.npmjs.com/package/@vue/cli-service)
 - [@vue/eslint-config-standard](https://www.npmjs.com/package/@vue/eslint-config-standard)
 - [eslint](https://www.npmjs.com/package/eslint)
@@ -144,9 +153,11 @@ npm create vite@latest ui -- --template vue-ts
 - [eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise)
 - [eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue)
 - [lint-staged](https://www.npmjs.com/package/lint-staged)
+- [typescript](https://www.npmjs.com/package/typescript)
 - [unplugin-auto-import](https://www.npmjs.com/package/unplugin-auto-import)
 - [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
 - [vite](https://www.npmjs.com/package/vite)
+- [vue-tsc](https://www.npmjs.com/package/vue-tsc)
 
 ## 其他说明
 

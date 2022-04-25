@@ -19,4 +19,34 @@ public class AuditAccessTokenPageBo implements Serializable {
 
     private Long size;
 
+    private Long oauthAccessTokenId;
+
+    private String refreshToken;
+
+    private String userName;
+
+    private String clientId;
+
+    private String remoteAddress;
+
+    private String scope;
+
+    private String redirectUri;
+
+    private String responseType;
+
+    private String accessToken;
+
+    private String authenticationId;
+
+    private String jti;
+
+    private String refreshTokenEncryption;
+
+    private String tokenId;
+
+    private String sessionId;
+
+    private String state;
+
 }

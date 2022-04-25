@@ -47,4 +47,9 @@ public class Constant implements Serializable {
      */
     public static final String SCOPE = "scope";
 
+    /**
+     * 不明确
+     */
+    public static final String UNDEFINED = "undefined";
+
 }

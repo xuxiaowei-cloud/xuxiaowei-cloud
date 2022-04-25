@@ -135,7 +135,7 @@ spring:
           # driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
           # 数据库 驱动名称 - 测试环境使用
           driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-        xuxiaowei_cloud_log:
+        log:
           # 数据库 连接串
           # url: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database_log:xuxiaowei_cloud_log}?useSSL=false&serverTimezone=GMT%2B8
           # 数据库 连接串 - 测试环境使用

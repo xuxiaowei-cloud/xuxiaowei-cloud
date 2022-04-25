@@ -54,6 +54,8 @@ public class SignoutRestController {
     public Response<?> index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                              OAuth2Authentication oauth2Authentication) {
 
+        // 此处可记录用户退出登录的时间及IP等信息
+
         Object details = oauth2Authentication.getDetails();
         if (details instanceof OAuth2AuthenticationDetails) {
             OAuth2AuthenticationDetails oauth2AuthenticationDetails = (OAuth2AuthenticationDetails) details;

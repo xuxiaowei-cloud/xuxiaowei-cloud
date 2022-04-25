@@ -1,2 +1,2 @@
 server:
-  port: ${oauth2_client_port:2001}
+  port: ${oauth2_client_port:10001}

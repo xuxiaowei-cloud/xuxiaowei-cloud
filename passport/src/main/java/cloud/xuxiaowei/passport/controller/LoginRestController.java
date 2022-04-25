@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URL;
 import java.util.UUID;
+
+import static cloud.xuxiaowei.utils.Constant.UNDEFINED;
 
 /**
  * 登录
@@ -64,22 +67,46 @@ public class LoginRestController {
      * @param response    响应
      * @param session     Session，不存在时自动创建
      * @param redirectUri 授权重定向地址
+     * @param homePage    主页
      * @return 返回 登录成功提示语
      */
     @RequestMapping("/success")
     public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                               String redirectUri) {
+                               String redirectUri, String homePage) {
         String state = UUID.randomUUID().toString();
         session.setAttribute(cloudClientProperties.getStateName(), state);
 
         ResponseMap ok = ResponseMap.ok("登录成功");
 
-        if (StringUtils.hasText(redirectUri)) {
-            log.info("使用登录参数中的授权重定向地址：{}", redirectUri);
+        if (StringUtils.hasText(redirectUri) && !UNDEFINED.equals(redirectUri)) {
+            try {
+                new URL(redirectUri);
+                log.info("使用登录参数中的授权重定向地址：{}", redirectUri);
+            } catch (Exception e) {
+                log.error("非法授权重定向地址：", e);
+                redirectUri = cloudClientProperties.getRedirectUri();
+                log.warn("使用默认授权重定向地址：{}", redirectUri);
+            }
         } else {
             redirectUri = cloudClientProperties.getRedirectUri();
             log.info("使用默认授权重定向地址：{}", redirectUri);
         }
+
+        if (StringUtils.hasText(homePage) && !UNDEFINED.equals(homePage)) {
+            try {
+                new URL(homePage);
+                log.info("使用登录参数中的登录成功主页地址：{}", homePage);
+            } catch (Exception e) {
+                log.error("非法登录成功主页地址：", e);
+                homePage = cloudClientProperties.getHomePage();
+                log.warn("使用默认登录成功主页地址：{}", homePage);
+            }
+        } else {
+            homePage = cloudClientProperties.getHomePage();
+            log.info("使用默认登录成功主页地址：{}", homePage);
+        }
+        // 将登录成功主页放入Session中，用于授权成功后页面跳转
+        session.setAttribute(state, homePage);
 
         String authorizeUri = cloudClientProperties.authorizeUri(state, redirectUri);
         String checkTokenUri = cloudClientProperties.getCheckTokenUri();

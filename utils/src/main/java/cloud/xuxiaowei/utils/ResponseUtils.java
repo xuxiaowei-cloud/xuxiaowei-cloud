@@ -78,4 +78,19 @@ public class ResponseUtils {
         response.flushBuffer();
     }
 
+    /**
+     * 响应数据
+     *
+     * @param response    响应
+     * @param string      数据
+     * @param contentType 响应内容类型
+     * @throws IOException IO 异常
+     */
+    public static void response(@NonNull HttpServletResponse response, String string, String contentType) throws IOException {
+        response.setContentType(contentType);
+        response.getWriter().println(string);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+    }
+
 }

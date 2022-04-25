@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,13 +70,12 @@ public class CodeRestController {
 
         String stateName = cloudClientProperties.getStateName();
         String sessionState = session.getAttribute(stateName) + "";
+        session.removeAttribute(stateName);
         if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
             Response<?> error = Response.error("非法获取Token");
             ResponseUtils.response(response, error);
             log.error(String.valueOf(error));
             return;
-        } else {
-            session.removeAttribute(stateName);
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -93,7 +93,23 @@ public class CodeRestController {
         OAuth2AccessToken oauth2AccessToken = restTemplate.postForObject(cloudClientProperties.accessTokenUri(),
                 httpEntity, OAuth2AccessToken.class, map);
 
-        String homePage = cloudClientProperties.getHomePage();
+        String homePage;
+        final Object sessionHomePageObj = session.getAttribute(sessionState);
+        session.removeAttribute(sessionState);
+        if (sessionHomePageObj == null) {
+            homePage = cloudClientProperties.getHomePage();
+        } else {
+            try {
+                final String sessionHomePage = sessionHomePageObj + "";
+                new URL(sessionHomePage);
+                log.info("使用登录参数中的登录成功主页地址：{}", sessionHomePage);
+                homePage = sessionHomePage;
+            } catch (Exception e) {
+                log.error("非法登录成功主页地址：", e);
+                homePage = cloudClientProperties.getHomePage();
+                log.warn("使用默认登录成功主页地址：{}", homePage);
+            }
+        }
 
         assert oauth2AccessToken != null;
 

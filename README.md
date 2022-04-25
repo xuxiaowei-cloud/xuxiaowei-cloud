@@ -7,6 +7,9 @@
     <a href="https://996.icu/#/zh_CN">
         <img alt="Link-996" src="https://img.shields.io/badge/Link-996.icu-red.svg">
     </a>
+    <div>
+        <img alt="QQ群" src="https://img.shields.io/badge/QQ群-696503132-blue.svg"/>
+    </div>
 </div>
 
 <p align="center">
@@ -69,7 +72,7 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.6">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.6.7">
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -78,6 +81,10 @@
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
+  </a>
+
+  <a href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
+    <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_322-blue.svg"/>
   </a>
 
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
@@ -102,6 +109,8 @@ cloud.xuxiaowei
 │        └──audit                           // 审计服务
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──user                            // 用户服务
+│        └──websocket                       // WebSocket 服务
+│        └──webservice                      // WebService 服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -122,6 +131,7 @@ cloud.xuxiaowei
 │        └──rar-maven-plugin                // Maven 打包插件（独立模块）
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
+│        └──cxf-client                      // CXF 2.0 客户端（独立服务）
 ```
 
 ### 端口
@@ -142,7 +152,10 @@ cloud.xuxiaowei
 | audit | 审计服务 |  | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
-| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 2001 |
+| websocket | WebSocket 服务 |  | 1801 |
+| webservice | WebService 服务 |  | 1901 |
+| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
+| cxf-client | CXF 客户端（独立服务） |  | 10002 |
 
 ### 用户名与密码
 

@@ -1,12 +1,12 @@
 <template>
-  <el-container id="cloud-el-search">
+  <div id="cloud-el-search">
     <el-input class="cloud-el-input" clearable v-model="param.codeId" placeholder="Please input codeId" />
     <el-input class="cloud-el-input" clearable v-model="param.code" placeholder="Please input code" />
     <el-input class="cloud-el-input" clearable v-model="param.username" placeholder="Please input username" />
     <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId" />
     <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress" />
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
-  </el-container>
+  </div>
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="codeId" label="codeId" width="70"/>
@@ -112,6 +112,10 @@ const deleteCodeId = (e: number) => {
 </script>
 
 <style scoped>
+
+.cloud-el-input {
+  width: 300px;
+}
 
 .cloud-el-input, .cloud-el-search {
   margin-left: 5px;
