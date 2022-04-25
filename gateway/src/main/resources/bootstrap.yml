@@ -280,12 +280,6 @@ cloud:
         path-list:
           - /broadcast/info
           - /broadcast/*/*/websocket
-          - /broadcast/*/*/xhr_streaming
-          - /broadcast/*/*/eventsource
-          - /broadcast/*/*/xhr_send
-          - /broadcast/*/*/xhr
-          - /broadcast/*/*/jsonp
-          - /broadcast/iframe.html
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
