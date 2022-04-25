@@ -5,9 +5,6 @@ server:
 #
 # Spring 配置
 spring:
-  main:
-    # 为了引入 HttpServletRequest
-    web-application-type: reactive
   application:
     name: gateway
   # 配置环境
@@ -281,9 +278,14 @@ cloud:
           - /oauth/token
       - name: websocket
         path-list:
-          # 放行所有路径
-          # WebSocket 服务不使用网关进行鉴权
-          - /**
+          - /broadcast/info
+          - /broadcast/*/*/websocket
+          - /broadcast/*/*/xhr_streaming
+          - /broadcast/*/*/eventsource
+          - /broadcast/*/*/xhr_send
+          - /broadcast/*/*/xhr
+          - /broadcast/*/*/jsonp
+          - /broadcast/iframe.html
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
