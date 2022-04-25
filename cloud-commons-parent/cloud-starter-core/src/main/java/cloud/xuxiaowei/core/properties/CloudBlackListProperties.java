@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,18 +23,41 @@ import java.util.List;
 public class CloudBlackListProperties {
 
     /**
-     * IP 黑名单
+     * 黑名单IP
      */
-    private List<String> ips;
+    private List<String> ipList = Collections.emptyList();
 
     /**
-     * URL 黑名单
-     * <p>
-     * Key：服务名
-     * Value：路径
-     * <p>
-     * 支持通配符
+     * 黑名单IP与服务
      */
-    private LinkedHashMap<String, List<String>> urls;
+    private List<BlackList> services = Collections.emptyList();
+
+    /**
+     * 黑名单
+     *
+     * @author xuxiaowei
+     * @since 0.0.1
+     */
+    @Data
+    public static class BlackList {
+
+        /**
+         * IP
+         */
+        private String ip;
+
+        /**
+         * 服务名
+         */
+        private String name;
+
+        /**
+         * 路径
+         * <p>
+         * 拦截所有：/**
+         */
+        private List<String> pathList = Collections.singletonList("/**");
+
+    }
 
 }
