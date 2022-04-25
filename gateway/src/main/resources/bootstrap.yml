@@ -5,6 +5,9 @@ server:
 #
 # Spring 配置
 spring:
+  main:
+    # 为了引入 HttpServletRequest
+    web-application-type: reactive
   application:
     name: gateway
   # 配置环境
