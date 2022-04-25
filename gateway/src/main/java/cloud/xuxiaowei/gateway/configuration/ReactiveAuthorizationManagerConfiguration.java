@@ -2,6 +2,7 @@ package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
+import cloud.xuxiaowei.utils.IpAddressMatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -22,7 +23,6 @@ import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
-import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
