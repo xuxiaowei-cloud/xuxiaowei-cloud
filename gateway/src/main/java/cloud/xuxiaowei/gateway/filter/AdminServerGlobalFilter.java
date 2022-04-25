@@ -11,6 +11,7 @@ import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -48,7 +49,11 @@ public class AdminServerGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
-        if (path.contains(ServiceEnums.ADMIN_SERVER.service)) {
+
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        boolean matchActuator = antPathMatcher.match("/" + ServiceEnums.ADMIN_SERVER.service + "/**", path);
+
+        if (matchActuator) {
             ServerHttpResponse response = exchange.getResponse();
             Response<?> error = Response.error(CodeEnums.X10002.code, CodeEnums.X10002.msg);
             return ResponseUtils.writeWith(response, error);

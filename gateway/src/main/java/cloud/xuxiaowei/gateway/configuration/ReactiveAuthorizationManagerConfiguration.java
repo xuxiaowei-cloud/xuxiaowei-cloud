@@ -2,7 +2,6 @@ package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
-import cloud.xuxiaowei.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -23,6 +22,8 @@ import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
+import org.springframework.security.web.util.matcher.IpAddressMatcher;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -168,48 +169,53 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         URI uri = request.getURI();
         String path = uri.getPath();
 
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+
         List<String> ignores = cloudWhiteListProperties.getIgnores();
-        if (ignores.contains(path)) {
-            return true;
+        for (String ignore : ignores) {
+            boolean match = antPathMatcher.match(ignore, path);
+            if (match) {
+                return true;
+            }
         }
 
         InetSocketAddress remoteAddress = request.getRemoteAddress();
 
-        assert remoteAddress != null;
+        if (remoteAddress == null) {
+            return false;
+        }
+
         InetAddress address = remoteAddress.getAddress();
         String hostAddress = address.getHostAddress();
 
         List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
 
         // 放行指定IP访问端点
-        if (path.contains(Constant.ACTUATOR) && actuatorIpList.contains(hostAddress)) {
-            return true;
-        }
-
-        String[] pathSplit = path.split("/");
-        if (pathSplit.length > 1) {
-            String serviceName = pathSplit[1];
-
-            List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
-
-            for (CloudWhiteListProperties.Service service : services) {
-                String name = service.getName();
-                List<String> pathList = service.getPathList();
-
-                // 放行所有：/**
-                if (pathList.contains("/**")) {
+        boolean matchActuator = antPathMatcher.match("/*/actuator/**", path);
+        if (matchActuator) {
+            for (String actuatorIp : actuatorIpList) {
+                IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(actuatorIp);
+                boolean matches = ipAddressMatcher.matches(hostAddress);
+                if (matches) {
                     return true;
-                }
-
-                if (serviceName.equals(name)) {
-                    String substring = path.substring(serviceName.length() + 1);
-
-                    if (pathList.contains(substring)) {
-                        return true;
-                    }
                 }
             }
         }
+
+        List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
+        for (CloudWhiteListProperties.Service service : services) {
+            String name = service.getName();
+            List<String> pathList = service.getPathList();
+            for (String p : pathList) {
+                String pattern = name.startsWith("/") ? name : "/" + name;
+                pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+                boolean match = antPathMatcher.match(pattern, path);
+                if (match) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 

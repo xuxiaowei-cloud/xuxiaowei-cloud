@@ -1,7 +1,6 @@
 package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
@@ -11,6 +10,7 @@ import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -48,7 +48,11 @@ public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String path = uri.getPath();
-        if (path.contains(Constant.ACTUATOR)) {
+
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        boolean matchActuator = antPathMatcher.match("/*/actuator/**", path);
+
+        if (matchActuator) {
             ServerHttpResponse response = exchange.getResponse();
             Response<?> error = Response.error(CodeEnums.X10001.code,CodeEnums.X10001.msg);
             return ResponseUtils.writeWith(response, error);
