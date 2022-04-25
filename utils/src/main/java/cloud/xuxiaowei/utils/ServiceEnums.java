@@ -9,14 +9,14 @@ package cloud.xuxiaowei.utils;
 public enum ServiceEnums {
 
     /**
-     * 监控（管理）服务
-     */
-    ADMIN_SERVER("admin-server", "监控（管理）服务"),
-
-    /**
      * 网关服务
      */
     GATEWAY("gateway", "网关服务"),
+
+    /**
+     * 监控（管理）服务
+     */
+    ADMIN_SERVER("admin-server", "监控（管理）服务"),
 
     /**
      * 授权服务
@@ -37,6 +37,21 @@ public enum ServiceEnums {
      * 阿里巴巴 MySQL binlog 增量订阅、消费服务
      */
     CANAL("canal", "阿里巴巴 MySQL binlog 增量订阅、消费服务"),
+
+    /**
+     * 用户服务
+     */
+    USER("user", "用户服务"),
+
+    /**
+     * WebSocket 服务
+     */
+    WEBSOCKET("websocket", "WebSocket 服务"),
+
+    /**
+     * WebService 服务
+     */
+    WEBSERVICE("webservice", "WebService 服务"),
 
     ;
 
