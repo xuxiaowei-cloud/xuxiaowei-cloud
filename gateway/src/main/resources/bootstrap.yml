@@ -276,10 +276,6 @@ cloud:
           - /oauth/check_token
           # 获取Token
           - /oauth/token
-      - name: websocket
-        path-list:
-          - /broadcast/info
-          - /broadcast/*/*/websocket
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
