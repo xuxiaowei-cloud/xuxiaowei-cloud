@@ -26,6 +26,7 @@
     "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
   },
   "keywords": [
+    "@tauri-apps/api",
     "@toast-ui/editor",
     "@wangeditor/editor-for-vue",
     "axios",
@@ -44,7 +45,7 @@
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
-    "@tauri-apps/api": "1.0.0-rc.3",
+    "@tauri-apps/api": "1.0.0-rc.4",
     "@toast-ui/editor": "3.1.4",
     "@wangeditor/editor-for-vue": "5.1.10",
     "axios": "0.26.1",
