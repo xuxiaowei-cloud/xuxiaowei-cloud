@@ -149,9 +149,9 @@ public class ControllerAdviceConfiguration {
     }
 
     /**
-     * 缺少所需的请求正文、无效格式异常
+     * 所需的请求正文无效、无效格式异常
      *
-     * @param exception 缺少所需的请求正文、无效格式异常
+     * @param exception 所需的请求正文无效、无效格式异常
      * @param request   请求
      * @return 返回 验证结果
      */
@@ -186,6 +186,7 @@ public class ControllerAdviceConfiguration {
 
             error.setCode(CodeEnums.B10002.code);
             error.setMsg(CodeEnums.B10002.msg);
+            error.setExplain(exception.getMessage());
         }
 
         return error;
