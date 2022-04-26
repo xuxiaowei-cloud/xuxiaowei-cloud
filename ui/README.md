@@ -123,9 +123,14 @@ npm create vite@latest ui -- --template vue-ts
     - sockjs-client
     - stompjs
 
+1. [tauri](https://tauri.studio)
+    - [GitHub](https://github.com/tauri-apps/tauri)
+    - @tauri-apps/api
+    - @tauri-apps/cli
+
 ## 依赖地址
 
-- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
+- [@tauri-apps/api](https://www.npmjs.com/package/@tauri-apps/api)
 - [@toast-ui/editor](https://www.npmjs.com/package/@toast-ui/editor)
 - [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
 - [axios](https://www.npmjs.com/package/axios)
@@ -141,6 +146,7 @@ npm create vite@latest ui -- --template vue-ts
 - [vuex](https://www.npmjs.com/package/vuex)
 - [vuex-persistedstate](https://www.npmjs.com/package/vuex-persistedstate)
 
+- [@tauri-apps/cli](https://www.npmjs.com/package/@tauri-apps/cli)
 - [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)
 - [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
 - [@vue/cli-plugin-eslint](https://www.npmjs.com/package/@vue/cli-plugin-eslint)
