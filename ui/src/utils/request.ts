@@ -36,7 +36,9 @@ service.interceptors.response.use(
         duration: 3000,
         type: 'error',
         onClose: () => {
-          location.href = settings.state.loginPage + '?homePage=' + encodeURIComponent(location.href)
+          // 授权成功后重定向页面
+          // 重定向页面不包括无权限页面（non-authority）
+          location.href = settings.state.loginPage + '?homePage=' + encodeURIComponent(location.href.replace('non-authority', ''))
         }
       })
     }
