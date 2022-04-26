@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "preview": "vite preview --host"
   },
-  "author": "徐晓伟 <xuxiaowei.com.cn>",
+  "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/issues"
