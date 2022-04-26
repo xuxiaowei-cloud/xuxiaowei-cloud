@@ -1,14 +1,26 @@
 package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.core.properties.CloudBlackListProperties;
+import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.IpAddressMatcher;
+import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.ResponseUtils;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.util.List;
 
 /**
  * 黑名单 过滤器
@@ -45,6 +57,48 @@ public class BlackListGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+        ServerHttpRequest request = exchange.getRequest();
+        ServerHttpResponse response = exchange.getResponse();
+
+        URI uri = request.getURI();
+        String path = uri.getPath();
+
+        InetSocketAddress remoteAddress = request.getRemoteAddress();
+        if (remoteAddress == null) {
+            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
+            return ResponseUtils.writeWith(response, error);
+        }
+        InetAddress address = remoteAddress.getAddress();
+        String hostAddress = address.getHostAddress();
+
+        List<String> ipList = cloudBlackListProperties.getIpList();
+
+        for (String ip : ipList) {
+            IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
+            boolean matches = ipAddressMatcher.matches(hostAddress);
+            if (matches) {
+                Response<?> error = Response.error(CodeEnums.X10004.code, CodeEnums.X10004.msg);
+                return ResponseUtils.writeWith(response, error);
+            }
+        }
+
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        List<CloudBlackListProperties.BlackList> services = cloudBlackListProperties.getServices();
+        for (CloudBlackListProperties.BlackList service : services) {
+            String name = service.getName();
+            List<String> pathList = service.getPathList();
+            for (String p : pathList) {
+                String pattern = name.startsWith("/") ? name : "/" + name;
+                pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+                boolean match = antPathMatcher.match(pattern, path);
+                if (match) {
+                    Response<?> error = Response.error(CodeEnums.X10005.code, CodeEnums.X10005.msg);
+                    return ResponseUtils.writeWith(response, error);
+                }
+            }
+        }
+
         return chain.filter(exchange);
     }
 
