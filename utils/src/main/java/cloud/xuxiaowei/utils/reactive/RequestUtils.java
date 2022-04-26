@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.lang.NonNull;
+import org.springframework.web.server.ServerWebExchange;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +64,53 @@ public class RequestUtils {
     public static String getUserAgent(ServerHttpRequest request) {
         HttpHeaders httpHeaders = request.getHeaders();
         return httpHeaders.getFirst(HttpHeaders.USER_AGENT);
+    }
+
+
+    /**
+     * 获取来源
+     *
+     * @param request 请求
+     * @return 返回 来源
+     */
+    public static String getOrigin(@NonNull ServerHttpRequest request) {
+        HttpHeaders headers = request.getHeaders();
+        return headers.getOrigin();
+    }
+
+    /**
+     * 获取来源
+     *
+     * @param exchange 服务器网络交换
+     * @return 返回 来源
+     */
+    public static String getOrigin(@NonNull ServerWebExchange exchange) {
+        ServerHttpRequest request = exchange.getRequest();
+        return getOrigin(request);
+    }
+
+    /**
+     * 获取域名
+     *
+     * @param request 请求
+     * @return 返回 域名
+     */
+    public static String getSchemeHost(@NonNull ServerHttpRequest request) {
+        URI uri = request.getURI();
+        String scheme = uri.getScheme();
+        String host = uri.getHost();
+        return scheme + "://" + host;
+    }
+
+    /**
+     * 获取域名
+     *
+     * @param exchange 服务器网络交换
+     * @return 返回 域名
+     */
+    public static String getSchemeHost(@NonNull ServerWebExchange exchange) {
+        ServerHttpRequest request = exchange.getRequest();
+        return getSchemeHost(request);
     }
 
 }

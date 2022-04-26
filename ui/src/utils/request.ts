@@ -42,6 +42,14 @@ service.interceptors.response.use(
     }
   },
   error => {
+    if (error.message === 'Network Error') {
+      ElMessage({
+        message: '网络错误，请稍后再试',
+        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+        duration: 3000,
+        type: 'error'
+      })
+    }
     return error
   }
 )

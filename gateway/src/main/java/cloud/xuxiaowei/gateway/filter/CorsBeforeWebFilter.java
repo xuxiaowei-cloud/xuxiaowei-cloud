@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.core.properties.CloudCorsProperties;
-import cloud.xuxiaowei.utils.RequestUtils;
+import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
