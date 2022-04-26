@@ -36,7 +36,7 @@ service.interceptors.response.use(
         duration: 3000,
         type: 'error',
         onClose: () => {
-          location.href = settings.state.loginPage
+          location.href = settings.state.loginPage + '?homePage=' + encodeURIComponent(location.href)
         }
       })
     }
