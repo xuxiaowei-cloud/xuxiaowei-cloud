@@ -18,6 +18,14 @@ let routes = [
     component: ConsoleView
   },
   {
+    path: '/refresh',
+    name: 'refresh',
+    meta: {
+      authority: ['user_info']
+    },
+    component: () => import('@/views/RefreshView.vue')
+  },
+  {
     path: '/non-authority',
     name: 'non-authority',
     meta: {

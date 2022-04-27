@@ -141,7 +141,7 @@ const isCollapseClick = () => {
 
 // 刷新当前页面（局部刷新）
 const refreshClick = () => {
-  console.log('局部刷新，未完成')
+  location.hash = '/refresh'
 }
 
 // 用户菜单
