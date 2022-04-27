@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint",
     "preview": "vite preview --host",
     "tauri": "tauri",
+    "tauri:info": "tauri info",
     "tauri:build": "tauri build",
     "tauri:dev": "tauri dev"
   },
