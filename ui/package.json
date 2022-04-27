@@ -64,7 +64,7 @@
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.0.0-rc.8",
+    "@tauri-apps/cli": "^1.0.0-rc.9",
     "@typescript-eslint/parser": "5.19.0",
     "@vitejs/plugin-vue": "2.3.1",
     "@vue/cli-plugin-eslint": "5.0.4",
