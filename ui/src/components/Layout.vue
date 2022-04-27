@@ -103,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority } from '../utils/authority'
