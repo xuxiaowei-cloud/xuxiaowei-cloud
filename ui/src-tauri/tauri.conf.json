@@ -25,8 +25,8 @@
       "externalBin": [],
       "copyright": "徐晓伟工作室",
       "category": "DeveloperTool",
-      "shortDescription": "",
-      "longDescription": "",
+      "shortDescription": "徐晓伟微服务",
+      "longDescription": "徐晓伟微服务 https://github.com/xuxiaowei-cloud/xuxiaowei-cloud",
       "deb": {
         "depends": []
       },
