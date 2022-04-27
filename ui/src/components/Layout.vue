@@ -32,7 +32,7 @@
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-sub-menu index="3">
+        <el-sub-menu index="99" v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
           <template #title>
             <el-icon>
               <aim/>
@@ -106,7 +106,7 @@
 import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
-import { hasAuthority } from '../utils/authority'
+import { hasAuthority, hasAnyAuthority } from '../utils/authority'
 import { signout } from '../api/user'
 
 // 默认激活菜单
