@@ -35,7 +35,7 @@
       <el-table-column prop="accessToken" label="accessToken" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="expiration" label="expiration" width="160"/>
       <el-table-column prop="authenticationId" label="authenticationId" width="270"/>
-      <el-table-column prop="jti" label="jti" width="260"/>
+      <el-table-column prop="jti" label="jti" width="270"/>
       <el-table-column prop="refreshTokenEncryption" label="refreshTokenEncryption" width="190" :show-overflow-tooltip="true"/>
       <el-table-column prop="refreshTokenExpiration" label="refreshTokenExpiration" width="190"/>
       <el-table-column prop="tokenId" label="tokenId" width="300"/>
