@@ -4,7 +4,7 @@
     <el-aside id="cloud-el-aside">
 
       <el-menu :default-active="defaultActive" class="el-menu-vertical" :collapse="isCollapse" :router="true"
-               @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
+               :unique-opened="true" @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -47,7 +47,8 @@
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-sub-menu index="99" v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
+        <el-sub-menu index="99"
+                     v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
           <template #title>
             <el-icon>
               <aim/>
@@ -55,9 +56,15 @@
             <span>审计</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">授权Code</el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">
+              授权Code
+            </el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">
+              授权Token
+            </el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">
+              刷新Token
+            </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
