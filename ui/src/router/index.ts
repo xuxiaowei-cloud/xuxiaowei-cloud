@@ -37,7 +37,7 @@ let routes = [
     path: '/about',
     name: 'about',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
