@@ -12,6 +12,6 @@ export const checkToken = function (token: string) {
       const authorities = responseData.authorities
       store.commit('setAuthorities', authorities)
     }
-    return response.data
+    return responseData
   })
 }
