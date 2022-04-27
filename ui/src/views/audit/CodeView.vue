@@ -10,7 +10,7 @@
   <el-container>
     <el-table :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="codeId" label="codeId" width="70"/>
-      <el-table-column prop="code" label="code" width="310"/>
+      <el-table-column prop="code" label="code" width="320"/>
       <el-table-column prop="username" label="username" width="130"/>
       <el-table-column prop="clientId" label="clientId" width="160"/>
       <el-table-column prop="remoteAddress" label="remoteAddress" width="130"/>

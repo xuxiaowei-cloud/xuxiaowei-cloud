@@ -216,6 +216,10 @@ spring:
               - http://example.xuxiaowei.cloud
               - https://example.xuxiaowei.cloud
               - http://example.xuxiaowei.cloud:1001
+              # tauri 开发域名
+              - http://localhost:1001
+              # tauri 生产域名
+              -  https://tauri.localhost
             # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
             allowedMethods: "GET,POST"
             # 允许跨域请求中的请求头字段，全部：*

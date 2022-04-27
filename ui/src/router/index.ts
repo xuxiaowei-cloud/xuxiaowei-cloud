@@ -18,6 +18,14 @@ let routes = [
     component: ConsoleView
   },
   {
+    path: '/refresh',
+    name: 'refresh',
+    meta: {
+      authority: ['user_info']
+    },
+    component: () => import('@/views/RefreshView.vue')
+  },
+  {
     path: '/non-authority',
     name: 'non-authority',
     meta: {
@@ -49,7 +57,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   console.log(to)
-  queryToken(to.query, router)
+  queryToken(to.path, to.query, router)
   const meta = to.meta
   const authority = meta.authority
   if (to.path === '/non-authority') {

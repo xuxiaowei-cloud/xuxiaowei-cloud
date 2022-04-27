@@ -71,13 +71,6 @@
           </el-icon>
         </el-button>
 
-        <!-- 全屏 -->
-        <el-button @click="fullScreenClick">
-          <el-icon>
-            <full-screen/>
-          </el-icon>
-        </el-button>
-
         <!-- 用户菜单 -->
         <el-dropdown id="cloud-el-dropdown" @command="handleCommand">
           <span class="el-dropdown-link">
@@ -110,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, FullScreen, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority } from '../utils/authority'
@@ -148,12 +141,7 @@ const isCollapseClick = () => {
 
 // 刷新当前页面（局部刷新）
 const refreshClick = () => {
-  console.log('局部刷新，未完成')
-}
-
-// 全屏
-const fullScreenClick = () => {
-  document.documentElement.requestFullscreen()
+  location.hash = '/refresh'
 }
 
 // 用户菜单

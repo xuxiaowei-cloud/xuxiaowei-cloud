@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint",
     "preview": "vite preview --host",
     "tauri": "tauri",
+    "tauri:info": "tauri info",
     "tauri:build": "tauri build",
     "tauri:dev": "tauri dev"
   },
@@ -26,6 +27,7 @@
     "url": "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
   },
   "keywords": [
+    "@tauri-apps/api",
     "@toast-ui/editor",
     "@wangeditor/editor-for-vue",
     "axios",
@@ -44,7 +46,7 @@
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
-    "@tauri-apps/api": "1.0.0-rc.3",
+    "@tauri-apps/api": "1.0.0-rc.4",
     "@toast-ui/editor": "3.1.4",
     "@wangeditor/editor-for-vue": "5.1.10",
     "axios": "0.26.1",
@@ -62,7 +64,7 @@
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.0.0-rc.8",
+    "@tauri-apps/cli": "^1.0.0-rc.9",
     "@typescript-eslint/parser": "5.19.0",
     "@vitejs/plugin-vue": "2.3.1",
     "@vue/cli-plugin-eslint": "5.0.4",
@@ -78,7 +80,7 @@
     "typescript": "4.6.3",
     "unplugin-auto-import": "0.6.9",
     "unplugin-vue-components": "0.18.5",
-    "vite": "2.9.5",
+    "vite": "2.9.6",
     "vue-tsc": "0.34.6"
   }
 }
