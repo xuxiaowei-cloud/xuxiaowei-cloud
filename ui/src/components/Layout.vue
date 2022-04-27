@@ -32,6 +32,21 @@
           </el-menu-item-group>
         </el-sub-menu>
 
+        <el-sub-menu index="3">
+          <template #title>
+            <el-icon>
+              <user/>
+            </el-icon>
+            <span>个人中心</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item ref="personal" index="/user/personal" @click="menuItem">个人中心</el-menu-item>
+            <el-menu-item ref="security" index="/user/security" @click="menuItem">安全设置</el-menu-item>
+            <el-menu-item ref="account" index="/user/account" @click="menuItem">账户绑定</el-menu-item>
+            <el-menu-item ref="social" index="/user/social" @click="menuItem">社交绑定</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
         <el-sub-menu index="99" v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
           <template #title>
             <el-icon>
@@ -103,7 +118,7 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook, User } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority, hasAnyAuthority } from '../utils/authority'
@@ -144,12 +159,29 @@ const refreshClick = () => {
   location.hash = '/refresh'
 }
 
+const personal = ref()
+const security = ref()
+const account = ref()
+const social = ref()
+
 // 用户菜单
 const handleCommand = (command: any, number: any) => {
   console.log(command, number)
   switch (command) {
     case 'signout':
       signout()
+      break
+    case 'personal':
+      personal.value.handleClick()
+      break
+    case 'security':
+      security.value.handleClick()
+      break
+    case 'account':
+      account.value.handleClick()
+      break
+    case 'social':
+      social.value.handleClick()
       break
   }
 }
