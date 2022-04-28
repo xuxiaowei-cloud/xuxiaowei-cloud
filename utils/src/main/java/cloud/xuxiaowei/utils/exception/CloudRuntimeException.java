@@ -22,13 +22,13 @@ public class CloudRuntimeException extends RuntimeException {
      * 错误码
      */
     @Setter(AccessLevel.NONE)
-    private String code;
+    protected String code;
 
     /**
      * 中文描述
      */
     @Setter(AccessLevel.NONE)
-    private String msg;
+    protected String msg;
 
     /**
      * 错误字段
@@ -36,13 +36,13 @@ public class CloudRuntimeException extends RuntimeException {
      * 存在多个时，使用英文逗号隔开
      */
     @Setter(AccessLevel.NONE)
-    private String field;
+    protected String field;
 
     /**
      * 说明
      */
     @Setter(AccessLevel.NONE)
-    private String explain;
+    protected String explain;
 
     public CloudRuntimeException() {
         this.code = CodeEnums.ERROR.code;

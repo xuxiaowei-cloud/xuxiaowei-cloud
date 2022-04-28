@@ -2,8 +2,9 @@ package cloud.xuxiaowei.utils.exception.client;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.exception.CloudException;
-import lombok.AccessLevel;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
@@ -14,33 +15,35 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class ClientException extends OAuth2Exception {
 
     /**
      * 错误码
      */
-    @Setter(AccessLevel.NONE)
-    public String code;
+    @Getter
+    protected String code;
 
     /**
      * 中文描述
      */
-    @Setter(AccessLevel.NONE)
-    public String msg;
+    @Getter
+    protected String msg;
 
     /**
      * 错误字段
      * <p>
      * 存在多个时，使用英文逗号隔开
      */
-    @Setter(AccessLevel.NONE)
-    private String field;
+    @Getter
+    protected String field;
 
     /**
      * 说明
      */
-    @Setter(AccessLevel.NONE)
-    public String explain;
+    @Getter
+    protected String explain;
 
     public ClientException() {
         super(CodeEnums.C10000.msg);

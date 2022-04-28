@@ -14,7 +14,7 @@ public class AuthorizationCodeException extends ClientException {
 
     @Getter
     @Setter
-    private String authorizationCode;
+    protected String authorizationCode;
 
     public AuthorizationCodeException() {
         this(CodeEnums.C20006.code, CodeEnums.C20006.msg);

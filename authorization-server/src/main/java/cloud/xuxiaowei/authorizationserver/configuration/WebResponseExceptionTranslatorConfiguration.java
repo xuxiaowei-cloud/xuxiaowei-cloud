@@ -154,8 +154,8 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             } else if (oauth2Exception instanceof AuthorizationCodeException) {
                 AuthorizationCodeException authorizationCodeException = (AuthorizationCodeException) oauth2Exception;
 
-                oauth2Exception.addAdditionalInformation(Response.CODE, authorizationCodeException.code);
-                oauth2Exception.addAdditionalInformation(Response.MSG, authorizationCodeException.msg);
+                oauth2Exception.addAdditionalInformation(Response.CODE, authorizationCodeException.getCode());
+                oauth2Exception.addAdditionalInformation(Response.MSG, authorizationCodeException.getMsg());
                 oauth2Exception.addAdditionalInformation(Response.EXPLAIN, authorizationCodeException.getAuthorizationCode());
 
                 log.error("授权码异常：", oauth2Exception);

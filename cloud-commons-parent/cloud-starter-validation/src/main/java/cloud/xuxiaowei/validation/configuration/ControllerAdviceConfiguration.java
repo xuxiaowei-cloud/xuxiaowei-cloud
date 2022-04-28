@@ -96,9 +96,12 @@ public class ControllerAdviceConfiguration {
     @ExceptionHandler(ClientException.class)
     public Response<?> clientException(ClientException exception, HttpServletRequest request) {
 
-        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+        String code = exception.getCode();
+        String msg = exception.getMsg();
 
-        return Response.error(exception.code, exception.msg);
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
     }
 
     /**
