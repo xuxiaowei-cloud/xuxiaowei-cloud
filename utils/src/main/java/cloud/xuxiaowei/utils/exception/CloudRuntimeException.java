@@ -45,11 +45,13 @@ public class CloudRuntimeException extends RuntimeException {
     protected String explain;
 
     public CloudRuntimeException() {
+        super(CodeEnums.ERROR.msg);
         this.code = CodeEnums.ERROR.code;
         this.msg = CodeEnums.ERROR.msg;
     }
 
     public CloudRuntimeException(String msg) {
+        super(msg);
         this.code = CodeEnums.ERROR.code;
         this.msg = msg;
     }

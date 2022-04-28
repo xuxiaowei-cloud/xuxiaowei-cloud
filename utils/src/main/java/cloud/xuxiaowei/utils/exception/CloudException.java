@@ -49,11 +49,13 @@ public class CloudException extends Exception {
     protected String explain;
 
     public CloudException() {
+        super(CodeEnums.ERROR.msg);
         this.code = CodeEnums.ERROR.code;
         this.msg = CodeEnums.ERROR.msg;
     }
 
     public CloudException(String msg) {
+        super(msg);
         this.code = CodeEnums.ERROR.code;
         this.msg = msg;
     }
