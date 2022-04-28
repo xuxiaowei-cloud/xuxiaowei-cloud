@@ -18,7 +18,7 @@
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
   </div>
   <el-container>
-    <el-table :data="tableData" v-loading="loading" height="460">
+    <el-table stripe :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
       <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="userName" label="userName" width="130"/>

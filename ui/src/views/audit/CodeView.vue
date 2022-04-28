@@ -8,7 +8,7 @@
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
   </div>
   <el-container>
-    <el-table :data="tableData" v-loading="loading" height="460">
+    <el-table stripe :data="tableData" v-loading="loading" height="460">
       <el-table-column prop="codeId" label="codeId" width="70"/>
       <el-table-column prop="code" label="code" width="320"/>
       <el-table-column prop="username" label="username" width="130"/>
