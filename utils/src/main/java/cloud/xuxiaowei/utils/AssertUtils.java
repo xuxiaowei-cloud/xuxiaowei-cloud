@@ -44,4 +44,36 @@ public class AssertUtils {
         }
     }
 
+    /**
+     * 最小长度断言
+     *
+     * @param string  数据
+     * @param min     最小长度
+     * @param message 消息
+     */
+    public static void min(String string, int min, String message) {
+        if (string != null) {
+            if (string.length() < min) {
+                throw new CloudRuntimeException(message);
+            }
+        }
+    }
+
+    /**
+     * 最小长度断言
+     *
+     * @param string  数据
+     * @param min     最小长度
+     * @param message 消息
+     */
+    public static void minNonNull(String string, int min, String message) {
+        if (string == null) {
+            throw new CloudRuntimeException(message);
+        }
+
+        if (string.length() < min) {
+            throw new CloudRuntimeException(message);
+        }
+    }
+
 }
