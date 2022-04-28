@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 /**
  * 授权服务 feign 接口
  *
@@ -28,6 +30,15 @@ public interface AuthorizationServerFeignService {
     Response<?> removeByAuditCodeId(@PathVariable("codeId") Long codeId);
 
     /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param codeIds 授权码Code主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-code/removeByIds")
+    Response<?> removeByAuditCodeIds(List<Long> codeIds);
+
+    /**
      * 根据 授权Token主键 删除
      *
      * @param oauthAccessTokenId 授权Token主键
@@ -37,6 +48,15 @@ public interface AuthorizationServerFeignService {
     Response<?> removeByAuditAccessTokenId(@PathVariable("oauthAccessTokenId") Long oauthAccessTokenId);
 
     /**
+     * 根据 授权Token主键 删除
+     *
+     * @param oauthAccessTokenIds 授权Token主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-access-token/removeByIds")
+    Response<?> removeByAuditAccessTokenIds(List<Long> oauthAccessTokenIds);
+
+    /**
      * 根据 刷新Token主键 删除
      *
      * @param oauthRefreshTokenId 刷新Token主键
@@ -44,6 +64,15 @@ public interface AuthorizationServerFeignService {
      */
     @PostMapping("/oauth-refresh-token/removeById/{oauthRefreshTokenId}")
     Response<?> removeByAuditRefreshTokenId(@PathVariable("oauthRefreshTokenId") Long oauthRefreshTokenId);
+
+    /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param oauthRefreshTokenIds 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @PostMapping("/oauth-refresh-token/removeByIds")
+    Response<?> removeByAuditRefreshTokenIds(List<Long> oauthRefreshTokenIds);
 
     /**
      * 分页查询授权码
