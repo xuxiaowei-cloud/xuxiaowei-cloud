@@ -72,10 +72,13 @@ public class ControllerAdviceConfiguration {
     @ExceptionHandler(TokenException.class)
     public Response<?> tokenException(TokenException exception, HttpServletRequest request) {
 
-        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
 
         // 清空 vuex
-        return ResponseMap.error(exception.code, exception.msg).put("clearVuex", true);
+        return ResponseMap.error(code, msg).put("clearVuex", true);
     }
 
     /**

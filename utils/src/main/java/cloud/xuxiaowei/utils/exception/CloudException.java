@@ -26,13 +26,13 @@ public class CloudException extends Exception {
      * 错误码
      */
     @Setter(AccessLevel.NONE)
-    public String code;
+    private String code;
 
     /**
      * 中文描述
      */
     @Setter(AccessLevel.NONE)
-    public String msg;
+    private String msg;
 
     /**
      * 错误字段
@@ -46,7 +46,7 @@ public class CloudException extends Exception {
      * 说明
      */
     @Setter(AccessLevel.NONE)
-    public String explain;
+    private String explain;
 
     public CloudException() {
         this.code = CodeEnums.ERROR.code;
