@@ -3,6 +3,8 @@ package cloud.xuxiaowei.validation.configuration;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.exception.CloudException;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.client.ClientException;
 import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -44,6 +46,44 @@ import java.util.Map;
         "org.springframework.security.oauth2.provider.request"
 })
 public class ControllerAdviceConfiguration {
+
+    /**
+     * 微服务 运行时异常父类
+     *
+     * @param exception 客户端 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(CloudRuntimeException.class)
+    public Response<?> cloudRuntimeException(CloudRuntimeException exception, HttpServletRequest request) {
+
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
+    }
+
+    /**
+     * 微服务 异常父类
+     *
+     * @param exception 客户端 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(CloudException.class)
+    public Response<?> clientException(CloudException exception, HttpServletRequest request) {
+
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
+    }
 
     /**
      * 客户端 异常父类
