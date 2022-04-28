@@ -4,6 +4,7 @@ import { hasAnyAuthority } from '../utils/authority'
 import home from './home'
 import audit from './audit'
 import editor from './editor'
+import user from './user'
 
 import ConsoleView from '../views/home/ConsoleView.vue'
 
@@ -37,7 +38,7 @@ let routes = [
     path: '/about',
     name: 'about',
     meta: {
-      authority: true
+      authority: ['user_info']
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -49,6 +50,7 @@ let routes = [
 routes = routes.concat(home)
 routes = routes.concat(audit)
 routes = routes.concat(editor)
+routes = routes.concat(user)
 
 const router = createRouter({
   history: createWebHashHistory(),

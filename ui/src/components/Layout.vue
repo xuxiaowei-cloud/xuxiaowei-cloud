@@ -4,7 +4,7 @@
     <el-aside id="cloud-el-aside">
 
       <el-menu :default-active="defaultActive" class="el-menu-vertical" :collapse="isCollapse" :router="true"
-               @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
+               :unique-opened="true" @open="handleOpen" @close="handleClose" id="cloud-aside-el-menu">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -35,14 +35,36 @@
         <el-sub-menu index="3">
           <template #title>
             <el-icon>
+              <user/>
+            </el-icon>
+            <span>个人中心</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item ref="personal" index="/user/personal" @click="menuItem">个人中心</el-menu-item>
+            <el-menu-item ref="security" index="/user/security" @click="menuItem">安全设置</el-menu-item>
+            <el-menu-item ref="account" index="/user/account" @click="menuItem">账户绑定</el-menu-item>
+            <el-menu-item ref="social" index="/user/social" @click="menuItem">社交绑定</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
+        <el-sub-menu index="99"
+                     v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
+          <template #title>
+            <el-icon>
               <aim/>
             </el-icon>
             <span>审计</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">授权Code</el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">授权Token</el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">刷新Token</el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">
+              授权Code
+            </el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">
+              授权Token
+            </el-menu-item>
+            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">
+              刷新Token
+            </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
@@ -103,10 +125,10 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook, User } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
-import { hasAuthority } from '../utils/authority'
+import { hasAuthority, hasAnyAuthority } from '../utils/authority'
 import { signout } from '../api/user'
 
 // 默认激活菜单
@@ -144,12 +166,29 @@ const refreshClick = () => {
   location.hash = '/refresh'
 }
 
+const personal = ref()
+const security = ref()
+const account = ref()
+const social = ref()
+
 // 用户菜单
 const handleCommand = (command: any, number: any) => {
   console.log(command, number)
   switch (command) {
     case 'signout':
       signout()
+      break
+    case 'personal':
+      personal.value.handleClick()
+      break
+    case 'security':
+      security.value.handleClick()
+      break
+    case 'account':
+      account.value.handleClick()
+      break
+    case 'social':
+      social.value.handleClick()
       break
   }
 }
