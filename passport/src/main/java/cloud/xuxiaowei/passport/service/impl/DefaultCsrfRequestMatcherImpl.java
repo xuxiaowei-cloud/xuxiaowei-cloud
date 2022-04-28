@@ -5,7 +5,7 @@ import cloud.xuxiaowei.passport.configuration.WebSecurityConfigurerAdapterConfig
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
@@ -58,17 +58,16 @@ public class DefaultCsrfRequestMatcherImpl implements RequestMatcher {
             // 获取 HTTP 请求方法
             HttpMethod resolve = HttpMethod.resolve(request.getMethod());
 
+            AntPathMatcher antPathMatcher = new AntPathMatcher();
+
             for (String disableUrl : csrfDisableUrl.keySet()) {
 
-                // 创建 通配符匹配
-                PatternsRequestCondition csrfEnableCondition = new PatternsRequestCondition(disableUrl);
-                // 匹配通配符
-                List<String> csrfEnableMatchingPatterns = csrfEnableCondition.getMatchingPatterns(requestUri);
+                boolean match = antPathMatcher.match(disableUrl, requestUri);
 
                 // 此 URL 地址 禁用的 HTTP 方法
                 List<HttpMethod> httpMethods = csrfDisableUrl.get(disableUrl);
 
-                if (csrfEnableMatchingPatterns.size() > 0 && httpMethods.contains(resolve)) {
+                if (match && httpMethods.contains(resolve)) {
                     // 当前访问的 URL 已禁用 CSRF
                     return false;
                 }
