@@ -58,7 +58,7 @@ public class DefaultLoginServiceImpl implements LoginService {
 
         if (exception instanceof LoginParamPasswordValidException) {
             LoginParamPasswordValidException passwordValidException = (LoginParamPasswordValidException) exception;
-            error = Response.error(passwordValidException.code, passwordValidException.msg);
+            error = Response.error(passwordValidException.getCode(), passwordValidException.getMsg());
         } else {
             // 此处可增加其他异常的判断
             error = Response.error();
