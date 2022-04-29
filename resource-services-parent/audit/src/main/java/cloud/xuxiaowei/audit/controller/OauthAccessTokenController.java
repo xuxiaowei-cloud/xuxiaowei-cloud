@@ -56,7 +56,7 @@ public class OauthAccessTokenController {
      * @return 返回 删除结果
      */
     @PreAuthorize("hasAuthority('audit_accessToken_delete')")
-    @RequestMapping("/removeById")
+    @RequestMapping("/removeByIds")
     public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> oauthAccessTokenIds) {
 
         AssertUtils.sizeNonNull(oauthAccessTokenIds, 1, 50, "非法数据长度");

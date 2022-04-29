@@ -16,6 +16,7 @@
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" />
       <el-table-column prop="oauthRefreshTokenId" label="oauthRefreshTokenId" width="175"/>
       <el-table-column prop="tokenId" label="tokenId" width="300"/>
       <el-table-column prop="username" label="username" width="130"/>

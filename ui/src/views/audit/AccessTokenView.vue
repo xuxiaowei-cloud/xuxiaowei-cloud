@@ -21,6 +21,7 @@
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" />
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
       <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="userName" label="userName" width="130"/>
