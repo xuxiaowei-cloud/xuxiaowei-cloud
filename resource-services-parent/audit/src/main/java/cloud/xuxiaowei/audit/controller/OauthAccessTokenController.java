@@ -2,6 +2,7 @@ package cloud.xuxiaowei.audit.controller;
 
 import cloud.xuxiaowei.audit.resilience4j.AuthorizationServerResilience4jService;
 import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
+import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 授权Token
@@ -43,6 +45,23 @@ public class OauthAccessTokenController {
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("oauthAccessTokenId") Long oauthAccessTokenId) {
 
         return authorizationServerResilience4jService.removeByAuditAccessTokenId(oauthAccessTokenId);
+    }
+
+    /**
+     * 根据 授权Token主键 删除
+     *
+     * @param request             请求
+     * @param response            响应
+     * @param oauthAccessTokenIds 授权Token主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_accessToken_delete')")
+    @RequestMapping("/removeByIds")
+    public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> oauthAccessTokenIds) {
+
+        AssertUtils.sizeNonNull(oauthAccessTokenIds, 1, 50, "非法数据长度");
+
+        return authorizationServerResilience4jService.removeByAuditAccessTokenIds(oauthAccessTokenIds);
     }
 
     /**

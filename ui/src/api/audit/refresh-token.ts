@@ -19,3 +19,13 @@ export const removeById = function (oauthRefreshTokenId: number) {
     return response.data
   })
 }
+
+/**
+ * 根据 刷新Token主键 删除
+ * @param oauthRefreshTokenIds 刷新Token主键
+ */
+export const removeByIds = function (oauthRefreshTokenIds: number[]) {
+  return request.post('/audit/oauth-refresh-token/removeByIds', oauthRefreshTokenIds).then(response => {
+    return response.data
+  })
+}

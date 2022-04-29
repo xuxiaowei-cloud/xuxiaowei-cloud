@@ -190,10 +190,11 @@ export default store
 
 /**
  * 参数中的Token缓存
+ * @param path 路径
  * @param query 参数
  * @param router 路由
  */
-export const queryToken = function (query: LocationQuery, router: Router) {
+export const queryToken = function (path: string, query: LocationQuery, router: Router) {
   if (query.store === 'true') {
     const accessToken = query.accessToken
     const refreshToken = query.refreshToken
@@ -224,7 +225,7 @@ export const queryToken = function (query: LocationQuery, router: Router) {
       info().then(() => {})
     })
 
-    router.push({ query: query }).then(() => {
+    router.push({ path: path, query: query }).then(() => {
 
     })
   } else {

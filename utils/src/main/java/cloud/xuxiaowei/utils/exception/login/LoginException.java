@@ -28,29 +28,29 @@ public class LoginException extends AuthenticationException {
      * 身份验证异常的用户名
      */
     @Setter
-    private String username;
+    protected String username;
 
     /**
      * 错误码
      */
-    public String code;
+    protected String code;
 
     /**
      * 中文描述
      */
-    public String msg;
+    protected String msg;
 
     /**
      * 错误字段
      * <p>
      * 存在多个时，使用英文逗号隔开
      */
-    private String field;
+    protected String field;
 
     /**
      * 说明
      */
-    public String explain;
+    protected String explain;
 
     public LoginException() {
         super(CodeEnums.A10000.msg);

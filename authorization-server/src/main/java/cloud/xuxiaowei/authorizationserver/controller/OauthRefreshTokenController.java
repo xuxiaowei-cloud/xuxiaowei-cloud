@@ -3,6 +3,7 @@ package cloud.xuxiaowei.authorizationserver.controller;
 import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
 import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
+import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 刷新Token
@@ -48,6 +50,26 @@ public class OauthRefreshTokenController {
         boolean removeById = oauthRefreshTokenService.removeById(oauthRefreshTokenId);
 
         return Response.ok(removeById);
+    }
+
+    /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param request              请求
+     * @param response             响应
+     * @param oauthRefreshTokenIds 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_refreshToken_delete')")
+    @RequestMapping("/removeByIds")
+    public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestBody List<Long> oauthRefreshTokenIds) {
+
+        AssertUtils.sizeNonNull(oauthRefreshTokenIds, 1, 50, "非法数据长度");
+
+        boolean removeByIds = oauthRefreshTokenService.removeByIds(oauthRefreshTokenIds);
+
+        return Response.ok(removeByIds);
     }
 
     /**

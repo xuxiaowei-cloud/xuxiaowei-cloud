@@ -3,6 +3,8 @@ package cloud.xuxiaowei.validation.configuration;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.exception.CloudException;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.client.ClientException;
 import cloud.xuxiaowei.utils.exception.token.TokenException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -46,6 +48,44 @@ import java.util.Map;
 public class ControllerAdviceConfiguration {
 
     /**
+     * 微服务 运行时异常父类
+     *
+     * @param exception 客户端 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(CloudRuntimeException.class)
+    public Response<?> cloudRuntimeException(CloudRuntimeException exception, HttpServletRequest request) {
+
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
+    }
+
+    /**
+     * 微服务 异常父类
+     *
+     * @param exception 客户端 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(CloudException.class)
+    public Response<?> clientException(CloudException exception, HttpServletRequest request) {
+
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
+    }
+
+    /**
      * 客户端 异常父类
      *
      * @param exception 客户端 异常
@@ -56,9 +96,12 @@ public class ControllerAdviceConfiguration {
     @ExceptionHandler(ClientException.class)
     public Response<?> clientException(ClientException exception, HttpServletRequest request) {
 
-        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+        String code = exception.getCode();
+        String msg = exception.getMsg();
 
-        return Response.error(exception.code, exception.msg);
+        log.error(String.format("%s：%s", code, msg), exception);
+
+        return Response.error(code, msg);
     }
 
     /**
@@ -72,10 +115,13 @@ public class ControllerAdviceConfiguration {
     @ExceptionHandler(TokenException.class)
     public Response<?> tokenException(TokenException exception, HttpServletRequest request) {
 
-        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+        String code = exception.getCode();
+        String msg = exception.getMsg();
+
+        log.error(String.format("%s：%s", code, msg), exception);
 
         // 清空 vuex
-        return ResponseMap.error(exception.code, exception.msg).put("clearVuex", true);
+        return ResponseMap.error(code, msg).put("clearVuex", true);
     }
 
     /**

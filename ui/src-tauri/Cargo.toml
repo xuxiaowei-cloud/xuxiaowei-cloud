@@ -3,7 +3,7 @@ name = "xuxiaowei-cloud"
 version = "0.0.1"
 description = "徐晓伟微服务"
 authors = ["徐晓伟 <xuxiaowei@xuxiaowei.com.cn>"]
-license = "MIT"
+license = "Apache-2.0"
 repository = "git+https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
 default-run = "xuxiaowei-cloud"
 edition = "2021"
@@ -12,12 +12,12 @@ rust-version = "1.57"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-rc.5", features = [] }
+tauri-build = { version = "1.0.0-rc.6", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.0.0-rc.5", features = ["api-all"] }
+tauri = { version = "1.0.0-rc.7", features = ["api-all"] }
 
 [features]
 # by default Tauri runs in production mode

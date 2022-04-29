@@ -19,3 +19,13 @@ export const removeById = function (oauthAccessTokenId: number) {
     return response.data
   })
 }
+
+/**
+ * 根据 授权Token主键 删除
+ * @param oauthAccessTokenIds 授权Token主键
+ */
+export const removeByIds = function (oauthAccessTokenIds: number[]) {
+  return request.post('/audit/oauth-access-token/removeByIds', oauthAccessTokenIds).then(response => {
+    return response.data
+  })
+}

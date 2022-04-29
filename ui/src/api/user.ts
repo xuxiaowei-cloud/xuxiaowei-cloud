@@ -17,7 +17,7 @@ export const signout = function () {
         duration: 3000,
         type: 'success',
         onClose: () => {
-          location.href = settings.state.loginPage
+          location.href = settings.state.loginPage + '?homePage=' + encodeURIComponent(location.href.replace('non-authority', ''))
         }
       })
     } else {
