@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 授权服务 resilience4j 服务实现
  *
@@ -39,6 +41,17 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param codeIds 授权码Code主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditCodeIds", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditCodeIds(List<Long> codeIds) {
+        return authorizationServerFeignService.removeByAuditCodeIds(codeIds);
+    }
+
+    /**
      * 根据 授权Token主键 删除
      *
      * @param oauthAccessTokenId 授权Token主键
@@ -50,6 +63,17 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
+     * 根据 授权Token主键 删除
+     *
+     * @param oauthAccessTokenIds 授权Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditAccessTokenIds", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditAccessTokenIds(List<Long> oauthAccessTokenIds) {
+        return authorizationServerFeignService.removeByAuditAccessTokenIds(oauthAccessTokenIds);
+    }
+
+    /**
      * 根据 刷新Token主键 删除
      *
      * @param oauthRefreshTokenId 刷新Token主键
@@ -58,6 +82,17 @@ public class AuthorizationServerResilience4jService {
     @CircuitBreaker(name = "removeByAuditRefreshTokenId", fallbackMethod = "fallbackMethod")
     public Response<?> removeByAuditRefreshTokenId(Long oauthRefreshTokenId) {
         return authorizationServerFeignService.removeByAuditRefreshTokenId(oauthRefreshTokenId);
+    }
+
+    /**
+     * 根据 刷新Token主键 删除
+     *
+     * @param oauthRefreshTokenIds 刷新Token主键
+     * @return 返回 删除结果
+     */
+    @CircuitBreaker(name = "removeByAuditRefreshTokenIds", fallbackMethod = "fallbackMethod")
+    public Response<?> removeByAuditRefreshTokenIds(List<Long> oauthRefreshTokenIds) {
+        return authorizationServerFeignService.removeByAuditRefreshTokenIds(oauthRefreshTokenIds);
     }
 
     /**

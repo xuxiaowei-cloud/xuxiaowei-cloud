@@ -16,9 +16,12 @@
     <el-input class="cloud-el-input" clearable v-model="param.sessionId" placeholder="Please input sessionId" />
     <el-input class="cloud-el-input" clearable v-model="param.state" placeholder="Please input state" />
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
+    <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
+    <el-button class="cloud-el-remove" @click="cloudRemove">删除</el-button>
   </div>
   <el-container>
-    <el-table :data="tableData" v-loading="loading" height="460">
+    <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" />
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
       <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="userName" label="userName" width="130"/>
@@ -57,14 +60,22 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById } from '../../api/audit/access-token'
+import { page, removeById, removeByIds } from '../../api/audit/access-token'
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
+// 缓存
 const store = useStore()
 
+// 表格数据
 const tableData = ref([])
+
+// 多选
+const multipleSelection = ref<any[]>([])
+// 多选主键
+const oauthAccessTokenIds = ref<number[]>([])
+
 const param = reactive({
   current: 1,
   size: 10,
@@ -85,8 +96,11 @@ const param = reactive({
   sessionId: null,
   state: null
 })
+
+// 加载
 const loading = ref(true)
 
+// 搜索
 const cloudSearch = () => {
   loading.value = true
   page(param).then(response => {
@@ -100,6 +114,63 @@ const cloudSearch = () => {
       ElMessage.error(response.msg)
     }
   })
+}
+
+// 重置（清空搜索条件）
+// Q：为何不使用 reset？
+// A：因为使用 reset 后，页面不显示了，但是值还在，影响搜索
+const cloudClearable = () => {
+  param.oauthAccessTokenId = null
+  param.refreshToken = null
+  param.userName = null
+  param.clientId = null
+  param.remoteAddress = null
+  param.scope = null
+  param.redirectUri = null
+  param.responseType = null
+  param.accessToken = null
+  param.authenticationId = null
+  param.jti = null
+  param.refreshTokenEncryption = null
+  param.tokenId = null
+  param.sessionId = null
+  param.state = null
+}
+
+// 批量删除
+const cloudRemove = () => {
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      message: '请先选择数据',
+      // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+      duration: 1500,
+      type: 'error'
+    })
+  } else {
+    removeByIds(oauthAccessTokenIds.value).then(response => {
+      if (response.code === store.state.settings.okCode) {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+            cloudSearch()
+          }
+        })
+      } else {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error',
+          onClose: () => {
+            cloudSearch()
+          }
+        })
+      }
+    })
+  }
 }
 
 // 初始搜索
@@ -138,6 +209,17 @@ const deleteAccessTokenId = (e: number) => {
   })
 }
 
+// 选择事件
+const handleSelectionChange = (val: any[]) => {
+  multipleSelection.value = val
+
+  // 清空
+  oauthAccessTokenIds.value = []
+  for (const i in val) {
+    oauthAccessTokenIds.value[i] = multipleSelection.value[i].oauthAccessTokenId
+  }
+}
+
 </script>
 
 <style scoped>
@@ -146,7 +228,10 @@ const deleteAccessTokenId = (e: number) => {
   width: 300px;
 }
 
-.cloud-el-input, .cloud-el-search {
+.cloud-el-input,
+.cloud-el-search,
+.cloud-el-reset,
+.cloud-el-remove {
   margin-left: 5px;
   margin-right: 5px;
 }

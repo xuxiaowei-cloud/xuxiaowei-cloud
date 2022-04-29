@@ -2,6 +2,7 @@ package cloud.xuxiaowei.audit.controller;
 
 import cloud.xuxiaowei.audit.resilience4j.AuthorizationServerResilience4jService;
 import cloud.xuxiaowei.oauth2.bo.AuditCodePageBo;
+import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 授权码Code
@@ -50,6 +52,23 @@ public class OauthCodeController {
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("codeId") Long codeId) {
 
         return authorizationServerResilience4jService.removeByAuditCodeId(codeId);
+    }
+
+    /**
+     * 根据 授权码Code主键 删除
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param codeIds  授权码Code主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('audit_code_delete')")
+    @RequestMapping("/removeByIds")
+    public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> codeIds) {
+
+        AssertUtils.sizeNonNull(codeIds, 1, 50, "非法数据长度");
+
+        return authorizationServerResilience4jService.removeByAuditCodeIds(codeIds);
     }
 
     /**
