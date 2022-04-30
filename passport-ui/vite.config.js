@@ -41,9 +41,9 @@ export default defineConfig({
         // entryFileNames: `assets/[name].${timestamp}.js`,
         // chunkFileNames: `assets/[name].${timestamp}.js`,
         // assetFileNames: `assets/[name].${timestamp}.[ext]`
-        entryFileNames: `passport-assets/[name].js`,
-        chunkFileNames: `passport-assets/[name].js`,
-        assetFileNames: `passport-assets/[name].[ext]`,
+        entryFileNames: 'passport-assets/[name].js',
+        chunkFileNames: 'passport-assets/[name].js',
+        assetFileNames: 'passport-assets/[name].[ext]'
       }
     }
   },

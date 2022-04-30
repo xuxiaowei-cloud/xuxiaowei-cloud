@@ -47,6 +47,19 @@
           </el-menu-item-group>
         </el-sub-menu>
 
+        <el-sub-menu index="4">
+          <template #title>
+            <el-icon>
+              <setting/>
+            </el-icon>
+            <span>系统管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/manage/user" @click="menuItem">用户管理</el-menu-item>
+            <el-menu-item index="/manage/client" @click="menuItem">客户管理</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
         <el-sub-menu index="99"
                      v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
           <template #title>
@@ -125,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook, User } from '@element-plus/icons-vue'
+import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook, User, Setting } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority, hasAnyAuthority } from '../utils/authority'
