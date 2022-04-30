@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 17/04/2022 16:40:31
+ Date: 30/04/2022 15:57:35
 */
 
 SET NAMES utf8mb4;
@@ -46,8 +46,8 @@ CREATE TABLE `oauth_access_token`  (
   `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `expiration` datetime NULL DEFAULT NULL,
   `token_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `access_token` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `refresh_token_encryption` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `access_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `refresh_token_encryption` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `refresh_token_expiration` datetime NULL DEFAULT NULL,
   `user_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `client_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `oauth_refresh_token`  (
   `token_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `token` mediumblob NULL,
   `token_json` json NULL,
-  `refresh_token` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `refresh_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `expiration` datetime NULL DEFAULT NULL,
   `authentication` mediumblob NULL,
   `authentication_json` json NULL,
