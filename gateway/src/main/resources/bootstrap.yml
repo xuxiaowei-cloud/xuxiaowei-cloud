@@ -282,6 +282,9 @@ cloud:
           - /oauth/check_token
           # 获取Token
           - /oauth/token
+      - name: webservice
+        path-list:
+          - /cxf/**
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
