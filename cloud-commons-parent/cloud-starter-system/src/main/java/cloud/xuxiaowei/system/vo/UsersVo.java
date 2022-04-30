@@ -20,7 +20,7 @@ public class UsersVo implements Serializable {
     /**
      * 用户主键，自增
      */
-    private String usersId;
+    private Long usersId;
 
     /**
      * 用户名，不能为空，唯一键：uk__users__username
