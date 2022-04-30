@@ -48,6 +48,11 @@ import java.util.Map;
 public class ControllerAdviceConfiguration {
 
     /**
+     * 缺少必需的请求正文
+     */
+    private final static String REQUIRED_REQUEST_BODY_IS_MISSING = "Required request body is missing";
+
+    /**
      * 微服务 运行时异常父类
      *
      * @param exception 客户端 异常
@@ -238,11 +243,19 @@ public class ControllerAdviceConfiguration {
             error.setMsg(CodeEnums.B10005.msg);
             error.setField(propertyName);
         } else {
-            log.error(CodeEnums.B10002.msg, exception);
+            String message = exception.getMessage();
+            if (message != null && message.startsWith(REQUIRED_REQUEST_BODY_IS_MISSING)) {
+                log.error(CodeEnums.B10006.msg, exception);
 
-            error.setCode(CodeEnums.B10002.code);
-            error.setMsg(CodeEnums.B10002.msg);
-            error.setExplain(exception.getMessage());
+                error.setCode(CodeEnums.B10006.code);
+                error.setMsg(CodeEnums.B10006.msg);
+            } else {
+                log.error(CodeEnums.B10002.msg, exception);
+
+                error.setCode(CodeEnums.B10002.code);
+                error.setMsg(CodeEnums.B10002.msg);
+                error.setExplain(message);
+            }
         }
 
         return error;
