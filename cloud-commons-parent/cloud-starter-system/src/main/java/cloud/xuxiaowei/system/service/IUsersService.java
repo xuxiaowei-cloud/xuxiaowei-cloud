@@ -1,7 +1,9 @@
 package cloud.xuxiaowei.system.service;
 
+import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.vo.UsersVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -29,5 +31,13 @@ public interface IUsersService extends IService<Users> {
      * @return 返回 用户信息及权限
      */
     UsersVo getUsersVoByUsername(String username);
+
+    /**
+     * 分页查询用户
+     *
+     * @param manageUsersPageBo 管理用户分页参数
+     * @return 返回 分页查询结果
+     */
+    IPage<UsersVo> pageByManageUsers(ManageUsersPageBo manageUsersPageBo);
 
 }

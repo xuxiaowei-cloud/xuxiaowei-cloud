@@ -48,7 +48,7 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-cloud/xuxiaowei-cloud?style=flat-square">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-cloud/xuxiaowei-cloud">
   </a>
 
   <a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">

@@ -1,14 +1,17 @@
 package cloud.xuxiaowei.user.controller;
 
+import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.Response;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -114,6 +117,23 @@ public class UserRestController {
         OAuth2Request oauth2Request = oauth2Authentication.getOAuth2Request();
 
         return Response.ok(oauth2Request);
+    }
+
+    /**
+     * 分页查询用户
+     *
+     * @param request           请求
+     * @param response          响应
+     * @param manageUsersPageBo 用户分页参数
+     * @return 返回 分页查询结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_read')")
+    @RequestMapping("/page")
+    public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody ManageUsersPageBo manageUsersPageBo) {
+
+        IPage<UsersVo> page = usersService.pageByManageUsers(manageUsersPageBo);
+
+        return Response.ok(page);
     }
 
 }
