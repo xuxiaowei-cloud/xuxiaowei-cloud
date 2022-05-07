@@ -48,7 +48,7 @@
             a.deleted       AS a_deleted
         FROM
             users AS u
-                JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+            LEFT JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
         WHERE
             u.username = #{username} AND u.deleted = 0
     </select>
