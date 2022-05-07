@@ -1,9 +1,13 @@
 package cloud.xuxiaowei.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * 用户
@@ -30,6 +34,38 @@ public class UsersVo implements Serializable {
      * 昵称，不能为空，唯一键：uk__users__nickname
      */
     private String nickname;
+
+    /**
+     * 是否启用，不能为空
+     */
+    private Boolean enabled;
+
+    /**
+     * 帐户未过期，不能为空
+     */
+    private Boolean accountNonExpired;
+
+    /**
+     * 凭证未过期，不能为空
+     */
+    private Boolean credentialsNonExpired;
+
+    /**
+     * 帐户未锁定，不能为空
+     */
+    private Boolean accountNonLocked;
+
+    /**
+     * 创建时间，不为空，数据库自动生成
+     */
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+    private LocalDateTime createDate;
+
+    /**
+     * 更新时间，未更新时为空
+     */
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+    private LocalDateTime updateDate;
 
     /**
      * 权限

@@ -62,7 +62,7 @@ public class OauthCodeController {
      * @param codeIds  授权码Code主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_code_delete')  or #oauth2.hasScope('audit_code_delete')")
+    @PreAuthorize("hasAuthority('audit_code_delete') or #oauth2.hasScope('audit_code_delete')")
     @RequestMapping("/removeByIds")
     public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> codeIds) {
 
