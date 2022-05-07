@@ -244,7 +244,7 @@ const handleSelectionChange = (val: any[]) => {
 
 .cloud-el-expand-input,
 .cloud-el-expand-textarea {
-  max-width: 1100px !important;
+  max-width: 1100px;
 }
 
 .cloud-el-input {
