@@ -3,6 +3,7 @@ package cloud.xuxiaowei.user.controller;
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.UsersVo;
+import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 用户
@@ -134,6 +137,42 @@ public class UserRestController {
         IPage<UsersVo> page = usersService.pageByManageUsers(manageUsersPageBo);
 
         return Response.ok(page);
+    }
+
+    /**
+     * 根据 用户主键 删除
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param usersId  用户主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_delete') or #oauth2.hasScope('manage_user_delete')")
+    @RequestMapping("/removeById/{usersId}")
+    public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("usersId") Long usersId) {
+
+        boolean removeById = usersService.removeById(usersId);
+
+        return Response.ok(removeById);
+    }
+
+    /**
+     * 根据 用户主键 删除
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param usersIds 用户主键
+     * @return 返回 删除结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_delete') or #oauth2.hasScope('manage_user_delete')")
+    @RequestMapping("/removeByIds")
+    public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> usersIds) {
+
+        AssertUtils.sizeNonNull(usersIds, 1, 50, "非法数据长度");
+
+        boolean removeByIds = usersService.removeByIds(usersIds);
+
+        return Response.ok(removeByIds);
     }
 
 }
