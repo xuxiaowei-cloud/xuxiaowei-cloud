@@ -129,10 +129,10 @@ public class AuthorizationServerResilience4jService {
     }
 
     /**
-     * 分页查询授权码 熔断
+     * 授权服务 熔断
      *
      * @param e 异常
-     * @return 返回 分页查询授权码 结果
+     * @return 返回 授权服务熔断 结果
      */
     public Response<?> fallbackMethod(Exception e) {
 
