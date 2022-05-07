@@ -42,7 +42,7 @@ public class UserRestController {
      * @param response 响应
      * @return 返回 结果
      */
-    @PreAuthorize("hasAuthority('user_info')")
+    @PreAuthorize("hasAuthority('user_info') or #oauth2.hasScope('user_info')")
     @RequestMapping("/info")
     public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
@@ -62,7 +62,7 @@ public class UserRestController {
      * @param response 响应
      * @return 返回 结果
      */
-    @PreAuthorize("hasAuthority('user_authorities')")
+    @PreAuthorize("hasAuthority('user_authorities') or #oauth2.hasScope('user_authorities')")
     @RequestMapping("/authorities")
     public Response<?> authorities(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
@@ -78,7 +78,7 @@ public class UserRestController {
      * @param response 响应
      * @return 返回 结果
      */
-    @PreAuthorize("hasAuthority('user_details')")
+    @PreAuthorize("hasAuthority('user_details') or #oauth2.hasScope('user_details')")
     @RequestMapping("/details")
     public Response<?> details(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
@@ -94,7 +94,7 @@ public class UserRestController {
      * @param response 响应
      * @return 返回 结果
      */
-    @PreAuthorize("hasAuthority('user_oauth2_userAuthentication')")
+    @PreAuthorize("hasAuthority('user_oauth2_userAuthentication') or #oauth2.hasScope('user_oauth2_userAuthentication')")
     @RequestMapping("/userAuthentication")
     public Response<?> userAuthentication(HttpServletRequest request, HttpServletResponse response, OAuth2Authentication oauth2Authentication) {
 
@@ -110,7 +110,7 @@ public class UserRestController {
      * @param response 响应
      * @return 返回 结果
      */
-    @PreAuthorize("hasAuthority('user_oauth2_oauth2Request')")
+    @PreAuthorize("hasAuthority('user_oauth2_oauth2Request') or #oauth2.hasScope('user_oauth2_oauth2Request')")
     @RequestMapping("/oauth2Request")
     public Response<?> oauth2Request(HttpServletRequest request, HttpServletResponse response, OAuth2Authentication oauth2Authentication) {
 
@@ -127,7 +127,7 @@ public class UserRestController {
      * @param manageUsersPageBo 用户分页参数
      * @return 返回 分页查询结果
      */
-    @PreAuthorize("hasAuthority('manage_user_read')")
+    @PreAuthorize("hasAuthority('manage_user_read') or #oauth2.hasScope('manage_user_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody ManageUsersPageBo manageUsersPageBo) {
 

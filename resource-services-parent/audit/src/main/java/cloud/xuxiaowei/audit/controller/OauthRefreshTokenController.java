@@ -40,7 +40,7 @@ public class OauthRefreshTokenController {
      * @param oauthRefreshTokenId 刷新Token主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_refreshToken_delete')")
+    @PreAuthorize("hasAuthority('audit_refreshToken_delete') or #oauth2.hasScope('audit_refreshToken_delete')")
     @RequestMapping("/removeById/{oauthRefreshTokenId}")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
                                   @PathVariable("oauthRefreshTokenId") Long oauthRefreshTokenId) {
@@ -56,7 +56,7 @@ public class OauthRefreshTokenController {
      * @param oauthRefreshTokenIds 刷新Token主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_refreshToken_delete')")
+    @PreAuthorize("hasAuthority('audit_refreshToken_delete') or #oauth2.hasScope('audit_refreshToken_delete')")
     @RequestMapping("/removeByIds")
     public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> oauthRefreshTokenIds) {
 
@@ -73,7 +73,7 @@ public class OauthRefreshTokenController {
      * @param auditRefreshTokenPageBo 审计刷新Token分页参数
      * @return 返回 分页查询结果
      */
-    @PreAuthorize("hasAuthority('audit_refreshToken_read')")
+    @PreAuthorize("hasAuthority('audit_refreshToken_read') or #oauth2.hasScope('audit_refreshToken_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response,
                             @RequestBody AuditRefreshTokenPageBo auditRefreshTokenPageBo) {

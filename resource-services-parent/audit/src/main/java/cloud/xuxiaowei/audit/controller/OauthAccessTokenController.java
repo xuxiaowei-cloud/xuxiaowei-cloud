@@ -40,7 +40,7 @@ public class OauthAccessTokenController {
      * @param oauthAccessTokenId 授权Token主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_accessToken_delete')")
+    @PreAuthorize("hasAuthority('audit_accessToken_delete') or #oauth2.hasScope('audit_accessToken_delete')")
     @RequestMapping("/removeById/{oauthAccessTokenId}")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("oauthAccessTokenId") Long oauthAccessTokenId) {
 
@@ -55,7 +55,7 @@ public class OauthAccessTokenController {
      * @param oauthAccessTokenIds 授权Token主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_accessToken_delete')")
+    @PreAuthorize("hasAuthority('audit_accessToken_delete') or #oauth2.hasScope('audit_accessToken_delete')")
     @RequestMapping("/removeByIds")
     public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> oauthAccessTokenIds) {
 
@@ -72,7 +72,7 @@ public class OauthAccessTokenController {
      * @param auditAccessTokenPageBo 审计授权Token分页参数
      * @return 返回 分页查询结果
      */
-    @PreAuthorize("hasAuthority('audit_accessToken_read')")
+    @PreAuthorize("hasAuthority('audit_accessToken_read') or #oauth2.hasScope('audit_accessToken_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response,
                             @RequestBody AuditAccessTokenPageBo auditAccessTokenPageBo) {

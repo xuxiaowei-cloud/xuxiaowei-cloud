@@ -130,6 +130,7 @@ npm create vite@latest ui -- --template vue-ts
 
 ## 依赖地址
 
+- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
 - [@tauri-apps/api](https://www.npmjs.com/package/@tauri-apps/api)
 - [@toast-ui/editor](https://www.npmjs.com/package/@toast-ui/editor)
 - [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
