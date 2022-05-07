@@ -1,17 +1,46 @@
 <template>
   <div id="cloud-el-search">
-    <el-input class="cloud-el-input" clearable v-model="param.codeId" placeholder="Please input codeId" />
-    <el-input class="cloud-el-input" clearable v-model="param.code" placeholder="Please input code" />
-    <el-input class="cloud-el-input" clearable v-model="param.username" placeholder="Please input username" />
-    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId" />
-    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress" />
+    <el-input class="cloud-el-input" clearable v-model="param.codeId" placeholder="Please input codeId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.code" placeholder="Please input code"/>
+    <el-input class="cloud-el-input" clearable v-model="param.username" placeholder="Please input username"/>
+    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
     <el-button class="cloud-el-remove" @click="cloudRemove">删除</el-button>
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" />
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-width="120px">
+            <el-form-item label="redirectUri">
+              <el-input v-model="props.row.redirectUri" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="scope">
+              <el-input v-model="props.row.scope" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+
+            <el-form-item label="authorities">
+              <el-input v-model="props.row.authoritiesJson" class="cloud-el-expand-textarea" type="textarea" disabled rows="5"/>
+            </el-form-item>
+            <el-form-item label="authentication">
+              <el-input v-model="props.row.authenticationJson" class="cloud-el-expand-textarea" type="textarea" disabled rows="10"/>
+            </el-form-item>
+
+            <el-form-item label="sessionId">
+              <el-input v-model="props.row.sessionId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="state">
+              <el-input v-model="props.row.state" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="responseType">
+              <el-input v-model="props.row.responseType" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column type="selection" width="55"/>
       <el-table-column prop="codeId" label="codeId" width="70"/>
       <el-table-column prop="code" label="code" width="320"/>
       <el-table-column prop="username" label="username" width="130"/>
@@ -20,13 +49,6 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
       <el-table-column prop="deleted" label="deleted" width="100"/>
-      <el-table-column prop="scope" label="scope" width="130"/>
-      <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
-      <el-table-column prop="responseType" label="responseType" width="130"/>
-      <el-table-column prop="sessionId" label="sessionId" width="300" :show-overflow-tooltip="true"/>
-      <el-table-column prop="state" label="state" width="300" :show-overflow-tooltip="true"/>
-      <el-table-column prop="authoritiesJson" label="authorities" width="160" :show-overflow-tooltip="true"/>
-      <el-table-column prop="authenticationJson" label="authentication" width="160" :show-overflow-tooltip="true"/>
       <el-table-column fixed="right" label="Operations" width="100">
         <template #default="scope">
           <el-button type="text" size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
@@ -36,7 +58,7 @@
     </el-table>
   </el-container>
   <el-container>
-    <el-pagination layout="prev, pager, next, total" @current-change="currentChange" :total="param.total" />
+    <el-pagination layout="prev, pager, next, total" @current-change="currentChange" :total="param.total"/>
   </el-container>
 </template>
 
@@ -185,6 +207,11 @@ const handleSelectionChange = (val: any[]) => {
 </script>
 
 <style scoped>
+
+.cloud-el-expand-input,
+.cloud-el-expand-textarea {
+  max-width: 1100px !important;
+}
 
 .cloud-el-input {
   width: 300px;
