@@ -199,6 +199,15 @@ public enum CodeEnums {
     C20006("C20006", "客户端参数验证授权码异常", null),
 
     /**
+     * SQL异常
+     */
+    Q10000("Q10000", "SQL异常", "通用代码"),
+    /**
+     * 外键、主键或唯一键异常
+     */
+    Q10001("Q10001", "外键、主键或唯一键异常", null),
+
+    /**
      * 参数异常
      * <p>
      * 仅指URL参数，如：{@link RequestParam}（不包含 {@link RequestBody}）

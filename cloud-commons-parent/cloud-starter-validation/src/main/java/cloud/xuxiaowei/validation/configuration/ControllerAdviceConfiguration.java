@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +128,30 @@ public class ControllerAdviceConfiguration {
 
         // 清空 vuex
         return ResponseMap.error(code, msg).put("clearVuex", true);
+    }
+
+    /**
+     * 外键、主键或唯一键 异常
+     *
+     * @param exception 外键、主键或唯一键 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public Response<?> sqlIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception,
+                                                                HttpServletRequest request) {
+
+        String sqlState = exception.getSQLState();
+        int errorCode = exception.getErrorCode();
+        String message = exception.getMessage();
+
+        log.error(CodeEnums.Q10001.msg, exception);
+
+        return ResponseMap.error(CodeEnums.Q10001.code, CodeEnums.Q10001.msg)
+                .put("sqlState", sqlState)
+                .put("errorCode", errorCode)
+                .put("message", message);
     }
 
     /**
