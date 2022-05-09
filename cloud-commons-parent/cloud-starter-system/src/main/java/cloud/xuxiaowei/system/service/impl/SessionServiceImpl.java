@@ -1,10 +1,13 @@
 package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.service.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +20,13 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class SessionServiceImpl implements SessionService {
+
+    private TokenStore tokenStore;
+
+    @Autowired
+    public void setTokenStore(TokenStore tokenStore) {
+        this.tokenStore = tokenStore;
+    }
 
     /**
      * 获取 Token
@@ -35,6 +45,16 @@ public class SessionServiceImpl implements SessionService {
         }
 
         return null;
+    }
+
+    /**
+     * 获取 授权Token对象
+     *
+     * @return 返回 授权Token对象
+     */
+    @Override
+    public OAuth2AccessToken readAccessToken() {
+        return tokenStore.readAccessToken(getTokenValue());
     }
 
 }
