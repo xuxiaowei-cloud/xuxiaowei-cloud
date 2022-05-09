@@ -12,6 +12,10 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * {@link HttpSession} 服务接口 实现类
@@ -70,6 +74,28 @@ public class SessionServiceImpl implements SessionService {
             return (DefaultOAuth2AccessToken) oauth2AccessToken;
         }
         return null;
+    }
+
+    /**
+     * 计算令牌的MD5值
+     *
+     * @param value 令牌
+     * @return 返回 令牌的MD5值
+     */
+    @Override
+    public String extractTokenKey(String value) {
+        if (value == null) {
+            return null;
+        }
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("MD5 算法不可用。致命的（应该在 JDK 中）。");
+        }
+
+        byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+        return String.format("%032x", new BigInteger(1, bytes));
     }
 
 }

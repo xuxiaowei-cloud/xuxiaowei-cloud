@@ -34,4 +34,12 @@ public interface SessionService {
      */
     DefaultOAuth2AccessToken defaultOauth2AccessToken();
 
+    /**
+     * 计算令牌的MD5值
+     *
+     * @param value 令牌
+     * @return 返回 令牌的MD5值
+     */
+    String extractTokenKey(String value);
+
 }
