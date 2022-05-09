@@ -161,6 +161,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     /**
+     * 获取 Session（Redis） ID
+     *
+     * @return 返回 Session（Redis） ID
+     */
+    private String sessionId() {
+        return "session:" + tokenId();
+    }
+
+    /**
      * 设置 Session（Redis） 中的值
      *
      * @param key   键
@@ -168,8 +177,7 @@ public class SessionServiceImpl implements SessionService {
      */
     @Override
     public void setAttribute(String key, Object value) {
-        String tokenId = tokenId();
-        String sessionId = "session:" + tokenId;
+        String sessionId = sessionId();
         ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
         if (concurrentMap == null) {
             concurrentMap = new ConcurrentHashMap<>(4);
@@ -186,8 +194,7 @@ public class SessionServiceImpl implements SessionService {
      */
     @Override
     public Object getAttribute(String key) {
-        String tokenId = tokenId();
-        String sessionId = "session:" + tokenId;
+        String sessionId = sessionId();
         ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
         if (concurrentMap == null) {
             return null;
@@ -202,8 +209,7 @@ public class SessionServiceImpl implements SessionService {
      */
     @Override
     public void removeAttribute(String key) {
-        String tokenId = tokenId();
-        String sessionId = "session:" + tokenId;
+        String sessionId = sessionId();
         ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
         if (concurrentMap != null) {
             concurrentMap.remove(key);
