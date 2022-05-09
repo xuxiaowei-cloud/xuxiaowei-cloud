@@ -11,7 +11,8 @@
         <el-input v-model="param.nickname"/>
       </el-form-item>
       <el-form-item label="password">
-        <el-input v-model="param.password"/>
+        <el-input class="cloud-el-password" v-model="param.password"/>
+        <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机密码</el-button>
       </el-form-item>
       <el-form-item label="enabled">
         <el-switch v-model="param.enabled"/>
@@ -38,8 +39,10 @@
 <script setup lang="ts">
 import { defineProps, reactive, defineEmits } from 'vue'
 import { getById, save, updateById } from '../../../api/user'
+import { generatePassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+
 // 缓存
 const store = useStore()
 
@@ -94,6 +97,11 @@ const emit = defineEmits(['dialogVisibleClose'])
 // 初始化数据
 initData()
 
+// 生成随机密码
+const passwordGenerate = () => {
+  param.password = generatePassword()
+}
+
 // 保存
 const cloudSave = () => {
   save(param).then(response => {
@@ -141,6 +149,14 @@ const cloudUpdate = () => {
 #cloud-el-form,
 .cloud-el-button {
   width: 100%;
+}
+
+.cloud-el-password {
+  width: calc(100% - 116px - 4px);
+}
+
+.cloud-el-password-generate {
+  margin-left: 4px;
 }
 
 </style>
