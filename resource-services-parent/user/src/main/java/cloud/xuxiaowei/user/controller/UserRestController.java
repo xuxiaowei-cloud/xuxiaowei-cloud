@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
+import cloud.xuxiaowei.system.bo.UsersSaveBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -173,6 +176,59 @@ public class UserRestController {
         boolean removeByIds = usersService.removeByIds(usersIds);
 
         return Response.ok(removeByIds);
+    }
+
+    /**
+     * 根据 用户主键 查询用户
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param usersId  用户主键
+     * @return 返回 查询结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_read') or #oauth2.hasScope('manage_user_read')")
+    @RequestMapping("/getById/{usersId}")
+    public Response<?> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable("usersId") Long usersId) {
+
+        UsersVo usersVo = usersService.getUsersVoById(usersId);
+
+        return Response.ok(usersVo);
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param request     请求
+     * @param response    响应
+     * @param usersSaveBo 用户
+     * @return 返回 保存结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_add') or #oauth2.hasScope('manage_user_add')")
+    @RequestMapping("/save")
+    public Response<?> save(HttpServletRequest request, HttpServletResponse response,
+                            @Valid @RequestBody UsersSaveBo usersSaveBo) {
+
+        boolean save = usersService.saveUsersSaveBo(usersSaveBo);
+
+        return Response.ok(save);
+    }
+
+    /**
+     * 根据 用户主键 更新用户
+     *
+     * @param request       请求
+     * @param response      响应
+     * @param usersUpdateBo 用户
+     * @return 返回 更新结果
+     */
+    @PreAuthorize("hasAuthority('manage_user_edit') or #oauth2.hasScope('manage_user_edit')")
+    @RequestMapping("/updateById")
+    public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
+                                  @Valid @RequestBody UsersUpdateBo usersUpdateBo) {
+
+        boolean update = usersService.updateByUsersUpdateBo(usersUpdateBo);
+
+        return Response.ok(update);
     }
 
 }

@@ -90,3 +90,33 @@ export const removeByIds = function (usersIds: number[]) {
     return response.data
   })
 }
+
+/**
+ * 根据 用户主键 查询
+ * @param usersId 用户主键
+ */
+export const getById = function (usersId: number) {
+  return request.post('/user/getById/' + usersId).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 保存用户
+ * @param data 用户
+ */
+export const save = function (data: any) {
+  return request.post('/user/save', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 更新用户
+ * @param data 用户
+ */
+export const updateById = function (data: any) {
+  return request.post('/user/updateById', data).then(response => {
+    return response.data
+  })
+}
