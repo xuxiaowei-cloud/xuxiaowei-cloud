@@ -15,6 +15,14 @@ import org.apache.ibatis.annotations.Param;
 public interface UsersMapper extends BaseMapper<Users> {
 
     /**
+     * 根据 用户主键 查询用户信息及权限
+     *
+     * @param usersId 用户主键
+     * @return 返回 用户信息及权限
+     */
+    Users getByUsersId(@Param("usersId") Long usersId);
+
+    /**
      * 根据 用户名 查询用户信息及权限
      *
      * @param username 用户名

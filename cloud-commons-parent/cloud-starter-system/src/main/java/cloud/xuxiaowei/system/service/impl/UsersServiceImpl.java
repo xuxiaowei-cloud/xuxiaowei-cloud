@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
+import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -155,12 +158,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
      */
     @Override
     public UsersVo getUsersVoById(Long usersId) {
-        Users users = getById(usersId);
+        Users users = baseMapper.getByUsersId(usersId);
         if (users == null) {
             return null;
         }
         UsersVo usersVo = new UsersVo();
         BeanUtils.copyProperties(users, usersVo);
+
+        Set<String> authoritiesSet = new HashSet<>();
+        usersVo.setAuthoritiesList(authoritiesSet);
+        for (Authorities auth : users.getAuthoritiesList()) {
+            String authority = auth.getAuthority();
+            authoritiesSet.add(authority);
+        }
+
         return usersVo;
     }
 
