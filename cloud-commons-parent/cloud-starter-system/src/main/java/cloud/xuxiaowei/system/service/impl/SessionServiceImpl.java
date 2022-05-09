@@ -2,6 +2,7 @@ package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,8 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * {@link HttpSession} 服务接口 实现类
@@ -31,6 +34,8 @@ public class SessionServiceImpl implements SessionService {
 
     public HttpSession session;
 
+    public RedisTemplate<String, ConcurrentMap<String, Object>> redisTemplate;
+
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
@@ -39,6 +44,11 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     public void setSession(HttpSession session) {
         this.session = session;
+    }
+
+    @Autowired
+    public void setRedisTemplate(RedisTemplate<String, ConcurrentMap<String, Object>> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     /**
@@ -148,6 +158,57 @@ public class SessionServiceImpl implements SessionService {
             return session.getId();
         }
         return extractTokenKey(tokenValue);
+    }
+
+    /**
+     * 设置 Session（Redis） 中的值
+     *
+     * @param key   键
+     * @param value 值
+     */
+    @Override
+    public void setAttribute(String key, Object value) {
+        String tokenId = tokenId();
+        String sessionId = "session:" + tokenId;
+        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
+        if (concurrentMap == null) {
+            concurrentMap = new ConcurrentHashMap<>(4);
+        }
+        concurrentMap.put(key, value);
+        redisTemplate.opsForValue().set(sessionId, concurrentMap);
+    }
+
+    /**
+     * 获取 Session（Redis） 中的值
+     *
+     * @param key 键
+     * @return 返回 值
+     */
+    @Override
+    public Object getAttribute(String key) {
+        String tokenId = tokenId();
+        String sessionId = "session:" + tokenId;
+        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
+        if (concurrentMap == null) {
+            return null;
+        }
+        return concurrentMap.get(key);
+    }
+
+    /**
+     * 移除 Session（Redis） 中的值
+     *
+     * @param key 键
+     */
+    @Override
+    public void removeAttribute(String key) {
+        String tokenId = tokenId();
+        String sessionId = "session:" + tokenId;
+        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
+        if (concurrentMap != null) {
+            concurrentMap.remove(key);
+            redisTemplate.opsForValue().set(sessionId, concurrentMap);
+        }
     }
 
 }

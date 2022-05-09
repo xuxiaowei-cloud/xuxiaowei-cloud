@@ -66,4 +66,27 @@ public interface SessionService {
      */
     String tokenId();
 
+    /**
+     * 设置 Session（Redis） 中的值
+     *
+     * @param key   键
+     * @param value 值
+     */
+    void setAttribute(String key, Object value);
+
+    /**
+     * 获取 Session（Redis） 中的值
+     *
+     * @param key 键
+     * @return 返回 值
+     */
+    Object getAttribute(String key);
+
+    /**
+     * 移除 Session（Redis） 中的值
+     *
+     * @param key 键
+     */
+    void removeAttribute(String key);
+
 }
