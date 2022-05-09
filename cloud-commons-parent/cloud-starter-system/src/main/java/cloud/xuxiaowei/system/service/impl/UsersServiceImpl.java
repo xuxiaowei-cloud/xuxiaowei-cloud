@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
+import cloud.xuxiaowei.system.bo.UsersSaveBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
@@ -143,6 +145,49 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         }
 
         return usersVoPage;
+    }
+
+    /**
+     * 根据 用户主键 查询
+     *
+     * @param usersId 用户主键
+     * @return 返回 查询结果
+     */
+    @Override
+    public UsersVo getUsersVoById(Long usersId) {
+        Users users = getById(usersId);
+        if (users == null) {
+            return null;
+        }
+        UsersVo usersVo = new UsersVo();
+        BeanUtils.copyProperties(users, usersVo);
+        return usersVo;
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param usersSaveBo 用户
+     * @return 返回 保存结果
+     */
+    @Override
+    public boolean saveUsersSaveBo(UsersSaveBo usersSaveBo) {
+        Users users = new Users();
+        BeanUtils.copyProperties(usersSaveBo, users);
+        return save(users);
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param usersUpdateBo 用户
+     * @return 返回 更新结果
+     */
+    @Override
+    public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
+        Users users = new Users();
+        BeanUtils.copyProperties(usersUpdateBo, users);
+        return updateById(users);
     }
 
 }
