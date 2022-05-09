@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -185,6 +187,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public boolean saveUsersSaveBo(UsersSaveBo usersSaveBo) {
         Users users = new Users();
         BeanUtils.copyProperties(usersSaveBo, users);
+
+        // 用户密码加密
+        encode(users);
+
         return save(users);
     }
 
@@ -198,7 +204,26 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
         Users users = new Users();
         BeanUtils.copyProperties(usersUpdateBo, users);
+
+        // 用户密码加密
+        encode(users);
+
         return updateById(users);
+    }
+
+    /**
+     * 用户密码加密
+     *
+     * @param users 用户
+     */
+    private void encode(Users users) {
+        // 密码加密后储存
+        String password = users.getPassword();
+        if (StringUtils.hasText(password)) {
+            PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            String encode = delegatingPasswordEncoder.encode(password);
+            users.setPassword(encode);
+        }
     }
 
 }
