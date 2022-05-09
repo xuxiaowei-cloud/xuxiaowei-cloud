@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,11 @@ import java.util.Map;
         "org.springframework.security.oauth2.provider.request"
 })
 public class ControllerAdviceConfiguration {
+
+    /**
+     * 缺少必需的请求正文
+     */
+    private final static String REQUIRED_REQUEST_BODY_IS_MISSING = "Required request body is missing";
 
     /**
      * 微服务 运行时异常父类
@@ -122,6 +128,30 @@ public class ControllerAdviceConfiguration {
 
         // 清空 vuex
         return ResponseMap.error(code, msg).put("clearVuex", true);
+    }
+
+    /**
+     * 外键、主键或唯一键 异常
+     *
+     * @param exception 外键、主键或唯一键 异常
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public Response<?> sqlIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception,
+                                                                HttpServletRequest request) {
+
+        String sqlState = exception.getSQLState();
+        int errorCode = exception.getErrorCode();
+        String message = exception.getMessage();
+
+        log.error(CodeEnums.Q10001.msg, exception);
+
+        return ResponseMap.error(CodeEnums.Q10001.code, CodeEnums.Q10001.msg)
+                .put("sqlState", sqlState)
+                .put("errorCode", errorCode)
+                .put("message", message);
     }
 
     /**
@@ -238,11 +268,19 @@ public class ControllerAdviceConfiguration {
             error.setMsg(CodeEnums.B10005.msg);
             error.setField(propertyName);
         } else {
-            log.error(CodeEnums.B10002.msg, exception);
+            String message = exception.getMessage();
+            if (message != null && message.startsWith(REQUIRED_REQUEST_BODY_IS_MISSING)) {
+                log.error(CodeEnums.B10006.msg, exception);
 
-            error.setCode(CodeEnums.B10002.code);
-            error.setMsg(CodeEnums.B10002.msg);
-            error.setExplain(exception.getMessage());
+                error.setCode(CodeEnums.B10006.code);
+                error.setMsg(CodeEnums.B10006.msg);
+            } else {
+                log.error(CodeEnums.B10002.msg, exception);
+
+                error.setCode(CodeEnums.B10002.code);
+                error.setMsg(CodeEnums.B10002.msg);
+                error.setExplain(message);
+            }
         }
 
         return error;

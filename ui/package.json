@@ -60,14 +60,14 @@
     "stompjs": "2.3.3",
     "vue": "3.2.33",
     "vue-echarts": "6.0.2",
-    "vue-router": "4.0.14",
+    "vue-router": "4.0.15",
     "vuex": "4.0.2",
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-rc.9",
-    "@typescript-eslint/parser": "5.19.0",
-    "@vitejs/plugin-vue": "2.3.1",
+    "@tauri-apps/cli": "1.0.0-rc.9",
+    "@typescript-eslint/parser": "5.22.0",
+    "@vitejs/plugin-vue": "2.3.2",
     "@vue/cli-plugin-eslint": "5.0.4",
     "@vue/cli-plugin-typescript": "5.0.4",
     "@vue/cli-service": "5.0.4",
@@ -77,11 +77,11 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "eslint-plugin-vue": "7.20.0",
-    "lint-staged": "12.3.7",
-    "typescript": "4.6.3",
-    "unplugin-auto-import": "0.6.9",
-    "unplugin-vue-components": "0.18.5",
-    "vite": "2.9.6",
-    "vue-tsc": "0.34.6"
+    "lint-staged": "12.4.1",
+    "typescript": "4.6.4",
+    "unplugin-auto-import": "0.7.1",
+    "unplugin-vue-components": "0.19.3",
+    "vite": "2.9.8",
+    "vue-tsc": "0.34.11"
   }
 }

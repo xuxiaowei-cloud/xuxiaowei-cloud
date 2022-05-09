@@ -88,13 +88,13 @@ const submitCloudForm = () => {
       let header = 'header'
       let token = 'token'
       let password = cloudForm.password
-      let rememberMeParameter = 'remember-me';
+      let rememberMeParameter = 'remember-me'
       if (process.env.NODE_ENV === 'production') {
-        header = document.head.querySelector("[name=_csrf_header][content]").content
-        token = document.head.querySelector("[name=_csrf][content]").content
-        const rsa_public_key_base64 = document.head.querySelector("[name=rsa_public_key_base64][content]").content
-        rememberMeParameter = document.head.querySelector("[name=rememberMeParameter][content]").content
-        JsEncrypt.prototype.setPublicKey(rsa_public_key_base64)
+        header = document.head.querySelector('[name=_csrf_header][content]').content
+        token = document.head.querySelector('[name=_csrf][content]').content
+        const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
+        rememberMeParameter = document.head.querySelector('[name=rememberMeParameter][content]').content
+        JsEncrypt.prototype.setPublicKey(rsaPublicKeyBase64)
         password = JsEncrypt.prototype.encrypt(password)
       }
       const redirectUri = route.query.redirectUri

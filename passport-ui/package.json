@@ -37,12 +37,12 @@
     "element-plus": "2.1.11",
     "jsencrypt": "3.2.1",
     "vue": "3.2.33",
-    "vue-router": "4.0.14",
+    "vue-router": "4.0.15",
     "vuex": "4.0.2",
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "2.3.1",
+    "@vitejs/plugin-vue": "2.3.2",
     "@vue/cli-plugin-eslint": "5.0.4",
     "@vue/cli-service": "5.0.4",
     "@vue/eslint-config-standard": "6.1.0",
@@ -51,9 +51,9 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "eslint-plugin-vue": "7.20.0",
-    "lint-staged": "12.3.7",
-    "unplugin-auto-import": "0.6.9",
-    "unplugin-vue-components": "0.18.5",
-    "vite": "2.9.6"
+    "lint-staged": "12.4.1",
+    "unplugin-auto-import": "0.7.1",
+    "unplugin-vue-components": "0.19.3",
+    "vite": "2.9.8"
   }
 }

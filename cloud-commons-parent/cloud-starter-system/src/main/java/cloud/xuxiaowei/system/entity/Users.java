@@ -1,8 +1,6 @@
 package cloud.xuxiaowei.system.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,7 +23,8 @@ public class Users implements Serializable {
     /**
      * 用户主键，自增
      */
-    private String usersId;
+    @TableId(value = "users_id", type = IdType.AUTO)
+    private Long usersId;
 
     /**
      * 用户名，不能为空，唯一键：uk__users__username

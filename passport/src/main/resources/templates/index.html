@@ -11,6 +11,7 @@
     <meta name="rememberMeParameter" th:content="${rememberMeParameter}"/>
     <script type="module" crossorigin src="/passport-assets/index.js"></script>
     <link rel="stylesheet" href="/passport-assets/index.css">
+    <!-- 如果使用 passport 服务将 passport-ui 模块的静态文件放入其中，passport-ui 模块中的文件(index.html)将无效，使用的是 passport 中 templates 文件夹中的 index.html(即：本文件) -->
 </head>
 <body>
 <div id="app"></div>

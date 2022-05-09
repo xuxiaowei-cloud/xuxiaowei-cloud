@@ -1,27 +1,96 @@
 <template>
   <div id="cloud-el-search">
-    <el-input class="cloud-el-input" clearable v-model="param.oauthAccessTokenId" placeholder="Please input oauthAccessTokenId" />
-    <el-input class="cloud-el-input" clearable v-model="param.refreshToken" placeholder="Please input refreshToken" />
-    <el-input class="cloud-el-input" clearable v-model="param.userName" placeholder="Please input userName" />
-    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId" />
-    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress" />
-    <el-input class="cloud-el-input" clearable v-model="param.scope" placeholder="Please input scope" />
-    <el-input class="cloud-el-input" clearable v-model="param.redirectUri" placeholder="Please input redirectUri" />
-    <el-input class="cloud-el-input" clearable v-model="param.responseType" placeholder="Please input responseType" />
-    <el-input class="cloud-el-input" clearable v-model="param.accessToken" placeholder="Please input accessToken" />
-    <el-input class="cloud-el-input" clearable v-model="param.authenticationId" placeholder="Please input authenticationId" />
-    <el-input class="cloud-el-input" clearable v-model="param.jti" placeholder="Please input jti" />
-    <el-input class="cloud-el-input" clearable v-model="param.refreshTokenEncryption" placeholder="Please input refreshTokenEncryption" />
-    <el-input class="cloud-el-input" clearable v-model="param.tokenId" placeholder="Please input tokenId" />
-    <el-input class="cloud-el-input" clearable v-model="param.sessionId" placeholder="Please input sessionId" />
-    <el-input class="cloud-el-input" clearable v-model="param.state" placeholder="Please input state" />
+    <el-input class="cloud-el-input" clearable v-model="param.oauthAccessTokenId"
+              placeholder="Please input oauthAccessTokenId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.refreshToken" placeholder="Please input refreshToken"/>
+    <el-input class="cloud-el-input" clearable v-model="param.userName" placeholder="Please input userName"/>
+    <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.remoteAddress" placeholder="Please input remoteAddress"/>
+    <el-input class="cloud-el-input" clearable v-model="param.scope" placeholder="Please input scope"/>
+    <el-input class="cloud-el-input" clearable v-model="param.redirectUri" placeholder="Please input redirectUri"/>
+    <el-input class="cloud-el-input" clearable v-model="param.responseType" placeholder="Please input responseType"/>
+    <el-input class="cloud-el-input" clearable v-model="param.accessToken" placeholder="Please input accessToken"/>
+    <el-input class="cloud-el-input" clearable v-model="param.authenticationId"
+              placeholder="Please input authenticationId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.jti" placeholder="Please input jti"/>
+    <el-input class="cloud-el-input" clearable v-model="param.refreshTokenEncryption"
+              placeholder="Please input refreshTokenEncryption"/>
+    <el-input class="cloud-el-input" clearable v-model="param.tokenId" placeholder="Please input tokenId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.sessionId" placeholder="Please input sessionId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.state" placeholder="Please input state"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove">删除</el-button>
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('audit_accessToken_delete')">删除
+    </el-button>
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" />
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-width="160px">
+            <el-form-item label="redirectUri">
+              <el-input v-model="props.row.redirectUri" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="scope">
+              <el-input v-model="props.row.scope" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+
+            <el-form-item label="tokenJson">
+              <el-input v-model="props.row.tokenJson" class="cloud-el-expand-textarea" type="textarea" disabled
+                        rows="5"/>
+            </el-form-item>
+
+            <el-form-item label="tokenType">
+              <el-input v-model="props.row.tokenType" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+
+            <el-form-item label="authorities">
+              <el-input v-model="props.row.authoritiesJson" class="cloud-el-expand-textarea" type="textarea" disabled
+                        rows="5"/>
+            </el-form-item>
+            <el-form-item label="authentication">
+              <el-input v-model="props.row.authenticationJson" class="cloud-el-expand-textarea" type="textarea" disabled
+                        rows="5"/>
+            </el-form-item>
+            <el-form-item label="accessToken">
+              <el-input v-model="props.row.accessToken" class="cloud-el-expand-textarea" type="textarea" disabled
+                        rows="5"/>
+            </el-form-item>
+
+            <el-form-item label="expiration">
+              <el-input v-model="props.row.expiration" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="authenticationId">
+              <el-input v-model="props.row.authenticationId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="jti">
+              <el-input v-model="props.row.jti" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+
+            <el-form-item label="refreshTokenEncryption">
+              <el-input v-model="props.row.refreshTokenEncryption" class="cloud-el-expand-textarea" type="textarea"
+                        disabled rows="5"/>
+            </el-form-item>
+
+            <el-form-item label="refreshTokenExpiration">
+              <el-input v-model="props.row.refreshTokenExpiration" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="tokenId">
+              <el-input v-model="props.row.tokenId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="sessionId">
+              <el-input v-model="props.row.sessionId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="state">
+              <el-input v-model="props.row.state" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="responseType">
+              <el-input v-model="props.row.responseType" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column type="selection" width="55"/>
       <el-table-column prop="oauthAccessTokenId" label="oauthAccessTokenId" width="165"/>
       <el-table-column prop="refreshToken" label="refreshToken" width="290" :show-overflow-tooltip="true"/>
       <el-table-column prop="userName" label="userName" width="130"/>
@@ -30,38 +99,25 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
       <el-table-column prop="deleted" label="deleted" width="100"/>
-      <el-table-column prop="scope" label="scope" width="130"/>
-      <el-table-column prop="redirectUri" label="redirectUri" width="260" :show-overflow-tooltip="true"/>
-      <el-table-column prop="responseType" label="responseType" width="130"/>
-      <el-table-column prop="tokenJson" label="tokenJson" width="160" :show-overflow-tooltip="true"/>
-      <el-table-column prop="tokenType" label="tokenType" width="95"/>
-      <el-table-column prop="accessToken" label="accessToken" width="130" :show-overflow-tooltip="true"/>
-      <el-table-column prop="expiration" label="expiration" width="160"/>
-      <el-table-column prop="authenticationId" label="authenticationId" width="270"/>
-      <el-table-column prop="jti" label="jti" width="270"/>
-      <el-table-column prop="refreshTokenEncryption" label="refreshTokenEncryption" width="190" :show-overflow-tooltip="true"/>
-      <el-table-column prop="refreshTokenExpiration" label="refreshTokenExpiration" width="190"/>
-      <el-table-column prop="tokenId" label="tokenId" width="300"/>
-      <el-table-column prop="sessionId" label="sessionId" width="300"/>
-      <el-table-column prop="state" label="state" width="300"/>
-      <el-table-column prop="authoritiesJson" label="authorities" width="160" :show-overflow-tooltip="true"/>
-      <el-table-column prop="authenticationJson" label="authentication" width="160" :show-overflow-tooltip="true"/>
-      <el-table-column fixed="right" label="Operations" width="100">
+
+      <el-table-column fixed="right" label="Operations" width="100" v-if="hasAuthority('audit_accessToken_delete')">
         <template #default="scope">
           <el-button type="text" size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
-          <el-button type="text" size="small" v-else @click="deleteAccessTokenId(scope.row.oauthAccessTokenId)">Delete</el-button>
+          <el-button type="text" size="small" v-else @click="deleteAccessTokenId(scope.row.oauthAccessTokenId)">Delete
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-container>
   <el-container>
-    <el-pagination layout="prev, pager, next, total" @current-change="currentChange" :total="param.total" />
+    <el-pagination layout="prev, pager, next, total" @current-change="currentChange" :total="param.total"/>
   </el-container>
 </template>
 
 <script setup lang="ts">
 import { page, removeById, removeByIds } from '../../api/audit/access-token'
-import { ref, reactive } from 'vue'
+import { hasAuthority } from '../../utils/authority'
+import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
@@ -223,6 +279,11 @@ const handleSelectionChange = (val: any[]) => {
 </script>
 
 <style scoped>
+
+.cloud-el-expand-input,
+.cloud-el-expand-textarea {
+  max-width: 1100px;
+}
 
 .cloud-el-input {
   width: 300px;

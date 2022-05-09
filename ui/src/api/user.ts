@@ -60,3 +60,63 @@ export const info = function () {
     }
   })
 }
+
+/**
+ * 分页查询用户
+ * @param data
+ */
+export const page = function (data: any) {
+  return request.post('/user/page', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 根据 用户主键 删除
+ * @param usersId 用户主键
+ */
+export const removeById = function (usersId: number) {
+  return request.post('/user/removeById/' + usersId).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 根据 用户主键 删除
+ * @param usersIds 用户主键
+ */
+export const removeByIds = function (usersIds: number[]) {
+  return request.post('/user/removeByIds', usersIds).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 根据 用户主键 查询
+ * @param usersId 用户主键
+ */
+export const getById = function (usersId: number) {
+  return request.post('/user/getById/' + usersId).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 保存用户
+ * @param data 用户
+ */
+export const save = function (data: any) {
+  return request.post('/user/save', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 更新用户
+ * @param data 用户
+ */
+export const updateById = function (data: any) {
+  return request.post('/user/updateById', data).then(response => {
+    return response.data
+  })
+}

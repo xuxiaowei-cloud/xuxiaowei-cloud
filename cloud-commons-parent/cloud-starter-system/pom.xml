@@ -43,6 +43,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 提供JSON数据处理所需的包，如：JsonFormat -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
         <!-- 仅为了提供：LogHttpFilter -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -57,6 +65,24 @@
             <artifactId>spring-security-core</artifactId>
             <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
             <scope>provided</scope>
+        </dependency>
+
+        <!-- 提供验证 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- 提供 OAuth 2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+
+        <!-- Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-redis</artifactId>
         </dependency>
 
         <dependency>

@@ -5,6 +5,7 @@ import home from './home'
 import audit from './audit'
 import editor from './editor'
 import user from './user'
+import manage from './manage'
 
 import ConsoleView from '../views/home/ConsoleView.vue'
 
@@ -51,6 +52,7 @@ routes = routes.concat(home)
 routes = routes.concat(audit)
 routes = routes.concat(editor)
 routes = routes.concat(user)
+routes = routes.concat(manage)
 
 const router = createRouter({
   history: createWebHashHistory(),

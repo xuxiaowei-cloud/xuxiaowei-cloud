@@ -27,30 +27,68 @@
 
     </resultMap>
 
+    <sql id="BaseResultMap_field">
+        u.users_id,
+        u.username,
+        u.nickname,
+        u.`password`,
+        u.enabled,
+        u.account_non_expired,
+        u.credentials_non_expired,
+        u.account_non_locked,
+        u.update_date,
+        u.create_date,
+        u.deleted,
+        a.username      AS a_username,
+        a.authority     AS a_authority,
+        a.update_date   AS a_update_date,
+        a.create_date   AS a_create_date,
+        a.deleted       AS a_deleted
+    </sql>
+
+    <!-- 根据 用户主键 查询 -->
+    <select id="getByUsersId" resultMap="BaseResultMap">
+        SELECT
+            <include refid="BaseResultMap_field"/>
+        FROM
+            users AS u
+            LEFT JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+        WHERE
+            u.users_id = #{usersId} AND u.deleted = 0
+    </select>
+
     <!-- 根据 用户名 查询用户信息及权限 -->
     <select id="getByUsername" resultMap="BaseResultMap">
         SELECT
-            u.users_id,
-            u.username,
-            u.nickname,
-            u.`password`,
-            u.enabled,
-            u.account_non_expired,
-            u.credentials_non_expired,
-            u.account_non_locked,
-            u.update_date,
-            u.create_date,
-            u.deleted,
-            a.username      AS a_username,
-            a.authority     AS a_authority,
-            a.update_date   AS a_update_date,
-            a.create_date   AS a_create_date,
-            a.deleted       AS a_deleted
+            <include refid="BaseResultMap_field"/>
         FROM
             users AS u
-                JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+            LEFT JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
         WHERE
             u.username = #{username} AND u.deleted = 0
+    </select>
+
+    <!--
+        根据 用户名 查询用户信息
+        条件无逻辑删除的判断
+     -->
+    <select id="getLogicByUsername" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            u.*
+        FROM
+            users AS u
+        WHERE
+            u.username = #{username}
+    </select>
+
+    <!-- 根据 昵称 查询用户信息 -->
+    <select id="getLogicByNickname" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            u.*
+        FROM
+            users AS u
+        WHERE
+            u.nickname = #{nickname}
     </select>
 
 </mapper>

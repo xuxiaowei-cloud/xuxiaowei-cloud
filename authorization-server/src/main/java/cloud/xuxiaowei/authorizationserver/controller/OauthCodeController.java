@@ -49,7 +49,7 @@ public class OauthCodeController {
      * @param codeId   授权码Code主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_code_delete')")
+    @PreAuthorize("hasAuthority('audit_code_delete') or #oauth2.hasScope('audit_code_delete')")
     @RequestMapping("/removeById/{codeId}")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("codeId") Long codeId) {
 
@@ -66,7 +66,7 @@ public class OauthCodeController {
      * @param codeIds  授权码Code主键
      * @return 返回 删除结果
      */
-    @PreAuthorize("hasAuthority('audit_code_delete')")
+    @PreAuthorize("hasAuthority('audit_code_delete') or #oauth2.hasScope('audit_code_delete')")
     @RequestMapping("/removeByIds")
     public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> codeIds) {
 
@@ -85,7 +85,7 @@ public class OauthCodeController {
      * @param auditCodePageBo 审计授权码分页参数
      * @return 返回 分页查询结果
      */
-    @PreAuthorize("hasAuthority('audit_code_read')")
+    @PreAuthorize("hasAuthority('audit_code_read') or #oauth2.hasScope('audit_code_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody AuditCodePageBo auditCodePageBo) {
 

@@ -219,7 +219,7 @@ spring:
               # tauri 开发域名
               - http://localhost:1001
               # tauri 生产域名
-              -  https://tauri.localhost
+              - https://tauri.localhost
             # 允许跨域的 HTTP 方法， 默认为 GET 和 OPTIONS，全部：*
             allowedMethods: "GET,POST"
             # 允许跨域请求中的请求头字段，全部：*
@@ -282,6 +282,9 @@ cloud:
           - /oauth/check_token
           # 获取Token
           - /oauth/token
+      - name: webservice
+        path-list:
+          - /cxf/**
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
