@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * {@link HttpSession} 服务接口 实现类
@@ -177,6 +178,9 @@ public class SessionServiceImpl implements SessionService {
     public void setAttribute(String key, Object value) {
         String sessionId = sessionId();
         redisTemplate.opsForHash().put(sessionId, key, value);
+
+        // 过期时间
+        redisTemplate.expire(sessionId, 7, TimeUnit.HOURS);
     }
 
     /**
