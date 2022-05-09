@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.service;
 
+import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
@@ -33,6 +34,20 @@ public interface SessionService {
      * @return 返回 默认授权Token对象
      */
     DefaultOAuth2AccessToken defaultOauth2AccessToken();
+
+    /**
+     * 获取 刷新Token对象
+     *
+     * @return 返回 刷新Token对象
+     */
+    DefaultExpiringOAuth2RefreshToken defaultExpiringOauth2RefreshToken();
+
+    /**
+     * 获取 刷新Token
+     *
+     * @return 返回 刷新Token
+     */
+    String getRefreshToken();
 
     /**
      * 计算令牌的MD5值

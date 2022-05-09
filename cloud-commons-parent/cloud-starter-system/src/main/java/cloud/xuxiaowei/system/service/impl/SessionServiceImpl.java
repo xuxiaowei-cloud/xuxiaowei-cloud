@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -72,6 +73,34 @@ public class SessionServiceImpl implements SessionService {
         OAuth2AccessToken oauth2AccessToken = readAccessToken();
         if (oauth2AccessToken instanceof DefaultOAuth2AccessToken) {
             return (DefaultOAuth2AccessToken) oauth2AccessToken;
+        }
+        return null;
+    }
+
+    /**
+     * 获取 刷新Token对象
+     *
+     * @return 返回 刷新Token对象
+     */
+    @Override
+    public DefaultExpiringOAuth2RefreshToken defaultExpiringOauth2RefreshToken() {
+        OAuth2AccessToken oauth2AccessToken = readAccessToken();
+        if (oauth2AccessToken instanceof DefaultExpiringOAuth2RefreshToken) {
+            return (DefaultExpiringOAuth2RefreshToken) oauth2AccessToken;
+        }
+        return null;
+    }
+
+    /**
+     * 获取 刷新Token
+     *
+     * @return 返回 刷新Token
+     */
+    @Override
+    public String getRefreshToken() {
+        DefaultExpiringOAuth2RefreshToken defaultExpiringOauth2RefreshToken = defaultExpiringOauth2RefreshToken();
+        if (defaultExpiringOauth2RefreshToken != null) {
+            return defaultExpiringOauth2RefreshToken.getValue();
         }
         return null;
     }
