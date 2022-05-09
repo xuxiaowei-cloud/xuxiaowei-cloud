@@ -64,7 +64,7 @@ const dialogVisible = ref(false)
 // 弹窗标题
 const dialogVisibleTitle = ref<String>()
 // 弹窗用户ID：修改时使用
-const dialogVisibleUsersId = ref<Number>()
+const dialogVisibleUsersId = ref<number>()
 // 是否编辑
 const edit = ref(false)
 
@@ -77,7 +77,7 @@ const cloudAdd = () => {
 }
 
 // 修改用户
-const editUsersId = (usersId: Number) => {
+const editUsersId = (usersId: number) => {
   edit.value = true
   dialogVisibleTitle.value = '编辑用户'
   dialogVisibleUsersId.value = usersId
