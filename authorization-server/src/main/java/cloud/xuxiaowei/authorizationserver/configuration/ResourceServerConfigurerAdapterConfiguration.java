@@ -62,6 +62,8 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         // http.antMatcher("/sns/**").authorizeRequests()
         //        .antMatchers("/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')");
 
+        // 放行logo
+        http.authorizeRequests().antMatchers("/favicon.ico").permitAll();
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
 
