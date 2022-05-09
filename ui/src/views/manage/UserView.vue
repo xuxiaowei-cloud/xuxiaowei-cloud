@@ -6,7 +6,16 @@
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
     <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('manage_user_delete')">删除</el-button>
+    <el-button class="cloud-el-remove" @click="cloudAdd" v-if="hasAuthority('manage_user_add')">添加
+    </el-button>
   </div>
+
+  <el-dialog v-if="dialogVisible" v-model="dialogVisible" :title="dialogVisibleTitle" width="40%"
+             :before-close="handleClose">
+    <UserDialogAdd :dialogVisible="dialogVisible" :edit="edit" :usersId="dialogVisibleUsersId"
+                   @dialogVisibleClose="dialogVisibleClose"/>
+  </el-dialog>
+
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
@@ -20,10 +29,14 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
-      <el-table-column fixed="right" label="Operations" width="100" v-if="hasAnyAuthority(['manage_user_delete'])">
+      <el-table-column fixed="right" label="Operations" width="100"
+                       v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit'])">
         <template #default="scope">
           <el-button type="text" size="small" @click="deleteUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_delete')">Delete
+          </el-button>
+          <el-button type="text" size="small" @click="editUsersId(scope.row.usersId)"
+                     v-if="hasAuthority('manage_user_edit')">Edit
           </el-button>
         </template>
       </el-table-column>
@@ -35,14 +48,54 @@
 </template>
 
 <script setup lang="ts">
-import {page, removeById, removeByIds} from '../../api/user'
-import {hasAuthority, hasAnyAuthority} from '../../utils/authority'
-import {reactive, ref} from 'vue'
-import {useStore} from 'vuex'
-import {ElMessage} from 'element-plus'
+import { page, removeById, removeByIds } from '../../api/user'
+import { hasAuthority, hasAnyAuthority } from '../../utils/authority'
+import { reactive, ref } from 'vue'
+import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
+// 弹窗内容
+import UserDialogAdd from './dialog/UserDialog.vue'
 
 // 缓存
 const store = useStore()
+
+// 弹窗是否打开
+const dialogVisible = ref(false)
+// 弹窗标题
+const dialogVisibleTitle = ref<String>()
+// 弹窗用户ID：修改时使用
+const dialogVisibleUsersId = ref<Number>()
+// 是否编辑
+const edit = ref(false)
+
+// 添加用户
+const cloudAdd = () => {
+  edit.value = false
+  dialogVisibleTitle.value = '添加用户'
+  dialogVisibleUsersId.value = undefined
+  dialogVisible.value = true
+}
+
+// 修改用户
+const editUsersId = (usersId: Number) => {
+  edit.value = true
+  dialogVisibleTitle.value = '编辑用户'
+  dialogVisibleUsersId.value = usersId
+  dialogVisible.value = true
+}
+
+// 弹窗关闭：弹窗右上角的 x
+const handleClose = (done: () => void) => {
+  console.log('关闭弹窗')
+  done()
+}
+
+// 弹窗关闭：子窗口使用
+const dialogVisibleClose = () => {
+  dialogVisible.value = false
+  // 关闭窗口后，重新搜索
+  cloudSearch()
+}
 
 // 表格数据
 const tableData = ref([])
