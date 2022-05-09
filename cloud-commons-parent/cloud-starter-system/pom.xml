@@ -67,9 +67,16 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 提供验证 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- 提供 OAuth 2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
         </dependency>
 
         <dependency>
