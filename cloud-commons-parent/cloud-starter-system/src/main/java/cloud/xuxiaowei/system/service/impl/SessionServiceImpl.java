@@ -202,4 +202,15 @@ public class SessionServiceImpl implements SessionService {
         redisTemplate.opsForHash().delete(sessionId, key);
     }
 
+    /**
+     * 移除 Session（Redis）
+     *
+     * @param key 键
+     */
+    @Override
+    public void remove(String key) {
+        String sessionId = sessionId();
+        redisTemplate.delete(sessionId);
+    }
+
 }

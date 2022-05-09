@@ -89,4 +89,11 @@ public interface SessionService {
      */
     void removeAttribute(String key);
 
+    /**
+     * 移除 Session（Redis）
+     *
+     * @param key 键
+     */
+    void remove(String key);
+
 }
