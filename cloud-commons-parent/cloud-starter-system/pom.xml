@@ -51,7 +51,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅为了提供：LogHttpFilter -->
+        <!-- 仅为了提供：LogHttpFilter、HttpSession -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
