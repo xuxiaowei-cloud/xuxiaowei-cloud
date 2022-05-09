@@ -18,8 +18,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * {@link HttpSession} 服务接口 实现类
@@ -34,7 +32,7 @@ public class SessionServiceImpl implements SessionService {
 
     public HttpSession session;
 
-    public RedisTemplate<String, ConcurrentMap<String, Object>> redisTemplate;
+    public RedisTemplate<String, String> redisTemplate;
 
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
@@ -47,7 +45,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Autowired
-    public void setRedisTemplate(RedisTemplate<String, ConcurrentMap<String, Object>> redisTemplate) {
+    public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -178,12 +176,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void setAttribute(String key, Object value) {
         String sessionId = sessionId();
-        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
-        if (concurrentMap == null) {
-            concurrentMap = new ConcurrentHashMap<>(4);
-        }
-        concurrentMap.put(key, value);
-        redisTemplate.opsForValue().set(sessionId, concurrentMap);
+        redisTemplate.opsForHash().put(sessionId, key, value);
     }
 
     /**
@@ -195,11 +188,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Object getAttribute(String key) {
         String sessionId = sessionId();
-        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
-        if (concurrentMap == null) {
-            return null;
-        }
-        return concurrentMap.get(key);
+        return redisTemplate.opsForHash().get(sessionId, key);
     }
 
     /**
@@ -210,11 +199,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void removeAttribute(String key) {
         String sessionId = sessionId();
-        ConcurrentMap<String, Object> concurrentMap = redisTemplate.opsForValue().get(sessionId);
-        if (concurrentMap != null) {
-            concurrentMap.remove(key);
-            redisTemplate.opsForValue().set(sessionId, concurrentMap);
-        }
+        redisTemplate.opsForHash().delete(sessionId, key);
     }
 
 }
