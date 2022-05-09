@@ -173,6 +173,15 @@ mybatis-plus:
     # 缓存
     cache-enabled: true
 
+---
+
+# Redis 配置
+spring:
+  redis:
+    database: ${redis_xuxiaowei_cloud_database:1}
+    password: ${redis_xuxiaowei_cloud_password:xuxiaowei.com.cn}
+    host: ${redis_xuxiaowei_cloud_host:redis.example.xuxiaowei.cloud}
+    port: ${redis_xuxiaowei_cloud_port:6379}
 
 ---
 
