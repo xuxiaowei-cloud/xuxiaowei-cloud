@@ -66,4 +66,14 @@
             u.username = #{username}
     </select>
 
+    <!-- 根据 昵称 查询用户信息 -->
+    <select id="getLogicByNickname" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            u.*
+        FROM
+            users AS u
+        WHERE
+            u.nickname = #{nickname}
+    </select>
+
 </mapper>

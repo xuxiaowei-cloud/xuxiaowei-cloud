@@ -32,4 +32,14 @@ public interface UsersMapper extends BaseMapper<Users> {
      */
     Users getLogicByUsername(@Param("username") String username);
 
+    /**
+     * 根据 昵称 查询用户信息
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param nickname 昵称
+     * @return 返回 用户信息
+     */
+    Users getLogicByNickname(String nickname);
+
 }
