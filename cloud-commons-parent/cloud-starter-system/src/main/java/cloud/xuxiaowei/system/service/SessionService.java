@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.service;
 
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import javax.servlet.http.HttpSession;
@@ -25,5 +26,12 @@ public interface SessionService {
      * @return 返回 授权Token对象
      */
     OAuth2AccessToken readAccessToken();
+
+    /**
+     * 获取 默认授权Token对象
+     *
+     * @return 返回 默认授权Token对象
+     */
+    DefaultOAuth2AccessToken defaultOauth2AccessToken();
 
 }

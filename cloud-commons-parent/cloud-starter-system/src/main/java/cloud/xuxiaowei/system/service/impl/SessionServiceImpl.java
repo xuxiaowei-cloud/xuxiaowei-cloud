@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -55,6 +56,20 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public OAuth2AccessToken readAccessToken() {
         return tokenStore.readAccessToken(getTokenValue());
+    }
+
+    /**
+     * 获取 默认授权Token对象
+     *
+     * @return 返回 默认授权Token对象
+     */
+    @Override
+    public DefaultOAuth2AccessToken defaultOauth2AccessToken() {
+        OAuth2AccessToken oauth2AccessToken = readAccessToken();
+        if (oauth2AccessToken instanceof DefaultOAuth2AccessToken) {
+            return (DefaultOAuth2AccessToken) oauth2AccessToken;
+        }
+        return null;
     }
 
 }
