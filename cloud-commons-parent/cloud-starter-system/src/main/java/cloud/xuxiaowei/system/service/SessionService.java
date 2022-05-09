@@ -57,4 +57,13 @@ public interface SessionService {
      */
     String extractTokenKey(String value);
 
+    /**
+     * 获取 授权Token ID
+     * <p>
+     * 身份验证未成功时（或：未进行身份验证），将返回 {@link HttpSession#getId()}
+     *
+     * @return 返回 授权Token ID，身份验证未成功时（或：未进行身份验证），将返回 {@link HttpSession#getId()}
+     */
+    String tokenId();
+
 }

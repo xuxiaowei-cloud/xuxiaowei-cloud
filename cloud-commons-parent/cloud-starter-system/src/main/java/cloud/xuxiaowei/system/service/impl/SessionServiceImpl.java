@@ -29,9 +29,16 @@ public class SessionServiceImpl implements SessionService {
 
     private TokenStore tokenStore;
 
+    public HttpSession session;
+
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
+    }
+
+    @Autowired
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 
     /**
@@ -125,6 +132,22 @@ public class SessionServiceImpl implements SessionService {
 
         byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
         return String.format("%032x", new BigInteger(1, bytes));
+    }
+
+    /**
+     * 获取 授权Token ID
+     * <p>
+     * 身份验证未成功时（或：未进行身份验证），将返回 {@link HttpSession#getId()}
+     *
+     * @return 返回 授权Token ID，身份验证未成功时（或：未进行身份验证），将返回 {@link HttpSession#getId()}
+     */
+    @Override
+    public String tokenId() {
+        String tokenValue = getTokenValue();
+        if (tokenValue == null) {
+            return session.getId();
+        }
+        return extractTokenKey(tokenValue);
     }
 
 }
