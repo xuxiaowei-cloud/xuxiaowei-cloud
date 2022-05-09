@@ -22,4 +22,14 @@ public interface UsersMapper extends BaseMapper<Users> {
      */
     Users getByUsername(@Param("username") String username);
 
+    /**
+     * 根据 用户名 查询用户信息
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param username 用户名
+     * @return 返回 用户信息
+     */
+    Users getLogicByUsername(@Param("username") String username);
+
 }

@@ -53,4 +53,17 @@
             u.username = #{username} AND u.deleted = 0
     </select>
 
+    <!--
+        根据 用户名 查询用户信息
+        条件无逻辑删除的判断
+     -->
+    <select id="getLogicByUsername" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            u.*
+        FROM
+            users AS u
+        WHERE
+            u.username = #{username}
+    </select>
+
 </mapper>
