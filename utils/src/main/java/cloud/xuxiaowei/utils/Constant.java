@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.utils;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 常量
@@ -11,6 +13,35 @@ import java.io.Serializable;
 public class Constant implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 数字
+     */
+    public static final List<String> NUMBER_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+    /**
+     * 小写字母
+     */
+    public static final List<String> LOWER_CASE_LIST = Arrays.asList(
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+            "u", "v", "w", "x", "y", "z");
+
+    /**
+     * 大写字母
+     */
+    public static final List<String> UPPER_CASE_LIST = Arrays.asList(
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+            "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+            "U", "V", "W", "X", "Y", "Z");
+
+    /**
+     * 符号
+     */
+    public static final List<String> SYMBOL = Arrays.asList(
+            "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+            "-", "_", "=", "+", "[", "{", "]", "}", ";", ":",
+            "'", "\"", ",", "<", ".", ">", "/", "?");
 
     /**
      * 端点
