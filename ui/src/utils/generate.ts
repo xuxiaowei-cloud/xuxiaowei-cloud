@@ -61,7 +61,7 @@ class PasswordOption {
  * @param chars
  * @param length
  */
-const generate = (chars: string[], length: number) => {
+const generate = (chars: string, length: number) => {
   let password = ''
   for (let i = 0; i < length; i++) {
     password += chars.charAt(Math.floor(Math.random() * chars.length))
@@ -73,7 +73,7 @@ const generate = (chars: string[], length: number) => {
  * 生成密码
  * @param option
  */
-export const generatePassword = (option?: PasswordOption = new PasswordOption()): string => {
+export const randomPassword = (option: PasswordOption = new PasswordOption()): any => {
   let password = ''
 
   password += generate(NUMBER, option.number)

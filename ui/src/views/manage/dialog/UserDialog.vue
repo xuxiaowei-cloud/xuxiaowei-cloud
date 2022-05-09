@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { defineProps, reactive, defineEmits } from 'vue'
 import { getById, save, updateById } from '../../../api/user'
-import { generatePassword } from '../../../utils/generate'
+import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 
@@ -99,7 +99,7 @@ initData()
 
 // 生成随机密码
 const passwordGenerate = () => {
-  param.password = generatePassword()
+  param.password = randomPassword()
 }
 
 // 保存
