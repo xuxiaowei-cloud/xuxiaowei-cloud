@@ -47,7 +47,7 @@
   ],
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",
-    "@tauri-apps/api": "1.0.0-rc.4",
+    "@tauri-apps/api": "1.0.0-rc.5",
     "@toast-ui/editor": "3.1.5",
     "@wangeditor/editor-for-vue": "5.1.11",
     "axios": "0.27.2",
@@ -65,7 +65,7 @@
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.0.0-rc.9",
+    "@tauri-apps/cli": "1.0.0-rc.10",
     "@typescript-eslint/parser": "5.22.0",
     "@vitejs/plugin-vue": "2.3.2",
     "@vue/cli-plugin-eslint": "5.0.4",
