@@ -56,8 +56,9 @@ public class ResponseUtils {
      * @param json     String 类型的数据
      * @throws IOException IO 异常
      */
+    @SuppressWarnings({"deprecation"})
     public static void response(@NonNull HttpServletResponse response, String json) throws IOException {
-        response(response, (Object) json);
+        response(response, json, MediaType.APPLICATION_JSON_UTF8.toString());
     }
 
     /**
