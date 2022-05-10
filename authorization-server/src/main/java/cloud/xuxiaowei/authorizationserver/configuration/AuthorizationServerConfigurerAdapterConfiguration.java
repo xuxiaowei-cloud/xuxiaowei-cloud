@@ -109,7 +109,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     }
 
     /**
-     * 支持密码模式
+     * 用于支持密码模式
      */
     @Autowired
     @Qualifier(BeanIds.AUTHENTICATION_MANAGER)
@@ -140,7 +140,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-        // 认证管理器：支持密码模式
+        // 认证管理器：用于支持密码模式
         endpoints.authenticationManager(authenticationManager);
 
         // 获取 Token 可使用 GET、POST

@@ -89,7 +89,7 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     }
 
     /**
-     * 支持密码模式
+     * 用于支持密码模式
      */
     @Override
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)

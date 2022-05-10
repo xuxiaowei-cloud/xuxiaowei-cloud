@@ -74,7 +74,7 @@ public class DefaultBeanConfiguration {
     }
 
     /**
-     * 支持密码模式
+     * 用于支持密码模式
      */
     @Bean
     public static PasswordEncoder passwordEncoder() {
