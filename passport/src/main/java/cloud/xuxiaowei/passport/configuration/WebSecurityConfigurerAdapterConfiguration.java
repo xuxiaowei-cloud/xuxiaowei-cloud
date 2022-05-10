@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -44,6 +45,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
 
     private RequestMatcher csrfRequestMatcher;
 
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
     @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -70,6 +73,11 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         this.csrfRequestMatcher = csrfRequestMatcher;
     }
 
+    @Autowired
+    public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
+        this.authenticationFailureHandler = authenticationFailureHandler;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -85,8 +93,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 .loginPage(cloudSecurityProperties.getLoginPageUrl())
                 // 登录请求地址
                 .loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
-                // 登录失败地址
-                .failureUrl(cloudSecurityProperties.getFailureAllUrl())
+                // 身份验证失败处理程序
+                .failureHandler(authenticationFailureHandler)
                 // 登录成功地址
                 .successForwardUrl(cloudSecurityProperties.getSuccessForwardUrl())
                 // 已上地址，允许任何人访问
@@ -98,9 +106,6 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 .rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
                 .key(cloudRememberMeProperties.getKey())
                 .tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds());
-
-        // 登录服务（单服务）地址：匿名访问
-        http.authorizeRequests().antMatchers(cloudSecurityProperties.getFailureUrl()).permitAll();
 
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
