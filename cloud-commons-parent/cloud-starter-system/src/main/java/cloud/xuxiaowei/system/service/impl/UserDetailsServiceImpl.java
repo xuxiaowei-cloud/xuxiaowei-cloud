@@ -49,10 +49,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         String password = users.getPassword();
-        boolean enabled = users.getEnabled();
-        boolean accountNonExpired = users.getAccountNonExpired();
-        boolean credentialsNonExpired = users.getCredentialsNonExpired();
-        boolean accountNonLocked = users.getAccountNonLocked();
+        Boolean enabled = users.getEnabled();
+        Boolean accountNonExpired = users.getAccountNonExpired();
+        Boolean credentialsNonExpired = users.getCredentialsNonExpired();
+        Boolean accountNonLocked = users.getAccountNonLocked();
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (Authorities auth : users.getAuthoritiesList()) {
@@ -60,8 +60,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(authority);
         }
 
-        return new User(username, password, enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked,
+        return new User(username, password,
+                enabled != null && enabled,
+                accountNonExpired != null && accountNonExpired,
+                credentialsNonExpired != null && credentialsNonExpired,
+                accountNonLocked != null && accountNonLocked,
                 authorities);
     }
 

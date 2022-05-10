@@ -6,6 +6,11 @@ import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +24,7 @@ import static org.springframework.security.web.WebAttributes.AUTHENTICATION_EXCE
  * @see DefaultBeanConfiguration#loginService()
  * @since 0.0.1
  */
+@Slf4j
 public class DefaultLoginServiceImpl implements LoginService {
 
     /**
@@ -56,13 +62,23 @@ public class DefaultLoginServiceImpl implements LoginService {
         // 跨域时，需要 Session 共享才能获取到
         Object exception = session.getAttribute(AUTHENTICATION_EXCEPTION);
 
-        if (exception instanceof LoginParamPasswordValidException) {
+        if (exception instanceof DisabledException) {
+            error = Response.error(CodeEnums.A30001.code, CodeEnums.A30001.msg);
+        } else if (exception instanceof AccountExpiredException) {
+            error = Response.error(CodeEnums.A30002.code, CodeEnums.A30002.msg);
+        } else if (exception instanceof CredentialsExpiredException) {
+            error = Response.error(CodeEnums.A30003.code, CodeEnums.A30003.msg);
+        } else if (exception instanceof LockedException) {
+            error = Response.error(CodeEnums.A30004.code, CodeEnums.A30004.msg);
+        } else if (exception instanceof LoginParamPasswordValidException) {
             LoginParamPasswordValidException passwordValidException = (LoginParamPasswordValidException) exception;
             error = Response.error(passwordValidException.getCode(), passwordValidException.getMsg());
         } else {
             // 此处可增加其他异常的判断
             error = Response.error();
         }
+
+        log.error(error.getMsg(), exception);
 
         // 在此可以统计一下登录失败的用户信息（需要将登录信息，如：用户名，放入 异常 中）
         if (exception instanceof LoginException) {
