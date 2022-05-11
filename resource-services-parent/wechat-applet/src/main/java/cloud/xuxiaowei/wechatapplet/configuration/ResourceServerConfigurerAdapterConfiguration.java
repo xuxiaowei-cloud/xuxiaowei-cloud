@@ -68,6 +68,8 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         http.authorizeRequests().antMatchers("/favicon.ico").permitAll();
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
+        // 登录接口放行
+        http.authorizeRequests().antMatchers("/onLogin").permitAll();
 
         // OAuth2 授权后可访问
         http.antMatcher("/**").authorizeRequests()
