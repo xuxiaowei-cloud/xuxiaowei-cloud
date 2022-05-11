@@ -53,6 +53,11 @@ public enum ServiceEnums {
      */
     WEBSERVICE("webservice", "WebService 服务"),
 
+    /**
+     * 微信小程序服务
+     */
+    WECHAT_APPLET("wechat-applet", "微信小程序服务"),
+
     ;
 
     public final String service;

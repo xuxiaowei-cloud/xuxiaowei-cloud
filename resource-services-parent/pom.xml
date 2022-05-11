@@ -33,6 +33,8 @@
         <module>webservice</module>
         <!-- WebSocket 服务 -->
         <module>websocket</module>
+        <!-- 微信小程序服务 -->
+        <module>wechat-applet</module>
     </modules>
 
     <dependencies>

@@ -113,6 +113,7 @@ cloud.xuxiaowei
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
 │        └──webservice                      // WebService 服务
+│        └──wechat-applet                   // 微信小程序服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -156,6 +157,7 @@ cloud.xuxiaowei
 | user | 用户服务 |  | 1701 |
 | websocket | WebSocket 服务 |  | 1801 |
 | webservice | WebService 服务 |  | 1901 |
+| wechat-applet | 微信小程序服务 |  | 2001 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
 | cxf-client | CXF 客户端（独立服务） |  | 10002 |
 
