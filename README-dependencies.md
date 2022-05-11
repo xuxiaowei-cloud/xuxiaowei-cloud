@@ -14,6 +14,8 @@ cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.62:provided
 │        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.1.RELEASE:provided
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:provided
+│        └──commons-io:commons-io:jar:2.11.0:provided
+│        └──org.dom4j:dom4j:jar:2.1.3:provided
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
@@ -139,8 +141,12 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-json:jar:2.6.7:provided
+│        └──com.fasterxml.jackson.core:jackson-annotations:jar:2.13.2:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.62:provided
 │        └──org.springframework.security:spring-security-core:jar:5.6.3:provided
+│        └──org.springframework.boot:spring-boot-starter-validation:jar:2.6.7:compile
+│        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.1.RELEASE:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.7:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.1:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.6.7:compile
@@ -231,6 +237,8 @@ cloud.xuxiaowei:resource-services-parent:pom:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -250,6 +258,8 @@ cloud.xuxiaowei:audit:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -270,6 +280,8 @@ cloud.xuxiaowei:canal:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -286,6 +298,8 @@ cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -293,6 +307,11 @@ cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
+│        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.2:compile
+│        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.2:compile
+│        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.2:compile
+│        └──com.fasterxml.jackson.dataformat:jackson-dataformat-xml:jar:2.13.2:compile
+│        └──org.dom4j:dom4j:jar:2.1.3:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──commons-io:commons-io:jar:2.11.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
@@ -302,6 +321,8 @@ cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -320,6 +341,26 @@ cloud.xuxiaowei:websocket:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
+│        └──org.projectlombok:lombok:jar:1.18.24:compile
+│        └──org.springframework.boot:spring-boot-starter-test:jar:2.6.7:test
+
+
+cloud.xuxiaowei:wechat-applet:jar:0.0.1-SNAPSHOT
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
+│        └──commons-io:commons-io:jar:2.11.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.6.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
@@ -334,6 +375,15 @@ cloud.xuxiaowei.commons:cloud-starter-idempotent:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.6.7:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
+
+
+cloud.xuxiaowei.example:cxf-client:jar:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
+│        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.2:compile
+│        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.2:compile
+│        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.2:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.7:compile
+│        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
 cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
