@@ -285,6 +285,10 @@ cloud:
       - name: webservice
         path-list:
           - /cxf/**
+      - name: wechat-applet
+        path-list:
+          # 登录接口
+          - /onLogin
     actuator-ip-list:
       - 192.168.5.3
       - 192.168.5.4
