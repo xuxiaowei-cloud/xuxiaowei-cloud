@@ -1,9 +1,12 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -78,6 +81,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
     private UserDetailsService userDetailsService;
 
+    private AuthenticationManager authenticationManager;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -103,6 +108,15 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * 用于支持密码模式
+     */
+    @Autowired
+    @Qualifier(BeanIds.AUTHENTICATION_MANAGER)
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
@@ -125,6 +139,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        // 认证管理器：用于支持密码模式
+        endpoints.authenticationManager(authenticationManager);
 
         // 获取 Token 可使用 GET、POST
         endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);

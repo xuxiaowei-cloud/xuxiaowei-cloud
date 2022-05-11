@@ -105,6 +105,11 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
      */
     public final String CODE_ENUMS_C20006_MESSAGE = "Invalid authorization code";
 
+    /**
+     * @see CodeEnums#C10008
+     */
+    public final String CODE_ENUMS_C10008_MESSAGE = "用户名或密码错误";
+
     private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     @Override
@@ -159,6 +164,26 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
                 oauth2Exception.addAdditionalInformation(Response.EXPLAIN, authorizationCodeException.getAuthorizationCode());
 
                 log.error("授权码异常：", oauth2Exception);
+
+            } else if (oauth2Exception instanceof UnsupportedGrantTypeException) {
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C10007.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C10007.msg);
+
+                log.error("不支持的授权类型异常：", oauth2Exception);
+
+            } else if (oauth2Exception instanceof InvalidGrantException) {
+
+                String message = oauth2Exception.getMessage();
+                if (CODE_ENUMS_C10008_MESSAGE.equals(message)) {
+                    oauth2Exception.addAdditionalInformation(Response.MSG, message);
+                } else {
+                    oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.C10008.msg);
+                }
+
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.C10008.code);
+
+                log.error("无效的授权异常：", oauth2Exception);
 
             } else {
                 String message = oauth2Exception.getMessage();

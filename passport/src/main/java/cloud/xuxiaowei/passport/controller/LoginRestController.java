@@ -1,14 +1,11 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
-import cloud.xuxiaowei.passport.service.LoginService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.ProviderNotFoundException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,32 +29,11 @@ import static cloud.xuxiaowei.utils.Constant.UNDEFINED;
 @RequestMapping("/login")
 public class LoginRestController {
 
-    private LoginService loginService;
-
     private CloudClientProperties cloudClientProperties;
-
-    @Autowired
-    public void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
 
     @Autowired
     public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
         this.cloudClientProperties = cloudClientProperties;
-    }
-
-    /**
-     * 登录失败
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 登录失败提示语
-     * @see ProviderNotFoundException
-     * @see BadCredentialsException
-     */
-    @RequestMapping("/failure")
-    public Response<?> failure(HttpServletRequest request, HttpServletResponse response) {
-        return loginService.failure(request);
     }
 
     /**

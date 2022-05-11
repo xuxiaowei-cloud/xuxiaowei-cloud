@@ -1,10 +1,6 @@
-
----
-
 # 客户端 配置
 cloud:
   security:
-    failure-all-url: https://gateway.example.xuxiaowei.cloud/passport/login/failure
     # 启动RSA密码加密
     enabled-rsa: true
   client:
