@@ -68,6 +68,7 @@ package:
       - resource-services-parent/canal/target/canal-*
       - resource-services-parent/user/target/user-*
       - resource-services-parent/websocket/target/websocket-*
+      - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
@@ -388,6 +389,7 @@ s2:
       - resource-services-parent/canal/target/canal-*
       - resource-services-parent/user/target/user-*
       - resource-services-parent/websocket/target/websocket-*
+      - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
       - utils/target/utils-*
   tags:
