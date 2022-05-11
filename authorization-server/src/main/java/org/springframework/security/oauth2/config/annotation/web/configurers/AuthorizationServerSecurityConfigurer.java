@@ -15,6 +15,7 @@
  */
 package org.springframework.security.oauth2.config.annotation.web.configurers;
 
+import cloud.xuxiaowei.authorizationserver.point.TokenOAuth2AuthenticationEntryPoint;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -245,7 +246,10 @@ public final class AuthorizationServerSecurityConfigurer extends
                 frameworkEndpointHandlerMapping().getServletPath("/oauth/token"));
         clientCredentialsTokenEndpointFilter
                 .setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        OAuth2AuthenticationEntryPoint authenticationEntryPoint = new OAuth2AuthenticationEntryPoint();
+
+        // 重写部分
+        OAuth2AuthenticationEntryPoint authenticationEntryPoint = new TokenOAuth2AuthenticationEntryPoint();
+
         authenticationEntryPoint.setTypeName("Form");
         authenticationEntryPoint.setRealmName(realm);
         clientCredentialsTokenEndpointFilter.setAuthenticationEntryPoint(authenticationEntryPoint);
