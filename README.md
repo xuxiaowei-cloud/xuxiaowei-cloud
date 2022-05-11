@@ -194,7 +194,7 @@ cloud.xuxiaowei
 | 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
+|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials,password |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
 
 - authorized_grant_types
     - 默认值：authorization_code,refresh_token
