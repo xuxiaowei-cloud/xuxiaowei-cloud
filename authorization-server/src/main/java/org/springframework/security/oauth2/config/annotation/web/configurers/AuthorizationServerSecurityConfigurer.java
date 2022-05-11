@@ -15,12 +15,6 @@
  */
 package org.springframework.security.oauth2.config.annotation.web.configurers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.Filter;
-
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,14 +43,18 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 
+import javax.servlet.Filter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
- *
  * <p>
- * @deprecated See the <a href="https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide">OAuth 2.0 Migration Guide</a> for Spring Security 5.
  *
  * @author Rob Winch
  * @author Dave Syer
  * @since 2.0
+ * @deprecated See the <a href="https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide">OAuth 2.0 Migration Guide</a> for Spring Security 5.
  */
 @Deprecated
 public final class AuthorizationServerSecurityConfigurer extends
@@ -175,7 +173,7 @@ public final class AuthorizationServerSecurityConfigurer extends
                 builder.userDetailsService(new ClientDetailsUserDetailsService(clientDetailsService()));
             }
         } else {
-            for (AuthenticationProvider provider: authenticationProviders) {
+            for (AuthenticationProvider provider : authenticationProviders) {
                 builder.authenticationProvider(provider);
             }
         }
@@ -209,7 +207,7 @@ public final class AuthorizationServerSecurityConfigurer extends
         if (exceptionHandling == null) {
             return;
         }
-        if (authenticationEntryPoint==null) {
+        if (authenticationEntryPoint == null) {
             BasicAuthenticationEntryPoint basicEntryPoint = new BasicAuthenticationEntryPoint();
             basicEntryPoint.setRealmName(realm);
             authenticationEntryPoint = basicEntryPoint;
