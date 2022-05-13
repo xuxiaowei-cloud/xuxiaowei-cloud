@@ -1,4 +1,5 @@
 stages:
+  - test
   - package
   - s2
 
@@ -13,6 +14,11 @@ cache:
     - passport-ui/node_modules/
     - ui/node/
     - ui/node_modules/
+
+sast:
+  stage: test
+include:
+  - template: Security/SAST.gitlab-ci.yml
 
 #
 # package
