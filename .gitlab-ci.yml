@@ -11,6 +11,8 @@ cache:
     - ui/node/
     - ui/node_modules/
 
+image: maven:3.6.3-jdk-8
+
 sast:
   stage: test
 include:
@@ -83,6 +85,7 @@ package:
 # s2
 s2:
   stage: s2
+  image:
   script:
     - source /etc/profile && echo 刷新环境变量
     - git --version
