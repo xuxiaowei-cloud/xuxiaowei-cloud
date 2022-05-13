@@ -33,7 +33,12 @@ import org.springframework.security.oauth2.provider.token.store.*;
 import org.springframework.security.oauth2.provider.token.store.jwk.JwkTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.sql.Types;
@@ -141,10 +146,7 @@ public class DefaultBeanConfiguration {
                 String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
                 String state = requestParameters.get(OAuth2Utils.STATE);
 
-                new JdbcTemplate(dataSource).update(
-                        "insert into oauth_code (code, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        new Object[]{code, new SqlLobValue(SerializationUtils.serialize(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId},
-                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
+                new JdbcTemplate(dataSource).update("insert into oauth_code (code, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{code, new SqlLobValue(SerializationUtils.serialize(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId}, new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
         };
@@ -180,6 +182,38 @@ public class DefaultBeanConfiguration {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setKeyPair(keyPair);
         return jwtAccessTokenConverter;
+    }
+
+    /**
+     * 获取 远端IP
+     *
+     * @return 返回 远端IP
+     */
+    public String getRemoteHost() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+            return request.getRemoteHost();
+
+        }
+        return null;
+    }
+
+    /**
+     * 获取 Session ID
+     *
+     * @return 返回 Session ID
+     */
+    public String getSessionId() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+            HttpSession session = request.getSession();
+            return session.getId();
+        }
+        return null;
     }
 
     /**
@@ -243,17 +277,23 @@ public class DefaultBeanConfiguration {
                 }
 
                 Authentication userAuthentication = authentication.getUserAuthentication();
-                Object details = userAuthentication.getDetails();
 
                 String remoteAddress;
                 String sessionId;
-                if (details instanceof WebAuthenticationDetails) {
-                    WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
-                    remoteAddress = webAuthenticationDetails.getRemoteAddress();
-                    sessionId = webAuthenticationDetails.getSessionId();
+                if (userAuthentication == null) {
+                    remoteAddress = getRemoteHost();
+                    sessionId = getSessionId();
                 } else {
-                    remoteAddress = null;
-                    sessionId = null;
+                    Object details = userAuthentication.getDetails();
+
+                    if (details instanceof WebAuthenticationDetails) {
+                        WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
+                        remoteAddress = webAuthenticationDetails.getRemoteAddress();
+                        sessionId = webAuthenticationDetails.getSessionId();
+                    } else {
+                        remoteAddress = getRemoteHost();
+                        sessionId = getSessionId();
+                    }
                 }
 
                 Collection<GrantedAuthority> authorities = authentication.getAuthorities();
@@ -272,13 +312,7 @@ public class DefaultBeanConfiguration {
                 String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
                 String state = requestParameters.get(OAuth2Utils.STATE);
 
-                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, jti, `scope`, expiration, token_type, access_token, refresh_token_encryption, refresh_token_expiration, authentication_id, user_name, client_id, authentication, authentication_json, remote_address, session_id, authorities_json, redirect_uri, response_type, `state`, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        new Object[]{extractTokenKey(token.getValue()),
-                                new SqlLobValue(serializeAccessToken(token)), tokenJson, jti, scope, expiration, tokenType, accessToken, refreshTokenEncryption, refreshTokenExpiration,
-                                authenticationKeyGenerator.extractKey(authentication), authentication.isClientOnly() ? null : authentication.getName(), authentication.getOAuth2Request().getClientId(),
-                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, remoteAddress, sessionId, authoritiesJson, redirectUri, responseType, state,
-                                extractTokenKey(refreshToken)},
-                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
+                new JdbcTemplate(dataSource).update("insert into oauth_access_token (token_id, token, token_json, jti, `scope`, expiration, token_type, access_token, refresh_token_encryption, refresh_token_expiration, authentication_id, user_name, client_id, authentication, authentication_json, remote_address, session_id, authorities_json, redirect_uri, response_type, `state`, refresh_token) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{extractTokenKey(token.getValue()), new SqlLobValue(serializeAccessToken(token)), tokenJson, jti, scope, expiration, tokenType, accessToken, refreshTokenEncryption, refreshTokenExpiration, authenticationKeyGenerator.extractKey(authentication), authentication.isClientOnly() ? null : authentication.getName(), authentication.getOAuth2Request().getClientId(), new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, remoteAddress, sessionId, authoritiesJson, redirectUri, responseType, state, extractTokenKey(refreshToken)}, new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
             @Override
@@ -314,17 +348,22 @@ public class DefaultBeanConfiguration {
                 String username = authentication.getName();
 
                 Authentication userAuthentication = authentication.getUserAuthentication();
-                Object details = userAuthentication.getDetails();
 
                 String remoteAddress;
                 String sessionId;
-                if (details instanceof WebAuthenticationDetails) {
-                    WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
-                    remoteAddress = webAuthenticationDetails.getRemoteAddress();
-                    sessionId = webAuthenticationDetails.getSessionId();
+                if (userAuthentication == null) {
+                    remoteAddress = getRemoteHost();
+                    sessionId = getSessionId();
                 } else {
-                    remoteAddress = null;
-                    sessionId = null;
+                    Object details = userAuthentication.getDetails();
+                    if (details instanceof WebAuthenticationDetails) {
+                        WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) details;
+                        remoteAddress = webAuthenticationDetails.getRemoteAddress();
+                        sessionId = webAuthenticationDetails.getSessionId();
+                    } else {
+                        remoteAddress = getRemoteHost();
+                        sessionId = getSessionId();
+                    }
                 }
 
                 Collection<GrantedAuthority> authorities = authentication.getAuthorities();
@@ -345,12 +384,7 @@ public class DefaultBeanConfiguration {
                 String responseType = requestParameters.get(OAuth2Utils.RESPONSE_TYPE);
                 String state = requestParameters.get(OAuth2Utils.STATE);
 
-                new JdbcTemplate(dataSource).update(
-                        "insert into oauth_refresh_token (token_id, token, token_json, refresh_token, expiration, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        new Object[]{extractTokenKey(refreshToken.getValue()),
-                                new SqlLobValue(serializeRefreshToken(refreshToken)), refreshTokenJson, refreshTokenStr, expiration,
-                                new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId},
-                        new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
+                new JdbcTemplate(dataSource).update("insert into oauth_refresh_token (token_id, token, token_json, refresh_token, expiration, authentication, authentication_json, username, remote_address, authorities_json, client_id, redirect_uri, `scope`, response_type, `state`, session_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{extractTokenKey(refreshToken.getValue()), new SqlLobValue(serializeRefreshToken(refreshToken)), refreshTokenJson, refreshTokenStr, expiration, new SqlLobValue(serializeAuthentication(authentication)), authenticationJson, username, remoteAddress, authoritiesJson, clientId, redirectUri, scope, responseType, state, sessionId}, new int[]{Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR});
             }
 
         };
