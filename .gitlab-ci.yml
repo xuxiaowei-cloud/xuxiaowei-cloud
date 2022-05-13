@@ -1,10 +1,7 @@
 stages:
+  - test
   - package
   - s2
-
-variables:
-  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 cache:
   paths:
@@ -14,9 +11,17 @@ cache:
     - ui/node/
     - ui/node_modules/
 
+sast:
+  stage: test
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
 #
 # package
 package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   stage: package
   image: maven:3.6.3-jdk-8
   script:
@@ -78,9 +83,6 @@ package:
 # s2
 s2:
   stage: s2
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
   script:
     - source /etc/profile && echo 刷新环境变量
     - git --version
