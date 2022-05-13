@@ -202,7 +202,7 @@ public class CanalScheduled {
                 for (CanalEntry.Column column : oldColumnList) {
                     if (column.getIsKey()) {
                         // 暂时只支持单一主键
-                        sql.append(column.getName()).append("=").append(column.getValue());
+                        sql.append(column.getName()).append(" = '").append(column.getValue()).append("'");
                         break;
                     }
                 }
