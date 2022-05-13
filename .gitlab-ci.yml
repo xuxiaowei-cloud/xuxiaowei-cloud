@@ -2,10 +2,6 @@ stages:
   - package
   - s2
 
-variables:
-  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
-
 cache:
   paths:
     - .m2/repository
@@ -17,6 +13,9 @@ cache:
 #
 # package
 package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   stage: package
   image: maven:3.6.3-jdk-8
   script:
@@ -68,6 +67,7 @@ package:
       - resource-services-parent/canal/target/canal-*
       - resource-services-parent/user/target/user-*
       - resource-services-parent/websocket/target/websocket-*
+      - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
       - utils/target/utils-*
   only:
@@ -77,9 +77,6 @@ package:
 # s2
 s2:
   stage: s2
-  variables:
-    MAVEN_OPTS: ''
-    MAVEN_CLI_OPTS: ''
   script:
     - source /etc/profile && echo 刷新环境变量
     - git --version
@@ -388,6 +385,7 @@ s2:
       - resource-services-parent/canal/target/canal-*
       - resource-services-parent/user/target/user-*
       - resource-services-parent/websocket/target/websocket-*
+      - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
       - utils/target/utils-*
   tags:

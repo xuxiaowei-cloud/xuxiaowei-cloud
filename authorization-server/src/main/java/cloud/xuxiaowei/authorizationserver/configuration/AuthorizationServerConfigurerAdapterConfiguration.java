@@ -1,8 +1,10 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
+import cloud.xuxiaowei.authorizationserver.service.impl.ClientPasswordEncoderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -83,6 +85,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
     private AuthenticationManager authenticationManager;
 
+    private ApplicationContext applicationContext;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -117,6 +121,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         this.authenticationManager = authenticationManager;
     }
 
+    @Autowired
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
@@ -126,6 +135,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         security.checkTokenAccess("permitAll()");
         // 允许 Client 进行表单验证（URL），否则将出现弹窗输入 ClientId、ClientSecret
         security.allowFormAuthenticationForClients();
+
+        // 客户密码编辑器：用于支持密码模式
+        ClientPasswordEncoderImpl clientPasswordEncoder = new ClientPasswordEncoderImpl();
+        clientPasswordEncoder.setApplicationContext(applicationContext);
+        security.passwordEncoder(clientPasswordEncoder);
 
     }
 
