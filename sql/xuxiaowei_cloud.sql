@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 30/04/2022 16:08:25
+ Date: 13/05/2022 23:17:25
 */
 
 SET NAMES utf8mb4;
@@ -97,7 +97,8 @@ CREATE TABLE `oauth_approvals`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details`  (
-  `client_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `oauth_client_details_id` bigint NOT NULL AUTO_INCREMENT,
+  `client_id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '唯一键：uk__oauth_client_details__client_id',
   `resource_ids` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `client_secret` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `scope` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -108,7 +109,8 @@ CREATE TABLE `oauth_client_details`  (
   `refresh_token_validity` int NULL DEFAULT NULL,
   `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `autoapprove` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`client_id`) USING BTREE
+  PRIMARY KEY (`oauth_client_details_id`) USING BTREE,
+  UNIQUE INDEX `uk__oauth_client_details__client_id`(`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql\r\nGitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql\r\nGitee 镜像仓库：https://gitee.com/mirrors/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
