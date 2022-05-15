@@ -49,6 +49,11 @@ public class Constant implements Serializable {
     public static final String ACTUATOR = "actuator";
 
     /**
+     * 用户名
+     */
+    public static final String USERNAME = "username";
+
+    /**
      * 请求ID
      */
     public static final String REQUEST_ID = "REQUEST_ID";
@@ -82,5 +87,25 @@ public class Constant implements Serializable {
      * 不明确
      */
     public static final String UNDEFINED = "undefined";
+
+    /**
+     * 微信小程序appid
+     */
+    public static final String APPID = "appid";
+
+    /**
+     * 微信小程序 openid
+     */
+    public static final String OPENID = "openid";
+
+    /**
+     * 微信小程序 unionid
+     */
+    public static final String UNIONID = "unionid";
+
+    /**
+     * 客户端类型
+     */
+    public static final String CLIENT_TYPE = "client_type";
 
 }

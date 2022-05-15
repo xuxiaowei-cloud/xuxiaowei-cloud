@@ -131,9 +131,9 @@ public class ControllerAdviceConfiguration {
     }
 
     /**
-     * 外键、主键或唯一键 异常
+     * sql 完整性约束违反异常
      *
-     * @param exception 外键、主键或唯一键 异常
+     * @param exception sql 完整性约束违反异常
      * @param request   请求
      * @return 返回 验证结果
      */
@@ -146,12 +146,20 @@ public class ControllerAdviceConfiguration {
         int errorCode = exception.getErrorCode();
         String message = exception.getMessage();
 
-        log.error(CodeEnums.Q10001.msg, exception);
+        String code = CodeEnums.Q10001.code;
+        String msg = CodeEnums.Q10001.msg;
+        if (message != null) {
+            if (message.matches(CodeEnums.Q10002_REGEX)) {
+                code = CodeEnums.Q10002.code;
+                msg = CodeEnums.Q10002.msg;
+            }
+        }
 
-        return ResponseMap.error(CodeEnums.Q10001.code, CodeEnums.Q10001.msg)
+        log.error(msg, exception);
+
+        return ResponseMap.error(code, msg)
                 .put("sqlState", sqlState)
-                .put("errorCode", errorCode)
-                .put("message", message);
+                .put("errorCode", errorCode);
     }
 
     /**

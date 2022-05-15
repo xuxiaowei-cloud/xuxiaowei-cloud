@@ -114,7 +114,8 @@ class MyBatisPlusGeneratorTests {
                 new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-core", "cloud.xuxiaowei.core"),
                 new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-log", "cloud.xuxiaowei.log"),
                 new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-oauth2", "cloud.xuxiaowei.oauth2"),
-                new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-system", "cloud.xuxiaowei.system")
+                new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-system", "cloud.xuxiaowei.system"),
+                new Module("resource-services-parent" + fileSeparator + "wechat-applet", "cloud.xuxiaowei.wechatapplet")
         );
 
         System.out.println("项目文件夹：" + userDir);
@@ -174,7 +175,9 @@ class MyBatisPlusGeneratorTests {
                                 new Column("create_date", FieldFill.INSERT),
                                 new Column("update_date", FieldFill.UPDATE),
                                 new Column("create_username", FieldFill.INSERT),
-                                new Column("update_username", FieldFill.UPDATE)
+                                new Column("update_username", FieldFill.UPDATE),
+                                new Column("create_ip", FieldFill.INSERT),
+                                new Column("update_ip", FieldFill.UPDATE)
                         ).logicDeleteColumnName("deleted")
                         .build())
                 /*
