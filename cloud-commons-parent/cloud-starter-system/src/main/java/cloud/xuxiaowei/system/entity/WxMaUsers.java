@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.wechatapplet.entity;
+package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;

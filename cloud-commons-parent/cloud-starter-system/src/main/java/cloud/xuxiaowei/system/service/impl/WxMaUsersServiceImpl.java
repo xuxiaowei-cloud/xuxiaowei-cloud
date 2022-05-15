@@ -1,8 +1,8 @@
-package cloud.xuxiaowei.wechatapplet.service.impl;
+package cloud.xuxiaowei.system.service.impl;
 
-import cloud.xuxiaowei.wechatapplet.entity.WxMaUsers;
-import cloud.xuxiaowei.wechatapplet.mapper.WxMaUsersMapper;
-import cloud.xuxiaowei.wechatapplet.service.IWxMaUsersService;
+import cloud.xuxiaowei.system.entity.WxMaUsers;
+import cloud.xuxiaowei.system.mapper.WxMaUsersMapper;
+import cloud.xuxiaowei.system.service.IWxMaUsersService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

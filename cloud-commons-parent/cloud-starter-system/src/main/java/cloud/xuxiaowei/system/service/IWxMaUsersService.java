@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.wechatapplet.service;
+package cloud.xuxiaowei.system.service;
 
-import cloud.xuxiaowei.wechatapplet.entity.WxMaUsers;
+import cloud.xuxiaowei.system.entity.WxMaUsers;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

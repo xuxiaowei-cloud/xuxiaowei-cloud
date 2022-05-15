@@ -1,9 +1,9 @@
 package cloud.xuxiaowei.wechatapplet.controller;
 
+import cloud.xuxiaowei.system.service.IWxMaUsersService;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
-import cloud.xuxiaowei.wechatapplet.service.IWxMaUsersService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;

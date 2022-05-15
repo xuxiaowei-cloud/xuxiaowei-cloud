@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.wechatapplet.mapper;
+package cloud.xuxiaowei.system.mapper;
 
-import cloud.xuxiaowei.wechatapplet.entity.WxMaUsers;
+import cloud.xuxiaowei.system.entity.WxMaUsers;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

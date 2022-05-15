@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cloud.xuxiaowei.wechatapplet.mapper.WxMaUsersMapper">
+<mapper namespace="cloud.xuxiaowei.system.mapper.WxMaUsersMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.wechatapplet.entity.WxMaUsers">
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.WxMaUsers">
         <id column="wx_ma_users_id" property="wxMaUsersId" />
         <result column="appid" property="appid" />
         <result column="openid" property="openid" />
