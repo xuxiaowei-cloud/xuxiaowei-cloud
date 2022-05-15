@@ -66,6 +66,12 @@
             <artifactId>cloud-starter-oauth2</artifactId>
         </dependency>
 
+        <!-- 负载均衡组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
