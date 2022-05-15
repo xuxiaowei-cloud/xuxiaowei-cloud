@@ -2,7 +2,13 @@ package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
+import cloud.xuxiaowei.system.entity.WxMaUsers;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.service.IWxMaUsersService;
+import cloud.xuxiaowei.utils.ClientType;
+import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
+import cloud.xuxiaowei.utils.exception.login.LoginWechatUsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,10 +17,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 用户详情服务 接口实现
@@ -26,11 +35,25 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private HttpServletRequest request;
+
     private IUsersService usersService;
+
+    private IWxMaUsersService wxMaUsersService;
+
+    @Autowired
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
 
     @Autowired
     public void setUsersService(IUsersService usersService) {
         this.usersService = usersService;
+    }
+
+    @Autowired
+    public void setWxMaUsersService(IWxMaUsersService wxMaUsersService) {
+        this.wxMaUsersService = wxMaUsersService;
     }
 
     /**
@@ -43,9 +66,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        // 在 grantType 为 password 时，对密码进行处理后才能比较，这样更安全
+        String grantType = request.getParameter(OAuth2Utils.GRANT_TYPE);
+        // 客户端类型
+        String clientType = request.getParameter(Constant.CLIENT_TYPE);
+        // 微信小程序appid
+        String appid = request.getParameter(Constant.APPID);
+
+        // 微信客户端
+        if (ClientType.WECHAT_APPLET.grantType.equals(grantType) && ClientType.WECHAT_APPLET.clientType.equals(clientType)) {
+            WxMaUsers wxMaUsers = wxMaUsersService.getByAppidAndOpenid(appid, username);
+            if (wxMaUsers == null) {
+                throw new LoginWechatUsernameNotFoundException("用户名不存在");
+            }
+
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            // 暂时仅授权微信权限
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("wechat");
+            authorities.add(authority);
+
+            return new User(username, UUID.randomUUID().toString(), authorities);
+        }
+
         Users users = usersService.getByUsername(username);
         if (users == null) {
-            throw new UsernameNotFoundException("用户名不存在");
+            throw new LoginUsernameNotFoundException("用户名不存在");
         }
 
         String password = users.getPassword();
@@ -60,12 +105,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(authority);
         }
 
-        return new User(username, password,
-                enabled != null && enabled,
-                accountNonExpired != null && accountNonExpired,
-                credentialsNonExpired != null && credentialsNonExpired,
-                accountNonLocked != null && accountNonLocked,
-                authorities);
+        return new User(username, password, enabled != null && enabled, accountNonExpired != null && accountNonExpired, credentialsNonExpired != null && credentialsNonExpired, accountNonLocked != null && accountNonLocked, authorities);
     }
 
 }
