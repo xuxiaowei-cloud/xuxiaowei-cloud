@@ -1,11 +1,15 @@
 package cloud.xuxiaowei.wechatapplet.controller;
 
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
+import cloud.xuxiaowei.wechatapplet.service.IWxMaUsersService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +29,16 @@ public class LoginRestController {
 
     private WxMaService wxMaService;
 
+    private IWxMaUsersService wxMaUsersService;
+
     @Autowired
     public void setWxMaService(WxMaService wxMaService) {
         this.wxMaService = wxMaService;
+    }
+
+    @Autowired
+    public void setWxMaUsersService(IWxMaUsersService wxMaUsersService) {
+        this.wxMaUsersService = wxMaUsersService;
     }
 
     /**
@@ -44,13 +55,22 @@ public class LoginRestController {
         WxMaJscode2SessionResult wxMaJscode2SessionResult;
         try {
             wxMaJscode2SessionResult = wxMaService.jsCode2SessionInfo(code);
-            log.info(String.valueOf(wxMaJscode2SessionResult));
         } catch (WxErrorException e) {
             log.error("微信小程序登录失败", e);
-            return Response.error();
+            return Response.error("登录失败");
         }
 
-        return ResponseMap.ok().put("openid", wxMaJscode2SessionResult.getOpenid()).put("unionid", wxMaJscode2SessionResult.getUnionid());
+        WxMaConfig wxMaConfig = wxMaService.getWxMaConfig();
+        String appid = wxMaConfig.getAppid();
+        String openid = wxMaJscode2SessionResult.getOpenid();
+        String unionid = wxMaJscode2SessionResult.getUnionid();
+
+        MDC.put(Constant.USERNAME, openid);
+
+        boolean save = wxMaUsersService.saveOpenid(appid, openid, unionid);
+        log.info("微信小程序 {} 是否新增用户 {}：{}", appid, openid, save);
+
+        return ResponseMap.ok().put("openid", openid).put("unionid", unionid);
     }
 
 }
