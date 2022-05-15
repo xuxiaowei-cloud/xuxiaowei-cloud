@@ -94,6 +94,16 @@ public class Constant implements Serializable {
     public static final String APPID = "appid";
 
     /**
+     * 微信小程序 openid
+     */
+    public static final String OPENID = "openid";
+
+    /**
+     * 微信小程序 unionid
+     */
+    public static final String UNIONID = "unionid";
+
+    /**
      * 客户端类型
      */
     public static final String CLIENT_TYPE = "client_type";

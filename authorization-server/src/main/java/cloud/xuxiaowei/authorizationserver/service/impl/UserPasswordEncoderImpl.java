@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * 用户密码编辑器
@@ -88,15 +89,30 @@ public class UserPasswordEncoderImpl implements PasswordEncoder {
         try {
             ResponseMap responseMap = restTemplate.getForObject(String.format("http://%s/onLogin?code=%s", service, code), ResponseMap.class);
             if (responseMap == null) {
-                log.error("授权时：微信服务授权失败");
-                return false;
+                throw new LoginServiceException("微信服务授权失败：返回值为空");
             }
 
-            if (CodeEnums.OK.code.equals(responseMap.getCode())) {
+            String responseMapCode = responseMap.getCode();
+            if (CodeEnums.OK.code.equals(responseMapCode)) {
+                Map<String, Object> data = responseMap.getData();
+                if (data == null) {
+                    throw new LoginServiceException("微信服务授权失败：返回值data为空");
+                }
+
+                Object openidObj = data.get(Constant.OPENID);
+                if (openidObj == null) {
+                    throw new LoginServiceException("微信服务授权失败：返回值openid为空");
+                }
+
+                // 微信小程序appid
+                String appid = request.getParameter(Constant.APPID);
+                if (openidObj.equals(appid)) {
+                    throw new LoginServiceException("微信服务授权失败：非法appid");
+                }
+
                 return true;
             } else {
-                log.error("授权时：微信服务授权失败");
-                return false;
+                throw new LoginServiceException("微信服务授权失败：状态码异常：" + responseMapCode);
             }
         } catch (Exception e) {
             log.error("微信授权异常", e);
