@@ -70,7 +70,7 @@ public class LoginRestController {
         boolean save = wxMaUsersService.saveOpenid(appid, openid, unionid);
         log.info("微信小程序 {} 是否新增用户 {}：{}", appid, openid, save);
 
-        return ResponseMap.ok().put("openid", openid).put("unionid", unionid);
+        return ResponseMap.ok().put("appid", appid).put("openid", openid).put("unionid", unionid);
     }
 
 }
