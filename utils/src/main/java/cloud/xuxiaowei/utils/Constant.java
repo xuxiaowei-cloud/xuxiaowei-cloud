@@ -49,6 +49,11 @@ public class Constant implements Serializable {
     public static final String ACTUATOR = "actuator";
 
     /**
+     * 用户名
+     */
+    public static final String USERNAME = "username";
+
+    /**
      * 请求ID
      */
     public static final String REQUEST_ID = "REQUEST_ID";
