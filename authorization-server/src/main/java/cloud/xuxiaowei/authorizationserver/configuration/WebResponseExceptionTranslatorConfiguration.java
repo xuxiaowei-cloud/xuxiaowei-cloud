@@ -3,6 +3,7 @@ package cloud.xuxiaowei.authorizationserver.configuration;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeException;
+import cloud.xuxiaowei.utils.exception.login.LoginServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,8 +121,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
         Exception ase = (OAuth2Exception) throwableAnalyzer.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
 
         if (ase != null) {
-            @SuppressWarnings("all")
-            OAuth2Exception oauth2Exception = (OAuth2Exception) ase;
+            @SuppressWarnings("all") OAuth2Exception oauth2Exception = (OAuth2Exception) ase;
 
             oauth2Exception.addAdditionalInformation(Response.DATA, null);
             oauth2Exception.addAdditionalInformation(Response.FIELD, null);
@@ -212,22 +212,43 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             return handleOAuth2Exception(oauth2Exception);
         }
 
-        ///////////////////////////////以下异常待开发/////////////////////////////
-
-        ase = (AuthenticationException) throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class,
-                causeChain);
+        ase = (AuthenticationException) throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class, causeChain);
         if (ase != null) {
-            return handleOAuth2Exception(new WebResponseExceptionTranslatorConfiguration.UnauthorizedException(e.getMessage(), e));
+
+            AuthenticationException authenticationException = (AuthenticationException) ase;
+
+            OAuth2Exception oauth2Exception = new OAuth2Exception(authenticationException.getMessage());
+
+            oauth2Exception.addAdditionalInformation(Response.DATA, null);
+            oauth2Exception.addAdditionalInformation(Response.FIELD, null);
+            oauth2Exception.addAdditionalInformation(Response.EXPLAIN, null);
+            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(REQUEST_ID));
+
+            if (authenticationException instanceof LoginServiceException) {
+                LoginServiceException loginServiceException = (LoginServiceException) authenticationException;
+                oauth2Exception.addAdditionalInformation(Response.CODE, loginServiceException.getCode());
+                oauth2Exception.addAdditionalInformation(Response.MSG, loginServiceException.getMsg());
+            } else {
+                oauth2Exception.addAdditionalInformation(Response.CODE, CodeEnums.T10000.code);
+                oauth2Exception.addAdditionalInformation(Response.MSG, CodeEnums.T10000.msg);
+                oauth2Exception.addAdditionalInformation(Response.EXPLAIN, "异常代码待划分");
+            }
+
+            if (responseJson) {
+                return new ResponseEntity<>(oauth2Exception, HttpStatus.OK);
+            }
+
+            return handleOAuth2Exception(oauth2Exception);
         }
 
-        ase = (AccessDeniedException) throwableAnalyzer
-                .getFirstThrowableOfType(AccessDeniedException.class, causeChain);
+        ///////////////////////////////以下异常待开发/////////////////////////////
+
+        ase = (AccessDeniedException) throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
         if (ase != null) {
             return handleOAuth2Exception(new WebResponseExceptionTranslatorConfiguration.ForbiddenException(ase.getMessage(), ase));
         }
 
-        ase = (HttpRequestMethodNotSupportedException) throwableAnalyzer.getFirstThrowableOfType(
-                HttpRequestMethodNotSupportedException.class, causeChain);
+        ase = (HttpRequestMethodNotSupportedException) throwableAnalyzer.getFirstThrowableOfType(HttpRequestMethodNotSupportedException.class, causeChain);
         if (ase != null) {
             return handleOAuth2Exception(new WebResponseExceptionTranslatorConfiguration.MethodNotAllowed(ase.getMessage(), ase));
         }

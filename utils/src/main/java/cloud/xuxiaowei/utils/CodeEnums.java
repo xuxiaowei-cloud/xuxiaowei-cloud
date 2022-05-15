@@ -227,9 +227,15 @@ public enum CodeEnums {
      */
     Q10000("Q10000", "SQL异常", "通用代码"),
     /**
-     * 外键、主键或唯一键异常
+     * sql 完整性约束违反异常
      */
-    Q10001("Q10001", "外键、主键或唯一键异常", null),
+    Q10001("Q10001", "sql 完整性约束违反异常", null),
+    /**
+     * 字段不能为空
+     *
+     * @see #Q10002_REGEX
+     */
+    Q10002("Q10002", "字段不能为空", null),
 
     /**
      * 参数异常
@@ -314,6 +320,11 @@ public enum CodeEnums {
     X10005("X10005", "当前IP访问的目标地址已被禁用", null),
 
     ;
+
+    /**
+     * @see #Q10002
+     */
+    public static final String Q10002_REGEX = "Column '\\w+' cannot be null";
 
     /**
      * 错误码

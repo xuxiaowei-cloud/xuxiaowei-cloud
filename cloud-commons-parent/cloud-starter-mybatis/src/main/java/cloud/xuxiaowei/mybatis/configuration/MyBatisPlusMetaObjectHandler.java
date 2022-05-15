@@ -1,9 +1,11 @@
 package cloud.xuxiaowei.mybatis.configuration;
 
 
+import cloud.xuxiaowei.utils.Constant;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+import org.slf4j.MDC;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
@@ -22,12 +24,26 @@ public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
 
         strictInsertFill(metaObject, "createDate", LocalDateTime.class, LocalDateTime.now());
+        strictInsertFill(metaObject, "createUsername", String.class, username());
+        strictInsertFill(metaObject, "createIp", String.class, ip());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
 
         strictUpdateFill(metaObject, "updateDate", LocalDateTime.class, LocalDateTime.now());
+        strictUpdateFill(metaObject, "updateUsername", String.class, username());
+        strictUpdateFill(metaObject, "updateIp", String.class, ip());
+    }
+
+    private String username() {
+        String username = MDC.get(Constant.USERNAME);
+        return username == null ? "" : username;
+    }
+
+    private String ip() {
+        String ip = MDC.get(Constant.IP);
+        return ip == null ? "" : ip;
     }
 
 }

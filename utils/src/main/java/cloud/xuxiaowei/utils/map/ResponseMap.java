@@ -15,6 +15,13 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 public class ResponseMap extends cloud.xuxiaowei.utils.Response<Map<String, Object>> {
 
+    /**
+     * 仅为自动装载数据使用
+     */
+    private ResponseMap() {
+        super(null, null);
+    }
+
     public ResponseMap(String code, String msg) {
         super(code, msg);
     }
