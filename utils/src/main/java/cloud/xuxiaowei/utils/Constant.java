@@ -88,4 +88,14 @@ public class Constant implements Serializable {
      */
     public static final String UNDEFINED = "undefined";
 
+    /**
+     * 微信小程序appid
+     */
+    public static final String APPID = "appid";
+
+    /**
+     * 客户端类型
+     */
+    public static final String CLIENT_TYPE = "client_type";
+
 }
