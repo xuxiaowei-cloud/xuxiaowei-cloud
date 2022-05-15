@@ -149,16 +149,16 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         }
 
         return authentication.map(requestAuthentication -> {
-            // 已通过认证授权
-            if (requestAuthentication.isAuthenticated()) {
-                // 放行
-                return new AuthorizationDecision(true);
-            } else {
-                // 未通过认证授权
-                // 拒绝放行
-                return new AuthorizationDecision(false);
-            }
-        })
+                    // 已通过认证授权
+                    if (requestAuthentication.isAuthenticated()) {
+                        // 放行
+                        return new AuthorizationDecision(true);
+                    } else {
+                        // 未通过认证授权
+                        // 拒绝放行
+                        return new AuthorizationDecision(false);
+                    }
+                })
                 // 无认证授权
                 // 拒绝放行
                 .defaultIfEmpty(new AuthorizationDecision(false));
@@ -198,7 +198,8 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
 
         // 放行指定IP访问端点
-        boolean matchActuator = antPathMatcher.match("/*/actuator/**", path);
+        // 支持：/actuator/**、/xxx/actuator/**
+        boolean matchActuator = antPathMatcher.match("/**/actuator/**", path);
         if (matchActuator) {
             for (String actuatorIp : actuatorIpList) {
                 IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(actuatorIp);
