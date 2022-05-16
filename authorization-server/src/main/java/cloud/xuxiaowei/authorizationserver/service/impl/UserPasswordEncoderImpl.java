@@ -104,9 +104,20 @@ public class UserPasswordEncoderImpl implements PasswordEncoder {
                     throw new LoginServiceException("微信服务授权失败：返回值openid为空");
                 }
 
-                // 微信小程序appid
+                // 验证微信小程序openid（即参数中的 username）
+                String openid = request.getParameter(Constant.USERNAME);
+                if (!openidObj.equals(openid)) {
+                    throw new LoginServiceException("微信服务授权失败：非法openid");
+                }
+
+                Object appidObj = data.get(Constant.APPID);
+                if (appidObj == null) {
+                    throw new LoginServiceException("微信服务授权失败：返回值appid为空");
+                }
+
+                // 验证微信小程序appid
                 String appid = request.getParameter(Constant.APPID);
-                if (openidObj.equals(appid)) {
+                if (!appidObj.equals(appid)) {
                     throw new LoginServiceException("微信服务授权失败：非法appid");
                 }
 
