@@ -218,4 +218,28 @@ public class AssertUtils {
         }
     }
 
+    /**
+     * 断言一个对象是null
+     *
+     * @param object  要检查的对象
+     * @param message 断言失败时使用的异常消息
+     */
+    public static void isNull(Object object, String message) {
+        if (object != null) {
+            throw new CloudRuntimeException(message);
+        }
+    }
+
+    /**
+     * 断言一个对象不是null
+     *
+     * @param object  要检查的对象
+     * @param message 断言失败时使用的异常消息
+     */
+    public static void notNull(Object object, String message) {
+        if (object == null) {
+            throw new CloudRuntimeException(message);
+        }
+    }
+
 }
