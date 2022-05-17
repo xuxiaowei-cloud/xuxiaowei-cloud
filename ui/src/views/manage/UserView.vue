@@ -10,8 +10,9 @@
     </el-button>
   </div>
 
+  <!-- 用户弹窗 -->
   <el-dialog v-if="userDialogVisible" v-model="userDialogVisible" :title="userDialogVisibleTitle" width="40%"
-             :before-close="handleClose">
+             :before-close="userDialogHandleClose">
     <UserDialog :dialogVisible="userDialogVisible" :edit="edit" :usersId="userDialogVisibleUsersId"
                 @dialogVisibleClose="userDialogVisibleClose"/>
   </el-dialog>
@@ -95,8 +96,8 @@ const editUsersAuthorityId = (usersId: number) => {
 
 }
 
-// 弹窗关闭：弹窗右上角的 x
-const handleClose = (done: () => void) => {
+// 用户弹窗关闭：弹窗右上角的 x
+const userDialogHandleClose = (done: () => void) => {
   console.log('关闭弹窗')
   done()
 }
