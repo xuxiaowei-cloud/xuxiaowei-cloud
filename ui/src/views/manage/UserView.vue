@@ -29,14 +29,17 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
-      <el-table-column fixed="right" label="Operations" width="100"
-                       v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit'])">
+      <el-table-column fixed="right" label="Operations" width="160"
+                       v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit', 'manage_user_authority'])">
         <template #default="scope">
           <el-button type="text" size="small" @click="deleteUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_delete')">Delete
           </el-button>
           <el-button type="text" size="small" @click="editUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_edit')">Edit
+          </el-button>
+          <el-button type="text" size="small" @click="editUsersAuthorityId(scope.row.usersId)"
+                     v-if="hasAuthority('manage_user_authority')">Authority
           </el-button>
         </template>
       </el-table-column>
@@ -82,6 +85,14 @@ const editUsersId = (usersId: number) => {
   dialogVisibleTitle.value = '编辑用户'
   dialogVisibleUsersId.value = usersId
   dialogVisible.value = true
+}
+
+/**
+ * 编辑用户，进行授权
+ * @param usersId 用户ID
+ */
+const editUsersAuthorityId = (usersId: number) => {
+
 }
 
 // 弹窗关闭：弹窗右上角的 x

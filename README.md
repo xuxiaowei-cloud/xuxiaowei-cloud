@@ -186,6 +186,7 @@ cloud.xuxiaowei
 | xuxiaowei | manage_user_delete | 管理用户 删除权限 |
 | xuxiaowei | manage_user_edit | 管理用户 修改权限 |
 | xuxiaowei | manage_user_read | 管理用户 查询权限 |
+| xuxiaowei | manage_user_authority | 管理用户 授权权限 |
 | xuxiaowei | manage_client_add | 管理客户 添加权限 |
 | xuxiaowei | manage_client_delete | 管理客户 删除权限 |
 | xuxiaowei | manage_client_edit | 管理客户 修改权限 |
