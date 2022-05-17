@@ -28,6 +28,30 @@ INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_da
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`, `deleted`) VALUES (20, 'xuxiaowei', 'manage_client_read', '2022-04-30 07:49:17', NULL, 0);
 
 -- ----------------------------
+-- Records of authority
+-- ----------------------------
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_accessToken_delete', '删除授权Token');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_accessToken_read', '查看授权Token');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_code_delete', '删除授权码Code');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_code_read', '查看授权码Code');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_refreshToken_delete', '删除刷新Token');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('audit_refreshToken_read', '查看刷新Token');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_client_add', '管理客户 添加权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_client_delete', '管理客户 删除权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_client_edit', '管理客户 修改权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_client_read', '管理客户 读取权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_user_add', '管理用户 查询权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_user_authority', '管理用户 授权权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_user_delete', '管理用户 删除权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_user_edit', '管理用户 修改权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('manage_user_read', '管理用户 查询权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('user_authorities', '查看用户权限');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('user_details', '查看用户详情');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('user_info', '查看用户信息');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('user_oauth2_oauth2Request', '查看 oauth2 用户请求');
+INSERT INTO `xuxiaowei_cloud`.`authority`(`authority`, `explain`) VALUES ('user_oauth2_userAuthentication', '查看 oauth2 用户身份验证');
+
+-- ----------------------------
 -- Records of oauth_client_details
 -- ----------------------------
 INSERT INTO `oauth_client_details` (`oauth_client_details_id`, `client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES (1, 'xuxiaowei_client_id', NULL, '{bcrypt}$2a$10$s/3CEiHunH9wo2qr7JfeD.SRa8kK2Y8lOriHWrWhidQX3hyhuORlO', 'snsapi_base,snsapi_userinfo', 'authorization_code,refresh_token,client_credentials,password,implicit', 'http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code', NULL, NULL, NULL, NULL, 'true');
