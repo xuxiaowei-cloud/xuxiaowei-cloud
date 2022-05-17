@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.core.properties.CloudCookieProperties;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @RestController
 @RequestMapping("/signout")
+@SuppressWarnings({"deprecation"})
 public class SignoutRestController {
 
     private TokenStore tokenStore;
@@ -50,6 +52,7 @@ public class SignoutRestController {
      * @param session  Session，不存在时自动创建
      * @return 返回 退出提示语
      */
+    @ControllerAnnotation(description = "退出")
     @RequestMapping
     public Response<?> index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                              OAuth2Authentication oauth2Authentication) {
