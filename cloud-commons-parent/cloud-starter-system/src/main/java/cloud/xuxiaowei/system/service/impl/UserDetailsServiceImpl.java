@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.entity.WxMaUsers;
@@ -43,6 +44,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private IWxMaUsersService wxMaUsersService;
 
+    private CloudSecurityProperties cloudSecurityProperties;
+
     @Autowired
     public void setRequest(HttpServletRequest request) {
         this.request = request;
@@ -56,6 +59,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     public void setWxMaUsersService(IWxMaUsersService wxMaUsersService) {
         this.wxMaUsersService = wxMaUsersService;
+    }
+
+    @Autowired
+    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+        this.cloudSecurityProperties = cloudSecurityProperties;
     }
 
     /**
@@ -103,7 +111,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         List<Authorities> authoritiesList = users.getAuthoritiesList();
-        if (authoritiesList.size() == 0) {
+
+        boolean allowEmptyAuthorities = cloudSecurityProperties.isAllowEmptyAuthorities();
+        if (!allowEmptyAuthorities && authoritiesList.size() == 0) {
             throw new LoginException(CodeEnums.A10011.code, CodeEnums.A10011.msg);
         }
 
