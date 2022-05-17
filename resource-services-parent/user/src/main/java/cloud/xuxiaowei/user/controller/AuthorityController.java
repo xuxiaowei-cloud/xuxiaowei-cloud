@@ -38,6 +38,7 @@ public class AuthorityController {
      * @param response 响应
      * @return 返回 结果
      */
+    @RequestMapping("/list")
     @PreAuthorize("hasAuthority('manage_user_authority') or #oauth2.hasScope('manage_user_authority')")
     public Response<?> list(HttpServletRequest request, HttpServletResponse response) {
 
