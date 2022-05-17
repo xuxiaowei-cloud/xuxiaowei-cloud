@@ -10,10 +10,10 @@
     </el-button>
   </div>
 
-  <el-dialog v-if="dialogVisible" v-model="dialogVisible" :title="dialogVisibleTitle" width="40%"
+  <el-dialog v-if="userDialogVisible" v-model="userDialogVisible" :title="userDialogVisibleTitle" width="40%"
              :before-close="handleClose">
-    <UserDialogAdd :dialogVisible="dialogVisible" :edit="edit" :usersId="dialogVisibleUsersId"
-                   @dialogVisibleClose="dialogVisibleClose"/>
+    <UserDialog :dialogVisible="userDialogVisible" :edit="edit" :usersId="userDialogVisibleUsersId"
+                @dialogVisibleClose="userDialogVisibleClose"/>
   </el-dialog>
 
   <el-container>
@@ -52,39 +52,39 @@
 
 <script setup lang="ts">
 import { page, removeById, removeByIds } from '../../api/user'
-import { hasAuthority, hasAnyAuthority } from '../../utils/authority'
+import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
-// 弹窗内容
-import UserDialogAdd from './dialog/UserDialog.vue'
+// 用户添加、编辑弹窗内容
+import UserDialog from './dialog/UserDialog.vue'
 
 // 缓存
 const store = useStore()
 
-// 弹窗是否打开
-const dialogVisible = ref(false)
-// 弹窗标题
-const dialogVisibleTitle = ref<String>()
-// 弹窗用户ID：修改时使用
-const dialogVisibleUsersId = ref<number>()
+// 用户弹窗是否打开
+const userDialogVisible = ref(false)
+// 用户弹窗标题
+const userDialogVisibleTitle = ref<String>()
+// 用户弹窗用户ID：修改时使用
+const userDialogVisibleUsersId = ref<number>()
 // 是否编辑
 const edit = ref(false)
 
 // 添加用户
 const cloudAdd = () => {
   edit.value = false
-  dialogVisibleTitle.value = '添加用户'
-  dialogVisibleUsersId.value = undefined
-  dialogVisible.value = true
+  userDialogVisibleTitle.value = '添加用户'
+  userDialogVisibleUsersId.value = undefined
+  userDialogVisible.value = true
 }
 
 // 修改用户
 const editUsersId = (usersId: number) => {
   edit.value = true
-  dialogVisibleTitle.value = '编辑用户'
-  dialogVisibleUsersId.value = usersId
-  dialogVisible.value = true
+  userDialogVisibleTitle.value = '编辑用户'
+  userDialogVisibleUsersId.value = usersId
+  userDialogVisible.value = true
 }
 
 /**
@@ -102,8 +102,8 @@ const handleClose = (done: () => void) => {
 }
 
 // 弹窗关闭：子窗口使用
-const dialogVisibleClose = () => {
-  dialogVisible.value = false
+const userDialogVisibleClose = () => {
+  userDialogVisible.value = false
   // 关闭窗口后，重新搜索
   cloudSearch()
 }
@@ -172,6 +172,7 @@ const cloudRemove = () => {
           duration: 1500,
           type: 'success',
           onClose: () => {
+            // 重新搜索
             cloudSearch()
           }
         })
@@ -182,6 +183,7 @@ const cloudRemove = () => {
           duration: 1500,
           type: 'error',
           onClose: () => {
+            // 重新搜索
             cloudSearch()
           }
         })
