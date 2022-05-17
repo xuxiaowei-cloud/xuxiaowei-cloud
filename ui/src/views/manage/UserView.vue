@@ -13,8 +13,15 @@
   <!-- 用户弹窗 -->
   <el-dialog v-if="userDialogVisible" v-model="userDialogVisible" :title="userDialogVisibleTitle" width="40%"
              :before-close="userDialogHandleClose">
-    <UserDialog :dialogVisible="userDialogVisible" :edit="edit" :usersId="userDialogVisibleUsersId"
+    <UserDialog :dialogVisible="userDialogVisible" :edit="edit" :usersId="dialogVisibleUsersId"
                 @dialogVisibleClose="userDialogVisibleClose"/>
+  </el-dialog>
+
+  <!-- 用户权限弹窗 -->
+  <el-dialog v-if="userAuthorityDialogVisible" v-model="userAuthorityDialogVisible" title="用户权限" width="40%"
+             :before-close="userAuthorityDialogHandleClose">
+    <UserAuthorityDialog :dialogVisible="userAuthorityDialogVisible" :usersId="dialogVisibleUsersId"
+                         @dialogVisibleClose="userAuthorityDialogVisibleClose"/>
   </el-dialog>
 
   <el-container>
@@ -59,52 +66,81 @@ import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 // 用户添加、编辑弹窗内容
 import UserDialog from './dialog/UserDialog.vue'
+// 用户权限管理弹窗内容
+import UserAuthorityDialog from './dialog/UserAuthorityDialog.vue'
 
 // 缓存
 const store = useStore()
 
-// 用户弹窗是否打开
+// 用户弹窗：是否打开
 const userDialogVisible = ref(false)
+// 用户权限弹窗：是否打开
+const userAuthorityDialogVisible = ref(false)
+
+// 用户弹窗中的用户ID（修改时使用）、用户权限弹窗中的用户ID
+const dialogVisibleUsersId = ref<number>()
+
 // 用户弹窗标题
 const userDialogVisibleTitle = ref<String>()
-// 用户弹窗用户ID：修改时使用
-const userDialogVisibleUsersId = ref<number>()
-// 是否编辑
+// 用户弹窗是否编辑
 const edit = ref(false)
 
 // 添加用户
 const cloudAdd = () => {
+  // 用户弹窗类型：添加
   edit.value = false
   userDialogVisibleTitle.value = '添加用户'
-  userDialogVisibleUsersId.value = undefined
+  dialogVisibleUsersId.value = undefined
+  // 用户弹窗：打开
   userDialogVisible.value = true
 }
 
 // 修改用户
 const editUsersId = (usersId: number) => {
+  // 用户弹窗类型：编辑
   edit.value = true
   userDialogVisibleTitle.value = '编辑用户'
-  userDialogVisibleUsersId.value = usersId
+  // 编辑用户的ID
+  dialogVisibleUsersId.value = usersId
+  // 用户弹窗：打开
   userDialogVisible.value = true
 }
 
 /**
- * 编辑用户，进行授权
+ * 编辑用户权限，进行授权
  * @param usersId 用户ID
  */
 const editUsersAuthorityId = (usersId: number) => {
-
+  // 编辑用户的ID
+  dialogVisibleUsersId.value = usersId
+  // 用户弹窗权限：打开
+  userAuthorityDialogVisible.value = true
 }
 
 // 用户弹窗关闭：弹窗右上角的 x
 const userDialogHandleClose = (done: () => void) => {
-  console.log('关闭弹窗')
+  console.log('关闭用户弹窗')
   done()
 }
 
-// 弹窗关闭：子窗口使用
+// 用户权限弹窗关闭：弹窗右上角的 x
+const userAuthorityDialogHandleClose = (done: () => void) => {
+  console.log('关闭用户权限弹窗')
+  done()
+}
+
+// 用户弹窗关闭：子窗口使用
 const userDialogVisibleClose = () => {
+  // 用户弹窗：打开
   userDialogVisible.value = false
+  // 关闭窗口后，重新搜索
+  cloudSearch()
+}
+
+// 用户权限弹窗关闭：子窗口使用
+const userAuthorityDialogVisibleClose = () => {
+  // 用户弹窗权限：打开
+  userAuthorityDialogVisible.value = false
   // 关闭窗口后，重新搜索
   cloudSearch()
 }
