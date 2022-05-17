@@ -6,7 +6,9 @@ import cloud.xuxiaowei.system.entity.WxMaUsers;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.IWxMaUsersService;
 import cloud.xuxiaowei.utils.ClientType;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
 import cloud.xuxiaowei.utils.exception.login.LoginWechatUsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +102,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Boolean accountNonLocked = users.getAccountNonLocked();
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (Authorities auth : users.getAuthoritiesList()) {
+        List<Authorities> authoritiesList = users.getAuthoritiesList();
+        if (authoritiesList.size() == 0) {
+            throw new LoginException(CodeEnums.A10011.code, CodeEnums.A10011.msg);
+        }
+
+        for (Authorities auth : authoritiesList) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(auth.getAuthority());
             authorities.add(authority);
         }
