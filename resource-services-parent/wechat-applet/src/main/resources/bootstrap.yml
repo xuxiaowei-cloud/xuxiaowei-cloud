@@ -35,6 +35,8 @@ spring:
         server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
+        # 自定义注册IP（为空时使用程序自动获取本机IP）
+        ip: ${wechat_applet_ip:}
       # 服务配置
       config:
         # 配置文件后缀名
