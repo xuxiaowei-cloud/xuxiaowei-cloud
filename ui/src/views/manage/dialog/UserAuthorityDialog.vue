@@ -80,27 +80,22 @@ const data = ref(authorityData)
 const userData: String[] = []
 
 // 初始化用户数据
-const initRightData = async () => {
-  if (props.usersId) {
-    await getById(props.usersId).then(response => {
-      if (response.code === store.state.settings.okCode) {
-        const data = response.data
-        if (data) {
-          const authoritiesList = data.authoritiesList
-          for (const i in authoritiesList) {
-            const team = authoritiesList[i]
-            userData.push(team)
-          }
+if (props.usersId) {
+  await getById(props.usersId).then(response => {
+    if (response.code === store.state.settings.okCode) {
+      const data = response.data
+      if (data) {
+        const authoritiesList = data.authoritiesList
+        for (const i in authoritiesList) {
+          const team = authoritiesList[i]
+          userData.push(team)
         }
-      } else {
-        ElMessage.error(response.msg)
       }
-    })
-  }
+    } else {
+      ElMessage.error(response.msg)
+    }
+  })
 }
-
-// 初始化用户数据
-await initRightData()
 
 // 右侧用户数据
 const rightValue = ref(userData)
