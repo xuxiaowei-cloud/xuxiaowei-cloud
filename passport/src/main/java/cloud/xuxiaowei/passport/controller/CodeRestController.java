@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.oauth2.OAuth2AccessToken;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
@@ -55,7 +56,7 @@ public class CodeRestController {
     }
 
     /**
-     * 根据 授权码、状态码 获取 Token
+     * 根据 授权码、状态码 获取 授权Token
      *
      * @param request  请求
      * @param response 响应
@@ -64,6 +65,7 @@ public class CodeRestController {
      * @param state    状态码
      * @throws IOException 重定向异常
      */
+    @ControllerAnnotation(description = "根据 授权码、状态码 获取 授权Token")
     @RequestMapping(params = {"code", "state"})
     private void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                        String code, String state) throws IOException {
@@ -131,7 +133,7 @@ public class CodeRestController {
     }
 
     /**
-     * 错误
+     * 授权错误
      *
      * @param request          请求
      * @param response         响应
@@ -141,6 +143,7 @@ public class CodeRestController {
      * @param state            状态码
      * @return 返回 错误原因
      */
+    @ControllerAnnotation(description = "授权错误")
     @RequestMapping(params = {"error", "error_description", "state"})
     private Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                    String error, @RequestParam("error_description") String errorDescription,
@@ -168,7 +171,7 @@ public class CodeRestController {
     }
 
     /**
-     * 错误
+     * 授权错误
      *
      * @param request          请求
      * @param response         响应
@@ -177,6 +180,7 @@ public class CodeRestController {
      * @param errorDescription 错误描述
      * @return 返回 错误原因
      */
+    @ControllerAnnotation(description = "授权错误")
     @RequestMapping(params = {"error", "error_description"})
     private Response<?> error(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                               String error, @RequestParam("error_description") String errorDescription,

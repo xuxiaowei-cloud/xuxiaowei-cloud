@@ -73,4 +73,9 @@ public class CloudSecurityProperties {
      */
     private boolean enabledRsa = false;
 
+    /**
+     * 是否允许空权限登录
+     */
+    private boolean allowEmptyAuthorities = true;
+
 }

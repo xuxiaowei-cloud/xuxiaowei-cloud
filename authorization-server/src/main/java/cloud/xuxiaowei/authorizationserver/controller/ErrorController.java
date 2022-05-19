@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Controller
+@SuppressWarnings({"deprecation"})
 public class ErrorController {
 
     /**
@@ -38,6 +40,7 @@ public class ErrorController {
      * @see WhitelabelErrorEndpoint
      * @see SessionAttributes
      */
+    @ControllerAnnotation(description = "显示授权服务器的 错误页面")
     @RequestMapping("/oauth/customize_error")
     public String customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response,
                                          @RequestParam(value = "client_id", required = false) String clientId,

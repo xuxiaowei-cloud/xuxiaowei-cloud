@@ -6,10 +6,7 @@ import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -45,41 +42,46 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
         Response<?> error;
 
-        // Session 不存在，说明非法访问
-        if (session == null) {
-            error = Response.error(CodeEnums.A10000.code, CodeEnums.A10000.msg);
-        } else {
-
-            if (exception instanceof DisabledException) {
-                error = Response.error(CodeEnums.A30001.code, CodeEnums.A30001.msg);
-            } else if (exception instanceof AccountExpiredException) {
-                error = Response.error(CodeEnums.A30002.code, CodeEnums.A30002.msg);
-            } else if (exception instanceof CredentialsExpiredException) {
-                error = Response.error(CodeEnums.A30003.code, CodeEnums.A30003.msg);
-            } else if (exception instanceof LockedException) {
-                error = Response.error(CodeEnums.A30004.code, CodeEnums.A30004.msg);
-            } else if (exception instanceof LoginParamPasswordValidException) {
-                LoginParamPasswordValidException passwordValidException = (LoginParamPasswordValidException) exception;
-                error = Response.error(passwordValidException.getCode(), passwordValidException.getMsg());
+        if (exception instanceof DisabledException) {
+            error = Response.error(CodeEnums.A30001.code, CodeEnums.A30001.msg);
+        } else if (exception instanceof AccountExpiredException) {
+            error = Response.error(CodeEnums.A30002.code, CodeEnums.A30002.msg);
+        } else if (exception instanceof CredentialsExpiredException) {
+            error = Response.error(CodeEnums.A30003.code, CodeEnums.A30003.msg);
+        } else if (exception instanceof LockedException) {
+            error = Response.error(CodeEnums.A30004.code, CodeEnums.A30004.msg);
+        } else if (exception instanceof LoginParamPasswordValidException) {
+            LoginParamPasswordValidException passwordValidException = (LoginParamPasswordValidException) exception;
+            error = Response.error(passwordValidException.getCode(), passwordValidException.getMsg());
+        } else if (exception instanceof InternalAuthenticationServiceException) {
+            InternalAuthenticationServiceException internalAuthenticationServiceException = (InternalAuthenticationServiceException) exception;
+            Throwable cause = internalAuthenticationServiceException.getCause();
+            if (cause instanceof LoginException) {
+                LoginException loginException = (LoginException) cause;
+                error = Response.error(loginException.getCode(), loginException.getMsg());
             } else {
-                // 此处可增加其他异常的判断
-                error = Response.error();
+                error = Response.error(CodeEnums.A10000.code, "内部认证服务异常");
+                error.setExplain("异常代码待划分");
             }
+        } else {
+            // 此处可增加其他异常的判断
+            error = Response.error(CodeEnums.A10000.code, CodeEnums.A10000.msg);
+        }
 
-            log.error(error.getMsg(), exception);
+        log.error(error.getMsg(), exception);
 
-            // 在此可以统计一下登录失败的用户信息（需要将登录信息，如：用户名，放入 异常 中）
-            if (exception instanceof LoginException) {
-                session.removeAttribute(AUTHENTICATION_EXCEPTION);
-            }
+        // 在此可以统计一下登录失败的用户信息（需要将登录信息，如：用户名，放入 异常 中）
+        if (exception instanceof LoginException) {
+            session.removeAttribute(AUTHENTICATION_EXCEPTION);
+        }
 
+        if (session != null) {
             // Session 创建时间
             long creationTime = session.getCreationTime();
             // 最后一次访问时间
             long lastAccessedTime = session.getLastAccessedTime();
             // 最大非活动时间
             int maxInactiveInterval = session.getMaxInactiveInterval();
-
         }
 
         ResponseUtils.response(response, error);

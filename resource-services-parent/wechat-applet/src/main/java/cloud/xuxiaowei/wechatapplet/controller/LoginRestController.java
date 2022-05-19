@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.wechatapplet.controller;
 
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.service.IWxMaUsersService;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
@@ -49,6 +50,7 @@ public class LoginRestController {
      * @param code     微信小程序登录code
      * @return 返回登录结果
      */
+    @ControllerAnnotation(description = "微信小程序登录")
     @RequestMapping("/onLogin")
     public Response<?> onLogin(HttpServletRequest request, HttpServletResponse response, String code) {
 
