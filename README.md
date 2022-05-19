@@ -357,14 +357,16 @@ cloud.xuxiaowei
     - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.14.0)
 1. npm 8.3.1
 1. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
-1. [SVG转PNG](https://www.aconvert.com/cn/image/svg-to-png/)
+1. SVG转PNG
+    1. https://www.aconvert.com/cn/image/svg-to-png/
+    2. https://svgtopng.com/zh/
 
 ## 鸣谢
 
 1. 感谢 [![墨菲安全](./static/murphysec.png)](https://www.murphysec.com/)
    提供安全技术支持，邀请码：[http://xxw.ac.cn/murphysec](http://xxw.ac.cn/murphysec)
 2. 感谢 [![jetbrains](./static/jetbrains.ico)](https://www.jetbrains.com/)
-   提供开发工具 [![IDEA](./static/idea.svg)](https://www.jetbrains.com/idea) 的免费授权
+   提供开发工具 [![IDEA](./static/idea.png)](https://www.jetbrains.com/idea) 的免费授权
 
 ## Stargazers over time
 
