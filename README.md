@@ -87,6 +87,10 @@
     <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_322-blue.svg"/>
   </a>
 
+  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
+    <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=6.2.6">
+  </a>
+
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
     <img alt="code style" src="https://img.shields.io/badge/license-Apache 2-blue">
   </a>
