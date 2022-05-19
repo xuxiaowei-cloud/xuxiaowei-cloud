@@ -1,9 +1,9 @@
 <template>
-  <div style="text-align: center">
+  <div style="text-align: center" id="cloud-transfer">
     <!-- :left-default-checked="[2, 3]" :right-default-checked="[1]" -->
     <el-transfer v-model="rightValue" style="text-align: left; display: inline-block" filterable
-                 :titles="['Source', 'Target']"
-                 :button-texts="['To left', 'To right']" :data="data" @change="handleChange"
+                 :titles="['系统权限', '用户权限']"
+                 :button-texts="['删除', '添加']" :data="data" @change="handleChange"
                  :format="{ noChecked: '${total}', hasChecked: '${checked}/${total}',}">
       <template #default="{ option }">
         <span>{{ option.key }} - {{ option.label }}</span>
@@ -20,7 +20,7 @@
   <el-button class="cloud-el-button" @click="cloudSave">保存</el-button>
 </template>
 
-<script async setup lang="ts">
+<script setup lang="ts">
 import { authorityList, getById } from '../../../api/user'
 
 import { ref, defineEmits, defineProps } from 'vue'
@@ -46,16 +46,18 @@ interface Option {
   disabled: boolean
 }
 
-// 初始化系统数据
-function initSystemData () : Option[] {
-  const systemData: Option[] = []
-  authorityList().then(response => {
+// 权限数据
+const authorityData: Option[] = []
+
+// 初始化权限数据
+const initAuthorityData = async () => {
+  await authorityList().then(response => {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {
         for (const i in data) {
           const team = data[i]
-          systemData.push({
+          authorityData.push({
             key: team.authority,
             label: team.explain,
             disabled: false
@@ -66,23 +68,29 @@ function initSystemData () : Option[] {
       ElMessage.error(response.msg)
     }
   })
-  return systemData
 }
 
+// 初始化权限数据
+await initAuthorityData()
+
 // 左侧显示数据
-const data = ref(initSystemData())
+const data = ref(authorityData)
 
-// 右侧用户数据
-const rightValue = ref([])
+// 用户数据
+const userData: String[] = []
 
-// 初始化数据
-const initData = () => {
+// 初始化用户数据
+const initRightData = async () => {
   if (props.usersId) {
-    getById(props.usersId).then(response => {
+    await getById(props.usersId).then(response => {
       if (response.code === store.state.settings.okCode) {
         const data = response.data
         if (data) {
-          console.log(data.authoritiesList)
+          const authoritiesList = data.authoritiesList
+          for (const i in authoritiesList) {
+            const team = authoritiesList[i]
+            userData.push(team)
+          }
         }
       } else {
         ElMessage.error(response.msg)
@@ -91,10 +99,13 @@ const initData = () => {
   }
 }
 
-const emit = defineEmits(['dialogVisibleClose'])
+// 初始化用户数据
+await initRightData()
 
-// 初始化数据
-initData()
+// 右侧用户数据
+const rightValue = ref(userData)
+
+const emit = defineEmits(['dialogVisibleClose'])
 
 // 保存
 const cloudSave = () => {
@@ -108,5 +119,15 @@ const handleChange = (value: number | string, direction: 'left' | 'right', moved
 </script>
 
 <style scoped>
+
+</style>
+
+<style>
+
+/* 左右穿梭框宽度 */
+/* 该穿梭框宽度不能在 scoped 中设置 */
+#cloud-transfer .el-transfer-panel {
+  width: 420px !important;
+}
 
 </style>
