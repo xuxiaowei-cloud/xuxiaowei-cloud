@@ -215,9 +215,11 @@ spring:
               - https://passport.example.xuxiaowei.cloud
               - http://passport.example.xuxiaowei.cloud:1401
               - http://passport.example.xuxiaowei.cloud:1411
+              - http://passport.example.xuxiaowei.cloud:1412
               - http://example.xuxiaowei.cloud
               - https://example.xuxiaowei.cloud
               - http://example.xuxiaowei.cloud:1001
+              - http://example.xuxiaowei.cloud:1002
               # tauri 开发域名
               - http://localhost:1001
               # tauri 生产域名
