@@ -17,8 +17,6 @@ const settings = {
     loginRequiredCode: [
       // 未进行身份认证
       'T00000',
-      // 范围不足异常
-      'T00001',
       // 不允许访问
       'T00002',
 

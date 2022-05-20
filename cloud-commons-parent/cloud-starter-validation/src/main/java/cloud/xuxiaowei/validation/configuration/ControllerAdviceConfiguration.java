@@ -46,6 +46,7 @@ import java.util.Map;
         "org.springframework.security.oauth2.provider.endpoint",
         "org.springframework.security.oauth2.provider.request"
 })
+@SuppressWarnings({"deprecation"})
 public class ControllerAdviceConfiguration {
 
     /**

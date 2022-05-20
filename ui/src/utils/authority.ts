@@ -5,6 +5,9 @@ import store from '../store'
  * @param authority 权限
  */
 export const hasAuthority = function (authority: string) {
+  if (store.getters.authorities === undefined) {
+    return false
+  }
   return store.getters.authorities.indexOf(authority) !== -1
 }
 
@@ -13,6 +16,9 @@ export const hasAuthority = function (authority: string) {
  * @param authoritys 权限
  */
 export const hasAnyAuthority = function (authoritys: string[]) {
+  if (store.getters.authorities === undefined) {
+    return false
+  }
   for (const i in authoritys) {
     if (store.getters.authorities.indexOf(authoritys[i]) !== -1) {
       return true

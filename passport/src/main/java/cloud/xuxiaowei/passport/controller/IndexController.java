@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cn.hutool.crypto.asymmetric.RSA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class IndexController {
      * @param model    页面中的值
      * @return 返回 主页
      */
+    @ControllerAnnotation(description = "主页")
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
 

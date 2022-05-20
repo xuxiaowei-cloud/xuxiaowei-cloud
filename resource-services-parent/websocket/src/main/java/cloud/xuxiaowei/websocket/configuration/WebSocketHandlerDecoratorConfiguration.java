@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 0.0.1
  */
 @Slf4j
+@SuppressWarnings({"deprecation"})
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
 
     /**

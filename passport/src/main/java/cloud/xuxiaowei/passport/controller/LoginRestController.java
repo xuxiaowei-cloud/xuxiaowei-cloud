@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -46,6 +47,7 @@ public class LoginRestController {
      * @param homePage    主页
      * @return 返回 登录成功提示语
      */
+    @ControllerAnnotation(description = "登录成功")
     @RequestMapping("/success")
     public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                String redirectUri, String homePage) {
@@ -98,6 +100,7 @@ public class LoginRestController {
      * @param session  Session，不存在时自动创建
      * @return 返回 登录成功主页
      */
+    @ControllerAnnotation(description = "登录成功主页")
     @RequestMapping("/home-page")
     public Response<?> homePage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 

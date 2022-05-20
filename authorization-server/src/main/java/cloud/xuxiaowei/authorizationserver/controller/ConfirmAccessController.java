@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -25,6 +26,7 @@ import java.util.Set;
  * @since 0.0.1
  */
 @Controller
+@SuppressWarnings({"deprecation"})
 @SessionAttributes("authorizationRequest")
 public class ConfirmAccessController {
 
@@ -39,6 +41,7 @@ public class ConfirmAccessController {
      * @see WhitelabelApprovalEndpoint
      * @see SessionAttributes
      */
+    @ControllerAnnotation(description = "确认访问授权 页面")
     @RequestMapping("/oauth/customize_confirm_access")
     public String customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response, Model model) {
         Map<String, Object> map = model.asMap();

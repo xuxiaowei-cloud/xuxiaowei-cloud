@@ -3,6 +3,7 @@ package cloud.xuxiaowei.authorizationserver.controller;
 import cloud.xuxiaowei.oauth2.bo.AuditAccessTokenPageBo;
 import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
 import cloud.xuxiaowei.oauth2.service.IOauthAccessTokenService;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -35,13 +36,14 @@ public class OauthAccessTokenController {
     }
 
     /**
-     * 根据 授权Token主键 删除
+     * 根据 授权Token主键 删除 授权Token
      *
      * @param request            请求
      * @param response           响应
      * @param oauthAccessTokenId 授权Token主键
      * @return 返回 删除结果
      */
+    @ControllerAnnotation(description = "根据 授权Token主键 删除 授权Token")
     @PreAuthorize("hasAuthority('audit_accessToken_delete') or #oauth2.hasScope('audit_accessToken_delete')")
     @RequestMapping("/removeById/{oauthAccessTokenId}")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
@@ -53,13 +55,14 @@ public class OauthAccessTokenController {
     }
 
     /**
-     * 根据 授权Token主键 删除
+     * 根据 授权Token主键 批量删除 授权Token
      *
      * @param request             请求
      * @param response            响应
      * @param oauthAccessTokenIds 授权Token主键
      * @return 返回 删除结果
      */
+    @ControllerAnnotation(description = "根据 授权Token主键 批量删除 授权Token")
     @PreAuthorize("hasAuthority('audit_accessToken_delete') or #oauth2.hasScope('audit_accessToken_delete')")
     @RequestMapping("/removeByIds")
     public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
@@ -80,6 +83,7 @@ public class OauthAccessTokenController {
      * @param auditAccessTokenPageBo 审计授权Token分页参数
      * @return 返回 分页查询结果
      */
+    @ControllerAnnotation(description = "分页查询授权Token")
     @PreAuthorize("hasAuthority('audit_accessToken_read') or #oauth2.hasScope('audit_accessToken_read')")
     @RequestMapping("/page")
     public Response<?> page(HttpServletRequest request, HttpServletResponse response,

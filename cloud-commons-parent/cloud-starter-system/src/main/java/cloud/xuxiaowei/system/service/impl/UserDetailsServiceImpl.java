@@ -1,12 +1,15 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.entity.WxMaUsers;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.IWxMaUsersService;
 import cloud.xuxiaowei.utils.ClientType;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
 import cloud.xuxiaowei.utils.exception.login.LoginWechatUsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private IWxMaUsersService wxMaUsersService;
 
+    private CloudSecurityProperties cloudSecurityProperties;
+
     @Autowired
     public void setRequest(HttpServletRequest request) {
         this.request = request;
@@ -54,6 +59,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     public void setWxMaUsersService(IWxMaUsersService wxMaUsersService) {
         this.wxMaUsersService = wxMaUsersService;
+    }
+
+    @Autowired
+    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+        this.cloudSecurityProperties = cloudSecurityProperties;
     }
 
     /**
@@ -100,7 +110,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Boolean accountNonLocked = users.getAccountNonLocked();
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (Authorities auth : users.getAuthoritiesList()) {
+        List<Authorities> authoritiesList = users.getAuthoritiesList();
+
+        boolean allowEmptyAuthorities = cloudSecurityProperties.isAllowEmptyAuthorities();
+        if (!allowEmptyAuthorities && authoritiesList.size() == 0) {
+            throw new LoginException(CodeEnums.A10011.code, CodeEnums.A10011.msg);
+        }
+
+        for (Authorities auth : authoritiesList) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(auth.getAuthority());
             authorities.add(authority);
         }
