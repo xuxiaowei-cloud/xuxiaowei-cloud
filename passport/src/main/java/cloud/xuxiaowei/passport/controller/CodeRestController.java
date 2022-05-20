@@ -67,7 +67,7 @@ public class CodeRestController {
      */
     @ControllerAnnotation(description = "根据 授权码、状态码 获取 授权Token")
     @RequestMapping(params = {"code", "state"})
-    private void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+    public void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                        String code, String state) throws IOException {
 
         String stateName = cloudClientProperties.getStateName();
@@ -145,7 +145,7 @@ public class CodeRestController {
      */
     @ControllerAnnotation(description = "授权错误")
     @RequestMapping(params = {"error", "error_description", "state"})
-    private Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+    public Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                    String error, @RequestParam("error_description") String errorDescription,
                                    String code, String msg, String data, String explain, String field, String requestId,
                                    String scope, String state) {
@@ -182,7 +182,7 @@ public class CodeRestController {
      */
     @ControllerAnnotation(description = "授权错误")
     @RequestMapping(params = {"error", "error_description"})
-    private Response<?> error(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+    public Response<?> error(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                               String error, @RequestParam("error_description") String errorDescription,
                               String code, String msg, String data, String explain, String field, String requestId,
                               String scope) {
