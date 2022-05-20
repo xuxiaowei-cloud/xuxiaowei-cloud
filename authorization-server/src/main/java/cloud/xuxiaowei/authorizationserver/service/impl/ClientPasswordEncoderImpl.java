@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 0.0.1
  */
 @Slf4j
+@SuppressWarnings({"deprecation"})
 public class ClientPasswordEncoderImpl implements PasswordEncoder {
 
     /**
