@@ -39,7 +39,7 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
-      <el-table-column fixed="right" label="Operations" width="160"
+      <el-table-column fixed="right" label="Operations" width="230"
                        v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit', 'manage_user_authority'])">
         <template #default="scope">
           <el-button type="text" size="small" @click="deleteUsersId(scope.row.usersId)"
