@@ -17,7 +17,6 @@
                 LEFT JOIN authority ay ON a.authority = ay.authority
         WHERE
             a.username = #{username}
-            AND a.deleted = 0
     </select>
 
 </mapper>
