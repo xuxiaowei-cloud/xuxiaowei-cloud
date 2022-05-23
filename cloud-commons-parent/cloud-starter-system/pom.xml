@@ -79,6 +79,12 @@
             <artifactId>spring-security-oauth2</artifactId>
         </dependency>
 
+        <!-- 提供 AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- Redis 组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>

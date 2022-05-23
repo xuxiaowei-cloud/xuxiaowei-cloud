@@ -55,6 +55,7 @@ import java.util.UUID;
 @Slf4j
 @Configuration
 @EnableWebFluxSecurity
+@SuppressWarnings({"deprecation"})
 public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthorizationManager<AuthorizationContext> {
 
     private KeyPair keyPair;

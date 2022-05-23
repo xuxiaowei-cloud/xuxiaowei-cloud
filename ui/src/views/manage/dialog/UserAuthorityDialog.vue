@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { authorityList, getById } from '../../../api/user'
 
-import { ref, defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 
@@ -85,10 +85,10 @@ if (props.usersId) {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {
-        const authoritiesList = data.authoritiesList
-        for (const i in authoritiesList) {
-          const team = authoritiesList[i]
-          userData.push(team)
+        const authorityList = data.authorityList
+        for (const i in authorityList) {
+          const team = authorityList[i]
+          userData.push(team.authority)
         }
       }
     } else {

@@ -45,7 +45,6 @@
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-            <version>3.9.1</version>
         </dependency>
 
         <!-- MyBatis Plus Generator -->
@@ -78,7 +77,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.5.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

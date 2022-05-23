@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.vo;
 
+import cloud.xuxiaowei.system.entity.Authority;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -70,6 +71,6 @@ public class UsersVo implements Serializable {
     /**
      * 权限
      */
-    private Set<String> authoritiesList;
+    private Set<AuthorityVo> authorityList;
 
 }

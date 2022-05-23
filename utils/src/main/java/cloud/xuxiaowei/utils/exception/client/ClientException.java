@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@SuppressWarnings({"deprecation"})
 public class ClientException extends OAuth2Exception {
 
     /**
