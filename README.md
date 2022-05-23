@@ -68,6 +68,10 @@
   </a>
 
   <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+    <img alt="OSCS Status" src="https://www.oscs1024.com/platform/badge/xuxiaowei-cloud/xuxiaowei-cloud.svg?size=small">
+  </a>
+
+  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="total lines" src="https://tokei.rs/b1/github/xuxiaowei-cloud/xuxiaowei-cloud">
   </a>
 
