@@ -6,7 +6,6 @@ import cloud.xuxiaowei.system.mapper.AuthoritiesMapper;
 import cloud.xuxiaowei.system.service.IAuthoritiesService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -117,8 +116,10 @@ public class AuthoritiesServiceImpl extends ServiceImpl<AuthoritiesMapper, Autho
      */
     @Override
     public boolean removeByUsernameAndAuthoritiesList(String username, Set<String> authorityList) {
-        int delete = baseMapper.deleteByUsernameAndAuthoritiesList(username, authorityList);
-        return SqlHelper.retBool(delete);
+        QueryWrapper<Authorities> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        queryWrapper.in("authority", authorityList);
+        return remove(queryWrapper);
     }
 
 }

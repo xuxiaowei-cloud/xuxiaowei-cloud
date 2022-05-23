@@ -10,12 +10,4 @@
         <result column="create_date" property="createDate" />
     </resultMap>
 
-    <!-- 根据 用户名、权限 删除 -->
-    <delete id="deleteByUsernameAndAuthoritiesList">
-        DELETE FROM authorities WHERE username = #{username} AND authority IN
-                                <foreach collection="authorityList" item="authority" open="(" close=")" separator=",">
-                                    #{authority}
-                                </foreach>
-    </delete>
-
 </mapper>
