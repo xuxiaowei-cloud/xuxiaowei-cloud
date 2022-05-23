@@ -40,11 +40,5 @@ public class Authorities implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
-    /**
-     * 逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。
-     */
-    @TableLogic
-    private Boolean deleted;
-
 
 }

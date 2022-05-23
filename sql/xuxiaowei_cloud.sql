@@ -27,7 +27,6 @@ CREATE TABLE `authorities`  (
   `authority` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限，外键：fk__authorities__authority，authority.authority',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空，数据库自动生成',
   `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
-  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
   PRIMARY KEY (`authorities_id`) USING BTREE,
   UNIQUE INDEX `ix_auth_username`(`username`, `authority`) USING BTREE,
   INDEX `fk__authorities__authority`(`authority`) USING BTREE,
