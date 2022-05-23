@@ -128,7 +128,7 @@ cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
-│        └──org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:jar:2.6.7:compile
+│        └──org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:jar:2.6.8:compile
 │        └──org.bouncycastle:bcpkix-jdk15on:jar:1.70:compile
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.0:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.2:compile
@@ -177,7 +177,7 @@ cloud.xuxiaowei:authorization-server:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:jar:2.6.7:compile
+│        └──org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:jar:2.6.8:compile
 │        └──org.bouncycastle:bcpkix-jdk15on:jar:1.70:compile
 │        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.7.0:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.7.0:compile
@@ -333,7 +333,7 @@ cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
 
 cloud.xuxiaowei:websocket:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-websocket:jar:2.7.0:compile
-│        └──com.alibaba:fastjson:jar:2.0.3:compile
+│        └──com.alibaba:fastjson:jar:2.0.4:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──commons-io:commons-io:jar:2.11.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
@@ -385,14 +385,14 @@ cloud.xuxiaowei.example:cxf-client:jar:0.0.1-SNAPSHOT
 │        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.2:compile
 │        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.2:compile
 │        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.2:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.7:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
 cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.1.RELEASE:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.6.7:compile
-│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.6.7:compile
+│        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.2.RELEASE:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.0:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
