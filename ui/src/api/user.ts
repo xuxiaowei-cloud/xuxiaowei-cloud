@@ -125,7 +125,17 @@ export const updateById = function (data: any) {
  * 获取 权限与权限说明 字典
  */
 export const authorityList = function () {
-  return request.post('/user/authority/list').then(response => {
+  return request.post('/user/authority/list', {}).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 保存 权限表
+ * @param data 权限表
+ */
+export const saveAuthorities = function (data: any) {
+  return request.post('/user/authorities/save', data).then(response => {
     return response.data
   })
 }

@@ -41,7 +41,7 @@
         <!-- OAuth2 配置 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/oauth/boot/spring-security-oauth2-autoconfigure -->
-        <spring-security-oauth2-autoconfigure.version>2.6.7</spring-security-oauth2-autoconfigure.version>
+        <spring-security-oauth2-autoconfigure.version>2.6.8</spring-security-oauth2-autoconfigure.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/oauth/spring-security-oauth2 -->
         <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
@@ -98,7 +98,7 @@
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
-        <fastjson.version>2.0.3</fastjson.version>
+        <fastjson.version>2.0.4</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->

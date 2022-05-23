@@ -1,7 +1,11 @@
 package cloud.xuxiaowei.system.service;
 
+import cloud.xuxiaowei.system.bo.AuthoritiesSaveBo;
 import cloud.xuxiaowei.system.entity.Authorities;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -12,5 +16,38 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-04-04
  */
 public interface IAuthoritiesService extends IService<Authorities> {
+
+    /**
+     * 根据 用户名 查询权限
+     *
+     * @param username 用户名
+     * @return 返回 权限
+     */
+    List<Authorities> listByUsername(String username);
+
+    /**
+     * 根据 用户名 查询权限
+     *
+     * @param username 用户名
+     * @return 返回 权限
+     */
+    Set<String> listAuthorityByUsername(String username);
+
+    /**
+     * 根据 用户名、权限 保存
+     *
+     * @param authoritiesSaveBo 权限表保存参数
+     * @return 返回 保存结果
+     */
+    boolean saveByAuthoritiesSaveBo(AuthoritiesSaveBo authoritiesSaveBo);
+
+    /**
+     * 根据 用户名、权限 删除
+     *
+     * @param username      用户名
+     * @param authorityList 权限
+     * @return 返回 删除结果
+     */
+    boolean removeByUsernameAndAuthoritiesList(String username, Set<String> authorityList);
 
 }

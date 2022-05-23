@@ -28,6 +28,20 @@
 
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-width="260px" v-if="props.row.authorityList.length > 0">
+            <div v-for="authority in props.row.authorityList" :key="authority">
+              <el-form-item :label="authority.authority">
+                <el-input v-model="authority.explain" class="cloud-el-expand-input" disabled/>
+              </el-form-item>
+            </div>
+          </el-form>
+          <div v-else style="text-align: center;">
+            <span>暂无权限</span>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
       <el-table-column prop="username" label="username" width="100"/>
@@ -39,16 +53,16 @@
       <el-table-column prop="createDate" label="createDate" width="160"/>
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
-      <el-table-column fixed="right" label="Operations" width="160"
+      <el-table-column fixed="right" label="Operations" width="230"
                        v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit', 'manage_user_authority'])">
         <template #default="scope">
-          <el-button type="text" size="small" @click="deleteUsersId(scope.row.usersId)"
+          <el-button size="small" @click="deleteUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_delete')">Delete
           </el-button>
-          <el-button type="text" size="small" @click="editUsersId(scope.row.usersId)"
+          <el-button size="small" @click="editUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_edit')">Edit
           </el-button>
-          <el-button type="text" size="small" @click="editUsersAuthorityId(scope.row.usersId)"
+          <el-button size="small" @click="editUsersAuthorityId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_authority')">Authority
           </el-button>
         </template>
@@ -292,6 +306,11 @@ const handleSelectionChange = (val: any[]) => {
 .cloud-el-remove {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.cloud-el-expand-input,
+.cloud-el-expand-textarea {
+  max-width: 1100px;
 }
 
 </style>
