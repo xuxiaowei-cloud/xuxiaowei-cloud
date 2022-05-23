@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>oauth2-client</name>
-    <description>OAuth 2.0 客户端（独立服务，仅继承于 org.springframework.boot:spring-boot-starter-parent）</description>
+    <description>OAuth 2.0 客户端（独立服务）</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
@@ -22,9 +22,9 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.6.7</spring-boot.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
-        <spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
