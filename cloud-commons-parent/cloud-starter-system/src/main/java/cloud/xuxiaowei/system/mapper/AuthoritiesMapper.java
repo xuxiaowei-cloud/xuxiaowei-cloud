@@ -2,6 +2,9 @@ package cloud.xuxiaowei.system.mapper;
 
 import cloud.xuxiaowei.system.entity.Authorities;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -12,5 +15,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-04-04
  */
 public interface AuthoritiesMapper extends BaseMapper<Authorities> {
+
+    /**
+     * 根据 用户名、权限 删除
+     *
+     * @param username      用户名
+     * @param authorityList 权限
+     * @return 返回 删除结果
+     */
+    int deleteByUsernameAndAuthoritiesList(@Param("username") String username, @Param("authorityList") Set<String> authorityList);
 
 }
