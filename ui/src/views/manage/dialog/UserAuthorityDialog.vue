@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { authorityList, getById } from '../../../api/user'
 
-import { ref, defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 
