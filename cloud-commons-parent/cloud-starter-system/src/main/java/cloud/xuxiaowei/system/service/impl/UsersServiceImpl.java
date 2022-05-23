@@ -4,6 +4,7 @@ import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.entity.Authorities;
+import cloud.xuxiaowei.system.entity.Authority;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
@@ -97,14 +98,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public UsersVo getUsersVoByUsername(String username) {
         Users users = baseMapper.getByUsername(username);
-        if (users == null) {
-            return null;
-        }
-
-        UsersVo usersVo = new UsersVo();
-        BeanUtils.copyProperties(users, usersVo);
-
-        return usersVo;
+        return usersToUsersVo(users);
     }
 
     /**
@@ -161,19 +155,24 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public UsersVo getUsersVoById(Long usersId) {
         Users users = baseMapper.getByUsersId(usersId);
+        return usersToUsersVo(users);
+    }
+
+    private UsersVo usersToUsersVo(Users users) {
         if (users == null) {
             return null;
         }
         UsersVo usersVo = new UsersVo();
         BeanUtils.copyProperties(users, usersVo);
 
-        Set<String> authoritiesSet = new HashSet<>();
+        Set<Authority> authoritiesSet = new HashSet<>();
         usersVo.setAuthoritiesList(authoritiesSet);
         for (Authorities auth : users.getAuthoritiesList()) {
-            String authority = auth.getAuthority();
+            Authority authority = new Authority();
+            authority.setAuthority(auth.getAuthority());
+            authority.setExplain(auth.getExplain());
             authoritiesSet.add(authority);
         }
-
         return usersVo;
     }
 
