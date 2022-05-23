@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.system.service;
 
+import cloud.xuxiaowei.system.bo.OauthClientDetailsPageBo;
 import cloud.xuxiaowei.system.entity.OauthClientDetails;
+import cloud.xuxiaowei.system.vo.OauthClientDetailsVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +15,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-23
  */
 public interface IOauthClientDetailsService extends IService<OauthClientDetails> {
+
+    /**
+     * 分页查询客户
+     *
+     * @param oauthClientDetailsPageBo 客户 分页参数
+     * @return 返回 分页结果
+     */
+    IPage<OauthClientDetailsVo> pageByOauthClientDetails(OauthClientDetailsPageBo oauthClientDetailsPageBo);
 
 }
