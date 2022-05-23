@@ -4,9 +4,9 @@ import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.Authority;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
+import cloud.xuxiaowei.system.service.IAuthorityService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,13 @@ import java.util.Set;
  */
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
+
+    private IAuthorityService authorityService;
+
+    @Autowired
+    public void setAuthorityService(IAuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
 
     /**
      * 根据 用户名 查询用户信息及权限
@@ -141,6 +149,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         for (Users users : records) {
             UsersVo usersVo = new UsersVo();
             BeanUtils.copyProperties(users, usersVo);
+
+            Set<AuthorityVo> authorityList = authorityService.listByUsername(username);
+            usersVo.setAuthorityList(authorityList);
+
             usersVoList.add(usersVo);
         }
 

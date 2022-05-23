@@ -8,4 +8,16 @@
         <result column="explain" property="explain" />
     </resultMap>
 
+    <!-- 根据 用户名 查询权限 -->
+    <select id="listByUsername" resultType="cloud.xuxiaowei.system.vo.AuthorityVo">
+        SELECT
+            ay.*
+        FROM
+            authorities a
+                LEFT JOIN authority ay ON a.authority = ay.authority
+        WHERE
+            a.username = #{username}
+            AND a.deleted = 0
+    </select>
+
 </mapper>

@@ -5,6 +5,7 @@ import cloud.xuxiaowei.system.bo.AuthorityPageBo;
 import cloud.xuxiaowei.system.entity.Authority;
 import cloud.xuxiaowei.system.mapper.AuthorityMapper;
 import cloud.xuxiaowei.system.service.IAuthorityService;
+import cloud.xuxiaowei.system.vo.AuthorityVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -69,6 +71,17 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
         IPage<Authority> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
         return page(page, queryWrapper);
+    }
+
+    /**
+     * 根据 用户名 查询权限
+     *
+     * @param username 用户名
+     * @return 返回 权限
+     */
+    @Override
+    public Set<AuthorityVo> listByUsername(String username) {
+        return baseMapper.listByUsername(username);
     }
 
 }
