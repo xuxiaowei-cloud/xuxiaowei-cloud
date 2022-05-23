@@ -71,6 +71,6 @@ public class UsersVo implements Serializable {
     /**
      * 权限
      */
-    private Set<Authority> authoritiesList;
+    private Set<AuthorityVo> authorityList;
 
 }

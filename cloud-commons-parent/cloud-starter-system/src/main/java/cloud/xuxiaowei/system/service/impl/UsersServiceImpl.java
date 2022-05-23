@@ -8,6 +8,7 @@ import cloud.xuxiaowei.system.entity.Authority;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -165,13 +166,13 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         UsersVo usersVo = new UsersVo();
         BeanUtils.copyProperties(users, usersVo);
 
-        Set<Authority> authoritiesSet = new HashSet<>();
-        usersVo.setAuthoritiesList(authoritiesSet);
+        Set<AuthorityVo> authorityVoSet = new HashSet<>();
+        usersVo.setAuthorityList(authorityVoSet);
         for (Authorities auth : users.getAuthoritiesList()) {
-            Authority authority = new Authority();
-            authority.setAuthority(auth.getAuthority());
-            authority.setExplain(auth.getExplain());
-            authoritiesSet.add(authority);
+            AuthorityVo authorityVo = new AuthorityVo();
+            authorityVo.setAuthority(auth.getAuthority());
+            authorityVo.setExplain(auth.getExplain());
+            authorityVoSet.add(authorityVo);
         }
         return usersVo;
     }

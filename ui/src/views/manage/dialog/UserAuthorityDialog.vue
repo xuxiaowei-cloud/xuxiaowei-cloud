@@ -85,9 +85,9 @@ if (props.usersId) {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {
-        const authoritiesList = data.authoritiesList
-        for (const i in authoritiesList) {
-          const team = authoritiesList[i]
+        const authorityList = data.authorityList
+        for (const i in authorityList) {
+          const team = authorityList[i]
           userData.push(team.authority)
         }
       }
