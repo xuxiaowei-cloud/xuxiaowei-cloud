@@ -42,13 +42,13 @@
       <el-table-column fixed="right" label="Operations" width="230"
                        v-if="hasAnyAuthority(['manage_user_delete', 'manage_user_edit', 'manage_user_authority'])">
         <template #default="scope">
-          <el-button type="text" size="small" @click="deleteUsersId(scope.row.usersId)"
+          <el-button size="small" @click="deleteUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_delete')">Delete
           </el-button>
-          <el-button type="text" size="small" @click="editUsersId(scope.row.usersId)"
+          <el-button size="small" @click="editUsersId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_edit')">Edit
           </el-button>
-          <el-button type="text" size="small" @click="editUsersAuthorityId(scope.row.usersId)"
+          <el-button size="small" @click="editUsersAuthorityId(scope.row.usersId)"
                      v-if="hasAuthority('manage_user_authority')">Authority
           </el-button>
         </template>
