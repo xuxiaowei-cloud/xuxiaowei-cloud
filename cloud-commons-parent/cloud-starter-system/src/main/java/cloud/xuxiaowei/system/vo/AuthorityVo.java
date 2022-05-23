@@ -1,8 +1,5 @@
-package cloud.xuxiaowei.system.entity;
+package cloud.xuxiaowei.system.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,20 +13,18 @@ import java.io.Serializable;
  * @since 2022-05-17
  */
 @Data
-public class Authority implements Serializable {
+public class AuthorityVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 权限
      */
-    @TableId(type = IdType.INPUT)
     private String authority;
 
     /**
      * 权限说明
      */
-    @TableField("`explain`")
     private String explain;
 
 

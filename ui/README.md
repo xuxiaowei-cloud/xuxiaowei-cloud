@@ -127,6 +127,7 @@ npm create vite@latest ui -- --template vue-ts
     - [GitHub](https://github.com/tauri-apps/tauri)
     - @tauri-apps/api
     - @tauri-apps/cli
+    - 将 [config](config) 文件放在 `cargo` 安装目录下
 
 ## 依赖地址
 
@@ -136,6 +137,7 @@ npm create vite@latest ui -- --template vue-ts
 - [@wangeditor/editor-for-vue](https://www.npmjs.com/package/@wangeditor/editor-for-vue)
 - [axios](https://www.npmjs.com/package/axios)
 - [crypto-js](https://www.npmjs.com/package/crypto-js)
+- [echarts](https://www.npmjs.com/package/echarts)
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)

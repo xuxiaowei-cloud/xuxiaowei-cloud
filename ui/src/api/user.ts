@@ -125,7 +125,7 @@ export const updateById = function (data: any) {
  * 获取 权限与权限说明 字典
  */
 export const authorityList = function () {
-  return request.post('/user/authority/list').then(response => {
+  return request.post('/user/authority/list', {}).then(response => {
     return response.data
   })
 }

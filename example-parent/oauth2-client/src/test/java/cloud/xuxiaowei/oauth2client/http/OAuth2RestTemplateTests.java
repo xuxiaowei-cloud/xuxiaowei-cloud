@@ -24,6 +24,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
+@SuppressWarnings({"deprecation"})
 class OAuth2RestTemplateTests {
 
     /**

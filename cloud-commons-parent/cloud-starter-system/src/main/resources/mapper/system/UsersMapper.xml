@@ -20,6 +20,7 @@
         <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
             <id column="a_username" property="username" />
             <id column="a_authority" property="authority" />
+            <result column="a_explain" property="explain" />
             <result column="a_update_date" property="updateDate" />
             <result column="a_create_date" property="createDate" />
             <result column="a_deleted" property="deleted" />
@@ -41,6 +42,7 @@
         u.deleted,
         a.username      AS a_username,
         a.authority     AS a_authority,
+        ay.explain      AS a_explain,
         a.update_date   AS a_update_date,
         a.create_date   AS a_create_date,
         a.deleted       AS a_deleted
@@ -53,6 +55,7 @@
         FROM
             users AS u
             LEFT JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+            LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE
             u.users_id = #{usersId} AND u.deleted = 0
     </select>
@@ -64,6 +67,7 @@
         FROM
             users AS u
             LEFT JOIN authorities AS a ON u.username = a.username AND a.deleted = 0
+            LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE
             u.username = #{username} AND u.deleted = 0
     </select>

@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @Service
+@SuppressWarnings({"deprecation"})
 public class SessionServiceImpl implements SessionService {
 
     private TokenStore tokenStore;

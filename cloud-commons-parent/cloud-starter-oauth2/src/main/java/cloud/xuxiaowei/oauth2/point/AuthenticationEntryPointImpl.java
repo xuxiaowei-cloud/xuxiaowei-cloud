@@ -23,6 +23,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
+@SuppressWarnings({"deprecation"})
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override

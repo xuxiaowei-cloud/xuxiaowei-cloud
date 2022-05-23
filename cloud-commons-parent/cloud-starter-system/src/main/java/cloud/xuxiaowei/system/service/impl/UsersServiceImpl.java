@@ -6,13 +6,16 @@ import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
+import cloud.xuxiaowei.system.service.IAuthorityService;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,13 @@ import java.util.Set;
  */
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
+
+    private IAuthorityService authorityService;
+
+    @Autowired
+    public void setAuthorityService(IAuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
 
     /**
      * 根据 用户名 查询用户信息及权限
@@ -97,14 +107,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public UsersVo getUsersVoByUsername(String username) {
         Users users = baseMapper.getByUsername(username);
-        if (users == null) {
-            return null;
-        }
-
-        UsersVo usersVo = new UsersVo();
-        BeanUtils.copyProperties(users, usersVo);
-
-        return usersVo;
+        return usersToUsersVo(users);
     }
 
     /**
@@ -146,6 +149,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         for (Users users : records) {
             UsersVo usersVo = new UsersVo();
             BeanUtils.copyProperties(users, usersVo);
+
+            Set<AuthorityVo> authorityList = authorityService.listByUsername(usersVo.getUsername());
+            usersVo.setAuthorityList(authorityList);
+
             usersVoList.add(usersVo);
         }
 
@@ -161,19 +168,24 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public UsersVo getUsersVoById(Long usersId) {
         Users users = baseMapper.getByUsersId(usersId);
+        return usersToUsersVo(users);
+    }
+
+    private UsersVo usersToUsersVo(Users users) {
         if (users == null) {
             return null;
         }
         UsersVo usersVo = new UsersVo();
         BeanUtils.copyProperties(users, usersVo);
 
-        Set<String> authoritiesSet = new HashSet<>();
-        usersVo.setAuthoritiesList(authoritiesSet);
+        Set<AuthorityVo> authorityVoSet = new HashSet<>();
+        usersVo.setAuthorityList(authorityVoSet);
         for (Authorities auth : users.getAuthoritiesList()) {
-            String authority = auth.getAuthority();
-            authoritiesSet.add(authority);
+            AuthorityVo authorityVo = new AuthorityVo();
+            authorityVo.setAuthority(auth.getAuthority());
+            authorityVo.setExplain(auth.getExplain());
+            authorityVoSet.add(authorityVo);
         }
-
         return usersVo;
     }
 

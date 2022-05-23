@@ -25,6 +25,9 @@ public class Authorities implements Serializable {
 
     private String authority;
 
+    @TableField(exist = false)
+    private String explain;
+
     /**
      * 更新时间，未更新时为空
      */
