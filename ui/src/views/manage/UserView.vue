@@ -28,6 +28,20 @@
 
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-width="260px" v-if="props.row.authorityList.length > 0">
+            <div v-for="authority in props.row.authorityList" :key="authority">
+              <el-form-item :label="authority.authority">
+                <el-input v-model="authority.explain" class="cloud-el-expand-input" disabled/>
+              </el-form-item>
+            </div>
+          </el-form>
+          <div v-else style="text-align: center;">
+            <span>暂无权限</span>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
       <el-table-column prop="username" label="username" width="100"/>
@@ -292,6 +306,11 @@ const handleSelectionChange = (val: any[]) => {
 .cloud-el-remove {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.cloud-el-expand-input,
+.cloud-el-expand-textarea {
+  max-width: 1100px;
 }
 
 </style>
