@@ -8,7 +8,6 @@
         <id column="authority" property="authority" />
         <result column="update_date" property="updateDate" />
         <result column="create_date" property="createDate" />
-        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>
