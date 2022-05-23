@@ -88,7 +88,7 @@ if (props.usersId) {
         const authoritiesList = data.authoritiesList
         for (const i in authoritiesList) {
           const team = authoritiesList[i]
-          userData.push(team)
+          userData.push(team.authority)
         }
       }
     } else {
