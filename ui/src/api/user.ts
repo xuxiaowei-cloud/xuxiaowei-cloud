@@ -129,3 +129,13 @@ export const authorityList = function () {
     return response.data
   })
 }
+
+/**
+ * 保存 权限表
+ * @param data 权限表
+ */
+export const saveAuthorities = function (data: any) {
+  return request.post('/user/authorities/save', data).then(response => {
+    return response.data
+  })
+}

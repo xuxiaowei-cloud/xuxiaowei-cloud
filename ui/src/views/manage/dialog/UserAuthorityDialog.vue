@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { authorityList, getById } from '../../../api/user'
+import { authorityList, getById, saveAuthorities } from '../../../api/user'
 
 import { defineEmits, defineProps, ref } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -79,12 +79,15 @@ const data = ref(authorityData)
 // 用户数据
 const userData: String[] = []
 
+const username = ref(null)
+
 // 初始化用户数据
 if (props.usersId) {
   await getById(props.usersId).then(response => {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {
+        username.value = data.username
         const authorityList = data.authorityList
         for (const i in authorityList) {
           const team = authorityList[i]
@@ -104,7 +107,29 @@ const emit = defineEmits(['dialogVisibleClose'])
 
 // 保存
 const cloudSave = () => {
-  emit('dialogVisibleClose')
+  saveAuthorities({
+    username: username.value,
+    authorityList: rightValue.value
+  }).then(response => {
+    if (response.code === store.state.settings.okCode) {
+      const data = response.data
+      if (data) {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+            emit('dialogVisibleClose')
+          }
+        })
+      } else {
+        ElMessage.error(response.msg)
+      }
+    } else {
+      ElMessage.error(response.msg)
+    }
+  })
 }
 
 const handleChange = (value: number | string, direction: 'left' | 'right', movedKeys: string[] | number[]) => {
@@ -123,6 +148,10 @@ const handleChange = (value: number | string, direction: 'left' | 'right', moved
 /* 该穿梭框宽度不能在 scoped 中设置 */
 #cloud-transfer .el-transfer-panel {
   width: 420px !important;
+}
+
+.cloud-el-button {
+  margin-left: calc(50% - 30px);
 }
 
 </style>
