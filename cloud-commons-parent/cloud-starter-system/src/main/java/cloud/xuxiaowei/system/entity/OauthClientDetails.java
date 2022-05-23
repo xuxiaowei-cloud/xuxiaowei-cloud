@@ -3,8 +3,7 @@ package cloud.xuxiaowei.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -16,8 +15,7 @@ import java.io.Serializable;
  * @author xuxiaowei
  * @since 2022-05-23
  */
-@Getter
-@Setter
+@Data
 @TableName("oauth_client_details")
 public class OauthClientDetails implements Serializable {
 
