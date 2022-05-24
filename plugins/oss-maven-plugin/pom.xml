@@ -23,12 +23,12 @@
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <logback-classic.version>1.2.11</logback-classic.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api -->
-        <maven-plugin-api.version>3.1.0</maven-plugin-api.version>
+        <maven-plugin-api.version>3.8.5</maven-plugin-api.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
-        <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
+        <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <junit-jupiter-api.version>5.8.2</junit-jupiter-api.version>
