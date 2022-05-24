@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.log.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,8 +15,7 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2022-04-01
  */
-@Getter
-@Setter
+@Data
 public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;

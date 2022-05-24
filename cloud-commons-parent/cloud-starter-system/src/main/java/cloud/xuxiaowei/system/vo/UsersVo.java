@@ -1,6 +1,5 @@
 package cloud.xuxiaowei.system.vo;
 
-import cloud.xuxiaowei.system.entity.Authority;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 

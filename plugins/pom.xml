@@ -6,6 +6,7 @@
         <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
         <groupId>cloud.xuxiaowei</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.xuxiaowei</groupId>
     <artifactId>plugins</artifactId>

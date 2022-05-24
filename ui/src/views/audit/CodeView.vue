@@ -53,8 +53,8 @@
       <el-table-column prop="deleted" label="deleted" width="100"/>
       <el-table-column fixed="right" label="Operations" width="100" v-if="hasAuthority('audit_code_delete')">
         <template #default="scope">
-          <el-button type="text" size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
-          <el-button type="text" size="small" v-else @click="deleteCodeId(scope.row.codeId)">Delete</el-button>
+          <el-button size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
+          <el-button size="small" v-else @click="deleteCodeId(scope.row.codeId)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
