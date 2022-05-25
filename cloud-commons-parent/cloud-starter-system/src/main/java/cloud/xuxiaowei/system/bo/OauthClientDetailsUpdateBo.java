@@ -23,12 +23,6 @@ public class OauthClientDetailsUpdateBo implements Serializable {
     @NotNull(message = "客户主键 不能为空")
     private Long oauthClientDetailsId;
 
-    /**
-     * 唯一键：uk__oauth_client_details__client_id
-     */
-    @NotEmpty(message = "客户ID 不能为空")
-    private String clientId;
-
     private String resourceIds;
 
     @NumberAnnotation(message = "客户凭证必须包含数字")

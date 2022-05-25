@@ -27,13 +27,6 @@ public class UsersUpdateBo implements Serializable {
     private Long usersId;
 
     /**
-     * 用户名，不能为空，唯一键：uk__users__username
-     */
-    @Length(min = 2, max = 10, message = "用户名 长度限制：2-10")
-    @NotEmpty(message = "用户名 不能为空")
-    private String username;
-
-    /**
      * 昵称，不能为空，唯一键：uk__users__nickname
      */
     @Length(min = 2, max = 10, message = "昵称 长度限制：2-10")

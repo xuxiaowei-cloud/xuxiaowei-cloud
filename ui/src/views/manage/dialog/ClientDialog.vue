@@ -5,7 +5,7 @@
         <el-input v-model="param.oauthClientDetailsId" disabled/>
       </el-form-item>
       <el-form-item label="clientId">
-        <el-input v-model="param.clientId"/>
+        <el-input v-model="param.clientId" disabled/>
       </el-form-item>
       <el-form-item label="clientSecret">
         <el-input class="cloud-el-password" v-model="param.clientSecret"/>
