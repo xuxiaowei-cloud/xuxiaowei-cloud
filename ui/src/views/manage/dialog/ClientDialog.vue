@@ -85,11 +85,11 @@ const param = reactive({
   webServerRedirectUri: null,
   resourceIds: null,
   authorities: null,
-  additionalInformation: null
+  additionalInformation: null,
+  // 识别码
+  code: null
 })
 
-// 识别码
-const code = ref(null)
 // 公钥
 const publicKey = ref(null)
 
@@ -99,7 +99,7 @@ codeRsa().then(response => {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {
-        code.value = data.code
+        param.code = data.code
         publicKey.value = data.publicKey
       }
     } else {
