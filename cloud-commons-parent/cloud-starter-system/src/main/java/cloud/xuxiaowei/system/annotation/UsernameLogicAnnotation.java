@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.annotation;
 
-import cloud.xuxiaowei.system.validation.UsernameLogicExistValidation;
+import cloud.xuxiaowei.system.validation.UsernameLogicValidation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,7 +15,7 @@ import java.lang.annotation.*;
  * @since 0.0.1
  */
 @Documented
-@Constraint(validatedBy = {UsernameLogicExistValidation.class})
+@Constraint(validatedBy = {UsernameLogicValidation.class})
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UsernameLogicAnnotation {

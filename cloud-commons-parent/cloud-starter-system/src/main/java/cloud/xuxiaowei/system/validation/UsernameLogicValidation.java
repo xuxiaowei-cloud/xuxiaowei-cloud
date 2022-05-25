@@ -20,7 +20,7 @@ import javax.validation.ConstraintValidatorContext;
  * @since 0.0.1
  */
 @Slf4j
-public class UsernameLogicExistValidation implements ConstraintValidator<UsernameLogicAnnotation, String> {
+public class UsernameLogicValidation implements ConstraintValidator<UsernameLogicAnnotation, String> {
 
     private IUsersService usersService;
 
