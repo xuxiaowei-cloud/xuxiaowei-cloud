@@ -33,9 +33,9 @@ public class SessionServiceImpl implements SessionService {
 
     private TokenStore tokenStore;
 
-    public HttpSession session;
+    private HttpSession session;
 
-    public RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     private CloudSessionProperties cloudSessionProperties;
 
