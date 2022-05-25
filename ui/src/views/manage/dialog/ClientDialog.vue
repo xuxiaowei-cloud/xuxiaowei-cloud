@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item label="clientSecret">
         <el-input class="cloud-el-password" v-model="param.clientSecret"/>
-        <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机密码</el-button>
+        <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机凭证</el-button>
       </el-form-item>
       <el-form-item label="grantTypes">
         <el-input v-model="param.authorizedGrantTypes"/>
