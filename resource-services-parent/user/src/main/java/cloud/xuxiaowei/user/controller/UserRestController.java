@@ -5,6 +5,7 @@ import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Constant;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户
@@ -41,7 +43,14 @@ import java.util.List;
 @SuppressWarnings({"deprecation"})
 public class UserRestController {
 
+    private SessionService sessionService;
+
     private IUsersService usersService;
+
+    @Autowired
+    public void setSessionService(SessionService sessionService) {
+        this.sessionService = sessionService;
+    }
 
     @Autowired
     public void setUsersService(IUsersService usersService) {
@@ -272,6 +281,8 @@ public class UserRestController {
         String publicKey = generate.getPublicKeyBase64();
         // 识别码
         String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+
+        sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 
         return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
     }
