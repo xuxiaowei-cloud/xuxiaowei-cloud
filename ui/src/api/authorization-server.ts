@@ -57,3 +57,33 @@ export const removeByIds = function (clientIds: number[]) {
     return response.data
   })
 }
+
+/**
+ * 根据 客户主键 查询
+ * @param usersId 客户主键
+ */
+export const getById = function (usersId: number) {
+  return request.post('/authorization-server/oauth-client-details/getById/' + usersId).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 保存客户
+ * @param data 客户
+ */
+export const save = function (data: any) {
+  return request.post('/authorization-server/oauth-client-details/save', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 更新客户
+ * @param data 客户
+ */
+export const updateById = function (data: any) {
+  return request.post('/authorization-server/oauth-client-details/updateById', data).then(response => {
+    return response.data
+  })
+}

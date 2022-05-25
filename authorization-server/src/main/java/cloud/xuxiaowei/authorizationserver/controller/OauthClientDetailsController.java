@@ -2,6 +2,8 @@ package cloud.xuxiaowei.authorizationserver.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.bo.OauthClientDetailsPageBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsSaveBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsUpdateBo;
 import cloud.xuxiaowei.system.service.IOauthClientDetailsService;
 import cloud.xuxiaowei.system.vo.OauthClientDetailsVo;
 import cloud.xuxiaowei.utils.AssertUtils;
@@ -90,6 +92,60 @@ public class OauthClientDetailsController {
         boolean removeByIds = oauthClientDetailsService.removeByIds(clientIds);
 
         return Response.ok(removeByIds);
+    }
+
+    /**
+     * 根据 客户主键 查询客户
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param clientId 客户主键
+     * @return 返回 查询结果
+     */
+    @ControllerAnnotation(description = "根据 客户主键 查询客户")
+    @PreAuthorize("hasAuthority('manage_client_read') or #oauth2.hasScope('manage_client_read')")
+    @RequestMapping("/getById/{clientId}")
+    public Response<?> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable("clientId") Long clientId) {
+
+        OauthClientDetailsVo oauthClientDetailsVo = oauthClientDetailsService.getOauthClientDetailsVoById(clientId);
+
+        return Response.ok(oauthClientDetailsVo);
+    }
+
+    /**
+     * 保存客户
+     *
+     * @param request                  请求
+     * @param response                 响应
+     * @param oauthClientDetailsSaveBo 客户
+     * @return 返回 保存结果
+     */
+    @ControllerAnnotation(description = "保存客户")
+    @PreAuthorize("hasAuthority('manage_client_add') or #oauth2.hasScope('manage_client_add')")
+    @RequestMapping("/save")
+    public Response<?> save(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody OauthClientDetailsSaveBo oauthClientDetailsSaveBo) {
+
+        boolean save = oauthClientDetailsService.saveOauthClientDetailsSaveBo(oauthClientDetailsSaveBo);
+
+        return Response.ok(save);
+    }
+
+    /**
+     * 根据 客户主键 更新客户
+     *
+     * @param request                    请求
+     * @param response                   响应
+     * @param oauthClientDetailsUpdateBo 客户
+     * @return 返回 更新结果
+     */
+    @ControllerAnnotation(description = "根据 客户主键 更新客户")
+    @PreAuthorize("hasAuthority('manage_client_edit') or #oauth2.hasScope('manage_client_edit')")
+    @RequestMapping("/updateById")
+    public Response<?> updateById(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody OauthClientDetailsUpdateBo oauthClientDetailsUpdateBo) {
+
+        boolean update = oauthClientDetailsService.updateByOauthClientDetailsUpdateBo(oauthClientDetailsUpdateBo);
+
+        return Response.ok(update);
     }
 
 }

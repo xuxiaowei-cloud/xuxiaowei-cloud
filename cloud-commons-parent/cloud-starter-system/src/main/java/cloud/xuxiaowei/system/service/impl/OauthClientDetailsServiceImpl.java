@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.bo.OauthClientDetailsPageBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsSaveBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsUpdateBo;
 import cloud.xuxiaowei.system.entity.OauthClientDetails;
 import cloud.xuxiaowei.system.mapper.OauthClientDetailsMapper;
 import cloud.xuxiaowei.system.service.IOauthClientDetailsService;
@@ -10,7 +12,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +61,74 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
         }
 
         return oauthClientDetailsVoPage;
+    }
+
+    /**
+     * 根据 客户主键 查询
+     *
+     * @param oauthClientDetailsId 客户主键
+     * @return 返回 查询结果
+     */
+    @Override
+    public OauthClientDetailsVo getOauthClientDetailsVoById(Long oauthClientDetailsId) {
+        QueryWrapper<OauthClientDetails> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("oauth_client_details_id", oauthClientDetailsId);
+        OauthClientDetails oauthClientDetails = getOne(queryWrapper);
+        if (oauthClientDetails == null) {
+            return null;
+        }
+        OauthClientDetailsVo oauthClientDetailsVo = new OauthClientDetailsVo();
+        BeanUtils.copyProperties(oauthClientDetails, oauthClientDetailsVo);
+        return oauthClientDetailsVo;
+    }
+
+    /**
+     * 保存客户
+     *
+     * @param oauthClientDetailsSaveBo 客户
+     * @return 返回 保存结果
+     */
+    @Override
+    public boolean saveOauthClientDetailsSaveBo(OauthClientDetailsSaveBo oauthClientDetailsSaveBo) {
+        OauthClientDetails oauthClientDetails = new OauthClientDetails();
+        BeanUtils.copyProperties(oauthClientDetailsSaveBo, oauthClientDetails);
+
+        // 客户凭证加密
+        encode(oauthClientDetails);
+
+        return save(oauthClientDetails);
+    }
+
+    /**
+     * 更新客户
+     *
+     * @param oauthClientDetailsUpdateBo 客户
+     * @return 返回 更新结果
+     */
+    @Override
+    public boolean updateByOauthClientDetailsUpdateBo(OauthClientDetailsUpdateBo oauthClientDetailsUpdateBo) {
+        OauthClientDetails oauthClientDetails = new OauthClientDetails();
+        BeanUtils.copyProperties(oauthClientDetailsUpdateBo, oauthClientDetails);
+
+        // 客户凭证加密
+        encode(oauthClientDetails);
+
+        return updateById(oauthClientDetails);
+    }
+
+    /**
+     * 客户凭证加密
+     *
+     * @param oauthClientDetails 客户
+     */
+    private void encode(OauthClientDetails oauthClientDetails) {
+        // 凭证加密后储存
+        String clientSecret = oauthClientDetails.getClientSecret();
+        if (StringUtils.hasText(clientSecret)) {
+            PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            String encode = delegatingPasswordEncoder.encode(clientSecret);
+            oauthClientDetails.setClientSecret(encode);
+        }
     }
 
 }
