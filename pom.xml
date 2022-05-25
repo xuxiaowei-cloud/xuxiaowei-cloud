@@ -105,6 +105,10 @@
         <!-- https://github.com/apache/commons-io -->
         <commons-io.version>2.11.0</commons-io.version>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/apache/commons/commons-lang3 -->
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+
         <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.client -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.otter/canal.protocol -->
@@ -284,6 +288,13 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
 
             <!-- 阿里巴巴 MySQL binlog 增量订阅、消费服务 -->
