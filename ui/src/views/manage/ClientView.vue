@@ -21,6 +21,9 @@
       <el-table-column type="expand">
         <template #default="props">
           <el-form label-width="160px">
+            <el-form-item label="clientId">
+              <el-input v-model="props.row.clientId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
             <el-form-item label="grantTypes">
               <el-input v-model="props.row.authorizedGrantTypes" class="cloud-el-expand-input" disabled/>
             </el-form-item>
