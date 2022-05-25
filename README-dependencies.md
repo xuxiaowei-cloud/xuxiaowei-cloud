@@ -282,6 +282,8 @@ cloud.xuxiaowei:canal:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
+│        └──cn.hutool:hutool-all:jar:5.8.1:compile
+│        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
