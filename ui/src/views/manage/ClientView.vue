@@ -27,6 +27,9 @@
             <el-form-item label="scope">
               <el-input v-model="props.row.scope" class="cloud-el-expand-input" disabled/>
             </el-form-item>
+            <el-form-item label="redirectUri">
+              <el-input v-model="props.row.webServerRedirectUri" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
             <el-form-item label="resourceIds">
               <el-input v-model="props.row.resourceIds" class="cloud-el-expand-input" disabled/>
             </el-form-item>
