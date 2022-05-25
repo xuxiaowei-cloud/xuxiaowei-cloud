@@ -8,7 +8,10 @@ import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.map.ResponseMap;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -217,8 +220,7 @@ public class UserRestController {
     @ControllerAnnotation(description = "保存用户")
     @PreAuthorize("hasAuthority('manage_user_add') or #oauth2.hasScope('manage_user_add')")
     @RequestMapping("/save")
-    public Response<?> save(HttpServletRequest request, HttpServletResponse response,
-                            @Valid @RequestBody UsersSaveBo usersSaveBo) {
+    public Response<?> save(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody UsersSaveBo usersSaveBo) {
 
         boolean save = usersService.saveUsersSaveBo(usersSaveBo);
 
@@ -236,12 +238,40 @@ public class UserRestController {
     @ControllerAnnotation(description = "根据 用户主键 更新用户")
     @PreAuthorize("hasAuthority('manage_user_edit') or #oauth2.hasScope('manage_user_edit')")
     @RequestMapping("/updateById")
-    public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
-                                  @Valid @RequestBody UsersUpdateBo usersUpdateBo) {
+    public Response<?> updateById(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody UsersUpdateBo usersUpdateBo) {
 
         boolean update = usersService.updateByUsersUpdateBo(usersUpdateBo);
 
         return Response.ok(update);
+    }
+
+    /**
+     * 获取用户识别码
+     * <p>
+     * 生成RSA密钥对<p>
+     * 返回识别码<p>
+     * 返回识别码RSA公钥<p>
+     * RSA私钥保存到Redis中<p>
+     *
+     * @param request  请求
+     * @param response 响应
+     * @return 返回 更新结果
+     */
+    @ControllerAnnotation(description = "获取用户识别码")
+    @PreAuthorize("hasAuthority('user_info') or #oauth2.hasScope('user_info')")
+    @RequestMapping("/code/rsa")
+    public Response<?> code(HttpServletRequest request, HttpServletResponse response) {
+
+        RSA generate = new RSA();
+
+        // 获取私钥
+        String privateKey = generate.getPrivateKeyBase64();
+        // 获取公钥
+        String publicKey = generate.getPublicKeyBase64();
+        // 识别码
+        String code = RandomStringUtils.random(6);
+
+        return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
     }
 
 }
