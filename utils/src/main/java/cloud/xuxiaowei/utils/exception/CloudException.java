@@ -72,6 +72,13 @@ public class CloudException extends Exception {
         this.msg = msg;
     }
 
+    public CloudException(String code, String msg, String field) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
+        this.field = field;
+    }
+
     public CloudException(String code, String msg, String field, Throwable cause) {
         super(msg, cause);
         this.code = code;

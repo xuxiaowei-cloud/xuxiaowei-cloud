@@ -68,6 +68,13 @@ public class CloudRuntimeException extends RuntimeException {
         this.msg = msg;
     }
 
+    public CloudRuntimeException(String code, String msg, String field) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
+        this.field = field;
+    }
+
     public CloudRuntimeException(String code, String msg, String field, Throwable cause) {
         super(msg, cause);
         this.code = code;
