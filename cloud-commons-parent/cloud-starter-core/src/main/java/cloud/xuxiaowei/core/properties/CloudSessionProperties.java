@@ -24,12 +24,12 @@ import java.util.concurrent.TimeUnit;
 public class CloudSessionProperties {
 
     /**
-     * 超时时间
+     * 过期时间
      */
     private long timeout = 12;
 
     /**
-     * 超时时间单位
+     * 过期时间单位
      */
     private TimeUnit unit = TimeUnit.HOURS;
 
