@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.annotation;
 
-import cloud.xuxiaowei.system.validation.NicknameLogicExistValidation;
+import cloud.xuxiaowei.system.validation.NicknameLogicValidation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,10 +15,10 @@ import java.lang.annotation.*;
  * @since 0.0.1
  */
 @Documented
-@Constraint(validatedBy = {NicknameLogicExistValidation.class})
+@Constraint(validatedBy = {NicknameLogicValidation.class})
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NicknameLogicExistAnnotation {
+public @interface NicknameLogicAnnotation {
 
     String message() default "昵称 已被逻辑删除";
 
