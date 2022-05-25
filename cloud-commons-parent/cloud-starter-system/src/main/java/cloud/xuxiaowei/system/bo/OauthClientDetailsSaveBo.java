@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.system.bo;
 
-import cloud.xuxiaowei.system.annotation.*;
+import cloud.xuxiaowei.system.annotation.ClientIdExistAnnotation;
+import cloud.xuxiaowei.system.annotation.ClientIdLogicAnnotation;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -28,13 +28,13 @@ public class OauthClientDetailsSaveBo implements Serializable {
 
     private String resourceIds;
 
-    @NumberAnnotation(message = "客户凭证必须包含数字")
-    @LowerCaseAnnotation(message = "客户凭证必须包含小写字母")
-    @UpperCaseAnnotation(message = "客户凭证必须包含大写字母")
-    @SymbolAnnotation(message = "客户凭证必须包含特殊符号")
-    @Length(min = 6, max = 16, message = "客户凭证 长度限制：6-16")
-    @NotEmpty(message = "客户凭证 不能为空")
     private String clientSecret;
+
+    /**
+     * 用户识别码
+     */
+    @NotEmpty(message = "用户识别码 不能为空")
+    private String code;
 
     private String scope;
 

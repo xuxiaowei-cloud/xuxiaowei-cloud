@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.system.bo;
 
-import cloud.xuxiaowei.system.annotation.*;
+import cloud.xuxiaowei.system.annotation.NicknameExistAnnotation;
+import cloud.xuxiaowei.system.annotation.NicknameLogicAnnotation;
+import cloud.xuxiaowei.system.annotation.UsernameExistAnnotation;
+import cloud.xuxiaowei.system.annotation.UsernameLogicAnnotation;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -40,13 +43,13 @@ public class UsersSaveBo implements Serializable {
     /**
      * 密码，不能为空
      */
-    @NumberAnnotation(message = "密码必须包含数字")
-    @LowerCaseAnnotation(message = "密码必须包含小写字母")
-    @UpperCaseAnnotation(message = "密码必须包含大写字母")
-    @SymbolAnnotation(message = "密码必须包含特殊符号")
-    @Length(min = 6, max = 16, message = "密码 长度限制：6-16")
-    @NotEmpty(message = "密码 不能为空")
     private String password;
+
+    /**
+     * 用户识别码
+     */
+    @NotEmpty(message = "用户识别码 不能为空")
+    private String code;
 
     /**
      * 是否启用，不能为空

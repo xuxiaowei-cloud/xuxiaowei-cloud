@@ -1,17 +1,25 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.system.bo.ClientSecretBo;
 import cloud.xuxiaowei.system.bo.OauthClientDetailsPageBo;
 import cloud.xuxiaowei.system.bo.OauthClientDetailsSaveBo;
 import cloud.xuxiaowei.system.bo.OauthClientDetailsUpdateBo;
 import cloud.xuxiaowei.system.entity.OauthClientDetails;
 import cloud.xuxiaowei.system.mapper.OauthClientDetailsMapper;
 import cloud.xuxiaowei.system.service.IOauthClientDetailsService;
+import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.OauthClientDetailsVo;
+import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import cloud.xuxiaowei.validation.utils.ValidationUtils;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +38,13 @@ import java.util.List;
  */
 @Service
 public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetailsMapper, OauthClientDetails> implements IOauthClientDetailsService {
+
+    private SessionService sessionService;
+
+    @Autowired
+    public void setSessionService(SessionService sessionService) {
+        this.sessionService = sessionService;
+    }
 
     /**
      * 分页查询客户
@@ -100,8 +115,17 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
      */
     @Override
     public boolean saveOauthClientDetailsSaveBo(OauthClientDetailsSaveBo oauthClientDetailsSaveBo) {
+
+        String clientSecretDecrypt = clientSecretDecrypt(oauthClientDetailsSaveBo.getCode(), oauthClientDetailsSaveBo.getClientSecret());
+
+        if (!StringUtils.hasText(clientSecretDecrypt)) {
+            throw new CloudRuntimeException("客户凭证 不能为空");
+        }
+
         OauthClientDetails oauthClientDetails = new OauthClientDetails();
         BeanUtils.copyProperties(oauthClientDetailsSaveBo, oauthClientDetails);
+
+        oauthClientDetails.setClientSecret(clientSecretDecrypt);
 
         // 客户凭证加密
         encode(oauthClientDetails);
@@ -117,8 +141,13 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
      */
     @Override
     public boolean updateByOauthClientDetailsUpdateBo(OauthClientDetailsUpdateBo oauthClientDetailsUpdateBo) {
+
+        String clientSecretDecrypt = clientSecretDecrypt(oauthClientDetailsUpdateBo.getCode(), oauthClientDetailsUpdateBo.getClientSecret());
+
         OauthClientDetails oauthClientDetails = new OauthClientDetails();
         BeanUtils.copyProperties(oauthClientDetailsUpdateBo, oauthClientDetails);
+
+        oauthClientDetails.setClientSecret(clientSecretDecrypt);
 
         // 客户凭证加密
         encode(oauthClientDetails);
@@ -152,6 +181,25 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
         return baseMapper.getLogicByClientId(clientId);
     }
 
+    private String clientSecretDecrypt(String code, String clientSecret) {
+        String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
+
+        String clientSecretDecrypt;
+        if (StringUtils.hasText(privateKey)) {
+            RSA rsa = new RSA(privateKey, null);
+
+            if (Boolean.FALSE.toString().equals(clientSecret)) {
+                return null;
+            }
+
+            clientSecretDecrypt = rsa.decryptStr(clientSecret, KeyType.PrivateKey);
+            ValidationUtils.validate(new ClientSecretBo(clientSecretDecrypt));
+        } else {
+            throw new CloudRuntimeException("未找到RSA私钥，请刷新页面后重试");
+        }
+        return clientSecretDecrypt;
+    }
+
     /**
      * 客户凭证加密
      *
@@ -164,6 +212,8 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
             PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             String encode = delegatingPasswordEncoder.encode(clientSecret);
             oauthClientDetails.setClientSecret(encode);
+        } else {
+            oauthClientDetails.setClientSecret(null);
         }
     }
 
