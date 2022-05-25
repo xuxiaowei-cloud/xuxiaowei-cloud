@@ -1,9 +1,6 @@
 package cloud.xuxiaowei.system.bo;
 
-import cloud.xuxiaowei.system.annotation.LowerCaseAnnotation;
-import cloud.xuxiaowei.system.annotation.NumberAnnotation;
-import cloud.xuxiaowei.system.annotation.SymbolAnnotation;
-import cloud.xuxiaowei.system.annotation.UpperCaseAnnotation;
+import cloud.xuxiaowei.system.annotation.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -22,6 +19,7 @@ public class OauthClientDetailsUpdateBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @OauthClientDetailsIdAnnotation
     @NotNull(message = "客户主键 不能为空")
     private Long oauthClientDetailsId;
 
