@@ -43,6 +43,16 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
         Long current = oauthClientDetailsPageBo.getCurrent();
         Long size = oauthClientDetailsPageBo.getSize();
 
+        Long oauthClientDetailsId = oauthClientDetailsPageBo.getOauthClientDetailsId();
+        String clientId = oauthClientDetailsPageBo.getClientId();
+
+        if (oauthClientDetailsId != null) {
+            queryWrapper.eq("oauth_client_details_id", oauthClientDetailsId);
+        }
+        if (StringUtils.hasText(clientId)) {
+            queryWrapper.eq("client_id", clientId);
+        }
+
         IPage<OauthClientDetails> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
         page(page, queryWrapper);
 
