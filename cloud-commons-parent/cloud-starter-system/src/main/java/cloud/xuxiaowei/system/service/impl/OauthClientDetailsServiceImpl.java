@@ -117,6 +117,32 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
     }
 
     /**
+     * 根据 客户ID 查询客户
+     *
+     * @param clientId 客户ID
+     * @return 返回 查询结果
+     */
+    @Override
+    public OauthClientDetails getByClientId(String clientId) {
+        QueryWrapper<OauthClientDetails> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("client_id", clientId);
+        return getOne(queryWrapper);
+    }
+
+    /**
+     * 根据 客户ID 查询客户
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param clientId 客户ID
+     * @return 返回 用户信息
+     */
+    @Override
+    public OauthClientDetails getLogicByClientId(String clientId) {
+        return baseMapper.getLogicByClientId(clientId);
+    }
+
+    /**
      * 客户凭证加密
      *
      * @param oauthClientDetails 客户

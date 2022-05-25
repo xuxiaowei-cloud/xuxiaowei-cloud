@@ -50,4 +50,22 @@ public interface IOauthClientDetailsService extends IService<OauthClientDetails>
      */
     boolean updateByOauthClientDetailsUpdateBo(OauthClientDetailsUpdateBo oauthClientDetailsUpdateBo);
 
+    /**
+     * 根据 客户ID 查询客户
+     *
+     * @param clientId 客户ID
+     * @return 返回 查询结果
+     */
+    OauthClientDetails getByClientId(String clientId);
+
+    /**
+     * 根据 客户ID 查询客户
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param clientId 客户ID
+     * @return 返回 用户信息
+     */
+    OauthClientDetails getLogicByClientId(String clientId);
+
 }

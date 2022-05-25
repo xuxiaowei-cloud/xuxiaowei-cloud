@@ -21,4 +21,17 @@
         <result column="deleted" property="deleted" />
     </resultMap>
 
+    <!--
+        根据 客户ID 查询客户
+        条件无逻辑删除的判断
+     -->
+    <select id="getLogicByClientId" resultType="cloud.xuxiaowei.system.entity.OauthClientDetails">
+        SELECT
+            ocd.*
+        FROM
+            oauth_client_details AS ocd
+        WHERE
+            ocd.client_id = #{clientId}
+    </select>
+
 </mapper>
