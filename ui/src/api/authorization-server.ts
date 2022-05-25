@@ -27,3 +27,33 @@ export const checkToken = function (token: string) {
     return responseData
   })
 }
+
+/**
+ * 分页查询客户
+ * @param data
+ */
+export const page = function (data: any) {
+  return request.post('/authorization-server/oauth-client-details/page', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 根据 客户主键 删除
+ * @param clientId 客户主键
+ */
+export const removeById = function (clientId: number) {
+  return request.post('/authorization-server/oauth-client-details/removeById/' + clientId).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 根据 客户主键 删除
+ * @param clientIds 客户主键
+ */
+export const removeByIds = function (clientIds: number[]) {
+  return request.post('/authorization-server/oauth-client-details/removeByIds', clientIds).then(response => {
+    return response.data
+  })
+}
