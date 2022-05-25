@@ -102,7 +102,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
                     if (serviceEnums == null) {
                         error.setMsg(CodeEnums.S10001.msg);
                     } else {
-                        error.setMsg(CodeEnums.S10001.msg + "：" + serviceEnums.name);
+                        error.setMsg("未发现：" + serviceEnums.name);
                     }
                 }
 
