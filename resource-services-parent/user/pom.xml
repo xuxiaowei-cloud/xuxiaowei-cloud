@@ -22,12 +22,6 @@
 	</properties>
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

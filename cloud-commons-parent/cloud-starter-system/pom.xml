@@ -35,6 +35,12 @@
             <artifactId>cloud-starter-log</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
         <!-- 提供JSON数据处理所需的包，如：ObjectMapper、JavaTimeModule -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
