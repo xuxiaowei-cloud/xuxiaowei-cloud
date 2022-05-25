@@ -47,8 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, defineEmits } from 'vue'
+import { defineProps, reactive, defineEmits, ref } from 'vue'
 import { getById, save, updateById } from '../../../api/authorization-server'
+import { codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
@@ -82,6 +83,26 @@ const param = reactive({
   resourceIds: null,
   authorities: null,
   additionalInformation: null
+})
+
+// 识别码
+const code = ref(null)
+// 公钥
+const publicKey = ref(null)
+
+// 获取识别码与公钥
+codeRsa().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    if (response.code === store.state.settings.okCode) {
+      const data = response.data
+      if (data) {
+        code.value = data.code
+        publicKey.value = data.publicKey
+      }
+    } else {
+      ElMessage.error(response.msg)
+    }
+  }
 })
 
 // 初始化数据
