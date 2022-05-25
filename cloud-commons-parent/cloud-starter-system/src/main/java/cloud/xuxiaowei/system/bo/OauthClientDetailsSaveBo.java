@@ -18,8 +18,6 @@ public class OauthClientDetailsSaveBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long oauthClientDetailsId;
-
     /**
      * 唯一键：uk__oauth_client_details__client_id
      */
