@@ -17,6 +17,8 @@ import java.io.Serializable;
 @Data
 public class UsersUpdateBo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户主键，自增
      */

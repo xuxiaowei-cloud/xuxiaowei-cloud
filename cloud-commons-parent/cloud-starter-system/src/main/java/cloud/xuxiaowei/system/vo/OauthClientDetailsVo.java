@@ -16,6 +16,8 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 @Data
 public class OauthClientDetailsVo {
 
+    private static final long serialVersionUID = 1L;
+
     private Long oauthClientDetailsId;
 
     /**

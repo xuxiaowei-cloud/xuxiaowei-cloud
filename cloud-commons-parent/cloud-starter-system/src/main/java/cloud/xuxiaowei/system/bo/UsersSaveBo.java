@@ -17,6 +17,8 @@ import java.io.Serializable;
 @Data
 public class UsersSaveBo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户名，不能为空，唯一键：uk__users__username
      */
