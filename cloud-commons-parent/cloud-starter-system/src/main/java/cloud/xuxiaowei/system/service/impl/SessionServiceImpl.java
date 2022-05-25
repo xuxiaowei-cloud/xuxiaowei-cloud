@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.core.properties.CloudSessionProperties;
 import cloud.xuxiaowei.system.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -36,6 +37,8 @@ public class SessionServiceImpl implements SessionService {
 
     public RedisTemplate<String, String> redisTemplate;
 
+    private CloudSessionProperties cloudSessionProperties;
+
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
@@ -49,6 +52,11 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    @Autowired
+    public void setCloudSessionProperties(CloudSessionProperties cloudSessionProperties) {
+        this.cloudSessionProperties = cloudSessionProperties;
     }
 
     /**
@@ -181,7 +189,7 @@ public class SessionServiceImpl implements SessionService {
         redisTemplate.opsForHash().put(sessionId, key, value);
 
         // 过期时间
-        redisTemplate.expire(sessionId, 7, TimeUnit.HOURS);
+        expire(sessionId);
     }
 
     /**
@@ -193,6 +201,8 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Object getAttribute(String key) {
         String sessionId = sessionId();
+        // 过期时间
+        expire(sessionId);
         return redisTemplate.opsForHash().get(sessionId, key);
     }
 
@@ -216,6 +226,21 @@ public class SessionServiceImpl implements SessionService {
     public void remove(String key) {
         String sessionId = sessionId();
         redisTemplate.delete(sessionId);
+        // 过期时间
+        expire(sessionId);
+    }
+
+    /**
+     * 设置过期时间
+     *
+     * @param sessionId Session ID
+     */
+    private void expire(String sessionId) {
+        long timeout = cloudSessionProperties.getTimeout();
+        TimeUnit unit = cloudSessionProperties.getUnit();
+
+        // 过期时间
+        redisTemplate.expire(sessionId, timeout, unit);
     }
 
 }
