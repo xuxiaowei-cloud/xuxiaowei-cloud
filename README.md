@@ -334,7 +334,7 @@ cloud.xuxiaowei
 
 ## 开发工具
 
-1. IDEA 2021.1.3
+1. IDEA 2022.1.1
     - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.exe)
     - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.win.zip)
     - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.tar.gz)
