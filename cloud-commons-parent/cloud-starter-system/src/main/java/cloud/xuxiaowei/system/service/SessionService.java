@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.TimeUnit;
 
 /**
  * {@link HttpSession} 服务接口
@@ -73,6 +74,26 @@ public interface SessionService {
      * @param value 值
      */
     void setAttribute(String key, Object value);
+
+    /**
+     * 设置 Session（Redis） 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    void setAttr(String key, String value, long timeout, TimeUnit unit);
+
+    /**
+     * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    void set(String key, String value, long timeout, TimeUnit unit);
 
     /**
      * 获取 Session（Redis） 中的值

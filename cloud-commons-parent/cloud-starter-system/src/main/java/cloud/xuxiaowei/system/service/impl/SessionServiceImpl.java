@@ -4,6 +4,7 @@ import cloud.xuxiaowei.core.properties.CloudSessionProperties;
 import cloud.xuxiaowei.system.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +38,8 @@ public class SessionServiceImpl implements SessionService {
 
     private RedisTemplate<String, String> redisTemplate;
 
+    private StringRedisTemplate stringRedisTemplate;
+
     private CloudSessionProperties cloudSessionProperties;
 
     @Autowired
@@ -52,6 +55,11 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    @Autowired
+    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Autowired
@@ -190,6 +198,35 @@ public class SessionServiceImpl implements SessionService {
 
         // 过期时间
         expire(sessionId);
+    }
+
+    /**
+     * 设置 Session（Redis） 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    @Override
+    public void setAttr(String key, String value, long timeout, TimeUnit unit) {
+
+        String sessionId = sessionId();
+        stringRedisTemplate.opsForValue().set(sessionId + ":" + key, value, timeout, unit);
+
+    }
+
+    /**
+     * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    @Override
+    public void set(String key, String value, long timeout, TimeUnit unit) {
+        stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
     }
 
     /**
