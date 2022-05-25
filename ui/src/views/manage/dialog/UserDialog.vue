@@ -5,7 +5,8 @@
         <el-input v-model="param.usersId" disabled/>
       </el-form-item>
       <el-form-item label="username">
-        <el-input v-model="param.username" disabled/>
+        <el-input v-if="props.edit" v-model="param.username" disabled/>
+        <el-input v-else v-model="param.username"/>
       </el-form-item>
       <el-form-item label="nickname">
         <el-input v-model="param.nickname"/>
