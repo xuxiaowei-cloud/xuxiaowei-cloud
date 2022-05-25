@@ -1,6 +1,11 @@
 package cloud.xuxiaowei.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * 客户 返回值
@@ -35,5 +40,11 @@ public class OauthClientDetailsVo {
     private String additionalInformation;
 
     private String autoapprove;
+
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+    private LocalDateTime createDate;
+
+    @JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+    private LocalDateTime updateDate;
 
 }

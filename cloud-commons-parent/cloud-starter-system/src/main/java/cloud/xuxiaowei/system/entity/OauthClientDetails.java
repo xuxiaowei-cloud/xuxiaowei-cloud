@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -49,5 +50,8 @@ public class OauthClientDetails implements Serializable {
 
     private String autoapprove;
 
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
 
 }
