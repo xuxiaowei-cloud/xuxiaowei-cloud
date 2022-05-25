@@ -7,10 +7,12 @@ import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.google.common.base.Joiner;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -269,7 +271,7 @@ public class UserRestController {
         // 获取公钥
         String publicKey = generate.getPublicKeyBase64();
         // 识别码
-        String code = RandomStringUtils.random(6);
+        String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
 
         return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
     }
