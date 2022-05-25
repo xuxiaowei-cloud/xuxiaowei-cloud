@@ -47,12 +47,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, defineEmits, ref } from 'vue'
+import { defineEmits, defineProps, reactive, ref } from 'vue'
 import { getById, save, updateById } from '../../../api/authorization-server'
 import { codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+// TS 未能识别，其实不存在问题
+// @ts-ignore
+import JsEncrypt from 'jsencrypt/bin/jsencrypt.min'
 
 // 缓存
 const store = useStore()
@@ -143,7 +146,10 @@ const passwordGenerate = () => {
 
 // 保存
 const cloudSave = () => {
-  save(param).then(response => {
+  const paramEncryption = JSON.parse(JSON.stringify(param))
+  JsEncrypt.prototype.setPublicKey(publicKey.value)
+  paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
+  save(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({
@@ -163,7 +169,10 @@ const cloudSave = () => {
 
 // 更新
 const cloudUpdate = () => {
-  updateById(param).then(response => {
+  const paramEncryption = JSON.parse(JSON.stringify(param))
+  JsEncrypt.prototype.setPublicKey(publicKey.value)
+  paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
+  updateById(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({
