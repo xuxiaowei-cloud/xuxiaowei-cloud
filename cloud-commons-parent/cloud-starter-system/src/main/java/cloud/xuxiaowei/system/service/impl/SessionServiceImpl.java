@@ -218,6 +218,19 @@ public class SessionServiceImpl implements SessionService {
     }
 
     /**
+     * 获取 Session（Redis） 中的值
+     *
+     * @param key 键
+     * @return 返回 Session（Redis） 中的值
+     */
+    @Override
+    public String getAttr(@NonNull String key) {
+
+        String sessionId = sessionId();
+        return stringRedisTemplate.opsForValue().get(sessionId + ":" + key);
+    }
+
+    /**
      * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
      *
      * @param key     键
@@ -228,6 +241,17 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void set(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
+    }
+
+    /**
+     * 获取 Redis 中的值
+     *
+     * @param key 键
+     * @return 返回 Redis 中的值
+     */
+    @Override
+    public String get(@NonNull String key) {
+        return stringRedisTemplate.opsForValue().get(key);
     }
 
     /**
