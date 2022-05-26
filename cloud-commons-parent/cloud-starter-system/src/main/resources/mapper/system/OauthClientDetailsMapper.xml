@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.OauthClientDetailsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.OauthClientDetails">
+        <id column="oauth_client_details_id" property="oauthClientDetailsId" />
+        <result column="client_id" property="clientId" />
+        <result column="resource_ids" property="resourceIds" />
+        <result column="client_secret" property="clientSecret" />
+        <result column="scope" property="scope" />
+        <result column="authorized_grant_types" property="authorizedGrantTypes" />
+        <result column="web_server_redirect_uri" property="webServerRedirectUri" />
+        <result column="authorities" property="authorities" />
+        <result column="access_token_validity" property="accessTokenValidity" />
+        <result column="refresh_token_validity" property="refreshTokenValidity" />
+        <result column="additional_information" property="additionalInformation" />
+        <result column="autoapprove" property="autoapprove" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!--
+        根据 客户ID 查询客户
+        条件无逻辑删除的判断
+     -->
+    <select id="getLogicByClientId" resultType="cloud.xuxiaowei.system.entity.OauthClientDetails">
+        SELECT
+            ocd.*
+        FROM
+            oauth_client_details AS ocd
+        WHERE
+            ocd.client_id = #{clientId}
+    </select>
+
+</mapper>

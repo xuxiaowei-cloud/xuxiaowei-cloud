@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.bo;
 
-import cloud.xuxiaowei.system.annotation.*;
+import cloud.xuxiaowei.system.annotation.UsersIdAnnotation;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,19 +17,14 @@ import java.io.Serializable;
 @Data
 public class UsersUpdateBo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户主键，自增
      */
     @UsersIdAnnotation
     @NotNull(message = "用户主键 不能为空")
     private Long usersId;
-
-    /**
-     * 用户名，不能为空，唯一键：uk__users__username
-     */
-    @Length(min = 2, max = 10, message = "用户名 长度限制：2-10")
-    @NotEmpty(message = "用户名 不能为空")
-    private String username;
 
     /**
      * 昵称，不能为空，唯一键：uk__users__nickname
@@ -41,12 +36,13 @@ public class UsersUpdateBo implements Serializable {
     /**
      * 密码，不能为空
      */
-    @NumberAnnotation(message = "密码必须包含数字")
-    @LowerCaseAnnotation(message = "密码必须包含小写字母")
-    @UpperCaseAnnotation(message = "密码必须包含大写字母")
-    @SymbolAnnotation(message = "密码必须包含特殊符号")
-    @Length(min = 6, max = 16, message = "密码 长度限制：6-16")
     private String password;
+
+    /**
+     * 用户识别码
+     */
+    @NotEmpty(message = "用户识别码 不能为空")
+    private String code;
 
     /**
      * 是否启用，不能为空

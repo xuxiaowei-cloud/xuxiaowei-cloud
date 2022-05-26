@@ -77,9 +77,9 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
         String requestId = request.getId();
 
-        Mono<Void> log = log(logService, request, response, ex, requestId);
-        if (log != null) {
-            return log;
+        Mono<Void> logMono = log(logService, request, response, ex, requestId);
+        if (logMono != null) {
+            return logMono;
         }
 
         Response<?> error = Response.error(CodeEnums.S10000.code, CodeEnums.S10000.msg);
@@ -102,7 +102,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
                     if (serviceEnums == null) {
                         error.setMsg(CodeEnums.S10001.msg);
                     } else {
-                        error.setMsg(CodeEnums.S10001.msg + "：" + serviceEnums.name);
+                        error.setMsg("未发现：" + serviceEnums.name);
                     }
                 }
 

@@ -240,6 +240,12 @@ public enum CodeEnums {
      * @see #Q10002_REGEX
      */
     Q10002("Q10002", "字段不能为空", null),
+    /**
+     * 违反唯一键
+     *
+     * @see #Q10003_REGEX
+     */
+    Q10003("Q10003", "违反唯一键", null),
 
     /**
      * 参数异常
@@ -329,6 +335,11 @@ public enum CodeEnums {
      * @see #Q10002
      */
     public static final String Q10002_REGEX = "Column '\\w+' cannot be null";
+
+    /**
+     * @see #Q10003
+     */
+    public static final String Q10003_REGEX = "Duplicate entry '\\w+' for key '\\w+.\\w+'";
 
     /**
      * 错误码

@@ -153,6 +153,9 @@ public class ControllerAdviceConfiguration {
             if (message.matches(CodeEnums.Q10002_REGEX)) {
                 code = CodeEnums.Q10002.code;
                 msg = CodeEnums.Q10002.msg;
+            } else if (message.matches(CodeEnums.Q10003_REGEX)) {
+                code = CodeEnums.Q10003.code;
+                msg = CodeEnums.Q10003.msg;
             }
         }
 

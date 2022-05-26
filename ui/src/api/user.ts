@@ -139,3 +139,12 @@ export const saveAuthorities = function (data: any) {
     return response.data
   })
 }
+
+/**
+ * 获取用户识别码
+ */
+export const codeRsa = function () {
+  return request.post('/user/code/rsa').then(response => {
+    return response.data
+  })
+}

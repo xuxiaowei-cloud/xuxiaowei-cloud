@@ -5,7 +5,8 @@
         <el-input v-model="param.usersId" disabled/>
       </el-form-item>
       <el-form-item label="username">
-        <el-input v-model="param.username"/>
+        <el-input v-if="props.edit" v-model="param.username" disabled/>
+        <el-input v-else v-model="param.username"/>
       </el-form-item>
       <el-form-item label="nickname">
         <el-input v-model="param.nickname"/>
@@ -37,11 +38,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, defineEmits } from 'vue'
-import { getById, save, updateById } from '../../../api/user'
+import { defineProps, reactive, defineEmits, ref } from 'vue'
+import { getById, save, updateById, codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+// TS 未能识别，其实不存在问题
+// @ts-ignore
+import JsEncrypt from 'jsencrypt/bin/jsencrypt.min'
 
 // 缓存
 const store = useStore()
@@ -67,7 +71,27 @@ const param = reactive({
   enabled: true,
   accountNonExpired: true,
   credentialsNonExpired: true,
-  accountNonLocked: true
+  accountNonLocked: true,
+  // 识别码
+  code: null
+})
+
+// 公钥
+const publicKey = ref(null)
+
+// 获取识别码与公钥
+codeRsa().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    if (response.code === store.state.settings.okCode) {
+      const data = response.data
+      if (data) {
+        param.code = data.code
+        publicKey.value = data.publicKey
+      }
+    } else {
+      ElMessage.error(response.msg)
+    }
+  }
 })
 
 // 初始化数据
@@ -104,7 +128,10 @@ const passwordGenerate = () => {
 
 // 保存
 const cloudSave = () => {
-  save(param).then(response => {
+  const paramEncryption = JSON.parse(JSON.stringify(param))
+  JsEncrypt.prototype.setPublicKey(publicKey.value)
+  paramEncryption.password = JsEncrypt.prototype.encrypt(param.password)
+  save(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({
@@ -124,7 +151,10 @@ const cloudSave = () => {
 
 // 更新
 const cloudUpdate = () => {
-  updateById(param).then(response => {
+  const paramEncryption = JSON.parse(JSON.stringify(param))
+  JsEncrypt.prototype.setPublicKey(publicKey.value)
+  paramEncryption.password = JsEncrypt.prototype.encrypt(param.password)
+  updateById(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({

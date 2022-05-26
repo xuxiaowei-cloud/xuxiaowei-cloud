@@ -1,26 +1,26 @@
 package cloud.xuxiaowei.system.annotation;
 
-import cloud.xuxiaowei.system.validation.NicknameLogicExistValidation;
+import cloud.xuxiaowei.system.validation.OauthClientDetailsIdValidation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 昵称 验证 注解
+ * 客户主键 验证 注解
  * <p>
- * 昵称存在时异常（为 null 时跳过验证）
+ * 客户主键不存在时异常（为 null 时跳过验证）
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Documented
-@Constraint(validatedBy = {NicknameLogicExistValidation.class})
+@Constraint(validatedBy = {OauthClientDetailsIdValidation.class})
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NicknameLogicExistAnnotation {
+public @interface OauthClientDetailsIdAnnotation {
 
-    String message() default "昵称 已被逻辑删除";
+    String message() default "客户主键 不合法";
 
     Class<?>[] groups() default {};
 

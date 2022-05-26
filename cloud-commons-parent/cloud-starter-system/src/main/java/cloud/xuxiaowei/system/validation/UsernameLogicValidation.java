@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.validation;
 
-import cloud.xuxiaowei.system.annotation.NicknameLogicExistAnnotation;
+import cloud.xuxiaowei.system.annotation.UsernameLogicAnnotation;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import javax.validation.ConstraintValidatorContext;
  * @since 0.0.1
  */
 @Slf4j
-public class NicknameLogicExistValidation implements ConstraintValidator<NicknameLogicExistAnnotation, String> {
+public class UsernameLogicValidation implements ConstraintValidator<UsernameLogicAnnotation, String> {
 
     private IUsersService usersService;
 
@@ -30,14 +30,14 @@ public class NicknameLogicExistValidation implements ConstraintValidator<Nicknam
     }
 
     @Override
-    public void initialize(NicknameLogicExistAnnotation constraintAnnotation) {
+    public void initialize(UsernameLogicAnnotation constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value != null) {
-            Users users = usersService.getLogicByNickname(value);
+            Users users = usersService.getLogicByUsername(value);
             if (users == null) {
                 return true;
             } else {
