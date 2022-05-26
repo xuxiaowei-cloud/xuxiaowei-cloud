@@ -19,4 +19,8 @@ public class OauthClientDetailsPageBo implements Serializable {
 
     private Long size;
 
+    private Long oauthClientDetailsId;
+
+    private String clientId;
+
 }

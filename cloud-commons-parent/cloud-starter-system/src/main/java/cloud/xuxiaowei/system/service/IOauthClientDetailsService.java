@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.system.service;
 
 import cloud.xuxiaowei.system.bo.OauthClientDetailsPageBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsSaveBo;
+import cloud.xuxiaowei.system.bo.OauthClientDetailsUpdateBo;
 import cloud.xuxiaowei.system.entity.OauthClientDetails;
 import cloud.xuxiaowei.system.vo.OauthClientDetailsVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -23,5 +25,47 @@ public interface IOauthClientDetailsService extends IService<OauthClientDetails>
      * @return 返回 分页结果
      */
     IPage<OauthClientDetailsVo> pageByOauthClientDetails(OauthClientDetailsPageBo oauthClientDetailsPageBo);
+
+    /**
+     * 根据 客户主键 查询
+     *
+     * @param oauthClientDetailsId 客户主键
+     * @return 返回 查询结果
+     */
+    OauthClientDetailsVo getOauthClientDetailsVoById(Long oauthClientDetailsId);
+
+    /**
+     * 保存客户
+     *
+     * @param oauthClientDetailsSaveBo 客户
+     * @return 返回 保存结果
+     */
+    boolean saveOauthClientDetailsSaveBo(OauthClientDetailsSaveBo oauthClientDetailsSaveBo);
+
+    /**
+     * 更新客户
+     *
+     * @param oauthClientDetailsUpdateBo 客户
+     * @return 返回 更新结果
+     */
+    boolean updateByOauthClientDetailsUpdateBo(OauthClientDetailsUpdateBo oauthClientDetailsUpdateBo);
+
+    /**
+     * 根据 客户ID 查询客户
+     *
+     * @param clientId 客户ID
+     * @return 返回 查询结果
+     */
+    OauthClientDetails getByClientId(String clientId);
+
+    /**
+     * 根据 客户ID 查询客户
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param clientId 客户ID
+     * @return 返回 用户信息
+     */
+    OauthClientDetails getLogicByClientId(String clientId);
 
 }

@@ -1,10 +1,12 @@
 package cloud.xuxiaowei.system.service;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.TimeUnit;
 
 /**
  * {@link HttpSession} 服务接口
@@ -72,7 +74,43 @@ public interface SessionService {
      * @param key   键
      * @param value 值
      */
-    void setAttribute(String key, Object value);
+    void setAttribute(@NonNull String key, Object value);
+
+    /**
+     * 设置 Session（Redis） 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    void setAttr(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit);
+
+    /**
+     * 获取 Session（Redis） 中的值
+     *
+     * @param key 键
+     * @return 返回 Session（Redis） 中的值
+     */
+    String getAttr(@NonNull String key);
+
+    /**
+     * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    void set(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit);
+
+    /**
+     * 获取 Redis 中的值
+     *
+     * @param key 键
+     * @return 返回 Redis 中的值
+     */
+    String get(@NonNull String key);
 
     /**
      * 获取 Session（Redis） 中的值
@@ -80,20 +118,20 @@ public interface SessionService {
      * @param key 键
      * @return 返回 值
      */
-    Object getAttribute(String key);
+    Object getAttribute(@NonNull String key);
 
     /**
      * 移除 Session（Redis） 中的值
      *
      * @param key 键
      */
-    void removeAttribute(String key);
+    void removeAttribute(@NonNull String key);
 
     /**
      * 移除 Session（Redis）
      *
      * @param key 键
      */
-    void remove(String key);
+    void remove(@NonNull String key);
 
 }

@@ -26,6 +26,13 @@ public class TokenInvalidException extends TokenException {
         super(code, msg, cause);
     }
 
+    public TokenInvalidException(String code, String msg, String field) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
+        this.field = field;
+    }
+
     public TokenInvalidException(String code, String msg, String field, Throwable cause) {
         super(code, msg, field, cause);
     }

@@ -1,8 +1,11 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.core.properties.CloudSessionProperties;
 import cloud.xuxiaowei.system.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,9 +35,13 @@ public class SessionServiceImpl implements SessionService {
 
     private TokenStore tokenStore;
 
-    public HttpSession session;
+    private HttpSession session;
 
-    public RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
+
+    private StringRedisTemplate stringRedisTemplate;
+
+    private CloudSessionProperties cloudSessionProperties;
 
     @Autowired
     public void setTokenStore(TokenStore tokenStore) {
@@ -49,6 +56,16 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    @Autowired
+    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
+    }
+
+    @Autowired
+    public void setCloudSessionProperties(CloudSessionProperties cloudSessionProperties) {
+        this.cloudSessionProperties = cloudSessionProperties;
     }
 
     /**
@@ -176,12 +193,65 @@ public class SessionServiceImpl implements SessionService {
      * @param value 值
      */
     @Override
-    public void setAttribute(String key, Object value) {
+    public void setAttribute(@NonNull String key, Object value) {
         String sessionId = sessionId();
         redisTemplate.opsForHash().put(sessionId, key, value);
 
         // 过期时间
-        redisTemplate.expire(sessionId, 7, TimeUnit.HOURS);
+        expire(sessionId);
+    }
+
+    /**
+     * 设置 Session（Redis） 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    @Override
+    public void setAttr(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit) {
+
+        String sessionId = sessionId();
+        stringRedisTemplate.opsForValue().set(sessionId + ":" + key, value, timeout, unit);
+
+    }
+
+    /**
+     * 获取 Session（Redis） 中的值
+     *
+     * @param key 键
+     * @return 返回 Session（Redis） 中的值
+     */
+    @Override
+    public String getAttr(@NonNull String key) {
+
+        String sessionId = sessionId();
+        return stringRedisTemplate.opsForValue().get(sessionId + ":" + key);
+    }
+
+    /**
+     * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+     *
+     * @param key     键
+     * @param value   值
+     * @param timeout 过期时间
+     * @param unit    过期时间单位
+     */
+    @Override
+    public void set(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit) {
+        stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
+    }
+
+    /**
+     * 获取 Redis 中的值
+     *
+     * @param key 键
+     * @return 返回 Redis 中的值
+     */
+    @Override
+    public String get(@NonNull String key) {
+        return stringRedisTemplate.opsForValue().get(key);
     }
 
     /**
@@ -191,8 +261,10 @@ public class SessionServiceImpl implements SessionService {
      * @return 返回 值
      */
     @Override
-    public Object getAttribute(String key) {
+    public Object getAttribute(@NonNull String key) {
         String sessionId = sessionId();
+        // 过期时间
+        expire(sessionId);
         return redisTemplate.opsForHash().get(sessionId, key);
     }
 
@@ -202,7 +274,7 @@ public class SessionServiceImpl implements SessionService {
      * @param key 键
      */
     @Override
-    public void removeAttribute(String key) {
+    public void removeAttribute(@NonNull String key) {
         String sessionId = sessionId();
         redisTemplate.opsForHash().delete(sessionId, key);
     }
@@ -213,9 +285,24 @@ public class SessionServiceImpl implements SessionService {
      * @param key 键
      */
     @Override
-    public void remove(String key) {
+    public void remove(@NonNull String key) {
         String sessionId = sessionId();
         redisTemplate.delete(sessionId);
+        // 过期时间
+        expire(sessionId);
+    }
+
+    /**
+     * 设置过期时间
+     *
+     * @param sessionId Session ID
+     */
+    private void expire(String sessionId) {
+        long timeout = cloudSessionProperties.getTimeout();
+        TimeUnit unit = cloudSessionProperties.getUnit();
+
+        // 过期时间
+        redisTemplate.expire(sessionId, timeout, unit);
     }
 
 }

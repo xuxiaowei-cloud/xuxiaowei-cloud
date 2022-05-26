@@ -2,10 +2,12 @@ package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -49,5 +51,14 @@ public class OauthClientDetails implements Serializable {
 
     private String autoapprove;
 
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
+
+    /**
+     * 逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。
+     */
+    @TableLogic
+    private Boolean deleted;
 
 }

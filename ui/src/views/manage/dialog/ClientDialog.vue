@@ -1,45 +1,56 @@
 <template>
   <el-container>
     <el-form :model="param" label-position="left" label-width="160px" id="cloud-el-form">
-      <el-form-item label="usersId" v-if="props.edit">
-        <el-input v-model="param.usersId" disabled/>
+      <el-form-item label="oauthClientDetailsId" v-if="props.edit">
+        <el-input v-model="param.oauthClientDetailsId" disabled/>
       </el-form-item>
-      <el-form-item label="username">
-        <el-input v-if="props.edit" v-model="param.username" disabled/>
-        <el-input v-else v-model="param.username"/>
+      <el-form-item label="clientId">
+        <el-input v-if="props.edit" v-model="param.clientId" disabled/>
+        <el-input v-else v-model="param.clientId"/>
       </el-form-item>
-      <el-form-item label="nickname">
-        <el-input v-model="param.nickname"/>
+      <el-form-item label="clientSecret">
+        <el-input class="cloud-el-password" v-model="param.clientSecret"/>
+        <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机凭证</el-button>
       </el-form-item>
-      <el-form-item label="password">
-        <el-input class="cloud-el-password" v-model="param.password"/>
-        <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机密码</el-button>
+      <el-form-item label="grantTypes">
+        <el-input v-model="param.authorizedGrantTypes"/>
       </el-form-item>
-      <el-form-item label="enabled">
-        <el-switch v-model="param.enabled"/>
+      <el-form-item label="accessTokenValidity">
+        <el-input v-model="param.accessTokenValidity"/>
       </el-form-item>
-      <el-form-item label="accountNonExpired">
-        <el-switch v-model="param.accountNonExpired"/>
+      <el-form-item label="refreshTokenValidity">
+        <el-input v-model="param.refreshTokenValidity"/>
       </el-form-item>
-      <el-form-item label="credentialsNonExpired">
-        <el-switch v-model="param.credentialsNonExpired"/>
+      <el-form-item label="scope">
+        <el-input v-model="param.scope"/>
       </el-form-item>
-      <el-form-item label="accountNonLocked">
-        <el-switch v-model="param.accountNonLocked"/>
+      <el-form-item label="autoapprove">
+        <el-input v-model="param.autoapprove"/>
       </el-form-item>
-
+      <el-form-item label="redirectUri">
+        <el-input v-model="param.webServerRedirectUri"/>
+      </el-form-item>
+      <el-form-item label="resourceIds">
+        <el-input v-model="param.resourceIds"/>
+      </el-form-item>
+      <el-form-item label="authorities">
+        <el-input v-model="param.authorities"/>
+      </el-form-item>
+      <el-form-item label="additionalInformation">
+        <el-input v-model="param.additionalInformation"/>
+      </el-form-item>
       <el-form-item>
         <el-button class="cloud-el-button" v-if="props.edit" @click="cloudUpdate">更新</el-button>
         <el-button class="cloud-el-button" v-else @click="cloudSave">保存</el-button>
       </el-form-item>
-
     </el-form>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, defineEmits, ref } from 'vue'
-import { getById, save, updateById, codeRsa } from '../../../api/user'
+import { defineEmits, defineProps, reactive, ref } from 'vue'
+import { getById, save, updateById } from '../../../api/authorization-server'
+import { codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
@@ -57,21 +68,25 @@ const props = defineProps({
   edit: { // 是否编辑
     type: Boolean
   },
-  usersId: { // 编辑用户主键
+  clientId: { // 编辑客户主键
     type: Number
   }
 })
 
 // 参数
 const param = reactive({
-  usersId: null,
-  username: null,
-  nickname: null,
-  password: null,
-  enabled: true,
-  accountNonExpired: true,
-  credentialsNonExpired: true,
-  accountNonLocked: true,
+  oauthClientDetailsId: null,
+  clientId: null,
+  clientSecret: null,
+  authorizedGrantTypes: null,
+  accessTokenValidity: null,
+  refreshTokenValidity: null,
+  scope: null,
+  autoapprove: null,
+  webServerRedirectUri: null,
+  resourceIds: null,
+  authorities: null,
+  additionalInformation: null,
   // 识别码
   code: null
 })
@@ -96,18 +111,22 @@ codeRsa().then(response => {
 
 // 初始化数据
 const initData = () => {
-  if (props.edit && props.usersId) {
-    getById(props.usersId).then(response => {
+  if (props.edit && props.clientId) {
+    getById(props.clientId).then(response => {
       if (response.code === store.state.settings.okCode) {
         const data = response.data
         if (data) {
-          param.usersId = data.usersId
-          param.username = data.username
-          param.nickname = data.nickname
-          param.enabled = data.enabled
-          param.accountNonExpired = data.accountNonExpired
-          param.credentialsNonExpired = data.credentialsNonExpired
-          param.accountNonLocked = data.accountNonLocked
+          param.oauthClientDetailsId = data.oauthClientDetailsId
+          param.clientId = data.clientId
+          param.authorizedGrantTypes = data.authorizedGrantTypes
+          param.accessTokenValidity = data.accessTokenValidity
+          param.refreshTokenValidity = data.refreshTokenValidity
+          param.scope = data.scope
+          param.autoapprove = data.autoapprove
+          param.webServerRedirectUri = data.webServerRedirectUri
+          param.resourceIds = data.resourceIds
+          param.authorities = data.authorities
+          param.additionalInformation = data.additionalInformation
         }
       } else {
         ElMessage.error(response.msg)
@@ -123,14 +142,14 @@ initData()
 
 // 生成随机密码
 const passwordGenerate = () => {
-  param.password = randomPassword()
+  param.clientSecret = randomPassword()
 }
 
 // 保存
 const cloudSave = () => {
   const paramEncryption = JSON.parse(JSON.stringify(param))
   JsEncrypt.prototype.setPublicKey(publicKey.value)
-  paramEncryption.password = JsEncrypt.prototype.encrypt(param.password)
+  paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
   save(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
@@ -153,7 +172,7 @@ const cloudSave = () => {
 const cloudUpdate = () => {
   const paramEncryption = JSON.parse(JSON.stringify(param))
   JsEncrypt.prototype.setPublicKey(publicKey.value)
-  paramEncryption.password = JsEncrypt.prototype.encrypt(param.password)
+  paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
   updateById(paramEncryption).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {

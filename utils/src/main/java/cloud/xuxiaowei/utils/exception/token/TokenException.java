@@ -27,6 +27,13 @@ public class TokenException extends CloudException {
         super(code, msg, cause);
     }
 
+    public TokenException(String code, String msg, String field) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
+        this.field = field;
+    }
+
     public TokenException(String code, String msg, String field, Throwable cause) {
         super(code, msg, field, cause);
     }

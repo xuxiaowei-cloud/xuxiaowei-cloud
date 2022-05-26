@@ -27,14 +27,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- 修复 spring-cloud-starter-alibaba-nacos-discovery 引入 commons-io 的漏洞 -->
-        <!-- 子模块中引入 spring-cloud-starter-alibaba-nacos-discovery 可缺省引入 -->
-        <!--  CVE-2021-29425：https://github.com/advisories/GHSA-gwrp-pvrq-jmwv -->
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
 
         <!-- Nacos 配置 -->
         <dependency>
@@ -76,14 +68,6 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-        </dependency>
-        <!-- 修复 spring-security-oauth2-autoconfigure 引入 bcpkix-jdk15on 的漏洞 -->
-        <!-- 子模块中引入 spring-security-oauth2-autoconfigure 可缺省引入 -->
-        <!-- CVE-2020-15522：https://github.com/advisories/GHSA-6xx3-rg99-gc3p -->
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
         </dependency>
 
         <dependency>

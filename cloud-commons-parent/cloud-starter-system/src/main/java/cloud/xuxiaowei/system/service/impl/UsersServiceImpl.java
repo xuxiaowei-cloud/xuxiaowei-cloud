@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
+import cloud.xuxiaowei.system.bo.PasswordBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
 import cloud.xuxiaowei.system.entity.Authorities;
@@ -8,8 +9,14 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
 import cloud.xuxiaowei.system.service.IAuthorityService;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
+import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import cloud.xuxiaowei.validation.utils.ValidationUtils;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -39,9 +46,16 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     private IAuthorityService authorityService;
 
+    private SessionService sessionService;
+
     @Autowired
     public void setAuthorityService(IAuthorityService authorityService) {
         this.authorityService = authorityService;
+    }
+
+    @Autowired
+    public void setSessionService(SessionService sessionService) {
+        this.sessionService = sessionService;
     }
 
     /**
@@ -197,13 +211,41 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
      */
     @Override
     public boolean saveUsersSaveBo(UsersSaveBo usersSaveBo) {
+
+        String passwordDecrypt = passwordDecrypt(usersSaveBo.getCode(), usersSaveBo.getPassword());
+
+        if (!StringUtils.hasText(passwordDecrypt)) {
+            throw new CloudRuntimeException("密码 不能为空");
+        }
+
         Users users = new Users();
         BeanUtils.copyProperties(usersSaveBo, users);
+
+        users.setPassword(passwordDecrypt);
 
         // 用户密码加密
         encode(users);
 
         return save(users);
+    }
+
+    private String passwordDecrypt(String code, String password) {
+        String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
+
+        String passwordDecrypt;
+        if (StringUtils.hasText(privateKey)) {
+            RSA rsa = new RSA(privateKey, null);
+
+            if (Boolean.FALSE.toString().equals(password)) {
+                return null;
+            }
+
+            passwordDecrypt = rsa.decryptStr(password, KeyType.PrivateKey);
+            ValidationUtils.validate(new PasswordBo(passwordDecrypt));
+        } else {
+            throw new CloudRuntimeException("未找到RSA私钥，请刷新页面后重试");
+        }
+        return passwordDecrypt;
     }
 
     /**
@@ -214,8 +256,13 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
      */
     @Override
     public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
+
+        String passwordDecrypt = passwordDecrypt(usersUpdateBo.getCode(), usersUpdateBo.getPassword());
+
         Users users = new Users();
         BeanUtils.copyProperties(usersUpdateBo, users);
+
+        users.setPassword(passwordDecrypt);
 
         // 用户密码加密
         encode(users);
@@ -235,6 +282,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             String encode = delegatingPasswordEncoder.encode(password);
             users.setPassword(encode);
+        } else {
+            users.setPassword(null);
         }
     }
 

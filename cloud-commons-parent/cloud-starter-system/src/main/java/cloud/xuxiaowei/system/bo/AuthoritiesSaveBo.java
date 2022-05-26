@@ -3,8 +3,6 @@ package cloud.xuxiaowei.system.bo;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -28,8 +26,6 @@ public class AuthoritiesSaveBo implements Serializable {
     /**
      * 权限
      */
-    @Size(min = 1, message = "权限 不能为空")
-    @NotNull(message = "权限 不能为空")
     private Set<String> authorityList;
 
 }

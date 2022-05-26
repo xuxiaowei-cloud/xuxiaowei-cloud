@@ -1,26 +1,26 @@
 package cloud.xuxiaowei.system.annotation;
 
-import cloud.xuxiaowei.system.validation.UsernameLogicValidation;
+import cloud.xuxiaowei.system.validation.ClientIdValidation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 昵称 验证 注解
+ * 客户ID 验证 注解
  * <p>
- * 昵称存在时异常（为 null 时跳过验证）
+ * 客户ID不存在时异常（为 null 时跳过验证）
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Documented
-@Constraint(validatedBy = {UsernameLogicValidation.class})
+@Constraint(validatedBy = {ClientIdValidation.class})
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UsernameLogicAnnotation {
+public @interface ClientIdAnnotation {
 
-    String message() default "用户名 已被逻辑删除";
+    String message() default "客户ID 不合法";
 
     Class<?>[] groups() default {};
 
