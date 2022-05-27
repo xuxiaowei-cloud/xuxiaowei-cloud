@@ -13,6 +13,10 @@
 </div>
 
 <p align="center">
+  基于 Spring Boot 2.7.0、OAuth 2.0 的微服务
+</p>
+
+<p align="center">
   为简化开发工作、提高生产率、解决常见问题而生
 </p>
 
@@ -303,14 +307,14 @@ cloud.xuxiaowei
 2. [十二要素应用宣言](https://12factor.net/zh_cn/)
 
 3. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
-   1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
+    1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
-   1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
+    1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
 5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
-   1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
-   2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
+    1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
+    2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
 6. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
-   1. [Java SDK快速入门](https://help.aliyun.com/document_detail/195870.html)
+    1. [Java SDK快速入门](https://help.aliyun.com/document_detail/195870.html)
 
 7. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
 8. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
