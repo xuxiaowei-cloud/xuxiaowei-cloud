@@ -58,7 +58,7 @@
     "element-plus": "2.2.2",
     "js-cookie": "3.0.1",
     "jsencrypt": "3.2.1",
-    "sockjs-client": "1.6.0",
+    "sockjs-client": "1.6.1",
     "stompjs": "2.3.3",
     "vue": "3.2.36",
     "vue-echarts": "6.0.3",
@@ -67,7 +67,7 @@
     "vuex-persistedstate": "4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.0.0-rc.12",
+    "@tauri-apps/cli": "1.0.0-rc.13",
     "@typescript-eslint/parser": "5.26.0",
     "@vitejs/plugin-vue": "2.3.3",
     "@vue/cli-plugin-eslint": "5.0.4",

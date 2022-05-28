@@ -331,8 +331,8 @@ cloud.xuxiaowei
 16. [阿里云云效 仓库文件](https://developer.aliyun.com/mvn/view)
 
 17. [阿里云 NPM](https://developer.aliyun.com/mirror/NPM)
-18. [阿里云 nodejs-release镜像](https://developer.aliyun.com/mirror/nodejs-release)
-19. [阿里云 mysql镜像](https://developer.aliyun.com/mirror/mysql)
+18. [阿里云 nodejs-release 镜像](https://developer.aliyun.com/mirror/nodejs-release)
+19. [阿里云 mysql 镜像](https://developer.aliyun.com/mirror/mysql)
 20. [阿里云 ubuntu-releases 镜像](https://developer.aliyun.com/mirror/ubuntu-releases)
 21. [阿里云 CentOS 镜像](https://developer.aliyun.com/mirror/centos)
 

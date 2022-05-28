@@ -128,6 +128,7 @@ npm create vite@latest ui -- --template vue-ts
     - @tauri-apps/api
     - @tauri-apps/cli
     - 将 [config](config) 文件放在 `cargo` 安装目录下
+    - 如果在运行打包时，下载 `wix3` 失败，可自行下载后，解压到 `src-tauri\WixTools` 文件夹中
 
 ## 依赖地址
 
