@@ -82,23 +82,23 @@ const grantTypes = ref([])
 const grantTypeOptions = [
   {
     value: 'authorization_code',
-    label: 'authorization_code',
+    label: 'authorization_code'
   },
   {
     value: 'refresh_token',
-    label: 'refresh_token',
+    label: 'refresh_token'
   },
   {
     value: 'client_credentials',
-    label: 'client_credentials',
+    label: 'client_credentials'
   },
   {
     value: 'password',
-    label: 'password',
+    label: 'password'
   },
   {
     value: 'implicit',
-    label: 'implicit',
+    label: 'implicit'
   }
 ]
 
@@ -149,7 +149,7 @@ const initData = () => {
           param.clientId = data.clientId
           const authorizedGrantTypes = data.authorizedGrantTypes
           if (authorizedGrantTypes) {
-            authorizedGrantTypes.split(",").forEach(function(e: String) {
+            authorizedGrantTypes.split(',').forEach(function (e: String) {
               // @ts-ignore
               grantTypes.value.push(e)
             })
