@@ -18,10 +18,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="accessTokenValidity">
-        <el-input v-model="param.accessTokenValidity"/>
+        <el-input-number v-model="param.accessTokenValidity" :min="1"/>
       </el-form-item>
       <el-form-item label="refreshTokenValidity">
-        <el-input v-model="param.refreshTokenValidity"/>
+        <el-input-number v-model="param.refreshTokenValidity" :min="1"/>
       </el-form-item>
       <el-form-item label="scope">
         <el-input v-model="param.scope"/>
