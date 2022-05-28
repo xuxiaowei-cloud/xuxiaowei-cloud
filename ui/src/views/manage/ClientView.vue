@@ -5,7 +5,7 @@
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
     <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('manage_client_delete')">删除</el-button>
-    <el-button class="cloud-el-remove" @click="cloudAdd" v-if="hasAuthority('manage_client_add')">添加
+    <el-button class="cloud-el-add" @click="cloudAdd" v-if="hasAuthority('manage_client_add')">添加
     </el-button>
   </div>
 
@@ -96,7 +96,6 @@ const dialogVisibleClientId = ref<number>()
 const clientDialogVisibleTitle = ref<String>()
 // 客户弹窗是否编辑
 const edit = ref(false)
-
 
 // 添加客户
 const cloudAdd = () => {
@@ -258,7 +257,7 @@ const handleSelectionChange = (val: any[]) => {
   // 清空
   clientIds.value = []
   for (const i in val) {
-    clientIds.value[i] = multipleSelection.value[i].usersId
+    clientIds.value[i] = multipleSelection.value[i].oauthClientDetailsId
   }
 }
 
@@ -273,7 +272,8 @@ const handleSelectionChange = (val: any[]) => {
 .cloud-el-input,
 .cloud-el-search,
 .cloud-el-reset,
-.cloud-el-remove {
+.cloud-el-remove,
+.cloud-el-add {
   margin-left: 5px;
   margin-right: 5px;
 }
