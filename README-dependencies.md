@@ -141,7 +141,7 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──com.fasterxml.jackson.core:jackson-annotations:jar:2.13.3:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.63:provided
 │        └──org.springframework.security:spring-security-core:jar:5.7.1:provided
-│        └──org.springframework.boot:spring-boot-starter-validation:jar:2.7.0:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.2.RELEASE:compile
 │        └──org.springframework.boot:spring-boot-starter-aop:jar:2.7.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
