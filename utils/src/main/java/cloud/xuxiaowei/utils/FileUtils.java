@@ -129,10 +129,10 @@ public class FileUtils {
                         }
 
                     } catch (FileNotFoundException ex) {
-                        log.error("不存在：{}", filePath, ex);
+                        log.error("文件不存在异常：{}", filePath, ex);
                         throw new RuntimeException(ex);
                     } catch (IOException ex) {
-                        log.error("：{}", filePath, ex);
+                        log.error("解压异常：{}", filePath, ex);
                         throw new RuntimeException(ex);
                     }
                 }
