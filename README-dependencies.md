@@ -389,6 +389,7 @@ cloud.xuxiaowei.example:example-parent:pom:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.plugins:bos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:provided
 │        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
@@ -396,6 +397,7 @@ cloud.xuxiaowei.plugins:bos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.plugins:cos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:provided
 │        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
@@ -403,6 +405,7 @@ cloud.xuxiaowei.plugins:cos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.plugins:obs-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:provided
 │        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
@@ -410,6 +413,7 @@ cloud.xuxiaowei.plugins:obs-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.plugins:oss-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:provided
 │        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
