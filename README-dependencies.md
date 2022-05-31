@@ -137,6 +137,7 @@ cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
+│        └──cn.hutool:hutool-all:jar:5.8.2:compile
 │        └──org.springframework.boot:spring-boot-starter-json:jar:2.7.0:provided
 │        └──com.fasterxml.jackson.core:jackson-annotations:jar:2.13.3:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.63:provided
@@ -195,7 +196,6 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
-│        └──cn.hutool:hutool-all:jar:5.8.1:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
@@ -282,7 +282,6 @@ cloud.xuxiaowei:canal:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
-│        └──cn.hutool:hutool-all:jar:5.8.1:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
