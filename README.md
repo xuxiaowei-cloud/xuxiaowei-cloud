@@ -313,13 +313,18 @@ cloud.xuxiaowei
 
 3. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
     1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
+    2. [安装BOSCMD](https://cloud.baidu.com/doc/BOS/s/qjwvyqegc)
+    3. [配置BOSCMD](https://cloud.baidu.com/doc/BOS/s/Ejwvyqe55)
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
     1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
+    2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
 5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
     1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
     2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
+    3. [下载和安装obsutil](https://support.huaweicloud.com/utiltg-obs/obs_11_0003.html)
 6. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
     1. [Java SDK快速入门](https://help.aliyun.com/document_detail/195870.html)
+    2. [命令行工具ossutil快速入门](https://help.aliyun.com/document_detail/195960.html)
 
 7. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
 8. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
