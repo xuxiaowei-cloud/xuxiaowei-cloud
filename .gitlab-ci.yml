@@ -99,17 +99,6 @@ s2-package:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
-  tags:
-    - s2
-  only:
-    - s2
-
-#
-# s2 上传
-s2-artifacts:
-  stage: s2-service
-  script:
-    - echo 上传artifacts
   artifacts:
     paths:
       - target/xuxiaowei-cloud-starter-parent-*
