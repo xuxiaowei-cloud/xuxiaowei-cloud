@@ -1,4 +1,0 @@
-# 服务器
-server:
-  # 端口
-  port: ${ui_port:1001}

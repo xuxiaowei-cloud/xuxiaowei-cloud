@@ -37,6 +37,13 @@
 
     <dependencies>
 
+        <!-- 工具类 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
