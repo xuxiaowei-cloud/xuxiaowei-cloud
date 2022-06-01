@@ -481,7 +481,6 @@ s2-ui:
   script:
     - MODULE='ui'
     - echo MODULE：$MODULE
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - RELEASE_PATH=/home/gitlab-runner/node/$MODULE
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建文件夹完成; fi
     - echo RELEASE_PATH：$RELEASE_PATH
