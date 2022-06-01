@@ -80,6 +80,7 @@ package:
 # s2 打包
 s2-package:
   stage: s2-package
+  image: maven:3.6.3-jdk-8
   script:
     - source /etc/profile && echo 刷新环境变量
     - git --version
@@ -132,8 +133,6 @@ s2-package:
       - ui/target/ui-*
       - ui/dist
       - utils/target/utils-*
-  tags:
-    - s2
   only:
     - s2
 
