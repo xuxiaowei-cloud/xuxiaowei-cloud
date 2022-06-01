@@ -13,13 +13,15 @@
         <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机凭证</el-button>
       </el-form-item>
       <el-form-item label="grantTypes">
-        <el-input v-model="param.authorizedGrantTypes"/>
+        <el-select v-model="grantTypes" multiple placeholder="Select grantTypes" style="width: 100%">
+          <el-option v-for="item in grantTypeOptions" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="accessTokenValidity">
-        <el-input v-model="param.accessTokenValidity"/>
+        <el-input-number v-model="param.accessTokenValidity" :min="1"/>
       </el-form-item>
       <el-form-item label="refreshTokenValidity">
-        <el-input v-model="param.refreshTokenValidity"/>
+        <el-input-number v-model="param.refreshTokenValidity" :min="1"/>
       </el-form-item>
       <el-form-item label="scope">
         <el-input v-model="param.scope"/>
@@ -73,6 +75,33 @@ const props = defineProps({
   }
 })
 
+// 授权类型
+const grantTypes = ref([])
+
+// 授权类型：可选内容
+const grantTypeOptions = [
+  {
+    value: 'authorization_code',
+    label: 'authorization_code'
+  },
+  {
+    value: 'refresh_token',
+    label: 'refresh_token'
+  },
+  {
+    value: 'client_credentials',
+    label: 'client_credentials'
+  },
+  {
+    value: 'password',
+    label: 'password'
+  },
+  {
+    value: 'implicit',
+    label: 'implicit'
+  }
+]
+
 // 参数
 const param = reactive({
   oauthClientDetailsId: null,
@@ -118,7 +147,13 @@ const initData = () => {
         if (data) {
           param.oauthClientDetailsId = data.oauthClientDetailsId
           param.clientId = data.clientId
-          param.authorizedGrantTypes = data.authorizedGrantTypes
+          const authorizedGrantTypes = data.authorizedGrantTypes
+          if (authorizedGrantTypes) {
+            authorizedGrantTypes.split(',').forEach(function (e: String) {
+              // @ts-ignore
+              grantTypes.value.push(e)
+            })
+          }
           param.accessTokenValidity = data.accessTokenValidity
           param.refreshTokenValidity = data.refreshTokenValidity
           param.scope = data.scope
@@ -145,12 +180,18 @@ const passwordGenerate = () => {
   param.clientSecret = randomPassword()
 }
 
-// 保存
-const cloudSave = () => {
+// 数据处理
+const encryption = () => {
   const paramEncryption = JSON.parse(JSON.stringify(param))
   JsEncrypt.prototype.setPublicKey(publicKey.value)
   paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
-  save(paramEncryption).then(response => {
+  paramEncryption.authorizedGrantTypes = grantTypes.value.toString()
+  return paramEncryption
+}
+
+// 保存
+const cloudSave = () => {
+  save(encryption()).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({
@@ -170,10 +211,7 @@ const cloudSave = () => {
 
 // 更新
 const cloudUpdate = () => {
-  const paramEncryption = JSON.parse(JSON.stringify(param))
-  JsEncrypt.prototype.setPublicKey(publicKey.value)
-  paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
-  updateById(paramEncryption).then(response => {
+  updateById(encryption()).then(response => {
     console.log(response)
     if (response.code === store.state.settings.okCode) {
       ElMessage({
