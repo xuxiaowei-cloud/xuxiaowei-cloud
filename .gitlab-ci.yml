@@ -130,6 +130,7 @@ s2-package:
       - resource-services-parent/websocket/target/websocket-*
       - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
+      - ui/dist
       - utils/target/utils-*
   tags:
     - s2
