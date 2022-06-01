@@ -95,7 +95,9 @@ public class OssMojo extends AbstractMojo {
             FileUtils.unzip(ossutilPath, workDirectoryPath);
             log.info("{} 解压完成", ossutilPath);
 
-            executableFile = workDirectoryPath + filename.substring(0, filename.length() - 4);
+            String substring = filename.substring(0, filename.length() - 4);
+
+            executableFile = workDirectoryPath  + File.separator + substring + File.separator + substring;
         } else {
             executableFile = ossutilPath;
         }
