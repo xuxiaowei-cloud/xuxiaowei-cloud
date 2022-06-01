@@ -100,9 +100,6 @@ s2-package:
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端rar打包完成
     - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo UI服务前端rar打包完成
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
   cache:
     paths:
       - .m2/repository
@@ -154,6 +151,9 @@ s2-gateway:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='gateway'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -201,6 +201,9 @@ s2-admin-server:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='admin-server'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -248,6 +251,9 @@ s2-authorization-server:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='authorization-server'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -295,6 +301,9 @@ s2-passport:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='passport'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -342,6 +351,9 @@ s2-audit:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='audit'
@@ -391,6 +403,9 @@ s2-canal:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='canal'
@@ -440,6 +455,9 @@ s2-user:
     - job: s2-package
       artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='user'
