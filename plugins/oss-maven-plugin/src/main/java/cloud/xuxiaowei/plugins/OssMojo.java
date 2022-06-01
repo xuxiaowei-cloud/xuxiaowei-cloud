@@ -52,7 +52,7 @@ public class OssMojo extends AbstractMojo {
 
         boolean isWin = name.toLowerCase().startsWith(win);
         boolean isLin = name.toLowerCase().startsWith(lin);
-        boolean is64 = name.contains("64");
+        boolean is64 = arch.contains("64");
 
         String url;
         if (isWin) {
