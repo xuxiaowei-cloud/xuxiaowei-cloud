@@ -79,7 +79,7 @@ public class OssMojo extends AbstractMojo {
         String[] urlSplit = url.split("/");
         String filename = urlSplit[urlSplit.length - 1];
         String workDirectoryPath = workDirectory.getPath();
-        String ossutilPath = workDirectoryPath + filename;
+        String ossutilPath = workDirectoryPath + File.separator + filename;
 
         log.info("ossutil 下载 URL：{}，路径：{}", url, ossutilPath);
 
