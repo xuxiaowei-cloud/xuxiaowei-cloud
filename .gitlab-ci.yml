@@ -3,14 +3,6 @@ stages:
   - s2-package
   - s2-service
 
-cache:
-  paths:
-    - .m2/repository
-    - passport-ui/node/
-    - passport-ui/node_modules/
-    - ui/node/
-    - ui/node_modules/
-
 #
 # package
 package:
@@ -35,6 +27,13 @@ package:
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端rar打包完成
     - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo UI服务前端rar打包完成
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
   artifacts:
     name: package
     paths:
@@ -93,6 +92,13 @@ s2-package:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
     - echo JAR_PATH：$JAR_PATH
     - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
   tags:
     - s2
   only:
