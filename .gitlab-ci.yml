@@ -82,7 +82,12 @@ s2-package:
   stage: s2-package
   image: maven:3.6.3-jdk-8
   script:
-    - source /etc/profile && echo 刷新环境变量
+    - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    - echo $GPG_FILE
+    - gpg --import $GPG_FILE
+    - SETTINGS_FILE=`find / -name settings.xml`
+    - echo $SETTINGS_FILE
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -90,6 +95,8 @@ s2-package:
     - echo 项目路径：$CI_PROJECT_DIR
     - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端rar打包完成
+    - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo UI服务前端rar打包完成
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
     - echo JAR_PATH：$JAR_PATH
     - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
