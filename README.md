@@ -1,10 +1,10 @@
-<div align="center">
+<div align="center" style="text-align: center;">
     <h1>xuxiaowei-cloud</h1>
     <h3>徐晓伟微服务</h3>
-    <a href="https://github.com/996icu/996.ICU/blob/master/LICENSE">
+    <a target="_blank" href="https://github.com/996icu/996.ICU/blob/master/LICENSE">
         <img alt="License-Anti" src="https://img.shields.io/badge/License-Anti 996-blue.svg">
     </a>
-    <a href="https://996.icu/#/zh_CN">
+    <a target="_blank" href="https://996.icu/#/zh_CN">
         <img alt="Link-996" src="https://img.shields.io/badge/Link-996.icu-red.svg">
     </a>
     <div>
@@ -12,101 +12,106 @@
     </div>
 </div>
 
-<p align="center">
-  基于 Spring Boot 2.7.0、OAuth 2.0 的微服务
-</p>
+<p></p>
 
-<p align="center">
+<div align="center" style="text-align: center;">
+  基于 JDK 8、Spring Boot 2.7.0、OAuth 2.0 的微服务
+</div>
+
+<p></p>
+
+<div align="center" style="text-align: center;">
   为简化开发工作、提高生产率、解决常见问题而生
-</p>
+</div>
 
+<p></p>
 
-<p align="center">
+<div align="center" style="text-align: center;">
 
-  <a href="https://blog.csdn.net/qq_32596527">
+  <a target="_blank" href="https://blog.csdn.net/qq_32596527">
     <img alt="CSDN 码龄" src="https://img.shields.io/badge/dynamic/xml?color=orange&label=CSDN&query=%2F%2Fdiv%5B%40class%3D%27person-code-age%27%5D%5B1%5D%2Fspan%5B1%5D%2Ftext%28%29%5B1%5D&url=https%3A%2F%2Fblog.csdn.net%2Fqq_32596527">
   </a>
 
-  <a href="https://blog.csdn.net/qq_32596527">
+  <a target="_blank" href="https://blog.csdn.net/qq_32596527">
     <img alt="CSDN 粉丝" src="https://img.shields.io/badge/dynamic/xml?color=orange&label=CSDN&prefix=%E7%B2%89%E4%B8%9D&query=%2F%2Fli%5B4%5D%2Fa%5B1%5D%2Fdiv%5B%40class%3D%27user-profile-statistics-num%27%5D%5B1%5D%2Ftext%28%29%5B1%5D&url=https%3A%2F%2Fblog.csdn.net%2Fqq_32596527">
   </a>
 
-  <a href="https://blog.csdn.net/qq_32596527">
+  <a target="_blank" href="https://blog.csdn.net/qq_32596527">
     <img alt="CSDN 访问" src="https://img.shields.io/badge/dynamic/xml?color=orange&label=CSDN&prefix=%E8%AE%BF%E9%97%AE&query=%2F%2Fli%5B1%5D%2Fdiv%5B%40class%3D%27user-profile-statistics-num%27%5D%5B1%5D%2Ftext%28%29%5B1%5D&url=https%3A%2F%2Fblog.csdn.net%2Fqq_32596527">
   </a>
 
-  <a href="https://blog.csdn.net/qq_32596527">
+  <a target="_blank" href="https://blog.csdn.net/qq_32596527">
     <img alt="CSDN 博客" src="https://img.shields.io/badge/dynamic/json?color=orange&label=CSDN&prefix=%E5%8D%9A%E5%AE%A2&query=%24.data.blog&suffix=%E7%AF%87&url=https%3A%2F%2Fblog.csdn.net%2Fcommunity%2Fhome-api%2Fv1%2Fget-tab-total%3Fusername%3Dqq_32596527">
   </a>
 
-  <a href="https://www.jetbrains.com/idea">
+  <a target="_blank" href="https://www.jetbrains.com/idea">
     <img alt="IntelliJ IDEA" src="https://img.shields.io/static/v1?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAAAAAByaaZbAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBRkBICRBfW8eAAABPklEQVRIx+2UTStEYRiGr/kqZWaKMoyQUsoCWdn4AZKPlZSF5fgPVhYWStlZqPkB7GynWSg/QCmhUFOUGCPNZBrlnNtijmneOYZzykrn2p2e536f577P2wsBPvmQlACQg13Mr4b9CCTpuMunQIdGT8gQRCBZAQRPu0B6aRjsvqKXCRcAJO8lTTf3/GQJKF8Bz5481CfMvEnnxtrRduKhPET7R6GWka+UrBW//8Hej3haqZQFYgNz8VDmYbNNT8iSFDdMM1iSyh3uWHsAesNgVc1D7k4hMeISrN0uAOtAwTYF6Smg2UQUYDYbO8qdjS0Cua9CahsgPd8NleuW3WOFRiTV+nTj8mnL5XbixinVlnEJ7L1vkuzcuJT0ejDufL98UTjZmWyJsqFJvT9aBAT8J5zrrXYFF788xn8gCPDCJ2cr3I1zqSjOAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA1LTI1VDAxOjMyOjM2KzAwOjAwH/0yeQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNS0yNVQwMTozMjozNiswMDowMG6gisUAAAAASUVORK5CYII=&message=IntelliJ IDEA">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/xuxiaowei-cloud/xuxiaowei-cloud?logo=github">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="GitHub forks" src="https://img.shields.io/github/forks/xuxiaowei-cloud/xuxiaowei-cloud?logo=github">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xuxiaowei-cloud/xuxiaowei-cloud?logo=github">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-cloud/xuxiaowei-cloud">
   </a>
 
-  <a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="码云Gitee stars" src="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud/badge/star.svg?theme=blue">
   </a>
 
-  <a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="码云Gitee forks" src="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud/badge/fork.svg?theme=blue">
   </a>
 
-  <a href="https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="Gitlab stars" src="https://badgen.net/gitlab/stars/xuxiaowei-cloud/xuxiaowei-cloud?icon=gitlab">
   </a>
 
-  <a href="https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="Gitlab forks" src="https://badgen.net/gitlab/forks/xuxiaowei-cloud/xuxiaowei-cloud?icon=gitlab">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="OSCS Status" src="https://www.oscs1024.com/platform/badge/xuxiaowei-cloud/xuxiaowei-cloud.svg?size=small">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud">
     <img alt="total lines" src="https://tokei.rs/b1/github/xuxiaowei-cloud/xuxiaowei-cloud">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.0">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Spring Cloud" src="https://img.shields.io/static/v1?label=Spring Cloud&message=2021.0.2">
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
   </a>
 
-  <a href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
+  <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
     <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_322-blue.svg"/>
   </a>
 
-  <a href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=6.2.6">
   </a>
 
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+  <a target="_blank" href="https://www.apache.org/licenses/LICENSE-2.0">
     <img alt="code style" src="https://img.shields.io/badge/license-Apache 2-blue">
   </a>
-</p>
+</div>
 
 ## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
 
@@ -308,13 +313,18 @@ cloud.xuxiaowei
 
 3. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
     1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
+    2. [安装BOSCMD](https://cloud.baidu.com/doc/BOS/s/qjwvyqegc)
+    3. [配置BOSCMD](https://cloud.baidu.com/doc/BOS/s/Ejwvyqe55)
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
     1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
+    2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
 5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
     1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
     2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
+    3. [下载和安装obsutil](https://support.huaweicloud.com/utiltg-obs/obs_11_0003.html)
 6. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
     1. [Java SDK快速入门](https://help.aliyun.com/document_detail/195870.html)
+    2. [命令行工具ossutil快速入门](https://help.aliyun.com/document_detail/195960.html)
 
 7. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
 8. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
