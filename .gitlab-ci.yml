@@ -3,14 +3,6 @@ stages:
   - s2-package
   - s2-service
 
-cache:
-  paths:
-    - .m2/repository
-    - passport-ui/node/
-    - passport-ui/node_modules/
-    - ui/node/
-    - ui/node_modules/
-
 #
 # package
 package:
@@ -35,6 +27,13 @@ package:
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端rar打包完成
     - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo UI服务前端rar打包完成
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
   artifacts:
     name: package
     paths:
@@ -93,17 +92,13 @@ s2-package:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
     - echo JAR_PATH：$JAR_PATH
     - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
-  tags:
-    - s2
-  only:
-    - s2
-
-#
-# s2 上传
-s2-artifacts:
-  stage: s2-service
-  script:
-    - echo 上传artifacts
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
   artifacts:
     paths:
       - target/xuxiaowei-cloud-starter-parent-*
@@ -145,6 +140,9 @@ s2-artifacts:
 # s2 发布网关服务
 s2-gateway:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='gateway'
     - echo MODULE：$MODULE
@@ -189,6 +187,9 @@ s2-gateway:
 # s2 发布监控（管理）服务
 s2-admin-server:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='admin-server'
     - echo MODULE：$MODULE
@@ -233,6 +234,9 @@ s2-admin-server:
 # s2 发布授权服务
 s2-authorization-server:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='authorization-server'
     - echo MODULE：$MODULE
@@ -277,6 +281,9 @@ s2-authorization-server:
 # s2 发布登录服务
 s2-passport:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='passport'
     - echo MODULE：$MODULE
@@ -321,6 +328,9 @@ s2-passport:
 # s2 发布审计服务
 s2-audit:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - cd resource-services-parent
     - pwd
@@ -367,6 +377,9 @@ s2-audit:
 # s2 发布MySQL二进制订阅服务
 s2-canal:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - cd resource-services-parent
     - pwd
@@ -413,6 +426,9 @@ s2-canal:
 # s2 发布用户服务
 s2-user:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - cd resource-services-parent
     - pwd
@@ -459,6 +475,9 @@ s2-user:
 # s2 发布UI服务
 s2-ui:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='ui'
     - echo MODULE：$MODULE
