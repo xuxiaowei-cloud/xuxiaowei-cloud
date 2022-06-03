@@ -73,9 +73,18 @@ package:
 #
 # s2 打包
 s2-package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   stage: s2-package
+  image: maven:3.6.3-jdk-8
   script:
-    - source /etc/profile && echo 刷新环境变量
+    - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    - echo $GPG_FILE
+    - gpg --import $GPG_FILE
+    - SETTINGS_FILE=`find / -name settings.xml`
+    - echo $SETTINGS_FILE
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -83,9 +92,8 @@ s2-package:
     - echo 项目路径：$CI_PROJECT_DIR
     - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
-    - echo JAR_PATH：$JAR_PATH
-    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+    - mvn -pl passport-ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign passport-ui/target/*.rar && echo 登录服务前端rar打包完成
+    - mvn -pl ui rar:rar -Prar -DskipTests && gpg --armor --detach-sign ui/target/*.rar && echo UI服务前端rar打包完成
   cache:
     paths:
       - .m2/repository
@@ -118,9 +126,8 @@ s2-package:
       - resource-services-parent/websocket/target/websocket-*
       - resource-services-parent/wechat-applet/target/wechat-applet-*
       - ui/target/ui-*
+      - ui/dist
       - utils/target/utils-*
-  tags:
-    - s2
   only:
     - s2
 
@@ -128,7 +135,13 @@ s2-package:
 # s2 发布网关服务
 s2-gateway:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='gateway'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -172,7 +185,13 @@ s2-gateway:
 # s2 发布监控（管理）服务
 s2-admin-server:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='admin-server'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -216,7 +235,13 @@ s2-admin-server:
 # s2 发布授权服务
 s2-authorization-server:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='authorization-server'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -260,7 +285,13 @@ s2-authorization-server:
 # s2 发布登录服务
 s2-passport:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - MODULE='passport'
     - echo MODULE：$MODULE
     - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
@@ -304,7 +335,13 @@ s2-passport:
 # s2 发布审计服务
 s2-audit:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='audit'
@@ -350,7 +387,13 @@ s2-audit:
 # s2 发布MySQL二进制订阅服务
 s2-canal:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='canal'
@@ -396,7 +439,13 @@ s2-canal:
 # s2 发布用户服务
 s2-user:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
     - cd resource-services-parent
     - pwd
     - MODULE='user'
@@ -442,10 +491,12 @@ s2-user:
 # s2 发布UI服务
 s2-ui:
   stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
   script:
     - MODULE='ui'
     - echo MODULE：$MODULE
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - RELEASE_PATH=/home/gitlab-runner/node/$MODULE
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建文件夹完成; fi
     - echo RELEASE_PATH：$RELEASE_PATH
