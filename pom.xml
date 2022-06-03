@@ -596,17 +596,6 @@
     <profiles>
 
         <profile>
-            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
-            <id>oss</id>
-            <repositories>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                </repository>
-            </repositories>
-        </profile>
-
-        <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
@@ -698,5 +687,28 @@
         </profile>
 
     </profiles>
+
+    <repositories>
+
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
 
 </project>
