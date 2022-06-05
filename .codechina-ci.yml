@@ -39,8 +39,9 @@ package:
   artifacts:
     name: package
     paths:
-      - target/*.pom
+      - target/*.jar
       - target/*.asc
+      - target/*.pom
       - "*/target/*.jar"
       - "*/target/*.asc"
       - "*/target/*.pom"
