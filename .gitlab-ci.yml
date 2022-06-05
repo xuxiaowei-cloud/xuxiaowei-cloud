@@ -88,6 +88,7 @@ s2-package:
       - "*/*/target/*.jar"
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
+      - /ui/dist
   only:
     - s2
 
