@@ -172,8 +172,6 @@
         <module>cloud-commons-parent</module>
         <!-- 示例父模块 -->
         <module>example-parent</module>
-        <!-- 插件 -->
-        <module>plugins</module>
     </modules>
 
     <dependencyManagement>
@@ -426,13 +424,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- Maven 打包插件 -->
-            <dependency>
-                <groupId>cloud.xuxiaowei.plugins</groupId>
-                <artifactId>rar-maven-plugin</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- UI -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
@@ -596,17 +587,6 @@
     <profiles>
 
         <profile>
-            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
-            <id>oss</id>
-            <repositories>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                </repository>
-            </repositories>
-        </profile>
-
-        <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
@@ -672,31 +652,20 @@
             </build>
         </profile>
 
-        <profile>
-            <!-- 使用 -Prar 激活此构建打包将指定资源 .rar -->
-            <id>rar</id>
-            <build>
-                <plugins>
-                    <!-- mvn clean package rar:rar -Prar -->
-                    <plugin>
-                        <groupId>cloud.xuxiaowei.plugins</groupId>
-                        <artifactId>rar-maven-plugin</artifactId>
-                        <version>${project.version}</version>
-                        <configuration>
-                            <workDirectory>${project.build.directory}/rar</workDirectory>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <addMavenDescriptor>false</addMavenDescriptor>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/dist</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
+
+    <repositories>
+
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+
+    </repositories>
 
 </project>
