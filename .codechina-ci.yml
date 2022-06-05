@@ -26,7 +26,6 @@ package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>mirror</id><mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf><name>mirror</name><url>https://maven.aliyun.com/nexus/content/groups/public</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
