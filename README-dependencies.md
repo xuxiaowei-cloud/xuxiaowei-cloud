@@ -209,8 +209,6 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:ui:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.7.0:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
 
 
 cloud.xuxiaowei.commons:cloud-starter-openfeign:jar:0.0.1-SNAPSHOT
@@ -385,47 +383,4 @@ cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.example:example-parent:pom:0.0.1-SNAPSHOT
-
-
-cloud.xuxiaowei.plugins:bos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
-│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
-│        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
-│        └──org.projectlombok:lombok:jar:1.18.24:provided
-│        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
-│        └──org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.6.4:compile
-
-
-cloud.xuxiaowei.plugins:cos-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
-│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
-│        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
-│        └──org.projectlombok:lombok:jar:1.18.24:provided
-│        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
-│        └──org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.6.4:compile
-
-
-cloud.xuxiaowei.plugins:obs-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
-│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
-│        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
-│        └──org.projectlombok:lombok:jar:1.18.24:provided
-│        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
-│        └──org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.6.4:compile
-
-
-cloud.xuxiaowei.plugins:oss-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
-│        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
-│        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
-│        └──org.projectlombok:lombok:jar:1.18.24:provided
-│        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
-│        └──org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.6.4:compile
-
-
-cloud.xuxiaowei.plugins:rar-maven-plugin:maven-plugin:0.0.1-SNAPSHOT
-│        └──ch.qos.logback:logback-classic:jar:1.2.11:compile
-│        └──org.projectlombok:lombok:jar:1.18.24:provided
-│        └──org.apache.maven:maven-plugin-api:jar:3.8.5:compile
-│        └──org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.6.4:compile
-│        └──org.apache.maven:maven-archiver:jar:3.5.1:compile
-
-
-cloud.xuxiaowei:plugins:pom:0.0.1-SNAPSHOT
 ```

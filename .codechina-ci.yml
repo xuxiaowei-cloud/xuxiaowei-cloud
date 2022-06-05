@@ -5,15 +5,14 @@ variables:
   MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
-#
-# GitCode 禁用缓存（GitCode 未启用缓存），节省时间
-#cache:
-#  paths:
-#    - .m2/repository
-#    - passport-ui/node/
-#    - passport-ui/node_modules/
-#    - ui/node/
-#    - ui/node_modules/
+# 缓存
+cache:
+  paths:
+    - .m2/repository
+    - passport-ui/node/
+    - passport-ui/node_modules/
+    - ui/node/
+    - ui/node_modules/
 
 #
 # package
@@ -27,7 +26,6 @@ package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>mirror</id><mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf><name>mirror</name><url>https://maven.aliyun.com/nexus/content/groups/public</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -40,41 +38,14 @@ package:
   artifacts:
     name: package
     paths:
-      - target/xuxiaowei-cloud-starter-parent-*
-      - admin-server/target/admin-server-*
-      - authorization-server/target/authorization-server-*
-      - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-*
-      - cloud-commons-parent/cloud-starter-idempotent/target/cloud-starter-idempotent-*
-      - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-*
-      - cloud-commons-parent/cloud-starter-log/target/cloud-starter-log-*
-      - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-*
-      - cloud-commons-parent/cloud-starter-oauth2/target/cloud-starter-oauth2-*
-      - cloud-commons-parent/cloud-starter-openfeign/target/cloud-starter-openfeign-*
-      - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-*
-      - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-*
-      - cloud-commons-parent/cloud-starter-system/target/cloud-starter-system-*
-      - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-*
-      - cloud-commons-parent/target/cloud-commons-parent-*
-      - example-parent/target/example-parent-*
-      - example-parent/cxf-client/target/cxf-client-*
-      - example-parent/oauth2-client/target/oauth2-client-*
-      - gateway/target/gateway-*
-      - passport/target/passport-*
-      - passport-ui/target/passport-ui-*
-      - plugins/target/plugins-*
-      - plugins/bos-maven-plugin/target/bos-maven-plugin-*
-      - plugins/cos-maven-plugin/target/cos-maven-plugin-*
-      - plugins/obs-maven-plugin/target/obs-maven-plugin-*
-      - plugins/oss-maven-plugin/target/oss-maven-plugin-*
-      - plugins/rar-maven-plugin/target/rar-maven-plugin-*
-      - resource-services-parent/target/resource-services-parent-*
-      - resource-services-parent/audit/target/audit-*
-      - resource-services-parent/canal/target/canal-*
-      - resource-services-parent/user/target/user-*
-      - resource-services-parent/webservice/target/webservice-*
-      - resource-services-parent/websocket/target/websocket-*
-      - resource-services-parent/wechat-applet/target/wechat-applet-*
-      - ui/target/ui-*
-      - utils/target/utils-*
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
   only:
     - main
