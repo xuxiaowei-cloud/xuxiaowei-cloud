@@ -128,6 +128,19 @@ s2-package:
   only:
     - s2
 
+# 阿里云对象存储
+oss:
+  stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - for file in $(find . -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do
+      echo $file
+      done
+  only:
+    - s2
+
 #
 # s2 发布网关服务
 s2-gateway:
