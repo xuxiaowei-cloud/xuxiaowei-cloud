@@ -21,8 +21,30 @@ package:
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
+    - echo 分支上存在的上一个最新提交：$CI_COMMIT_BEFORE_SHA
+    - echo 分支上存在的上一个最新提交前八个字符：$CI_COMMIT_SHORT_SHA
+    - echo ISO8601格式的提交时间戳：$CI_COMMIT_TIMESTAMP
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
+    - echo 单个执行器中构建执行的唯一ID：$CI_CONCURRENT_ID
+    - echo 单个执行器和项目中构建执行的唯一ID：$CI_CONCURRENT_PROJECT_ID
+    - echo 作业是否手动启动：$CI_JOB_MANUAL
+    - echo 作业的名称：$CI_JOB_NAME
+    - echo 作业阶段的名称：$CI_JOB_STAGE
+    - echo 作业开始时的UTC日期时间，采用ISO8601格式：$CI_JOB_STARTED_AT
+    - echo 创建管道时的UTC日期时间，采用ISO8601格式：$CI_PIPELINE_CREATED_AT
+    - echo 当前项目的ID，此ID在GitLab实例上的所有项目中都是唯一的：$CI_PROJECT_ID
+    - echo 作业的项目命名空间（用户名或组名）：$CI_PROJECT_NAMESPACE
+    - echo 项目目录的名称：$CI_PROJECT_NAME
+    - echo 包含项目名称的项目命名空间：$CI_PROJECT_PATH
+    - echo GitLab实例的主要版本：$CI_SERVER_VERSION_MAJOR
+    - echo GitLab实例的次要版本：$CI_SERVER_VERSION_MINOR
+    - echo GitLab实例的补丁版本：$CI_SERVER_VERSION_PATCH
+    - echo GitLab实例的完整版本：$CI_SERVER_VERSION
+    - echo 开始作业的用户的电子邮件：$GITLAB_USER_EMAIL
+    - echo 启动作业的用户的ID：$GITLAB_USER_ID
+    - echo 启动作业的用户的用户名：$GITLAB_USER_LOGIN
+    - echo 启动作业的用户的名称：$GITLAB_USER_NAME
     - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
