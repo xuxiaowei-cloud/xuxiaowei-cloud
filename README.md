@@ -280,7 +280,7 @@ cloud.xuxiaowei
        自动将资源发布（目前仅[打包](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/blob/main/.gitlab-ci.yml)，未发布）到
        [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
     3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06
-       之后用于在将来替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+       之后用于替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) ，
        [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 流水线配额 `2000` 分钟（已申请到内侧资格）
     4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
