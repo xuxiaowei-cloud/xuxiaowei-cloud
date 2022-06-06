@@ -135,9 +135,10 @@ oss:
     - job: s2-package
       artifacts: true
   script:
-    - for file in $(find . -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do
+    - echo 根据要储存文件名的特点查找文件（排除.m2文件夹）
+    - for file in $(find . -path ./.m2 -prune -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do
       echo $file
-      done
+      done;
   only:
     - s2
 
