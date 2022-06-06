@@ -31,7 +31,7 @@ package:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   artifacts:
     name: package
