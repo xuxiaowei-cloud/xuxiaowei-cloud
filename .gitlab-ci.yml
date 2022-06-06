@@ -93,6 +93,9 @@ s2-package:
   stage: s2-package
   image: maven:3.6.3-jdk-8
   script:
+    - for file in $(find . -path ./.m2 -prune -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do
+      echo $file
+      done;
     - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
