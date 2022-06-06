@@ -24,6 +24,7 @@ package:
     - echo 分支上存在的上一个最新提交：$CI_COMMIT_BEFORE_SHA
     - echo 分支上存在的上一个最新提交前八个字符：$CI_COMMIT_SHORT_SHA
     - echo ISO8601格式的提交时间戳：$CI_COMMIT_TIMESTAMP
+    - echo "Name<email>格式提交的作者：$CI_COMMIT_AUTHOR"
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     - echo 单个执行器中构建执行的唯一ID：$CI_CONCURRENT_ID
@@ -45,6 +46,18 @@ package:
     - echo 启动作业的用户的ID：$GITLAB_USER_ID
     - echo 启动作业的用户的用户名：$GITLAB_USER_LOGIN
     - echo 启动作业的用户的名称：$GITLAB_USER_NAME
+    - echo 合并请求的实例级ID，这是GitLab上所有项目的唯一ID：$CI_MERGE_REQUEST_ID
+    - echo 合并请求的项目级IID（内部ID），此ID对于当前项目是唯一的：$CI_MERGE_REQUEST_IID
+    - echo 作业详细信息URL：$CI_JOB_URL
+    - echo 作业的内部ID，在GitLab实例中的所有作业中是唯一的：$CI_JOB_ID
+    - echo 正在使用的Runner的唯一ID：$CI_RUNNER_ID
+    - echo 运行作业的GitLabRunner的版本：$CI_RUNNER_VERSION
+    - echo 管道详细信息的URL：$CI_PIPELINE_URL
+    - echo 当前管道的实例级ID。此ID在GitLab实例上的所有项目中都是唯一的：$CI_PIPELINE_ID
+    - echo 当前管道的项目级IID（内部ID），此ID仅在当前项目中是唯一的：$CI_PIPELINE_IID
+    - echo GitLab实例URL的主机，没有协议或端口：$CI_SERVER_HOST
+    - echo 项目的HTTP（S）地址：$CI_PROJECT_URL
+    - echo 克隆Git存储库的URL：$CI_REPOSITORY_URL
     - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
