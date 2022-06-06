@@ -113,6 +113,7 @@ s2-package:
 # 阿里云对象存储
 oss:
   stage: s2-service
+  image: maven:3.6.3-jdk-8
   needs:
     - job: s2-package
       artifacts: true
