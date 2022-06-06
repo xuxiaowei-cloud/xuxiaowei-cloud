@@ -598,6 +598,17 @@
         </profile>
 
         <profile>
+            <!-- 使用 -Paliyun 激活阿里云仓库下载依赖 -->
+            <id>aliyun</id>
+            <repositories>
+                <repository>
+                    <id>aliyun</id>
+                    <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
@@ -664,14 +675,5 @@
         </profile>
 
     </profiles>
-
-    <repositories>
-
-        <repository>
-            <id>aliyun</id>
-            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-        </repository>
-
-    </repositories>
 
 </project>
