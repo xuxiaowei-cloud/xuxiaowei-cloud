@@ -128,6 +128,25 @@ s2-package:
   only:
     - s2
 
+# 阿里云对象存储
+oss:
+  stage: s2-service
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - wget https://gosspublic.alicdn.com/ossutil/1.7.13/ossutil64
+    - chmod 755 ossutil64
+    - echo "[Credentials]" > .ossutilconfig
+    - echo "language=CH" >> .ossutilconfig
+    - echo "endpoint=$endpoint" >> .ossutilconfig
+    - echo "accessKeyID=$accessKeyID" >> .ossutilconfig
+    - echo "accessKeySecret=$accessKeySecret" >> .ossutilconfig
+    - echo 根据要储存文件名的特点查找文件（排除.m2文件夹）
+    - for file in $(find . -path ./.m2 -prune -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do echo $file; ./ossutil64 -c .ossutilconfig -u cp $file oss://private-xuxiaowei/$CI_SERVER_HOST/$CI_PROJECT_PATH/pipelines-$CI_PIPELINE_ID-jobs-$CI_JOB_ID${file#*target}; done
+  only:
+    - s2
+
 #
 # s2 发布网关服务
 s2-gateway:
