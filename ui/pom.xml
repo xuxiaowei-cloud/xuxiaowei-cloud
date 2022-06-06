@@ -169,13 +169,6 @@
                 </executions>
             </plugin>
 
-            <!-- mvn clean package oss:oss -->
-            <plugin>
-                <groupId>cloud.xuxiaowei.plugins</groupId>
-                <artifactId>oss-maven-plugin</artifactId>
-                <version>${project.version}</version>
-            </plugin>
-
         </plugins>
     </build>
 
