@@ -142,6 +142,7 @@ oss:
     - echo "endpoint=$endpoint" >> .ossutilconfig
     - echo "accessKeyID=$accessKeyID" >> .ossutilconfig
     - echo "accessKeySecret=$accessKeySecret" >> .ossutilconfig
+    - chmod 755 oss.sh
     - "./oss.sh"
   only:
     - s2
