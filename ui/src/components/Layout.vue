@@ -247,6 +247,11 @@ onMounted(() => {
 }
 
 /* 用户菜单 */
+#cloud-el-header .el-dropdown {
+  display: inline;
+}
+
+/* 用户菜单 */
 #cloud-el-dropdown {
   height: 34px;
   line-height: 34px;
