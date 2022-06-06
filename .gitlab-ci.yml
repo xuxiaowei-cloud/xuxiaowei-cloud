@@ -44,7 +44,7 @@ package:
       - "*/*/target/*.jar"
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
-      - /ui/dist
+      - ui/dist
   only:
     - main
 
@@ -88,7 +88,7 @@ s2-package:
       - "*/*/target/*.jar"
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
-      - /ui/dist
+      - ui/dist
   only:
     - s2
 
