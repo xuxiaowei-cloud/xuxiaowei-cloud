@@ -142,17 +142,6 @@ cos:
     - mv coscli-linux coscli
     - chmod 755 coscli
     - ./coscli --version
-    - echo "cos:" > .cos.yaml
-    - echo "  base:" >> .cos.yaml
-    - echo "    secretid: $secretid" >> .cos.yaml
-    - echo "    secretkey: $secretkey" >> .cos.yaml
-    - echo "    sessiontoken: \"\"" >> .cos.yaml
-    - echo "    protocol: https" >> .cos.yaml
-    - echo "  buckets:" >> .cos.yaml
-    - echo "    - name: $bucketname_appid" >> .cos.yaml
-    - echo "      alias: $bucketname_appid" >> .cos.yaml
-    - echo "      region: \"\"" >> .cos.yaml
-    - echo "      endpoint: $cos_endpoint" >> .cos.yaml
     - chmod 755 cos.sh
     - "./cos.sh"
   only:
