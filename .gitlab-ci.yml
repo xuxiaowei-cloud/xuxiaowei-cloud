@@ -185,6 +185,23 @@ obs:
   only:
     - s2
 
+# 百度云对象存储
+bos:
+  stage: s2-service
+  image: maven:3.6.3-jdk-8
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - wget https://bce-doc-on.bj.bcebos.com/bce-documentation/BOS/linux-bcecmd-0.3.3.zip
+    - unzip linux-bcecmd-0.3.3.zip
+    - cp ./linux-bcecmd-0.3.3/bcecmd bcecmd
+    - chmod 755 bcecmd
+    - chmod 755 bos.sh
+    - "./bos.sh"
+  only:
+    - s2
+
 #
 # s2 发布网关服务
 s2-gateway:

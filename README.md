@@ -307,8 +307,9 @@ cloud.xuxiaowei
 
 3. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
     1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
-    2. [安装BOSCMD](https://cloud.baidu.com/doc/BOS/s/qjwvyqegc)
-    3. [配置BOSCMD](https://cloud.baidu.com/doc/BOS/s/Ejwvyqe55)
+    2. [BOS-CMD命令行工具>概述](https://cloud.baidu.com/doc/BOS/s/Sjwvyqetg)
+    3. [安装BOSCMD](https://cloud.baidu.com/doc/BOS/s/qjwvyqegc)
+    4. [配置BOSCMD](https://cloud.baidu.com/doc/BOS/s/Ejwvyqe55)
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
     1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
     2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
