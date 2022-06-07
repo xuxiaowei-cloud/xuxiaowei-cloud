@@ -312,6 +312,7 @@ cloud.xuxiaowei
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
     1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
     2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
+    3. [COSCLI 简介](https://cloud.tencent.com/document/product/436/63143)
 5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
     1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
     2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
