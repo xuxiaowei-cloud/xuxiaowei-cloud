@@ -130,6 +130,34 @@ oss:
   only:
     - s2
 
+# 腾讯云对象存储
+cos:
+  stage: s2-service
+  image: maven:3.6.3-jdk-8
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - wget https://cosbrowser.cloud.tencent.com/software/coscli/coscli-linux
+    - mv coscli-linux coscli
+    - chmod 755 coscli
+    - ./coscli --version
+    - echo "cos:" > .cos.yaml
+    - echo "  base:" >> .cos.yaml
+    - echo "    secretid: $secretid" >> .cos.yaml
+    - echo "    secretkey: $secretkey" >> .cos.yaml
+    - echo "    sessiontoken: \"\"" >> .cos.yaml
+    - echo "    protocol: https" >> .cos.yaml
+    - echo "  buckets:" >> .cos.yaml
+    - echo "    - name: $bucketname_appid" >> .cos.yaml
+    - echo "      alias: $bucketname_appid" >> .cos.yaml
+    - echo "      region: \"\"" >> .cos.yaml
+    - echo "      endpoint: $cos_endpoint" >> .cos.yaml
+    - chmod 755 cos.sh
+    - "./cos.sh"
+  only:
+    - s2
+
 #
 # s2 发布网关服务
 s2-gateway:
