@@ -1,14 +1,18 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
+import cloud.xuxiaowei.oauth2.service.IOauthAccessTokenService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Token
@@ -20,36 +24,51 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/oauth-token")
 public class OauthTokenController {
 
+    private IOauthAccessTokenService oauthAccessTokenService;
+
+    @Autowired
+    public void setOauthAccessTokenService(IOauthAccessTokenService oauthAccessTokenService) {
+        this.oauthAccessTokenService = oauthAccessTokenService;
+    }
+
     /**
      * 根据 用户名 删除 Token
      *
-     * @param request  请求
-     * @param response 响应
-     * @param username 用户名
+     * @param request   请求
+     * @param response  响应
+     * @param usernames 用户名
      * @return 返回 删除结果
      */
     @ControllerAnnotation(description = "根据 用户名 删除 Token")
     @PreAuthorize("hasAuthority('username_token_delete') or #oauth2.hasScope('username_token_delete')")
-    @RequestMapping("/removeByUsername/{username}")
-    public Response<?> removeByUsername(HttpServletRequest request, HttpServletResponse response, @PathVariable("username") String username) {
+    @RequestMapping("/removeByUsernames")
+    public Response<?> removeByUsernames(HttpServletRequest request, HttpServletResponse response, @RequestBody List<String> usernames) {
 
-        return Response.ok();
+        AssertUtils.sizeNonNull(usernames, 1, 50, "非法数据长度");
+
+        boolean result = oauthAccessTokenService.removeByUsernames(usernames);
+
+        return Response.ok(result);
     }
 
     /**
      * 根据 客户ID 删除 Token
      *
-     * @param request  请求
-     * @param response 响应
-     * @param clientId 客户ID
+     * @param request   请求
+     * @param response  响应
+     * @param clientIds 客户ID
      * @return 返回 删除结果
      */
     @ControllerAnnotation(description = "根据 客户ID 删除 Token")
     @PreAuthorize("hasAuthority('clientId_token_delete') or #oauth2.hasScope('clientId_token_delete')")
-    @RequestMapping("/removeByClientId/{clientId}")
-    public Response<?> removeByClientId(HttpServletRequest request, HttpServletResponse response, @PathVariable("clientId") String clientId) {
+    @RequestMapping("/removeByClientIds")
+    public Response<?> removeByClientId(HttpServletRequest request, HttpServletResponse response, @RequestBody List<String> clientIds) {
 
-        return Response.ok();
+        AssertUtils.sizeNonNull(clientIds, 1, 50, "非法数据长度");
+
+        boolean result = oauthAccessTokenService.removeByClientIds(clientIds);
+
+        return Response.ok(result);
     }
 
 }
