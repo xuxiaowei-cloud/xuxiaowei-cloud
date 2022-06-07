@@ -280,7 +280,7 @@ cloud.xuxiaowei
        自动将资源发布（目前仅[打包](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/blob/main/.gitlab-ci.yml)，未发布）到
        [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
     3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06
-       之后用于在将来替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+       之后用于替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) ，
        [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 流水线配额 `2000` 分钟（已申请到内侧资格）
     4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
@@ -312,6 +312,7 @@ cloud.xuxiaowei
 4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
     1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
     2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
+    3. [COSCLI 简介](https://cloud.tencent.com/document/product/436/63143)
 5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
     1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
     2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
