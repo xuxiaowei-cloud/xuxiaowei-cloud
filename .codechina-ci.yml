@@ -81,11 +81,6 @@ s2-package:
   stage: s2-package
   image: maven:3.6.3-jdk-8
   script:
-    - wget https://obs-community.obs.cn-north-1.myhuaweicloud.com/obsutil/current/obsutil_linux_amd64.tar.gz
-    - tar -zxvf obsutil_linux_amd64.tar.gz
-    - cp obsutil_linux_amd64*/obsutil obsutil
-    - chmod 755 obsutil
-    - ./obsutil config -i=$ak -k=$sk -e=$endpoint
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
@@ -149,6 +144,26 @@ cos:
     - ./coscli --version
     - chmod 755 cos.sh
     - "./cos.sh"
+  only:
+    - s2
+
+# 华为云对象存储
+obs:
+  stage: s2-service
+  image: maven:3.6.3-jdk-8
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - wget https://obs-community.obs.cn-north-1.myhuaweicloud.com/obsutil/current/obsutil_linux_amd64.tar.gz
+    - tar -zxvf obsutil_linux_amd64.tar.gz
+    - cp obsutil_linux_amd64*/obsutil obsutil
+    - chmod 755 obsutil
+    - ./obsutil version
+    - echo 因为华为云对象存储OBS配置文件中的参数较多，并且下载的始终是最新版。不同版本可能存在配置参数的差异，故采用软件命令直接生成配置文件（使用的变量受保护，不会再日志中输出）。
+    - ./obsutil config -i=$ak -k=$sk -e=$endpoint
+    - chmod 755 obs.sh
+    - "./obs.sh"
   only:
     - s2
 
