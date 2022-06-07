@@ -1,19 +1,24 @@
 <template>
   <div id="cloud-el-search">
-    <el-input class="cloud-el-input" clearable v-model="param.oauthClientDetailsId" placeholder="Please input oauthClientDetailsId"/>
+    <el-input class="cloud-el-input" clearable v-model="param.oauthClientDetailsId"
+              placeholder="Please input oauthClientDetailsId"/>
     <el-input class="cloud-el-input" clearable v-model="param.clientId" placeholder="Please input clientId"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
     <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('manage_client_delete')">删除</el-button>
     <el-button class="cloud-el-add" @click="cloudAdd" v-if="hasAuthority('manage_client_add')">添加
     </el-button>
+    <el-button class="cloud-el-username_token_delete" @click="cloudTokenDelete"
+               v-if="hasAuthority('clientId_token_delete')">
+      删除Token
+    </el-button>
   </div>
 
   <!-- 客户弹窗 -->
   <el-dialog v-if="clientDialogVisible" v-model="clientDialogVisible" :title="clientDialogVisibleTitle" width="40%"
              :before-close="clientDialogHandleClose">
-    <ClientDialog :dialogVisible="clientDialogVisible" :edit="edit" :clientId="dialogVisibleClientId"
-                @dialogVisibleClose="clientDialogVisibleClose"/>
+    <ClientDialog :dialogVisible="clientDialogVisible" :edit="edit" @dialogVisibleClose="clientDialogVisibleClose"
+                  :oauthClientDetailsId="dialogVisibleOauthClientDetailsId"/>
   </el-dialog>
 
   <el-container>
@@ -59,10 +64,10 @@
       <el-table-column fixed="right" label="Operations" width="140"
                        v-if="hasAnyAuthority(['manage_client_delete', 'manage_client_edit', 'manage_client_authority'])">
         <template #default="scope">
-          <el-button size="small" @click="deleteClientId(scope.row.oauthClientDetailsId)"
+          <el-button size="small" @click="deleteOauthClientDetailsId(scope.row.oauthClientDetailsId)"
                      v-if="hasAuthority('manage_client_delete')">Delete
           </el-button>
-          <el-button size="small" @click="editClientId(scope.row.oauthClientDetailsId)"
+          <el-button size="small" @click="editOauthClientDetailsId(scope.row.oauthClientDetailsId)"
                      v-if="hasAuthority('manage_client_edit')">Edit
           </el-button>
         </template>
@@ -75,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeByIds, removeById } from '../../api/authorization-server'
+import { page, removeByIds, removeById, removeByClientIds } from '../../api/authorization-server'
 import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -90,7 +95,7 @@ const store = useStore()
 const clientDialogVisible = ref(false)
 
 // 客户弹窗中的客户ID（修改时使用）
-const dialogVisibleClientId = ref<number>()
+const dialogVisibleOauthClientDetailsId = ref<number>()
 
 // 客户弹窗标题
 const clientDialogVisibleTitle = ref<String>()
@@ -102,18 +107,18 @@ const cloudAdd = () => {
   // 客户弹窗类型：添加
   edit.value = false
   clientDialogVisibleTitle.value = '添加客户'
-  dialogVisibleClientId.value = undefined
+  dialogVisibleOauthClientDetailsId.value = undefined
   // 客户弹窗：打开
   clientDialogVisible.value = true
 }
 
 // 修改客户
-const editClientId = (clientId: number) => {
+const editOauthClientDetailsId = (oauthClientDetailsId: number) => {
   // 客户弹窗类型：编辑
   edit.value = true
   clientDialogVisibleTitle.value = '编辑客户'
   // 编辑客户的ID
-  dialogVisibleClientId.value = clientId
+  dialogVisibleOauthClientDetailsId.value = oauthClientDetailsId
   // 客户弹窗：打开
   clientDialogVisible.value = true
 }
@@ -138,7 +143,9 @@ const tableData = ref([])
 // 多选
 const multipleSelection = ref<any[]>([])
 // 多选主键
-const clientIds = ref<number[]>([])
+const oauthClientDetailsIds = ref<number[]>([])
+// 多选客户ID
+const clientIds = ref<string[]>([])
 
 // 搜索参数
 const param = reactive({
@@ -186,7 +193,7 @@ const cloudRemove = () => {
       type: 'error'
     })
   } else {
-    removeByIds(clientIds.value).then(response => {
+    removeByIds(oauthClientDetailsIds.value).then(response => {
       if (response.code === store.state.settings.okCode) {
         ElMessage({
           message: response.msg,
@@ -224,7 +231,7 @@ const currentChange = (e: number) => {
 }
 
 // 删除客户
-const deleteClientId = (e: number) => {
+const deleteOauthClientDetailsId = (e: number) => {
   removeById(e).then(response => {
     if (response.code === store.state.settings.okCode) {
       ElMessage({
@@ -250,14 +257,53 @@ const deleteClientId = (e: number) => {
   })
 }
 
+// 删除Token
+const cloudTokenDelete = () => {
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      message: '请先选择数据',
+      // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+      duration: 1500,
+      type: 'error'
+    })
+  } else {
+    removeByClientIds(clientIds.value).then(response => {
+      if (response.code === store.state.settings.okCode) {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+            // 重新搜索
+            cloudSearch()
+          }
+        })
+      } else {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error',
+          onClose: () => {
+
+          }
+        })
+      }
+    })
+  }
+}
+
 // 选择事件
 const handleSelectionChange = (val: any[]) => {
   multipleSelection.value = val
 
   // 清空
+  oauthClientDetailsIds.value = []
   clientIds.value = []
   for (const i in val) {
-    clientIds.value[i] = multipleSelection.value[i].oauthClientDetailsId
+    oauthClientDetailsIds.value[i] = multipleSelection.value[i].oauthClientDetailsId
+    clientIds.value[i] = multipleSelection.value[i].clientId
   }
 }
 
@@ -273,7 +319,8 @@ const handleSelectionChange = (val: any[]) => {
 .cloud-el-search,
 .cloud-el-reset,
 .cloud-el-remove,
-.cloud-el-add {
+.cloud-el-add,
+.cloud-el-username_token_delete {
   margin-left: 5px;
   margin-right: 5px;
 }
