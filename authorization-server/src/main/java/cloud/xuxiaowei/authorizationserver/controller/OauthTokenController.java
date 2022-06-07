@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
-import cloud.xuxiaowei.oauth2.service.IOauthAccessTokenService;
+import cloud.xuxiaowei.oauth2.service.IOauthTokenService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
@@ -24,11 +24,11 @@ import java.util.List;
 @RequestMapping("/oauth-token")
 public class OauthTokenController {
 
-    private IOauthAccessTokenService oauthAccessTokenService;
+    private IOauthTokenService oauthTokenService;
 
     @Autowired
-    public void setOauthAccessTokenService(IOauthAccessTokenService oauthAccessTokenService) {
-        this.oauthAccessTokenService = oauthAccessTokenService;
+    public void setOauthTokenService(IOauthTokenService oauthTokenService) {
+        this.oauthTokenService = oauthTokenService;
     }
 
     /**
@@ -46,7 +46,7 @@ public class OauthTokenController {
 
         AssertUtils.sizeNonNull(usernames, 1, 50, "非法数据长度");
 
-        boolean result = oauthAccessTokenService.removeByUsernames(usernames);
+        boolean result = oauthTokenService.removeByUsernames(usernames);
 
         return Response.ok(result);
     }
@@ -66,7 +66,7 @@ public class OauthTokenController {
 
         AssertUtils.sizeNonNull(clientIds, 1, 50, "非法数据长度");
 
-        boolean result = oauthAccessTokenService.removeByClientIds(clientIds);
+        boolean result = oauthTokenService.removeByClientIds(clientIds);
 
         return Response.ok(result);
     }
