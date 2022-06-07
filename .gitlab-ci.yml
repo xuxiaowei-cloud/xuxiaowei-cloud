@@ -131,6 +131,7 @@ s2-package:
 # 阿里云对象存储
 oss:
   stage: s2-service
+  image: maven:3.6.3-jdk-8
   needs:
     - job: s2-package
       artifacts: true
@@ -144,6 +145,23 @@ oss:
     - echo "accessKeySecret=$accessKeySecret" >> .ossutilconfig
     - chmod 755 oss.sh
     - "./oss.sh"
+  only:
+    - s2
+
+# 腾讯云对象存储
+cos:
+  stage: s2-service
+  image: maven:3.6.3-jdk-8
+  needs:
+    - job: s2-package
+      artifacts: true
+  script:
+    - wget https://cosbrowser.cloud.tencent.com/software/coscli/coscli-linux
+    - mv coscli-linux coscli
+    - chmod 755 coscli
+    - ./coscli --version
+    - chmod 755 cos.sh
+    - "./cos.sh"
   only:
     - s2
 
