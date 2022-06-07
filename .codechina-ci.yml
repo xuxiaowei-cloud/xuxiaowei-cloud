@@ -81,6 +81,11 @@ s2-package:
   stage: s2-package
   image: maven:3.6.3-jdk-8
   script:
+    - wget https://obs-community.obs.cn-north-1.myhuaweicloud.com/obsutil/current/obsutil_linux_amd64.tar.gz
+    - tar -zxvf obsutil_linux_amd64.tar.gz
+    - cp obsutil_linux_amd64*/obsutil obsutil
+    - chmod 755 obsutil
+    - ./obsutil config -i=$ak -k=$sk -e=$endpoint
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
