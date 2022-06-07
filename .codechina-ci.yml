@@ -161,7 +161,7 @@ obs:
     - chmod 755 obsutil
     - ./obsutil version
     - echo 因为华为云对象存储OBS配置文件中的参数较多，并且下载的始终是最新版。不同版本可能存在配置参数的差异，故采用软件命令直接生成配置文件（使用的变量受保护，不会再日志中输出）。
-    - ./obsutil config -i=$ak -k=$sk -e=$endpoint
+    - ./obsutil config -i=$ak -k=$sk -e=$et
     - chmod 755 obs.sh
     - "./obs.sh"
   only:
