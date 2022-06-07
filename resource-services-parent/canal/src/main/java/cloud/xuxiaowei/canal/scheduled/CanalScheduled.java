@@ -182,17 +182,17 @@ public class CanalScheduled {
                     String mysqlType = newColumn.getMysqlType();
                     String value = newColumn.getValue();
 
-                    boolean isNull = newColumn.getIsNull();
-                    if (isNull) {
-                        sql.append(" ").append(newColumn.getName()).append(" = NULL ").append(",");
-                        continue;
-                    }
-
                     if ("mediumblob".equals(mysqlType)) {
                         continue;
                     }
 
-                    sql.append(" ").append(newColumn.getName()).append(" = '").append(value).append("'");
+                    boolean isNull = newColumn.getIsNull();
+                    if (isNull) {
+                        sql.append(" ").append(newColumn.getName()).append(" = NULL ");
+                    } else {
+                        sql.append(" ").append(newColumn.getName()).append(" = '").append(value).append("'");
+                    }
+
                     if (i != newColumnList.size() - 1) {
                         sql.append(",");
                     }

@@ -136,15 +136,27 @@ const cloudRemove = () => {
   } else {
     removeByIds(codeIds.value).then(response => {
       if (response.code === store.state.settings.okCode) {
-        ElMessage({
-          message: response.msg,
-          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-          duration: 1500,
-          type: 'success',
-          onClose: () => {
-            cloudSearch()
-          }
-        })
+        if (response.data) {
+          ElMessage({
+            message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
+            type: 'success',
+            onClose: () => {
+              cloudSearch()
+            }
+          })
+        } else {
+          ElMessage({
+            message: '删除失败',
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
+            type: 'error',
+            onClose: () => {
+              cloudSearch()
+            }
+          })
+        }
       } else {
         ElMessage({
           message: response.msg,
@@ -173,15 +185,27 @@ const currentChange = (e: number) => {
 const deleteCodeId = (e: number) => {
   removeById(e).then(response => {
     if (response.code === store.state.settings.okCode) {
-      ElMessage({
-        message: response.msg,
-        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-        duration: 1500,
-        type: 'success',
-        onClose: () => {
-          cloudSearch()
-        }
-      })
+      if (response.data) {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+            cloudSearch()
+          }
+        })
+      } else {
+        ElMessage({
+          message: '删除失败',
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error',
+          onClose: () => {
+            cloudSearch()
+          }
+        })
+      }
     } else {
       ElMessage({
         message: response.msg,
