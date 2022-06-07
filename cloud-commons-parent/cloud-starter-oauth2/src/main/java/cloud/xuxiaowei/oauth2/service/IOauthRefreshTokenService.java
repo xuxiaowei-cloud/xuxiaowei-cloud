@@ -5,6 +5,8 @@ import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql	GitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql	Gitee 镜像仓库：https://gitee.com/mirrors/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql 服务类
@@ -22,5 +24,21 @@ public interface IOauthRefreshTokenService extends IService<OauthRefreshToken> {
      * @return 返回 分页查询结果
      */
     IPage<OauthRefreshToken> pageByAuditRefreshToken(AuditRefreshTokenPageBo auditRefreshTokenPageBo);
+
+    /**
+     * 根据 用户名 删除 Token
+     *
+     * @param usernames 用户名
+     * @return 返回 删除结果
+     */
+    boolean removeByUsernames(List<String> usernames);
+
+    /**
+     * 根据 客户ID 删除 Token
+     *
+     * @param clientIds 客户ID
+     * @return 返回 删除结果
+     */
+    boolean removeByClientIds(List<String> clientIds);
 
 }
