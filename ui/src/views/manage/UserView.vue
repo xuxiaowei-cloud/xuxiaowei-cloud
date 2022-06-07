@@ -8,6 +8,9 @@
     <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('manage_user_delete')">删除</el-button>
     <el-button class="cloud-el-add" @click="cloudAdd" v-if="hasAuthority('manage_user_add')">添加
     </el-button>
+    <el-button class="cloud-el-username_token_delete" @click="cloudTokenDelete" v-if="hasAuthority('username_token_delete')">
+      删除Token
+    </el-button>
   </div>
 
   <!-- 用户弹窗 -->
@@ -76,6 +79,7 @@
 
 <script setup lang="ts">
 import { page, removeById, removeByIds } from '../../api/user'
+import { removeByUsernames } from '../../api/authorization-server'
 import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -168,6 +172,8 @@ const tableData = ref([])
 const multipleSelection = ref<any[]>([])
 // 多选主键
 const usersIds = ref<number[]>([])
+// 多选用户名
+const usernames = ref<string[]>([])
 
 // 搜索参数
 const param = reactive({
@@ -281,14 +287,53 @@ const deleteUsersId = (e: number) => {
   })
 }
 
+// 删除Token
+const cloudTokenDelete = () => {
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      message: '请先选择数据',
+      // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+      duration: 1500,
+      type: 'error'
+    })
+  } else {
+    removeByUsernames(usernames.value).then(response => {
+      if (response.code === store.state.settings.okCode) {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+            // 重新搜索
+            cloudSearch()
+          }
+        })
+      } else {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error',
+          onClose: () => {
+
+          }
+        })
+      }
+    })
+  }
+}
+
 // 选择事件
 const handleSelectionChange = (val: any[]) => {
   multipleSelection.value = val
 
   // 清空
   usersIds.value = []
+  usernames.value = []
   for (const i in val) {
     usersIds.value[i] = multipleSelection.value[i].usersId
+    usernames.value[i] = multipleSelection.value[i].username
   }
 }
 
@@ -304,7 +349,8 @@ const handleSelectionChange = (val: any[]) => {
 .cloud-el-search,
 .cloud-el-reset,
 .cloud-el-remove,
-.cloud-el-add {
+.cloud-el-add,
+.cloud-el-username_token_delete {
   margin-left: 5px;
   margin-right: 5px;
 }

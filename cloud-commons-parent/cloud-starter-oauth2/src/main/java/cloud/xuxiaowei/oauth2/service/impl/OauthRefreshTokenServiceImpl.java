@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.oauth2.service.impl;
 
 import cloud.xuxiaowei.oauth2.bo.AuditRefreshTokenPageBo;
+import cloud.xuxiaowei.oauth2.entity.OauthAccessToken;
 import cloud.xuxiaowei.oauth2.entity.OauthRefreshToken;
 import cloud.xuxiaowei.oauth2.mapper.OauthRefreshTokenMapper;
 import cloud.xuxiaowei.oauth2.service.IOauthRefreshTokenService;
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -89,6 +92,32 @@ public class OauthRefreshTokenServiceImpl extends ServiceImpl<OauthRefreshTokenM
 
         IPage<OauthRefreshToken> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
         return page(page, queryWrapper);
+    }
+
+    /**
+     * 根据 用户名 删除 Token
+     *
+     * @param usernames 用户名
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByUsernames(List<String> usernames) {
+        QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("username", usernames);
+        return remove(queryWrapper);
+    }
+
+    /**
+     * 根据 客户ID 删除 Token
+     *
+     * @param clientIds 客户ID
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByClientIds(List<String> clientIds) {
+        QueryWrapper<OauthRefreshToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("client_id", clientIds);
+        return remove(queryWrapper);
     }
 
 }

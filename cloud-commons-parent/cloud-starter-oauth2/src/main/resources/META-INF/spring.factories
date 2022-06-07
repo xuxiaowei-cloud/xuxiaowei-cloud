@@ -5,4 +5,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cloud.xuxiaowei.oauth2.point.AuthenticationEntryPointImpl,\
   cloud.xuxiaowei.oauth2.service.impl.OauthAccessTokenServiceImpl,\
   cloud.xuxiaowei.oauth2.service.impl.OauthCodeServiceImpl,\
-  cloud.xuxiaowei.oauth2.service.impl.OauthRefreshTokenServiceImpl
+  cloud.xuxiaowei.oauth2.service.impl.OauthRefreshTokenServiceImpl,\
+  cloud.xuxiaowei.oauth2.service.impl.OauthTokenServiceImpl

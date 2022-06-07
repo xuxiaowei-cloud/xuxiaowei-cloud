@@ -12,6 +12,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * <p>
  * 原表结构：https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql	GitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security-oauth/-/blob/master/spring-security-oauth2/src/test/resources/schema.sql	Gitee 镜像仓库：https://gitee.com/mirrors/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql 服务实现类
@@ -114,6 +116,32 @@ public class OauthAccessTokenServiceImpl extends ServiceImpl<OauthAccessTokenMap
 
         IPage<OauthAccessToken> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
         return page(page, queryWrapper);
+    }
+
+    /**
+     * 根据 用户名 删除 Token
+     *
+     * @param usernames 用户名
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByUsernames(List<String> usernames) {
+        QueryWrapper<OauthAccessToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("user_name", usernames);
+        return remove(queryWrapper);
+    }
+
+    /**
+     * 根据 客户ID 删除 Token
+     *
+     * @param clientIds 客户ID
+     * @return 返回 删除结果
+     */
+    @Override
+    public boolean removeByClientIds(List<String> clientIds) {
+        QueryWrapper<OauthAccessToken> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("client_id", clientIds);
+        return remove(queryWrapper);
     }
 
 }

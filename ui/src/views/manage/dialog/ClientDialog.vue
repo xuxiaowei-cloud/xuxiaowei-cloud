@@ -70,7 +70,7 @@ const props = defineProps({
   edit: { // 是否编辑
     type: Boolean
   },
-  clientId: { // 编辑客户主键
+  oauthClientDetailsId: { // 编辑客户主键
     type: Number
   }
 })
@@ -140,8 +140,8 @@ codeRsa().then(response => {
 
 // 初始化数据
 const initData = () => {
-  if (props.edit && props.clientId) {
-    getById(props.clientId).then(response => {
+  if (props.edit && props.oauthClientDetailsId) {
+    getById(props.oauthClientDetailsId).then(response => {
       if (response.code === store.state.settings.okCode) {
         const data = response.data
         if (data) {

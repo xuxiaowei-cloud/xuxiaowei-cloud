@@ -206,6 +206,8 @@ cloud.xuxiaowei
 | xuxiaowei | manage_client_delete | 管理客户 删除权限 |
 | xuxiaowei | manage_client_edit | 管理客户 修改权限 |
 | xuxiaowei | manage_client_read | 管理客户 读取权限 |
+| xuxiaowei | username_token_delete | 用户Token 删除权限 |
+| xuxiaowei | clientId_token_delete | 客户Token 删除权限 |
 
 ### 客户ID与秘钥
 
