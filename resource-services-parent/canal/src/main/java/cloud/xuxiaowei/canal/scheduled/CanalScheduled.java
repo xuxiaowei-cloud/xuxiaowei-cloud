@@ -56,8 +56,7 @@ public class CanalScheduled {
         String password = cloudCanalProperties.getPassword();
         int batchSize = cloudCanalProperties.getBatchSize();
 
-        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(hostname,
-                port), destination, username, password);
+        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(hostname, port), destination, username, password);
 
         try {
             connector.connect();
@@ -185,7 +184,8 @@ public class CanalScheduled {
 
                     boolean isNull = newColumn.getIsNull();
                     if (isNull) {
-                        value = null;
+                        sql.append(" ").append(newColumn.getName()).append(" = NULL ").append(",");
+                        continue;
                     }
 
                     if ("mediumblob".equals(mysqlType)) {
