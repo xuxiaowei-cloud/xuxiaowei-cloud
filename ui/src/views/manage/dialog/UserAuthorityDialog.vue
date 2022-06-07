@@ -17,7 +17,7 @@
     </el-transfer>
   </div>
 
-  <el-button class="cloud-el-button" @click="cloudSave">保存</el-button>
+  <el-button class="cloud-el-button-UserAuthorityDialog" @click="cloudSave">保存</el-button>
 </template>
 
 <script setup lang="ts">
@@ -150,7 +150,7 @@ const handleChange = (value: number | string, direction: 'left' | 'right', moved
   width: 420px !important;
 }
 
-.cloud-el-button {
+.cloud-el-button-UserAuthorityDialog {
   margin-left: calc(50% - 30px);
 }
 
