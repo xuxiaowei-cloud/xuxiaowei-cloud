@@ -311,3 +311,11 @@ cloud:
         name: passport
         pathList:
           - /test
+
+---
+
+# WebSocket 配置
+cloud:
+  web-socket:
+    endpoint-paths:
+      - /broadcast
