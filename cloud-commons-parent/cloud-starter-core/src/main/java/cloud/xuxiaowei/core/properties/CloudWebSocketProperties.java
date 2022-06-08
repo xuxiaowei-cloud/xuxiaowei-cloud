@@ -20,6 +20,11 @@ import org.springframework.stereotype.Component;
 public class CloudWebSocketProperties {
 
     /**
+     * STOMP over WebSocket 端点
+     */
+    private String[] endpointPaths;
+
+    /**
      * 允许域
      */
     private String[] allowedOrigins = new String[]{};
