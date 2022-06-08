@@ -201,7 +201,14 @@ encrypt:
 # WebSocket 配置
 cloud:
   web-socket:
+    endpoint-paths:
+      - /broadcast
     allowed-origins:
       - http://example.xuxiaowei.cloud:1001
+      - http://example.xuxiaowei.cloud:1002
       - http://example.xuxiaowei.cloud
       - https://example.xuxiaowei.cloud
+      # tauri 开发域名
+      - http://localhost:1001
+      # tauri 生产域名
+      - https://tauri.localhost
