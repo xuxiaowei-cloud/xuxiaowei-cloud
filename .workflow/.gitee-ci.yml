@@ -17,6 +17,7 @@ stages:
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
+        # 此处选择 JDK 11 的原因是 Gitee Go 的 JDK 8 的 os.arch 为 i386，com.github.eirslett:frontend-maven-plugin 根据 os.arch 下载 node 时不存在，故选择 JDK 11
         jdkVersion: '11'
         mavenVersion: 3.6.3
         commands:
@@ -24,6 +25,7 @@ stages:
         artifacts:
           - name: BUILD_ARTIFACT
             path:
+              # Gitee Go 不支持通配符
               - admin-server/target/admin-server-0.0.1-SNAPSHOT.jar
               - authorization-server/target/authorization-server-0.0.1-SNAPSHOT.jar
               - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-0.0.1-SNAPSHOT.jar
@@ -48,7 +50,7 @@ stages:
               - resource-services-parent/webservice/target/webservice-0.0.1-SNAPSHOT.jar
               - resource-services-parent/websocket/target/websocket-0.0.1-SNAPSHOT.jar
               - resource-services-parent/wechat-applet/target/wechat-applet-0.0.1-SNAPSHOT.jar
-              - target/xuxiaowei-cloud-starter-parent-0.0.1-SNAPSHOT.pom
+              - pom.xml
               - ui/dist
               - ui/target/ui-0.0.1-SNAPSHOT.jar
               - utils/target/utils-0.0.1-SNAPSHOT.jar
