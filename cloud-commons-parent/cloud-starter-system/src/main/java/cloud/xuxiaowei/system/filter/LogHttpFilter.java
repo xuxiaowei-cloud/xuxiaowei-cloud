@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.filter;
 
+import cloud.xuxiaowei.utils.Constant;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
-import static cloud.xuxiaowei.utils.Constant.IP;
-import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 /**
@@ -34,13 +33,13 @@ public class LogHttpFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 
         String remoteHost = req.getRemoteHost();
-        MDC.put(IP, remoteHost);
+        MDC.put(Constant.IP, remoteHost);
 
-        String requestId = req.getHeader(REQUEST_ID);
+        String requestId = req.getHeader(Constant.REQUEST_ID);
         if (requestId == null) {
-            MDC.put(REQUEST_ID, UUID.randomUUID().toString());
+            MDC.put(Constant.REQUEST_ID, UUID.randomUUID().toString());
         } else {
-            MDC.put(REQUEST_ID, requestId);
+            MDC.put(Constant.REQUEST_ID, requestId);
         }
 
         super.doFilter(req, res, chain);

@@ -37,7 +37,7 @@ public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
     }
 
     private String username() {
-        String username = MDC.get(Constant.USERNAME);
+        String username = MDC.get(Constant.NAME);
         return username == null ? "" : username;
     }
 

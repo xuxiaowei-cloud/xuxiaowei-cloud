@@ -122,7 +122,7 @@ public class Response<T> implements Serializable {
      */
     public String getRequestId() {
         if (this.requestId == null) {
-            return MDC.get(REQUEST_ID);
+            return MDC.get(Constant.REQUEST_ID);
         }
         return this.requestId;
     }

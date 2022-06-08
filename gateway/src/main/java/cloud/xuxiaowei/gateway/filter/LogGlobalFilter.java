@@ -2,10 +2,7 @@ package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.log.entity.Log;
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.ResponseUtils;
-import cloud.xuxiaowei.utils.ServiceEnums;
+import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
@@ -27,8 +24,6 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
-import static cloud.xuxiaowei.utils.Constant.IP;
 
 /**
  * 日志 过滤器
@@ -69,7 +64,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpResponse response = exchange.getResponse();
 
         String requestId = request.getId();
-        MDC.put(Response.REQUEST_ID, requestId);
+        MDC.put(Constant.REQUEST_ID, requestId);
 
         InetSocketAddress remoteAddress = request.getRemoteAddress();
         if (remoteAddress == null) {
@@ -80,7 +75,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
         InetAddress address = remoteAddress.getAddress();
         String hostName = address.getHostName();
         String hostAddress = address.getHostAddress();
-        MDC.put(IP, hostAddress);
+        MDC.put(Constant.IP, hostAddress);
 
         save(logService, request, hostAddress, hostName, null);
 
