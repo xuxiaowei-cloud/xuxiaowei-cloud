@@ -82,26 +82,47 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         if (ex instanceof ResponseStatusException) {
             ResponseStatusException rse = (ResponseStatusException) ex;
             HttpStatus status = rse.getStatus();
-            if (status.value() == HttpStatus.NOT_FOUND.value()) {
-                error.setCode(CodeEnums.S10001.code);
+            switch (status) {
+                case NOT_FOUND:
+                    error.setCode(CodeEnums.S10001.code);
 
-                URI uri = request.getURI();
-                String path = uri.getPath();
-                String[] split = path.split("/");
-                if (split.length < 1) {
-                    error.setMsg(CodeEnums.S10001.msg);
-                } else {
-                    String service = split[1];
-                    ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
-                    if (serviceEnums == null) {
+                    URI uri = request.getURI();
+                    String path = uri.getPath();
+                    String[] split = path.split("/");
+                    if (split.length < 1) {
                         error.setMsg(CodeEnums.S10001.msg);
                     } else {
-                        error.setMsg("未发现：" + serviceEnums.name);
+                        String service = split[1];
+                        ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
+                        if (serviceEnums == null) {
+                            error.setMsg(CodeEnums.S10001.msg);
+                        } else {
+                            error.setMsg("未发现：" + serviceEnums.name);
+                        }
                     }
-                }
+                    break;
+                case SERVICE_UNAVAILABLE:
+                    error.setCode(CodeEnums.S10003.code);
 
-            } else {
-                error.setExplain("异常代码待划分");
+                    String msg;
+                    String message = rse.getMessage();
+                    if (message == null) {
+                        msg = CodeEnums.S10003.msg;
+                    } else {
+                        String service = message.replace("Unable to find instance for ", "");
+                        ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
+                        if (serviceEnums != null) {
+                            msg = CodeEnums.S10003.msg + "：" + serviceEnums.name;
+                        } else {
+                            msg = CodeEnums.S10003.msg;
+                        }
+                        error.setExplain(message);
+                    }
+
+                    error.setMsg(msg);
+                    break;
+                default:
+                    error.setExplain("异常代码待划分");
             }
         } else if (ex instanceof ConnectException) {
             error.setCode(CodeEnums.S10002.code);
