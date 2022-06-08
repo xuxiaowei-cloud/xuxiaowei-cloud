@@ -21,6 +21,7 @@ stages:
         mavenVersion: 3.6.3
         commands:
           - arch
+          - java -version
           - echo 'public class Test {public static void main(String[] args) {System.out.println("os.arch：" + System.getProperty("os.arch"));System.out.println("os.version：" + System.getProperty("os.version"));}}' > Test.java
           - javac -encoding utf-8 -d . Test.java
           - java Test
