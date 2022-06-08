@@ -21,7 +21,9 @@ stages:
         mavenVersion: 3.6.3
         commands:
           - arch
-          - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -DskipTests
+          - echo 'public class Test {public static void main(String[] args) {System.out.println(System.getProperty("os.arch"));System.out.println(System.getProperty("os.version"));}} ' > Test.java
+          - javac -encoding utf-8 -d . Test.java
+          - java Test
         artifacts:
           - name: BUILD_ARTIFACT
             path:
