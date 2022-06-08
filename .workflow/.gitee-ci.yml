@@ -17,7 +17,7 @@ stages:
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
-        jdkVersion: '11'
+        jdkVersion: '8'
         mavenVersion: 3.6.3
         commands:
           - arch
@@ -27,7 +27,7 @@ stages:
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              - target
+              - pom.xml
         settings: []
         strategy:
           retry: '0'
