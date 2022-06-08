@@ -17,18 +17,14 @@ stages:
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
-        jdkVersion: '8'
+        jdkVersion: '11'
         mavenVersion: 3.6.3
         commands:
-          - arch
-          - java -version
-          - echo 'public class Test {public static void main(String[] args) {System.out.println("os.arch：" + System.getProperty("os.arch"));System.out.println("os.version：" + System.getProperty("os.version"));}}' > Test.java
-          - javac -encoding utf-8 -d . Test.java
-          - java Test
+          - mvn package source:jar javadoc:jar install -DskipTests
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              - pom.xml
+              - ui/dist
         settings: []
         strategy:
           retry: '0'
