@@ -24,7 +24,34 @@ stages:
         artifacts:
           - name: BUILD_ARTIFACT
             path:
+              - admin-server/target/admin-server-0.0.1-SNAPSHOT.jar
+              - authorization-server/target/authorization-server-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-idempotent/target/cloud-starter-idempotent-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-loadbalancer/target/cloud-starter-loadbalancer-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-log/target/cloud-starter-log-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-mybatis/target/cloud-starter-mybatis-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-oauth2/target/cloud-starter-oauth2-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-openfeign/target/cloud-starter-openfeign-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-redis/target/cloud-starter-redis-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-session-redis/target/cloud-starter-session-redis-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-system/target/cloud-starter-system-0.0.1-SNAPSHOT.jar
+              - cloud-commons-parent/cloud-starter-validation/target/cloud-starter-validation-0.0.1-SNAPSHOT.jar
+              - example-parent/cxf-client/target/cxf-client-0.0.1-SNAPSHOT.jar
+              - example-parent/oauth2-client/target/oauth2-client-0.0.1-SNAPSHOT.jar
+              - gateway/target/gateway-0.0.1-SNAPSHOT.jar
+              - passport/target/passport-0.0.1-SNAPSHOT.jar
+              - passport-ui/target/passport-ui-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/audit/target/audit-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/canal/target/canal-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/user/target/user-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/webservice/target/webservice-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/websocket/target/websocket-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/wechat-applet/target/wechat-applet-0.0.1-SNAPSHOT.jar
+              - target/xuxiaowei-cloud-starter-parent-0.0.1-SNAPSHOT.pom
               - ui/dist
+              - ui/target/ui-0.0.1-SNAPSHOT.jar
+              - utils/target/utils-0.0.1-SNAPSHOT.jar
         settings: []
         strategy:
           retry: '0'
