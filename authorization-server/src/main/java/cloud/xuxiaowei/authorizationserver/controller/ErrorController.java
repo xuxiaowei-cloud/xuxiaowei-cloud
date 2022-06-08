@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
@@ -71,7 +72,7 @@ public class ErrorController {
                 model.addAttribute(Response.DATA, additionalInformation.get(Response.DATA));
                 model.addAttribute(Response.FIELD, additionalInformation.get(Response.FIELD));
                 model.addAttribute(Response.EXPLAIN, additionalInformation.get(Response.EXPLAIN));
-                model.addAttribute(Response.REQUEST_ID, additionalInformation.get(Response.REQUEST_ID));
+                model.addAttribute(Response.REQUEST_ID, additionalInformation.get(Constant.REQUEST_ID));
             }
 
             errorSummary = "OAuth2Exception";

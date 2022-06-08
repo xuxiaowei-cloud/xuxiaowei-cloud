@@ -2,8 +2,11 @@ package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.IpAddressMatcher;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
@@ -150,6 +153,10 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
         }
 
         return authentication.map(requestAuthentication -> {
+
+                    // 将当前用户名放入日志中
+                    MDC.put(Constant.NAME, SecurityUtils.getUserName(requestAuthentication));
+
                     // 已通过认证授权
                     if (requestAuthentication.isAuthenticated()) {
                         // 放行

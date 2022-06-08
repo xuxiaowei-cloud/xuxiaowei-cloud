@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.authorizationserver.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.client.AuthorizationCodeException;
 import cloud.xuxiaowei.utils.exception.login.LoginServiceException;
@@ -126,7 +127,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             oauth2Exception.addAdditionalInformation(Response.DATA, null);
             oauth2Exception.addAdditionalInformation(Response.FIELD, null);
             oauth2Exception.addAdditionalInformation(Response.EXPLAIN, null);
-            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(REQUEST_ID));
+            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(Constant.REQUEST_ID));
 
             if (oauth2Exception instanceof UnsupportedResponseTypeException) {
 
@@ -222,7 +223,7 @@ public class WebResponseExceptionTranslatorConfiguration implements WebResponseE
             oauth2Exception.addAdditionalInformation(Response.DATA, null);
             oauth2Exception.addAdditionalInformation(Response.FIELD, null);
             oauth2Exception.addAdditionalInformation(Response.EXPLAIN, null);
-            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(REQUEST_ID));
+            oauth2Exception.addAdditionalInformation(Response.REQUEST_ID, MDC.get(Constant.REQUEST_ID));
 
             if (authenticationException instanceof LoginServiceException) {
                 LoginServiceException loginServiceException = (LoginServiceException) authenticationException;

@@ -22,8 +22,6 @@ import javax.xml.soap.SOAPConstants;
 import java.io.IOException;
 import java.util.List;
 
-import static cloud.xuxiaowei.utils.Response.REQUEST_ID;
-
 /**
  * CXF 身份验证入口点
  * <p>
@@ -155,7 +153,7 @@ public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint
             explainElement.setText(authException.getMessage());
         }
 
-        String requestId = MDC.get(REQUEST_ID);
+        String requestId = MDC.get(Constant.REQUEST_ID);
         if (requestId != null) {
             requestIdElement.setText(requestId);
         }

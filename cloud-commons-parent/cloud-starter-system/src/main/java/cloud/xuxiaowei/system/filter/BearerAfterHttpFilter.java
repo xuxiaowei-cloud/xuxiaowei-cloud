@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.system.filter;
 
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -11,36 +12,27 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
-
-import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 /**
- * 日志 过滤器
+ * org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter 执行之后 过滤器
  * <p>
- * 用户在日志输出时，动态添加指定的信息，如：用户唯一标识，IP等
+ * 在日志中添加用户标识
  * <p>
- * 最高优先级
+ * 优先级高于 -100（即：数值小于 -100），将无效
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
-@Order(HIGHEST_PRECEDENCE)
+@Order(-100)
 @Component
-public class LogHttpFilter extends HttpFilter {
+public class BearerAfterHttpFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 
-        String remoteHost = req.getRemoteHost();
-        MDC.put(Constant.IP, remoteHost);
+        String userName = SecurityUtils.getUserName();
 
-        String requestId = req.getHeader(Constant.REQUEST_ID);
-        if (requestId == null) {
-            MDC.put(Constant.REQUEST_ID, UUID.randomUUID().toString());
-        } else {
-            MDC.put(Constant.REQUEST_ID, requestId);
-        }
+        MDC.put(Constant.NAME, userName);
 
         super.doFilter(req, res, chain);
     }
