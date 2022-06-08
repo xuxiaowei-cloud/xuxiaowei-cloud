@@ -1,0 +1,33 @@
+version: '1.0'
+name: package
+displayName: 打包
+triggers:
+  trigger: auto
+  push:
+    branches:
+      precise:
+        - main
+stages:
+  - name: package
+    displayName: 打包
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@maven
+        name: build_maven
+        displayName: Maven 构建
+        jdkVersion: '8'
+        mavenVersion: 3.6.3
+        commands:
+          - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -DskipTests
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - ./ui/dist
+        settings: []
+        strategy:
+          retry: '0'
+permissions:
+  - role: admin
+    members: []
