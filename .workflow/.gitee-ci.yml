@@ -20,6 +20,7 @@ stages:
         jdkVersion: '8'
         mavenVersion: 3.6.3
         commands:
+          - arch
           - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -DskipTests
         artifacts:
           - name: BUILD_ARTIFACT
@@ -28,6 +29,8 @@ stages:
         settings: []
         strategy:
           retry: '0'
+strategy:
+  blocking: false
 permissions:
   - role: admin
     members: []
