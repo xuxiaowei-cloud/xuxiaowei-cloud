@@ -344,6 +344,10 @@ cloud.xuxiaowei
 20. [阿里云 ubuntu-releases 镜像](https://developer.aliyun.com/mirror/ubuntu-releases)
 21. [阿里云 CentOS 镜像](https://developer.aliyun.com/mirror/centos)
 
+22. [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
+    1. 登录[QQ邮箱](https://mail.qq.com)
+    2. [设置] --> [帐户] --> [生成授权码](./static/QQ-授权码.png)
+
 ## 开发工具
 
 1. IDEA 2022.1.1
