@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.passport.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2022-06-09
  */
-@Getter
-@Setter
+@Data
 @TableName("users_login")
 public class UsersLogin implements Serializable {
 
@@ -67,6 +65,11 @@ public class UsersLogin implements Serializable {
      * Session ID
      */
     private String sessionId;
+
+    /**
+     * IP，不为空
+     */
+    private String ip;
 
     /**
      * 异常

@@ -1,15 +1,24 @@
 package cloud.xuxiaowei.passport.utils;
 
 import cloud.xuxiaowei.passport.entity.UsersLogin;
+import cloud.xuxiaowei.system.entity.Users;
+import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 import static org.springframework.security.web.WebAttributes.AUTHENTICATION_EXCEPTION;
 
@@ -19,6 +28,7 @@ import static org.springframework.security.web.WebAttributes.AUTHENTICATION_EXCE
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 public class HandlerUtils {
 
     /**
@@ -32,6 +42,7 @@ public class HandlerUtils {
      */
     public static UsersLogin usersLogin(String username, boolean success, HttpServletRequest request, AuthenticationException exception) {
         String method = request.getMethod();
+        String remoteHost = request.getRemoteHost();
         String queryString = request.getQueryString();
         String headersMap = RequestUtils.getHeadersJson(request);
         String userAgent = RequestUtils.getUserAgent(request);
@@ -69,9 +80,51 @@ public class HandlerUtils {
         usersLogin.setUserAgent(userAgent);
         usersLogin.setRequestId(requestId);
         usersLogin.setSessionId(sessionId);
+        usersLogin.setIp(remoteHost);
         usersLogin.setException(stackTrace);
 
         return usersLogin;
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @param usersService   用户 接口服务
+     * @param javaMailSender Java 邮件发送者
+     * @param mailProperties 邮件配置
+     * @param request        请求
+     * @param userName       用户名
+     * @param subject        邮件主题
+     * @param result         登录结果
+     */
+    public static void send(IUsersService usersService, JavaMailSender javaMailSender, MailProperties mailProperties, HttpServletRequest request, String userName, String subject, String result) {
+        Users users = usersService.getByUsername(userName);
+        if (users == null) {
+            log.error("错误：用户：{} 登录{}后，未找到用户信息，不可发送邮件！！！", userName, result);
+            return;
+        }
+
+        String email = users.getEmail();
+        if (!StringUtils.hasText(email)) {
+            log.warn("警号：用户：{} 无邮箱，不可发送邮件！！！", userName);
+        }
+
+        if (javaMailSender == null) {
+            log.error("错误：邮箱：{} 未登录{}，不可发送邮件！！！", mailProperties.getUsername(), result);
+            return;
+        }
+
+        String remoteHost = request.getRemoteHost();
+        String userAgent = RequestUtils.getUserAgent(request);
+
+        String now = DateUtils.format(LocalDateTime.now(), DateUtils.DEFAULT_DATE_TIME_FORMAT);
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(mailProperties.getUsername());
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(String.format("时间：%s\n用户名：%s\nIP：%s\nUser-Agent：%s\n登录结果：%s", now, userName, remoteHost, userAgent, subject));
+        javaMailSender.send(simpleMailMessage);
     }
 
 }

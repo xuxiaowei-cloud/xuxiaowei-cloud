@@ -4,11 +4,13 @@ import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.entity.UsersLogin;
 import cloud.xuxiaowei.passport.service.IUsersLoginService;
 import cloud.xuxiaowei.passport.utils.HandlerUtils;
+import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -35,15 +37,28 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     private JavaMailSender javaMailSender;
 
+    private MailProperties mailProperties;
+
     private CloudSecurityProperties cloudSecurityProperties;
 
+    private IUsersService usersService;
+
     private IUsersLoginService usersLoginService;
+
+    @Autowired
+    public void setUsersService(IUsersService usersService) {
+        this.usersService = usersService;
+    }
+
+    @Autowired
+    public void setMailProperties(MailProperties mailProperties) {
+        this.mailProperties = mailProperties;
+    }
 
     /**
      * 注意：
      * 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动
-     * <p>
-     * 故将 {@link Autowired#required()} 设置为 {@link Boolean#FALSE}，避免程序启动失败。使用时请判断该值是否为 null
+     * 故将 {@link Autowired} 的 required 设置为 false，避免程序启动失败。使用时请判断该值是否为 null
      */
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -74,6 +89,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Assert.isTrue(UrlUtils.isValidRedirectUrl(successForwardUrl), () -> "'" + successForwardUrl + "' 不是有效的转发URL");
 
         request.getRequestDispatcher(successForwardUrl).forward(request, response);
+
+        String subject = "登录系统成功";
+        String result = "成功";
+        HandlerUtils.send(usersService, javaMailSender, mailProperties, request, userName, subject, result);
+
     }
 
 }
