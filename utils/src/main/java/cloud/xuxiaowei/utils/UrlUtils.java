@@ -10,6 +10,7 @@ import java.net.URI;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@SuppressWarnings({"deprecation"})
 public class UrlUtils {
 
     /**
