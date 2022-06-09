@@ -146,6 +146,11 @@
         <!-- https://github.com/Wechat-Group/WxJava -->
         <weixin-java.version>4.3.0</weixin-java.version>
 
+        <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
+        <!-- https://oss.sonatype.org/content/repositories/public/com/xuxueli/xxl-job-core -->
+        <!-- https://github.com/xuxueli/xxl-job -->
+        <xxl-job-core.version>2.3.1</xxl-job-core.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -172,6 +177,8 @@
         <module>cloud-commons-parent</module>
         <!-- 示例父模块 -->
         <module>example-parent</module>
+        <!-- XXL JOB Admin -->
+        <module>xxl-job-admin</module>
     </modules>
 
     <dependencyManagement>
@@ -357,6 +364,13 @@
                 <version>${weixin-java.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-core.version}</version>
+            </dependency>
+
             <!-- 工具类 -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
@@ -424,12 +438,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- UI -->
-            <dependency>
-                <groupId>cloud.xuxiaowei</groupId>
-                <artifactId>ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <!-- 登录服务UI -->
             <dependency>
                 <groupId>cloud.xuxiaowei</groupId>
