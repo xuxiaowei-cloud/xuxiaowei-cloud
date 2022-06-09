@@ -42,8 +42,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     /**
      * 注意：
      * 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动
-     * <p>
-     * 故将 {@link Autowired#required()} 设置为 {@link Boolean#FALSE}，避免程序启动失败。使用时请判断该值是否为 null
+     * 故将 {@link Autowired} 的 required 设置为 false，避免程序启动失败。使用时请判断该值是否为 null
      */
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
