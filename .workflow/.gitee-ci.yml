@@ -7,6 +7,7 @@ triggers:
     branches:
       precise:
         - main
+        - xuxiaowei
 stages:
   - name: package
     displayName: 打包
@@ -17,7 +18,6 @@ stages:
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
-        # 此处选择 JDK 11 的原因是 Gitee Go 的 JDK 8 的 os.arch 为 i386，com.github.eirslett:frontend-maven-plugin 根据 os.arch 下载 node 时不存在，故选择 JDK 11
         jdkVersion: '11'
         mavenVersion: 3.6.3
         commands:
@@ -25,7 +25,6 @@ stages:
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              # Gitee Go 不支持通配符
               - admin-server/target/admin-server-0.0.1-SNAPSHOT.jar
               - authorization-server/target/authorization-server-0.0.1-SNAPSHOT.jar
               - cloud-commons-parent/cloud-starter-core/target/cloud-starter-core-0.0.1-SNAPSHOT.jar
