@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.controller.IndexController;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordNonExistException;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -46,7 +47,9 @@ public class DefaultPasswordEncoderImpl implements PasswordEncoder {
         if (StringUtils.hasText(rawPassword)) {
             return rawPassword.toString();
         } else {
-            throw new LoginParamPasswordNonExistException("登录参数不存在密码");
+            LoginParamPasswordNonExistException loginException = new LoginParamPasswordNonExistException("登录参数不存在密码");
+            loginException.setUsername(request.getParameter(Constant.USERNAME));
+            throw loginException;
         }
     }
 
@@ -71,10 +74,14 @@ public class DefaultPasswordEncoderImpl implements PasswordEncoder {
             }
         } catch (Exception e) {
             // 可能根据用户名没有找到用户信息（即：密码），导致比较失败
-            throw new LoginParamPasswordValidException("比较密码时异常", e);
+            LoginParamPasswordValidException loginException = new LoginParamPasswordValidException("比较密码时异常", e);
+            loginException.setUsername(request.getParameter(Constant.USERNAME));
+            throw loginException;
         }
         if (!matches) {
-            throw new LoginParamPasswordValidException("密码不匹配");
+            LoginParamPasswordValidException loginException = new LoginParamPasswordValidException("密码不匹配");
+            loginException.setUsername(request.getParameter(Constant.USERNAME));
+            throw loginException;
         }
 
         return true;
