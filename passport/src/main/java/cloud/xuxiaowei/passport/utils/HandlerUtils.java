@@ -32,6 +32,7 @@ public class HandlerUtils {
      */
     public static UsersLogin usersLogin(String username, boolean success, HttpServletRequest request, AuthenticationException exception) {
         String method = request.getMethod();
+        String remoteHost = request.getRemoteHost();
         String queryString = request.getQueryString();
         String headersMap = RequestUtils.getHeadersJson(request);
         String userAgent = RequestUtils.getUserAgent(request);
@@ -69,6 +70,7 @@ public class HandlerUtils {
         usersLogin.setUserAgent(userAgent);
         usersLogin.setRequestId(requestId);
         usersLogin.setSessionId(sessionId);
+        usersLogin.setIp(remoteHost);
         usersLogin.setException(stackTrace);
 
         return usersLogin;
