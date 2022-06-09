@@ -7,9 +7,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 昵称 验证 注解
+ * 用户名 验证 注解
  * <p>
- * 昵称存在时异常（为 null 时跳过验证）
+ * 用户名存在时异常（为 null 时跳过验证）
  *
  * @author xuxiaowei
  * @since 0.0.1
