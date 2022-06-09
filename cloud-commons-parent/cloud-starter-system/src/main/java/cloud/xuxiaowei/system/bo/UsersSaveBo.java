@@ -1,12 +1,10 @@
 package cloud.xuxiaowei.system.bo;
 
-import cloud.xuxiaowei.system.annotation.NicknameExistAnnotation;
-import cloud.xuxiaowei.system.annotation.NicknameLogicAnnotation;
-import cloud.xuxiaowei.system.annotation.UsernameExistAnnotation;
-import cloud.xuxiaowei.system.annotation.UsernameLogicAnnotation;
+import cloud.xuxiaowei.system.annotation.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -30,6 +28,20 @@ public class UsersSaveBo implements Serializable {
     @Length(min = 2, max = 10, message = "用户名 长度限制：2-10")
     @NotEmpty(message = "用户名 不能为空")
     private String username;
+
+    /**
+     * 邮箱，唯一键：uk__users__email
+     */
+    @EmailExistAnnotation
+    @EmailLogicAnnotation
+    @Email(message = "邮箱 不合法")
+    private String email;
+
+    /**
+     * 邮箱是否验证，不为空，默认值：0
+     */
+    @NotNull(message = "邮箱是否验证 不能为空")
+    private Boolean emailValid;
 
     /**
      * 昵称，不能为空，唯一键：uk__users__nickname

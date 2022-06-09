@@ -4,6 +4,7 @@ import cloud.xuxiaowei.system.annotation.UsersIdAnnotation;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -25,6 +26,18 @@ public class UsersUpdateBo implements Serializable {
     @UsersIdAnnotation
     @NotNull(message = "用户主键 不能为空")
     private Long usersId;
+
+    /**
+     * 邮箱，唯一键：uk__users__email
+     */
+    @Email(message = "邮箱 不合法")
+    private String email;
+
+    /**
+     * 邮箱是否验证，不为空，默认值：0
+     */
+    @NotNull(message = "邮箱是否验证 不能为空")
+    private Boolean emailValid;
 
     /**
      * 昵称，不能为空，唯一键：uk__users__nickname
