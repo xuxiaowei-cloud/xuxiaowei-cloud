@@ -30,7 +30,7 @@ import java.util.*;
  * Cron expressions are comprised of 6 required fields and one optional field
  * separated by white space. The fields respectively are described as follows:
  *
- * <table>
+ * <table summary="summary">
  * <tr>
  * <th style="text-align: left">Field Name</th>
  * <th style="text-align: left">&nbsp;</th>
