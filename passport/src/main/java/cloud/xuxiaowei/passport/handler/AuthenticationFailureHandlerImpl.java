@@ -1,11 +1,16 @@
 package cloud.xuxiaowei.passport.handler;
 
+import cloud.xuxiaowei.passport.entity.UsersLogin;
+import cloud.xuxiaowei.passport.service.IUsersLoginService;
+import cloud.xuxiaowei.passport.utils.HandlerUtils;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.AuthenticationException;
@@ -16,10 +21,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
-import static org.springframework.security.web.WebAttributes.AUTHENTICATION_EXCEPTION;
 
 /**
  * 身份验证失败处理程序
@@ -35,10 +37,19 @@ import static org.springframework.security.web.WebAttributes.AUTHENTICATION_EXCE
 @Component
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
 
+    private IUsersLoginService usersLoginService;
+
+    @Autowired
+    public void setUsersLoginService(IUsersLoginService usersLoginService) {
+        this.usersLoginService = usersLoginService;
+    }
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
-        HttpSession session = request.getSession(false);
+        String username = request.getParameter(Constant.USERNAME);
+        UsersLogin usersLogin = HandlerUtils.usersLogin(username, false, request, exception);
+        usersLoginService.save(usersLogin);
 
         Response<?> error;
 
@@ -69,20 +80,6 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         }
 
         log.error(error.getMsg(), exception);
-
-        // 在此可以统计一下登录失败的用户信息（需要将登录信息，如：用户名，放入 异常 中）
-        if (exception instanceof LoginException) {
-            session.removeAttribute(AUTHENTICATION_EXCEPTION);
-        }
-
-        if (session != null) {
-            // Session 创建时间
-            long creationTime = session.getCreationTime();
-            // 最后一次访问时间
-            long lastAccessedTime = session.getLastAccessedTime();
-            // 最大非活动时间
-            int maxInactiveInterval = session.getMaxInactiveInterval();
-        }
 
         ResponseUtils.response(response, error);
     }
