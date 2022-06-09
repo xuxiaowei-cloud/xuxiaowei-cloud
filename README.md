@@ -188,6 +188,12 @@ cloud.xuxiaowei
 | ---- | ---- | ---- |
 | xuxiaowei | 123 | 1 |
 
+- XXL Job
+
+| 地址                     | 账户名  | 密码 |
+|------------------------|-------| ---- |
+| http://127.0.0.1:2101/xxl-job-admin | admin | 123456 |
+
 ### 权限
 
 | 账户名 | 权限 | 说明 |
@@ -353,6 +359,7 @@ cloud.xuxiaowei
 22. [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
     1. 登录[QQ邮箱](https://mail.qq.com)
     2. [设置] --> [帐户] --> [生成授权码](./static/QQ-授权码.png)
+23. [XXL Job](https://www.xuxueli.com/xxl-job)
 
 ## 开发工具
 
