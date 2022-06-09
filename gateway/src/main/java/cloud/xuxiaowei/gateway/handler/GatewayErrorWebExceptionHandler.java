@@ -2,10 +2,7 @@ package cloud.xuxiaowei.gateway.handler;
 
 import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.ResponseUtils;
-import cloud.xuxiaowei.utils.ServiceEnums;
+import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +26,6 @@ import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
-
-import static cloud.xuxiaowei.utils.Constant.IP;
-import static cloud.xuxiaowei.utils.Constant.REQUEST_ID;
 
 /**
  * 网关 异常 响应处理 {@link WebExceptionHandler}
@@ -88,26 +82,47 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         if (ex instanceof ResponseStatusException) {
             ResponseStatusException rse = (ResponseStatusException) ex;
             HttpStatus status = rse.getStatus();
-            if (status.value() == HttpStatus.NOT_FOUND.value()) {
-                error.setCode(CodeEnums.S10001.code);
+            switch (status) {
+                case NOT_FOUND:
+                    error.setCode(CodeEnums.S10001.code);
 
-                URI uri = request.getURI();
-                String path = uri.getPath();
-                String[] split = path.split("/");
-                if (split.length < 1) {
-                    error.setMsg(CodeEnums.S10001.msg);
-                } else {
-                    String service = split[1];
-                    ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
-                    if (serviceEnums == null) {
+                    URI uri = request.getURI();
+                    String path = uri.getPath();
+                    String[] split = path.split("/");
+                    if (split.length < 1) {
                         error.setMsg(CodeEnums.S10001.msg);
                     } else {
-                        error.setMsg("未发现：" + serviceEnums.name);
+                        String service = split[1];
+                        ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
+                        if (serviceEnums == null) {
+                            error.setMsg(CodeEnums.S10001.msg);
+                        } else {
+                            error.setMsg("未发现：" + serviceEnums.name);
+                        }
                     }
-                }
+                    break;
+                case SERVICE_UNAVAILABLE:
+                    error.setCode(CodeEnums.S10003.code);
 
-            } else {
-                error.setExplain("异常代码待划分");
+                    String msg;
+                    String message = rse.getMessage();
+                    if (message == null) {
+                        msg = CodeEnums.S10003.msg;
+                    } else {
+                        String service = message.replace("Unable to find instance for ", "");
+                        ServiceEnums serviceEnums = ServiceEnums.getEnum(service);
+                        if (serviceEnums != null) {
+                            msg = CodeEnums.S10003.msg + "：" + serviceEnums.name;
+                        } else {
+                            msg = CodeEnums.S10003.msg;
+                        }
+                        error.setExplain(message);
+                    }
+
+                    error.setMsg(msg);
+                    break;
+                default:
+                    error.setExplain("异常代码待划分");
             }
         } else if (ex instanceof ConnectException) {
             error.setCode(CodeEnums.S10002.code);
@@ -130,8 +145,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
      * @return 返回日志，不为空时，直接在调用出返回。为空时，继续执行
      */
     @SuppressWarnings({"deprecation"})
-    public static Mono<Void> log(ILogService logService, ServerHttpRequest request, ServerHttpResponse response,
-                                 Throwable ex, String requestId) {
+    public static Mono<Void> log(ILogService logService, ServerHttpRequest request, ServerHttpResponse response, Throwable ex, String requestId) {
         HttpHeaders headers = response.getHeaders();
 
         // 解决服务未发现时跨域问题
@@ -141,7 +155,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         headers.setAccessControlAllowCredentials(true);
 
         // 日志中放入请求ID
-        MDC.put(REQUEST_ID, requestId);
+        MDC.put(Constant.REQUEST_ID, requestId);
 
         // 请求中放入用户IP
         InetSocketAddress remoteAddress = request.getRemoteAddress();
@@ -152,7 +166,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         InetAddress address = remoteAddress.getAddress();
         String hostName = address.getHostName();
         String hostAddress = address.getHostAddress();
-        MDC.put(IP, hostAddress);
+        MDC.put(Constant.IP, hostAddress);
 
         LogGlobalFilter.save(logService, request, hostAddress, hostName, ex);
 

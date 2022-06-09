@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since 0.0.1
  */
 @Configuration
+@SuppressWarnings({"deprecation"})
 public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override

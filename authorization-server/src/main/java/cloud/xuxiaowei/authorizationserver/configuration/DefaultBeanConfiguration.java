@@ -57,6 +57,7 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  */
 @Slf4j
 @Configuration
+@SuppressWarnings({"deprecation"})
 public class DefaultBeanConfiguration {
 
     private DataSource dataSource;

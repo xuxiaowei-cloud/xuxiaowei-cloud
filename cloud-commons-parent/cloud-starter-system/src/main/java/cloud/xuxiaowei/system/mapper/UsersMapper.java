@@ -48,6 +48,16 @@ public interface UsersMapper extends BaseMapper<Users> {
      * @param nickname 昵称
      * @return 返回 用户信息
      */
-    Users getLogicByNickname(String nickname);
+    Users getLogicByNickname(@Param("nickname") String nickname);
+
+    /**
+     * 根据 邮箱 查询用户信息
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param email 邮箱
+     * @return 返回 用户信息
+     */
+    Users getLogicByEmail(@Param("email") String email);
 
 }

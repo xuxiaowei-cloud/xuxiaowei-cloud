@@ -26,6 +26,7 @@ import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImp
  * @since 0.0.1
  */
 @Configuration
+@SuppressWarnings({"deprecation"})
 public class DefaultBeanConfiguration {
 
     private DataSource dataSource;

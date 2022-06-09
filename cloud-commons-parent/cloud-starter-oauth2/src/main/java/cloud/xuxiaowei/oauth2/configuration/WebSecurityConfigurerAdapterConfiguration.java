@@ -33,6 +33,7 @@ import java.util.UUID;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@SuppressWarnings({"deprecation"})
 public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
 
     private RedirectLoginPageFilter redirectLoginPageFilter;

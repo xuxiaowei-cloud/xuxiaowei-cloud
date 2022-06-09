@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  * @since 0.0.1
  */
 @Configuration
+@SuppressWarnings({"deprecation"})
 public class Oauth2MethodSecurityExpressionHandlerGlobalMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
     @Override

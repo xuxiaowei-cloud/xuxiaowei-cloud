@@ -20,6 +20,7 @@ import javax.sql.DataSource;
  * @since 0.0.1
  */
 @Configuration
+@SuppressWarnings({"deprecation"})
 public class DefaultBeanConfiguration {
 
     private DataSource dataSource;

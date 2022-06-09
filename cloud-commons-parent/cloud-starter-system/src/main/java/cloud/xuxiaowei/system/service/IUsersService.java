@@ -94,4 +94,22 @@ public interface IUsersService extends IService<Users> {
      */
     boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo);
 
+    /**
+     * 根据 邮箱 查询用户
+     *
+     * @param email 邮箱
+     * @return 返回 查询结果
+     */
+    Users getByEmail(String email);
+
+    /**
+     * 根据 邮箱 查询用户信息
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param email 邮箱
+     * @return 返回 用户信息
+     */
+    Users getLogicByEmail(String email);
+
 }

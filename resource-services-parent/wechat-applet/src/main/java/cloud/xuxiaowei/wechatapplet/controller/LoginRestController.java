@@ -67,7 +67,7 @@ public class LoginRestController {
         String openid = wxMaJscode2SessionResult.getOpenid();
         String unionid = wxMaJscode2SessionResult.getUnionid();
 
-        MDC.put(Constant.USERNAME, openid);
+        MDC.put(Constant.NAME, openid);
 
         boolean save = wxMaUsersService.saveOpenid(appid, openid, unionid);
         log.info("微信小程序 {} 是否新增用户 {}：{}", appid, openid, save);

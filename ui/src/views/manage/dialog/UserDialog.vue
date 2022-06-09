@@ -8,6 +8,12 @@
         <el-input v-if="props.edit" v-model="param.username" disabled/>
         <el-input v-else v-model="param.username"/>
       </el-form-item>
+      <el-form-item label="email">
+        <el-input v-model="param.email"/>
+      </el-form-item>
+      <el-form-item label="emailValid">
+        <el-switch v-model="param.emailValid"/>
+      </el-form-item>
       <el-form-item label="nickname">
         <el-input v-model="param.nickname"/>
       </el-form-item>
@@ -66,6 +72,8 @@ const props = defineProps({
 const param = reactive({
   usersId: null,
   username: null,
+  email: null,
+  emailValid: false,
   nickname: null,
   password: null,
   enabled: true,
@@ -103,6 +111,8 @@ const initData = () => {
         if (data) {
           param.usersId = data.usersId
           param.username = data.username
+          param.email = data.email
+          param.emailValid = data.emailValid
           param.nickname = data.nickname
           param.enabled = data.enabled
           param.accountNonExpired = data.accountNonExpired

@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -33,6 +34,7 @@ import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImp
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@SuppressWarnings({"deprecation"})
 public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -44,6 +46,8 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     private CloudRememberMeProperties cloudRememberMeProperties;
 
     private RequestMatcher csrfRequestMatcher;
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     private AuthenticationFailureHandler authenticationFailureHandler;
 
@@ -74,6 +78,11 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     }
 
     @Autowired
+    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
+
+    @Autowired
     public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
@@ -95,17 +104,12 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
                 .loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
                 // 身份验证失败处理程序
                 .failureHandler(authenticationFailureHandler)
-                // 登录成功地址
-                .successForwardUrl(cloudSecurityProperties.getSuccessForwardUrl())
+                // 登录成功后的处理，重定向到某个地址
+                .successHandler(authenticationSuccessHandler)
                 // 已上地址，允许任何人访问
                 .permitAll();
 
-        http.rememberMe()
-                .rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter())
-                .rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName())
-                .rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
-                .key(cloudRememberMeProperties.getKey())
-                .tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds());
+        http.rememberMe().rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter()).rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName()).rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain()).key(cloudRememberMeProperties.getKey()).tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds());
 
         // 端点放行
         http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
