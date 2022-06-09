@@ -147,6 +147,7 @@ cloud.xuxiaowei
 │        └──cloud-starter-redis             // Redis 组件
 │        └──cloud-starter-session-redis     // Session Redis 组件
 │        └──cloud-starter-validation        // 验证组件
+│    └──xxl-job-admin                       // XXL JOB Admin
 │    └──example-parent                      // 示例模块（独立模块）
 │        └──oauth2-client                   // OAuth 2.0 客户端（独立服务）
 │        └──cxf-client                      // CXF 2.0 客户端（独立服务）
@@ -173,6 +174,7 @@ cloud.xuxiaowei
 | websocket | WebSocket 服务 |  | 1801 |
 | webservice | WebService 服务 |  | 1901 |
 | wechat-applet | 微信小程序服务 |  | 2001 |
+| xxl-job-admin | XXL Job Admin |  | 2101 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
 | cxf-client | CXF 客户端（独立服务） |  | 10002 |
 

@@ -58,6 +58,11 @@ public enum ServiceEnums {
      */
     WECHAT_APPLET("wechat-applet", "微信小程序服务"),
 
+    /**
+     * XXL Job Admin
+     */
+    XXL_JOB_ADMIN("xxl-job-admin", "XXL Job Admin"),
+
     ;
 
     public final String service;
