@@ -54,6 +54,7 @@ stages:
               - ui/dist
               - ui/target/ui-0.0.1-SNAPSHOT.jar
               - utils/target/utils-0.0.1-SNAPSHOT.jar
+              - xxl-job-admin/target/xxl-job-admin-0.0.1-SNAPSHOT.jar
         settings: []
         strategy:
           retry: '0'
