@@ -31,6 +31,16 @@ public class UsersVo implements Serializable {
     private String username;
 
     /**
+     * 邮箱，唯一键：uk__users__email
+     */
+    private String email;
+
+    /**
+     * 邮箱是否验证，不为空，默认值：0
+     */
+    private Boolean emailValid;
+
+    /**
      * 昵称，不能为空，唯一键：uk__users__nickname
      */
     private String nickname;

@@ -2,6 +2,8 @@
   <div id="cloud-el-search">
     <el-input class="cloud-el-input" clearable v-model="param.usersId" placeholder="Please input usersId"/>
     <el-input class="cloud-el-input" clearable v-model="param.username" placeholder="Please input username"/>
+    <el-input class="cloud-el-input" clearable v-model="param.email" placeholder="Please input email"/>
+    <el-input class="cloud-el-input" clearable v-model="param.emailValid" placeholder="Please input emailValid"/>
     <el-input class="cloud-el-input" clearable v-model="param.nickname" placeholder="Please input nickname"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
@@ -48,6 +50,8 @@
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
       <el-table-column prop="username" label="username" width="100"/>
+      <el-table-column prop="email" label="email" width="220" :show-overflow-tooltip="true"/>
+      <el-table-column prop="emailValid" label="emailValid" width="100"/>
       <el-table-column prop="nickname" label="nickname" width="100"/>
       <el-table-column prop="enabled" label="enabled" width="80"/>
       <el-table-column prop="accountNonExpired" label="accountNonExpired" width="160"/>
@@ -182,6 +186,8 @@ const param = reactive({
   total: 0,
   usersId: null,
   username: null,
+  email: null,
+  emailValid: null,
   nickname: null
 })
 
@@ -210,6 +216,8 @@ const cloudSearch = () => {
 const cloudClearable = () => {
   param.usersId = null
   param.username = null
+  param.email = null
+  param.emailValid = null
   param.nickname = null
 }
 

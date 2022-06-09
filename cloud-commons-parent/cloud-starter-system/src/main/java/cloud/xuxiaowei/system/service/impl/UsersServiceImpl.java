@@ -138,6 +138,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
         Long usersId = manageUsersPageBo.getUsersId();
         String username = manageUsersPageBo.getUsername();
+        String email = manageUsersPageBo.getEmail();
+        Boolean emailValid = manageUsersPageBo.getEmailValid();
         String nickname = manageUsersPageBo.getNickname();
 
         if (usersId != null) {
@@ -145,6 +147,12 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         }
         if (StringUtils.hasText(username)) {
             queryWrapper.eq("username", username);
+        }
+        if (StringUtils.hasText(email)) {
+            queryWrapper.eq("email", email);
+        }
+        if (emailValid != null) {
+            queryWrapper.eq("email_valid", emailValid);
         }
         if (StringUtils.hasText(nickname)) {
             queryWrapper.eq("nickname", nickname);
@@ -268,6 +276,32 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         encode(users);
 
         return updateById(users);
+    }
+
+    /**
+     * 根据 邮箱 查询用户
+     *
+     * @param email 邮箱
+     * @return 返回 查询结果
+     */
+    @Override
+    public Users getByEmail(String email) {
+        QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", email);
+        return getOne(queryWrapper);
+    }
+
+    /**
+     * 根据 邮箱 查询用户信息
+     * <p>
+     * 条件无逻辑删除的判断
+     *
+     * @param email 邮箱
+     * @return 返回 用户信息
+     */
+    @Override
+    public Users getLogicByEmail(String email) {
+        return baseMapper.getLogicByEmail(email);
     }
 
     /**

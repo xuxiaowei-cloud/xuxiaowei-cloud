@@ -6,6 +6,8 @@
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Users">
         <id column="users_id" property="usersId" />
         <result column="username" property="username" />
+        <result column="email" property="email" />
+        <result column="email_valid" property="emailValid" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
         <result column="enabled" property="enabled" />
@@ -28,17 +30,7 @@
     </resultMap>
 
     <sql id="BaseResultMap_field">
-        u.users_id,
-        u.username,
-        u.nickname,
-        u.`password`,
-        u.enabled,
-        u.account_non_expired,
-        u.credentials_non_expired,
-        u.account_non_locked,
-        u.update_date,
-        u.create_date,
-        u.deleted,
+        u.*,
         a.username      AS a_username,
         a.authority     AS a_authority,
         ay.explain      AS a_explain,
@@ -91,6 +83,16 @@
             users AS u
         WHERE
             u.nickname = #{nickname}
+    </select>
+
+    <!-- 根据 邮箱 查询用户信息 -->
+    <select id="getLogicByEmail" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            u.*
+        FROM
+            users AS u
+        WHERE
+            u.email = #{email}
     </select>
 
 </mapper>
