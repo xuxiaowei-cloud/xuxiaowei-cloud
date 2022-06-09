@@ -9,6 +9,7 @@ import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.ForwardAuthenticationSuccessHandler;
@@ -32,9 +33,22 @@ import java.io.IOException;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
+    private JavaMailSender javaMailSender;
+
     private CloudSecurityProperties cloudSecurityProperties;
 
     private IUsersLoginService usersLoginService;
+
+    /**
+     * 注意：
+     * 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动
+     * <p>
+     * 故将 {@link Autowired#required()} 设置为 {@link Boolean#FALSE}，避免程序启动失败。使用时请判断该值是否为 null
+     */
+    @Autowired(required = false)
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     @Autowired
     public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
