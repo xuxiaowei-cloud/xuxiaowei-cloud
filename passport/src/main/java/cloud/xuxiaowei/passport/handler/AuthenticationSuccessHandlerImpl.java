@@ -4,11 +4,13 @@ import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.entity.UsersLogin;
 import cloud.xuxiaowei.passport.service.IUsersLoginService;
 import cloud.xuxiaowei.passport.utils.HandlerUtils;
+import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -35,9 +37,23 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     private JavaMailSender javaMailSender;
 
+    private MailProperties mailProperties;
+
     private CloudSecurityProperties cloudSecurityProperties;
 
+    private IUsersService usersService;
+
     private IUsersLoginService usersLoginService;
+
+    @Autowired
+    public void setUsersService(IUsersService usersService) {
+        this.usersService = usersService;
+    }
+
+    @Autowired
+    public void setMailProperties(MailProperties mailProperties) {
+        this.mailProperties = mailProperties;
+    }
 
     /**
      * 注意：
@@ -73,6 +89,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Assert.isTrue(UrlUtils.isValidRedirectUrl(successForwardUrl), () -> "'" + successForwardUrl + "' 不是有效的转发URL");
 
         request.getRequestDispatcher(successForwardUrl).forward(request, response);
+
+        String subject = "登录系统成功";
+        String result = "成功";
+        HandlerUtils.send(usersService, javaMailSender, mailProperties, request, userName, subject, result);
+
     }
 
 }

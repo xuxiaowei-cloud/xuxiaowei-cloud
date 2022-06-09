@@ -13,6 +13,7 @@ cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.security:spring-security-web:jar:5.7.1:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.63:provided
 │        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.2.RELEASE:provided
+│        └──org.springframework.security:spring-security-oauth2-jose:jar:5.7.1:provided
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:provided
 │        └──commons-io:commons-io:jar:2.11.0:provided
 │        └──org.dom4j:dom4j:jar:2.1.3:provided
@@ -146,6 +147,7 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.security.oauth:spring-security-oauth2:jar:2.5.2.RELEASE:compile
 │        └──org.springframework.boot:spring-boot-starter-aop:jar:2.7.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springframework.boot:spring-boot-starter-mail:jar:2.7.0:compile
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.0:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.2:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.0:compile
@@ -383,4 +385,20 @@ cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.example:example-parent:pom:0.0.1-SNAPSHOT
+
+
+cloud.xuxiaowei:xxl-job-admin:jar:0.0.1-SNAPSHOT
+│        └──com.xuxueli:xxl-job-core:jar:2.3.1:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
+│        └──p6spy:p6spy:jar:3.9.1:compile
+│        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.2:compile
+│        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.0:compile
+│        └──org.springframework.boot:spring-boot-starter-freemarker:jar:2.7.0:compile
+│        └──org.springframework.boot:spring-boot-starter-mail:jar:2.7.0:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
+│        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.2.2:compile
+│        └──mysql:mysql-connector-java:jar:8.0.29:runtime
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.0:compile
+│        └──org.projectlombok:lombok:jar:1.18.24:compile
 ```
