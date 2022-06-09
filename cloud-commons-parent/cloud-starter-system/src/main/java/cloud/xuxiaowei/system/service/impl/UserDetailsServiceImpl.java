@@ -36,6 +36,7 @@ import java.util.UUID;
  * @since 0.0.1
  */
 @Service
+@SuppressWarnings({"deprecation"})
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private HttpServletRequest request;
