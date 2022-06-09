@@ -28,7 +28,7 @@ public class JacksonUtil {
     }
 
     /**
-     * bean、array、List、Map --> json
+     * bean、array、List、Map --&gt; json
      *
      * @param obj
      * @return json string
@@ -47,7 +47,7 @@ public class JacksonUtil {
     }
 
     /**
-     * string --> bean、Map、List(array)
+     * string --&gt; bean、Map、List(array)
      *
      * @param jsonStr
      * @param clazz
@@ -67,7 +67,7 @@ public class JacksonUtil {
     }
 
     /**
-     * string --> List&lt;Bean&gt;...
+     * string --&gt; List&lt;Bean&gt;...
      *
      * @param jsonStr
      * @param parametrized
