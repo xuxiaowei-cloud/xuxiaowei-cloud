@@ -79,8 +79,8 @@
                             <goal>install-node-and-yarn</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v16.14.0</nodeVersion>
-                            <yarnVersion>v1.22.17</yarnVersion>
+                            <nodeVersion>v16.15.1</nodeVersion>
+                            <yarnVersion>v1.22.19</yarnVersion>
                         </configuration>
                     </execution>
                     &lt;!&ndash; 该步骤首次执行可能需要管理员权限 &ndash;&gt;
@@ -112,8 +112,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v16.14.0</nodeVersion>
-                            <npmVersion>8.3.1</npmVersion>
+                            <nodeVersion>v16.15.1</nodeVersion>
+                            <npmVersion>8.12.1</npmVersion>
                             <nodeDownloadRoot>http://mirrors.aliyun.com/nodejs-release/</nodeDownloadRoot>
                             <!--
                                 http://npm.taobao.org 和 http://registry.npm.taobao.org 将在 2022.06.30 号正式下线和停止 DNS 解析
