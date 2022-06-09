@@ -34,6 +34,11 @@ public class UsersLogin implements Serializable {
     private String username;
 
     /**
+     * 是否成功，不为空
+     */
+    private Boolean success;
+
+    /**
      * 请求方法
      */
     private String method;

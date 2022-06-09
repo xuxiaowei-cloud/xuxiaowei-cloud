@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.passport.entity.UsersLogin">
         <id column="users_login_id" property="usersLoginId" />
         <result column="username" property="username" />
+        <result column="success" property="success" />
         <result column="method" property="method" />
         <result column="query_string" property="queryString" />
         <result column="headers_map" property="headersMap" />
