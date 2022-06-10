@@ -73,6 +73,7 @@ package:
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
       - ui/dist
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   rules:
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
