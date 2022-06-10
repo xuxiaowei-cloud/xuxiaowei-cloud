@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
+                <version>${frontend-maven-plugin.version}</version>
                 <!--<executions>
                     <execution>
                         <id>install node and yarn</id>
@@ -79,8 +79,9 @@
                             <goal>install-node-and-yarn</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v16.15.1</nodeVersion>
-                            <yarnVersion>v1.22.19</yarnVersion>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <yarnVersion>${yarn.version}</yarnVersion>
+                            <nodeDownloadRoot>${node-download-root}</nodeDownloadRoot>
                         </configuration>
                     </execution>
                     &lt;!&ndash; 该步骤首次执行可能需要管理员权限 &ndash;&gt;
@@ -112,14 +113,14 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v16.15.1</nodeVersion>
-                            <npmVersion>8.12.1</npmVersion>
-                            <nodeDownloadRoot>http://mirrors.aliyun.com/nodejs-release/</nodeDownloadRoot>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                            <nodeDownloadRoot>${node-download-root}</nodeDownloadRoot>
                             <!--
                                 http://npm.taobao.org 和 http://registry.npm.taobao.org 将在 2022.06.30 号正式下线和停止 DNS 解析
                                 https://developer.aliyun.com/mirror/NPM
                              -->
-                            <npmDownloadRoot>http://registry.npmmirror.com/npm/-/</npmDownloadRoot>
+                            <npmDownloadRoot>${npm-download-root}</npmDownloadRoot>
                         </configuration>
                     </execution>
                     <!-- 该步骤首次执行可能需要管理员权限 -->
@@ -149,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${maven-resources-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
