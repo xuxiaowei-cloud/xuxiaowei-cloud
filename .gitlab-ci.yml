@@ -48,6 +48,7 @@ package:
     - echo 启动作业的用户的名称：$GITLAB_USER_NAME
     - echo 合并请求的实例级ID，这是GitLab上所有项目的唯一ID：$CI_MERGE_REQUEST_ID
     - echo 合并请求的项目级IID（内部ID），此ID对于当前项目是唯一的：$CI_MERGE_REQUEST_IID
+    - echo 合并请求的目标分支名称：$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     - echo 作业详细信息URL：$CI_JOB_URL
     - echo 作业的内部ID，在GitLab实例中的所有作业中是唯一的：$CI_JOB_ID
     - echo 正在使用的Runner的唯一ID：$CI_RUNNER_ID
@@ -81,8 +82,11 @@ package:
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
       - ui/dist
-  only:
-    - main
+  rules:
+    # PR 到 main 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    # PR 合并到 main 后执行
+    - if: $CI_COMMIT_BRANCH == "main"
 
 #
 # s2 打包
