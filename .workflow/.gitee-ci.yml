@@ -8,6 +8,10 @@ triggers:
       precise:
         - main
         - xuxiaowei
+  pr:
+    branches:
+      precise:
+        - main
 stages:
   - name: package
     displayName: 打包
