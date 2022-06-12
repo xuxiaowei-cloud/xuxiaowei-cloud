@@ -25,6 +25,7 @@ package:
     - echo 分支上存在的上一个最新提交前八个字符：$CI_COMMIT_SHORT_SHA
     - echo ISO8601格式的提交时间戳：$CI_COMMIT_TIMESTAMP
     - echo "Name<email>格式提交的作者：$CI_COMMIT_AUTHOR"
+    - echo 提交标记名称。仅在标签的管道中可用：$CI_COMMIT_TAG
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     - echo 单个执行器中构建执行的唯一ID：$CI_CONCURRENT_ID
@@ -86,9 +87,17 @@ package:
   rules:
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+      changes:
+        - "**.java"
+        - "**.xml"
+        - "**.yml"
+        - "**.properties"
+        - "**.factories"
+        - "**.jks"
     # PR 合并到 main 后执行
     - if: $CI_COMMIT_BRANCH == "main"
-
+  tags:
+    - "*"
 #
 # s2 打包
 s2-package:
