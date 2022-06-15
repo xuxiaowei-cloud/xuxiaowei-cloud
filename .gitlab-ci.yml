@@ -87,17 +87,9 @@ package:
   rules:
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
-      changes:
-        - "**.java"
-        - "**.xml"
-        - "**.yml"
-        - "**.properties"
-        - "**.factories"
-        - "**.jks"
     # PR 合并到 main 后执行
     - if: $CI_COMMIT_BRANCH == "main"
-  tags:
-    - "*"
+
 #
 # s2 打包
 s2-package:
