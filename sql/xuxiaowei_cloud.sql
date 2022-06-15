@@ -209,6 +209,7 @@ DROP TABLE IF EXISTS `users_login`;
 CREATE TABLE `users_login`  (
   `users_login_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '用户登录主键，自增',
   `username` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '用户名',
+  `success` tinyint(1) NOT NULL COMMENT '是否成功，不为空',
   `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方法',
   `query_string` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '参数',
   `headers_map` json NULL COMMENT '请求头，json',
