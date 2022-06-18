@@ -93,15 +93,15 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.0">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.0&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Cloud" src="https://img.shields.io/static/v1?label=Spring Cloud&message=2021.0.2">
+    <img alt="Spring Cloud" src="https://img.shields.io/static/v1?label=Spring Cloud&message=2021.0.2&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1">
+    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
@@ -109,7 +109,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=6.2.6">
+    <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=6.2.6&color=blue">
   </a>
 
   <a target="_blank" href="https://www.apache.org/licenses/LICENSE-2.0">
