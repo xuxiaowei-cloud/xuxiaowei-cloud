@@ -2,6 +2,7 @@ package cloud.xuxiaowei.validation.configuration;
 
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.TokenException;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,8 @@ public class ControllerAdviceConfiguration {
 
         log.error(String.format("%s：%s", exception.code, exception.msg), exception);
 
-        return Response.error(exception.code, exception.msg);
+        // 清空 vuex
+        return ResponseMap.error(exception.code, exception.msg).put("clearVuex", true);
     }
 
     /**
