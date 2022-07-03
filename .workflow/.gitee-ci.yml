@@ -45,6 +45,7 @@ stages:
         settings: []
         caches:
           - ~/.m2
+          - ~/.npm
         strategy:
           retry: '0'
 strategy:
