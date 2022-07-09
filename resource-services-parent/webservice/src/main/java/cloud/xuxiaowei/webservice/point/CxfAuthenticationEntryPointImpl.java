@@ -22,6 +22,8 @@ import javax.xml.soap.SOAPConstants;
 import java.io.IOException;
 import java.util.List;
 
+import static cloud.xuxiaowei.webservice.point.CxfAuthenticationEntryPointImpl.CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME;
+
 /**
  * CXF 身份验证入口点
  * <p>
@@ -34,8 +36,10 @@ import java.util.List;
  * @since 0.0.1
  */
 @Slf4j
-@Component
+@Component(CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME)
 public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint {
+
+	public static final String CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME = "cxfAuthenticationEntryPoint";
 
 	private CloudWebServiceProperties cloudWebServiceProperties;
 

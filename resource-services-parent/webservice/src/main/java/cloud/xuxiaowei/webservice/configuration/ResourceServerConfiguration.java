@@ -19,6 +19,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import java.security.interfaces.RSAPublicKey;
 
 import static cloud.xuxiaowei.oauth2.impl.CsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
+import static cloud.xuxiaowei.webservice.point.CxfAuthenticationEntryPointImpl.CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME;
 
 /**
  * 资源服务配置
@@ -48,6 +49,7 @@ public class ResourceServerConfiguration {
 	}
 
 	@Autowired
+	@Qualifier(CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME)
 	public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
 		this.authenticationEntryPoint = authenticationEntryPoint;
 	}
