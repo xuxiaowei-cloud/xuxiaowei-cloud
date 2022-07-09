@@ -31,52 +31,54 @@ import reactor.core.publisher.Mono;
 @Component
 public class ExceptionServerAuthenticationEntryPoint implements ServerAuthenticationEntryPoint {
 
-    private ILogService logService;
+	private ILogService logService;
 
-    @Autowired
-    public void setLogService(ILogService logService) {
-        this.logService = logService;
-    }
+	@Autowired
+	public void setLogService(ILogService logService) {
+		this.logService = logService;
+	}
 
-    @Override
-    public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException ex) {
+	@Override
+	public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException ex) {
 
-        ServerHttpRequest request = exchange.getRequest();
-        ServerHttpResponse response = exchange.getResponse();
+		ServerHttpRequest request = exchange.getRequest();
+		ServerHttpResponse response = exchange.getResponse();
 
-        String requestId = request.getId();
+		String requestId = request.getId();
 
-        Mono<Void> logHandler = GatewayErrorWebExceptionHandler.log(logService, request, response, ex, requestId);
-        if (logHandler != null) {
-            return logHandler;
-        }
+		Mono<Void> logHandler = GatewayErrorWebExceptionHandler.log(logService, request, response, ex, requestId);
+		if (logHandler != null) {
+			return logHandler;
+		}
 
-        Response<?> error = Response.error(CodeEnums.T10001.code, CodeEnums.T10001.msg);
-        error.setRequestId(requestId);
+		Response<?> error = Response.error(CodeEnums.T10001.code, CodeEnums.T10001.msg);
+		error.setRequestId(requestId);
 
-        if (ex instanceof AuthenticationCredentialsNotFoundException) {
-            error.setCode(CodeEnums.T10003.code);
-            error.setMsg(CodeEnums.T10003.msg);
-        } else if (ex instanceof InvalidBearerTokenException) {
-            InvalidBearerTokenException invalidBearerTokenException = (InvalidBearerTokenException) ex;
-            OAuth2Error oauth2Error = invalidBearerTokenException.getError();
+		if (ex instanceof AuthenticationCredentialsNotFoundException) {
+			error.setCode(CodeEnums.T10003.code);
+			error.setMsg(CodeEnums.T10003.msg);
+		}
+		else if (ex instanceof InvalidBearerTokenException) {
+			InvalidBearerTokenException invalidBearerTokenException = (InvalidBearerTokenException) ex;
+			OAuth2Error oauth2Error = invalidBearerTokenException.getError();
 
-            if (oauth2Error instanceof BearerTokenError) {
-                BearerTokenError bearerTokenError = (BearerTokenError) oauth2Error;
+			if (oauth2Error instanceof BearerTokenError) {
+				BearerTokenError bearerTokenError = (BearerTokenError) oauth2Error;
+				error.setCode(CodeEnums.T10002.code);
+				error.setMsg(CodeEnums.T10002.msg);
+				error.setExplain(bearerTokenError.getDescription());
+			}
+			else {
+				error.setCode(CodeEnums.T10004.code);
+				error.setMsg(CodeEnums.T10004.msg);
+			}
 
-                error.setCode(CodeEnums.T10002.code);
-                error.setMsg(CodeEnums.T10002.msg);
-                error.setExplain(bearerTokenError.getDescription());
-            } else {
-                error.setCode(CodeEnums.T10004.code);
-                error.setMsg(CodeEnums.T10004.msg);
-            }
+		}
+		else {
+			error.setExplain("异常代码待划分");
+		}
 
-        } else {
-            error.setExplain("异常代码待划分");
-        }
-
-        return ResponseUtils.writeWith(response, error);
-    }
+		return ResponseUtils.writeWith(response, error);
+	}
 
 }

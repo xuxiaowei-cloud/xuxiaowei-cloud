@@ -22,138 +22,142 @@ import java.util.Arrays;
 @Component
 public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
 
-    private static XxlJobAdminConfig adminConfig = null;
+	private static XxlJobAdminConfig adminConfig = null;
 
-    public static XxlJobAdminConfig getAdminConfig() {
-        return adminConfig;
-    }
+	public static XxlJobAdminConfig getAdminConfig() {
+		return adminConfig;
+	}
 
+	// ---------------------- XxlJobScheduler ----------------------
 
-    // ---------------------- XxlJobScheduler ----------------------
+	private XxlJobScheduler xxlJobScheduler;
 
-    private XxlJobScheduler xxlJobScheduler;
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		adminConfig = this;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        adminConfig = this;
+		xxlJobScheduler = new XxlJobScheduler();
+		xxlJobScheduler.init();
+	}
 
-        xxlJobScheduler = new XxlJobScheduler();
-        xxlJobScheduler.init();
-    }
+	@Override
+	public void destroy() throws Exception {
+		xxlJobScheduler.destroy();
+	}
 
-    @Override
-    public void destroy() throws Exception {
-        xxlJobScheduler.destroy();
-    }
+	// ---------------------- XxlJobScheduler ----------------------
 
+	// conf
+	@Value("${xxl.job.i18n}")
+	private String i18n;
 
-    // ---------------------- XxlJobScheduler ----------------------
+	@Value("${xxl.job.accessToken}")
+	private String accessToken;
 
-    // conf
-    @Value("${xxl.job.i18n}")
-    private String i18n;
+	@Value("${spring.mail.username}")
+	private String emailFrom;
 
-    @Value("${xxl.job.accessToken}")
-    private String accessToken;
+	@Value("${xxl.job.triggerpool.fast.max}")
+	private int triggerPoolFastMax;
 
-    @Value("${spring.mail.username}")
-    private String emailFrom;
+	@Value("${xxl.job.triggerpool.slow.max}")
+	private int triggerPoolSlowMax;
 
-    @Value("${xxl.job.triggerpool.fast.max}")
-    private int triggerPoolFastMax;
+	@Value("${xxl.job.logretentiondays}")
+	private int logretentiondays;
 
-    @Value("${xxl.job.triggerpool.slow.max}")
-    private int triggerPoolSlowMax;
+	// dao, service
 
-    @Value("${xxl.job.logretentiondays}")
-    private int logretentiondays;
+	@Resource
+	private XxlJobLogDao xxlJobLogDao;
 
-    // dao, service
+	@Resource
+	private XxlJobInfoDao xxlJobInfoDao;
 
-    @Resource
-    private XxlJobLogDao xxlJobLogDao;
-    @Resource
-    private XxlJobInfoDao xxlJobInfoDao;
-    @Resource
-    private XxlJobRegistryDao xxlJobRegistryDao;
-    @Resource
-    private XxlJobGroupDao xxlJobGroupDao;
-    @Resource
-    private XxlJobLogReportDao xxlJobLogReportDao;
-    @Resource
-    private JavaMailSender mailSender;
-    @Resource
-    private DataSource dataSource;
-    @Resource
-    private JobAlarmer jobAlarmer;
+	@Resource
+	private XxlJobRegistryDao xxlJobRegistryDao;
 
+	@Resource
+	private XxlJobGroupDao xxlJobGroupDao;
 
-    public String getI18n() {
-        if (!Arrays.asList("zh_CN", "zh_TC", "en").contains(i18n)) {
-            return "zh_CN";
-        }
-        return i18n;
-    }
+	@Resource
+	private XxlJobLogReportDao xxlJobLogReportDao;
 
-    public String getAccessToken() {
-        return accessToken;
-    }
+	@Resource
+	private JavaMailSender mailSender;
 
-    public String getEmailFrom() {
-        return emailFrom;
-    }
+	@Resource
+	private DataSource dataSource;
 
-    public int getTriggerPoolFastMax() {
-        if (triggerPoolFastMax < 200) {
-            return 200;
-        }
-        return triggerPoolFastMax;
-    }
+	@Resource
+	private JobAlarmer jobAlarmer;
 
-    public int getTriggerPoolSlowMax() {
-        if (triggerPoolSlowMax < 100) {
-            return 100;
-        }
-        return triggerPoolSlowMax;
-    }
+	public String getI18n() {
+		if (!Arrays.asList("zh_CN", "zh_TC", "en").contains(i18n)) {
+			return "zh_CN";
+		}
+		return i18n;
+	}
 
-    public int getLogretentiondays() {
-        if (logretentiondays < 7) {
-            return -1;  // Limit greater than or equal to 7, otherwise close
-        }
-        return logretentiondays;
-    }
+	public String getAccessToken() {
+		return accessToken;
+	}
 
-    public XxlJobLogDao getXxlJobLogDao() {
-        return xxlJobLogDao;
-    }
+	public String getEmailFrom() {
+		return emailFrom;
+	}
 
-    public XxlJobInfoDao getXxlJobInfoDao() {
-        return xxlJobInfoDao;
-    }
+	public int getTriggerPoolFastMax() {
+		if (triggerPoolFastMax < 200) {
+			return 200;
+		}
+		return triggerPoolFastMax;
+	}
 
-    public XxlJobRegistryDao getXxlJobRegistryDao() {
-        return xxlJobRegistryDao;
-    }
+	public int getTriggerPoolSlowMax() {
+		if (triggerPoolSlowMax < 100) {
+			return 100;
+		}
+		return triggerPoolSlowMax;
+	}
 
-    public XxlJobGroupDao getXxlJobGroupDao() {
-        return xxlJobGroupDao;
-    }
+	public int getLogretentiondays() {
+		if (logretentiondays < 7) {
+			return -1; // Limit greater than or equal to 7, otherwise close
+		}
+		return logretentiondays;
+	}
 
-    public XxlJobLogReportDao getXxlJobLogReportDao() {
-        return xxlJobLogReportDao;
-    }
+	public XxlJobLogDao getXxlJobLogDao() {
+		return xxlJobLogDao;
+	}
 
-    public JavaMailSender getMailSender() {
-        return mailSender;
-    }
+	public XxlJobInfoDao getXxlJobInfoDao() {
+		return xxlJobInfoDao;
+	}
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
+	public XxlJobRegistryDao getXxlJobRegistryDao() {
+		return xxlJobRegistryDao;
+	}
 
-    public JobAlarmer getJobAlarmer() {
-        return jobAlarmer;
-    }
+	public XxlJobGroupDao getXxlJobGroupDao() {
+		return xxlJobGroupDao;
+	}
+
+	public XxlJobLogReportDao getXxlJobLogReportDao() {
+		return xxlJobLogReportDao;
+	}
+
+	public JavaMailSender getMailSender() {
+		return mailSender;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public JobAlarmer getJobAlarmer() {
+		return jobAlarmer;
+	}
 
 }

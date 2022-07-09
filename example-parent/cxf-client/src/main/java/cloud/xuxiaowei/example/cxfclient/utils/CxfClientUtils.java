@@ -18,32 +18,31 @@ import java.util.Map;
  */
 public class CxfClientUtils {
 
-    /**
-     * 创建 CXF 客户端
-     *
-     * @param address      地址
-     * @param serviceClass （WebService响应结果）服务接口
-     * @param headers      请求头
-     * @param <T>          泛型
-     * @return 返回 （WebService响应结果）服务接口
-     */
-    public static <T> T create(String address, Class<T> serviceClass, Map<String, List<String>> headers) {
-        JaxWsProxyFactoryBean jaxWsProxyFactoryBean = new JaxWsProxyFactoryBean();
+	/**
+	 * 创建 CXF 客户端
+	 * @param address 地址
+	 * @param serviceClass （WebService响应结果）服务接口
+	 * @param headers 请求头
+	 * @param <T> 泛型
+	 * @return 返回 （WebService响应结果）服务接口
+	 */
+	public static <T> T create(String address, Class<T> serviceClass, Map<String, List<String>> headers) {
+		JaxWsProxyFactoryBean jaxWsProxyFactoryBean = new JaxWsProxyFactoryBean();
 
-        jaxWsProxyFactoryBean.getInInterceptors().add(new LoggingInInterceptor());
-        jaxWsProxyFactoryBean.getOutInterceptors().add(new LoggingOutInterceptor());
+		jaxWsProxyFactoryBean.getInInterceptors().add(new LoggingInInterceptor());
+		jaxWsProxyFactoryBean.getOutInterceptors().add(new LoggingOutInterceptor());
 
-        jaxWsProxyFactoryBean.setAddress(address);
-        jaxWsProxyFactoryBean.setServiceClass(serviceClass);
-        @SuppressWarnings("all")
-        T service = (T) jaxWsProxyFactoryBean.create();
+		jaxWsProxyFactoryBean.setAddress(address);
+		jaxWsProxyFactoryBean.setServiceClass(serviceClass);
+		@SuppressWarnings("all")
+		T service = (T) jaxWsProxyFactoryBean.create();
 
-        if (headers != null) {
-            Client client = ClientProxy.getClient(service);
-            client.getRequestContext().put(Message.PROTOCOL_HEADERS, headers);
-        }
+		if (headers != null) {
+			Client client = ClientProxy.getClient(service);
+			client.getRequestContext().put(Message.PROTOCOL_HEADERS, headers);
+		}
 
-        return service;
-    }
+		return service;
+	}
 
 }

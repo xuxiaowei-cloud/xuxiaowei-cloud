@@ -7,7 +7,9 @@ import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -15,7 +17,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
@@ -30,248 +34,259 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 @EnableAsync
 public class CanalScheduled {
 
-    private CloudCanalProperties cloudCanalProperties;
+	private CloudCanalProperties cloudCanalProperties;
 
-    private CanalService canalService;
+	private CanalService canalService;
 
-    @Autowired
-    public void setCanalService(CanalService canalService) {
-        this.canalService = canalService;
-    }
+	@Autowired
+	public void setCanalService(CanalService canalService) {
+		this.canalService = canalService;
+	}
 
-    @Autowired
-    public void setCloudCanalProperties(CloudCanalProperties cloudCanalProperties) {
-        this.cloudCanalProperties = cloudCanalProperties;
-    }
+	@Autowired
+	public void setCloudCanalProperties(CloudCanalProperties cloudCanalProperties) {
+		this.cloudCanalProperties = cloudCanalProperties;
+	}
 
-    @Scheduled(initialDelay = 1000, fixedRate = Integer.MAX_VALUE)
-    private void canal() {
+	@Scheduled(initialDelay = 1000, fixedRate = Integer.MAX_VALUE)
+	private void canal() {
 
-        log.info("canal 启动 ……");
+		log.info("canal 启动 ……");
 
-        String hostname = cloudCanalProperties.getHostname();
-        int port = cloudCanalProperties.getPort();
-        String destination = cloudCanalProperties.getDestination();
-        String username = cloudCanalProperties.getUsername();
-        String password = cloudCanalProperties.getPassword();
-        int batchSize = cloudCanalProperties.getBatchSize();
+		String hostname = cloudCanalProperties.getHostname();
+		int port = cloudCanalProperties.getPort();
+		String destination = cloudCanalProperties.getDestination();
+		String username = cloudCanalProperties.getUsername();
+		String password = cloudCanalProperties.getPassword();
+		int batchSize = cloudCanalProperties.getBatchSize();
 
-        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(hostname, port), destination, username, password);
+		CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(hostname, port),
+				destination, username, password);
 
-        try {
-            connector.connect();
-            connector.subscribe("xuxiaowei_cloud\\.oauth.*");
-            connector.rollback();
-            try {
-                while (true) {
-                    //尝试从master那边拉去数据batchSize条记录，有多少取多少
-                    Message message = connector.getWithoutAck(batchSize);
-                    long batchId = message.getId();
-                    int size = message.getEntries().size();
-                    if (batchId == -1 || size == 0) {
-                        Thread.sleep(1000);
-                    } else {
-                        dataHandle(message.getEntries());
-                    }
-                    connector.ack(batchId);
+		try {
+			connector.connect();
+			connector.subscribe("xuxiaowei_cloud\\.oauth2.*");
+			connector.rollback();
+			try {
+				while (true) {
+					// 尝试从master那边拉去数据batchSize条记录，有多少取多少
+					Message message = connector.getWithoutAck(batchSize);
+					long batchId = message.getId();
+					int size = message.getEntries().size();
+					if (batchId == -1 || size == 0) {
+						Thread.sleep(1000);
+					}
+					else {
+						dataHandle(message.getEntries());
+					}
+					connector.ack(batchId);
 
-                }
-            } catch (InterruptedException | InvalidProtocolBufferException e) {
-                log.error("Canal异常：", e);
-            }
-        } finally {
-            connector.disconnect();
-        }
-    }
+				}
+			}
+			catch (InterruptedException | InvalidProtocolBufferException e) {
+				log.error("Canal异常：", e);
+			}
+		}
+		finally {
+			connector.disconnect();
+		}
+	}
 
-    private void dataHandle(List<CanalEntry.Entry> entries) throws InvalidProtocolBufferException {
-        for (CanalEntry.Entry entry : entries) {
-            if (CanalEntry.EntryType.ROWDATA == entry.getEntryType()) {
-                CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-                CanalEntry.EventType eventType = rowChange.getEventType();
-                if (eventType == CanalEntry.EventType.DELETE) {
-//                    deleteSql(entry);
-                    deleteLogicSql(entry);
-                } else if (eventType == CanalEntry.EventType.UPDATE) {
-                    updateSql(entry);
-                } else if (eventType == CanalEntry.EventType.INSERT) {
-                    insertSql(entry);
-                }
-            }
-        }
-    }
+	private void dataHandle(List<CanalEntry.Entry> entries) throws InvalidProtocolBufferException {
+		for (CanalEntry.Entry entry : entries) {
+			if (CanalEntry.EntryType.ROWDATA == entry.getEntryType()) {
+				CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+				CanalEntry.EventType eventType = rowChange.getEventType();
 
-    private void insertSql(CanalEntry.Entry entry) {
-        try {
-            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
-            for (CanalEntry.RowData rowData : rowDatasList) {
-                List<CanalEntry.Column> columnList = rowData.getAfterColumnsList();
-                StringBuilder sql = new StringBuilder("insert into " + entry.getHeader().getTableName() + " (");
-                for (int i = 0; i < columnList.size(); i++) {
-                    CanalEntry.Column column = columnList.get(i);
-                    String mysqlType = column.getMysqlType();
-                    if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    }
+				if (eventType == CanalEntry.EventType.DELETE) {
+					deleteSql(entry);
+				}
+				else if (eventType == CanalEntry.EventType.UPDATE) {
+					updateSql(entry);
+				}
+				else if (eventType == CanalEntry.EventType.INSERT) {
+					insertSql(entry);
+				}
+			}
+		}
+	}
 
-                    sql.append(column.getName());
-                    if (i != columnList.size() - 1) {
-                        sql.append(",");
-                    }
-                }
+	private void insertSql(CanalEntry.Entry entry) {
 
-                String s1 = sql.toString();
-                int s1Length = s1.length();
-                String s1Substring = s1.substring(s1Length - 1, s1Length);
-                if (",".equals(s1Substring)) {
-                    sql = new StringBuilder(s1.substring(0, s1Length - 1));
-                }
+		CanalEntry.Header header = entry.getHeader();
+		long executeTime = header.getExecuteTime();
+		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
 
-                sql.append(") VALUES (");
-                for (int i = 0; i < columnList.size(); i++) {
-                    CanalEntry.Column column = columnList.get(i);
-                    String mysqlType = column.getMysqlType();
-                    if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    }
+		try {
+			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+			List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
+			for (CanalEntry.RowData rowData : rowDatasList) {
+				List<CanalEntry.Column> columnList = rowData.getAfterColumnsList();
 
-                    String value = column.getValue();
+				StringBuilder sql = new StringBuilder("insert into " + entry.getHeader().getTableName() + " (");
+				for (CanalEntry.Column column : columnList) {
+					sql.append(column.getName()).append(",");
+				}
 
-                    boolean isNull = column.getIsNull();
-                    if (isNull) {
-                        sql.append("null");
-                    } else {
-                        sql.append("'").append(value).append("'");
-                    }
+				// 时间
+				sql.append("log_date").append(",");
+				// 类型
+				sql.append("log_type");
 
-                    if (i != columnList.size() - 1) {
-                        sql.append(",");
-                    }
-                }
+				sql.append(") VALUES (");
 
-                String s2 = sql.toString();
-                int s2Length = s2.length();
-                String s2Substring = s2.substring(s2Length - 1, s2Length);
-                if (",".equals(s2Substring)) {
-                    sql = new StringBuilder(s2.substring(0, s2Length - 1));
-                }
+				for (CanalEntry.Column column : columnList) {
+					String value = column.getValue();
+					boolean isNull = column.getIsNull();
+					if (isNull) {
+						sql.append("null");
+					}
+					else {
+						sql.append("'").append(value).append("'");
+					}
+					sql.append(",");
+				}
 
-                sql.append(")");
+				// 时间
+				sql.append("'").append(executeTimeFormat).append("'").append(",");
+				// 类型
+				sql.append("'").append("insert").append("'");
 
-                log.info("准备插入：{}", sql);
-                int insert = canalService.insert(sql.toString());
-                log.info("插入结果：{}", insert);
+				sql.append(")");
 
-            }
-        } catch (InvalidProtocolBufferException e) {
-            log.error("Calan 插入异常：", e);
-        }
-    }
+				log.info("准备插入：{}", sql);
+				int insert = canalService.insert(sql.toString());
+				log.info("插入结果：{}", insert);
 
-    private void updateSql(CanalEntry.Entry entry) {
-        try {
-            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
-            for (CanalEntry.RowData rowData : rowDatasList) {
-                List<CanalEntry.Column> newColumnList = rowData.getAfterColumnsList();
-                StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName() + " set ");
-                for (int i = 0; i < newColumnList.size(); i++) {
+			}
+		}
+		catch (InvalidProtocolBufferException e) {
+			log.error("Calan 插入异常：", e);
+		}
+	}
 
-                    CanalEntry.Column newColumn = newColumnList.get(i);
-                    String mysqlType = newColumn.getMysqlType();
-                    String value = newColumn.getValue();
+	private void deleteSql(CanalEntry.Entry entry) {
 
-                    if ("mediumblob".equals(mysqlType)) {
-                        continue;
-                    }
+		CanalEntry.Header header = entry.getHeader();
+		long executeTime = header.getExecuteTime();
 
-                    boolean isNull = newColumn.getIsNull();
-                    if (isNull) {
-                        sql.append(" ").append(newColumn.getName()).append(" = NULL ");
-                    } else {
-                        sql.append(" ").append(newColumn.getName()).append(" = '").append(value).append("'");
-                    }
+		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
 
-                    if (i != newColumnList.size() - 1) {
-                        sql.append(",");
-                    }
-                }
-                sql.append(" where ");
-                List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
-                for (CanalEntry.Column column : oldColumnList) {
-                    if (column.getIsKey()) {
-                        // 暂时只支持单一主键
-                        sql.append(column.getName()).append(" = '").append(column.getValue()).append("'");
-                        break;
-                    }
-                }
+		try {
+			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+			List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
+			for (CanalEntry.RowData rowData : rowDatasList) {
 
-                log.info("准备更新：{}", sql);
-                int update = canalService.update(sql.toString());
-                log.info("更新结果：{}", update);
+				StringBuilder sql = new StringBuilder("insert into " + entry.getHeader().getTableName() + " (");
+				List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
+				for (CanalEntry.Column column : oldColumnList) {
+					sql.append(column.getName()).append(",");
+				}
 
-            }
-        } catch (InvalidProtocolBufferException e) {
-            log.error("Calan 更新异常：", e);
-        }
-    }
+				// 时间
+				sql.append("log_date").append(",");
+				// 类型
+				sql.append("log_type");
 
-    private void deleteLogicSql(CanalEntry.Entry entry) {
+				sql.append(") VALUES (");
 
-        CanalEntry.Header header = entry.getHeader();
-        long executeTime = header.getExecuteTime();
+				for (CanalEntry.Column column : oldColumnList) {
+					String value = column.getValue();
+					boolean isNull = column.getIsNull();
+					if (isNull) {
+						sql.append("null");
+					}
+					else {
+						sql.append("'").append(value).append("'");
+					}
+					sql.append(",");
+				}
 
-        String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+				// 时间
+				sql.append("'").append(executeTimeFormat).append("'").append(",");
+				// 类型
+				sql.append("'").append("delete").append("'");
 
-        try {
-            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
-            for (CanalEntry.RowData rowData : rowDatasList) {
-                StringBuilder sql = new StringBuilder("update " + entry.getHeader().getTableName());
-                sql.append(" set deleted = 1, update_date = '").append(executeTimeFormat).append("' where ");
-                List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
-                for (CanalEntry.Column column : oldColumnList) {
-                    if (column.getIsKey()) {
-                        // 暂时只支持单一主键
-                        sql.append(column.getName()).append("=").append(column.getValue());
-                        break;
-                    }
-                }
+				sql.append(")");
 
-                log.info("准备逻辑删除：{}", sql);
-                int update = canalService.update(sql.toString());
-                log.info("逻辑删除结果：{}", update);
+				log.info("准备逻辑删除：{}", sql);
+				int update = canalService.insert(sql.toString());
+				log.info("逻辑删除结果：{}", update);
 
-            }
-        } catch (InvalidProtocolBufferException e) {
-            log.error("Calan 逻辑删除异常：", e);
-        }
-    }
+			}
+		}
+		catch (InvalidProtocolBufferException e) {
+			log.error("Calan 逻辑删除异常：", e);
+		}
+	}
 
-    private void deleteSql(CanalEntry.Entry entry) {
-        try {
-            CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-            List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
-            for (CanalEntry.RowData rowData : rowDatasList) {
-                List<CanalEntry.Column> columnList = rowData.getBeforeColumnsList();
-                StringBuilder sql = new StringBuilder("delete from " + entry.getHeader().getTableName() + " where ");
-                for (CanalEntry.Column column : columnList) {
-                    if (column.getIsKey()) {
-                        //暂时只支持单一主键
-                        sql.append(column.getName()).append("=").append(column.getValue());
-                        break;
-                    }
-                }
+	@SneakyThrows
+	private void updateSql(CanalEntry.Entry entry) {
 
-                log.info("准备删除：{}", sql);
-                int delete = canalService.delete(sql.toString());
-                log.info("删除结果：{}", delete);
+		CanalEntry.Header header = entry.getHeader();
+		long executeTime = header.getExecuteTime();
+		ObjectMapper objectMapper = new ObjectMapper();
 
-            }
-        } catch (InvalidProtocolBufferException e) {
-            log.error("Calan 删除异常：", e);
-        }
-    }
+		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+
+		try {
+			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+			List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
+			for (CanalEntry.RowData rowData : rowDatasList) {
+				List<CanalEntry.Column> newColumnList = rowData.getAfterColumnsList();
+
+				StringBuilder sql = new StringBuilder("insert into " + entry.getHeader().getTableName() + " (");
+				for (CanalEntry.Column column : newColumnList) {
+					sql.append(column.getName()).append(",");
+				}
+
+				// 时间
+				sql.append("log_date").append(",");
+				// 更新之前
+				sql.append("update_before").append(",");
+				// 类型
+				sql.append("log_type");
+
+				sql.append(") VALUES (");
+
+				for (CanalEntry.Column column : newColumnList) {
+					String value = column.getValue();
+					boolean isNull = column.getIsNull();
+					if (isNull) {
+						sql.append("null");
+					}
+					else {
+						sql.append("'").append(value).append("'");
+					}
+					sql.append(",");
+				}
+
+				// 时间
+				sql.append("'").append(executeTimeFormat).append("'").append(",");
+
+				List<CanalEntry.Column> oldColumnList = rowData.getBeforeColumnsList();
+				Map<String, String> map = new HashMap<>(16);
+				for (CanalEntry.Column column : oldColumnList) {
+					map.put(column.getName(), column.getValue());
+				}
+				String value = objectMapper.writeValueAsString(map);
+				// 更新之前
+				sql.append("'").append(value).append("'").append(",");
+
+				// 类型
+				sql.append("'").append("update").append("'");
+
+				sql.append(")");
+
+				log.info("准备更新：{}", sql);
+				int update = canalService.insert(sql.toString());
+				log.info("更新结果：{}", update);
+
+			}
+		}
+		catch (InvalidProtocolBufferException e) {
+			log.error("Calan 更新异常：", e);
+		}
+	}
 
 }

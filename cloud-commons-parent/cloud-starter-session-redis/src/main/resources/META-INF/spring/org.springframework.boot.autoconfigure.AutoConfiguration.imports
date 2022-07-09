@@ -1,0 +1,2 @@
+cloud.xuxiaowei.session.configuration.SessionRedisSerializerConfiguration
+cloud.xuxiaowei.session.configuration.CookieSerializerConfiguration

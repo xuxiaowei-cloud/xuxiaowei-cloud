@@ -2,25 +2,30 @@ package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.core.properties.JwkKeyProperties;
+import cloud.xuxiaowei.oauth2.filter.AfterBearerTokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
+import java.security.interfaces.RSAPublicKey;
+
+import static cloud.xuxiaowei.oauth2.impl.CsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
 /**
  * Spring Security 配置
@@ -32,104 +37,172 @@ import static cloud.xuxiaowei.passport.service.impl.DefaultCsrfRequestMatcherImp
  * @since 0.0.1
  */
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@SuppressWarnings({"deprecation"})
-public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigurerAdapterConfiguration {
 
-    private UserDetailsService userDetailsService;
+	private JwkKeyProperties jwkKeyProperties;
 
-    private PasswordEncoder passwordEncoder;
+	private AccessDeniedHandler accessDeniedHandler;
 
-    private CloudSecurityProperties cloudSecurityProperties;
+	private AuthenticationEntryPoint authenticationEntryPoint;
 
-    private CloudRememberMeProperties cloudRememberMeProperties;
+	private UserDetailsService userDetailsService;
 
-    private RequestMatcher csrfRequestMatcher;
+	private CloudSecurityProperties cloudSecurityProperties;
 
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+	private CloudRememberMeProperties cloudRememberMeProperties;
 
-    private AuthenticationFailureHandler authenticationFailureHandler;
+	private RequestMatcher csrfRequestMatcher;
 
-    @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+	private AuthenticationFailureHandler authenticationFailureHandler;
 
-    @Autowired
-    public void setCloudRememberMeProperties(CloudRememberMeProperties cloudRememberMeProperties) {
-        this.cloudRememberMeProperties = cloudRememberMeProperties;
-    }
+	private AfterBearerTokenAuthenticationFilter afterBearerTokenAuthenticationFilter;
 
-    @Autowired
-    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
-        this.cloudSecurityProperties = cloudSecurityProperties;
-    }
+	@Autowired
+	public void setJwkKeyProperties(JwkKeyProperties jwkKeyProperties) {
+		this.jwkKeyProperties = jwkKeyProperties;
+	}
 
-    @Autowired
-    @Qualifier(CSRF_REQUEST_MATCHER_BEAN_NAME)
-    public void setCsrfRequestMatcher(RequestMatcher csrfRequestMatcher) {
-        this.csrfRequestMatcher = csrfRequestMatcher;
-    }
+	@Autowired
+	public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
+		this.accessDeniedHandler = accessDeniedHandler;
+	}
 
-    @Autowired
-    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
-    }
+	@Autowired
+	public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
+		this.authenticationEntryPoint = authenticationEntryPoint;
+	}
 
-    @Autowired
-    public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authenticationFailureHandler = authenticationFailureHandler;
-    }
+	@Autowired
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	@Autowired
+	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+		this.cloudSecurityProperties = cloudSecurityProperties;
+	}
 
-        // 查询登录用户
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
+	@Autowired
+	public void setCloudRememberMeProperties(CloudRememberMeProperties cloudRememberMeProperties) {
+		this.cloudRememberMeProperties = cloudRememberMeProperties;
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+	@Autowired
+	@Qualifier(CSRF_REQUEST_MATCHER_BEAN_NAME)
+	public void setCsrfRequestMatcher(RequestMatcher csrfRequestMatcher) {
+		this.csrfRequestMatcher = csrfRequestMatcher;
+	}
 
-        http.formLogin()
-                // 登录页面地址
-                .loginPage(cloudSecurityProperties.getLoginPageUrl())
-                // 登录请求地址
-                .loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
-                // 身份验证失败处理程序
-                .failureHandler(authenticationFailureHandler)
-                // 登录成功后的处理，重定向到某个地址
-                .successHandler(authenticationSuccessHandler)
-                // 已上地址，允许任何人访问
-                .permitAll();
+	@Autowired
+	public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
+	}
 
-        http.rememberMe().rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter()).rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName()).rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain()).key(cloudRememberMeProperties.getKey()).tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds());
+	@Autowired
+	@Qualifier("authenticationFailureHandlerImpl")
+	public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
+		this.authenticationFailureHandler = authenticationFailureHandler;
+	}
 
-        // 端点放行
-        http.authorizeRequests().antMatchers("/" + Constant.ACTUATOR + "/**").permitAll();
+	@Autowired
+	public void setAfterBearerTokenAuthenticationFilter(
+			AfterBearerTokenAuthenticationFilter afterBearerTokenAuthenticationFilter) {
+		this.afterBearerTokenAuthenticationFilter = afterBearerTokenAuthenticationFilter;
+	}
 
-        // 所有地址，均需要认证后才能访问
-        http.authorizeRequests().anyRequest().authenticated();
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> {
+			web.ignoring().antMatchers("/favicon.ico");
+			web.ignoring().antMatchers("/**/**.js");
+			web.ignoring().antMatchers("/**/**.css");
+		};
+	}
 
-        // CSRF 配置
-        http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+	/**
+	 * @see <a href=
+	 * "https://docs.spring.io/spring-security/reference/servlet/authentication/index.html">用于身份验证</a>
+	 * 的 Spring Security 过滤器链。
+	 */
+	@Bean
+	@Order(0)
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-    }
+		// 资源服务配置秘钥
+		http.oauth2ResourceServer().jwt(oauth2ResourceServer -> {
+			RSAPublicKey rsaPublicKey = jwkKeyProperties.rsaPublicKey();
+			NimbusJwtDecoder.PublicKeyJwtDecoderBuilder publicKeyJwtDecoderBuilder = NimbusJwtDecoder
+					.withPublicKey(rsaPublicKey);
+			NimbusJwtDecoder nimbusJwtDecoder = publicKeyJwtDecoderBuilder.build();
+			oauth2ResourceServer.decoder(nimbusJwtDecoder);
+		});
 
-    /**
-     * 资源（静态）不拦截
-     */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/favicon.ico");
-        web.ignoring().antMatchers("/**/**.js");
-        web.ignoring().antMatchers("/**/**.css");
-    }
+		// 异常处理
+		http.exceptionHandling(exceptionHandlingCustomizer -> {
+			exceptionHandlingCustomizer
+					// 访问被拒绝处理程序
+					.accessDeniedHandler(accessDeniedHandler)
+					// 身份验证入口点
+					.authenticationEntryPoint(authenticationEntryPoint);
+		});
+
+		// 用于检索用户进行身份验证的实例
+		http.userDetailsService(userDetailsService);
+
+		// 路径权限控制
+		http.authorizeHttpRequests((authorize) -> {
+			authorize
+					// 放行端点
+					.antMatchers("/actuator/**").permitAll()
+					// 放行授权路径
+					.antMatchers("/oauth2/authorize").permitAll()
+					// 放行检查Token
+					.antMatchers("/oauth2/check_token").permitAll()
+					// 放行Token
+					.antMatchers("/oauth2/token").permitAll()
+					// 注销登录放行
+					.antMatchers("/signout").permitAll()
+					// 放行错误地址
+					.antMatchers("/error").permitAll()
+					// 其他路径均需要授权
+					.anyRequest().authenticated();
+		});
+
+		http.formLogin(formLogin -> formLogin
+				// 登录页面地址
+				.loginPage(cloudSecurityProperties.getLoginPageUrl())
+				// 登录请求地址
+				.loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
+				// 身份验证失败处理程序
+				.failureHandler(authenticationFailureHandler)
+				// 登录成功后的处理，重定向到某个地址
+				.successHandler(authenticationSuccessHandler)
+				// 已上地址，允许任何人访问
+				.permitAll());
+
+		http.rememberMe(rememberMe -> rememberMe
+				// 查询用户
+				.userDetailsService(userDetailsService)
+				// 记住我参数名
+				.rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter())
+				// 记住我 Cookie 名
+				.rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName())
+				// 记住我域名
+				.rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
+				// 秘钥
+				.key(cloudRememberMeProperties.getKey())
+				// 记住我 Token 有效时间
+				.tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds()));
+
+		// CSRF 配置
+		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+
+		// 在解密 授权 Token 后，检查数据库中是否存在
+		http.addFilterAfter(afterBearerTokenAuthenticationFilter, BearerTokenAuthenticationFilter.class);
+
+		return http.build();
+	}
 
 }

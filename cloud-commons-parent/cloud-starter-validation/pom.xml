@@ -40,13 +40,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅为了提供：OAuth2Exception -->
-        <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-        </dependency>
-
         <!-- 仅为了提供：JsonMappingException -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

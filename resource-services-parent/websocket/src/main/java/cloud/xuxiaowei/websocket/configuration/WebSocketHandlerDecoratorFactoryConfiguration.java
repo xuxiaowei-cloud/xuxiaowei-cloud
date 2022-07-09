@@ -16,19 +16,20 @@ import org.springframework.web.socket.handler.WebSocketHandlerDecoratorFactory;
 @Configuration
 public class WebSocketHandlerDecoratorFactoryConfiguration implements WebSocketHandlerDecoratorFactory {
 
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
-    @Autowired
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+	@Autowired
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
 
-    @Override
-    @NonNull
-    public WebSocketHandler decorate(@NonNull WebSocketHandler handler) {
-        WebSocketHandlerDecoratorConfiguration decoratorConfiguration = new WebSocketHandlerDecoratorConfiguration(handler);
-        decoratorConfiguration.setApplicationContext(applicationContext);
-        return decoratorConfiguration;
-    }
+	@Override
+	@NonNull
+	public WebSocketHandler decorate(@NonNull WebSocketHandler handler) {
+		WebSocketHandlerDecoratorConfiguration decoratorConfiguration = new WebSocketHandlerDecoratorConfiguration(
+				handler);
+		decoratorConfiguration.setApplicationContext(applicationContext);
+		return decoratorConfiguration;
+	}
 
 }

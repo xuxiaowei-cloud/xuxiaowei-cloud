@@ -21,16 +21,16 @@ import reactor.core.publisher.Mono;
 @Component
 public class ServerAccessDeniedHandlerImpl implements ServerAccessDeniedHandler {
 
-    @Override
-    public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
+	@Override
+	public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
 
-        ServerHttpResponse response = exchange.getResponse();
+		ServerHttpResponse response = exchange.getResponse();
 
-        log.error("服务器访问被拒绝处理程序", denied);
+		log.error("服务器访问被拒绝处理程序", denied);
 
-        Response<?> error = Response.error(CodeEnums.T00000.code, CodeEnums.T00000.msg);
-        error.setExplain(denied.getMessage());
-        return ResponseUtils.writeWith(response, error);
-    }
+		Response<?> error = Response.error(CodeEnums.T00000.code, CodeEnums.T00000.msg);
+		error.setExplain(denied.getMessage());
+		return ResponseUtils.writeWith(response, error);
+	}
 
 }

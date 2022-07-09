@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { authorityList, getById, saveAuthorities } from '../../../api/user'
 
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 
@@ -39,51 +39,44 @@ const props = defineProps({
   }
 })
 
-// 数据接口
+// 权限数据
 interface Option {
   key: string
   label: string
   disabled: boolean
 }
-
-// 权限数据
 const authorityData: Option[] = []
-
-// 初始化权限数据
-const initAuthorityData = async () => {
-  await authorityList().then(response => {
-    if (response.code === store.state.settings.okCode) {
-      const data = response.data
-      if (data) {
-        for (const i in data) {
-          const team = data[i]
-          authorityData.push({
-            key: team.authority,
-            label: team.explain,
-            disabled: false
-          })
-        }
+const grantTypes = reactive(authorityData)
+authorityList().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    if (data) {
+      for (const i in data) {
+        const team = data[i]
+        grantTypes.push({
+          key: team.authority,
+          label: team.explain,
+          disabled: false
+        })
       }
-    } else {
-      ElMessage.error(response.msg)
     }
-  })
-}
-
-// 初始化权限数据
-await initAuthorityData()
+  } else {
+    ElMessage.error(response.msg)
+  }
+})
 
 // 左侧显示数据
 const data = ref(authorityData)
 
 // 用户数据
-const userData: String[] = []
+const user : string[] = []
+const userData = reactive(user)
 
 const username = ref(null)
 
 // 初始化用户数据
 if (props.usersId) {
-  await getById(props.usersId).then(response => {
+  getById(props.usersId).then(response => {
     if (response.code === store.state.settings.okCode) {
       const data = response.data
       if (data) {

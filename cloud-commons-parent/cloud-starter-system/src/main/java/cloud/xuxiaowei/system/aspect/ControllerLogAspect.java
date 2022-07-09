@@ -1,7 +1,6 @@
 package cloud.xuxiaowei.system.aspect;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
-import cloud.xuxiaowei.utils.AssertUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -29,63 +28,67 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class ControllerLogAspect {
 
-    /**
-     * 切点
-     */
-    @Pointcut("execution(* cloud.xuxiaowei.*.controller.*.*(..)) ")
-    public void pointcut() {
+	/**
+	 * 切点
+	 */
+	@Pointcut("execution(* cloud.xuxiaowei.*.controller.*.*(..)) ")
+	public void pointcut() {
 
-    }
+	}
 
-    /**
-     * 环绕通知
-     *
-     * @param joinPoint 切面方法信息
-     * @return 执行结果
-     * @throws Throwable 执行异常
-     */
-    @Around("pointcut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+	/**
+	 * 环绕通知
+	 * @param joinPoint 切面方法信息
+	 * @return 执行结果
+	 * @throws Throwable 执行异常
+	 */
+	@Around("pointcut()")
+	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
-        // 开始时间戳
-        long startTime = System.currentTimeMillis();
+		// 开始时间戳
+		long startTime = System.currentTimeMillis();
 
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        AssertUtils.notNull(requestAttributes, "RequestContextHolder.getRequestAttributes() 为空，请配置：`hystrix.command.default.execution.isolation.strategy=SEMAPHORE`");
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		String requestUri;
+		if (requestAttributes == null) {
+			requestUri = null;
+		}
+		else {
+			ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
 
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+			// 获取 Http 请求
+			HttpServletRequest request = servletRequestAttributes.getRequest();
+			// 获取 Http 响应
+			HttpServletResponse response = servletRequestAttributes.getResponse();
 
-        // 获取 Http 请求
-        HttpServletRequest request = servletRequestAttributes.getRequest();
-        // 获取 Http 响应
-        HttpServletResponse response = servletRequestAttributes.getResponse();
+			// URI
+			requestUri = request.getRequestURI();
+		}
 
-        // URI
-        String requestUri = request.getRequestURI();
+		ControllerAnnotation controllerAnnotation = ControllerAnnotation.Annotation.get(joinPoint);
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		String method = signature.getMethod().toString();
+		String description = controllerAnnotation == null ? method : controllerAnnotation.description();
 
-        ControllerAnnotation controllerAnnotation = ControllerAnnotation.Annotation.get(joinPoint);
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        String method = signature.getMethod().toString();
-        String description = controllerAnnotation == null ? method : controllerAnnotation.description();
+		log.info("前置通知：{}，URI：{}", description, requestUri);
 
-        log.info("前置通知：{}，URI：{}", description, requestUri);
+		try {
+			// 执行 Controller
+			Object proceed = joinPoint.proceed();
+			long endTime = System.currentTimeMillis();
+			long takeUpTime = endTime - startTime;
 
-        try {
-            // 执行 Controller
-            Object proceed = joinPoint.proceed();
-            long endTime = System.currentTimeMillis();
-            long takeUpTime = endTime - startTime;
+			log.info("后置通知：{}，耗时：{} ms", description, takeUpTime);
+			return proceed;
+		}
+		catch (Exception e) {
+			long endTime = System.currentTimeMillis();
+			long takeUpTime = endTime - startTime;
+			log.error("异常通知：{}，耗时：{} ms，异常：{}", description, takeUpTime, e);
 
-            log.info("后置通知：{}，耗时：{} ms", description, takeUpTime);
-            return proceed;
-        } catch (Exception e) {
-            long endTime = System.currentTimeMillis();
-            long takeUpTime = endTime - startTime;
-            log.error("异常通知：{}，耗时：{} ms，异常：{}", description, takeUpTime, e);
-
-            // 抛出原始异常
-            throw e;
-        }
-    }
+			// 抛出原始异常
+			throw e;
+		}
+	}
 
 }

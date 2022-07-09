@@ -23,47 +23,44 @@ import javax.xml.ws.Endpoint;
 @Configuration
 public class WebServiceConfiguration {
 
-    private UserService userService;
+	private UserService userService;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
-    /**
-     * CXF
-     *
-     * @return 返回 CXF {@link Bean}
-     */
-    @Bean(name = Bus.DEFAULT_BUS_ID)
-    public SpringBus springBus() {
-        return new SpringBus();
-    }
+	/**
+	 * CXF
+	 * @return 返回 CXF {@link Bean}
+	 */
+	@Bean(name = Bus.DEFAULT_BUS_ID)
+	public SpringBus springBus() {
+		return new SpringBus();
+	}
 
-    /**
-     * 注册 CXF 前缀 Servlet
-     *
-     * @return 返回 CXF {@link ServletRegistrationBean}
-     */
-    @Bean
-    public ServletRegistrationBean<CXFServlet> cxfServlet() {
-        return new ServletRegistrationBean<>(new CXFServlet(), "/cxf/*");
-    }
+	/**
+	 * 注册 CXF 前缀 Servlet
+	 * @return 返回 CXF {@link ServletRegistrationBean}
+	 */
+	@Bean
+	public ServletRegistrationBean<CXFServlet> cxfServlet() {
+		return new ServletRegistrationBean<>(new CXFServlet(), "/cxf/*");
+	}
 
-    /**
-     * 用户 WebService 接口
-     *
-     * @return 返回 公共 WebService 桶 {@link Endpoint}
-     */
-    @Bean
-    public Endpoint userServiceEndpoint() {
-        EndpointImpl userServiceEndpointImpl = new EndpointImpl(userService);
-        userServiceEndpointImpl.publish("/userService");
+	/**
+	 * 用户 WebService 接口
+	 * @return 返回 公共 WebService 桶 {@link Endpoint}
+	 */
+	@Bean
+	public Endpoint userServiceEndpoint() {
+		EndpointImpl userServiceEndpointImpl = new EndpointImpl(userService);
+		userServiceEndpointImpl.publish("/userService");
 
-        userServiceEndpointImpl.getInInterceptors().add(new LoggingInInterceptor());
-        userServiceEndpointImpl.getOutInterceptors().add(new LoggingOutInterceptor());
+		userServiceEndpointImpl.getInInterceptors().add(new LoggingInInterceptor());
+		userServiceEndpointImpl.getOutInterceptors().add(new LoggingOutInterceptor());
 
-        return userServiceEndpointImpl;
-    }
+		return userServiceEndpointImpl;
+	}
 
 }

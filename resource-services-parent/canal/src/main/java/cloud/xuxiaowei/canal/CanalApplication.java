@@ -14,8 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class CanalApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(CanalApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(CanalApplication.class, args);
+	}
 
 }

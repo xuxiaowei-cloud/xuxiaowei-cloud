@@ -1,7 +1,10 @@
 package cloud.xuxiaowei.system.filter;
 
+import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.RequestUtils;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -29,20 +33,42 @@ import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 @Component
 public class LogHttpFilter extends HttpFilter {
 
-    @Override
-    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+	private ILogService logService;
 
-        String remoteHost = req.getRemoteHost();
-        MDC.put(Constant.IP, remoteHost);
+	@Autowired
+	public void setLogService(ILogService logService) {
+		this.logService = logService;
+	}
 
-        String requestId = req.getHeader(Constant.REQUEST_ID);
-        if (requestId == null) {
-            MDC.put(Constant.REQUEST_ID, UUID.randomUUID().toString());
-        } else {
-            MDC.put(Constant.REQUEST_ID, requestId);
-        }
+	@Override
+	protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
 
-        super.doFilter(req, res, chain);
-    }
+		String remoteHost = req.getRemoteHost();
+		MDC.put(Constant.IP, remoteHost);
+
+		String requestId = req.getHeader(Constant.REQUEST_ID);
+		if (requestId == null) {
+			requestId = UUID.randomUUID().toString();
+			MDC.put(Constant.REQUEST_ID, requestId);
+		}
+		else {
+			MDC.put(Constant.REQUEST_ID, requestId);
+		}
+
+		HttpSession session = req.getSession();
+		String sessionId = session.getId();
+
+		String method = req.getMethod();
+		String requestUri = req.getRequestURI();
+		String queryString = req.getQueryString();
+		String headersMap = RequestUtils.getHeadersJson(req);
+		String userAgent = RequestUtils.getUserAgent(req);
+
+		logService.saveLog(remoteHost, requestId, sessionId, method, requestUri, queryString, headersMap, userAgent,
+				null);
+
+		super.doFilter(req, res, chain);
+	}
 
 }

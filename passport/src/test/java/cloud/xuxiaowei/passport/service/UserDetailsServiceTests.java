@@ -14,16 +14,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SpringBootTest
 class UserDetailsServiceTests {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
+	@Autowired
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 
-    /**
-     * 根据 用户 查询用户信息与权限
-     */
-    @Test
-    void loadUserByUsername() {
-        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername("xuxiaowei");
-        log.info(String.valueOf(userDetails));
-    }
+	/**
+	 * 根据 用户 查询用户信息与权限
+	 */
+	@Test
+	void loadUserByUsername() {
+		UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername("xuxiaowei");
+		log.info(String.valueOf(userDetails));
+	}
 
 }

@@ -1,45 +1,85 @@
 <template>
   <el-container>
-    <el-form :model="param" label-position="left" label-width="160px" id="cloud-el-form">
-      <el-form-item label="oauthClientDetailsId" v-if="props.edit">
-        <el-input v-model="param.oauthClientDetailsId" disabled/>
+    <el-form :model="param" ref="cloudFormRef" label-position="left" label-width="200px" id="cloud-el-form">
+      <el-form-item label="id" v-if="props.edit">
+        <el-input v-model="param.id" disabled/>
       </el-form-item>
-      <el-form-item label="clientId">
+      <el-form-item label="clientId" prop="clientId" :rules="[{ required: true, message: 'clientId is required' }]">
         <el-input v-if="props.edit" v-model="param.clientId" disabled/>
         <el-input v-else v-model="param.clientId"/>
+      </el-form-item>
+      <el-form-item label="clientName" prop="clientName" :rules="[{ required: true, message: 'clientName is required' }]">
+        <el-input v-model="param.clientName"/>
       </el-form-item>
       <el-form-item label="clientSecret">
         <el-input class="cloud-el-password" v-model="param.clientSecret"/>
         <el-button class="cloud-el-password-generate" @click="passwordGenerate">生成随机凭证</el-button>
       </el-form-item>
-      <el-form-item label="grantTypes">
-        <el-select v-model="grantTypes" multiple placeholder="Select grantTypes" style="width: 100%">
-          <el-option v-for="item in grantTypeOptions" :key="item.value" :label="item.label" :value="item.value"/>
+      <el-form-item label="clientIdIssuedAt">
+        <el-date-picker v-model="param.clientIdIssuedAt" type="datetime" placeholder="Pick a day"
+                        value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD HH:mm:ss"/>
+      </el-form-item>
+      <el-form-item label="clientSecretExpiresAt">
+        <el-date-picker v-model="param.clientSecretExpiresAt" type="datetime" placeholder="Pick a day"
+                        value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD HH:mm:ss"/>
+      </el-form-item>
+      <el-form-item label="clientAuthenticationMethods" prop="authenticationMethods"
+                    :rules="[{ required: true, message: 'clientAuthenticationMethods is required' }]">
+        <el-select v-model="param.authenticationMethods" multiple placeholder="Select authenticationMethods" style="width: 100%">
+          <el-option v-for="item in authenticationMethodList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="accessTokenValidity">
-        <el-input-number v-model="param.accessTokenValidity" :min="1"/>
+      <el-form-item label="authorizationGrantTypes" prop="grantTypes"
+                    :rules="[{ required: true, message: 'authorizationGrantTypes is required' }]">
+        <el-select v-model="param.grantTypes" multiple placeholder="Select authorizationGrantTypes" style="width: 100%">
+          <el-option v-for="item in grantTypeList" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
-      <el-form-item label="refreshTokenValidity">
-        <el-input-number v-model="param.refreshTokenValidity" :min="1"/>
+      <el-form-item label="redirectUris">
+        <el-input v-model="param.redirectUris"/>
       </el-form-item>
-      <el-form-item label="scope">
-        <el-input v-model="param.scope"/>
+      <el-form-item label="scopes" prop="scopeList" :rules="[{ required: true, message: 'scopes is required' }]">
+        <el-select v-model="param.scopeList" multiple placeholder="Select scopes" style="width: 100%">
+          <el-option v-for="item in scopeList" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
-      <el-form-item label="autoapprove">
-        <el-input v-model="param.autoapprove"/>
+      <el-form-item label="requireProofKey">
+        <el-switch v-model="param.requireProofKey"/>
       </el-form-item>
-      <el-form-item label="redirectUri">
-        <el-input v-model="param.webServerRedirectUri"/>
+      <el-form-item label="requireAuthorizationConsent">
+        <el-switch v-model="param.requireAuthorizationConsent"/>
       </el-form-item>
-      <el-form-item label="resourceIds">
-        <el-input v-model="param.resourceIds"/>
+      <el-form-item label="jwkSetUrl" prop="jwkSetUrl" :rules="[{ required: true, message: 'jwkSetUrl is required' }]">
+        <el-input v-model="param.jwkSetUrl"/>
       </el-form-item>
-      <el-form-item label="authorities">
-        <el-input v-model="param.authorities"/>
+      <el-form-item label="tokenSigningAlgorithm" prop="tokenSigningAlgorithm"
+                    :rules="[{ required: true, message: 'tokenSigningAlgorithm is required' }]">
+        <el-select v-model="param.tokenSigningAlgorithm" placeholder="Select tokenSigningAlgorithm" style="width: 100%">
+          <el-option v-for="item in tokenSigningAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
-      <el-form-item label="additionalInformation">
-        <el-input v-model="param.additionalInformation"/>
+      <el-form-item label="reuseRefreshTokens">
+        <el-switch v-model="param.reuseRefreshTokens"/>
+      </el-form-item>
+      <el-form-item label="tokenSignatureAlgorithm" prop="tokenSignatureAlgorithm"
+                    :rules="[{ required: true, message: 'tokenSignatureAlgorithm is required' }]">
+        <el-select v-model="param.tokenSignatureAlgorithm" placeholder="Select tokenSignatureAlgorithm" style="width: 100%">
+          <el-option v-for="item in tokenSignatureAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="accessTokenFormat" prop="accessTokenFormat"
+                    :rules="[{ required: true, message: 'tokenSigningAlgorithm is required' }]">
+        <el-select v-model="param.accessTokenFormat" placeholder="Select accessTokenFormat" style="width: 100%">
+          <el-option v-for="item in accessTokenFormatList" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="accessTokenTimeToLive" prop="accessTokenTimeToLive"
+                    :rules="[{ required: true, message: 'accessTokenTimeToLive is required' }]">
+        <el-input v-model="param.accessTokenTimeToLive" type="number"/>
+      </el-form-item>
+      <el-form-item label="refreshTokenTimeToLive" prop="accessTokenTimeToLive"
+                    :rules="[{ required: true, message: 'refreshTokenTimeToLive is required' }]">
+        <el-input v-model="param.refreshTokenTimeToLive" type="number"/>
       </el-form-item>
       <el-form-item>
         <el-button class="cloud-el-button" v-if="props.edit" @click="cloudUpdate">更新</el-button>
@@ -51,11 +91,21 @@
 
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive, ref } from 'vue'
-import { getById, save, updateById } from '../../../api/authorization-server'
+import {
+  getById,
+  save,
+  updateById,
+  grantTypeOptions,
+  authenticationMethodOptions,
+  scopeOptions,
+  tokenSigningAlgorithmOptions,
+  tokenSignatureAlgorithmOptions,
+  accessTokenFormatOptions
+} from '../../../api/passport/oauth2-registered-client'
 import { codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 // TS 未能识别，其实不存在问题
 // @ts-ignore
 import JsEncrypt from 'jsencrypt/bin/jsencrypt.min'
@@ -70,52 +120,133 @@ const props = defineProps({
   edit: { // 是否编辑
     type: Boolean
   },
-  oauthClientDetailsId: { // 编辑客户主键
-    type: Number
+  id: { // 编辑客户主键
+    type: String
   }
 })
 
-// 授权类型
-const grantTypes = ref([])
+// 可选内容
+interface Option {
+  label: string
+  value: string
+}
 
-// 授权类型：可选内容
-const grantTypeOptions = [
-  {
-    value: 'authorization_code',
-    label: 'authorization_code'
-  },
-  {
-    value: 'refresh_token',
-    label: 'refresh_token'
-  },
-  {
-    value: 'client_credentials',
-    label: 'client_credentials'
-  },
-  {
-    value: 'password',
-    label: 'password'
-  },
-  {
-    value: 'implicit',
-    label: 'implicit'
+// 授权类型
+const grantTypeData: Option[] = []
+const grantTypeList = reactive(grantTypeData)
+grantTypeOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      grantTypeList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
   }
-]
+})
+
+// 客户端身份验证方法
+const authenticationMethodData: Option[] = []
+const authenticationMethodList = reactive(authenticationMethodData)
+authenticationMethodOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      authenticationMethodList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
+  }
+})
+
+// 授权范围
+const scopeData: Option[] = []
+const scopeList = reactive(scopeData)
+scopeOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      scopeList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
+  }
+})
+
+// 令牌端点认证签名算法选项
+const tokenSigningAlgorithmData: Option[] = []
+const tokenSigningAlgorithmList = reactive(tokenSigningAlgorithmData)
+tokenSigningAlgorithmOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      tokenSigningAlgorithmList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
+  }
+})
+
+// id 令牌签名算法选项
+const tokenSignatureAlgorithmData: Option[] = []
+const tokenSignatureAlgorithmList = reactive(tokenSignatureAlgorithmData)
+tokenSignatureAlgorithmOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      tokenSignatureAlgorithmList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
+  }
+})
+
+// 授权Token格式选项
+const accessTokenFormatData: Option[] = []
+const accessTokenFormatList = reactive(accessTokenFormatData)
+accessTokenFormatOptions().then(response => {
+  if (response.code === store.state.settings.okCode) {
+    const data = response.data
+    for (const i in data) {
+      accessTokenFormatList.push({
+        label: data[i].label,
+        value: data[i].value
+      })
+    }
+  }
+})
 
 // 参数
 const param = reactive({
-  oauthClientDetailsId: null,
+  id: null,
   clientId: null,
+  clientName: null,
   clientSecret: null,
-  authorizedGrantTypes: null,
-  accessTokenValidity: null,
-  refreshTokenValidity: null,
-  scope: null,
-  autoapprove: null,
-  webServerRedirectUri: null,
-  resourceIds: null,
-  authorities: null,
-  additionalInformation: null,
+  clientIdIssuedAt: null,
+  clientSecretExpiresAt: null,
+  clientAuthenticationMethods: null,
+  authenticationMethods: [],
+  authorizationGrantTypes: null,
+  grantTypes: [],
+  redirectUris: null,
+  scopes: null,
+  scopeList: [],
+  clientSettings: null,
+  tokenSettings: null,
+  requireProofKey: null,
+  requireAuthorizationConsent: null,
+  jwkSetUrl: null,
+  tokenSigningAlgorithm: null,
+  reuseRefreshTokens: null,
+  tokenSignatureAlgorithm: null,
+  accessTokenFormat: null,
+  accessTokenTimeToLive: null,
+  refreshTokenTimeToLive: null,
   // 识别码
   code: null
 })
@@ -126,42 +257,27 @@ const publicKey = ref(null)
 // 获取识别码与公钥
 codeRsa().then(response => {
   if (response.code === store.state.settings.okCode) {
-    if (response.code === store.state.settings.okCode) {
-      const data = response.data
-      if (data) {
-        param.code = data.code
-        publicKey.value = data.publicKey
-      }
-    } else {
-      ElMessage.error(response.msg)
+    const data = response.data
+    if (data) {
+      param.code = data.code
+      publicKey.value = data.publicKey
     }
+  } else {
+    ElMessage.error(response.msg)
   }
 })
 
 // 初始化数据
 const initData = () => {
-  if (props.edit && props.oauthClientDetailsId) {
-    getById(props.oauthClientDetailsId).then(response => {
+  if (props.edit && props.id) {
+    getById(props.id).then(response => {
       if (response.code === store.state.settings.okCode) {
         const data = response.data
         if (data) {
-          param.oauthClientDetailsId = data.oauthClientDetailsId
-          param.clientId = data.clientId
-          const authorizedGrantTypes = data.authorizedGrantTypes
-          if (authorizedGrantTypes) {
-            authorizedGrantTypes.split(',').forEach(function (e: String) {
-              // @ts-ignore
-              grantTypes.value.push(e)
-            })
+          for (const name in data) {
+            // @ts-ignore
+            param[name] = data[name]
           }
-          param.accessTokenValidity = data.accessTokenValidity
-          param.refreshTokenValidity = data.refreshTokenValidity
-          param.scope = data.scope
-          param.autoapprove = data.autoapprove
-          param.webServerRedirectUri = data.webServerRedirectUri
-          param.resourceIds = data.resourceIds
-          param.authorities = data.authorities
-          param.additionalInformation = data.additionalInformation
         }
       } else {
         ElMessage.error(response.msg)
@@ -177,7 +293,13 @@ initData()
 
 // 生成随机密码
 const passwordGenerate = () => {
-  param.clientSecret = randomPassword()
+  param.clientSecret = randomPassword({
+    number: 3,
+    lowerCase: 1,
+    upperCase: 1,
+    symbol: 1,
+    suppl: 26
+  })
 }
 
 // 数据处理
@@ -185,46 +307,77 @@ const encryption = () => {
   const paramEncryption = JSON.parse(JSON.stringify(param))
   JsEncrypt.prototype.setPublicKey(publicKey.value)
   paramEncryption.clientSecret = JsEncrypt.prototype.encrypt(param.clientSecret)
-  paramEncryption.authorizedGrantTypes = grantTypes.value.toString()
+  paramEncryption.authorizationGrantTypes = param.grantTypes.toString()
+  paramEncryption.clientAuthenticationMethods = param.authenticationMethods.toString()
+  paramEncryption.scopes = param.scopeList.toString()
   return paramEncryption
 }
 
+// 表单验证
+const cloudFormRef = ref(null)
+
 // 保存
 const cloudSave = () => {
-  save(encryption()).then(response => {
-    console.log(response)
-    if (response.code === store.state.settings.okCode) {
-      ElMessage({
-        message: response.msg,
-        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-        duration: 1500,
-        type: 'success',
-        onClose: () => {
-          emit('dialogVisibleClose')
-        }
+  // @ts-ignore
+  cloudFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      ElMessageBox.confirm('确认添加？', '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        save(encryption()).then(response => {
+          console.log(response)
+          if (response.code === store.state.settings.okCode) {
+            ElMessage({
+              message: response.msg,
+              // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+              duration: 1500,
+              type: 'success',
+              onClose: () => {
+                emit('dialogVisibleClose')
+              }
+            })
+          } else {
+            ElMessage.error(response.msg)
+          }
+        })
+      }).catch(() => {
+
       })
-    } else {
-      ElMessage.error(response.msg)
     }
   })
 }
 
 // 更新
 const cloudUpdate = () => {
-  updateById(encryption()).then(response => {
-    console.log(response)
-    if (response.code === store.state.settings.okCode) {
-      ElMessage({
-        message: response.msg,
-        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-        duration: 1500,
-        type: 'success',
-        onClose: () => {
-          emit('dialogVisibleClose')
-        }
+  // @ts-ignore
+  cloudFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      ElMessageBox.confirm('确认更新？', '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        updateById(encryption()).then(response => {
+          console.log(response)
+          if (response.code === store.state.settings.okCode) {
+            ElMessage({
+              message: response.msg,
+              // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+              duration: 1500,
+              type: 'success',
+              onClose: () => {
+                emit('dialogVisibleClose')
+              }
+            })
+          } else {
+            ElMessage.error(response.msg)
+          }
+        })
+      }).catch(() => {
+
       })
-    } else {
-      ElMessage.error(response.msg)
     }
   })
 }

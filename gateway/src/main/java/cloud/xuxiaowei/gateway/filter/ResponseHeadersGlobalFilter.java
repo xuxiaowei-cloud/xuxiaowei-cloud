@@ -27,48 +27,49 @@ import java.net.URI;
 @Component
 public class ResponseHeadersGlobalFilter implements GlobalFilter, Ordered {
 
-    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 100000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 100000;
 
-    private CloudWebSocketProperties cloudWebSocketProperties;
+	private CloudWebSocketProperties cloudWebSocketProperties;
 
-    @Autowired
-    public void setCloudWebSocketProperties(CloudWebSocketProperties cloudWebSocketProperties) {
-        this.cloudWebSocketProperties = cloudWebSocketProperties;
-    }
+	@Autowired
+	public void setCloudWebSocketProperties(CloudWebSocketProperties cloudWebSocketProperties) {
+		this.cloudWebSocketProperties = cloudWebSocketProperties;
+	}
 
-    @Setter
-    private int order = ORDERED;
+	@Setter
+	private int order = ORDERED;
 
-    @Override
-    public int getOrder() {
-        return order;
-    }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
-        String path = uri.getPath();
+		ServerHttpRequest request = exchange.getRequest();
+		URI uri = request.getURI();
+		String path = uri.getPath();
 
-        String[] endpointPaths = cloudWebSocketProperties.getEndpointPaths();
-        if (endpointPaths != null) {
-            for (String endpointPath : endpointPaths) {
-                if (String.format("/%s%s/info", ServiceEnums.WEBSOCKET.service, endpointPath).equals(path)) {
+		String[] endpointPaths = cloudWebSocketProperties.getEndpointPaths();
+		if (endpointPaths != null) {
+			for (String endpointPath : endpointPaths) {
+				if (String.format("/%s%s/info", ServiceEnums.WEBSOCKET.service, endpointPath).equals(path)) {
 
-                    ServerHttpResponseDecorator decorator = new ServerHttpResponseDecorator(exchange.getResponse());
-                    HttpHeaders headers = decorator.getHeaders();
+					ServerHttpResponseDecorator decorator = new ServerHttpResponseDecorator(exchange.getResponse());
+					HttpHeaders headers = decorator.getHeaders();
 
-                    // WebSocket 响应时，移除 Access-Control-Allow-Origin、Access-Control-Allow-Credentials
-                    headers.remove(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN);
-                    headers.remove(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS);
+					// WebSocket 响应时，移除
+					// Access-Control-Allow-Origin、Access-Control-Allow-Credentials
+					headers.remove(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN);
+					headers.remove(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS);
 
-                    return chain.filter(exchange.mutate().response(decorator).build());
-                }
-            }
-        }
+					return chain.filter(exchange.mutate().response(decorator).build());
+				}
+			}
+		}
 
-        return chain.filter(exchange);
-    }
+		return chain.filter(exchange);
+	}
 
 }
