@@ -12,110 +12,119 @@ import java.util.List;
  */
 public class Constant implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 数字
-     */
-    public static final List<String> NUMBER_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+	/**
+	 * 数字
+	 */
+	public static final List<String> NUMBER_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
-    /**
-     * 小写字母
-     */
-    public static final List<String> LOWER_CASE_LIST = Arrays.asList(
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-            "u", "v", "w", "x", "y", "z");
+	/**
+	 * 小写字母
+	 */
+	public static final List<String> LOWER_CASE_LIST = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+			"k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
 
-    /**
-     * 大写字母
-     */
-    public static final List<String> UPPER_CASE_LIST = Arrays.asList(
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z");
+	/**
+	 * 大写字母
+	 */
+	public static final List<String> UPPER_CASE_LIST = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+			"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 
-    /**
-     * 符号
-     */
-    public static final List<String> SYMBOL = Arrays.asList(
-            "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-            "-", "_", "=", "+", "[", "{", "]", "}", ";", ":",
-            "'", "\"", ",", "<", ".", ">", "/", "?");
+	/**
+	 * 符号
+	 */
+	public static final List<String> SYMBOL = Arrays.asList("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_",
+			"=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
 
-    /**
-     * 端点
-     */
-    public static final String ACTUATOR = "actuator";
+	/**
+	 * Token 中传递权限的名称
+	 */
+	public static final String AUTHORITIES = "authorities";
 
-    /**
-     * 用户名
-     */
-    public static final String USERNAME = "username";
+	/**
+	 * 端点
+	 */
+	public static final String ACTUATOR = "actuator";
 
-    /**
-     * NAME
-     */
-    public static final String NAME = "NAME";
+	/**
+	 * 用户名
+	 */
+	public static final String USERNAME = "username";
 
-    /**
-     * 请求ID
-     */
-    public static final String REQUEST_ID = "REQUEST_ID";
+	/**
+	 * 用户ID
+	 */
+	public static final String USERS_ID = "USERS_ID";
 
-    /**
-     * IP
-     */
-    public static final String IP = "IP";
+	/**
+	 * NAME
+	 */
+	public static final String NAME = "NAME";
 
-    /**
-     * null 值
-     */
-    public static final String NULL = "null";
+	/**
+	 * 请求ID
+	 */
+	public static final String REQUEST_ID = "REQUEST_ID";
 
-    /**
-     * 参数名
-     */
-    public static final String PARAMETER_NAME = "parameterName";
+	/**
+	 * IP
+	 */
+	public static final String IP = "IP";
 
-    /**
-     * 参数类型
-     */
-    public static final String PARAMETER_TYPE = "parameterType";
+	/**
+	 * null 值
+	 */
+	public static final String NULL = "null";
 
-    /**
-     * 范围
-     */
-    public static final String SCOPE = "scope";
+	/**
+	 * 参数名
+	 */
+	public static final String PARAMETER_NAME = "parameterName";
 
-    /**
-     * 不明确
-     */
-    public static final String UNDEFINED = "undefined";
+	/**
+	 * 参数类型
+	 */
+	public static final String PARAMETER_TYPE = "parameterType";
 
-    /**
-     * 微信小程序appid
-     */
-    public static final String APPID = "appid";
+	/**
+	 * 范围
+	 */
+	public static final String SCOPE = "scope";
 
-    /**
-     * 微信小程序 openid
-     */
-    public static final String OPENID = "openid";
+	/**
+	 * 不明确
+	 */
+	public static final String UNDEFINED = "undefined";
 
-    /**
-     * 微信小程序 unionid
-     */
-    public static final String UNIONID = "unionid";
+	/**
+	 * 微信小程序appid
+	 */
+	public static final String APPID = "appid";
 
-    /**
-     * 客户端类型
-     */
-    public static final String CLIENT_TYPE = "client_type";
+	/**
+	 * 微信小程序 openid
+	 */
+	public static final String OPENID = "openid";
 
-    /**
-     * 私钥
-     */
-    public static final String PRIVATE_KEY = "privateKey";
+	/**
+	 * 微信小程序 unionid
+	 */
+	public static final String UNIONID = "unionid";
+
+	/**
+	 * 授权类型
+	 */
+	public static final String GRANT_TYPE = "grant_type";
+
+	/**
+	 * 私钥
+	 */
+	public static final String PRIVATE_KEY = "privateKey";
+
+	/**
+	 * 日志主键
+	 */
+	public static final String LOG_ID = "logId";
 
 }

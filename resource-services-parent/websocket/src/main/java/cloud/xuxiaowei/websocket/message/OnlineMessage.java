@@ -11,24 +11,24 @@ import lombok.Data;
 @Data
 public class OnlineMessage {
 
-    /**
-     * 消息类型
-     */
-    private String type = "online";
+	/**
+	 * 消息类型
+	 */
+	private String type = "online";
 
-    /**
-     * 是否上线
-     */
-    private boolean online;
+	/**
+	 * 是否上线
+	 */
+	private boolean online;
 
-    /**
-     * 用户名
-     */
-    private String username;
+	/**
+	 * 用户名
+	 */
+	private String username;
 
-    /**
-     * 在线用户
-     */
-    private int number;
+	/**
+	 * 在线用户
+	 */
+	private int number;
 
 }

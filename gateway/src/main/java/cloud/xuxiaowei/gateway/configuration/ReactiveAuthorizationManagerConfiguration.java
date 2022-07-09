@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
+import cloud.xuxiaowei.core.properties.JwkKeyProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.IpAddressMatcher;
@@ -12,15 +13,15 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.oauth2.server.resource.web.server.ServerBearerTokenAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
@@ -31,26 +32,21 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.sql.DataSource;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.security.KeyPair;
-import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * 反应式授权管理器
- * <p>
- * 当引入了 spring-cloud-starter-gateway 之后，即 {@link ReactiveJwtDecoder} 可正常使用时（存在 {@link Mono}），
- * 由于 org.springframework.boot.autoconfigure.security.oauth2.resource.reactive.ReactiveOAuth2ResourceServerJwkConfiguration.JwtConfiguration#jwtDecoder()，
- * 所以设置了 spring.security.oauth2.resourceserver.jwt.jwk-set-uri 之后，不可使用 {@link WebSecurityConfigurerAdapter}
- * 解决办法为使用本类
  *
  * @author xuxiaowei
  * @see EnableWebFluxSecurity
- * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级 <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
+ * @see AuthenticationWebFilter 身份验证 Web 过滤器，等级
+ * <code>http.addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);</code>
  * @see ServerBearerTokenAuthenticationConverter
  * @see ReactiveUserDetailsServiceAutoConfiguration
  * @since 0.0.1
@@ -58,186 +54,216 @@ import java.util.UUID;
 @Slf4j
 @Configuration
 @EnableWebFluxSecurity
-@SuppressWarnings({"deprecation"})
 public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthorizationManager<AuthorizationContext> {
 
-    private KeyPair keyPair;
+	private DataSource dataSource;
 
-    private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
+	private ServerAuthenticationEntryPoint serverAuthenticationEntryPoint;
 
-    private ServerAccessDeniedHandler serverAccessDeniedHandler;
+	private ServerAccessDeniedHandler serverAccessDeniedHandler;
 
-    private CorsBeforeWebFilter corsBeforeWebFilter;
+	private CorsBeforeWebFilter corsBeforeWebFilter;
 
-    private CloudWhiteListProperties cloudWhiteListProperties;
+	private CloudWhiteListProperties cloudWhiteListProperties;
 
-    @Autowired
-    public void setKeyPair(KeyPair keyPair) {
-        this.keyPair = keyPair;
-    }
+	private JwkKeyProperties jwkKeyProperties;
 
-    @Autowired
-    public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
-        this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
-    }
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
-    @Autowired
-    public void setServerAccessDeniedHandler(ServerAccessDeniedHandler serverAccessDeniedHandler) {
-        this.serverAccessDeniedHandler = serverAccessDeniedHandler;
-    }
+	@Autowired
+	public void setServerAuthenticationEntryPoint(ServerAuthenticationEntryPoint serverAuthenticationEntryPoint) {
+		this.serverAuthenticationEntryPoint = serverAuthenticationEntryPoint;
+	}
 
-    @Autowired
-    public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
-        this.corsBeforeWebFilter = corsBeforeWebFilter;
-    }
+	@Autowired
+	public void setServerAccessDeniedHandler(ServerAccessDeniedHandler serverAccessDeniedHandler) {
+		this.serverAccessDeniedHandler = serverAccessDeniedHandler;
+	}
 
-    @Autowired
-    public void setCloudWhiteListProperties(CloudWhiteListProperties cloudWhiteListProperties) {
-        this.cloudWhiteListProperties = cloudWhiteListProperties;
-    }
+	@Autowired
+	public void setCorsBeforeWebFilter(CorsBeforeWebFilter corsBeforeWebFilter) {
+		this.corsBeforeWebFilter = corsBeforeWebFilter;
+	}
 
-    /**
-     * 禁止控制室台输出默认用户的密码
-     */
-    @Autowired
-    public void setSecurityProperties(SecurityProperties securityProperties) {
-        securityProperties.getUser().setPassword(UUID.randomUUID().toString());
-    }
+	@Autowired
+	public void setCloudWhiteListProperties(CloudWhiteListProperties cloudWhiteListProperties) {
+		this.cloudWhiteListProperties = cloudWhiteListProperties;
+	}
 
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+	@Autowired
+	public void setJwkKeyProperties(JwkKeyProperties jwkKeyProperties) {
+		this.jwkKeyProperties = jwkKeyProperties;
+	}
 
-        // 反应式授权管理器
-        http.authorizeExchange().anyExchange().access(this);
+	/**
+	 * 禁止控制室台输出默认用户的密码
+	 */
+	@Autowired
+	public void setSecurityProperties(SecurityProperties securityProperties) {
+		securityProperties.getUser().setPassword(UUID.randomUUID().toString());
+	}
 
-        // 临时禁用 跨站请求伪造 CSRF
-        // 待转化为配置文件
-        http.csrf().disable();
+	@Bean
+	public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
 
-        PublicKey publicKey = keyPair.getPublic();
+		// 反应式授权管理器
+		http.authorizeExchange().anyExchange().access(this);
 
-        // 启用 OAuth2 JWT 资源服务器支持
-        http.oauth2ResourceServer().jwt().publicKey((RSAPublicKey) publicKey);
+		// 临时禁用 跨站请求伪造 CSRF
+		// 待转化为配置文件
+		http.csrf().disable();
 
-        // 资源服务异常切入点（验证Token异常）
-        http.oauth2ResourceServer().authenticationEntryPoint(serverAuthenticationEntryPoint);
+		// 禁用 form 登录
+		http.formLogin().disable();
 
-        // 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器, SecurityWebFiltersOrder.CORS);</code>
+		// 资源服务配置秘钥
+		// 启用 OAuth2 JWT 资源服务器支持
+		RSAPublicKey rsaPublicKey = jwkKeyProperties.rsaPublicKey();
+		http.oauth2ResourceServer().jwt().publicKey(rsaPublicKey);
 
-        // 在 CORS 之前执行
-        http.addFilterBefore(corsBeforeWebFilter, SecurityWebFiltersOrder.CORS);
+		// 资源服务异常切入点（验证Token异常）
+		http.oauth2ResourceServer().authenticationEntryPoint(serverAuthenticationEntryPoint);
 
-        // 设置是否支持使用 URI 查询参数传输访问令牌。默认为 {@code false}。
-        ServerBearerTokenAuthenticationConverter bearerTokenConverter = new ServerBearerTokenAuthenticationConverter();
-        bearerTokenConverter.setAllowUriQueryParameter(true);
-        http.oauth2ResourceServer().bearerTokenConverter(bearerTokenConverter);
+		// 自定义动态跨域 CORS 配置 过滤器 <code>http.addFilterBefore(过滤器,
+		// SecurityWebFiltersOrder.CORS);</code>
 
-        // 身份验证入口点
-        http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
-        // 服务器访问被拒绝处理程序
-        http.oauth2ResourceServer().accessDeniedHandler(serverAccessDeniedHandler);
+		// 在 CORS 之前执行
+		http.addFilterBefore(corsBeforeWebFilter, SecurityWebFiltersOrder.CORS);
 
-        return http.build();
-    }
+		// 设置是否支持使用 URI 查询参数传输访问令牌。默认为 {@code false}。
+		ServerBearerTokenAuthenticationConverter bearerTokenConverter = new ServerBearerTokenAuthenticationConverter();
+		bearerTokenConverter.setAllowUriQueryParameter(true);
+		http.oauth2ResourceServer().bearerTokenConverter(bearerTokenConverter);
 
-    @Override
-    public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, AuthorizationContext authorizationContext) {
+		// 身份验证入口点
+		http.exceptionHandling().authenticationEntryPoint(serverAuthenticationEntryPoint);
+		// 服务器访问被拒绝处理程序
+		http.oauth2ResourceServer().accessDeniedHandler(serverAccessDeniedHandler);
 
-        ServerWebExchange exchange = authorizationContext.getExchange();
+		return http.build();
+	}
 
-        log.info(exchange.getRequest().getURI().toString());
+	@Override
+	public Mono<AuthorizationDecision> check(Mono<Authentication> authentication,
+			AuthorizationContext authorizationContext) {
 
-        boolean whiteList = whiteList(exchange);
-        if (whiteList) {
-            return Mono.just(new AuthorizationDecision(true));
-        }
+		ServerWebExchange exchange = authorizationContext.getExchange();
 
-        return authentication.map(requestAuthentication -> {
+		log.info(exchange.getRequest().getURI().toString());
 
-                    // 将当前用户名放入日志中
-                    MDC.put(Constant.NAME, SecurityUtils.getUserName(requestAuthentication));
+		boolean whiteList = whiteList(exchange);
+		if (whiteList) {
+			return Mono.just(new AuthorizationDecision(true));
+		}
 
-                    // 已通过认证授权
-                    if (requestAuthentication.isAuthenticated()) {
-                        // 放行
-                        return new AuthorizationDecision(true);
-                    } else {
-                        // 未通过认证授权
-                        // 拒绝放行
-                        return new AuthorizationDecision(false);
-                    }
-                })
-                // 无认证授权
-                // 拒绝放行
-                .defaultIfEmpty(new AuthorizationDecision(false));
-    }
+		return authentication.map(requestAuthentication -> {
 
-    /**
-     * 白名单配置
-     *
-     * @param exchange 服务器网络交换
-     * @return 返回匹配结果
-     */
-    private boolean whiteList(ServerWebExchange exchange) {
+			// 将当前用户名放入日志中
+			String userName = SecurityUtils.getUserName(requestAuthentication);
+			// 将当前用户ID放入日志中
+			String usersId = SecurityUtils.getUsersId(requestAuthentication);
 
-        ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
-        String path = uri.getPath();
+			MDC.put(Constant.NAME, userName);
+			MDC.put(Constant.USERS_ID, usersId);
 
-        AntPathMatcher antPathMatcher = new AntPathMatcher();
+			// 已通过认证授权
+			if (requestAuthentication.isAuthenticated()) {
 
-        List<String> ignores = cloudWhiteListProperties.getIgnores();
-        for (String ignore : ignores) {
-            boolean match = antPathMatcher.match(ignore, path);
-            if (match) {
-                return true;
-            }
-        }
+				// 查看数据库中是否存在此 授权 Token
+				String tokenValue = SecurityUtils.getTokenValue(requestAuthentication);
+				Integer integer = new JdbcTemplate(dataSource).queryForObject(
+						"SELECT count( 1 ) FROM oauth2_authorization WHERE access_token_value = ?", Integer.class,
+						tokenValue);
+				int result = integer == null ? 0 : integer;
 
-        InetSocketAddress remoteAddress = request.getRemoteAddress();
+				// 根据数据库中是否存在此 授权 Token 来决定是否放行
+				return new AuthorizationDecision(result > 0);
+			}
+			else {
+				// 未通过认证授权
+				// 拒绝放行
+				return new AuthorizationDecision(false);
+			}
+		})
+				// 无认证授权
+				// 拒绝放行
+				.defaultIfEmpty(new AuthorizationDecision(false));
+	}
 
-        if (remoteAddress == null) {
-            return false;
-        }
+	/**
+	 * 白名单配置
+	 * @param exchange 服务器网络交换
+	 * @return 返回匹配结果
+	 */
+	private boolean whiteList(ServerWebExchange exchange) {
 
-        InetAddress address = remoteAddress.getAddress();
-        String hostAddress = address.getHostAddress();
+		ServerHttpRequest request = exchange.getRequest();
+		HttpMethod method = request.getMethod();
+		URI uri = request.getURI();
+		String path = uri.getPath();
 
-        List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
+		if (method.matches(HttpMethod.OPTIONS.name())) {
+			log.debug("放行：{}：{}", method, path);
+			return true;
+		}
 
-        // 放行指定IP访问端点
-        // 支持：/actuator/**、/xxx/actuator/**
-        boolean matchActuator = antPathMatcher.match("/**/actuator/**", path);
-        if (matchActuator) {
-            for (String actuatorIp : actuatorIpList) {
-                IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(actuatorIp);
-                boolean matches = ipAddressMatcher.matches(hostAddress);
-                if (matches) {
-                    return true;
-                }
-            }
-        }
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-        List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
-        for (CloudWhiteListProperties.Service service : services) {
-            String name = service.getName();
-            List<String> pathList = service.getPathList();
-            for (String p : pathList) {
-                String pattern = name.startsWith("/") ? name : "/" + name;
-                pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
-                boolean match = antPathMatcher.match(pattern, path);
-                if (match) {
-                    return true;
-                }
-            }
-        }
+		List<String> ignores = cloudWhiteListProperties.getIgnores();
+		for (String ignore : ignores) {
+			boolean match = antPathMatcher.match(ignore, path);
+			if (match) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		InetSocketAddress remoteAddress = request.getRemoteAddress();
 
-    @Override
-    public Mono<Void> verify(Mono<Authentication> authentication, AuthorizationContext object) {
-        return ReactiveAuthorizationManager.super.verify(authentication, object);
-    }
+		if (remoteAddress == null) {
+			return false;
+		}
+
+		InetAddress address = remoteAddress.getAddress();
+		String hostAddress = address.getHostAddress();
+
+		List<String> actuatorIpList = cloudWhiteListProperties.getActuatorIpList();
+
+		// 放行指定IP访问端点
+		// 支持：/actuator/**、/xxx/actuator/**
+		boolean matchActuator = antPathMatcher.match("/**/actuator/**", path);
+		if (matchActuator) {
+			for (String actuatorIp : actuatorIpList) {
+				IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(actuatorIp);
+				boolean matches = ipAddressMatcher.matches(hostAddress);
+				if (matches) {
+					return true;
+				}
+			}
+		}
+
+		List<CloudWhiteListProperties.Service> services = cloudWhiteListProperties.getServices();
+		for (CloudWhiteListProperties.Service service : services) {
+			String name = service.getName();
+			List<String> pathList = service.getPathList();
+			for (String p : pathList) {
+				String pattern = name.startsWith("/") ? name : "/" + name;
+				pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+				boolean match = antPathMatcher.match(pattern, path);
+				if (match) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public Mono<Void> verify(Mono<Authentication> authentication, AuthorizationContext object) {
+		return ReactiveAuthorizationManager.super.verify(authentication, object);
+	}
 
 }

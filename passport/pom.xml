@@ -21,17 +21,72 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+
+        <!-- 登录服务UI -->
+        <dependency>
+            <groupId>cloud.xuxiaowei</groupId>
+            <artifactId>passport-ui</artifactId>
+        </dependency>
+
+        <!-- 系统组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-system</artifactId>
+        </dependency>
+
+        <!-- Session Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-session-redis</artifactId>
+        </dependency>
+
+        <!-- OAuth2 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-oauth2</artifactId>
+        </dependency>
+
+        <!-- 负载均衡组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <!-- OAuth 2.1 依赖 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/snapshots/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-wechat-miniprogram</artifactId>
+        </dependency>
+
+        <!-- SQL 性能分析 -->
+        <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
         </dependency>
 
         <!-- Nacos 注册 -->
@@ -46,51 +101,16 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!-- 负载均衡组件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-loadbalancer</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
-        <!-- Session Redis 组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-session-redis</artifactId>
-        </dependency>
-
-        <!-- 系统组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-system</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-        </dependency>
-
-        <!-- 验证组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-validation</artifactId>
-        </dependency>
-
-        <!-- 登录服务UI -->
-        <dependency>
-            <groupId>cloud.xuxiaowei</groupId>
-            <artifactId>passport-ui</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -99,11 +119,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,27 +1,19 @@
 const audit = [
   {
-    path: '/audit/code',
-    name: 'code',
+    path: '/audit/authorization',
+    name: 'authorization',
     meta: {
-      authority: ['audit_code_read']
+      authority: ['audit_authorization_read']
     },
-    component: () => import('@/views/audit/CodeView.vue')
+    component: () => import('@/views/audit/Authorization.vue')
   },
   {
-    path: '/audit/access-token',
-    name: 'accessToken',
+    path: '/audit/authorization-consent',
+    name: 'authorizationConsent',
     meta: {
-      authority: ['audit_accessToken_read']
+      authority: ['audit_authorization_consent_read']
     },
-    component: () => import('@/views/audit/AccessTokenView.vue')
-  },
-  {
-    path: '/audit/refresh-token',
-    name: 'refreshToken',
-    meta: {
-      authority: ['audit_refreshToken_read']
-    },
-    component: () => import('@/views/audit/RefreshTokenView.vue')
+    component: () => import('@/views/audit/AuthorizationConsent.vue')
   }
 ]
 

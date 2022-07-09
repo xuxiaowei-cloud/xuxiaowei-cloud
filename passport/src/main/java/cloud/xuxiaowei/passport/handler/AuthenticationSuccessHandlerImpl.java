@@ -35,65 +35,68 @@ import java.io.IOException;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    private JavaMailSender javaMailSender;
+	private JavaMailSender javaMailSender;
 
-    private MailProperties mailProperties;
+	private MailProperties mailProperties;
 
-    private CloudSecurityProperties cloudSecurityProperties;
+	private CloudSecurityProperties cloudSecurityProperties;
 
-    private IUsersService usersService;
+	private IUsersService usersService;
 
-    private IUsersLoginService usersLoginService;
+	private IUsersLoginService usersLoginService;
 
-    @Autowired
-    public void setUsersService(IUsersService usersService) {
-        this.usersService = usersService;
-    }
+	@Autowired
+	public void setUsersService(IUsersService usersService) {
+		this.usersService = usersService;
+	}
 
-    @Autowired
-    public void setMailProperties(MailProperties mailProperties) {
-        this.mailProperties = mailProperties;
-    }
+	@Autowired
+	public void setMailProperties(MailProperties mailProperties) {
+		this.mailProperties = mailProperties;
+	}
 
-    /**
-     * 注意：
-     * 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动
-     * 故将 {@link Autowired} 的 required 设置为 false，避免程序启动失败。使用时请判断该值是否为 null
-     */
-    @Autowired(required = false)
-    public void setJavaMailSender(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+	/**
+	 * 注意： 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动 故将 {@link Autowired} 的 required
+	 * 设置为 false，避免程序启动失败。使用时请判断该值是否为 null
+	 */
+	@Autowired(required = false)
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
 
-    @Autowired
-    public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
-        this.cloudSecurityProperties = cloudSecurityProperties;
-    }
+	@Autowired
+	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+		this.cloudSecurityProperties = cloudSecurityProperties;
+	}
 
-    @Autowired
-    public void setUsersLoginService(IUsersLoginService usersLoginService) {
-        this.usersLoginService = usersLoginService;
-    }
+	@Autowired
+	public void setUsersLoginService(IUsersLoginService usersLoginService) {
+		this.usersLoginService = usersLoginService;
+	}
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
 
-        String userName = SecurityUtils.getUserName(authentication);
+		// 将当前用户名放入日志中
+		String userName = SecurityUtils.getUserName(authentication);
+		// 将当前用户ID放入日志中
+		String usersId = SecurityUtils.getUsersId(authentication);
 
-        MDC.put(Constant.NAME, userName);
+		MDC.put(Constant.NAME, userName);
+		MDC.put(Constant.USERS_ID, usersId);
 
-        UsersLogin usersLogin = HandlerUtils.usersLogin(userName, true, request, null);
-        usersLoginService.save(usersLogin);
+		UsersLogin usersLogin = HandlerUtils.usersLogin(userName, true, request, null);
+		usersLoginService.save(usersLogin);
 
-        String successForwardUrl = cloudSecurityProperties.getSuccessForwardUrl();
-        Assert.isTrue(UrlUtils.isValidRedirectUrl(successForwardUrl), () -> "'" + successForwardUrl + "' 不是有效的转发URL");
+		String successForwardUrl = cloudSecurityProperties.getSuccessForwardUrl();
+		Assert.isTrue(UrlUtils.isValidRedirectUrl(successForwardUrl), () -> "'" + successForwardUrl + "' 不是有效的转发URL");
 
-        request.getRequestDispatcher(successForwardUrl).forward(request, response);
+		request.getRequestDispatcher(successForwardUrl).forward(request, response);
 
-        String subject = "登录系统成功";
-        String result = "成功";
-        HandlerUtils.send(usersService, javaMailSender, mailProperties, request, userName, subject, result);
-
-    }
+		String subject = "登录系统成功";
+		String result = "成功";
+		HandlerUtils.send(usersService, javaMailSender, mailProperties, request, userName, subject, result);
+	}
 
 }

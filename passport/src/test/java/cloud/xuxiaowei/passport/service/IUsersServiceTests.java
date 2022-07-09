@@ -17,16 +17,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class IUsersServiceTests {
 
-    @Autowired
-    private IUsersService usersService;
+	@Autowired
+	private IUsersService usersService;
 
-    /**
-     * 根据 用户名 查询用户信息及权限
-     */
-    @Test
-    void getByUsername() {
-        Users users = usersService.getByUsername("xuxiaowei");
-        log.info(String.valueOf(users));
-    }
+	/**
+	 * 根据 用户名 查询用户信息及权限
+	 */
+	@Test
+	void getByUsername() {
+		Users users = usersService.getByUsername("xuxiaowei");
+		log.info(String.valueOf(users));
+	}
 
 }

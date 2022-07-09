@@ -187,16 +187,15 @@ spring:
 
 ---
 
-# 加密配置
-encrypt:
-  key-store:
-    # keytool -genkeypair -alias "xuxiaowei.cloud-alias" -keyalg RSA -validity 3650 -keystore xuxiaowei.cloud.jks -storepass "xuxiaowei.cloud-storepass" -dname "CN=徐晓伟,OU=徐晓伟工作室,O=徐晓伟工作室,L=青岛,ST=山东,C=CH"
-    # 密钥口令和密钥库口令相同（否则可能验证失败）
-    location: classpath:/xuxiaowei.cloud.jks
-    # 别名
-    alias: xuxiaowei.cloud-alias
-    # 密码
-    password: xuxiaowei.cloud-storepass
+#
+# JWK 配置
+#
+jwk:
+  #
+  rsa:
+    # 公钥
+    public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvUEZbnpoYCSVveN8/h3ouADkX1l5/qpS/vaVuWMOMpVbWqiVysrL7x8NV0i0NKBf+Ufa0aJBMYtsRGTsKOGv4ulwoUCMDizZ47xCUVMR6JCbm3qVejeK5GWPatrRFPWXwIL5G4nk4ZkpEhFUn0qeJwEPG70QNxZDNJVIqbDK0CROZifd/7REy9SQjIsQbVjUmC2J09IXE4FK3YDIltUOJLf7ASnkIb5al/IelKLIkoYaiI4Jjw6/zK2QXwNaO74FSOIbxDM/yixrkuArtsrqLbxjw/BMlW5pLguTfbeXobbmS+t1MgIfCmWye5GXCsuuS+K/RElLmvBtT+o1xZNBowIDAQAB
+
 
 # WebSocket 配置
 cloud:

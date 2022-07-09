@@ -22,10 +22,13 @@ import javax.xml.soap.SOAPConstants;
 import java.io.IOException;
 import java.util.List;
 
+import static cloud.xuxiaowei.webservice.point.CxfAuthenticationEntryPointImpl.CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME;
+
 /**
  * CXF 身份验证入口点
  * <p>
- * 1、要求 WebService 命名空间在 {@link CloudWebServiceProperties#getNamespaceUriList()} 中<p>
+ * 1、要求 WebService 命名空间在 {@link CloudWebServiceProperties#getNamespaceUriList()} 中
+ * <p>
  *
  * @author xuxiaowei
  * @see MediaType#XML_UTF_8 SOAP 1.1
@@ -33,140 +36,145 @@ import java.util.List;
  * @since 0.0.1
  */
 @Slf4j
-@Component
+@Component(CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME)
 public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
-    private CloudWebServiceProperties cloudWebServiceProperties;
+	public static final String CXF_AUTHENTICATIONENTRY_POINT_BEAN_NAME = "cxfAuthenticationEntryPoint";
 
-    @Autowired
-    public void setCloudWebServiceProperties(CloudWebServiceProperties cloudWebServiceProperties) {
-        this.cloudWebServiceProperties = cloudWebServiceProperties;
-    }
+	private CloudWebServiceProperties cloudWebServiceProperties;
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+	@Autowired
+	public void setCloudWebServiceProperties(CloudWebServiceProperties cloudWebServiceProperties) {
+		this.cloudWebServiceProperties = cloudWebServiceProperties;
+	}
 
-        String requestXml = RequestUtils.getInputStream(request);
-        log.info("CXF 身份验证入口点-请求：{}", requestXml);
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException authException) throws IOException, ServletException {
 
-        XmlMapper xmlMapper = new XmlMapper();
+		String requestXml = RequestUtils.getInputStream(request);
+		log.info("CXF 身份验证入口点-请求：{}", requestXml);
 
-        if (!StringUtils.hasText(requestXml)) {
-            String msg = String.format("WebService 请求体不能为空：%s", requestXml);
-            log.error(msg);
-            Response<?> error = Response.error(msg);
-            error.setExplain(requestXml);
-            String string = xmlMapper.writeValueAsString(error);
-            // 请求体存在问题，无需关心返回内容的格式
-            ResponseUtils.response(response, string, MediaType.XML_UTF_8.toString());
-            return;
-        }
+		XmlMapper xmlMapper = new XmlMapper();
 
-        Document requestDocument;
-        try {
-            requestDocument = DocumentHelper.parseText(requestXml);
-        } catch (DocumentException e) {
-            String msg = "WebService 请求体不是 标准XML";
-            log.error(msg, e);
-            Response<?> error = Response.error(msg);
-            error.setExplain(requestXml);
-            String string = xmlMapper.writeValueAsString(error);
-            // 请求体存在问题，无需关心返回内容的格式
-            ResponseUtils.response(response, string, MediaType.XML_UTF_8.toString());
-            return;
-        }
+		if (!StringUtils.hasText(requestXml)) {
+			String msg = String.format("WebService 请求体不能为空：%s", requestXml);
+			log.error(msg);
+			Response<?> error = Response.error(msg);
+			error.setExplain(requestXml);
+			String string = xmlMapper.writeValueAsString(error);
+			// 请求体存在问题，无需关心返回内容的格式
+			ResponseUtils.response(response, string, MediaType.XML_UTF_8.toString());
+			return;
+		}
 
-        response(requestDocument, response, authException);
+		Document requestDocument;
+		try {
+			requestDocument = DocumentHelper.parseText(requestXml);
+		}
+		catch (DocumentException e) {
+			String msg = "WebService 请求体不是 标准XML";
+			log.error(msg, e);
+			Response<?> error = Response.error(msg);
+			error.setExplain(requestXml);
+			String string = xmlMapper.writeValueAsString(error);
+			// 请求体存在问题，无需关心返回内容的格式
+			ResponseUtils.response(response, string, MediaType.XML_UTF_8.toString());
+			return;
+		}
 
-    }
+		response(requestDocument, response, authException);
 
-    /**
-     * 响应数据
-     *
-     * @param requestDocument XML Document
-     * @param response        响应
-     * @param authException   异常
-     * @throws IOException 响应异常
-     */
-    private void response(Document requestDocument, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        // 获取父节点
-        Element rootElement = requestDocument.getRootElement();
+	}
 
-        // QName 命名空间
-        QName rootElementQname = rootElement.getQName();
-        // 获取文档工厂
-        DocumentFactory documentFactory = rootElementQname.getDocumentFactory();
-        // 获取所有 QName 命名空间
-        List<QName> qNames = documentFactory.getQNames();
+	/**
+	 * 响应数据
+	 * @param requestDocument XML Document
+	 * @param response 响应
+	 * @param authException 异常
+	 * @throws IOException 响应异常
+	 */
+	private void response(Document requestDocument, HttpServletResponse response, AuthenticationException authException)
+			throws IOException {
+		// 获取父节点
+		Element rootElement = requestDocument.getRootElement();
 
-        // 默认值
-        String soap = SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE;
-        String namespace = "http://webservice.xuxiaowei.cloud";
-        String methodName = "";
+		// QName 命名空间
+		QName rootElementQname = rootElement.getQName();
+		// 获取文档工厂
+		DocumentFactory documentFactory = rootElementQname.getDocumentFactory();
+		// 获取所有 QName 命名空间
+		List<QName> qNames = documentFactory.getQNames();
 
-        // 找出调用的方法与命名空间
-        for (QName qName : qNames) {
+		// 默认值
+		String soap = SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE;
+		String namespace = "http://webservice.xuxiaowei.cloud";
+		String methodName = "";
 
-            String name = qName.getName();
-            String namespaceUri = qName.getNamespaceURI();
+		// 找出调用的方法与命名空间
+		for (QName qName : qNames) {
 
-            if ("Envelope".equals(name)) {
-                soap = namespaceUri;
-            }
+			String name = qName.getName();
+			String namespaceUri = qName.getNamespaceURI();
 
-            log.info(name + "\t" + namespaceUri);
-            if (cloudWebServiceProperties.getNamespaceUriList().contains(namespaceUri)) {
-                namespace = namespaceUri;
-                methodName = name;
-            }
-        }
+			if ("Envelope".equals(name)) {
+				soap = namespaceUri;
+			}
 
-        Document responseDocument = DocumentHelper.createDocument();
+			log.info(name + "\t" + namespaceUri);
+			if (cloudWebServiceProperties.getNamespaceUriList().contains(namespaceUri)) {
+				namespace = namespaceUri;
+				methodName = name;
+			}
+		}
 
-        Element envelope = responseDocument.addElement("soap:Envelope");
+		Document responseDocument = DocumentHelper.createDocument();
 
-        if (SOAPConstants.URI_NS_SOAP_1_1_ENVELOPE.contains(soap)) {
-            envelope.addAttribute("xmlns:soap", SOAPConstants.URI_NS_SOAP_1_1_ENVELOPE);
-            response.setContentType(MediaType.XML_UTF_8.toString());
-        } else if (SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE.contains(soap)) {
-            envelope.addAttribute("xmlns:soap", SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE);
-            response.setContentType(ContentType.APPLICATION_SOAP_XML.toString());
-        }
+		Element envelope = responseDocument.addElement("soap:Envelope");
 
-        Element body = envelope.addElement("Body");
-        body.setName("soap:Body");
+		if (SOAPConstants.URI_NS_SOAP_1_1_ENVELOPE.contains(soap)) {
+			envelope.addAttribute("xmlns:soap", SOAPConstants.URI_NS_SOAP_1_1_ENVELOPE);
+			response.setContentType(MediaType.XML_UTF_8.toString());
+		}
+		else if (SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE.contains(soap)) {
+			envelope.addAttribute("xmlns:soap", SOAPConstants.URI_NS_SOAP_1_2_ENVELOPE);
+			response.setContentType(ContentType.APPLICATION_SOAP_XML.toString());
+		}
 
-        Element methodNameResponse = body.addElement("Response");
-        methodNameResponse.setName("ns2:" + methodName + "Response");
-        methodNameResponse.addAttribute("xmlns:ns2", namespace);
+		Element body = envelope.addElement("Body");
+		body.setName("soap:Body");
 
-        Element responseElement = methodNameResponse.addElement("response");
+		Element methodNameResponse = body.addElement("Response");
+		methodNameResponse.setName("ns2:" + methodName + "Response");
+		methodNameResponse.addAttribute("xmlns:ns2", namespace);
 
-        Element codeElement = responseElement.addElement(Response.CODE);
-        Element msgElement = responseElement.addElement(Response.MSG);
-        Element dataElement = responseElement.addElement(Response.DATA);
-        Element fieldElement = responseElement.addElement(Response.FIELD);
-        Element explainElement = responseElement.addElement(Response.EXPLAIN);
-        Element requestIdElement = responseElement.addElement(Response.REQUEST_ID);
+		Element responseElement = methodNameResponse.addElement("response");
 
-        if (!(authException instanceof InsufficientAuthenticationException)) {
-            explainElement.setText(authException.getMessage());
-        }
+		Element codeElement = responseElement.addElement(Response.CODE);
+		Element msgElement = responseElement.addElement(Response.MSG);
+		Element dataElement = responseElement.addElement(Response.DATA);
+		Element fieldElement = responseElement.addElement(Response.FIELD);
+		Element explainElement = responseElement.addElement(Response.EXPLAIN);
+		Element requestIdElement = responseElement.addElement(Response.REQUEST_ID);
 
-        String requestId = MDC.get(Constant.REQUEST_ID);
-        if (requestId != null) {
-            requestIdElement.setText(requestId);
-        }
+		if (!(authException instanceof InsufficientAuthenticationException)) {
+			explainElement.setText(authException.getMessage());
+		}
 
-        codeElement.setText(CodeEnums.T00000.code);
-        msgElement.setText(CodeEnums.T00000.msg);
+		String requestId = MDC.get(Constant.REQUEST_ID);
+		if (requestId != null) {
+			requestIdElement.setText(requestId);
+		}
 
-        String asXml = Dom4jUtils.asXml(responseDocument);
-        log.info("CXF 身份验证入口点-响应：{}", asXml);
+		codeElement.setText(CodeEnums.T00000.code);
+		msgElement.setText(CodeEnums.T00000.msg);
 
-        response.getWriter().println(asXml);
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.flushBuffer();
-    }
+		String asXml = Dom4jUtils.asXml(responseDocument);
+		log.info("CXF 身份验证入口点-响应：{}", asXml);
+
+		response.getWriter().println(asXml);
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.flushBuffer();
+	}
 
 }

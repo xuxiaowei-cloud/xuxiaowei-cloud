@@ -30,16 +30,14 @@ stages:
           - name: BUILD_ARTIFACT
             path:
               - admin-server/target/admin-server-0.0.1-SNAPSHOT.jar
-              - authorization-server/target/authorization-server-0.0.1-SNAPSHOT.jar
               - gateway/target/gateway-0.0.1-SNAPSHOT.jar
               - passport/target/passport-0.0.1-SNAPSHOT.jar
               - passport-ui/target/passport-ui-0.0.1-SNAPSHOT.jar
-              - resource-services-parent/audit/target/audit-0.0.1-SNAPSHOT.jar
               - resource-services-parent/canal/target/canal-0.0.1-SNAPSHOT.jar
               - resource-services-parent/user/target/user-0.0.1-SNAPSHOT.jar
               - resource-services-parent/webservice/target/webservice-0.0.1-SNAPSHOT.jar
               - resource-services-parent/websocket/target/websocket-0.0.1-SNAPSHOT.jar
-              - resource-services-parent/wechat-applet/target/wechat-applet-0.0.1-SNAPSHOT.jar
+              - resource-services-parent/wechat-miniprogram/target/wechat-miniprogram-0.0.1-SNAPSHOT.jar
               - ui/target/ui-0.0.1-SNAPSHOT.jar
               - xxl-job-admin/target/xxl-job-admin-0.0.1-SNAPSHOT.jar
         settings: []

@@ -19,16 +19,16 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("cloud.canal")
 public class CloudCanalProperties {
 
-    private String hostname;
+	private String hostname;
 
-    private int port = 11111;
+	private int port = 11111;
 
-    private String destination = "example";
+	private String destination = "example";
 
-    private String username = "";
+	private String username = "";
 
-    private String password = "";
+	private String password = "";
 
-    private int batchSize = 1000;
+	private int batchSize = 1000;
 
 }

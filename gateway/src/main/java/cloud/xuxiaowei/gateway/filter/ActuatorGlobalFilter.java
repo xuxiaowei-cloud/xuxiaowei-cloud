@@ -27,38 +27,38 @@ import java.net.URI;
 @Component
 public class ActuatorGlobalFilter implements GlobalFilter, Ordered {
 
-    /**
-     * 最低优先级（最大值）：0
-     * <p>
-     * 大于 0 无效
-     */
-    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
+	/**
+	 * 最低优先级（最大值）：0
+	 * <p>
+	 * 大于 0 无效
+	 */
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
 
-    @Setter
-    private int order = ORDERED;
+	@Setter
+	private int order = ORDERED;
 
-    @Override
-    public int getOrder() {
-        return order;
-    }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        ServerHttpRequest request = exchange.getRequest();
-        URI uri = request.getURI();
-        String path = uri.getPath();
+		ServerHttpRequest request = exchange.getRequest();
+		URI uri = request.getURI();
+		String path = uri.getPath();
 
-        AntPathMatcher antPathMatcher = new AntPathMatcher();
-        boolean matchActuator = antPathMatcher.match("/*/actuator/**", path);
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
+		boolean matchActuator = antPathMatcher.match("/*/actuator/**", path);
 
-        if (matchActuator) {
-            ServerHttpResponse response = exchange.getResponse();
-            Response<?> error = Response.error(CodeEnums.X10001.code,CodeEnums.X10001.msg);
-            return ResponseUtils.writeWith(response, error);
-        }
+		if (matchActuator) {
+			ServerHttpResponse response = exchange.getResponse();
+			Response<?> error = Response.error(CodeEnums.X10001.code, CodeEnums.X10001.msg);
+			return ResponseUtils.writeWith(response, error);
+		}
 
-        return chain.filter(exchange);
-    }
+		return chain.filter(exchange);
+	}
 
 }

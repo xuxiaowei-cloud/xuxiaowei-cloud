@@ -23,24 +23,23 @@ import javax.xml.ws.soap.SOAPBinding;
 @WebService(targetNamespace = "http://webservice.xuxiaowei.cloud")
 public class UserServiceImpl implements UserService {
 
-    /**
-     * 根据 用户ID 查询用户
-     *
-     * @param userBo 用户ID
-     * @return 返回 用户
-     */
-    @Override
-    @WebMethod
-    @WebResult(name = "response")
-    public ResponseUserVo getById(@WebParam(name = "request") UserBo userBo) {
-        UserVo userVo = new UserVo();
+	/**
+	 * 根据 用户ID 查询用户
+	 * @param userBo 用户ID
+	 * @return 返回 用户
+	 */
+	@Override
+	@WebMethod
+	@WebResult(name = "response")
+	public ResponseUserVo getById(@WebParam(name = "request") UserBo userBo) {
+		UserVo userVo = new UserVo();
 
-        String id = userBo.getId();
+		String id = userBo.getId();
 
-        userVo.setId(id);
-        userVo.setUsername("用户-" + id);
-        userVo.setPassword("用户-" + id + "-密码");
-        return ResponseUserVo.ok(userVo);
-    }
+		userVo.setId(id);
+		userVo.setUsername("用户-" + id);
+		userVo.setPassword("用户-" + id + "-密码");
+		return ResponseUserVo.ok(userVo);
+	}
 
 }

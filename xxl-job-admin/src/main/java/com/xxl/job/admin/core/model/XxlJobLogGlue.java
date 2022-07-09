@@ -9,68 +9,74 @@ import java.util.Date;
  */
 public class XxlJobLogGlue {
 
-    private int id;
-    private int jobId;                // 任务主键ID
-    private String glueType;        // GLUE类型	#com.xxl.job.core.glue.GlueTypeEnum
-    private String glueSource;
-    private String glueRemark;
-    private Date addTime;
-    private Date updateTime;
+	private int id;
 
-    public int getId() {
-        return id;
-    }
+	private int jobId; // 任务主键ID
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	private String glueType; // GLUE类型 #com.xxl.job.core.glue.GlueTypeEnum
 
-    public int getJobId() {
-        return jobId;
-    }
+	private String glueSource;
 
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
-    }
+	private String glueRemark;
 
-    public String getGlueType() {
-        return glueType;
-    }
+	private Date addTime;
 
-    public void setGlueType(String glueType) {
-        this.glueType = glueType;
-    }
+	private Date updateTime;
 
-    public String getGlueSource() {
-        return glueSource;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setGlueSource(String glueSource) {
-        this.glueSource = glueSource;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getGlueRemark() {
-        return glueRemark;
-    }
+	public int getJobId() {
+		return jobId;
+	}
 
-    public void setGlueRemark(String glueRemark) {
-        this.glueRemark = glueRemark;
-    }
+	public void setJobId(int jobId) {
+		this.jobId = jobId;
+	}
 
-    public Date getAddTime() {
-        return addTime;
-    }
+	public String getGlueType() {
+		return glueType;
+	}
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+	public void setGlueType(String glueType) {
+		this.glueType = glueType;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public String getGlueSource() {
+		return glueSource;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setGlueSource(String glueSource) {
+		this.glueSource = glueSource;
+	}
+
+	public String getGlueRemark() {
+		return glueRemark;
+	}
+
+	public void setGlueRemark(String glueRemark) {
+		this.glueRemark = glueRemark;
+	}
+
+	public Date getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
 }

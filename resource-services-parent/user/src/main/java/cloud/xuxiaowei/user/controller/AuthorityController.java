@@ -29,47 +29,47 @@ import java.util.List;
 @RequestMapping("/authority")
 public class AuthorityController {
 
-    private IAuthorityService authorityService;
+	private IAuthorityService authorityService;
 
-    @Autowired
-    public void setAuthorityService(IAuthorityService authorityService) {
-        this.authorityService = authorityService;
-    }
+	@Autowired
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
 
-    /**
-     * 获取 权限与权限说明 字典
-     *
-     * @param request     请求
-     * @param response    响应
-     * @param authorityBo 权限与权限说明参数
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "获取 权限与权限说明 字典")
-    @RequestMapping("/list")
-    @PreAuthorize("hasAuthority('manage_user_authority') or #oauth2.hasScope('manage_user_authority')")
-    public Response<?> list(HttpServletRequest request, HttpServletResponse response, @RequestBody AuthorityBo authorityBo) {
+	/**
+	 * 获取 权限与权限说明 字典
+	 * @param request 请求
+	 * @param response 响应
+	 * @param authorityBo 权限与权限说明参数
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "获取 权限与权限说明 字典")
+	@RequestMapping("/list")
+	@PreAuthorize("hasAuthority('manage_user_authority')")
+	public Response<?> list(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody AuthorityBo authorityBo) {
 
-        List<Authority> authorityList = authorityService.listByAuthorityBo(authorityBo);
+		List<Authority> authorityList = authorityService.listByAuthorityBo(authorityBo);
 
-        return Response.ok(authorityList);
-    }
+		return Response.ok(authorityList);
+	}
 
-    /**
-     * 获取 权限与权限说明 分页字典
-     *
-     * @param request         请求
-     * @param response        响应
-     * @param authorityPageBo 权限与权限说明分页参数
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "获取 权限与权限说明 分页字典")
-    @RequestMapping("/page")
-    @PreAuthorize("hasAuthority('manage_user_authority') or #oauth2.hasScope('manage_user_authority')")
-    public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody AuthorityPageBo authorityPageBo) {
+	/**
+	 * 获取 权限与权限说明 分页字典
+	 * @param request 请求
+	 * @param response 响应
+	 * @param authorityPageBo 权限与权限说明分页参数
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "获取 权限与权限说明 分页字典")
+	@RequestMapping("/page")
+	@PreAuthorize("hasAuthority('manage_user_authority')")
+	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody AuthorityPageBo authorityPageBo) {
 
-        IPage<Authority> authorityList = authorityService.pageByAuthorityPageBo(authorityPageBo);
+		IPage<Authority> authorityList = authorityService.pageByAuthorityPageBo(authorityPageBo);
 
-        return Response.ok(authorityList);
-    }
+		return Response.ok(authorityList);
+	}
 
 }

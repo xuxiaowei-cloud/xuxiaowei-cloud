@@ -7,9 +7,9 @@
     <a target="_blank" href="https://996.icu/#/zh_CN">
         <img alt="Link-996" src="https://img.shields.io/badge/Link-996.icu-red.svg">
     </a>
-    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ZieC6s1WB4njfVbrDHYgoNS8YpT26VtF&jump_from=webapi">
+    <div>
         <img alt="QQ群" src="https://img.shields.io/badge/QQ群-696503132-blue.svg"/>
-    </a>
+    </div>
 </div>
 
 <p></p>
@@ -128,17 +128,15 @@ cloud.xuxiaowei
 ├──xuxiaowei-cloud-starter-parent           // 微服务父模块
 │    └──gateway                             // 网关服务
 │    └──admin-server                        // 监控（管理）服务
-│    └──authorization-server                // 授权服务
 │    └──passport-ui                         // 登录服务UI
 │    └──passport                            // 登录服务
 │    └──ui                                  // UI
 │    └──resource-services-parent            // 资源服务父模块
-│        └──audit                           // 审计服务
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
 │        └──webservice                      // WebService 服务
-│        └──wechat-applet                   // 微信小程序服务
+│        └──wechat-miniprogram                   // 微信小程序服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -169,15 +167,13 @@ cloud.xuxiaowei
 | ui | UI | example.xuxiaowei.cloud | 1001 |
 | gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
 | admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
-| authorization-server | 授权 | authorization-server.example.xuxiaowei.cloud | 1301 |
 | passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
 | passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
-| audit | 审计服务 |  | 1501 |
 | canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
 | user | 用户服务 |  | 1701 |
 | websocket | WebSocket 服务 |  | 1801 |
 | webservice | WebService 服务 |  | 1901 |
-| wechat-applet | 微信小程序服务 |  | 2001 |
+| wechat-miniprogram | 微信小程序服务 |  | 2001 |
 | xxl-job-admin | XXL Job Admin |  | 2101 |
 | oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
 | cxf-client | CXF 客户端（独立服务） |  | 10002 |
@@ -198,12 +194,6 @@ cloud.xuxiaowei
 
 | 账户名 | 权限 | 说明 |
 | ---- | ---- | ---- |
-| xuxiaowei | audit_accessToken_delete       | 删除授权Token |
-| xuxiaowei | audit_accessToken_read         | 查看授权Token |
-| xuxiaowei | audit_code_delete              | 删除授权码Code |
-| xuxiaowei | audit_code_read                | 查看授权码Code |
-| xuxiaowei | audit_refreshToken_delete      | 删除刷新Token |
-| xuxiaowei | audit_refreshToken_read        | 查看刷新Token |
 | xuxiaowei | user_authorities               | 查看用户权限 |
 | xuxiaowei | user_details                   | 查看用户详情 |
 | xuxiaowei | user_info                      | 查看用户信息 |

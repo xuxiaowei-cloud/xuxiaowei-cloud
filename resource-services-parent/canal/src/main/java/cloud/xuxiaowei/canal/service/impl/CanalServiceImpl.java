@@ -17,22 +17,22 @@ import javax.annotation.Resource;
 @DS("log")
 public class CanalServiceImpl implements CanalService {
 
-    @Resource
-    private CanalMapper canalMapper;
+	@Resource
+	private CanalMapper canalMapper;
 
-    @Override
-    public int insert(String sql) {
-        return canalMapper.insert(sql);
-    }
+	@Override
+	public int insert(String sql) {
+		return canalMapper.insert(sql);
+	}
 
-    @Override
-    public int update(String sql) {
-        return canalMapper.update(sql);
-    }
+	@Override
+	public int update(String sql) {
+		return canalMapper.update(sql);
+	}
 
-    @Override
-    public int delete(String sql) {
-        return canalMapper.delete(sql);
-    }
+	@Override
+	public int delete(String sql) {
+		return canalMapper.delete(sql);
+	}
 
 }

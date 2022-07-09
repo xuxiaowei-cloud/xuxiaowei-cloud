@@ -61,7 +61,7 @@
         </el-sub-menu>
 
         <el-sub-menu index="99"
-                     v-if="hasAnyAuthority(['audit_code_read', 'audit_accessToken_read', 'audit_refreshToken_read'])">
+                     v-if="hasAnyAuthority(['audit_authorization_read', 'audit_authorization_consent_read'])">
           <template #title>
             <el-icon>
               <aim/>
@@ -69,14 +69,11 @@
             <span>审计</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-if="hasAuthority('audit_code_read')" index="/audit/code" @click="menuItem">
-              授权Code
+            <el-menu-item v-if="hasAuthority('audit_authorization_read')" index="/audit/authorization" @click="menuItem">
+              授权记录
             </el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_accessToken_read')" index="/audit/access-token" @click="menuItem">
-              授权Token
-            </el-menu-item>
-            <el-menu-item v-if="hasAuthority('audit_refreshToken_read')" index="/audit/refresh-token" @click="menuItem">
-              刷新Token
+            <el-menu-item v-if="hasAuthority('audit_authorization_consent_read')" index="/audit/authorization-consent" @click="menuItem">
+              授权同意书
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
@@ -142,7 +139,7 @@ import { House, Expand, Fold, Refresh, ArrowDown, Aim, Notebook, User, Setting }
 import { onMounted, ref } from 'vue'
 import store from '../store'
 import { hasAuthority, hasAnyAuthority } from '../utils/authority'
-import { signout } from '../api/user'
+import { signout } from '../api/passport'
 
 // 默认激活菜单
 // 当缓存中的默认菜单与路径中不同时，使用路径中对应的菜单

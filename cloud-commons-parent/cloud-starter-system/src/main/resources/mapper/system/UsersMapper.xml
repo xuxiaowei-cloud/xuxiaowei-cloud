@@ -29,7 +29,8 @@
 
     </resultMap>
 
-    <sql id="BaseResultMap_field">
+    <!-- 用户、权限 -->
+    <sql id="users_authorities">
         u.*,
         a.username      AS a_username,
         a.authority     AS a_authority,
@@ -38,10 +39,48 @@
         a.create_date   AS a_create_date
     </sql>
 
+    <!-- 用户、权限组 -->
+    <sql id="users_group_authorities">
+        u.*,
+        u.username      AS a_username,
+        ga.authority    AS a_authority,
+        ay.explain      AS a_explain,
+        NULL            AS a_update_date,
+        NULL            AS a_create_date
+    </sql>
+
+    <!--
+        按用户名加载用户及权限（包含用户组权限）
+     	可能存在空权限的情况，需要调用者额外处理
+     -->
+    <select id="loadUserByUsername" resultMap="BaseResultMap">
+        SELECT
+            <include refid="users_authorities"/>
+        FROM
+            users AS u
+            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authority as ay ON ay.authority = a.authority
+        WHERE
+            u.username = #{username} AND u.deleted = 0
+
+        UNION ALL
+
+        SELECT
+            <include refid="users_group_authorities"/>
+        FROM
+            users u
+            LEFT JOIN group_members AS gm ON gm.username = u.username
+            LEFT JOIN `groups` AS g ON g.id = gm.group_id
+            LEFT JOIN group_authorities AS ga ON ga.group_id = g.id
+            LEFT JOIN authority AS ay ON ay.authority = ga.authority
+        WHERE
+            u.username = #{username} AND u.deleted = 0
+    </select>
+
     <!-- 根据 用户主键 查询 -->
     <select id="getByUsersId" resultMap="BaseResultMap">
         SELECT
-            <include refid="BaseResultMap_field"/>
+            <include refid="users_authorities"/>
         FROM
             users AS u
             LEFT JOIN authorities AS a ON u.username = a.username
@@ -53,7 +92,7 @@
     <!-- 根据 用户名 查询用户信息及权限 -->
     <select id="getByUsername" resultMap="BaseResultMap">
         SELECT
-            <include refid="BaseResultMap_field"/>
+            <include refid="users_authorities"/>
         FROM
             users AS u
             LEFT JOIN authorities AS a ON u.username = a.username
@@ -75,7 +114,10 @@
             u.username = #{username}
     </select>
 
-    <!-- 根据 昵称 查询用户信息 -->
+    <!--
+        根据 昵称 查询用户信息
+        条件无逻辑删除的判断
+     -->
     <select id="getLogicByNickname" resultType="cloud.xuxiaowei.system.entity.Users">
         SELECT
             u.*
@@ -85,7 +127,10 @@
             u.nickname = #{nickname}
     </select>
 
-    <!-- 根据 邮箱 查询用户信息 -->
+    <!--
+        根据 邮箱 查询用户信息
+        条件无逻辑删除的判断
+     -->
     <select id="getLogicByEmail" resultType="cloud.xuxiaowei.system.entity.Users">
         SELECT
             u.*
@@ -93,6 +138,40 @@
             users AS u
         WHERE
             u.email = #{email}
+    </select>
+
+    <!-- 获取不是某个用户是否存在指定邮箱的用户 -->
+    <select id="listByIdNotUsersIdAndEmail" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            *
+        FROM
+            users
+        WHERE
+            users_id != #{usersId}
+	        AND email = #{email}
+            <if test="deleted == true">
+                AND deleted = 1
+            </if>
+            <if test="deleted == false">
+                AND deleted = 0
+            </if>
+    </select>
+
+    <!-- 获取不是某个用户是否存在指定昵称的用户 -->
+    <select id="listByIdNotUsersIdAndNickname" resultType="cloud.xuxiaowei.system.entity.Users">
+        SELECT
+            *
+        FROM
+            users
+        WHERE
+            users_id != #{usersId}
+            AND nickname = #{nickname}
+            <if test="deleted == true">
+                AND deleted = 1
+            </if>
+            <if test="deleted == false">
+                AND deleted = 0
+            </if>
     </select>
 
 </mapper>

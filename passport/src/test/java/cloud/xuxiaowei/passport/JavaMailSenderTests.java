@@ -18,20 +18,20 @@ import org.springframework.mail.javamail.JavaMailSender;
 @SpringBootTest
 class JavaMailSenderTests {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+	@Autowired
+	private JavaMailSender javaMailSender;
 
-    @Autowired
-    private MailProperties mailProperties;
+	@Autowired
+	private MailProperties mailProperties;
 
-    @Test
-    void send() {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom(mailProperties.getUsername());
-        simpleMailMessage.setTo("xuxiaowei@xuxiaowei.com.cn");
-        simpleMailMessage.setSubject("主题");
-        simpleMailMessage.setText("内容");
-        javaMailSender.send(simpleMailMessage);
-    }
+	@Test
+	void send() {
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setFrom(mailProperties.getUsername());
+		simpleMailMessage.setTo("xuxiaowei@xuxiaowei.com.cn");
+		simpleMailMessage.setSubject("主题");
+		simpleMailMessage.setText("内容");
+		javaMailSender.send(simpleMailMessage);
+	}
 
 }

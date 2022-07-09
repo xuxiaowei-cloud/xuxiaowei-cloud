@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,251 +38,218 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @RestController
-@SuppressWarnings({"deprecation"})
 public class UserRestController {
 
-    private SessionService sessionService;
+	private SessionService sessionService;
 
-    private IUsersService usersService;
+	private IUsersService usersService;
 
-    @Autowired
-    public void setSessionService(SessionService sessionService) {
-        this.sessionService = sessionService;
-    }
+	@Autowired
+	public void setSessionService(SessionService sessionService) {
+		this.sessionService = sessionService;
+	}
 
-    @Autowired
-    public void setUsersService(IUsersService usersService) {
-        this.usersService = usersService;
-    }
+	@Autowired
+	public void setUsersService(IUsersService usersService) {
+		this.usersService = usersService;
+	}
 
-    /**
-     * 用户信息
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "用户信息")
-    @PreAuthorize("hasAuthority('user_info') or #oauth2.hasScope('user_info')")
-    @RequestMapping("/info")
-    public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+	/**
+	 * 用户信息
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "用户信息")
+	@PreAuthorize("hasAuthority('user_info')")
+	@RequestMapping("/info")
+	public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
-        String name = authentication.getName();
-        UsersVo usersVo = usersService.getUsersVoByUsername(name);
-        if (usersVo == null) {
-            return Response.error();
-        }
+		String name = authentication.getName();
+		UsersVo usersVo = usersService.getUsersVoByUsername(name);
+		if (usersVo == null) {
+			return Response.error();
+		}
 
-        return Response.ok(usersVo);
-    }
+		return Response.ok(usersVo);
+	}
 
-    /**
-     * 用户权限
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "用户权限")
-    @PreAuthorize("hasAuthority('user_authorities') or #oauth2.hasScope('user_authorities')")
-    @RequestMapping("/authorities")
-    public Response<?> authorities(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+	/**
+	 * 用户权限
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "用户权限")
+	@PreAuthorize("hasAuthority('user_authorities')")
+	@RequestMapping("/authorities")
+	public Response<?> authorities(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) {
 
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        return Response.ok(authorities);
-    }
+		return Response.ok(authorities);
+	}
 
-    /**
-     * 用户详情
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "用户详情")
-    @PreAuthorize("hasAuthority('user_details') or #oauth2.hasScope('user_details')")
-    @RequestMapping("/details")
-    public Response<?> details(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+	/**
+	 * 用户详情
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "用户详情")
+	@PreAuthorize("hasAuthority('user_details')")
+	@RequestMapping("/details")
+	public Response<?> details(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) {
 
-        Object details = authentication.getDetails();
+		Object details = authentication.getDetails();
 
-        return Response.ok(details);
-    }
+		return Response.ok(details);
+	}
 
-    /**
-     * oauth2 用户身份验证
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "oauth2 用户身份验证")
-    @PreAuthorize("hasAuthority('user_oauth2_userAuthentication') or #oauth2.hasScope('user_oauth2_userAuthentication')")
-    @RequestMapping("/userAuthentication")
-    public Response<?> userAuthentication(HttpServletRequest request, HttpServletResponse response, OAuth2Authentication oauth2Authentication) {
+	/**
+	 * 分页查询用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param manageUsersPageBo 用户分页参数
+	 * @return 返回 分页查询结果
+	 */
+	@ControllerAnnotation(description = "分页查询用户")
+	@PreAuthorize("hasAuthority('manage_user_read')")
+	@RequestMapping("/page")
+	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody ManageUsersPageBo manageUsersPageBo) {
 
-        Authentication userAuthentication = oauth2Authentication.getUserAuthentication();
+		IPage<UsersVo> page = usersService.pageByManageUsers(manageUsersPageBo);
 
-        return Response.ok(userAuthentication);
-    }
+		return Response.ok(page);
+	}
 
-    /**
-     * oauth2 用户请求
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "oauth2 用户请求")
-    @PreAuthorize("hasAuthority('user_oauth2_oauth2Request') or #oauth2.hasScope('user_oauth2_oauth2Request')")
-    @RequestMapping("/oauth2Request")
-    public Response<?> oauth2Request(HttpServletRequest request, HttpServletResponse response, OAuth2Authentication oauth2Authentication) {
+	/**
+	 * 根据 用户主键 删除 用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param usersId 用户主键
+	 * @return 返回 删除结果
+	 */
+	@ControllerAnnotation(description = "根据 用户主键 删除 用户")
+	@PreAuthorize("hasAuthority('manage_user_delete')")
+	@RequestMapping("/removeById/{usersId}")
+	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("usersId") Long usersId) {
 
-        OAuth2Request oauth2Request = oauth2Authentication.getOAuth2Request();
+		boolean removeById = usersService.removeById(usersId);
 
-        return Response.ok(oauth2Request);
-    }
+		return Response.ok(removeById);
+	}
 
-    /**
-     * 分页查询用户
-     *
-     * @param request           请求
-     * @param response          响应
-     * @param manageUsersPageBo 用户分页参数
-     * @return 返回 分页查询结果
-     */
-    @ControllerAnnotation(description = "分页查询用户")
-    @PreAuthorize("hasAuthority('manage_user_read') or #oauth2.hasScope('manage_user_read')")
-    @RequestMapping("/page")
-    public Response<?> page(HttpServletRequest request, HttpServletResponse response, @RequestBody ManageUsersPageBo manageUsersPageBo) {
+	/**
+	 * 根据 用户主键 批量删除 用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param usersIds 用户主键
+	 * @return 返回 删除结果
+	 */
+	@ControllerAnnotation(description = "根据 用户主键 批量删除 用户")
+	@PreAuthorize("hasAuthority('manage_user_delete')")
+	@RequestMapping("/removeByIds")
+	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody List<Long> usersIds) {
 
-        IPage<UsersVo> page = usersService.pageByManageUsers(manageUsersPageBo);
+		AssertUtils.sizeNonNull(usersIds, 1, 50, "非法数据长度");
 
-        return Response.ok(page);
-    }
+		boolean removeByIds = usersService.removeByIds(usersIds);
 
-    /**
-     * 根据 用户主键 删除 用户
-     *
-     * @param request  请求
-     * @param response 响应
-     * @param usersId  用户主键
-     * @return 返回 删除结果
-     */
-    @ControllerAnnotation(description = "根据 用户主键 删除 用户")
-    @PreAuthorize("hasAuthority('manage_user_delete') or #oauth2.hasScope('manage_user_delete')")
-    @RequestMapping("/removeById/{usersId}")
-    public Response<?> removeById(HttpServletRequest request, HttpServletResponse response, @PathVariable("usersId") Long usersId) {
+		return Response.ok(removeByIds);
+	}
 
-        boolean removeById = usersService.removeById(usersId);
+	/**
+	 * 根据 用户主键 查询用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param usersId 用户主键
+	 * @return 返回 查询结果
+	 */
+	@ControllerAnnotation(description = "根据 用户主键 查询用户")
+	@PreAuthorize("hasAuthority('manage_user_read')")
+	@RequestMapping("/getById/{usersId}")
+	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("usersId") Long usersId) {
 
-        return Response.ok(removeById);
-    }
+		UsersVo usersVo = usersService.getUsersVoById(usersId);
 
-    /**
-     * 根据 用户主键 批量删除 用户
-     *
-     * @param request  请求
-     * @param response 响应
-     * @param usersIds 用户主键
-     * @return 返回 删除结果
-     */
-    @ControllerAnnotation(description = "根据 用户主键 批量删除 用户")
-    @PreAuthorize("hasAuthority('manage_user_delete') or #oauth2.hasScope('manage_user_delete')")
-    @RequestMapping("/removeByIds")
-    public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response, @RequestBody List<Long> usersIds) {
+		return Response.ok(usersVo);
+	}
 
-        AssertUtils.sizeNonNull(usersIds, 1, 50, "非法数据长度");
+	/**
+	 * 保存用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param usersSaveBo 用户
+	 * @return 返回 保存结果
+	 */
+	@ControllerAnnotation(description = "保存用户")
+	@PreAuthorize("hasAuthority('manage_user_add')")
+	@RequestMapping("/save")
+	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody UsersSaveBo usersSaveBo) {
 
-        boolean removeByIds = usersService.removeByIds(usersIds);
+		boolean save = usersService.saveUsersSaveBo(usersSaveBo);
 
-        return Response.ok(removeByIds);
-    }
+		return Response.ok(save);
+	}
 
-    /**
-     * 根据 用户主键 查询用户
-     *
-     * @param request  请求
-     * @param response 响应
-     * @param usersId  用户主键
-     * @return 返回 查询结果
-     */
-    @ControllerAnnotation(description = "根据 用户主键 查询用户")
-    @PreAuthorize("hasAuthority('manage_user_read') or #oauth2.hasScope('manage_user_read')")
-    @RequestMapping("/getById/{usersId}")
-    public Response<?> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable("usersId") Long usersId) {
+	/**
+	 * 根据 用户主键 更新用户
+	 * @param request 请求
+	 * @param response 响应
+	 * @param usersUpdateBo 用户
+	 * @return 返回 更新结果
+	 */
+	@ControllerAnnotation(description = "根据 用户主键 更新用户")
+	@PreAuthorize("hasAuthority('manage_user_edit')")
+	@RequestMapping("/updateById")
+	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody UsersUpdateBo usersUpdateBo) {
 
-        UsersVo usersVo = usersService.getUsersVoById(usersId);
+		boolean update = usersService.updateByUsersUpdateBo(usersUpdateBo);
 
-        return Response.ok(usersVo);
-    }
+		return Response.ok(update);
+	}
 
-    /**
-     * 保存用户
-     *
-     * @param request     请求
-     * @param response    响应
-     * @param usersSaveBo 用户
-     * @return 返回 保存结果
-     */
-    @ControllerAnnotation(description = "保存用户")
-    @PreAuthorize("hasAuthority('manage_user_add') or #oauth2.hasScope('manage_user_add')")
-    @RequestMapping("/save")
-    public Response<?> save(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody UsersSaveBo usersSaveBo) {
+	/**
+	 * 获取用户识别码
+	 * <p>
+	 * 生成RSA密钥对
+	 * <p>
+	 * 返回识别码
+	 * <p>
+	 * 返回识别码RSA公钥
+	 * <p>
+	 * RSA私钥保存到Redis中
+	 * <p>
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 更新结果
+	 */
+	@ControllerAnnotation(description = "获取用户识别码")
+	@PreAuthorize("hasAuthority('user_info')")
+	@RequestMapping("/code/rsa")
+	public Response<?> code(HttpServletRequest request, HttpServletResponse response) {
 
-        boolean save = usersService.saveUsersSaveBo(usersSaveBo);
+		RSA generate = new RSA();
 
-        return Response.ok(save);
-    }
+		// 获取私钥
+		String privateKey = generate.getPrivateKeyBase64();
+		// 获取公钥
+		String publicKey = generate.getPublicKeyBase64();
+		// 识别码
+		String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
 
-    /**
-     * 根据 用户主键 更新用户
-     *
-     * @param request       请求
-     * @param response      响应
-     * @param usersUpdateBo 用户
-     * @return 返回 更新结果
-     */
-    @ControllerAnnotation(description = "根据 用户主键 更新用户")
-    @PreAuthorize("hasAuthority('manage_user_edit') or #oauth2.hasScope('manage_user_edit')")
-    @RequestMapping("/updateById")
-    public Response<?> updateById(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody UsersUpdateBo usersUpdateBo) {
+		sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 
-        boolean update = usersService.updateByUsersUpdateBo(usersUpdateBo);
-
-        return Response.ok(update);
-    }
-
-    /**
-     * 获取用户识别码
-     * <p>
-     * 生成RSA密钥对<p>
-     * 返回识别码<p>
-     * 返回识别码RSA公钥<p>
-     * RSA私钥保存到Redis中<p>
-     *
-     * @param request  请求
-     * @param response 响应
-     * @return 返回 更新结果
-     */
-    @ControllerAnnotation(description = "获取用户识别码")
-    @PreAuthorize("hasAuthority('user_info') or #oauth2.hasScope('user_info')")
-    @RequestMapping("/code/rsa")
-    public Response<?> code(HttpServletRequest request, HttpServletResponse response) {
-
-        RSA generate = new RSA();
-
-        // 获取私钥
-        String privateKey = generate.getPrivateKeyBase64();
-        // 获取公钥
-        String publicKey = generate.getPublicKeyBase64();
-        // 识别码
-        String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
-
-        sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
-
-        return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
-    }
+		return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
+	}
 
 }

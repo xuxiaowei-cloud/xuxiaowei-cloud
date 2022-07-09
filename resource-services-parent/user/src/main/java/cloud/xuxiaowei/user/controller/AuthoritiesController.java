@@ -26,29 +26,29 @@ import javax.validation.Valid;
 @RequestMapping("/authorities")
 public class AuthoritiesController {
 
-    private IAuthoritiesService authoritiesService;
+	private IAuthoritiesService authoritiesService;
 
-    @Autowired
-    public void setAuthoritiesService(IAuthoritiesService authoritiesService) {
-        this.authoritiesService = authoritiesService;
-    }
+	@Autowired
+	public void setAuthoritiesService(IAuthoritiesService authoritiesService) {
+		this.authoritiesService = authoritiesService;
+	}
 
-    /**
-     * 保存 权限表
-     *
-     * @param request           请求
-     * @param response          响应
-     * @param authoritiesSaveBo 权限表保存参数
-     * @return 返回 结果
-     */
-    @ControllerAnnotation(description = "保存 权限表")
-    @RequestMapping("/save")
-    @PreAuthorize("hasAuthority('manage_user_authority') or #oauth2.hasScope('manage_user_authority')")
-    public Response<?> save(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody AuthoritiesSaveBo authoritiesSaveBo) {
+	/**
+	 * 保存 权限表
+	 * @param request 请求
+	 * @param response 响应
+	 * @param authoritiesSaveBo 权限表保存参数
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "保存 权限表")
+	@RequestMapping("/save")
+	@PreAuthorize("hasAuthority('manage_user_authority')")
+	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody AuthoritiesSaveBo authoritiesSaveBo) {
 
-        boolean save = authoritiesService.saveByAuthoritiesSaveBo(authoritiesSaveBo);
+		boolean save = authoritiesService.saveByAuthoritiesSaveBo(authoritiesSaveBo);
 
-        return Response.ok(save);
-    }
+		return Response.ok(save);
+	}
 
 }

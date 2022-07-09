@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WelcomeMessage {
 
-    /**
-     * 消息发送者
-     */
-    private String from;
+	/**
+	 * 消息发送者
+	 */
+	private String from;
 
-    /**
-     * 消息内容
-     */
-    private String msg;
+	/**
+	 * 消息内容
+	 */
+	private String msg;
 
 }

@@ -10,12 +10,11 @@ import cloud.xuxiaowei.webservice.vo.ResponseUserVo;
  */
 public interface UserService {
 
-    /**
-     * 根据 用户ID 查询用户
-     *
-     * @param userBo 用户ID
-     * @return 返回 用户
-     */
-    ResponseUserVo getById(UserBo userBo);
+	/**
+	 * 根据 用户ID 查询用户
+	 * @param userBo 用户ID
+	 * @return 返回 用户
+	 */
+	ResponseUserVo getById(UserBo userBo);
 
 }

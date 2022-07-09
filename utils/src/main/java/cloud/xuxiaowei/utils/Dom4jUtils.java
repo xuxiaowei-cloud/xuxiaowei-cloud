@@ -15,26 +15,26 @@ import java.io.StringWriter;
  */
 public class Dom4jUtils {
 
-    /**
-     * Dom4j 转 XML 字符串（不包含 &lt;?xml version="1.0" encoding="UTF-8"?&gt;）
-     *
-     * @param document {@link Document}
-     * @return 返回 XML 字符串（不包含 &lt;?xml version="1.0" encoding="UTF-8"?&gt;）
-     */
-    public static String asXml(Document document) {
-        try {
-            StringWriter out = new StringWriter();
-            OutputFormat format = new OutputFormat();
-            format.setSuppressDeclaration(true);
+	/**
+	 * Dom4j 转 XML 字符串（不包含 &lt;?xml version="1.0" encoding="UTF-8"?&gt;）
+	 * @param document {@link Document}
+	 * @return 返回 XML 字符串（不包含 &lt;?xml version="1.0" encoding="UTF-8"?&gt;）
+	 */
+	public static String asXml(Document document) {
+		try {
+			StringWriter out = new StringWriter();
+			OutputFormat format = new OutputFormat();
+			format.setSuppressDeclaration(true);
 
-            XMLWriter writer = new XMLWriter(out, format);
-            writer.write(document);
-            writer.flush();
+			XMLWriter writer = new XMLWriter(out, format);
+			writer.write(document);
+			writer.flush();
 
-            return out.toString();
-        } catch (IOException e) {
-            throw new RuntimeException("生成文本表示时出现 IOException: " + e.getMessage());
-        }
-    }
+			return out.toString();
+		}
+		catch (IOException e) {
+			throw new RuntimeException("生成文本表示时出现 IOException: " + e.getMessage());
+		}
+	}
 
 }

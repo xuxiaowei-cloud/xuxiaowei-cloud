@@ -26,41 +26,41 @@ import java.util.function.Consumer;
 @Component
 public class HeaderGlobalFilter implements GlobalFilter, Ordered {
 
-    /**
-     * 最低优先级（最大值）：0
-     * <p>
-     * 大于 0 无效
-     */
-    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 40000;
+	/**
+	 * 最低优先级（最大值）：0
+	 * <p>
+	 * 大于 0 无效
+	 */
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 40000;
 
-    @Setter
-    private int order = ORDERED;
+	@Setter
+	private int order = ORDERED;
 
-    @Override
-    public int getOrder() {
-        return order;
-    }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        ServerHttpRequest request = exchange.getRequest();
+		ServerHttpRequest request = exchange.getRequest();
 
-        String requestId = request.getId();
+		String requestId = request.getId();
 
-        LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
-        headersMap.put(Constant.REQUEST_ID, requestId);
+		LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
+		headersMap.put(Constant.REQUEST_ID, requestId);
 
-        Consumer<HttpHeaders> httpHeaders = httpHeader -> {
-            for (Map.Entry<String, String> entry : headersMap.entrySet()) {
-                httpHeader.set(entry.getKey(), entry.getValue());
-            }
-        };
+		Consumer<HttpHeaders> httpHeaders = httpHeader -> {
+			for (Map.Entry<String, String> entry : headersMap.entrySet()) {
+				httpHeader.set(entry.getKey(), entry.getValue());
+			}
+		};
 
-        ServerHttpRequest newRequest = exchange.getRequest().mutate().headers(httpHeaders).build();
-        ServerWebExchange build = exchange.mutate().request(newRequest).build();
+		ServerHttpRequest newRequest = exchange.getRequest().mutate().headers(httpHeaders).build();
+		ServerWebExchange build = exchange.mutate().request(newRequest).build();
 
-        return chain.filter(build);
-    }
+		return chain.filter(build);
+	}
 
 }

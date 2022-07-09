@@ -33,73 +33,73 @@ import java.util.List;
 @Component
 public class BlackListGlobalFilter implements GlobalFilter, Ordered {
 
-    /**
-     * 最低优先级（最大值）：0
-     * <p>
-     * 大于 0 无效
-     */
-    public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 30000;
+	/**
+	 * 最低优先级（最大值）：0
+	 * <p>
+	 * 大于 0 无效
+	 */
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 30000;
 
-    private CloudBlackListProperties cloudBlackListProperties;
+	private CloudBlackListProperties cloudBlackListProperties;
 
-    @Autowired
-    public void setCloudBlackListProperties(CloudBlackListProperties cloudBlackListProperties) {
-        this.cloudBlackListProperties = cloudBlackListProperties;
-    }
+	@Autowired
+	public void setCloudBlackListProperties(CloudBlackListProperties cloudBlackListProperties) {
+		this.cloudBlackListProperties = cloudBlackListProperties;
+	}
 
-    @Setter
-    private int order = ORDERED;
+	@Setter
+	private int order = ORDERED;
 
-    @Override
-    public int getOrder() {
-        return order;
-    }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        ServerHttpRequest request = exchange.getRequest();
-        ServerHttpResponse response = exchange.getResponse();
+		ServerHttpRequest request = exchange.getRequest();
+		ServerHttpResponse response = exchange.getResponse();
 
-        URI uri = request.getURI();
-        String path = uri.getPath();
+		URI uri = request.getURI();
+		String path = uri.getPath();
 
-        InetSocketAddress remoteAddress = request.getRemoteAddress();
-        if (remoteAddress == null) {
-            Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
-            return ResponseUtils.writeWith(response, error);
-        }
-        InetAddress address = remoteAddress.getAddress();
-        String hostAddress = address.getHostAddress();
+		InetSocketAddress remoteAddress = request.getRemoteAddress();
+		if (remoteAddress == null) {
+			Response<?> error = Response.error(CodeEnums.X10003.code, CodeEnums.X10003.msg);
+			return ResponseUtils.writeWith(response, error);
+		}
+		InetAddress address = remoteAddress.getAddress();
+		String hostAddress = address.getHostAddress();
 
-        List<String> ipList = cloudBlackListProperties.getIpList();
+		List<String> ipList = cloudBlackListProperties.getIpList();
 
-        for (String ip : ipList) {
-            IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
-            boolean matches = ipAddressMatcher.matches(hostAddress);
-            if (matches) {
-                Response<?> error = Response.error(CodeEnums.X10004.code, CodeEnums.X10004.msg);
-                return ResponseUtils.writeWith(response, error);
-            }
-        }
+		for (String ip : ipList) {
+			IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
+			boolean matches = ipAddressMatcher.matches(hostAddress);
+			if (matches) {
+				Response<?> error = Response.error(CodeEnums.X10004.code, CodeEnums.X10004.msg);
+				return ResponseUtils.writeWith(response, error);
+			}
+		}
 
-        AntPathMatcher antPathMatcher = new AntPathMatcher();
-        List<CloudBlackListProperties.BlackList> services = cloudBlackListProperties.getServices();
-        for (CloudBlackListProperties.BlackList service : services) {
-            String name = service.getName();
-            List<String> pathList = service.getPathList();
-            for (String p : pathList) {
-                String pattern = name.startsWith("/") ? name : "/" + name;
-                pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
-                boolean match = antPathMatcher.match(pattern, path);
-                if (match) {
-                    Response<?> error = Response.error(CodeEnums.X10005.code, CodeEnums.X10005.msg);
-                    return ResponseUtils.writeWith(response, error);
-                }
-            }
-        }
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
+		List<CloudBlackListProperties.BlackList> services = cloudBlackListProperties.getServices();
+		for (CloudBlackListProperties.BlackList service : services) {
+			String name = service.getName();
+			List<String> pathList = service.getPathList();
+			for (String p : pathList) {
+				String pattern = name.startsWith("/") ? name : "/" + name;
+				pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+				boolean match = antPathMatcher.match(pattern, path);
+				if (match) {
+					Response<?> error = Response.error(CodeEnums.X10005.code, CodeEnums.X10005.msg);
+					return ResponseUtils.writeWith(response, error);
+				}
+			}
+		}
 
-        return chain.filter(exchange);
-    }
+		return chain.filter(exchange);
+	}
 
 }
