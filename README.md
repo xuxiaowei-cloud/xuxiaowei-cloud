@@ -121,6 +121,17 @@
   </a>
 </div>
 
+## 相关项目
+
+- xuxiaowei-cloud-next
+    - 使用 Spring Boot 3.0.0，将仓库地址后面增加 `-next` 即可
+      （全平台仓库同名，包含：
+      [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
+      [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
+      [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
+      [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)、
+      [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)）
+
 ## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
 
 ## 模块
