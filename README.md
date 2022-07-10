@@ -393,9 +393,9 @@ cloud.xuxiaowei
 3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
-4. node v16.14.0
-    - [nodejs](https://nodejs.org/dist/v16.14.0)
-    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.14.0)
+4. node v16.15.1
+    - [nodejs](https://nodejs.org/dist/v16.15.1)
+    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.15.1)
 5. npm 8.3.1
 6. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
 7. SVG转PNG
