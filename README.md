@@ -132,6 +132,21 @@
       [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)、
       [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)）
 
+## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
+
+- IntelliJ IDEA
+  -
+  项目添加 [io.spring.javaformat:spring-javaformat-maven-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-maven-plugin)
+  依赖之后，可安装自动格式化插件（无需运行下列命令）：[spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
+
+  ```shell
+  ./mvnw spring-javaformat:apply
+  ```
+  或
+  ```shell
+  mvn spring-javaformat:apply
+  ```
+
 ## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
 
 ## 模块
