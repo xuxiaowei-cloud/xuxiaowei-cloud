@@ -140,7 +140,7 @@ cloud.xuxiaowei
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
 │        └──webservice                      // WebService 服务
-│        └──wechat-miniprogram                   // 微信小程序服务
+│        └──wechat-miniprogram              // 微信小程序服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -161,98 +161,79 @@ cloud.xuxiaowei
 
 ### 端口
 
-| 模块 | 模块名称 | 域名（虚拟） | 端口 |
-| ---- | ---- | ---- | ---- |
-| Nacos | 注册、配置中心 | nacos.example.xuxiaowei.cloud | 8848 |
-| MySQL | 数据库 | mysql.example.xuxiaowei.cloud | 3306 |
-| Redis | 数据库 | redis.example.xuxiaowei.cloud | 6379 |
-| canal-deployer |  | canal-deployer.example.xuxiaowei.cloud | 11111 |
-|  |  |  |  |
-| ui | UI | example.xuxiaowei.cloud | 1001 |
-| gateway | 网关 | gateway.example.xuxiaowei.cloud | 1101 |
-| admin-server | 监控（管理） | admin-server.example.xuxiaowei.cloud | 1201 |
-| passport | 登录 | passport.example.xuxiaowei.cloud | 1401 |
-| passport-ui | 登录UI | passport.example.xuxiaowei.cloud | 1411 |
-| canal | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |  | 1601 |
-| user | 用户服务 |  | 1701 |
-| websocket | WebSocket 服务 |  | 1801 |
-| webservice | WebService 服务 |  | 1901 |
-| wechat-miniprogram | 微信小程序服务 |  | 2001 |
-| xxl-job-admin | XXL Job Admin |  | 2101 |
-| oauth2-client | OAuth 2.0 客户端（独立服务） |  | 10001 |
-| cxf-client | CXF 客户端（独立服务） |  | 10002 |
+| 模块                 | 模块名称                        | 域名（虚拟）                                 | 端口    |
+|--------------------|-----------------------------|----------------------------------------|-------|
+| Nacos              | 注册、配置中心                     | nacos.example.xuxiaowei.cloud          | 8848  |
+| MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306  |
+| Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379  |
+| canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111 |
+|                    |                             |                                        |       |
+| ui                 | UI                          | example.xuxiaowei.cloud                | 1001  |
+| gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101  |
+| admin-server       | 监控（管理）                      | admin-server.example.xuxiaowei.cloud   | 1201  |
+| passport           | 登录                          | passport.example.xuxiaowei.cloud       | 1401  |
+| passport-ui        | 登录UI                        | passport.example.xuxiaowei.cloud       | 1411  |
+| canal              | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |                                        | 1601  |
+| user               | 用户服务                        |                                        | 1701  |
+| websocket          | WebSocket 服务                |                                        | 1801  |
+| webservice         | WebService 服务               |                                        | 1901  |
+| wechat-miniprogram | 微信小程序服务                     |                                        | 2001  |
+| xxl-job-admin      | XXL Job Admin               |                                        | 2101  |
+| oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
+| cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |
 
 ### 用户名与密码
 
-| 账户名 | 密码 | 启用 |
-| ---- | ---- | ---- |
-| xuxiaowei | 123 | 1 |
+| 账户名        | 密码   | 启用  |
+|------------|------|-----|
+| xuxiaowei  | 123  | 1   |
 
 - XXL Job
 
-| 地址                     | 账户名  | 密码 |
-|------------------------|-------| ---- |
-| http://127.0.0.1:2101/xxl-job-admin | admin | 123456 |
+| 地址                                   | 账户名    | 密码      |
+|--------------------------------------|--------|---------|
+| http://127.0.0.1:2101/xxl-job-admin  | admin  | 123456  |
 
 ### 权限
 
-| 账户名 | 权限 | 说明 |
-| ---- | ---- | ---- |
-| xuxiaowei | user_authorities               | 查看用户权限 |
-| xuxiaowei | user_details                   | 查看用户详情 |
-| xuxiaowei | user_info                      | 查看用户信息 |
-| xuxiaowei | user_oauth2_oauth2Request      | 查看 oauth2 用户请求 |
-| xuxiaowei | user_oauth2_userAuthentication | 查看 oauth2 用户身份验证 |
-| xuxiaowei | manage_user_add | 管理用户 查询权限 |
-| xuxiaowei | manage_user_delete | 管理用户 删除权限 |
-| xuxiaowei | manage_user_edit | 管理用户 修改权限 |
-| xuxiaowei | manage_user_read | 管理用户 查询权限 |
-| xuxiaowei | manage_user_authority | 管理用户 授权权限 |
-| xuxiaowei | manage_client_add | 管理客户 添加权限 |
-| xuxiaowei | manage_client_delete | 管理客户 删除权限 |
-| xuxiaowei | manage_client_edit | 管理客户 修改权限 |
-| xuxiaowei | manage_client_read | 管理客户 读取权限 |
-| xuxiaowei | username_token_delete | 用户Token 删除权限 |
-| xuxiaowei | clientId_token_delete | 客户Token 删除权限 |
+| 账户名       | 权限                                 | 说明               |
+|-----------|------------------------------------|------------------|
+| xuxiaowei | audit_authorization_consent_delete | 删除授权同意书          |
+| xuxiaowei | audit_authorization_consent_read   | 查看授权同意书          |
+| xuxiaowei | audit_authorization_delete         | 删除授权记录           |
+| xuxiaowei | audit_authorization_read           | 查看授权记录           |
+| xuxiaowei | clientId_token_delete              | 客户Token 删除权限     |
+| xuxiaowei | manage_client_add                  | 管理客户 添加权限        |
+| xuxiaowei | manage_client_delete               | 管理客户 删除权限        |
+| xuxiaowei | manage_client_edit                 | 管理客户 修改权限        |
+| xuxiaowei | manage_client_read                 | 管理客户 读取权限        |
+| xuxiaowei | manage_user_add                    | 管理用户 查询权限        |
+| xuxiaowei | manage_user_authority              | 管理用户 授权权限        |
+| xuxiaowei | manage_user_delete                 | 管理用户 删除权限        |
+| xuxiaowei | manage_user_edit                   | 管理用户 修改权限        |
+| xuxiaowei | manage_user_read                   | 管理用户 查询权限        |
+| xuxiaowei | username_token_delete              | 用户Token 删除权限     |
+| xuxiaowei | user_authorities                   | 查看用户权限           |
+| xuxiaowei | user_details                       | 查看用户详情           |
+| xuxiaowei | user_info                          | 查看用户信息           |
+| xuxiaowei | user_oauth2_oauth2Request          | 查看 oauth2 用户请求   |
+| xuxiaowei | user_oauth2_userAuthentication     | 查看 oauth2 用户身份验证 |
 
 ### 客户ID与秘钥
 
-| 字段 | client_id | client_secret | resource_ids | authorized_grant_types | authorities | access_token_validity | refresh_token_validity | scope | web_server_redirect_uri | autoapprove |
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 说明 | 客户 | 秘钥 | 资源 | 授权类型 | 权限 | Token有效时间 | 刷新Token有限时间 | 范围 | 重定向 | 自动授权范围 |
-|  | xuxiaowei_client_id | xuxiaowei_client_secret  |  | authorization_code,refresh_token,client_credentials,password,implicit |  |  |  | snsapi_base,snsapi_userinfo | http://passport.example.xuxiaowei.cloud:1411/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | true |
-| 微信小程序使用 | xuxiaowei_client_wechat_applet_id | xuxiaowei_client_wechat_applet_secret |  | password |  |  |  | snsapi_base,snsapi_userinfo |  |  |
+| 字段      | id  | client_id                              | client_id_issued_at   | client_secret                               | client_secret_expires_at | client_authentication_methods           | authorization_grant_types                                    | redirect_uris                                                                                                                              | scopes                  | require-authorization-consent | access-token-time-to-live | refresh-token-time-to-live | 
+|---------|-----|----------------------------------------|-----------------------|---------------------------------------------|--------------------------|-----------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-------------------------------|---------------------------|----------------------------|
+| 说明      | 主键  | 客户ID                                   | 客户ID发布时间              | 客户秘钥                                        | 客户秘钥过期时间                 | 授权认证方法                                  | 授权类型                                                         | 授权码重定向地址                                                                                                                                   | 范围                      | 是否需要客户授权同意                    | 授权Token有效时间               | 刷新Token有效时间                |
+|         | 1   | xuxiaowei_client_id                    | 2022-05-30 17:17:41   | xuxiaowei_client_secret                     |                          | client_secret_post,client_secret_basic  | refresh_token,implicit,client_credentials,authorization_code | http://127.0.0.1:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | snsapi_base,snsapi_info | false                         | 43200                     | 2592000                    |
+| 微信小程序使用 | 2   | xuxiaowei_client_wechat_miniprogram_id | 2022-05-30 17:17:41   | xuxiaowei_client_wechat_miniprogram_secret  |                          | client_secret_post,client_secret_basic  | refresh_token,wechat_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 43200                     | 2592000                    |
 
-- authorized_grant_types
-    - 默认值：authorization_code,refresh_token
-        ```
-        org.springframework.security.oauth2.provider.client.BaseClientDetails#BaseClientDetails(String, String, String, String, String, String) 
-        ```
+- authorization_grant_types
     - 授权码模式 authorization_code
     - 刷新Token权限 refresh_token
     - 客户端凭证模式 client_credentials
     - 密码模式 password
     - 简化模式 implicit
-- access_token_validity
-    - 默认值：43200秒，即12小时，参见：
-        ```
-        org.springframework.security.oauth2.provider.token.DefaultTokenServices#accessTokenValiditySeconds
-        ```
-- refresh_token_validity
-    - 默认值：2592000秒，即30天，参见：
-        ```
-        org.springframework.security.oauth2.provider.token.DefaultTokenServices#refreshTokenValiditySeconds
-        ```
-- scope
-    - 缺省时，全部授权
-- web_server_redirect_uri
-    - 缺省时，数据库只有一个重定向地址时，不报错。
-    - 缺省时，数据库存在多个重定向地址时，报错。
-- autoapprove
-    - true
-        - 全部自动授权
-    - 填写scope
-        - 指定范围自动授权
+    - 微信小程序（个人开发适配 OAuth 2.1、微信小程序的授权方式） wechat_miniprogram
 
 ### [Docker 说明](./docker)
 
@@ -272,15 +253,15 @@ cloud.xuxiaowei
 
 1. 使用了哪四个仓库？
     1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    1. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
-    1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    1. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    2. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
+    3. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    4. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
 
-1. 上述四个仓库以哪个为准？其余仓库合适同步？
+2. 上述四个仓库以哪个为准？其余仓库合适同步？
     1. 以 [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
-    1. 其余仓库每日同步
+    2. 其余仓库每日同步
 
-1. 各个仓库的作用？
+3. 各个仓库的作用？
     1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
     2. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06 之前使用 GitLab
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 自动构建资源（`.jar`、`.jar.asc`
@@ -295,16 +276,18 @@ cloud.xuxiaowei
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
 
-1. 各分支的作用？
+4. 各分支的作用？
     1. main
         - 主分支
         - 不可推送，只能合并
-    1. xuxiaowei
+    2. xuxiaowei
         - 个人分支，按功能`PR`到主分支`main`
-    1. pages
+    3. pages
         - 文档分支
-    1. only-passport
-        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐）
+    4. OAuth2.0
+        - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
+    5. only-passport
+        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
 
 ## 参考文档
 
@@ -376,20 +359,20 @@ cloud.xuxiaowei
         1. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
         1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
         1. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
-1. Alibaba dragonwell 8.10.11
+2. Alibaba dragonwell 8.10.11
     - [Alibaba_Dragonwell_jdk-8.10.11_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_aarch64_linux.tar.gz)
     - [Alibaba_Dragonwell_jdk-8.10.11_x64_alpine-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_alpine-linux.tar.gz)
     - [Alibaba_Dragonwell_jdk-8.10.11_x64-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz)
     - [Alibaba_Dragonwell_jdk-8.10.11_x86_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x86_windows.zip)
-1. Apache Maven 3.6.3
+3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
-1. node v16.14.0
+4. node v16.14.0
     - [nodejs](https://nodejs.org/dist/v16.14.0)
     - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.14.0)
-1. npm 8.3.1
-1. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
-1. SVG转PNG
+5. npm 8.3.1
+6. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
+7. SVG转PNG
     1. https://www.aconvert.com/cn/image/svg-to-png/
     2. https://svgtopng.com/zh/
 
