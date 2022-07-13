@@ -29,24 +29,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅为了提供：JsonToken、JsonGenerator、JsonParser -->
+        <!-- 仅为了提供：@RefreshScope -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-
-        <!-- 仅为了提供：SerializerProvider、SerializerProvider、StdSerializer、StdDeserializer -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
             <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅为了提供：JacksonAnnotation（防止打包报错） -->
+        <!-- 仅为了提供：HttpMethod -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
             <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
             <scope>provided</scope>
         </dependency>

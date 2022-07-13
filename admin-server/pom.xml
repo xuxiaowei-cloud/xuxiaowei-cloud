@@ -22,12 +22,6 @@
     </properties>
     <dependencies>
 
-        <!-- 监控（管理） -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
-        </dependency>
-
         <!-- Nacos 注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -50,6 +44,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
 
         <dependency>

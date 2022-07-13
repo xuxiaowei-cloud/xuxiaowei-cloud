@@ -23,16 +23,22 @@
 
     <dependencies>
 
-        <!-- 核心组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-core</artifactId>
-        </dependency>
-
         <!-- 日志组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-log</artifactId>
+        </dependency>
+
+        <!-- 验证组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-validation</artifactId>
+        </dependency>
+
+        <!-- Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-redis</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
@@ -73,33 +79,21 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 验证组件 -->
-        <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-validation</artifactId>
-        </dependency>
-
         <!-- 提供 AOP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- Redis 组件 -->
+        <!-- 邮件 -->
         <dependency>
-            <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-redis</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
-
-        <!-- 邮件 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <dependency>
