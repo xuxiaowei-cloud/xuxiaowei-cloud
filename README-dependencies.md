@@ -5,6 +5,7 @@ cloud.xuxiaowei:xuxiaowei-cloud-starter-parent:pom:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
+│        └──cn.hutool:hutool-all:jar:5.8.3:provided
 │        └──com.google.guava:guava:jar:31.1-jre:provided
 │        └──com.fasterxml.jackson.core:jackson-databind:jar:2.13.3:provided
 │        └──com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.13.3:provided
@@ -88,6 +89,7 @@ cloud.xuxiaowei:gateway:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
 │        └──cn.hutool:hutool-all:jar:5.8.3:compile
+│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.3.1:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.1:compile
 │        └──org.springframework.cloud:spring-cloud-starter-gateway:jar:3.1.3:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.1:compile
