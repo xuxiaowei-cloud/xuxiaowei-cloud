@@ -29,6 +29,16 @@
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-starter-parent -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-dependencies -->
         <!-- https://github.com/spring-projects/spring-boot -->
+        <!-- https://github.com/FasterXML/jackson-databind -->
+        <!-- https://github.com/FasterXML/jackson-core -->
+        <!-- https://github.com/FasterXML/jackson-annotations -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-xml -->
+        <!-- https://github.com/FasterXML/jackson-annotations -->
+        <!-- https://github.com/FasterXML/jackson-datatype-jsr310 -->
+        <!-- https://github.com/FasterXML/jackson-dataformats-text -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
         <spring-boot.version>2.7.1</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
@@ -52,7 +62,7 @@
 
         <!-- OAuth 2.1 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
-        <!-- https://repo1.maven.org/maven2/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
         <spring-security-oauth2-authorization-server.version>0.3.1</spring-security-oauth2-authorization-server.version>
 
@@ -74,7 +84,7 @@
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-generator -->
         <!-- https://github.com/baomidou/generator -->
-        <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
+        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/boot/spring-boot-starter-velocity -->
@@ -120,7 +130,7 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.7</fastjson.version>
+        <fastjson.version>2.0.8</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
@@ -196,24 +206,24 @@
     </properties>
 
     <modules>
-        <!-- 网关服务 -->
-        <module>gateway</module>
         <!-- 监控（管理）服务 -->
         <module>admin-server</module>
-        <!-- 登录服务UI -->
-        <module>passport-ui</module>
-        <!-- 登录服务 -->
-        <module>passport</module>
-        <!-- UI -->
-        <module>ui</module>
-        <!-- 资源服务父模块 -->
-        <module>resource-services-parent</module>
-        <!-- 工具类 -->
-        <module>utils</module>
         <!-- 微服务公共组件父模块 -->
         <module>cloud-commons-parent</module>
         <!-- 示例父模块 -->
         <module>example-parent</module>
+        <!-- 网关服务 -->
+        <module>gateway</module>
+        <!-- 登录服务 -->
+        <module>passport</module>
+        <!-- 登录服务UI -->
+        <module>passport-ui</module>
+        <!-- 资源服务父模块 -->
+        <module>resource-services-parent</module>
+        <!-- UI -->
+        <module>ui</module>
+        <!-- 工具类 -->
+        <module>utils</module>
         <!-- XXL JOB Admin -->
         <module>xxl-job-admin</module>
     </modules>
@@ -419,6 +429,12 @@
             <dependency>
                 <groupId>cloud.xuxiaowei.commons</groupId>
                 <artifactId>cloud-starter-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 幂等组件 -->
+            <dependency>
+                <groupId>cloud.xuxiaowei.commons</groupId>
+                <artifactId>cloud-starter-idempotent</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 负载均衡组件 -->

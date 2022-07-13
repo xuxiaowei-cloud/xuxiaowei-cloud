@@ -22,16 +22,16 @@
     </properties>
     <dependencies>
 
-        <!-- 仅为了提供：RestTemplate -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
         <!-- 核心组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-core</artifactId>
+        </dependency>
+
+        <!-- 仅为了提供：RestTemplate -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
 
         <!-- 负载均衡 -->

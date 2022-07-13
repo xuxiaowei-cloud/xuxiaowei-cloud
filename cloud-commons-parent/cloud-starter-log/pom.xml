@@ -23,12 +23,6 @@
 
     <dependencies>
 
-        <!-- 仅为了提供：NacosDiscoveryProperties -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
         <!-- 核心组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
@@ -39,6 +33,12 @@
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
             <artifactId>cloud-starter-mybatis</artifactId>
+        </dependency>
+
+        <!-- 仅为了提供：NacosDiscoveryProperties -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
         <dependency>
