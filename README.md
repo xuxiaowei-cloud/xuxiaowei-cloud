@@ -7,9 +7,9 @@
     <a target="_blank" href="https://996.icu/#/zh_CN">
         <img alt="Link-996" src="https://img.shields.io/badge/Link-996.icu-red.svg">
     </a>
-    <div>
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ZieC6s1WB4njfVbrDHYgoNS8YpT26VtF&jump_from=webapi">
         <img alt="QQ群" src="https://img.shields.io/badge/QQ群-696503132-blue.svg"/>
-    </div>
+    </a>
 </div>
 
 <p></p>
@@ -104,7 +104,7 @@
     <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.1&color=blue">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
     <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.3.1&color=blue">
   </a>
 
@@ -131,6 +131,21 @@
       [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
       [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)、
       [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)）
+
+## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
+
+- IntelliJ IDEA
+  -
+  项目添加 [io.spring.javaformat:spring-javaformat-maven-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-maven-plugin)
+  依赖之后，可安装自动格式化插件（无需运行下列命令）：[spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
+
+  ```shell
+  ./mvnw spring-javaformat:apply
+  ```
+  或
+  ```shell
+  mvn spring-javaformat:apply
+  ```
 
 ## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
 
@@ -360,16 +375,17 @@ cloud.xuxiaowei
     - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
     - 插件
         1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
-        1. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
-        1. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
-        1. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
-        1. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
-        1. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
-        1. [RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit)
-        1. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
-        1. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
-        1. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
-        1. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
+        2. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
+        3. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
+        4. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
+        5. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
+        6. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
+        7. [RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit)
+        8. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
+        9. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
+        10. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
+        11. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
+        12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
 2. Alibaba dragonwell 8.10.11
     - [Alibaba_Dragonwell_jdk-8.10.11_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_aarch64_linux.tar.gz)
     - [Alibaba_Dragonwell_jdk-8.10.11_x64_alpine-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_alpine-linux.tar.gz)
@@ -378,9 +394,9 @@ cloud.xuxiaowei
 3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
-4. node v16.14.0
-    - [nodejs](https://nodejs.org/dist/v16.14.0)
-    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.14.0)
+4. node v16.15.1
+    - [nodejs](https://nodejs.org/dist/v16.15.1)
+    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.15.1)
 5. npm 8.3.1
 6. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
 7. SVG转PNG

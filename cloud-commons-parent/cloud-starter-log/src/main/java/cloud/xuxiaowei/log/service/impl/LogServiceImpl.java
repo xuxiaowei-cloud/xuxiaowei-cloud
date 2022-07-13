@@ -3,21 +3,21 @@ package cloud.xuxiaowei.log.service.impl;
 import cloud.xuxiaowei.log.entity.Log;
 import cloud.xuxiaowei.log.mapper.LogMapper;
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Map;
 
 /**
  * <p>
@@ -61,18 +61,36 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
 	 * @param requestUri 请求地址
 	 * @param queryString 请求参数
 	 * @param headersMap 请求头
+	 * @param authorization 权限标识
 	 * @param userAgent 浏览器标识
 	 * @param ex 异常
 	 */
 	@Override
-	public void saveLog(String hostAddress, String requestId, String sessionId, String method, String requestUri,
-			String queryString, String headersMap, String userAgent, Throwable ex) {
+	public boolean saveLog(String hostAddress, String requestId, String sessionId, String method, String requestUri,
+			String queryString, String headersMap, String authorization, String userAgent, Throwable ex) {
 
 		String module = environment.getProperty("spring.application.name");
 
 		String ip = nacosDiscoveryProperties.getIp();
 
 		Integer port = serverProperties.getPort();
+
+		String payload = SecurityUtils.getPayload(authorization);
+		payload = SecurityUtils.inspectPayload(payload);
+		Map<?, ?> payloadMap = SecurityUtils.getPayloadMap(authorization);
+
+		String createUsername;
+		String username = payloadMap.get("username") + "";
+		String sub = payloadMap.get("sub") + "";
+		if (StringUtils.hasLength(username)) {
+			createUsername = username;
+		}
+		else if (StringUtils.hasLength(sub)) {
+			createUsername = sub;
+		}
+		else {
+			createUsername = "";
+		}
 
 		LocalDate localDate = LocalDate.now();
 		int year = localDate.getYear();
@@ -93,34 +111,20 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
 		log.setRequestUri(requestUri);
 		log.setQueryString(queryString);
 		log.setHeadersMap(headersMap);
+		log.setAuthorization(authorization);
+		log.setPayload(payload);
 		log.setUserAgent(userAgent);
 		log.setRequestId(requestId);
 		log.setSessionId(sessionId);
 		log.setException(ex == null ? null : ExceptionUtils.getStackTrace(ex));
-		log.setCreateUsername(null);
+		log.setCreateUsername(createUsername);
 		log.setCreateIp(hostAddress);
 		log.setHostname(null);
 		log.setIpAddress(ip);
 		log.setPort(port);
 		log.setCreateDate(LocalDateTime.now());
 
-		save(log);
-
-		Long logId = log.getLogId();
-		MDC.put(Constant.LOG_ID, logId + "");
-	}
-
-	/**
-	 * 根据 主键 设置 创建用户
-	 * @param createUsername 创建用户
-	 * @param logId 主键
-	 */
-	@Override
-	public void setCreateUsernameById(String createUsername, String logId) {
-		UpdateWrapper<Log> updateWrapper = new UpdateWrapper<>();
-		updateWrapper.eq("log_id", logId);
-		updateWrapper.set("create_username", createUsername);
-		update(updateWrapper);
+		return save(log);
 	}
 
 }

@@ -57,7 +57,7 @@
         <spring-security-oauth2-authorization-server.version>0.3.1</spring-security-oauth2-authorization-server.version>
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/snapshots/cn/com/xuxiaowei/next/spring-boot-starter-wechat-miniprogram/ -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/snapshots/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
         <spring-boot-starter-wechat-miniprogram.version>0.0.1-SNAPSHOT</spring-boot-starter-wechat-miniprogram.version>
 
         <!-- MyBatis -->
