@@ -47,17 +47,20 @@ npm create vite@latest passport-ui -- --template vue-ts
     npx eslint --init
     ```
 
-1. [vue-router](https://router.vuejs.org/installation.html)
+2. [vue-router](https://router.vuejs.org/installation.html)
     ```shell
     npm install vue-router
     ```
 
-1. [element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)
+3. [element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)
     ```shell
     npm i element-plus
     ```
 
-1. [axios](https://www.npmjs.com/package/axios)
+4. [axios](https://www.npmjs.com/package/axios)
+
+5. [terser](https://www.npmjs.com/package/terser)
+    1. [General Changes](https://vitejs.dev/guide/migration.html#general-changes)
 
 ## 项目说明
 
