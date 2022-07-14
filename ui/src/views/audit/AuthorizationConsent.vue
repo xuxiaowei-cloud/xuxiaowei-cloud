@@ -9,9 +9,7 @@
     </el-button>
   </div>
   <el-container>
-    <!-- v-loading="loading" -->
-    <!-- 错误议题：https://github.com/element-plus/element-plus/issues/8813 -->
-    <el-table stripe :data="tableData" height="460" @selection-change="handleSelectionChange">
+    <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="180" :show-overflow-tooltip="true"/>
