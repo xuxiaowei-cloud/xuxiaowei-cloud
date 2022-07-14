@@ -22,7 +22,9 @@
   </el-dialog>
 
   <el-container>
-    <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange"
+    <!-- v-loading="loading" -->
+    <!-- 错误议题：https://github.com/element-plus/element-plus/issues/8813 -->
+    <el-table stripe :data="tableData" height="460" @selection-change="handleSelectionChange"
               @cell-dblclick="rowDblClick">
       <el-table-column type="expand">
         <template #default="props">
