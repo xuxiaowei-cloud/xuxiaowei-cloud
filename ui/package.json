@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "description": "徐晓伟微服务UI",
-  "type": "module",
   "scripts": {
     "dev": "vite --host --port 1001",
     "dev:example": "vite --host example.xuxiaowei.cloud --port 1001",
