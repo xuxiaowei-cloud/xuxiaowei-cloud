@@ -15,7 +15,7 @@
 <p></p>
 
 <div align="center" style="text-align: center;">
-  基于 JDK 8、Spring Boot 2.7.x、OAuth 2.1、Vite、Vue 3、Element Plus 的微服务
+  基于 JDK 8、Spring Boot 2.7.x、OAuth 2.1、Vite 3、Vue 3、Element Plus 的微服务
 </div>
 
 <p></p>
