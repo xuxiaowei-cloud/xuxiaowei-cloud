@@ -15,7 +15,7 @@
 <p></p>
 
 <div align="center" style="text-align: center;">
-  基于 JDK 8、Spring Boot 2.7.x、OAuth 2.1、Vite、Vue 3、Element Plus 的微服务
+  基于 JDK 8、Spring Boot 2.7.x、OAuth 2.1、Vite 3、Vue 3、Element Plus 的微服务
 </div>
 
 <p></p>
@@ -167,6 +167,7 @@ cloud.xuxiaowei
 │        └──websocket                       // WebSocket 服务
 │        └──webservice                      // WebService 服务
 │        └──wechat-miniprogram              // 微信小程序服务
+│        └──wechat-offiaccount              // 微信公众号服务
 │    └──utils                               // 工具类
 │    └──cloud-commons-parent                // 微服务公共组件父模块
 │        └──cloud-starter-core              // 核心组件
@@ -204,6 +205,7 @@ cloud.xuxiaowei
 | websocket          | WebSocket 服务                |                                        | 1801  |
 | webservice         | WebService 服务               |                                        | 1901  |
 | wechat-miniprogram | 微信小程序服务                     |                                        | 2001  |
+| wechat-offiaccount | 微信公众号服务                     |                                        | 2101  |
 | xxl-job-admin      | XXL Job Admin               |                                        | 2101  |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
 | cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |

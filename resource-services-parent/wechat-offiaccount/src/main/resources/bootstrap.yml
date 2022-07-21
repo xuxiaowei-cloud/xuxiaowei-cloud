@@ -1,12 +1,12 @@
 # 服务器
 server:
   # 端口
-  port: ${user_port:1701}
+  port: ${wechat_offiaccount_port:2101}
 #
 # Spring 配置
 spring:
   application:
-    name: user
+    name: wechat-offiaccount
   # 配置环境
   profiles:
     # 激活
@@ -33,7 +33,7 @@ spring:
         # 命名空间
         namespace:
         # 自定义注册IP（为空时使用程序自动获取本机IP）
-        ip: ${user_ip:}
+        ip: ${wechat_offiaccount_ip:}
       # 服务配置
       config:
         # 配置文件后缀名
@@ -192,3 +192,24 @@ jwk:
   rsa:
     # 公钥
     public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvUEZbnpoYCSVveN8/h3ouADkX1l5/qpS/vaVuWMOMpVbWqiVysrL7x8NV0i0NKBf+Ufa0aJBMYtsRGTsKOGv4ulwoUCMDizZ47xCUVMR6JCbm3qVejeK5GWPatrRFPWXwIL5G4nk4ZkpEhFUn0qeJwEPG70QNxZDNJVIqbDK0CROZifd/7REy9SQjIsQbVjUmC2J09IXE4FK3YDIltUOJLf7ASnkIb5al/IelKLIkoYaiI4Jjw6/zK2QXwNaO74FSOIbxDM/yixrkuArtsrqLbxjw/BMlW5pLguTfbeXobbmS+t1MgIfCmWye5GXCsuuS+K/RElLmvBtT+o1xZNBowIDAQAB
+
+
+---
+
+# 微信小程序配置(必填)
+wx:
+  miniapp:
+    appid: ${wx_miniapp_appid:}
+    secret: ${wx_miniapp_secret:}
+    token: JSON
+    aesKey:
+    msgDataFormat:
+
+---
+
+# 微信小程序配置：存储配置redis(可选)
+wx:
+  miniapp:
+    config-storage:
+      type: RedisTemplate
+      key-prefix: wa

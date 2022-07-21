@@ -1,13 +1,10 @@
 # 服务器
 server:
   # 端口
-  port: ${wechat_applet_port:2001}
+  port: ${wechat_miniprogram_port:2001}
 #
 # Spring 配置
 spring:
-  main:
-    # 覆盖Bean
-    allow-bean-definition-overriding: true
   application:
     name: wechat-miniprogram
   # 配置环境
@@ -36,7 +33,7 @@ spring:
         # 命名空间
         namespace:
         # 自定义注册IP（为空时使用程序自动获取本机IP）
-        ip: ${wechat_applet_ip:}
+        ip: ${wechat_miniprogram_ip:}
       # 服务配置
       config:
         # 配置文件后缀名
