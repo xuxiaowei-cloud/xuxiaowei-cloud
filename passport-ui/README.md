@@ -62,6 +62,14 @@ npm create vite@latest passport-ui -- --template vue-ts
 5. [terser](https://www.npmjs.com/package/terser)
     1. [General Changes](https://vitejs.dev/guide/migration.html#general-changes)
 
+```
+npm i @element-plus/icons-vue axios element-plus jsencrypt terser vue vue-router vuex vuex-persistedstate
+```
+
+```
+npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged typescript unplugin-auto-import unplugin-vue-components vite vue-tsc
+```
+
 ## 项目说明
 
 - 由于本项目使用了 Session 共享，故：需要访问`example.xuxiaowei.cloud`的子域
