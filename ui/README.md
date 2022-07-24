@@ -161,6 +161,14 @@ npm create vite@latest ui -- --template vue-ts
 - [vite](https://www.npmjs.com/package/vite)
 - [vue-tsc](https://www.npmjs.com/package/vue-tsc)
 
+```
+npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/editor-for-vue@5 axios crypto-js echarts element-plus js-cookie jsencrypt sockjs-client stompjs vue vue-clipboard3 vue-echarts vue-router vuex vuex-persistedstate
+```
+
+```
+npm i -D @tauri-apps/cli @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unplugin-auto-import unplugin-vue-components vite vue-tsc
+```
+
 ## 其他说明
 
 - 使用 Maven 进行打包

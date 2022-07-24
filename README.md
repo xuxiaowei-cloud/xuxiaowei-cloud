@@ -93,7 +93,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.1&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.2&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -368,12 +368,12 @@ cloud.xuxiaowei
 
 ## 开发工具
 
-1. IDEA 2022.1.1
-    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.exe)
-    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.win.zip)
-    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.tar.gz)
-    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.1.3.dmg)
-    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2021.3.3-aarch64.dmg)
+1. IDEA 2022.1.4
+    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.exe)
+    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.win.zip)
+    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.tar.gz)
+    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.dmg)
+    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4-aarch64.dmg)
     - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
     - 插件
         1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
