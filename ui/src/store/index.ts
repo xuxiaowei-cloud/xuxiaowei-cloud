@@ -1,212 +1,142 @@
-import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-import { LocationQuery, Router } from 'vue-router'
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 
-import settings from '../settings'
-
-import { checkToken } from '../api/passport/oauth2'
-import { info } from '../api/user'
-
-const store = createStore({
-  state: { // 单一状态树
-    usersId: null, // 用户主键
-    username: null, // 用户名
-    nickname: null, // 昵称
-    authorities: [], // 权限
-    accessToken: null, // Token
-    checkTokenTime: null, // 检查Token时间
-    refreshToken: null, // 刷新Token
-    isCollapse: false // 是否折叠菜单
+export const useStore = defineStore({
+  id: 'store',
+  // @ts-ignore
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'xxx', // 秘钥
+        storage: localStorage // 存储方式，默认：sessionStorage，可选：localStorage
+      }
+    ]
   },
+  state: () => ({ // 单一状态树
+    usersId: ref<string|number>(), // 用户主键
+    username: ref<string>(), // 用户名
+    nickname: ref<string>(), // 昵称
+    authorities: ref<string[]>(), // 权限
+    accessToken: ref<any>(), // Token
+    checkTokenTime: ref<number>(), // 检查Token时间
+    refreshToken: ref<any>(), // 刷新Token
+    isCollapse: false // 是否折叠菜单
+  }),
   getters: {
     /**
      * 获取 用户主键
      * @param state 单一状态树
      */
-    usersId (state) {
+    getUsersId (state) {
       return state.usersId
     },
     /**
      * 获取 用户名
      * @param state 单一状态树
      */
-    username (state) {
+    getUsername (state) {
       return state.username
     },
     /**
      * 获取 昵称
      * @param state 单一状态树
      */
-    nickname (state) {
+    getNickname (state) {
       return state.nickname
     },
     /**
      * 获取 权限
      * @param state 单一状态树
      */
-    authorities (state) {
+    getAuthorities (state) {
       return state.authorities
     },
     /**
      * 获取 Token
      * @param state 单一状态树
      */
-    accessToken (state) {
+    getAccessToken (state) {
       return state.accessToken
     },
     /**
      * 获取 检查Token时间
      * @param state 单一状态树
      */
-    checkTokenTime (state) {
-      return state.checkTokenTime
+    getCheckTokenTime (state) {
+      return state.checkTokenTime === undefined ? 0 : state.checkTokenTime
     },
     /**
      * 获取 刷新Token
      * @param state 单一状态树
      */
-    refreshToken (state) {
+    getRefreshToken (state) {
       return state.refreshToken
     },
     /**
      * 是否折叠菜单
      * @param state
      */
-    isCollapse (state) {
+    getIsCollapse (state) {
       return state.isCollapse
     }
   },
-  mutations: { // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
+  actions: {
     /**
      * 设置 用户名
-     * @param state 单一状态树
      * @param usersId Token
      */
-    setUsersId (state, usersId) {
-      state.usersId = usersId
+    setUsersId (usersId: string| number) {
+      this.usersId = usersId
     },
     /**
      * 设置 用户名
-     * @param state 单一状态树
      * @param username 用户名
      */
-    setUsername (state, username) {
-      state.username = username
+    setUsername (username: string) {
+      this.username = username
     },
     /**
      * 设置 昵称
-     * @param state 单一状态树
      * @param nickname 用户昵称
      */
-    setNickname (state, nickname) {
-      state.nickname = nickname
+    setNickname (nickname: string) {
+      this.nickname = nickname
     },
     /**
      * 设置 权限
-     * @param state 单一状态树
      * @param authorities 权限
      */
-    setAuthorities (state, authorities) {
-      state.authorities = authorities
+    setAuthorities (authorities: string[]) {
+      this.authorities = authorities
     },
     /**
      * 设置 Token
-     * @param state 单一状态树
      * @param accessToken 授权Token
      */
-    setAccessToken (state, accessToken) {
-      state.accessToken = accessToken
+    setAccessToken (accessToken: any) {
+      this.accessToken = accessToken
     },
     /**
      * 设置 检查Token时间
-     * @param state
      * @param checkTokenTime
      */
-    setCheckTokenTime (state, checkTokenTime) {
-      state.checkTokenTime = checkTokenTime
+    setCheckTokenTime (checkTokenTime: number) {
+      this.checkTokenTime = checkTokenTime
     },
     /**
      * 设置 刷新Token
-     * @param state 单一状态树
      * @param refreshToken 刷新Token
      */
-    setRefreshToken (state, refreshToken) {
-      state.refreshToken = refreshToken
+    setRefreshToken (refreshToken: any) {
+      this.refreshToken = refreshToken
     },
     /**
      * 设置是否折叠菜单
-     * @param state 单一状态树
      * @param isCollapse 是否折叠菜单
      */
-    setIsCollapse (state, isCollapse) {
-      state.isCollapse = isCollapse
-    }
-  },
-  actions: {
-  },
-  modules: {
-    settings
-  },
-  plugins: [
-    createPersistedState({
-      storage: localStorage
-    })
-  ]
-})
-
-export default store
-
-/**
- * 参数中的Token缓存
- * @param path 路径
- * @param query 参数
- * @param router 路由
- */
-export const queryToken = function (path: string, query: LocationQuery, router: Router) {
-  if (query.store === 'true') {
-    const accessToken = query.accessToken
-    const refreshToken = query.refreshToken
-
-    delete query.store
-
-    delete query.accessToken
-    delete query.refreshToken
-
-    console.log('获取到URL中的accessToken', accessToken)
-    console.log('获取到URL中的refreshToken', refreshToken)
-
-    store.commit('setAccessToken', accessToken)
-    store.commit('setRefreshToken', refreshToken)
-
-    console.log('已完成store中的accessToken缓存：', store.getters.accessToken)
-    console.log('已完成store中的refreshToken缓存：', store.getters.refreshToken)
-
-    // 此次检查Token，不受 settings.state.checkTokenInterval 控制
-    checkToken().then(response => {
-      console.log('完成store中的Token缓存后检查Token', response)
-      store.commit('setCheckTokenTime', new Date().getTime())
-      info().then(() => {})
-    })
-
-    router.push({ path, query }).then(() => {
-
-    })
-  } else {
-    const checkTokenInterval = settings.state.checkTokenInterval
-    console.log(new Date().getTime() - store.getters.checkTokenTime)
-
-    if (checkTokenInterval === -1) {
-      console.log('路由不检查Token')
-    } else if (checkTokenInterval === 0) {
-      checkToken().then(response => {
-        console.log('检查Token', response)
-        store.commit('setCheckTokenTime', new Date().getTime())
-      })
-    } else if (checkTokenInterval > 0 && new Date().getTime() - store.getters.checkTokenTime > checkTokenInterval) {
-      checkToken().then(response => {
-        console.log('超过检查Token时间间隔后，检查Token结果', response)
-        store.commit('setCheckTokenTime', new Date().getTime())
-      })
+    setIsCollapse (isCollapse: boolean) {
+      this.isCollapse = isCollapse
     }
   }
-}
+})

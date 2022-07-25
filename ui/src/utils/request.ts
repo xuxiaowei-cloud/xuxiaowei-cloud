@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios'
-import store from '../store'
+import { useStore } from '../store'
 import settings from '../settings'
 import { ElMessage } from 'element-plus'
+
+const store = useStore()
 
 // create an axios instance
 const service = axios.create({
@@ -16,7 +18,7 @@ service.interceptors.request.use(
     if (!config.headers) {
       config.headers = {}
     }
-    config.headers.authorization = 'Bearer ' + store.getters.accessToken
+    config.headers.authorization = 'Bearer ' + store.getAccessToken
     return config
   },
   error => {

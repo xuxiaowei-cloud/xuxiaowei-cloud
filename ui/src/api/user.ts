@@ -1,7 +1,9 @@
 import request from '../utils/request'
-import store from '../store'
+import { useStore } from '../store'
 import settings from '../settings'
 import { ElMessage } from 'element-plus'
+
+const store = useStore()
 
 /**
  * 用户信息
@@ -16,9 +18,9 @@ export const info = function () {
       const username = data.username
       const nickname = data.nickname
 
-      store.commit('setUsersId', usersId)
-      store.commit('setUsername', username)
-      store.commit('setNickname', nickname)
+      store.setUsersId(usersId)
+      store.setUsername(username)
+      store.setNickname(nickname)
     } else {
       ElMessage({
         message: responseData.msg,
