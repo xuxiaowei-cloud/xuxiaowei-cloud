@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import {
   getById,
   save,

@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, defineEmits, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { getById, save, updateById, codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import { useStore } from 'vuex'
