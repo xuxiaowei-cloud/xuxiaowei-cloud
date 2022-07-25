@@ -16,7 +16,8 @@ const store = createStore({
     accessToken: null, // Token
     checkTokenTime: null, // 检查Token时间
     refreshToken: null, // 刷新Token
-    isCollapse: false // 是否折叠菜单
+    isCollapse: false, // 是否折叠菜单
+    keepAliveExclude: [] // keep-alive 排除页面（组件）名
   },
   getters: {
     /**
@@ -74,6 +75,13 @@ const store = createStore({
      */
     isCollapse (state) {
       return state.isCollapse
+    },
+    /**
+     * keep-alive 排除页面（组件）名
+     * @param state
+     */
+    keepAliveExclude (state) {
+      return state.keepAliveExclude
     }
   },
   mutations: { // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
@@ -140,6 +148,24 @@ const store = createStore({
      */
     setIsCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
+    },
+    /**
+     * 添加 keep-alive 排除页面（组件）名
+     * @param state 单一状态树
+     * @param keepAliveExclude keep-alive 排除页面（组件）名
+     */
+    addKeepAliveExclude (state, keepAliveExclude) {
+      // @ts-ignore
+      state.keepAliveExclude.push(keepAliveExclude)
+    },
+    /**
+     * 移除 keep-alive 排除
+     * @param state 单一状态树
+     * @param keepAliveExclude
+     */
+    removeKeepAliveExclude (state, keepAliveExclude) {
+      // @ts-ignore
+      state.keepAliveExclude.splice(state.keepAliveExclude.indexOf(keepAliveExclude), 1)
     }
   },
   actions: {
