@@ -84,7 +84,7 @@
 import { page, removeById, removeByIds } from '../../api/user'
 import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '../../store'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
 // 用户添加、编辑弹窗内容

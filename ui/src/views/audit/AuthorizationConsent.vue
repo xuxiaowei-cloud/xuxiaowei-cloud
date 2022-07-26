@@ -32,7 +32,7 @@
 import { page, removeById, removeByIds, Oauth2AuthorizationConsentPrimaryKey } from '../../api/passport/oauth2-authorization-consent'
 import { hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '../../store'
 import { ElMessage } from 'element-plus'
 
 // 缓存

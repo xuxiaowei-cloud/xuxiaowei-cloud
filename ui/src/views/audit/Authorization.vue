@@ -112,7 +112,7 @@
 import { page, removeById, removeByIds } from '../../api/passport/oauth2-authorization'
 import { hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '../../store'
 import { ElMessage } from 'element-plus'
 
 // 缓存

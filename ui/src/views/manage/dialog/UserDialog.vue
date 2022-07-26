@@ -48,7 +48,7 @@
 import { reactive, ref } from 'vue'
 import { getById, save, updateById, codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
-import { useStore } from 'vuex'
+import { useStore } from '../../../store'
 import { ElMessage, ElMessageBox } from 'element-plus'
 // TS 未能识别，其实不存在问题
 // @ts-ignore
