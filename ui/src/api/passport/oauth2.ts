@@ -1,6 +1,8 @@
 import request from '../../utils/request'
-import store from '../../store'
 import { ElMessage } from 'element-plus'
+import pinia, { useStore } from '../../store'
+
+const store = useStore()
 
 /**
  * 检查 Token
@@ -10,7 +12,7 @@ export const checkToken = function () {
     const responseData = response.data
     if (responseData && responseData.active === true) {
       const authorities = responseData.authorities
-      store.commit('setAuthorities', authorities)
+      store.setAuthorities(authorities)
       if (authorities === undefined) {
         ElMessage({
           message: '用户无任何权限',

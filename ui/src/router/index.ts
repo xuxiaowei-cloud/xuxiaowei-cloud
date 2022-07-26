@@ -1,9 +1,14 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { queryToken } from '../store'
+import { createRouter, createWebHashHistory, LocationQuery, Router, RouteRecordRaw } from 'vue-router'
 import { hasAnyAuthority } from '../utils/authority'
 import Layout from '../components/Layout.vue'
 
 import ConsoleView from '../views/home/ConsoleView.vue'
+import { checkToken } from '../api/passport/oauth2'
+import { info } from '../api/user'
+import settings from '../settings'
+import pinia, { useStore } from '../store'
+
+const store = useStore()
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -232,3 +237,58 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+
+/**
+ * 参数中的Token缓存
+ * @param path 路径
+ * @param query 参数
+ * @param router 路由
+ */
+export const queryToken = function (path: string, query: LocationQuery, router: Router) {
+  if (query.store === 'true') {
+    const accessToken = query.accessToken
+    const refreshToken = query.refreshToken
+
+    delete query.store
+
+    delete query.accessToken
+    delete query.refreshToken
+
+    console.log('获取到URL中的accessToken', accessToken)
+    console.log('获取到URL中的refreshToken', refreshToken)
+
+    store.setAccessToken(accessToken)
+    store.setRefreshToken(refreshToken)
+
+    console.log('已完成store中的accessToken缓存：', store.getAccessToken)
+    console.log('已完成store中的refreshToken缓存：', store.getRefreshToken)
+
+    // 此次检查Token，不受 settings.checkTokenInterval 控制
+    checkToken().then(response => {
+      console.log('完成store中的Token缓存后检查Token', response)
+      store.setCheckTokenTime(new Date().getTime())
+      info().then(() => {})
+    })
+
+    router.push({ path, query }).then(() => {
+
+    })
+  } else {
+    const checkTokenInterval = settings.checkTokenInterval
+    console.log(new Date().getTime() - store.getCheckTokenTime)
+
+    if (checkTokenInterval === -1) {
+      console.log('路由不检查Token')
+    } else if (checkTokenInterval === 0) {
+      checkToken().then(response => {
+        console.log('检查Token', response)
+        store.setCheckTokenTime(new Date().getTime())
+      })
+    } else if (checkTokenInterval > 0 && new Date().getTime() - store.getCheckTokenTime > checkTokenInterval) {
+      checkToken().then(response => {
+        console.log('超过检查Token时间间隔后，检查Token结果', response)
+        store.setCheckTokenTime(new Date().getTime())
+      })
+    }
+  }
+}

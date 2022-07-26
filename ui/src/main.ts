@@ -3,9 +3,13 @@ import './style.css'
 import App from './App.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import router from './router'
-import store from './store'
+import { createPinia } from 'pinia'
+import piniaPluginPersist from 'pinia-plugin-persist'
 import { ipv4, ipv6 } from './api/ipify'
 import request from './utils/request'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersist)
 
 const app = createApp(App)
 
@@ -15,7 +19,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(store)
+app.use(pinia)
 
 // 需要放在 mount 之前
 app.use(router)

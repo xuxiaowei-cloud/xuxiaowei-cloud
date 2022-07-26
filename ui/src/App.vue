@@ -3,16 +3,17 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { checkToken } from './api/passport/oauth2'
 import { info } from './api/user'
-import store from './store'
 import { useRouter } from 'vue-router'
+import pinia, { useStore } from './store'
 
+const store = useStore()
 const router = useRouter()
 
 router.isReady().then(() => {
   // 首次进入系统/刷新页面 时，进行检查 Token
   checkToken().then(response => {
     console.log('完成store中的Token缓存后检查Token', response)
-    store.commit('setCheckTokenTime', new Date().getTime())
+    store.setCheckTokenTime(new Date().getTime())
     info().then(() => {})
   })
 })

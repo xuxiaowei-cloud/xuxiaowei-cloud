@@ -93,7 +93,7 @@
         </el-tabs>
 
         <router-view v-slot="{ Component }">
-          <keep-alive :exclude="store.getters.keepAliveExclude">
+          <keep-alive :exclude="store.getKeepAliveExclude">
             <component :is="Component" :key="$route.name" v-if="$route.meta.keepAlive"/>
           </keep-alive>
           <component :is="Component" :key="$route.name" v-if="!$route.meta.keepAlive"/>
@@ -109,14 +109,17 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
-import store from '../store'
+import pinia, { useStore } from '../store'
 import { TabPanelName } from 'element-plus'
 import { hasAnyAuthority } from '../utils/authority'
 import { signout } from '../api/passport'
 import { routes } from '../router'
 
+const store = useStore()
 const route = useRoute()
 const router = useRouter()
+
+store.setAccessToken(new Date().getTime())
 
 // 子菜单个数
 const childrenLength = (children: RouteRecordRaw[] | undefined) => {
@@ -210,7 +213,7 @@ const removeTab = (targetName: string) => {
         if (components.default) {
           // 使用 el-tabs 的 @tab-remove 删除 el-tab-pane，需要销毁
           // @ts-ignore
-          store.commit('addKeepAliveExclude', components.default.__name)
+          store.addKeepAliveExclude(components.default.__name)
         }
       }
     }
@@ -218,9 +221,9 @@ const removeTab = (targetName: string) => {
 }
 
 // 是否折叠菜单
-const isCollapse = ref(store.getters.isCollapse)
+const isCollapse = ref(store.getIsCollapse)
 // 昵称
-const nickname = ref(store.getters.nickname)
+const nickname = ref(store.nickname)
 
 const handleOpen = (key: number, keyPath: string) => {
   // console.log('handleOpen：', key, keyPath)
@@ -272,7 +275,7 @@ router.isReady().then(() => {
 // 是否折叠菜单
 const isCollapseClick = () => {
   isCollapse.value = !isCollapse.value
-  store.commit('setIsCollapse', isCollapse)
+  store.setIsCollapse(isCollapse.value)
 }
 
 // 刷新当前页面（局部刷新）
@@ -309,7 +312,7 @@ const handleCommand = (command: any, number: any) => {
 
 router.isReady().then(() => {
   // 获取昵称并显示
-  nickname.value = store.getters.nickname
+  nickname.value = store.getNickname
 })
 
 </script>

@@ -1,7 +1,10 @@
 import request from '../utils/request'
-import store from '../store'
 import settings from '../settings'
 import { ElMessage } from 'element-plus'
+
+import pinia, { useStore } from '../store'
+
+const store = useStore()
 
 /**
  * 用户信息
@@ -10,15 +13,15 @@ export const info = function () {
   return request.post('/user/info').then(response => {
     console.log('用户信息', response)
     const responseData = response.data
-    if (responseData.code === settings.state.okCode) {
+    if (responseData.code === settings.okCode) {
       const data = responseData.data
       const usersId = data.usersId
       const username = data.username
       const nickname = data.nickname
 
-      store.commit('setUsersId', usersId)
-      store.commit('setUsername', username)
-      store.commit('setNickname', nickname)
+      store.setUsersId(usersId)
+      store.setUsername(username)
+      store.setNickname(nickname)
     } else {
       ElMessage({
         message: responseData.msg,
