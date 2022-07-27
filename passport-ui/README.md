@@ -63,7 +63,7 @@ npm create vite@latest passport-ui -- --template vue-ts
     1. [General Changes](https://vitejs.dev/guide/migration.html#general-changes)
 
 ```
-npm i @element-plus/icons-vue axios element-plus jsencrypt terser vue vue-router vuex vuex-persistedstate
+npm i @element-plus/icons-vue axios element-plus jsencrypt pinia terser vue vue-router
 ```
 
 ```
@@ -84,7 +84,7 @@ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plug
         - @vitejs/plugin-vue
         - vite
 
-1. lint
+2. lint
     - 开发依赖
         - @vue/cli-plugin-eslint
         - @vue/cli-service
@@ -96,29 +96,28 @@ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plug
         - eslint-plugin-vue
         - lint-staged
 
-1. 路由
+3. 路由
     - 依赖
         - vue-router
 
-1. http 请求
+4. http 请求
     - 依赖
         - axios
 
-1. element-plus 前端 UI 框架
+5. element-plus 前端 UI 框架
     - 依赖
         - element-plus
     - 开发依赖
         - unplugin-auto-import
         - unplugin-vue-components
 
-1. 加密
+6. 加密
     - jsencrypt
         - RSA
 
-1. 缓存
-    - vuex
-    - vuex-persistedstate
-        - 缓存刷新时保留
+7. 缓存
+    - pinia
+        - 已手动添加缓存持久化，缓存刷新时保留
 
 ## 依赖地址
 
@@ -126,10 +125,9 @@ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plug
 - [axios](https://www.npmjs.com/package/axios)
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
+- [pinia](https://www.npmjs.com/package/pinia)
 - [vue](https://www.npmjs.com/package/vue)
 - [vue-router](https://www.npmjs.com/package/vue-router)
-- [vuex](https://www.npmjs.com/package/vuex)
-- [vuex-persistedstate](https://www.npmjs.com/package/vuex-persistedstate)
 
 - [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
 - [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)

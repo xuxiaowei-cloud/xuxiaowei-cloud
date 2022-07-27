@@ -12,7 +12,7 @@ import request from '../utils/request'
  * @param homePage 登录成功主页
  */
 export const login = function (username: string, password: string, rememberMe: string, header: string, token: string,
-                               rememberMeParameter: string, redirectUri: string, homePage: string) {
+  rememberMeParameter: string, redirectUri: string, homePage: string) {
   // 以 form 提交
   const formData = new FormData()
   formData.append('username', username)

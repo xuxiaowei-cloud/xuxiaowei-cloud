@@ -47,19 +47,17 @@ npm create vite@latest ui -- --template vue-ts
     npx eslint --init
     ```
 
-1. [vue-router](https://router.vuejs.org/installation.html)
+2. [vue-router](https://router.vuejs.org/installation.html)
     ```shell
     npm install vue-router
     ```
 
-1. [element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)
+3. [element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)
     ```shell
     npm i element-plus
     ```
 
-1. [axios](https://www.npmjs.com/package/axios)
-
-1. [vuex](https://www.npmjs.com/package/vuex)
+4. [axios](https://www.npmjs.com/package/axios)
 
 ## 依赖说明
 
@@ -70,7 +68,7 @@ npm create vite@latest ui -- --template vue-ts
         - @vitejs/plugin-vue
         - vite
 
-1. lint
+2. lint
     - 开发依赖
         - @vue/cli-plugin-eslint
         - @vue/cli-service
@@ -82,46 +80,45 @@ npm create vite@latest ui -- --template vue-ts
         - eslint-plugin-vue
         - lint-staged
 
-1. 路由
+3. 路由
     - 依赖
         - vue-router
 
-1. http 请求
+4. http 请求
     - 依赖
         - axios
 
-1. element-plus 前端 UI 框架
+5. element-plus 前端 UI 框架
     - 依赖
         - element-plus
     - 开发依赖
         - unplugin-auto-import
         - unplugin-vue-components
 
-1. 加密
+6. 加密
     - jsencrypt
         - RSA
     - crypto-js
         - AES
 
-1. 缓存
-    - vuex
-    - vuex-persistedstate
-        - 缓存刷新时保留
+7. 缓存
+   - pinia
+      - 已手动添加缓存持久化，缓存刷新时保留
 
-1. 富文本
+8. 富文本
     - @toast-ui/editor
     - @wangeditor/editor-for-vue
 
-1. WebSocket
+9. WebSocket
     - sockjs-client
     - stompjs
 
-1. [tauri](https://tauri.studio)
-    - [GitHub](https://github.com/tauri-apps/tauri)
-    - @tauri-apps/api
-    - @tauri-apps/cli
-    - 将 [config](config) 文件放在 `cargo` 安装目录下
-    - 如果在运行打包时，下载 `wix3` 失败，可自行下载后，解压到 `src-tauri\WixTools` 文件夹中
+10. [tauri](https://tauri.studio)
+     - [GitHub](https://github.com/tauri-apps/tauri)
+     - @tauri-apps/api
+     - @tauri-apps/cli
+     - 将 [config](config) 文件放在 `cargo` 安装目录下
+     - 如果在运行打包时，下载 `wix3` 失败，可自行下载后，解压到 `src-tauri\WixTools` 文件夹中
 
 ## 依赖地址
 
@@ -135,14 +132,13 @@ npm create vite@latest ui -- --template vue-ts
 - [element-plus](https://www.npmjs.com/package/element-plus)
 - [js-cookie](https://www.npmjs.com/package/js-cookie)
 - [jsencrypt](https://www.npmjs.com/package/jsencrypt)
+- [pinia](https://www.npmjs.com/package/pinia)
 - [sockjs-client](https://www.npmjs.com/package/sockjs-client)
 - [stompjs](https://www.npmjs.com/package/stompjs)
 - [vue](https://www.npmjs.com/package/vue)
 - [vue-clipboard3](https://www.npmjs.com/package/vue-clipboard3)
 - [vue-echarts](https://www.npmjs.com/package/vue-echarts)
 - [vue-router](https://www.npmjs.com/package/vue-router)
-- [vuex](https://www.npmjs.com/package/vuex)
-- [vuex-persistedstate](https://www.npmjs.com/package/vuex-persistedstate)
 
 - [@tauri-apps/cli](https://www.npmjs.com/package/@tauri-apps/cli)
 - [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
@@ -162,7 +158,7 @@ npm create vite@latest ui -- --template vue-ts
 - [vue-tsc](https://www.npmjs.com/package/vue-tsc)
 
 ```
-npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/editor-for-vue@5 axios crypto-js echarts element-plus js-cookie jsencrypt sockjs-client stompjs vue vue-clipboard3 vue-echarts vue-router vuex vuex-persistedstate
+npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/editor-for-vue@5 axios crypto-js echarts element-plus js-cookie jsencrypt pinia sockjs-client stompjs vue vue-clipboard3 vue-echarts vue-router
 ```
 
 ```

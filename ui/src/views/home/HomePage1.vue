@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import store from '../../store'
+import { useStore } from '../../store'
 
 const router = useRouter()
 
@@ -16,7 +16,7 @@ router.isReady().then(() => {
   for (const i in matched) {
     if (matched[i].path === router.currentRoute.value.path) {
       // 重新进入页面，移除 keep-alive 排除
-      store.commit('removeKeepAliveExclude', matched[i].components.default.__name)
+      useStore.removeKeepAliveExclude(matched[i].components.default.__name)
     }
   }
 })

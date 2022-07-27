@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import store from '../store'
+import { useStore } from '../store'
 import settings from '../settings'
 import { ElMessage } from 'element-plus'
 
@@ -16,7 +16,7 @@ service.interceptors.request.use(
     if (!config.headers) {
       config.headers = {}
     }
-    config.headers.authorization = 'Bearer ' + store.getters.accessToken
+    config.headers.authorization = 'Bearer ' + useStore.getAccessToken
     return config
   },
   error => {
