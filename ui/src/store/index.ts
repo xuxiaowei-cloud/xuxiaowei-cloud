@@ -16,7 +16,8 @@ const store = createStore({
     accessToken: null, // Token
     checkTokenTime: null, // 检查Token时间
     refreshToken: null, // 刷新Token
-    isCollapse: false // 是否折叠菜单
+    isCollapse: false, // 是否折叠菜单
+    keepAliveExclude: [] // keep-alive 排除页面（组件）名
   },
   getters: {
     /**
@@ -74,6 +75,13 @@ const store = createStore({
      */
     isCollapse (state) {
       return state.isCollapse
+    },
+    /**
+     * keep-alive 排除页面（组件）名
+     * @param state
+     */
+    keepAliveExclude (state) {
+      return state.keepAliveExclude
     }
   },
   mutations: { // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
@@ -140,12 +148,29 @@ const store = createStore({
      */
     setIsCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
+    },
+    /**
+     * 添加 keep-alive 排除页面（组件）名
+     * @param state 单一状态树
+     * @param keepAliveExclude keep-alive 排除页面（组件）名
+     */
+    addKeepAliveExclude (state, keepAliveExclude) {
+      // @ts-ignore
+      state.keepAliveExclude.push(keepAliveExclude)
+    },
+    /**
+     * 移除 keep-alive 排除
+     * @param state 单一状态树
+     * @param keepAliveExclude
+     */
+    removeKeepAliveExclude (state, keepAliveExclude) {
+      // @ts-ignore
+      state.keepAliveExclude.splice(state.keepAliveExclude.indexOf(keepAliveExclude), 1)
     }
   },
   actions: {
   },
   modules: {
-    settings
   },
   plugins: [
     createPersistedState({
@@ -181,7 +206,7 @@ export const queryToken = function (path: string, query: LocationQuery, router: 
     console.log('已完成store中的accessToken缓存：', store.getters.accessToken)
     console.log('已完成store中的refreshToken缓存：', store.getters.refreshToken)
 
-    // 此次检查Token，不受 settings.state.checkTokenInterval 控制
+    // 此次检查Token，不受 settings.checkTokenInterval 控制
     checkToken().then(response => {
       console.log('完成store中的Token缓存后检查Token', response)
       store.commit('setCheckTokenTime', new Date().getTime())
@@ -192,7 +217,7 @@ export const queryToken = function (path: string, query: LocationQuery, router: 
 
     })
   } else {
-    const checkTokenInterval = settings.state.checkTokenInterval
+    const checkTokenInterval = settings.checkTokenInterval
     console.log(new Date().getTime() - store.getters.checkTokenTime)
 
     if (checkTokenInterval === -1) {
