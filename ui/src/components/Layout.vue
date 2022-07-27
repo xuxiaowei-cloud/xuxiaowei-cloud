@@ -137,7 +137,10 @@ const menuItemPath = (item: RouteRecordRaw) => {
 }
 
 // 是否显示菜单
-const show = (children: RouteRecordRaw[]) => {
+const show = (children: RouteRecordRaw[] | undefined) => {
+  if (children === undefined) {
+    return false
+  }
   for (const i in children) {
     if (children[i].meta?.show === false) {
       return false
