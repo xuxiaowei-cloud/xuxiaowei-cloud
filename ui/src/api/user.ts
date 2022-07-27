@@ -10,7 +10,7 @@ export const info = function () {
   return request.post('/user/info').then(response => {
     console.log('用户信息', response)
     const responseData = response.data
-    if (responseData.code === settings.state.okCode) {
+    if (responseData.code === settings.okCode) {
       const data = responseData.data
       const usersId = data.usersId
       const username = data.username

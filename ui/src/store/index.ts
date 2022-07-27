@@ -171,7 +171,6 @@ const store = createStore({
   actions: {
   },
   modules: {
-    settings
   },
   plugins: [
     createPersistedState({
@@ -207,7 +206,7 @@ export const queryToken = function (path: string, query: LocationQuery, router: 
     console.log('已完成store中的accessToken缓存：', store.getters.accessToken)
     console.log('已完成store中的refreshToken缓存：', store.getters.refreshToken)
 
-    // 此次检查Token，不受 settings.state.checkTokenInterval 控制
+    // 此次检查Token，不受 settings.checkTokenInterval 控制
     checkToken().then(response => {
       console.log('完成store中的Token缓存后检查Token', response)
       store.commit('setCheckTokenTime', new Date().getTime())
@@ -218,7 +217,7 @@ export const queryToken = function (path: string, query: LocationQuery, router: 
 
     })
   } else {
-    const checkTokenInterval = settings.state.checkTokenInterval
+    const checkTokenInterval = settings.checkTokenInterval
     console.log(new Date().getTime() - store.getters.checkTokenTime)
 
     if (checkTokenInterval === -1) {
