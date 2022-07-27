@@ -1,13 +1,13 @@
 import request from '../../utils/request'
 import settings from '../../settings'
 import { ElMessage } from 'element-plus/es'
-import store from '../../store'
+import { useStore } from '../../store'
 
 /**
  * 退出登录
  */
 export const signout = function () {
-  return request.get('/passport/signout?accessToken=' + store.getters.accessToken, {
+  return request.get('/passport/signout?accessToken=' + useStore.getAccessToken, {
     headers: {}
   }).then(response => {
     console.log('退出登录', response)
