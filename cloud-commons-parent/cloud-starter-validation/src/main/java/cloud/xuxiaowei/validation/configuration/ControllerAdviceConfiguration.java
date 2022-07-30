@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.validation.configuration;
 
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.exception.TokenException;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,27 @@ import java.util.List;
  * @since 0.0.1
  */
 @Slf4j
-@ControllerAdvice(basePackages = "cloud.xuxiaowei")
+@ControllerAdvice(basePackages = {
+        "cloud.xuxiaowei",
+        "org.springframework.security.oauth2.provider.endpoint"
+})
 public class ControllerAdviceConfiguration {
+
+    /**
+     * Token 异常父类
+     *
+     * @param exception Token 异常父类
+     * @param request   请求
+     * @return 返回 验证结果
+     */
+    @ResponseBody
+    @ExceptionHandler(TokenException.class)
+    public Response<?> tokenException(TokenException exception, WebRequest request) {
+
+        log.error(String.format("%s：%s", exception.code, exception.msg), exception);
+
+        return Response.error(exception.code, exception.msg);
+    }
 
     /**
      * 请求时数据转换失败处理
