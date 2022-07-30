@@ -15,6 +15,8 @@
  */
 package org.springframework.security.oauth2.provider.endpoint;
 
+import cloud.xuxiaowei.utils.exception.TokenExpiredException;
+import cloud.xuxiaowei.utils.exception.TokenInvalidException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.ResponseEntity;
@@ -72,15 +74,15 @@ public class CheckTokenEndpoint {
 
     @RequestMapping(value = "/oauth/check_token", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, ?> checkToken(@RequestParam("token") String value) {
+    public Map<String, ?> checkToken(@RequestParam("token") String value) throws TokenInvalidException, TokenExpiredException {
 
         OAuth2AccessToken token = resourceServerTokenServices.readAccessToken(value);
         if (token == null) {
-            throw new InvalidTokenException("Token was not recognised");
+            throw new TokenInvalidException();
         }
 
         if (token.isExpired()) {
-            throw new InvalidTokenException("Token has expired");
+            throw new TokenExpiredException();
         }
 
         OAuth2Authentication authentication = resourceServerTokenServices.loadAuthentication(token.getValue());
