@@ -11,7 +11,8 @@
 
           <!-- 有二级菜单，且二级菜单的个数大于 1 -->
           <!-- 有多个（大于 1）二级菜单时，index 无意义，只要唯一就行 -->
-          <el-sub-menu :index="i + ''" :key="i" v-if="childrenLength(item.children) > 1 && show(item.children) && subMenuAuthority(item)">
+          <el-sub-menu :index="i + ''" :key="i"
+                       v-if="childrenLength(item.children) > 1 && show(item.children) && subMenuAuthority(item)">
             <template #title>
               <el-icon v-if="item.meta?.icon">
                 <component :is="item.meta?.icon"/>
@@ -20,7 +21,8 @@
             </template>
 
             <template v-for="(children, j) in item.children">
-              <el-menu-item :index="children.path" :key="j" @click="menuItem" v-if="show(item.children) && menuItemAuthority(children)">
+              <el-menu-item :index="children.path" :key="j" @click="menuItem"
+                            v-if="show(item.children) && menuItemAuthority(children)">
                 {{ children.name }}
               </el-menu-item>
             </template>
@@ -239,8 +241,13 @@ const handleClose = (key: number, keyPath: string) => {
 
 // 激活菜单
 const menuItem = (key: any) => {
-// 点击左侧菜单时，标签页跟随变动
+  // 点击左侧菜单时，标签页跟随变动
   editableTabsValue.value = key.index
+
+  if (key.index === '/refresh') {
+    // 如果访问的是刷新页面时，不添加tabs标签页
+    return
+  }
 
   // 标签页已存在时，跳过
   for (const i in editableTabs.value) {
