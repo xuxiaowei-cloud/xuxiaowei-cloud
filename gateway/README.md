@@ -16,3 +16,4 @@
 | XxlJobGlobalFilter          | + 50000                    | 禁止通过网关访问 XXL-Job 服务              |
 | CorsBeforeWebFilter         | + 60000                    | 在 CORS 之前执行                      |
 | ResponseHeadersGlobalFilter | + 1000000                  | 响应体 {@link HttpHeaders} 过滤器      |
+| BodyEncryptionGlobalFilter  | + 1010000                  | 响应 Body 加密 过滤器                   |
