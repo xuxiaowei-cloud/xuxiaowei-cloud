@@ -249,6 +249,11 @@ const menuItem = (key: any) => {
     return
   }
 
+  if (key.index === '/non-authority') {
+    // 如果访问的是无权限页面时，不添加tabs标签页
+    return
+  }
+
   // 标签页已存在时，跳过
   for (const i in editableTabs.value) {
     const value = editableTabs.value[i]
