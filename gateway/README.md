@@ -15,4 +15,4 @@
 | HeaderGlobalFilter          | + 40000                    | 将请求ID传递给服务                       |
 | XxlJobGlobalFilter          | + 50000                    | 禁止通过网关访问 XXL-Job 服务              |
 | CorsBeforeWebFilter         | + 60000                    | 在 CORS 之前执行                      |
-| ResponseHeadersGlobalFilter | + 100000                   | 响应体 {@link HttpHeaders} 过滤器      |
+| ResponseHeadersGlobalFilter | + 1000000                  | 响应体 {@link HttpHeaders} 过滤器      |
