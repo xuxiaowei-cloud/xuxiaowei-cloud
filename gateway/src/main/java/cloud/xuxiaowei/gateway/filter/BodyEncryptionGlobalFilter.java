@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.gateway.filter;
 
+import cloud.xuxiaowei.core.properties.CloudAesProperties;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.ResponseEncrypt;
-import cn.hutool.crypto.Mode;
-import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -42,6 +43,13 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 	 */
 	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1010000;
 
+	private CloudAesProperties cloudAesProperties;
+
+	@Autowired
+	public void setCloudAesProperties(CloudAesProperties cloudAesProperties) {
+		this.cloudAesProperties = cloudAesProperties;
+	}
+
 	@Setter
 	private int order = ORDERED;
 
@@ -68,8 +76,12 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 				if (MediaType.APPLICATION_JSON.includes(contentType)) {
 					// 响应数据为JSON，可以加密
 
+					ResponseEncrypt.AesVersion aesVersion = ResponseEncrypt.AesVersion.V1;
+
 					// 设置加密版本
-					headers.add("encrypt", "v1");
+					headers.add(Constant.ENCRYPT, aesVersion.version);
+					// 暴露响应头（否则 axios 将无法获取）
+					headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.ENCRYPT);
 
 					@SuppressWarnings("unchecked")
 					Flux<? extends DataBuffer> fluxDataBuffer = (Flux<? extends DataBuffer>) body;
@@ -86,8 +98,9 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
 						log.debug("加密前 body：{}", originalText);
 
-						AES aes = new AES(Mode.CTS, Padding.PKCS5Padding, "1234567890123456".getBytes(),
-								"abcdefghijklmnop".getBytes());
+						AES aes = new AES(aesVersion.mode, aesVersion.padding,
+								cloudAesProperties.getDefaultKey().getBytes(),
+								cloudAesProperties.getDefaultIv().getBytes());
 
 						String encryptBase64 = aes.encryptBase64(originalText);
 

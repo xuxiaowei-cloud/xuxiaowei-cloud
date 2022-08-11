@@ -38,6 +38,11 @@ public class Constant implements Serializable {
 			"=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
 
 	/**
+	 * HTTP 响应中加密描述的字段
+	 */
+	public static final String ENCRYPT = "encrypt";
+
+	/**
 	 * Token 中传递权限的名称
 	 */
 	public static final String AUTHORITIES = "authorities";

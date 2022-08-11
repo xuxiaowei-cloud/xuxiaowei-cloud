@@ -6,10 +6,22 @@ const settings = {
    * 正常代码
    */
   okCode: '000000',
+
+  /**
+   * AES 秘钥
+   */
+  key: '1234567890123456',
+
+  /**
+   * AES 偏移量
+   */
+  iv: 'abcdefghijklmnop',
+
   /**
    * 登录页面
    */
   loginPage: import.meta.env.VITE_APP_LOGIN_PAGE,
+
   /**
    * 登录请求代码（未授权代码）
    */
@@ -30,6 +42,7 @@ const settings = {
     // 令牌无效
     'T10004'
   ],
+
   /**
    * 路由切换时 检查Token 时间间隔（单位：毫秒）
    *

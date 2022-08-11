@@ -316,3 +316,10 @@ cloud:
   web-socket:
     endpoint-paths:
       - /broadcast
+
+---
+
+cloud:
+  aes:
+    default-key: 1234567890123456
+    default-iv: abcdefghijklmnop
