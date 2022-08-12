@@ -196,6 +196,9 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
 				log.debug("返回 body：{}", value);
 
+				// 加密后的响应，设置响应内容的长度
+				exchange.getResponse().getHeaders().setContentLength(value.length());
+
 				responseBytes = value.getBytes();
 			}
 			catch (JsonProcessingException e) {
