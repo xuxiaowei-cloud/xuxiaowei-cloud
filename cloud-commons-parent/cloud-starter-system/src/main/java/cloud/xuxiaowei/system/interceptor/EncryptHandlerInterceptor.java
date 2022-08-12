@@ -70,7 +70,7 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 			response.setHeader(Constant.ENCRYPT, aesVersion.version);
 		}
 
-		return annotationPresent;
+		return true;
 	}
 
 	@Override
