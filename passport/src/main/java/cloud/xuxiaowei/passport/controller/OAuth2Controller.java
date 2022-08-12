@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
+import cloud.xuxiaowei.utils.ResponseEncrypt;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,9 @@ public class OAuth2Controller {
 	 * @param authentication 授权信息
 	 * @return 返回 检查 Token 结果
 	 */
+	@EncryptAnnotation(value = ResponseEncrypt.AesVersion.V0,
+			client = { @EncryptAnnotation.ClientIdEncryptAnnotation(cloudId = "xuxiaowei_client_wechat_miniprogram_id",
+					value = ResponseEncrypt.AesVersion.V1) })
 	@ControllerAnnotation(description = "检查 Token")
 	@RequestMapping("/check_token")
 	public Map<String, Object> checkToken(HttpServletRequest request, HttpServletResponse response,

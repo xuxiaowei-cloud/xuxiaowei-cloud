@@ -14,4 +14,6 @@
 | BlackListGlobalFilter       | + 30000                    | 指定 IP、URL、用户、客户、域名（非授权域名解析）等禁止访问 |
 | HeaderGlobalFilter          | + 40000                    | 将请求ID传递给服务                       |
 | XxlJobGlobalFilter          | + 50000                    | 禁止通过网关访问 XXL-Job 服务              |
-| ResponseHeadersGlobalFilter | + 100000                   | 响应体 {@link HttpHeaders} 过滤器      |
+| CorsBeforeWebFilter         | + 60000                    | 在 CORS 之前执行                      |
+| ResponseHeadersGlobalFilter | + 1000000                  | 响应体 {@link HttpHeaders} 过滤器      |
+| BodyEncryptionGlobalFilter  | + 1010000                  | 响应 Body 加密 过滤器                   |

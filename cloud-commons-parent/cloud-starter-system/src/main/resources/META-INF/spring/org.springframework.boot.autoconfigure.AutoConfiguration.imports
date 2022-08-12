@@ -1,5 +1,7 @@
 cloud.xuxiaowei.system.aspect.ControllerLogAspect
+cloud.xuxiaowei.system.configuration.WebMvcConfigurerConfiguration
 cloud.xuxiaowei.system.filter.LogHttpFilter
+cloud.xuxiaowei.system.interceptor.EncryptHandlerInterceptor
 cloud.xuxiaowei.system.service.impl.AuthoritiesServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthorityServiceImpl
 cloud.xuxiaowei.system.service.impl.SessionServiceImpl

@@ -316,3 +316,17 @@ cloud:
   web-socket:
     endpoint-paths:
       - /broadcast
+
+---
+
+# 加密
+cloud:
+  aes:
+    # 默认加密配置
+    default-key: 1234567890123456
+    default-iv: abcdefghijklmnop
+    # 指定客户加密配置
+    list:
+      - client-id: xuxiaowei_client_wechat_miniprogram_id
+        key: af38459509ce4994
+        iv: 36d4209695bb4f15

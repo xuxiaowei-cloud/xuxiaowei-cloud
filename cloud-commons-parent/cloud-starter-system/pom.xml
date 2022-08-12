@@ -79,6 +79,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 提供拦截器 HandlerInterceptor -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
         <!-- 提供 AOP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
