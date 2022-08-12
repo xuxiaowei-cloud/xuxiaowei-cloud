@@ -202,7 +202,7 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 				responseBytes = value.getBytes();
 			}
 			catch (JsonProcessingException e) {
-				log.error("body 加密后组装的对象转 JSON String 失败");
+				log.error("body 加密后组装的对象转 JSON String 失败", e);
 				throw new RuntimeException(e);
 			}
 
