@@ -50,4 +50,37 @@ class RestTemplateTests {
 		log.info(responseEntity.getBody());
 	}
 
+	/**
+	 * 客户端凭证模式：client_credentials
+	 */
+	@Test
+	void clientCredentials_xuxiaowei_client_wechat_miniprogram_id() {
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		String clientId = "xuxiaowei_client_wechat_miniprogram_id";
+		String clientSecret = "xuxiaowei_client_wechat_miniprogram_secret";
+		String scope = "snsapi_base snsapi_info";
+
+		Map<String, String> map = new HashMap<>(8);
+		map.put("client_id", clientId);
+		map.put("client_secret", clientSecret);
+		map.put("scope", scope);
+
+		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+
+		String accessTokenUri = "http://localhost:1401/oauth2/token"
+				+ "?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials&scope={scope}";
+
+		ResponseEntity<String> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, String.class,
+				map);
+
+		HttpStatus statusCode = responseEntity.getStatusCode();
+		log.info(String.valueOf(statusCode));
+		log.info(responseEntity.getBody());
+	}
+
 }
