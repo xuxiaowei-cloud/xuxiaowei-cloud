@@ -20,12 +20,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
+
+import java.util.List;
 
 /**
  * 响应 Body 加密 过滤器
@@ -75,13 +78,32 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 				if (MediaType.APPLICATION_JSON.includes(contentType)) {
 					// 响应数据为JSON，可以加密
 
+					// 默认秘钥
+					byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
+					// 默认偏移量
+					byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
+
+					// 响应中的客户ID
+					String clientId = headers.getFirst(OAuth2TokenIntrospectionClaimNames.CLIENT_ID);
+					if (StringUtils.hasText(clientId)) {
+						// 客户ID存在
+
+						List<CloudAesProperties.Aes> aesList = cloudAesProperties.getList();
+						// 遍历客户AES配置
+						for (CloudAesProperties.Aes aesProperties : aesList) {
+							if (clientId.equals(aesProperties.getClientId())) {
+								// 匹配到客户的秘钥配置
+								// 使用客户的秘钥配置
+								keyBytes = aesProperties.getKey().getBytes();
+								ivBytes = aesProperties.getIv().getBytes();
+							}
+						}
+					}
+
 					// 接口响应中的加密方式（版本）
 					String encrypt = headers.getFirst(Constant.ENCRYPT);
 
 					ServerHttpResponse response = getDelegate();
-
-					byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
-					byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
 
 					if (StringUtils.hasText(encrypt)) {
 						// 存在：响应中的加密方式（版本）
@@ -94,15 +116,15 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 						}
 						else {
 							switch (version) {
-							case V0:
-								// 加密方式（版本）为 V0 时，即：不加密
-								return exchange.getResponse().writeWith(body);
-							case V1:
-								// 加密方式（版本）为 V1 时，使用 V1，与未匹配时，采用相同的方式
-								// 故：此处使用 switch case 的穿透效果
-							default:
-								// 未匹配到时，使用加密方式（版本）为 V1
-								return v1(exchange, response, keyBytes, ivBytes, body);
+								case V0:
+									// 加密方式（版本）为 V0 时，即：不加密
+									return exchange.getResponse().writeWith(body);
+								case V1:
+									// 加密方式（版本）为 V1 时，使用 V1，与未匹配时，采用相同的方式
+									// 故：此处使用 switch case 的穿透效果
+								default:
+									// 未匹配到时，使用加密方式（版本）为 V1
+									return v1(exchange, response, keyBytes, ivBytes, body);
 							}
 						}
 					}
