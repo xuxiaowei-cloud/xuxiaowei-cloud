@@ -27,6 +27,11 @@ public class ResponseEncrypt {
 	public enum AesVersion {
 
 		/**
+		 * AES 加密版本 v0，即：不加密
+		 */
+		V0("v0", null, null),
+
+		/**
 		 * AES 加密版本 v1
 		 */
 		V1("v1", Mode.CTS, Padding.PKCS5Padding);
@@ -50,6 +55,15 @@ public class ResponseEncrypt {
 			this.version = version;
 			this.mode = mode;
 			this.padding = padding;
+		}
+
+		public static AesVersion version(String version) {
+			for (AesVersion aesVersion : values()) {
+				if (aesVersion.version.equals(version)) {
+					return aesVersion;
+				}
+			}
+			return null;
 		}
 
 	}

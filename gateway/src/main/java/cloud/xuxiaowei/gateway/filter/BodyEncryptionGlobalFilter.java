@@ -18,8 +18,10 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -61,9 +63,6 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JavaTimeModule());
-
 		ServerHttpResponseDecorator decorator = new ServerHttpResponseDecorator(exchange.getResponse()) {
 
 			@NonNull
@@ -76,50 +75,41 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 				if (MediaType.APPLICATION_JSON.includes(contentType)) {
 					// 响应数据为JSON，可以加密
 
-					ResponseEncrypt.AesVersion aesVersion = ResponseEncrypt.AesVersion.V1;
+					// 接口响应中的加密方式（版本）
+					String encrypt = headers.getFirst(Constant.ENCRYPT);
 
-					// 设置加密版本
-					headers.add(Constant.ENCRYPT, aesVersion.version);
-					// 暴露响应头（否则 axios 将无法获取）
-					headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.ENCRYPT);
+					ServerHttpResponse response = getDelegate();
 
-					@SuppressWarnings("unchecked")
-					Flux<? extends DataBuffer> fluxDataBuffer = (Flux<? extends DataBuffer>) body;
+					byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
+					byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
 
-					return super.writeWith(fluxDataBuffer.buffer().map(dataBuffer -> {
+					if (StringUtils.hasText(encrypt)) {
+						// 存在：响应中的加密方式（版本）
 
-						DataBuffer join = exchange.getResponse().bufferFactory().join(dataBuffer);
-
-						byte[] bytes = new byte[join.readableByteCount()];
-						join.read(bytes);
-						DataBufferUtils.release(join);
-
-						String originalText = new String(bytes);
-
-						log.debug("加密前 body：{}", originalText);
-
-						AES aes = new AES(aesVersion.mode, aesVersion.padding,
-								cloudAesProperties.getDefaultKey().getBytes(),
-								cloudAesProperties.getDefaultIv().getBytes());
-
-						String encryptBase64 = aes.encryptBase64(originalText);
-
-						log.debug("加密后 body：{}", encryptBase64);
-
-						ResponseEncrypt responseEncrypt = new ResponseEncrypt();
-						responseEncrypt.setCiphertext(encryptBase64);
-
-						byte[] responseBytes;
-						try {
-							String value = objectMapper.writeValueAsString(responseEncrypt);
-							responseBytes = value.getBytes();
+						// 匹配枚举
+						ResponseEncrypt.AesVersion version = ResponseEncrypt.AesVersion.version(encrypt);
+						if (version == null) {
+							// 未匹配到枚举，使用默认加密方式（版本），即：V1
+							return v1(exchange, response, keyBytes, ivBytes, body);
 						}
-						catch (JsonProcessingException e) {
-							throw new RuntimeException(e);
+						else {
+							switch (version) {
+							case V0:
+								// 加密方式（版本）为 V0 时，即：不加密
+								return exchange.getResponse().writeWith(body);
+							case V1:
+								// 加密方式（版本）为 V1 时，使用 V1，与未匹配时，采用相同的方式
+								// 故：此处使用 switch case 的穿透效果
+							default:
+								// 未匹配到时，使用加密方式（版本）为 V1
+								return v1(exchange, response, keyBytes, ivBytes, body);
+							}
 						}
-
-						return exchange.getResponse().bufferFactory().wrap(responseBytes);
-					}));
+					}
+					else {
+						// 不存在：响应中的加密方式（版本），使用默认加密方式（版本），即：V1
+						return v1(exchange, response, keyBytes, ivBytes, body);
+					}
 				}
 
 				// 响应数据不是JSON，不进行加密，直接返回数据
@@ -129,6 +119,70 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 		};
 
 		return chain.filter(exchange.mutate().response(decorator).build());
+	}
+
+	/**
+	 * 加密方式（版本）V1
+	 * @param exchange 服务器网络交换
+	 * @param response 响应
+	 * @param keyBytes 秘钥
+	 * @param ivBytes 偏移量
+	 * @param body 响应
+	 * @return 返回加密后的数据
+	 */
+	private Mono<Void> v1(ServerWebExchange exchange, ServerHttpResponse response, byte[] keyBytes, byte[] ivBytes,
+			Publisher<? extends DataBuffer> body) {
+
+		HttpHeaders headers = exchange.getResponse().getHeaders();
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+
+		ResponseEncrypt.AesVersion aesVersion = ResponseEncrypt.AesVersion.V1;
+
+		AES aes = new AES(aesVersion.mode, aesVersion.padding, keyBytes, ivBytes);
+
+		// 设置加密版本
+		headers.set(Constant.ENCRYPT, aesVersion.version);
+		// 暴露响应头（否则 axios 将无法获取）
+		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.ENCRYPT);
+
+		@SuppressWarnings("unchecked")
+		Flux<? extends DataBuffer> fluxDataBuffer = (Flux<? extends DataBuffer>) body;
+
+		return response.writeWith(fluxDataBuffer.buffer().map(dataBuffer -> {
+
+			DataBuffer join = exchange.getResponse().bufferFactory().join(dataBuffer);
+
+			byte[] bytes = new byte[join.readableByteCount()];
+			join.read(bytes);
+			DataBufferUtils.release(join);
+
+			String originalText = new String(bytes);
+
+			log.debug("加密前 body：{}", originalText);
+
+			String encryptBase64 = aes.encryptBase64(originalText);
+
+			log.debug("加密后 body：{}", encryptBase64);
+
+			ResponseEncrypt responseEncrypt = new ResponseEncrypt();
+			responseEncrypt.setCiphertext(encryptBase64);
+
+			byte[] responseBytes;
+			try {
+				String value = objectMapper.writeValueAsString(responseEncrypt);
+
+				log.debug("返回 body：{}", value);
+
+				responseBytes = value.getBytes();
+			}
+			catch (JsonProcessingException e) {
+				log.error("body 加密后组装的对象转 JSON String 失败");
+				throw new RuntimeException(e);
+			}
+
+			return exchange.getResponse().bufferFactory().wrap(responseBytes);
+		}));
 	}
 
 }
