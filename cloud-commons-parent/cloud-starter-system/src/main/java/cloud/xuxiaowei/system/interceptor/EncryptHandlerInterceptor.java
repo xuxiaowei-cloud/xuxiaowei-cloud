@@ -2,9 +2,13 @@ package cloud.xuxiaowei.system.interceptor;
 
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.ResponseEncrypt;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,8 +38,36 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 
 		EncryptAnnotation encryptAnnotation = method.getAnnotation(EncryptAnnotation.class);
 		if (annotationPresent) {
+
+			// 接口的客户配置
+			EncryptAnnotation.ClientIdEncryptAnnotation[] clients = encryptAnnotation.client();
+
+			// 当前调用的客户ID
+			String clientId = SecurityUtils.getClientId();
+
+			// 默认配置
+			ResponseEncrypt.AesVersion aesVersion = encryptAnnotation.value();
+
+			if (StringUtils.hasText(clientId)) {
+				// 存在客户ID，使用接口中指定客户的配置
+
+				for (EncryptAnnotation.ClientIdEncryptAnnotation clientIdEncryptAnnotation : clients) {
+					// 遍历接口的客户配置
+
+					if (clientId.equals(clientIdEncryptAnnotation.cloudId())) {
+						// 匹配接口的客户配置是否与当前用户相同
+						// 如果相同，将匹配的客户配置返回
+						aesVersion = clientIdEncryptAnnotation.value();
+
+						// 如果该接口匹配到了当前客户对应的客户配置，将当前客户ID放入响应头中
+						response.setHeader(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, clientId);
+					}
+				}
+
+			}
+
 			// 将加密注解放入响应头中
-			response.setHeader(Constant.ENCRYPT, encryptAnnotation.value().version);
+			response.setHeader(Constant.ENCRYPT, aesVersion.version);
 		}
 
 		return annotationPresent;

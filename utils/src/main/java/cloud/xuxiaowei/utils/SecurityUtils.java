@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.util.StringUtils;
 
 import java.security.Principal;
@@ -54,6 +55,33 @@ public class SecurityUtils {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * sub - 主题声明标识作为 JWT 主题的主体
+	 * @return 返回 客户ID
+	 */
+	public static String getSub() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		if (authentication != null) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof Jwt) {
+				Jwt jwt = (Jwt) principal;
+				Map<String, Object> claims = jwt.getClaims();
+				Object sub = claims.get(JwtClaimNames.SUB);
+				return sub == null ? null : sub.toString();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * sub - 主题声明标识作为 JWT 主题的主体
+	 * @return 返回 客户ID
+	 */
+	public static String getClientId() {
+		return getSub();
 	}
 
 	/**
