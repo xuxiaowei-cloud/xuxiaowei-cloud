@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
-import CryptoJS from 'crypto-js'
 import { useStore } from '../store'
 import settings from '../settings'
+import { decrypt, encrypt } from './aes'
 
 // create an axios instance
 const service = axios.create({
@@ -17,6 +17,17 @@ service.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers = {}
   }
   config.headers.authorization = 'Bearer ' + useStore.getAccessToken
+
+  if (config.method === 'post' || config.method === 'POST') { // POST 请求加密
+    const data = config.data
+    if (data !== undefined) { // 请求体不为空时，进行加密
+      data.timestamp = new Date().getTime() // 请求体中添加时间戳变量
+      config.data = { ciphertext: encrypt(settings.key, settings.iv, JSON.stringify(data)) } // 加密数据
+      config.headers.encrypt = 'v1' // 加密数据方式（版本）
+      // 未提供客户ID，使用默认AES秘钥与偏移量进行加解密
+    }
+  }
+
   return config
 },
 error => {
@@ -27,15 +38,8 @@ error => {
 service.interceptors.response.use((response: AxiosResponse) => {
   // 如果响应头中指定了加密类型（版本）为 v1，将进行数据解密
   if (response.headers.encrypt === 'v1') {
-    const key = CryptoJS.enc.Utf8.parse(settings.key)
-    const iv = CryptoJS.enc.Latin1.parse(settings.iv)
-    const decrypt = CryptoJS.AES.decrypt(response.data.ciphertext, key, {
-      iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    })
     // 解密完成，将解密后的数据放入响应数据的位置
-    response.data = JSON.parse(decrypt.toString(CryptoJS.enc.Utf8))
+    response.data = JSON.parse(decrypt(settings.key, settings.iv, response.data.ciphertext))
   }
 
   if (settings.loginRequiredCode.indexOf(response.data.code) === -1) {
