@@ -3,6 +3,7 @@ package cloud.xuxiaowei.gateway.handler;
 import cloud.xuxiaowei.gateway.filter.LogGlobalFilter;
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.*;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -133,6 +134,13 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 		else if (ex instanceof ConnectException) {
 			error.setCode(CodeEnums.S10002.code);
 			error.setMsg(CodeEnums.S10002.msg);
+		}
+		else if (ex instanceof CloudRuntimeException) {
+			CloudRuntimeException cloudRuntimeException = (CloudRuntimeException) ex;
+			error.setCode(cloudRuntimeException.getCode());
+			error.setMsg(cloudRuntimeException.getMsg());
+			error.setField(cloudRuntimeException.getField());
+			error.setExplain(cloudRuntimeException.getExplain());
 		}
 
 		return ResponseUtils.writeWith(response, error);

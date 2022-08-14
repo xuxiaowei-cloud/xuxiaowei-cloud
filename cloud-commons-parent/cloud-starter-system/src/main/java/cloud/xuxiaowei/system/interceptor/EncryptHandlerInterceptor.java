@@ -2,7 +2,7 @@ package cloud.xuxiaowei.system.interceptor;
 
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.ResponseEncrypt;
+import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -46,7 +46,7 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 			String clientId = SecurityUtils.getClientId();
 
 			// 默认配置
-			ResponseEncrypt.AesVersion aesVersion = encryptAnnotation.value();
+			Encrypt.AesVersion aesVersion = encryptAnnotation.value();
 
 			if (StringUtils.hasText(clientId)) {
 				// 存在客户ID，使用接口中指定客户的配置
