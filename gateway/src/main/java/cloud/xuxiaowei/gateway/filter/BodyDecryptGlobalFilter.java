@@ -6,6 +6,8 @@ import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cn.hutool.crypto.symmetric.AES;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -34,6 +36,7 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames.CLIENT_ID;
 
@@ -244,11 +247,44 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密失败", Encrypt.CIPHERTEXT, e.getMessage());
 			}
 
-			log.debug("解密后 body：{}", new String(decrypt));
+			String decryptStr = new String(decrypt);
+
+			// 检查 时间戳
+			checkCurrentTimeMillis(objectMapper, decryptStr);
+
+			log.debug("解密后 body：{}", decryptStr);
 			return response.bufferFactory().wrap(decrypt);
 		}
 		else {
 			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密密文不能为空", Encrypt.CIPHERTEXT);
+		}
+	}
+
+	/**
+	 * 检查 时间戳
+	 */
+	private void checkCurrentTimeMillis(ObjectMapper objectMapper, String decryptStr) {
+		Map<String, Object> map;
+		try {
+			map = objectMapper.readValue(decryptStr, new TypeReference<Map<String, Object>>() {
+			});
+		}
+		catch (JsonProcessingException e) {
+			throw new CloudRuntimeException(CodeEnums.ERROR.code, "密文解密后转Map异常", Encrypt.CIPHERTEXT, e.getMessage());
+		}
+
+		Object currentTimeMillisObj = map.get(Constant.CURRENT_TIME_MILLIS);
+		if (currentTimeMillisObj instanceof Long) {
+			long currentTimeMillis = (long) currentTimeMillisObj;
+			long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
+
+			// noinspection AlibabaUndefineMagicConstant
+			if (time > cloudAesProperties.getTime() * 1000) {
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳不合法", Constant.CURRENT_TIME_MILLIS);
+			}
+		}
+		else {
+			throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳格式不合法", Constant.CURRENT_TIME_MILLIS);
 		}
 	}
 
