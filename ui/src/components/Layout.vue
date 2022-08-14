@@ -131,11 +131,14 @@ const now = ref<number>(0)
 const nowShow = ref<string>()
 
 // 当前时间戳
-currentTimeMillis().then(response => {
+currentTimeMillis().then((response: number) => {
   now.value = response || new Date().getTime()
 })
 
 watch(() => now.value, (newValue, oldValue) => {
+  // 储存当前时间戳
+  useStore.setCurrentTimeMillis(newValue)
+
   const nowDate = new Date(newValue)
   const year = nowDate.getFullYear()
   const month = nowDate.getMonth() + 1

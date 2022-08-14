@@ -325,6 +325,8 @@ cloud:
     # 默认加密配置
     default-key: 1234567890123456
     default-iv: abcdefghijklmnop
+    # 检查加密数据中的时间戳是否在有效时间范围内，单位：秒
+    time: 300
     # 指定客户加密配置
     list:
       - client-id: xuxiaowei_client_wechat_miniprogram_id

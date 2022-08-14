@@ -33,6 +33,11 @@ public class CloudAesProperties {
 	private String defaultIv;
 
 	/**
+	 * 检查加密数据中的时间戳是否在有效时间范围内，单位：秒
+	 */
+	private long time = 300;
+
+	/**
 	 * 强制加密路径
 	 */
 	private List<ServicePath> forcePaths = new ArrayList<>();

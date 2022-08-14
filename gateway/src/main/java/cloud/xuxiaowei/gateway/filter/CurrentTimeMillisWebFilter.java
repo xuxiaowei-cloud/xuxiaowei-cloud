@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.gateway.filter;
 
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -56,7 +57,7 @@ public class CurrentTimeMillisWebFilter implements WebFilter, Ordered {
 			ServerHttpResponse response = exchange.getResponse();
 			HttpHeaders headers = response.getHeaders();
 
-			Response<?> ok = ResponseMap.ok().put("currentTimeMillis", System.currentTimeMillis());
+			Response<?> ok = ResponseMap.ok().put(Constant.CURRENT_TIME_MILLIS, System.currentTimeMillis());
 
 			headers.setAccessControlAllowOrigin(request.getHeaders().getOrigin());
 			headers.setAccessControlAllowCredentials(true);
