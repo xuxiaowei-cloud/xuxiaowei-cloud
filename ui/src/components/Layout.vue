@@ -85,6 +85,10 @@
           </template>
         </el-dropdown>
 
+        <span id="cloud-now">
+          {{nowShow}}
+        </span>
+
       </el-header>
       <el-main>
 
@@ -116,9 +120,43 @@ import { TabPanelName } from 'element-plus'
 import { hasAnyAuthority } from '../utils/authority'
 import { signout } from '../api/passport'
 import { routes } from '../router'
+import { currentTimeMillis } from '../api/gateway'
 
 const route = useRoute()
 const router = useRouter()
+
+// 当前时间
+const now = ref<number>(0)
+// 当前时间：展示
+const nowShow = ref<string>()
+
+// 当前时间戳
+currentTimeMillis().then(response => {
+  now.value = response || new Date().getTime()
+})
+
+watch(() => now.value, (newValue, oldValue) => {
+  const nowDate = new Date(newValue)
+  const year = nowDate.getFullYear()
+  const month = nowDate.getMonth() + 1
+  const date = nowDate.getDate()
+
+  let hours = nowDate.getHours().toString()
+  hours = hours.length === 1 ? '0' + hours : hours
+
+  let minutes = nowDate.getMinutes().toString()
+  minutes = minutes.length === 1 ? '0' + minutes : minutes
+
+  let seconds = nowDate.getSeconds().toString()
+  seconds = seconds.length === 1 ? '0' + seconds : seconds
+
+  nowShow.value = `${year}年${month}月${date}日 ${hours}:${minutes}:${seconds}`
+})
+
+// 每秒一次，无限循环
+setInterval(function () {
+  now.value += 1000
+}, 1000)
 
 // 数据转换
 const keepAliveExclude = ref(useStore.getKeepAliveExclude)
@@ -387,6 +425,13 @@ router.isReady().then(() => {
 /* 用户菜单 */
 #cloud-el-header .el-dropdown {
   display: inline;
+}
+
+/* 当前时间 */
+#cloud-now {
+  float: right;
+  margin-right: 20px;
+  color: var(--el-text-color-regular);
 }
 
 /* 用户菜单 */
