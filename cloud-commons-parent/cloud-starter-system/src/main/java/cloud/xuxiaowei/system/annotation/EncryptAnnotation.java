@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.system.annotation;
 
-import cloud.xuxiaowei.utils.ResponseEncrypt;
+import cloud.xuxiaowei.utils.Encrypt;
 
 import java.lang.annotation.*;
 
@@ -18,7 +18,7 @@ public @interface EncryptAnnotation {
 	/**
 	 * 加密方式（版本）
 	 */
-	ResponseEncrypt.AesVersion value();
+	Encrypt.AesVersion value();
 
 	/**
 	 * 客户 AES 加密注解
@@ -41,7 +41,7 @@ public @interface EncryptAnnotation {
 		/**
 		 * 加密方式（版本）
 		 */
-		ResponseEncrypt.AesVersion value();
+		Encrypt.AesVersion value();
 
 	}
 

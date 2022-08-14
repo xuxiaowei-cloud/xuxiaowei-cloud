@@ -330,3 +330,10 @@ cloud:
       - client-id: xuxiaowei_client_wechat_miniprogram_id
         key: af38459509ce4994
         iv: 36d4209695bb4f15
+    # 强制加密路径
+    force-paths:
+      # 服务名
+      - service: user
+        # 路径列表
+        paths:
+          - page

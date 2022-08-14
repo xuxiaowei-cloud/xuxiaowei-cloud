@@ -33,6 +33,11 @@ public class CloudAesProperties {
 	private String defaultIv;
 
 	/**
+	 * 强制加密路径
+	 */
+	private List<ServicePath> forcePaths = new ArrayList<>();
+
+	/**
 	 * AES 配置列表
 	 */
 	private List<Aes> list = new ArrayList<>();
@@ -60,6 +65,27 @@ public class CloudAesProperties {
 		 * 偏移量
 		 */
 		private String iv;
+
+	}
+
+	/**
+	 * 服务路径
+	 *
+	 * @author xuxiaowei
+	 * @since 0.0.1
+	 */
+	@Data
+	public static class ServicePath {
+
+		/**
+		 * 服务名
+		 */
+		private String service;
+
+		/**
+		 * 路径
+		 */
+		private List<String> paths;
 
 	}
 

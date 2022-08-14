@@ -5,13 +5,18 @@ import cn.hutool.crypto.Padding;
 import lombok.Data;
 
 /**
- * 响应密文
+ * 请求、响应 密文
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Data
-public class ResponseEncrypt {
+public class Encrypt {
+
+	/**
+	 * 密文字段名
+	 */
+	public static final String CIPHERTEXT = "ciphertext";
 
 	/**
 	 * 密文

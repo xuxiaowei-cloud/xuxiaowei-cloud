@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
@@ -10,6 +11,7 @@ import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -115,6 +117,7 @@ public class UserRestController {
 	 * @param manageUsersPageBo 用户分页参数
 	 * @return 返回 分页查询结果
 	 */
+	@EncryptAnnotation(Encrypt.AesVersion.V0)
 	@ControllerAnnotation(description = "分页查询用户")
 	@PreAuthorize("hasAuthority('manage_user_read')")
 	@RequestMapping("/page")
