@@ -55,8 +55,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
-// @ts-ignore
-import JsEncrypt from 'jsencrypt/bin/jsencrypt.min'
+import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { login } from '../api/user'
@@ -108,8 +107,16 @@ const submitCloudForm = () => {
         const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
         // @ts-ignore
         rememberMeParameter = document.head.querySelector('[name=rememberMeParameter][content]').content
-        JsEncrypt.prototype.setPublicKey(rsaPublicKeyBase64)
-        password = JsEncrypt.prototype.encrypt(password)
+
+        const jsEncrypt = new JSEncrypt()
+        jsEncrypt.setPublicKey(rsaPublicKeyBase64)
+        const encrypt = jsEncrypt.encrypt(password)
+        if (encrypt === false) {
+          ElMessage.error('密码加密失败')
+          return
+        }
+
+        password = encrypt
       }
       const redirectUri = route.query.redirectUri
 
