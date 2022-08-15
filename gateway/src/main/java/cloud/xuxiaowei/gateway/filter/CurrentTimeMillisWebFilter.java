@@ -36,7 +36,7 @@ public class CurrentTimeMillisWebFilter implements WebFilter, Ordered {
 	 * <p>
 	 * 大于 0 无效
 	 */
-	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1030000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1040000;
 
 	@Setter
 	private int order = ORDERED;

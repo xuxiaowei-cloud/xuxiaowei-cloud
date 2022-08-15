@@ -18,7 +18,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -58,7 +57,7 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 	 * <p>
 	 * 大于 0 无效
 	 */
-	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1020000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1030000;
 
 	private CloudAesProperties cloudAesProperties;
 
@@ -79,123 +78,113 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
 		ServerHttpRequest request = exchange.getRequest();
-		ServerHttpResponse response = exchange.getResponse();
 
-		ServerHttpRequestDecorator decorator = new ServerHttpRequestDecorator(request) {
+		HttpHeaders headers = request.getHeaders();
+		MediaType contentType = headers.getContentType();
 
-			@NonNull
-			@Override
-			public Flux<DataBuffer> getBody() {
-				return super.getBody().buffer().map(body -> {
+		if (MediaType.APPLICATION_JSON.includes(contentType)) {
+			// 请求数据为JSON，可以解密
 
-					DataBuffer join = response.bufferFactory().join(body);
-					byte[] bytes = new byte[join.readableByteCount()];
-					join.read(bytes);
-					DataBufferUtils.release(join);
+			ServerHttpResponse response = exchange.getResponse();
 
-					URI uri = request.getURI();
-					String path = uri.getPath();
-					HttpHeaders headers = request.getHeaders();
-					MediaType contentType = headers.getContentType();
+			// 请求体
+			byte[] bytes = exchange.getAttribute(BodyDecryptBeforeGlobalFilter.BODY_DECRYPT_BYTES);
 
-					if (MediaType.APPLICATION_JSON.includes(contentType)) {
-						// 请求数据为JSON，可以解密
-
-						// 默认秘钥
-						byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
-						// 默认偏移量
-						byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
-
-						// 接口请求中的加密方式（版本）
-						String encrypt = headers.getFirst(Constant.ENCRYPT);
-						if (StringUtils.hasText(encrypt)) {
-							// 存在：请求中的加密方式（版本）
-
-							// 响应中的客户ID
-							String clientId = headers.getFirst(CLIENT_ID);
-							if (StringUtils.hasText(clientId)) {
-								// 客户ID存在
-
-								List<CloudAesProperties.Aes> aesList = cloudAesProperties.getList();
-								// 遍历客户AES配置
-								for (CloudAesProperties.Aes aesProperties : aesList) {
-									if (clientId.equals(aesProperties.getClientId())) {
-										// 匹配到客户的秘钥配置
-										// 使用客户的秘钥配置
-										keyBytes = aesProperties.getKey().getBytes();
-										ivBytes = aesProperties.getIv().getBytes();
-									}
-								}
-							}
-
-							// 匹配枚举
-							Encrypt.AesVersion version = Encrypt.AesVersion.version(encrypt);
-
-							if (version == null) {
-								// 未匹配到枚举，请求体不处理
-								return response.bufferFactory().wrap(bytes);
-							}
-							else {
-								switch (version) {
-								case V1:
-									return v1(response, bytes, clientId, keyBytes, ivBytes);
-								case V0:
-									// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
-									// 故：此处使用 switch case 的穿透效果
-								default:
-									return response.bufferFactory().wrap(bytes);
-								}
-							}
-
-						}
-						else {
-
-							// 该路径是否强制加密
-							AntPathMatcher antPathMatcher = new AntPathMatcher();
-							List<CloudAesProperties.ServicePath> forcePaths = cloudAesProperties.getForcePaths();
-							for (CloudAesProperties.ServicePath servicePath : forcePaths) {
-
-								// 服务名
-								String service = servicePath.getService();
-								// 路径
-								List<String> paths = servicePath.getPaths();
-								for (String p : paths) {
-									// 服务名与路径拼接
-									String pattern = service.startsWith("/") ? service : "/" + service;
-									pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
-
-									// 匹配
-									boolean match = antPathMatcher.match(pattern, path);
-									if (match) {
-										// 匹配到，需要强制加密，但未找到加密方式（版本），使用默认加密方式（版本）、秘钥、偏移量进行解密
-										return v1(response, bytes, null, keyBytes, ivBytes);
-									}
-								}
-							}
-
-							// 不存在：请求中的加密方式（版本），请求体不处理
-							return response.bufferFactory().wrap(bytes);
-						}
-					}
-					else {
-						// 请求数据不是JSON，不进行解密，直接返回数据
-						return response.bufferFactory().wrap(bytes);
-					}
-				});
+			if (bytes == null) {
+				// 请求体 null 时，不处理
+				return chain.filter(exchange);
 			}
 
-			@NonNull
-			@Override
-			public HttpHeaders getHeaders() {
-				HttpHeaders headers = new HttpHeaders();
-				headers.addAll(super.getHeaders());
-				// 移除请求体长度，防止流读取时长度不匹配
-				headers.remove(HttpHeaders.CONTENT_LENGTH);
-				return headers;
-			}
-		};
+			// 解密后的数据
+			byte[] decrypt;
 
-		return chain.filter(exchange.mutate().request(decorator).build());
+			// 默认秘钥
+			byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
+			// 默认偏移量
+			byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
+
+			// 接口请求中的加密方式（版本）
+			String encrypt = headers.getFirst(Constant.ENCRYPT);
+			if (StringUtils.hasText(encrypt)) {
+				// 存在：请求中的加密方式（版本）
+
+				// 响应中的客户ID
+				String clientId = headers.getFirst(CLIENT_ID);
+				if (StringUtils.hasText(clientId)) {
+					// 客户ID存在
+
+					List<CloudAesProperties.Aes> aesList = cloudAesProperties.getList();
+					// 遍历客户AES配置
+					for (CloudAesProperties.Aes aesProperties : aesList) {
+						if (clientId.equals(aesProperties.getClientId())) {
+							// 匹配到客户的秘钥配置
+							// 使用客户的秘钥配置
+							keyBytes = aesProperties.getKey().getBytes();
+							ivBytes = aesProperties.getIv().getBytes();
+							break;
+						}
+					}
+				}
+
+				// 匹配枚举
+				Encrypt.AesVersion version = Encrypt.AesVersion.version(encrypt);
+
+				if (version == null) {
+					// 未匹配到枚举，请求体不处理，使用原始请求体
+					decrypt = bytes;
+				}
+				else {
+					switch (version) {
+					case V1:
+						decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
+						break;
+					case V0:
+						// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
+						// 故：此处使用 switch case 的穿透效果
+					default:
+						decrypt = bytes;
+					}
+				}
+
+			}
+			else {
+				// 接口请求体强制解密检查
+				decrypt = force(request, response, bytes, keyBytes, ivBytes);
+			}
+
+			if (decrypt == null) {
+				// 解密内容为 null 时，不处理
+				return chain.filter(exchange);
+			}
+
+			// 创建一个新的请求
+			ServerHttpRequestDecorator decorator = new ServerHttpRequestDecorator(request) {
+				@NonNull
+				@Override
+				public Flux<DataBuffer> getBody() {
+					// 修改请求头
+					return Flux.just(response.bufferFactory().wrap(decrypt));
+				}
+
+				@NonNull
+				@Override
+				public HttpHeaders getHeaders() {
+					HttpHeaders headers = new HttpHeaders();
+					headers.addAll(super.getHeaders());
+					// 修改请求体长度
+					headers.setContentLength(decrypt.length);
+					return headers;
+				}
+
+			};
+
+			// 使用新的请求继续执行
+			return chain.filter(exchange.mutate().request(decorator).build());
+		}
+		else {
+			// 请求数据不是JSON，不进行解密，直接返回数据
+			return chain.filter(exchange);
+		}
 	}
 
 	/**
@@ -207,7 +196,7 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 	 * @param ivBytes 偏移量
 	 * @return 返回解密后的数据
 	 */
-	private DataBuffer v1(ServerHttpResponse response, byte[] bytes, String clientId, byte[] keyBytes, byte[] ivBytes) {
+	private byte[] v1(ServerHttpResponse response, byte[] bytes, String clientId, byte[] keyBytes, byte[] ivBytes) {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
@@ -253,11 +242,51 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 			checkCurrentTimeMillis(objectMapper, decryptStr);
 
 			log.debug("解密后 body：{}", decryptStr);
-			return response.bufferFactory().wrap(decrypt);
+			return decrypt;
 		}
 		else {
 			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密密文不能为空", Encrypt.CIPHERTEXT);
 		}
+	}
+
+	/**
+	 * 强制检查
+	 * @param request 服务器 Http 请求
+	 * @param response 服务器 Http 响应
+	 * @param bytes 请求
+	 * @param keyBytes 秘钥
+	 * @param ivBytes 偏移量
+	 * @return 返回 强制检查结果
+	 */
+	private byte[] force(ServerHttpRequest request, ServerHttpResponse response, byte[] bytes, byte[] keyBytes,
+			byte[] ivBytes) {
+		URI uri = request.getURI();
+		String path = uri.getPath();
+
+		// 该路径是否强制加密
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
+		List<CloudAesProperties.ServicePath> forcePaths = cloudAesProperties.getForcePaths();
+		for (CloudAesProperties.ServicePath servicePath : forcePaths) {
+
+			// 服务名
+			String service = servicePath.getService();
+			// 路径
+			List<String> paths = servicePath.getPaths();
+			for (String p : paths) {
+				// 服务名与路径拼接
+				String pattern = service.startsWith("/") ? service : "/" + service;
+				pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+
+				// 匹配
+				boolean match = antPathMatcher.match(pattern, path);
+				if (match) {
+					// 匹配到，需要强制加密，但未找到加密方式（版本），使用默认加密方式（版本）、秘钥、偏移量进行解密
+					return v1(response, bytes, null, keyBytes, ivBytes);
+				}
+			}
+		}
+
+		return bytes;
 	}
 
 	/**
