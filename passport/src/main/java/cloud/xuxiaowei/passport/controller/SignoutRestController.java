@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.passport.controller;
 
-import cloud.xuxiaowei.core.properties.JwkKeyProperties;
+import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.Response;
@@ -28,13 +28,13 @@ import java.security.interfaces.RSAPublicKey;
 @RequestMapping("/signout")
 public class SignoutRestController {
 
-	private JwkKeyProperties jwkKeyProperties;
+	private CloudJwkKeyProperties cloudJwkKeyProperties;
 
 	private IOauth2AuthorizationService oauth2AuthorizationService;
 
 	@Autowired
-	public void setJwkKeyProperties(JwkKeyProperties jwkKeyProperties) {
-		this.jwkKeyProperties = jwkKeyProperties;
+	public void setCloudJwkKeyProperties(CloudJwkKeyProperties cloudJwkKeyProperties) {
+		this.cloudJwkKeyProperties = cloudJwkKeyProperties;
 	}
 
 	@Autowired
@@ -58,7 +58,7 @@ public class SignoutRestController {
 
 		session.invalidate();
 
-		RSA rsa = new RSA(null, jwkKeyProperties.rsaPublicKey());
+		RSA rsa = new RSA(null, cloudJwkKeyProperties.rsaPublicKey());
 
 		NimbusJwtDecoder.PublicKeyJwtDecoderBuilder publicKeyJwtDecoderBuilder = NimbusJwtDecoder
 				.withPublicKey((RSAPublicKey) rsa.getPublicKey());

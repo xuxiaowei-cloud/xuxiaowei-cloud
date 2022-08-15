@@ -6,6 +6,7 @@ import cloud.xuxiaowei.passport.service.IUsersLoginService;
 import cloud.xuxiaowei.passport.utils.HandlerUtils;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -94,10 +95,13 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
 		request.getRequestDispatcher(successForwardUrl).forward(request, response);
 
+		String remoteHost = request.getRemoteHost();
+		String userAgent = RequestUtils.getUserAgent(request);
+
 		String subject = "登录系统成功";
 		String result = "成功";
-		Runnable runnable = () -> HandlerUtils.send(usersService, javaMailSender, mailProperties, request, userName,
-				subject, result);
+		Runnable runnable = () -> HandlerUtils.send(usersService, javaMailSender, mailProperties, userName, subject,
+				result, remoteHost, userAgent);
 		new Thread(runnable).start();
 	}
 

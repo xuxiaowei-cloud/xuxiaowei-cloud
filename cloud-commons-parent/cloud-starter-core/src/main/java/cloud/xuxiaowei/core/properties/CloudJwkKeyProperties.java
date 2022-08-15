@@ -10,7 +10,7 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 
 /**
- * JWK 配置
+ * 微服务 JWK 配置
  * <p>
  * RSA 非对称性加密，必须为 2048 位
  *
@@ -19,8 +19,8 @@ import java.security.interfaces.RSAPublicKey;
  */
 @Data
 @Component
-@ConfigurationProperties("jwk")
-public class JwkKeyProperties {
+@ConfigurationProperties("cloud.jwk")
+public class CloudJwkKeyProperties {
 
 	/**
 	 * RSA 秘钥对

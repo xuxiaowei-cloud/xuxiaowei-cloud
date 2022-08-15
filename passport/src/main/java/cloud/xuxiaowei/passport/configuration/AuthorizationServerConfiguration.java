@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
-import cloud.xuxiaowei.core.properties.JwkKeyProperties;
+import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.passport.handler.AccessTokenAuthenticationFailureHandlerImpl;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
@@ -76,15 +76,15 @@ import java.util.stream.Collectors;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfiguration {
 
-	private JwkKeyProperties jwkKeyProperties;
+	private CloudJwkKeyProperties cloudJwkKeyProperties;
 
 	private CloudClientProperties cloudClientProperties;
 
 	private IUsersService usersService;
 
 	@Autowired
-	public void setJwkKeyProperties(JwkKeyProperties jwkKeyProperties) {
-		this.jwkKeyProperties = jwkKeyProperties;
+	public void setCloudJwkKeyProperties(CloudJwkKeyProperties cloudJwkKeyProperties) {
+		this.cloudJwkKeyProperties = cloudJwkKeyProperties;
 	}
 
 	@Autowired
@@ -194,8 +194,8 @@ public class AuthorizationServerConfiguration {
 	public JWKSource<SecurityContext> jwkSource() {
 		// @formatter:off
 		RSAKey rsaKey = new RSAKey
-				.Builder(jwkKeyProperties.rsaPublicKey())
-				.privateKey(jwkKeyProperties.privateKey())
+				.Builder(cloudJwkKeyProperties.rsaPublicKey())
+				.privateKey(cloudJwkKeyProperties.privateKey())
 				.build();
 		// @formatter:on
 		JWKSet jwkSet = new JWKSet(rsaKey);

@@ -4,10 +4,7 @@ import cloud.xuxiaowei.passport.entity.UsersLogin;
 import cloud.xuxiaowei.passport.service.IUsersLoginService;
 import cloud.xuxiaowei.passport.utils.HandlerUtils;
 import cloud.xuxiaowei.system.service.IUsersService;
-import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.Response;
-import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginParamPasswordValidException;
 import lombok.extern.slf4j.Slf4j;
@@ -120,10 +117,13 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
 		ResponseUtils.response(response, error);
 
+		String remoteHost = request.getRemoteHost();
+		String userAgent = RequestUtils.getUserAgent(request);
+
 		String subject = "登录系统失败";
 		String result = "失败";
-		Runnable runnable = () -> HandlerUtils.send(usersService, javaMailSender, mailProperties, request, username,
-				subject, result);
+		Runnable runnable = () -> HandlerUtils.send(usersService, javaMailSender, mailProperties, username, subject,
+				result, remoteHost, userAgent);
 		new Thread(runnable).start();
 	}
 
