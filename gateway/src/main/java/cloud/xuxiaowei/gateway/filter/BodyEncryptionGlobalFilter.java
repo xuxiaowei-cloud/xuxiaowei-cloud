@@ -1,10 +1,15 @@
 package cloud.xuxiaowei.gateway.filter;
 
 import cloud.xuxiaowei.core.properties.CloudAesProperties;
+import cloud.xuxiaowei.core.properties.CloudSignProperties;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import cn.hutool.core.codec.Base64;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.Sign;
+import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.symmetric.AES;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,9 +57,16 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
 	private CloudAesProperties cloudAesProperties;
 
+	private CloudSignProperties cloudSignProperties;
+
 	@Autowired
 	public void setCloudAesProperties(CloudAesProperties cloudAesProperties) {
 		this.cloudAesProperties = cloudAesProperties;
+	}
+
+	@Autowired
+	public void setCloudSignProperties(CloudSignProperties cloudSignProperties) {
+		this.cloudSignProperties = cloudSignProperties;
 	}
 
 	@Setter
@@ -147,6 +159,19 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 	}
 
 	/**
+	 * 签名
+	 * @param response 响应
+	 * @param data 数据
+	 */
+	private void sign(ServerHttpResponse response, byte[] data) {
+		// 签名
+		Sign sign = SecureUtil.sign(SignAlgorithm.MD5withRSA, cloudSignProperties.getPrivateKey(), null);
+		byte[] signBytes = sign.sign(data);
+		String encode = Base64.encode(signBytes);
+		response.getHeaders().set(Constant.SIGN, encode);
+	}
+
+	/**
 	 * 加密方式（版本）V1
 	 * @param response 服务器 Http 响应
 	 * @param keyBytes 秘钥
@@ -208,6 +233,9 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 				throw new CloudRuntimeException(CodeEnums.ERROR.code, "body 加密后组装的对象 Encrypt 转 JSON String 失败", null,
 						e.getMessage());
 			}
+
+			// 签名
+			sign(response, responseBytes);
 
 			return response.bufferFactory().wrap(responseBytes);
 		}));

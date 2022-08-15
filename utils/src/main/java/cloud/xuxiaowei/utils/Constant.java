@@ -53,6 +53,11 @@ public class Constant implements Serializable {
 	public static final String DECRYPT = "decrypt";
 
 	/**
+	 * HTTP 响应中签名描述的字段
+	 */
+	public static final String SIGN = "sign";
+
+	/**
 	 * 默认值
 	 */
 	public static final String DEFAULT = "default";
