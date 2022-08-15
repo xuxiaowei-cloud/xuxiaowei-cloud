@@ -14,8 +14,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +27,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -50,7 +50,7 @@ import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionC
  */
 @Slf4j
 @Component
-public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
+public class BodyDecryptWebFilter implements WebFilter, Ordered {
 
 	/**
 	 * 最低优先级（最大值）：0
@@ -74,8 +74,9 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 		return order;
 	}
 
+	@NonNull
 	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	public Mono<Void> filter(ServerWebExchange exchange, @NonNull WebFilterChain chain) {
 
 		ServerHttpRequest request = exchange.getRequest();
 
@@ -88,7 +89,7 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 			ServerHttpResponse response = exchange.getResponse();
 
 			// 请求体
-			byte[] bytes = exchange.getAttribute(BodyDecryptBeforeGlobalFilter.BODY_DECRYPT_BYTES);
+			byte[] bytes = exchange.getAttribute(BodyDecryptBeforeWebFilter.BODY_DECRYPT_BYTES);
 
 			if (bytes == null) {
 				// 请求体 null 时，不处理
@@ -135,14 +136,14 @@ public class BodyDecryptGlobalFilter implements GlobalFilter, Ordered {
 				}
 				else {
 					switch (version) {
-					case V1:
-						decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
-						break;
-					case V0:
-						// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
-						// 故：此处使用 switch case 的穿透效果
-					default:
-						decrypt = bytes;
+						case V1:
+							decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
+							break;
+						case V0:
+							// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
+							// 故：此处使用 switch case 的穿透效果
+						default:
+							decrypt = bytes;
 					}
 				}
 
