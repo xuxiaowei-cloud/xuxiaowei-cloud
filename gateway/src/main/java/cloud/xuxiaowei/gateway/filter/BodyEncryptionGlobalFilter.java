@@ -194,7 +194,7 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 		headers.set(Constant.ENCRYPT, aesVersion.version);
 		// 暴露响应头（否则 axios 将无法获取）
 		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.ENCRYPT);
-		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,  Constant.SIGN);
+		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.SIGN);
 
 		@SuppressWarnings("unchecked")
 		Flux<? extends DataBuffer> fluxDataBuffer = (Flux<? extends DataBuffer>) body;
