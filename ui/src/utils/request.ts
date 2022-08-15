@@ -1,5 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
+import { JSEncrypt } from 'jsencrypt'
+import CryptoJS from 'crypto-js'
 import { useStore } from '../store'
 import settings from '../settings'
 import { decrypt, encrypt } from './aes'
@@ -36,10 +38,25 @@ error => {
 
 // response interceptor
 service.interceptors.response.use((response: AxiosResponse) => {
+  const data = response.data
   // 如果响应头中指定了加密类型（版本）为 v1，将进行数据解密
   if (response.headers.encrypt === 'v1') {
     // 解密完成，将解密后的数据放入响应数据的位置
-    response.data = JSON.parse(decrypt(settings.key, settings.iv, response.data.ciphertext))
+    response.data = JSON.parse(decrypt(settings.key, settings.iv, data.ciphertext))
+  }
+  if (response.headers.sign) {
+    const jsEncrypt = new JSEncrypt()
+    jsEncrypt.setPublicKey(settings.publicKey)
+    // @ts-ignore
+    const verify = jsEncrypt.verify(JSON.stringify(data), response.headers.sign, CryptoJS.MD5)
+    if (!verify) {
+      ElMessage({
+        message: '验证响应数据签名失败，返回数据不可信',
+        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+        duration: 3000,
+        type: 'error'
+      })
+    }
   }
 
   if (settings.loginRequiredCode.indexOf(response.data.code) === -1) {
