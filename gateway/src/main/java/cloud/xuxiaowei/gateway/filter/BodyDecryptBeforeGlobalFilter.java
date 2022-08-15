@@ -44,27 +44,29 @@ public class BodyDecryptBeforeGlobalFilter implements GlobalFilter, Ordered {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		// @formatter:off
-		return DataBufferUtils.join(exchange.getRequest().getBody())
-				.map(dataBuffer -> {
-					byte[] bytes = new byte[dataBuffer.readableByteCount()];
-					dataBuffer.read(bytes);
-					DataBufferUtils.release(dataBuffer);
-					return bytes;
-				}).defaultIfEmpty(new byte[0])
-				.doOnNext(bytes -> {
+		MediaType contentType = exchange.getRequest().getHeaders().getContentType();
 
-					MediaType contentType = exchange.getRequest().getHeaders().getContentType();
-
-					if (MediaType.APPLICATION_JSON.includes(contentType)) {
-						// 请求数据为JSON，可以解密
-
+		if (MediaType.APPLICATION_JSON.includes(contentType)) {
+			// 请求数据为JSON，可以解密
+			// @formatter:off
+			return DataBufferUtils.join(exchange.getRequest().getBody())
+					.map(dataBuffer -> {
+						byte[] bytes = new byte[dataBuffer.readableByteCount()];
+						dataBuffer.read(bytes);
+						DataBufferUtils.release(dataBuffer);
+						return bytes;
+					}).defaultIfEmpty(new byte[0])
+					.doOnNext(bytes -> {
 						// 暂存请求体，方便后面使用
 						exchange.getAttributes().put(BODY_DECRYPT_BYTES, bytes);
-					}
-				})
-				.then(chain.filter(exchange));
-		// @formatter:on
+					})
+					.then(chain.filter(exchange));
+			// @formatter:on
+		}
+		else {
+			return chain.filter(exchange);
+		}
+
 	}
 
 }
