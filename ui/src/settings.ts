@@ -18,6 +18,11 @@ const settings = {
   iv: 'abcdefghijklmnop',
 
   /**
+   * 公钥，用于验证签名
+   */
+  publicKey: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCD5XD8TEL7d6EwN6WohUhLMPbx7LumqTY4hD0wHQDVB8QcOtyKiHTJEL+KnmY662gkDJnxiaeMUqX5c2AneXf3wLCYi6I8JmFqSNhOdxNdo/YvklPcmBAmxpW2grZdO4J2MWVykHrAMD07YJOKXDZcwe4HQgpoIH7hKvalcc4QnQIDAQAB',
+
+  /**
    * 登录页面
    */
   loginPage: import.meta.env.VITE_APP_LOGIN_PAGE,
