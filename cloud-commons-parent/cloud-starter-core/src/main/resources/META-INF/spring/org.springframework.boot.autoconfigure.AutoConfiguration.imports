@@ -3,6 +3,7 @@ cloud.xuxiaowei.core.properties.CloudBlackListProperties
 cloud.xuxiaowei.core.properties.CloudClientProperties
 cloud.xuxiaowei.core.properties.CloudCookieProperties
 cloud.xuxiaowei.core.properties.CloudCorsProperties
+cloud.xuxiaowei.core.properties.CloudJwkKeyProperties
 cloud.xuxiaowei.core.properties.CloudRememberMeProperties
 cloud.xuxiaowei.core.properties.CloudSecurityProperties
 cloud.xuxiaowei.core.properties.CloudSessionProperties
@@ -10,4 +11,3 @@ cloud.xuxiaowei.core.properties.CloudSignProperties
 cloud.xuxiaowei.core.properties.CloudWebServiceProperties
 cloud.xuxiaowei.core.properties.CloudWebSocketProperties
 cloud.xuxiaowei.core.properties.CloudWhiteListProperties
-cloud.xuxiaowei.core.properties.JwkKeyProperties
