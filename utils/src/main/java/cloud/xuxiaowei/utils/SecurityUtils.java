@@ -193,7 +193,9 @@ public class SecurityUtils {
 		if (StringUtils.hasLength(authorization)) {
 			String[] authorizationSplit = authorization.split("\\.");
 			int length = authorizationSplit.length;
-			if (length >= 2) {
+			// 下标为 1 的是 Payload
+			int len = 2;
+			if (length >= len) {
 				String payloadEncodeStr = authorizationSplit[1];
 				return Base64.decodeStr(payloadEncodeStr);
 			}
@@ -218,7 +220,7 @@ public class SecurityUtils {
 				log.error("{}：转换为JSON异常", payload, e);
 			}
 		}
-		return new HashMap<>();
+		return new HashMap<>(2);
 	}
 
 	/**
