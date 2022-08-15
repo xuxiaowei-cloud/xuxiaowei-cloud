@@ -135,6 +135,13 @@ currentTimeMillis().then((response: number) => {
   now.value = response || new Date().getTime()
 })
 
+// 每五分钟一次，从系统中获取当前时间，无限循环
+setInterval(function () {
+  currentTimeMillis().then((response: number) => {
+    now.value = response || new Date().getTime()
+  })
+}, 1000 * 60 * 5)
+
 watch(() => now.value, (newValue, oldValue) => {
   // 储存当前时间戳
   useStore.setCurrentTimeMillis(newValue)
