@@ -100,6 +100,7 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 								// 使用客户的秘钥配置
 								keyBytes = aesProperties.getKey().getBytes();
 								ivBytes = aesProperties.getIv().getBytes();
+								break;
 							}
 						}
 					}
