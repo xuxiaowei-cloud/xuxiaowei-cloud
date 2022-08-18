@@ -206,7 +206,7 @@ cloud.xuxiaowei
 | webservice         | WebService 服务               |                                        | 1901  |
 | wechat-miniprogram | 微信小程序服务                     |                                        | 2001  |
 | wechat-offiaccount | 微信公众号服务                     |                                        | 2101  |
-| xxl-job-admin      | XXL Job Admin               |                                        | 2101  |
+| xxl-job-admin      | XXL Job Admin               |                                        | 5101  |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
 | cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |
 
@@ -220,7 +220,7 @@ cloud.xuxiaowei
 
 | 地址                                   | 账户名    | 密码      |
 |--------------------------------------|--------|---------|
-| http://127.0.0.1:2101/xxl-job-admin  | admin  | 123456  |
+| http://127.0.0.1:5101/xxl-job-admin  | admin  | 123456  |
 
 ### 权限
 
