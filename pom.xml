@@ -64,11 +64,11 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.3.1</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.0-M1</spring-security-oauth2-authorization-server.version>
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
-        <spring-boot-starter-wechat-miniprogram.version>0.0.1-alpha.2</spring-boot-starter-wechat-miniprogram.version>
+        <spring-boot-starter-wechat-miniprogram.version>0.0.2-alpha.1</spring-boot-starter-wechat-miniprogram.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -769,6 +769,15 @@
         <repository>
             <id>oss-s01</id>
             <url>https://s01.oss.sonatype.org/content/repositories/public/</url>
+        </repository>
+
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
     </repositories>

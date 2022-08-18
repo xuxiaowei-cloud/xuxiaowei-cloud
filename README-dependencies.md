@@ -201,7 +201,7 @@ cloud.xuxiaowei:gateway:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
 │        └──cn.hutool:hutool-all:jar:5.8.5:compile
-│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.3.1:compile
+│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0-M1:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.2:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
@@ -223,8 +223,8 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.2:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.7.2:compile
-│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.3.1:compile
-│        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-miniprogram:jar:0.0.1-alpha.2:compile
+│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0-M1:compile
+│        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-miniprogram:jar:0.0.2-alpha.1:compile
 │        └──p6spy:p6spy:jar:3.9.1:compile
 │        └──cn.hutool:hutool-all:jar:5.8.5:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
