@@ -124,13 +124,13 @@
 ## 相关项目
 
 - xuxiaowei-cloud-next
-    - 使用 Spring Boot 3.0.0，将仓库地址后面增加 `-next` 即可
-      （全平台仓库同名，包含：
-      [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
-      [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
-      [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)、
-      [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)、
-      [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)）
+    - 使用 Spring Boot 3.0.0，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
+        1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        3. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        4. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
 
 ## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
 
@@ -279,13 +279,14 @@ cloud.xuxiaowei
 
 ## 仓库与分支？
 
-1. 使用了哪四个仓库？
+1. 使用了哪五个仓库？
     1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
     2. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
     3. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
     4. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
 
-2. 上述四个仓库以哪个为准？其余仓库合适同步？
+2. 上述五个仓库以哪个为准？其余仓库合适同步？
     1. 以 [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
     2. 其余仓库每日同步
 
@@ -303,6 +304,7 @@ cloud.xuxiaowei
     4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
+    5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
 
 4. 各分支的作用？
     1. main

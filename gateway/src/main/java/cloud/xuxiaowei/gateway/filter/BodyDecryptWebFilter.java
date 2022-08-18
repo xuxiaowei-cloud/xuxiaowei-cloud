@@ -80,78 +80,12 @@ public class BodyDecryptWebFilter implements WebFilter, Ordered {
 
 		ServerHttpRequest request = exchange.getRequest();
 
-		HttpHeaders headers = request.getHeaders();
-		MediaType contentType = headers.getContentType();
+		MediaType contentType = request.getHeaders().getContentType();
 
 		if (MediaType.APPLICATION_JSON.includes(contentType)) {
 			// 请求数据为JSON，可以解密
 
-			ServerHttpResponse response = exchange.getResponse();
-
-			// 请求体
-			byte[] bytes = exchange.getAttribute(BodyDecryptBeforeWebFilter.BODY_DECRYPT_BYTES);
-
-			if (bytes == null) {
-				// 请求体 null 时，不处理
-				return chain.filter(exchange);
-			}
-
-			// 解密后的数据
-			byte[] decrypt;
-
-			// 默认秘钥
-			byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
-			// 默认偏移量
-			byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
-
-			// 接口请求中的加密方式（版本）
-			String encrypt = headers.getFirst(Constant.ENCRYPT);
-			if (StringUtils.hasText(encrypt)) {
-				// 存在：请求中的加密方式（版本）
-
-				// 响应中的客户ID
-				String clientId = headers.getFirst(CLIENT_ID);
-				if (StringUtils.hasText(clientId)) {
-					// 客户ID存在
-
-					List<CloudAesProperties.Aes> aesList = cloudAesProperties.getList();
-					// 遍历客户AES配置
-					for (CloudAesProperties.Aes aesProperties : aesList) {
-						if (clientId.equals(aesProperties.getClientId())) {
-							// 匹配到客户的秘钥配置
-							// 使用客户的秘钥配置
-							keyBytes = aesProperties.getKey().getBytes();
-							ivBytes = aesProperties.getIv().getBytes();
-							break;
-						}
-					}
-				}
-
-				// 匹配枚举
-				Encrypt.AesVersion version = Encrypt.AesVersion.version(encrypt);
-
-				if (version == null) {
-					// 未匹配到枚举，请求体不处理，使用原始请求体
-					decrypt = bytes;
-				}
-				else {
-					switch (version) {
-					case V1:
-						decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
-						break;
-					case V0:
-						// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
-						// 故：此处使用 switch case 的穿透效果
-					default:
-						decrypt = bytes;
-					}
-				}
-
-			}
-			else {
-				// 接口请求体强制解密检查
-				decrypt = force(request, response, bytes, keyBytes, ivBytes);
-			}
+			byte[] decrypt = decrypt(exchange);
 
 			if (decrypt == null) {
 				// 解密内容为 null 时，不处理
@@ -164,7 +98,7 @@ public class BodyDecryptWebFilter implements WebFilter, Ordered {
 				@Override
 				public Flux<DataBuffer> getBody() {
 					// 修改请求头
-					return Flux.just(response.bufferFactory().wrap(decrypt));
+					return Flux.just(exchange.getResponse().bufferFactory().wrap(decrypt));
 				}
 
 				@NonNull
@@ -186,6 +120,81 @@ public class BodyDecryptWebFilter implements WebFilter, Ordered {
 			// 请求数据不是JSON，不进行解密，直接返回数据
 			return chain.filter(exchange);
 		}
+	}
+
+	private byte[] decrypt(ServerWebExchange exchange) {
+
+		ServerHttpRequest request = exchange.getRequest();
+		ServerHttpResponse response = exchange.getResponse();
+
+		HttpHeaders headers = request.getHeaders();
+
+		// 请求体
+		byte[] bytes = exchange.getAttribute(BodyDecryptBeforeWebFilter.BODY_DECRYPT_BYTES);
+
+		if (bytes == null) {
+			// 请求体 null 时，不处理
+			return null;
+		}
+
+		// 解密后的数据
+		byte[] decrypt;
+
+		// 默认秘钥
+		byte[] keyBytes = cloudAesProperties.getDefaultKey().getBytes();
+		// 默认偏移量
+		byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
+
+		// 接口请求中的加密方式（版本）
+		String encrypt = headers.getFirst(Constant.ENCRYPT);
+		if (StringUtils.hasText(encrypt)) {
+			// 存在：请求中的加密方式（版本）
+
+			// 响应中的客户ID
+			String clientId = headers.getFirst(CLIENT_ID);
+			if (StringUtils.hasText(clientId)) {
+				// 客户ID存在
+
+				List<CloudAesProperties.Aes> aesList = cloudAesProperties.getList();
+				// 遍历客户AES配置
+				for (CloudAesProperties.Aes aesProperties : aesList) {
+					if (clientId.equals(aesProperties.getClientId())) {
+						// 匹配到客户的秘钥配置
+						// 使用客户的秘钥配置
+						keyBytes = aesProperties.getKey().getBytes();
+						ivBytes = aesProperties.getIv().getBytes();
+						break;
+					}
+				}
+			}
+
+			// 匹配枚举
+			Encrypt.AesVersion version = Encrypt.AesVersion.version(encrypt);
+
+			if (version == null) {
+				// 未匹配到枚举，请求体不处理，使用原始请求体
+				decrypt = bytes;
+			}
+			else {
+				switch (version) {
+				case V1:
+					decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
+					break;
+				case V0:
+					// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
+					// 故：此处使用 switch case 的穿透效果
+				default:
+					decrypt = bytes;
+				}
+			}
+
+		}
+		else {
+			// 接口请求体强制解密检查
+			decrypt = force(request, response, bytes, keyBytes, ivBytes);
+		}
+
+		return decrypt;
 	}
 
 	/**
