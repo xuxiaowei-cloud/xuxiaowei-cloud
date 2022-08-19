@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.gateway.configuration;
 
-import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
+import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.IpAddressMatcher;
@@ -201,7 +201,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 		URI uri = request.getURI();
 		String path = uri.getPath();
 
-		if (method.matches(HttpMethod.OPTIONS.name())) {
+		if (method == null) {
+			log.debug("放行：{}", path);
+			return true;
+		}
+		else if (method.matches(HttpMethod.OPTIONS.name())) {
 			log.debug("放行：{}：{}", method, path);
 			return true;
 		}

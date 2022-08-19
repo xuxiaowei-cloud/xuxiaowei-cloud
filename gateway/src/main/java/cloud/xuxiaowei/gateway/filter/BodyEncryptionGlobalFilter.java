@@ -25,15 +25,16 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.lang.NonNull;
 import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.annotation.NonNull;
 
 import java.util.List;
 
@@ -80,6 +81,7 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
+		ServerHttpRequest request = exchange.getRequest();
 		ServerHttpResponse response = exchange.getResponse();
 
 		ServerHttpResponseDecorator decorator = new ServerHttpResponseDecorator(response) {
@@ -87,6 +89,9 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 			@NonNull
 			@Override
 			public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
+
+				// 这里必须设置，不然以下日志无用户信息
+				LogWebFilter.log(request);
 
 				HttpHeaders headers = response.getHeaders();
 				MediaType contentType = headers.getContentType();

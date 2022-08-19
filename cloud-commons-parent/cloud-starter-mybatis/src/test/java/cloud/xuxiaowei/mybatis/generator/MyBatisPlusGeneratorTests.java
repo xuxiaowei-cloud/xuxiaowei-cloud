@@ -169,8 +169,8 @@ class MyBatisPlusGeneratorTests {
 						.enableLombok()
 						.addTableFills(new Column("create_date", FieldFill.INSERT),
 								new Column("update_date", FieldFill.UPDATE),
-								new Column("create_username", FieldFill.INSERT),
-								new Column("update_username", FieldFill.UPDATE),
+								new Column("create_users_id", FieldFill.INSERT),
+								new Column("update_users_id", FieldFill.UPDATE),
 								new Column("create_ip", FieldFill.INSERT), new Column("update_ip", FieldFill.UPDATE))
 						.logicDeleteColumnName("deleted").build())
 				/*

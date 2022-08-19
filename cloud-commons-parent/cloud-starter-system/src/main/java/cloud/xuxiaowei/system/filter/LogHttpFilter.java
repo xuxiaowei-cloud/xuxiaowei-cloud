@@ -3,10 +3,13 @@ package cloud.xuxiaowei.system.filter;
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.RequestUtils;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
@@ -47,6 +51,20 @@ public class LogHttpFilter extends HttpFilter {
 		String remoteHost = req.getRemoteHost();
 		MDC.put(Constant.IP, remoteHost);
 
+		String authorization = RequestUtils.getAuthorization(req);
+		Map<String, String> payloadMap = SecurityUtils.getPayloadStringMap(authorization);
+		String usersId = payloadMap.get(Constant.USERS_ID);
+		MDC.put(Constant.USERS_ID, usersId);
+
+		String username = payloadMap.get(Constant.USERNAME);
+		String sub = payloadMap.get(JwtClaimNames.SUB);
+		if (StringUtils.hasText(username)) {
+			MDC.put(Constant.NAME, username);
+		}
+		else if (StringUtils.hasText(sub)) {
+			MDC.put(Constant.NAME, sub);
+		}
+
 		String requestId = req.getHeader(Constant.REQUEST_ID);
 		if (requestId == null) {
 			requestId = UUID.randomUUID().toString();
@@ -63,7 +81,6 @@ public class LogHttpFilter extends HttpFilter {
 		String requestUri = req.getRequestURI();
 		String queryString = req.getQueryString();
 		String headersMap = RequestUtils.getHeadersJson(req);
-		String authorization = RequestUtils.getAuthorization(req);
 		String userAgent = RequestUtils.getUserAgent(req);
 
 		logService.saveLog(remoteHost, requestId, sessionId, method, requestUri, queryString, headersMap, authorization,
