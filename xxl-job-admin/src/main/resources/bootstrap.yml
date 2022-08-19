@@ -1,7 +1,7 @@
 # 服务器
 server:
   # 端口
-  port: ${xxl_job_admin_port:2101}
+  port: ${xxl_job_admin_port:5101}
 #
 # Spring 配置
 spring:
