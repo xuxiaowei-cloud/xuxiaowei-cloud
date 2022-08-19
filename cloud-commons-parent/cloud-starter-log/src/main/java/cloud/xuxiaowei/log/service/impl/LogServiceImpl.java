@@ -3,6 +3,7 @@ package cloud.xuxiaowei.log.service.impl;
 import cloud.xuxiaowei.log.entity.Log;
 import cloud.xuxiaowei.log.mapper.LogMapper;
 import cloud.xuxiaowei.log.service.ILogService;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
@@ -78,19 +79,23 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
 
 		String payload = SecurityUtils.getPayload(authorization);
 		payload = SecurityUtils.inspectPayload(payload);
-		Map<?, ?> payloadMap = SecurityUtils.getPayloadMap(authorization);
+		Map<String, String> payloadMap = SecurityUtils.getPayloadStringMap(authorization);
 
-		String createUsername;
-		String username = payloadMap.get("username") + "";
-		String sub = payloadMap.get("sub") + "";
-		if (StringUtils.hasLength(username)) {
-			createUsername = username;
+		String createUsersId;
+		String usersId = payloadMap.get(Constant.USERS_ID);
+		String username = payloadMap.get(Constant.USERNAME);
+		String sub = payloadMap.get("sub");
+		if (StringUtils.hasText(usersId)) {
+			createUsersId = usersId;
 		}
-		else if (StringUtils.hasLength(sub)) {
-			createUsername = sub;
+		else if (StringUtils.hasText(username)) {
+			createUsersId = username;
+		}
+		else if (StringUtils.hasText(sub)) {
+			createUsersId = sub;
 		}
 		else {
-			createUsername = "";
+			createUsersId = "";
 		}
 
 		LocalDate localDate = LocalDate.now();
@@ -118,7 +123,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
 		log.setRequestId(requestId);
 		log.setSessionId(sessionId);
 		log.setException(ex == null ? null : ExceptionUtils.getStackTrace(ex));
-		log.setCreateUsername(createUsername);
+		log.setCreateUsersId(createUsersId);
 		log.setCreateIp(hostAddress);
 		log.setHostname(null);
 		log.setIpAddress(ip);
