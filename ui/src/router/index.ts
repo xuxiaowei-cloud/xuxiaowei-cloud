@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { queryToken } from '../store'
 import { hasAnyAuthority } from '../utils/authority'
+import settings from '../settings'
 import Layout from '../components/Layout.vue'
 
 import ConsoleView from '../views/home/ConsoleView.vue'
@@ -66,6 +67,24 @@ export const routes: Array<RouteRecordRaw> = [
           authority: ['user_info']
         },
         component: () => import('../views/editor/WangEditorView.vue')
+      }
+    ]
+  },
+  {
+    name: '主数据',
+    path: '',
+    component: Layout,
+    meta: {
+      icon: 'LocationFilled'
+    },
+    children: [
+      {
+        path: '/master-data/region',
+        name: '行政区域',
+        meta: {
+          authority: ['region_read']
+        },
+        component: () => import('../views/master-data/Region.vue')
       }
     ]
   },
@@ -218,6 +237,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   console.log(to)
+
+  // 动态显示页面title
+  if (to.name) {
+    document.title = `${to.name.toString() + ' - ' + settings.title}`
+  } else {
+    document.title = settings.title
+  }
+
   queryToken(to.path, to.query, router)
   const meta = to.meta
   const authority = meta.authority
