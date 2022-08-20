@@ -17,6 +17,9 @@ public class VillageHandlePageBo implements Serializable {
 
 	private Long current;
 
+	/**
+	 * 镇管辖下，最多有168居委会
+	 */
 	private Long size;
 
 	/**

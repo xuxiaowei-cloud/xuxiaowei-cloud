@@ -17,6 +17,9 @@ public class TownHandlePageBo implements Serializable {
 
 	private Long current;
 
+	/**
+	 * 县管辖下，最多有52个镇
+	 */
 	private Long size;
 
 	/**

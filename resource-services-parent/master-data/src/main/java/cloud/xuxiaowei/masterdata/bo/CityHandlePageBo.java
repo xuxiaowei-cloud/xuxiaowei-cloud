@@ -17,6 +17,9 @@ public class CityHandlePageBo implements Serializable {
 
 	private Long current;
 
+	/**
+	 * 省份管辖下，最多有21个城市
+	 */
 	private Long size;
 
 	/**

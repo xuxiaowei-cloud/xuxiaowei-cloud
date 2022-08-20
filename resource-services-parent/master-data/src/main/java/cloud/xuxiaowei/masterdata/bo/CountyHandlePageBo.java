@@ -17,6 +17,9 @@ public class CountyHandlePageBo implements Serializable {
 
 	private Long current;
 
+	/**
+	 * 城市管辖下，最多有26个县
+	 */
 	private Long size;
 
 	/**

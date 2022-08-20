@@ -17,6 +17,9 @@ public class ProvinceHandlePageBo implements Serializable {
 
 	private Long current;
 
+	/**
+	 * 一共31个省
+	 */
 	private Long size;
 
 	/**
