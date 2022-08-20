@@ -33,10 +33,10 @@ public class ProvinceHandleServiceImpl extends ServiceImpl<ProvinceHandleMapper,
 		QueryWrapper<ProvinceHandle> queryWrapper = new QueryWrapper<>();
 		Long current = provinceHandlePageBo.getCurrent();
 		Long size = provinceHandlePageBo.getSize();
-		String provinceCode = provinceHandlePageBo.getProvinceCode();
+		Integer provinceCode = provinceHandlePageBo.getProvinceCode();
 		String provinceName = provinceHandlePageBo.getProvinceName();
 
-		if (StringUtils.hasText(provinceCode)) {
+		if (provinceCode != null) {
 			queryWrapper.eq("province_code", provinceCode);
 		}
 		if (StringUtils.hasText(provinceName)) {

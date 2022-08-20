@@ -19,8 +19,14 @@ public class ProvinceHandlePageBo implements Serializable {
 
 	private Long size;
 
-	private String provinceCode;
+	/**
+	 * 省份代码，唯一键：uk__province_handle__province_code
+	 */
+	private Integer provinceCode;
 
+	/**
+	 * 省份名称
+	 */
 	private String provinceName;
 
 }
