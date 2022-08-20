@@ -2,7 +2,7 @@ package cloud.xuxiaowei.gateway.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
-import cloud.xuxiaowei.gateway.filter.CorsBeforeWebFilter;
+import cloud.xuxiaowei.gateway.filter.web.CorsBeforeWebFilter;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.IpAddressMatcher;
 import lombok.extern.slf4j.Slf4j;

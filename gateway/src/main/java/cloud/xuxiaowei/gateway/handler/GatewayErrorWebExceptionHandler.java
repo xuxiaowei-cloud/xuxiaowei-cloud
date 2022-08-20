@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.gateway.handler;
 
-import cloud.xuxiaowei.gateway.filter.LogWebFilter;
+import cloud.xuxiaowei.gateway.filter.web.LogWebFilter;
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
