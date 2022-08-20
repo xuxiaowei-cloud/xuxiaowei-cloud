@@ -107,14 +107,17 @@ class MyBatisPlusGeneratorTests {
 
 		String userDir = System.getProperty("user.dir");
 		String fileSeparator = System.getProperty("file.separator");
+		// @formatter:off
 		List<Module> moduleList = Arrays.asList(new Module("gateway", "cloud.xuxiaowei.gateway"),
 				new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-core", "cloud.xuxiaowei.core"),
 				new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-log", "cloud.xuxiaowei.log"),
 				new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-oauth2", "cloud.xuxiaowei.oauth2"),
 				new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-system", "cloud.xuxiaowei.system"),
 				new Module("passport", "cloud.xuxiaowei.passport"),
-				new Module("resource-services-parent" + fileSeparator + "wechat-miniprogram",
-						"cloud.xuxiaowei.wechatminiprogram"));
+				new Module("resource-services-parent" + fileSeparator + "master-data","cloud.xuxiaowei.masterdata"),
+				new Module("resource-services-parent" + fileSeparator + "wechat-miniprogram","cloud.xuxiaowei.wechatminiprogram")
+		);
+		// @formatter:on
 
 		System.out.println("项目文件夹：" + userDir);
 
