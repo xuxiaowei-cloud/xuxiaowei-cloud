@@ -239,7 +239,7 @@ const rowDblClick = async (row: any, column: any, cell: any, event: any) => {
   const columnValue = row[column.property]
   console.log(columnValue)
   try {
-    await toClipboard(columnValue)
+    await toClipboard(columnValue + '')
     ElMessage({
       message: '已复制到剪贴板。',
       type: 'success'
