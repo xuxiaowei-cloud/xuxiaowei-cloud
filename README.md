@@ -242,6 +242,7 @@ cloud.xuxiaowei
 | xuxiaowei | manage_user_delete                 | 管理用户 删除权限        |
 | xuxiaowei | manage_user_edit                   | 管理用户 修改权限        |
 | xuxiaowei | manage_user_read                   | 管理用户 查询权限        |
+| xuxiaowei | region_read                        | 查看省市区县镇居委会权限     |
 | xuxiaowei | username_token_delete              | 用户Token 删除权限     |
 | xuxiaowei | user_authorities                   | 查看用户权限           |
 | xuxiaowei | user_details                       | 查看用户详情           |

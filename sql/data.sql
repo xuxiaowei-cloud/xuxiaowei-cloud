@@ -26,6 +26,7 @@ INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_da
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (24, 'xuxiaowei', 'audit_authorization_delete', '2022-06-18 15:25:36', NULL);
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (25, 'xuxiaowei', 'audit_authorization_consent_delete', '2022-06-18 15:59:06', NULL);
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (26, 'xuxiaowei', 'audit_authorization_consent_read', '2022-06-18 15:59:16', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (27, 'xuxiaowei', 'region_read', '2022-08-20 02:49:04', NULL);
 
 -- ----------------------------
 -- Records of authority
@@ -45,6 +46,7 @@ INSERT INTO `authority` (`authority`, `explain`) VALUES ('manage_user_delete', '
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('manage_user_edit', '管理用户 修改权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('manage_user_read', '管理用户 查询权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('username_token_delete', '用户Token 删除权限');
+INSERT INTO `authority` (`authority`, `explain`) VALUES ('region_read', '查看省市区县镇居委会权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_authorities', '查看用户权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_details', '查看用户详情');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_info', '查看用户信息');
