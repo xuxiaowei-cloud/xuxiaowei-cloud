@@ -5,6 +5,7 @@ import cloud.xuxiaowei.core.properties.CloudSignProperties;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
+import cloud.xuxiaowei.utils.ServiceEnums;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
@@ -31,11 +32,13 @@ import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.lang.NonNull;
 import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -83,6 +86,20 @@ public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
 		ServerHttpRequest request = exchange.getRequest();
 		ServerHttpResponse response = exchange.getResponse();
+
+		// 当前访问的路径
+		URI uri = request.getURI();
+		String path = uri.getPath();
+
+		// 匹配
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
+		// 匹配：是否为WebSocket服务路径
+		boolean matchActuator = antPathMatcher.match(String.format("/%s/**", ServiceEnums.WEBSOCKET.service), path);
+
+		if (matchActuator) {
+			// WebSocket 不加密
+			return chain.filter(exchange);
+		}
 
 		ServerHttpResponseDecorator decorator = new ServerHttpResponseDecorator(response) {
 

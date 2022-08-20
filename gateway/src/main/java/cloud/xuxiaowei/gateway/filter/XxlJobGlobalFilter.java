@@ -3,6 +3,7 @@ package cloud.xuxiaowei.gateway.filter;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.ServiceEnums;
 import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -50,7 +51,8 @@ public class XxlJobGlobalFilter implements GlobalFilter, Ordered {
 		String path = uri.getPath();
 
 		AntPathMatcher antPathMatcher = new AntPathMatcher();
-		boolean matchActuator = antPathMatcher.match("/*/xxl-job-admin/**", path);
+		boolean matchActuator = antPathMatcher.match(String.format("/*/%s/**", ServiceEnums.XXL_JOB_ADMIN.service),
+				path);
 
 		if (matchActuator) {
 			ServerHttpResponse response = exchange.getResponse();
