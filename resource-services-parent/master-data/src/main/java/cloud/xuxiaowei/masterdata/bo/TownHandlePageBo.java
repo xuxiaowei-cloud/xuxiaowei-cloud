@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 镇份分页参数
+ * 镇分页参数
  *
  * @author xuxiaowei
  * @since 0.0.1
