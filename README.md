@@ -163,6 +163,7 @@ cloud.xuxiaowei
 │    └──ui                                  // UI
 │    └──resource-services-parent            // 资源服务父模块
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
+│        └──master-data                     // 主数据服务
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
 │        └──webservice                      // WebService 服务
@@ -206,6 +207,7 @@ cloud.xuxiaowei
 | webservice         | WebService 服务               |                                        | 1901  |
 | wechat-miniprogram | 微信小程序服务                     |                                        | 2001  |
 | wechat-offiaccount | 微信公众号服务                     |                                        | 2101  |
+| master-data        | 主数据服务                       |                                        | 2201  |
 | xxl-job-admin      | XXL Job Admin               |                                        | 5101  |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
 | cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |
