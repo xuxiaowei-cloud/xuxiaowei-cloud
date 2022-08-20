@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.gateway.filter;
+package cloud.xuxiaowei.gateway.filter.web;
 
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.*;

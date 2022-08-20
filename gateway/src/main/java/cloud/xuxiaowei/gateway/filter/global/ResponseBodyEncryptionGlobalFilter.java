@@ -1,7 +1,8 @@
-package cloud.xuxiaowei.gateway.filter;
+package cloud.xuxiaowei.gateway.filter.global;
 
 import cloud.xuxiaowei.core.properties.CloudAesProperties;
 import cloud.xuxiaowei.core.properties.CloudSignProperties;
+import cloud.xuxiaowei.gateway.filter.web.LogWebFilter;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
@@ -50,14 +51,14 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class BodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
+public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
 	/**
 	 * 最低优先级（最大值）：0
 	 * <p>
 	 * 大于 0 无效
 	 */
-	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1010000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 10000;
 
 	private CloudAesProperties cloudAesProperties;
 

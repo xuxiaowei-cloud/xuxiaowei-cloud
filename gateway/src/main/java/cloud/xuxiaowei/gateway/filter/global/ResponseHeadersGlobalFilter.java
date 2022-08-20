@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.gateway.filter;
+package cloud.xuxiaowei.gateway.filter.global;
 
 import cloud.xuxiaowei.core.properties.CloudWebSocketProperties;
 import cloud.xuxiaowei.utils.ServiceEnums;
@@ -27,7 +27,7 @@ import java.net.URI;
 @Component
 public class ResponseHeadersGlobalFilter implements GlobalFilter, Ordered {
 
-	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1000000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE;
 
 	private CloudWebSocketProperties cloudWebSocketProperties;
 

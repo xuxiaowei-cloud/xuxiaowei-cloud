@@ -279,19 +279,20 @@ cloud.xuxiaowei
 
 ## 仓库与分支？
 
-1. 使用了哪五个仓库？
+1. 使用了哪六个仓库？
     1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
     2. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
     3. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
     4. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
     5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
+    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
 
-2. 上述五个仓库以哪个为准？其余仓库合适同步？
+2. 上述六个仓库以哪个为准？其余仓库何时同步？
     1. 以 [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
     2. 其余仓库每日同步
 
 3. 各个仓库的作用？
-    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源
+    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源、Gitee Go流水线
     2. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06 之前使用 GitLab
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 自动构建资源（`.jar`、`.jar.asc`
        、`.pom`、`.pom.asc`、`-javadoc.jar`、`-javadoc.jar.asc`、`-sources.jar`、`-sources.jar.asc`），
@@ -305,18 +306,19 @@ cloud.xuxiaowei
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
     5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
+    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
 
 4. 各分支的作用？
-    1. main
+    1. `main`
         - 主分支
         - 不可推送，只能合并
-    2. xuxiaowei
+    2. `xuxiaowei`开头的分支
         - 个人分支，按功能`PR`到主分支`main`
-    3. pages
+    3. `pages`
         - 文档分支
-    4. OAuth2.0
+    4. `OAuth2.0`
         - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    5. only-passport
+    5. `only-passport`
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
 
 ## 参考文档

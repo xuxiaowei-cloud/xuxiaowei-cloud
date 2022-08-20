@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.gateway.filter;
+package cloud.xuxiaowei.gateway.filter.web;
 
 import cloud.xuxiaowei.core.properties.CloudAesProperties;
 import cloud.xuxiaowei.utils.CodeEnums;
@@ -50,14 +50,14 @@ import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionC
  */
 @Slf4j
 @Component
-public class BodyDecryptWebFilter implements WebFilter, Ordered {
+public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 
 	/**
 	 * 最低优先级（最大值）：0
 	 * <p>
 	 * 大于 0 无效
 	 */
-	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 1030000;
+	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 90000;
 
 	private CloudAesProperties cloudAesProperties;
 
@@ -130,7 +130,7 @@ public class BodyDecryptWebFilter implements WebFilter, Ordered {
 		HttpHeaders headers = request.getHeaders();
 
 		// 请求体
-		byte[] bytes = exchange.getAttribute(BodyDecryptBeforeWebFilter.BODY_DECRYPT_BYTES);
+		byte[] bytes = exchange.getAttribute(RequestBodyDecryptBeforeWebFilter.BODY_DECRYPT_BYTES);
 
 		if (bytes == null) {
 			// 请求体 null 时，不处理
