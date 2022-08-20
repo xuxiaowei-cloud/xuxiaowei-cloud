@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.masterdata.service;
 
+import cloud.xuxiaowei.masterdata.bo.ProvinceHandlePageBo;
 import cloud.xuxiaowei.masterdata.entity.ProvinceHandle;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-08-20
  */
 public interface IProvinceHandleService extends IService<ProvinceHandle> {
+
+	/**
+	 * 分页查询省份
+	 * @param provinceHandlePageBo 分页参数
+	 * @return 返回 查询结果
+	 */
+	IPage<ProvinceHandle> pageByProvinceHandlePageBo(ProvinceHandlePageBo provinceHandlePageBo);
 
 }
