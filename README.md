@@ -367,6 +367,7 @@ cloud.xuxiaowei
     1. 登录[QQ邮箱](https://mail.qq.com)
     2. [设置] --> [帐户] --> [生成授权码](./static/QQ-授权码.png)
 23. [XXL Job](https://www.xuxueli.com/xxl-job)
+24. [WebSocket 路由过滤器](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-websocket-routing-filter)
 
 ## 开发工具
 
