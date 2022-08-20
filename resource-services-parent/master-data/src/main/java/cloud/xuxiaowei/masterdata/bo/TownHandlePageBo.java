@@ -1,0 +1,37 @@
+package cloud.xuxiaowei.masterdata.bo;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * 镇份分页参数
+ *
+ * @author xuxiaowei
+ * @since 0.0.1
+ */
+@Data
+public class TownHandlePageBo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long current;
+
+	private Long size;
+
+	/**
+	 * 县代码
+	 */
+	private Integer countyCode;
+
+	/**
+	 * 镇代码，唯一键：uk__town_handle__town_code
+	 */
+	private Integer townCode;
+
+	/**
+	 * 镇名称
+	 */
+	private String townName;
+
+}
