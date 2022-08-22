@@ -59,6 +59,16 @@ npm create vite@latest ui -- --template vue-ts
 
 4. [axios](https://www.npmjs.com/package/axios)
 
+5. [terser](https://www.npmjs.com/package/terser)
+    1. [General Changes](https://vitejs.dev/guide/migration.html#general-changes)
+
+6. [unocss](https://github.com/unocss/unocss)
+    - https://uno.antfu.me/
+    - https://github.com/unocss/unocss/#vite
+    ```
+    npm i -D unocss
+    ```
+
 ## 依赖说明
 
 1. 创建项目时自动生成
@@ -102,23 +112,27 @@ npm create vite@latest ui -- --template vue-ts
         - AES
 
 7. 缓存
-   - pinia
-      - 已手动添加缓存持久化，缓存刷新时保留
+    - pinia
+        - 已手动添加缓存持久化，缓存刷新时保留
 
-8. 富文本
+8. CSS 引擎
+    - unocss
+        - 即时按需原子 CSS 引擎。
+
+9. 富文本
     - @toast-ui/editor
     - @wangeditor/editor-for-vue
 
-9. WebSocket
+10. WebSocket
     - sockjs-client
     - stompjs
 
-10. [tauri](https://tauri.studio)
-     - [GitHub](https://github.com/tauri-apps/tauri)
-     - @tauri-apps/api
-     - @tauri-apps/cli
-     - 将 [config](config) 文件放在 `cargo` 安装目录下
-     - 如果在运行打包时，下载 `wix3` 失败，可自行下载后，解压到 `src-tauri\WixTools` 文件夹中
+11. [tauri](https://tauri.studio)
+    - [GitHub](https://github.com/tauri-apps/tauri)
+    - @tauri-apps/api
+    - @tauri-apps/cli
+    - 将 [config](config) 文件放在 `cargo` 安装目录下
+    - 如果在运行打包时，下载 `wix3` 失败，可自行下载后，解压到 `src-tauri\WixTools` 文件夹中
 
 ## 依赖地址
 
@@ -162,7 +176,7 @@ npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/edito
 ```
 
 ```
-npm i -D @tauri-apps/cli @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unplugin-auto-import unplugin-vue-components vite vue-tsc
+npm i -D @tauri-apps/cli @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
 ```
 
 ## 其他说明

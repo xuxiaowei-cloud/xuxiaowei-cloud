@@ -1,5 +1,5 @@
 <template>
-  <el-header style="text-align: center">
+  <el-header class="text-center">
     <el-switch v-model="type" inactive-text="模糊查询" active-text="精确查询"/>
   </el-header>
 
