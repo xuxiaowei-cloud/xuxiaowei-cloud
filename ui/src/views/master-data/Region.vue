@@ -33,6 +33,20 @@
 
     <el-button @click="cloudSearch" style="height: 38px">搜索</el-button>
   </div>
+  <div v-else>
+    <el-input class="cloud-el-input" clearable v-model="param.provinceCode" placeholder="Please input provinceCode"/>
+    <el-input class="cloud-el-input" clearable v-model="param.provinceName" placeholder="Please input provinceName"/>
+    <el-input class="cloud-el-input" clearable v-model="param.cityCode" placeholder="Please input cityCode"/>
+    <el-input class="cloud-el-input" clearable v-model="param.cityName" placeholder="Please input cityName"/>
+    <el-input class="cloud-el-input" clearable v-model="param.countyCode" placeholder="Please input countyCode"/>
+    <el-input class="cloud-el-input" clearable v-model="param.countyName" placeholder="Please input countyName"/>
+    <el-input class="cloud-el-input" clearable v-model="param.townCode" placeholder="Please input townCode"/>
+    <el-input class="cloud-el-input" clearable v-model="param.townName" placeholder="Please input townName"/>
+    <el-input class="cloud-el-input" clearable v-model="param.villageCode" placeholder="Please input villageCode"/>
+    <el-input class="cloud-el-input" clearable v-model="param.villageName" placeholder="Please input villageName"/>
+    <el-button @click="cloudSearch">搜索</el-button>
+  </div>
+
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @cell-dblclick="rowDblClick">
       <el-table-column prop="year" label="year" width="80"/>
@@ -71,12 +85,16 @@ import { page as townPage } from '../../api/master-data/town-handle'
 import { page as villagePage } from '../../api/master-data/village-handle'
 import { page as regionPage } from '../../api/master-data/region'
 import settings from '../../settings'
+import { regionStore } from '../../store/region'
 
 // 复制
 const { toClipboard } = useClipboard()
 
 // 查询类型
-const type = ref<boolean>(true)
+const type = ref<boolean>(regionStore.type)
+watch(() => type.value, (newValue, oldValue) => {
+  regionStore.setType(newValue)
+})
 
 // 省
 const province = ref()
@@ -189,14 +207,20 @@ watch(() => town.value, (newValue, oldValue) => {
 })
 
 const param = reactive({
+  type: true,
   current: 1,
   size: 10,
   total: 0,
   provinceCode: null,
+  provinceName: null,
   cityCode: null,
+  cityName: null,
   countyCode: null,
+  countyName: null,
   townCode: null,
-  villageCode: null
+  townName: null,
+  villageCode: null,
+  villageName: null
 })
 
 const tableData = ref([])
@@ -207,12 +231,20 @@ const loading = ref(true)
 // 搜索
 const cloudSearch = () => {
   loading.value = true
-  param.provinceCode = province.value
-  param.cityCode = city.value
-  param.countyCode = county.value
-  param.townCode = town.value
-  param.villageCode = village.value
-  regionPage(param).then(response => {
+  param.type = type.value
+  let tmp
+  if (type.value) {
+    tmp = {
+      provinceCode: province.value,
+      cityCode: city.value,
+      countyCode: county.value,
+      townCode: town.value,
+      villageCode: village.value
+    }
+  } else {
+    tmp = param
+  }
+  regionPage(tmp).then(response => {
     console.log(response)
     if (response.code === settings.okCode) {
       const data = response.data
@@ -252,5 +284,9 @@ const rowDblClick = async (row: any, column: any, cell: any, event: any) => {
 </script>
 
 <style scoped>
+
+.cloud-el-input {
+  width: 300px;
+}
 
 </style>

@@ -11,20 +11,54 @@
                 JOIN town_handle th /*镇*/ ON th.county_code = c.county_code
                 JOIN village_handle vh /*居委会*/ ON th.town_code = vh.town_code
         WHERE 1 = 1
-            <if test="regionPageBo.provinceCode != null">
-                AND ph.province_code = #{regionPageBo.provinceCode}
+            <if test="regionPageBo.type == true">
+                <if test="regionPageBo.provinceCode != null">
+                    AND ph.province_code = #{regionPageBo.provinceCode}
+                </if>
+                <if test="regionPageBo.cityCode != null">
+                    AND ch.city_code = #{regionPageBo.cityCode}
+                </if>
+                <if test="regionPageBo.countyCode != null">
+                    AND c.county_code = #{regionPageBo.countyCode}
+                </if>
+                <if test="regionPageBo.townCode != null">
+                    AND th.town_code = #{regionPageBo.townCode}
+                </if>
+                <if test="regionPageBo.villageCode != null">
+                    AND vh.village_code = #{regionPageBo.villageCode}
+                </if>
             </if>
-            <if test="regionPageBo.cityCode != null">
-                AND ch.city_code = #{regionPageBo.cityCode}
-            </if>
-            <if test="regionPageBo.countyCode != null">
-                AND c.county_code = #{regionPageBo.countyCode}
-            </if>
-            <if test="regionPageBo.townCode != null">
-                AND th.town_code = #{regionPageBo.townCode}
-            </if>
-            <if test="regionPageBo.villageCode != null">
-                AND vh.village_code = #{regionPageBo.villageCode}
+            <if test="regionPageBo.type != true">
+                <if test="regionPageBo.provinceCode != null">
+                    AND ph.province_code LIKE CONCAT('%', #{regionPageBo.provinceCode}, '%')
+                </if>
+                <if test="regionPageBo.provinceName != null">
+                    AND ph.province_name LIKE CONCAT('%', #{regionPageBo.provinceName}, '%')
+                </if>
+                <if test="regionPageBo.cityCode != null">
+                    AND ch.city_code LIKE CONCAT('%', #{regionPageBo.cityCode}, '%')
+                </if>
+                <if test="regionPageBo.cityName != null">
+                    AND ch.city_name LIKE CONCAT('%', #{regionPageBo.cityName}, '%')
+                </if>
+                <if test="regionPageBo.countyCode != null">
+                    AND c.county_code LIKE CONCAT('%', #{regionPageBo.countyCode}, '%')
+                </if>
+                <if test="regionPageBo.countyName != null">
+                    AND c.county_name LIKE CONCAT('%', #{regionPageBo.countyName}, '%')
+                </if>
+                <if test="regionPageBo.townCode != null">
+                    AND th.town_code LIKE CONCAT('%', #{regionPageBo.townCode}, '%')
+                </if>
+                <if test="regionPageBo.townName != null">
+                    AND th.town_name LIKE CONCAT('%', #{regionPageBo.townName}, '%')
+                </if>
+                <if test="regionPageBo.villageCode != null">
+                    AND vh.village_code LIKE CONCAT('%', #{regionPageBo.villageCode}, '%')
+                </if>
+                <if test="regionPageBo.villageName != null">
+                    AND vh.village_name LIKE CONCAT('%', #{regionPageBo.villageName}, '%')
+                </if>
             </if>
     </sql>
 
