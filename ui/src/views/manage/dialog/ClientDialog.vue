@@ -25,13 +25,13 @@
       </el-form-item>
       <el-form-item label="clientAuthenticationMethods" prop="authenticationMethods"
                     :rules="[{ required: true, message: 'clientAuthenticationMethods is required' }]">
-        <el-select v-model="param.authenticationMethods" multiple placeholder="Select authenticationMethods" style="width: 100%">
+        <el-select v-model="param.authenticationMethods" multiple placeholder="Select authenticationMethods" class="width-100%">
           <el-option v-for="item in authenticationMethodList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="authorizationGrantTypes" prop="grantTypes"
                     :rules="[{ required: true, message: 'authorizationGrantTypes is required' }]">
-        <el-select v-model="param.grantTypes" multiple placeholder="Select authorizationGrantTypes" style="width: 100%">
+        <el-select v-model="param.grantTypes" multiple placeholder="Select authorizationGrantTypes" class="width-100%">
           <el-option v-for="item in grantTypeList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -39,7 +39,7 @@
         <el-input v-model="param.redirectUris"/>
       </el-form-item>
       <el-form-item label="scopes" prop="scopeList" :rules="[{ required: true, message: 'scopes is required' }]">
-        <el-select v-model="param.scopeList" multiple placeholder="Select scopes" style="width: 100%">
+        <el-select v-model="param.scopeList" multiple placeholder="Select scopes" class="width-100%">
           <el-option v-for="item in scopeList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -54,7 +54,7 @@
       </el-form-item>
       <el-form-item label="tokenSigningAlgorithm" prop="tokenSigningAlgorithm"
                     :rules="[{ required: true, message: 'tokenSigningAlgorithm is required' }]">
-        <el-select v-model="param.tokenSigningAlgorithm" placeholder="Select tokenSigningAlgorithm" style="width: 100%">
+        <el-select v-model="param.tokenSigningAlgorithm" placeholder="Select tokenSigningAlgorithm" class="width-100%">
           <el-option v-for="item in tokenSigningAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -63,13 +63,13 @@
       </el-form-item>
       <el-form-item label="tokenSignatureAlgorithm" prop="tokenSignatureAlgorithm"
                     :rules="[{ required: true, message: 'tokenSignatureAlgorithm is required' }]">
-        <el-select v-model="param.tokenSignatureAlgorithm" placeholder="Select tokenSignatureAlgorithm" style="width: 100%">
+        <el-select v-model="param.tokenSignatureAlgorithm" placeholder="Select tokenSignatureAlgorithm" class="width-100%">
           <el-option v-for="item in tokenSignatureAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="accessTokenFormat" prop="accessTokenFormat"
                     :rules="[{ required: true, message: 'tokenSigningAlgorithm is required' }]">
-        <el-select v-model="param.accessTokenFormat" placeholder="Select accessTokenFormat" style="width: 100%">
+        <el-select v-model="param.accessTokenFormat" placeholder="Select accessTokenFormat" class="width-100%">
           <el-option v-for="item in accessTokenFormatList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>

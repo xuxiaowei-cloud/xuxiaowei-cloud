@@ -62,12 +62,19 @@ npm create vite@latest passport-ui -- --template vue-ts
 5. [terser](https://www.npmjs.com/package/terser)
     1. [General Changes](https://vitejs.dev/guide/migration.html#general-changes)
 
+6. [unocss](https://github.com/unocss/unocss)
+    - https://uno.antfu.me/
+    - https://github.com/unocss/unocss/#vite
+    ```
+    npm i -D unocss
+    ```
+
 ```
 npm i @element-plus/icons-vue axios crypto-js element-plus jsencrypt pinia terser vue vue-router
 ```
 
 ```
-npm i -D @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged typescript unplugin-auto-import unplugin-vue-components vite vue-tsc
+npm i -D @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
 ```
 
 ## 项目说明
@@ -118,6 +125,10 @@ npm i -D @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/pa
 7. 缓存
     - pinia
         - 已手动添加缓存持久化，缓存刷新时保留
+
+8. CSS 引擎
+    - unocss
+        - 即时按需原子 CSS 引擎。
 
 ## 依赖地址
 
