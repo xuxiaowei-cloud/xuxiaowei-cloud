@@ -15,6 +15,11 @@ public class RegionPageBo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 是否精确匹配
+	 */
+	private boolean type;
+
 	private Long current;
 
 	private Long size;
