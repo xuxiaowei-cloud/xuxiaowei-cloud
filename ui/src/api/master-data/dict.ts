@@ -8,3 +8,13 @@ export const list = function () {
     return response.data
   })
 }
+
+/**
+ * 分页查询字典
+ * @param data
+ */
+export const page = function (data: any) {
+  return request.post('/master-data/dict/page', data).then(response => {
+    return response.data
+  })
+}
