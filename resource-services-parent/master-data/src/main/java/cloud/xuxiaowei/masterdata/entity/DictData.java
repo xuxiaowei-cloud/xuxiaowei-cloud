@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,8 +25,7 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2022-08-23
  */
-@Getter
-@Setter
+@Data
 @TableName("dict_data")
 public class DictData implements Serializable {
 
