@@ -30,6 +30,7 @@ INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_da
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (28, 'xuxiaowei', 'dict_delete', '2022-08-23 10:47:05', NULL);
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (29, 'xuxiaowei', 'dict_edit', '2022-08-23 10:47:15', NULL);
 INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (30, 'xuxiaowei', 'dict_read', '2022-08-23 10:47:24', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (31, 'xuxiaowei', 'dict_add', '2022-08-23 22:08:18', NULL);
 
 -- ----------------------------
 -- Records of authority
@@ -39,6 +40,7 @@ INSERT INTO `authority` (`authority`, `explain`) VALUES ('audit_authorization_co
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('audit_authorization_delete', '删除授权记录');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('audit_authorization_read', '查看授权记录');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('clientId_token_delete', '客户Token 删除权限');
+INSERT INTO `authority` (`authority`, `explain`) VALUES ('dict_add', '添加字典权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('dict_delete', '删除字典权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('dict_edit', '修改字典权限');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('dict_read', '查看字典权限');

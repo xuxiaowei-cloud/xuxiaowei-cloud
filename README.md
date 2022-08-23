@@ -233,6 +233,7 @@ cloud.xuxiaowei
 | xuxiaowei | audit_authorization_delete         | 删除授权记录           |
 | xuxiaowei | audit_authorization_read           | 查看授权记录           |
 | xuxiaowei | clientId_token_delete              | 客户Token 删除权限     |
+| xuxiaowei | dict_add                           | 添加字典权限           |
 | xuxiaowei | dict_delete                        | 删除字典权限           |
 | xuxiaowei | dict_edit                          | 修改字典权限           |
 | xuxiaowei | dict_read                          | 查看字典权限           |
