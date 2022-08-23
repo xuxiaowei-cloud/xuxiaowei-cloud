@@ -39,9 +39,9 @@ public class DictController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "查询字典代码列表")
-	@PreAuthorize("hasAnyAuthority('region_read', 'user_info')")
+	@PreAuthorize("hasAuthority('dict_read')")
 	@RequestMapping("/list")
-	public Response<?> listByDictCode(HttpServletRequest request, HttpServletResponse response) {
+	public Response<?> list(HttpServletRequest request, HttpServletResponse response) {
 		List<DictVo> dictVoList = dictService.listDictVo();
 		return Response.ok(dictVoList);
 	}

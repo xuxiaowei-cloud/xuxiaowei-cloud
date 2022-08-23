@@ -49,7 +49,7 @@ public class DictDataController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "根据字典代码查询字典列表")
-	@PreAuthorize("hasAnyAuthority('region_read', 'user_info')")
+	@PreAuthorize("hasAnyAuthority('dict_read', 'user_info')")
 	@RequestMapping("/{dictCode}")
 	public Response<?> listByDictCode(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("dictCode") String dictCode) {
