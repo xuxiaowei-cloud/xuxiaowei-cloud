@@ -7,9 +7,10 @@ import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cn.hutool.crypto.symmetric.AES;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,6 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames.CLIENT_ID;
 
@@ -303,27 +303,39 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 	 * 检查 时间戳
 	 */
 	private void checkCurrentTimeMillis(ObjectMapper objectMapper, String decryptStr) {
-		Map<String, Object> map;
+		JsonNode jsonNode;
 		try {
-			map = objectMapper.readValue(decryptStr, new TypeReference<Map<String, Object>>() {
-			});
+			jsonNode = objectMapper.readTree(decryptStr);
 		}
 		catch (JsonProcessingException e) {
-			throw new CloudRuntimeException(CodeEnums.ERROR.code, "密文解密后转Map异常", Encrypt.CIPHERTEXT, e.getMessage());
+			throw new CloudRuntimeException(CodeEnums.ERROR.code, "密文解密后转JsonNode异常", Encrypt.CIPHERTEXT,
+					e.getMessage());
 		}
 
-		Object currentTimeMillisObj = map.get(Constant.CURRENT_TIME_MILLIS);
-		if (currentTimeMillisObj instanceof Long) {
-			long currentTimeMillis = (long) currentTimeMillisObj;
-			long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
+		if (jsonNode.getNodeType() == JsonNodeType.ARRAY) {
+			// body 中的数据为数组，无法检查时间戳
 
-			// noinspection AlibabaUndefineMagicConstant
-			if (time > cloudAesProperties.getTime() * 1000) {
-				throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳不合法", Constant.CURRENT_TIME_MILLIS);
-			}
 		}
 		else {
-			throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳格式不合法", Constant.CURRENT_TIME_MILLIS);
+			JsonNode currentTimeMillisJsonNode = jsonNode.get(Constant.CURRENT_TIME_MILLIS);
+			if (currentTimeMillisJsonNode == null) {
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "未找到时间戳", Constant.CURRENT_TIME_MILLIS);
+			}
+			else {
+				JsonNodeType nodeType = currentTimeMillisJsonNode.getNodeType();
+				if (JsonNodeType.NUMBER == nodeType) {
+					long currentTimeMillis = currentTimeMillisJsonNode.asLong();
+					long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
+
+					// noinspection AlibabaUndefineMagicConstant
+					if (time > cloudAesProperties.getTime() * 1000) {
+						throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳不合法", Constant.CURRENT_TIME_MILLIS);
+					}
+				}
+				else {
+					throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳格式不合法", Constant.CURRENT_TIME_MILLIS);
+				}
+			}
 		}
 	}
 
