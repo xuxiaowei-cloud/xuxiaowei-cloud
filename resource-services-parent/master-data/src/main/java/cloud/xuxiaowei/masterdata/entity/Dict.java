@@ -1,8 +1,6 @@
 package cloud.xuxiaowei.masterdata.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -31,6 +29,7 @@ public class Dict implements Serializable {
 	 * <p>
 	 * 答：考虑到开发环境添加数据、正式环境添加数据、开发环境向正式环境同步字典数据等情况，相同的字典代码可能对应不同的自增主键，故放弃自增主键，改用字典代码作为主键。
 	 */
+	@TableId(type = IdType.INPUT)
 	private String dictCode;
 
 	/**
