@@ -1,11 +1,16 @@
 package cloud.xuxiaowei.masterdata.service.impl;
 
+import cloud.xuxiaowei.masterdata.bo.DictDataPageBo;
 import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.mapper.DictDataMapper;
 import cloud.xuxiaowei.masterdata.service.IDictDataService;
 import cloud.xuxiaowei.masterdata.vo.DictDataVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -36,6 +41,56 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 	@Override
 	public List<DictDataVo> listByDictCode(String dictCode) {
 		return baseMapper.listByDictCode(dictCode);
+	}
+
+	/**
+	 * 分页查询字典数据
+	 * @param dictDataPageBo 字典数据分页参数
+	 * @return 返回 查询结果
+	 */
+	@Override
+	public IPage<DictData> pageByDictDataPageBo(DictDataPageBo dictDataPageBo) {
+		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>();
+		Long current = dictDataPageBo.getCurrent();
+		Long size = dictDataPageBo.getSize();
+
+		String dictCode = dictDataPageBo.getDictCode();
+		String dictDataCode = dictDataPageBo.getDictDataCode();
+		String dictDataLabel = dictDataPageBo.getDictDataLabel();
+		Integer dictDataSort = dictDataPageBo.getDictDataSort();
+		String dictDataExplain = dictDataPageBo.getDictDataExplain();
+		String externalCodeOne = dictDataPageBo.getExternalCodeOne();
+		String externalLabelOne = dictDataPageBo.getExternalLabelOne();
+		String remark = dictDataPageBo.getRemark();
+
+		if (StringUtils.hasText(dictCode)) {
+			queryWrapper.eq("dict_code", dictCode);
+		}
+		if (StringUtils.hasText(dictDataCode)) {
+			queryWrapper.eq("dict_data_code", dictDataCode);
+		}
+		if (dictDataLabel != null) {
+			queryWrapper.eq("dict_data_label", dictDataLabel);
+		}
+		if (dictDataSort != null) {
+			queryWrapper.eq("dict_data_sort", dictDataSort);
+		}
+		if (StringUtils.hasText(dictDataExplain)) {
+			queryWrapper.eq("dict_data_explain", dictDataExplain);
+		}
+		if (StringUtils.hasText(externalCodeOne)) {
+			queryWrapper.eq("external_code_one", externalCodeOne);
+		}
+		if (StringUtils.hasText(externalLabelOne)) {
+			queryWrapper.eq("external_label_one", externalLabelOne);
+		}
+		if (StringUtils.hasText(remark)) {
+			queryWrapper.eq("remark", remark);
+		}
+
+		IPage<DictData> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
+
+		return page(page, queryWrapper);
 	}
 
 }

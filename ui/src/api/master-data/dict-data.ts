@@ -9,3 +9,13 @@ export const listByDictCode = function (dictCode: string) {
     return response.data
   })
 }
+
+/**
+ * 分页查询字典数据
+ * @param data
+ */
+export const page = function (data: any) {
+  return request.post('/master-data/dict-data/page', data).then(response => {
+    return response.data
+  })
+}

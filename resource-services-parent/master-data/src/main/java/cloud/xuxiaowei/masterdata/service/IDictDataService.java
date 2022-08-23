@@ -1,7 +1,9 @@
 package cloud.xuxiaowei.masterdata.service;
 
+import cloud.xuxiaowei.masterdata.bo.DictDataPageBo;
 import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.vo.DictDataVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -30,5 +32,12 @@ public interface IDictDataService extends IService<DictData> {
 	 * @return 返回 查询结果
 	 */
 	List<DictDataVo> listByDictCode(String dictCode);
+
+	/**
+	 * 分页查询字典数据
+	 * @param dictDataPageBo 字典数据分页参数
+	 * @return 返回 查询结果
+	 */
+	IPage<DictData> pageByDictDataPageBo(DictDataPageBo dictDataPageBo);
 
 }

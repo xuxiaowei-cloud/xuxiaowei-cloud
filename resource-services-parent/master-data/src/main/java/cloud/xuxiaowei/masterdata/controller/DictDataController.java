@@ -1,17 +1,22 @@
 package cloud.xuxiaowei.masterdata.controller;
 
+import cloud.xuxiaowei.masterdata.bo.DictDataPageBo;
+import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.service.IDictDataService;
 import cloud.xuxiaowei.masterdata.vo.DictDataVo;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.Response;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -55,6 +60,22 @@ public class DictDataController {
 			@PathVariable("dictCode") String dictCode) {
 		List<DictDataVo> dictDataVoList = dictDataService.listByDictCode(dictCode);
 		return Response.ok(dictDataVoList);
+	}
+
+	/**
+	 * 分页查询字典数据
+	 * @param request 请求
+	 * @param response 响应
+	 * @param dictDataPageBo 字典分页参数
+	 * @return 返回 查询结果
+	 */
+	@ControllerAnnotation(description = "分页查询字典数据")
+	@PreAuthorize("hasAuthority('dict_read')")
+	@RequestMapping("/page")
+	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody DictDataPageBo dictDataPageBo) {
+		IPage<DictData> page = dictDataService.pageByDictDataPageBo(dictDataPageBo);
+		return Response.ok(page);
 	}
 
 }
