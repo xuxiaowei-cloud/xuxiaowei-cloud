@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.masterdata.mapper.DictDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.masterdata.entity.DictData">
+        <id column="dict_code" property="dictCode" />
+        <id column="dict_data_code" property="dictDataCode" />
+        <result column="dict_data_label" property="dictDataLabel" />
+        <result column="dict_data_sort" property="dictDataSort" />
+        <result column="dict_data_explain" property="dictDataExplain" />
+        <result column="external_code_one" property="externalCodeOne" />
+        <result column="external_label_one" property="externalLabelOne" />
+        <result column="remark" property="remark" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="create_date" property="createDate" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>
