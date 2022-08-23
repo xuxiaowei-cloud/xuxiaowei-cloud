@@ -3,8 +3,11 @@ package cloud.xuxiaowei.masterdata.service.impl;
 import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.mapper.DictDataMapper;
 import cloud.xuxiaowei.masterdata.service.IDictDataService;
+import cloud.xuxiaowei.masterdata.vo.DictDataVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,5 +27,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> implements IDictDataService {
+
+	/**
+	 * 根据字典代码查询字典列表
+	 * @param dictCode 字典代码
+	 * @return 返回 查询结果
+	 */
+	@Override
+	public List<DictDataVo> listByDictCode(String dictCode) {
+		return baseMapper.listByDictCode(dictCode);
+	}
 
 }

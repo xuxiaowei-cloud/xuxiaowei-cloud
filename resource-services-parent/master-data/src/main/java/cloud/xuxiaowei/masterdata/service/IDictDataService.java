@@ -1,7 +1,10 @@
 package cloud.xuxiaowei.masterdata.service;
 
 import cloud.xuxiaowei.masterdata.entity.DictData;
+import cloud.xuxiaowei.masterdata.vo.DictDataVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,5 +23,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-08-23
  */
 public interface IDictDataService extends IService<DictData> {
+
+	/**
+	 * 根据字典代码查询字典列表
+	 * @param dictCode 字典代码
+	 * @return 返回 查询结果
+	 */
+	List<DictDataVo> listByDictCode(String dictCode);
 
 }

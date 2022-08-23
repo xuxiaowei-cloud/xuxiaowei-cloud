@@ -21,4 +21,25 @@
         <result column="deleted" property="deleted" />
     </resultMap>
 
+    <!-- 根据字典代码查询字典列表 -->
+    <select id="listByDictCode" resultType="cloud.xuxiaowei.masterdata.vo.DictDataVo">
+        SELECT
+            dd.dict_code,
+            dd.dict_data_code,
+            dd.dict_data_label,
+            dd.dict_data_sort,
+            dd.dict_data_explain,
+            dd.external_code_one,
+            dd.external_label_one,
+            dd.remark
+        FROM
+            dict_data AS dd
+        WHERE
+            1 = 1
+          AND dd.dict_code = #{dictCode}
+          AND dd.deleted = 0
+        ORDER BY
+            dd.dict_data_sort
+    </select>
+
 </mapper>

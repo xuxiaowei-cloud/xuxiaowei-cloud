@@ -1,7 +1,11 @@
 package cloud.xuxiaowei.masterdata.mapper;
 
 import cloud.xuxiaowei.masterdata.entity.DictData;
+import cloud.xuxiaowei.masterdata.vo.DictDataVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,5 +25,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-08-23
  */
 public interface DictDataMapper extends BaseMapper<DictData> {
+
+	/**
+	 * 根据字典代码查询字典列表
+	 * @param dictCode 字典代码
+	 * @return 返回 查询结果
+	 */
+	List<DictDataVo> listByDictCode(@Param("dictCode") String dictCode);
 
 }

@@ -1,7 +1,18 @@
 package cloud.xuxiaowei.masterdata.controller;
 
+import cloud.xuxiaowei.masterdata.service.IDictDataService;
+import cloud.xuxiaowei.masterdata.vo.DictDataVo;
+import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -20,7 +31,30 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-08-23
  */
 @RestController
-@RequestMapping("//dict-data")
+@RequestMapping("/dict-data")
 public class DictDataController {
+
+	private IDictDataService dictDataService;
+
+	@Autowired
+	public void setDictDataService(IDictDataService dictDataService) {
+		this.dictDataService = dictDataService;
+	}
+
+	/**
+	 * 根据字典代码查询字典列表
+	 * @param request 请求
+	 * @param response 响应
+	 * @param dictCode 字典代码
+	 * @return 返回 查询结果
+	 */
+	@ControllerAnnotation(description = "根据字典代码查询字典列表")
+	@PreAuthorize("hasAnyAuthority('region_read', 'user_info')")
+	@RequestMapping("/{dictCode}")
+	public Response<?> listByDictCode(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("dictCode") String dictCode) {
+		List<DictDataVo> dictDataVoList = dictDataService.listByDictCode(dictCode);
+		return Response.ok(dictDataVoList);
+	}
 
 }
