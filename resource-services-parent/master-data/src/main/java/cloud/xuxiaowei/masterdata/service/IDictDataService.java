@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.masterdata.service;
 
 import cloud.xuxiaowei.masterdata.bo.DictDataPageBo;
+import cloud.xuxiaowei.masterdata.bo.DictDataPrimaryKey;
+import cloud.xuxiaowei.masterdata.bo.DictDataSaveBo;
+import cloud.xuxiaowei.masterdata.bo.DictDataUpdateBo;
 import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.vo.DictDataVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -39,5 +42,40 @@ public interface IDictDataService extends IService<DictData> {
 	 * @return 返回 查询结果
 	 */
 	IPage<DictData> pageByDictDataPageBo(DictDataPageBo dictDataPageBo);
+
+	/**
+	 * 根据 字典数据表联合主键 查询
+	 * @param dictDataPrimaryKey 字典数据表联合主键
+	 * @return 返回查询结果
+	 */
+	DictData getByDictDataPrimaryKey(DictDataPrimaryKey dictDataPrimaryKey);
+
+	/**
+	 * 保存 字典数据
+	 * @param dictDataSaveBo 字典数据表保存参数
+	 * @return 返回 保存结果
+	 */
+	boolean saveByDictDataSaveBo(DictDataSaveBo dictDataSaveBo);
+
+	/**
+	 * 更新 字典数据
+	 * @param dictDataUpdateBo 字典数据表更新参数
+	 * @return 返回 更新结果
+	 */
+	boolean updateByDictDataUpdateBo(DictDataUpdateBo dictDataUpdateBo);
+
+	/**
+	 * 根据 字典数据表联合主键 删除
+	 * @param dictDataPrimaryKey 字典数据表联合主键
+	 * @return 返回 更新结果
+	 */
+	boolean removeByDictDataPrimaryKey(DictDataPrimaryKey dictDataPrimaryKey);
+
+	/**
+	 * 根据 字典数据表联合主键 删除
+	 * @param dictDataPrimaryKeys 字典数据表联合主键
+	 * @return 返回 更新结果
+	 */
+	boolean removeByDictDataPrimaryKeys(List<DictDataPrimaryKey> dictDataPrimaryKeys);
 
 }

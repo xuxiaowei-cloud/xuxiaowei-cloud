@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.masterdata.service.impl;
 
 import cloud.xuxiaowei.masterdata.bo.DictDataPageBo;
+import cloud.xuxiaowei.masterdata.bo.DictDataPrimaryKey;
+import cloud.xuxiaowei.masterdata.bo.DictDataSaveBo;
+import cloud.xuxiaowei.masterdata.bo.DictDataUpdateBo;
 import cloud.xuxiaowei.masterdata.entity.DictData;
 import cloud.xuxiaowei.masterdata.mapper.DictDataMapper;
 import cloud.xuxiaowei.masterdata.service.IDictDataService;
@@ -9,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,7 +61,6 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 		String dictCode = dictDataPageBo.getDictCode();
 		String dictDataCode = dictDataPageBo.getDictDataCode();
 		String dictDataLabel = dictDataPageBo.getDictDataLabel();
-		Integer dictDataSort = dictDataPageBo.getDictDataSort();
 		String dictDataExplain = dictDataPageBo.getDictDataExplain();
 		String externalCodeOne = dictDataPageBo.getExternalCodeOne();
 		String externalLabelOne = dictDataPageBo.getExternalLabelOne();
@@ -69,11 +72,8 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 		if (StringUtils.hasText(dictDataCode)) {
 			queryWrapper.eq("dict_data_code", dictDataCode);
 		}
-		if (dictDataLabel != null) {
+		if (StringUtils.hasText(dictDataLabel)) {
 			queryWrapper.eq("dict_data_label", dictDataLabel);
-		}
-		if (dictDataSort != null) {
-			queryWrapper.eq("dict_data_sort", dictDataSort);
 		}
 		if (StringUtils.hasText(dictDataExplain)) {
 			queryWrapper.eq("dict_data_explain", dictDataExplain);
@@ -91,6 +91,76 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 		IPage<DictData> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
 
 		return page(page, queryWrapper);
+	}
+
+	/**
+	 * 根据 字典数据表联合主键 查询
+	 * @param dictDataPrimaryKey 字典数据表联合主键
+	 * @return 返回查询结果
+	 */
+	@Override
+	public DictData getByDictDataPrimaryKey(DictDataPrimaryKey dictDataPrimaryKey) {
+		DictData dictData = new DictData();
+		dictData.setDictCode(dictDataPrimaryKey.getDictCode());
+		dictData.setDictDataCode(dictDataPrimaryKey.getDictDataCode());
+		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>(dictData);
+		return getOne(queryWrapper);
+	}
+
+	/**
+	 * 保存 字典数据
+	 * @param dictDataSaveBo 字典数据表保存参数
+	 * @return 返回 保存结果
+	 */
+	@Override
+	public boolean saveByDictDataSaveBo(DictDataSaveBo dictDataSaveBo) {
+		DictData dictData = new DictData();
+		BeanUtils.copyProperties(dictDataSaveBo, dictData);
+		return save(dictData);
+	}
+
+	/**
+	 * 更新 字典数据
+	 * @param dictDataUpdateBo 字典数据表更新参数
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateByDictDataUpdateBo(DictDataUpdateBo dictDataUpdateBo) {
+		DictData dictData = new DictData();
+		BeanUtils.copyProperties(dictDataUpdateBo, dictData);
+		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("dict_code", dictDataUpdateBo.getDictCode());
+		queryWrapper.eq("dict_data_code", dictDataUpdateBo.getDictDataCode());
+		return update(dictData, queryWrapper);
+	}
+
+	/**
+	 * 根据 字典数据表联合主键 删除
+	 * @param dictDataPrimaryKey 字典数据表联合主键
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean removeByDictDataPrimaryKey(DictDataPrimaryKey dictDataPrimaryKey) {
+		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("dict_code", dictDataPrimaryKey.getDictCode());
+		queryWrapper.eq("dict_data_code", dictDataPrimaryKey.getDictDataCode());
+		return remove(queryWrapper);
+	}
+
+	/**
+	 * 根据 字典数据表联合主键 删除
+	 * @param dictDataPrimaryKeys 字典数据表联合主键
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean removeByDictDataPrimaryKeys(List<DictDataPrimaryKey> dictDataPrimaryKeys) {
+		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>();
+		for (DictDataPrimaryKey dictDataPrimaryKey : dictDataPrimaryKeys) {
+			QueryWrapper<DictData> or = queryWrapper.or();
+			or.eq("dict_code", dictDataPrimaryKey.getDictCode());
+			or.eq("dict_data_code", dictDataPrimaryKey.getDictDataCode());
+		}
+		return remove(queryWrapper);
 	}
 
 }

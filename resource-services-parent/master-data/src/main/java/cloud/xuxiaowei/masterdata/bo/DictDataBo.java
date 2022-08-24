@@ -2,37 +2,30 @@ package cloud.xuxiaowei.masterdata.bo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 字典数据分页参数
+ * 字典数据表
  *
  * @author xuxiaowei
  * @since 0.0.1
  */
 @Data
-public class DictDataPageBo implements Serializable {
+public class DictDataBo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private Long current;
-
-	private Long size;
-
-	/**
-	 * 字典代码，联合主键，取表：dict.dict_code
-	 */
-	private String dictCode;
-
-	/**
-	 * 字典数据代码，联合主键
-	 */
-	private String dictDataCode;
 
 	/**
 	 * 字典数据名称（展示），不为空
 	 */
+	@NotNull(message = "字典数据名称 不能为空")
 	private String dictDataLabel;
+
+	/**
+	 * 字典数据排序
+	 */
+	private Integer dictDataSort;
 
 	/**
 	 * 字典数据说明
