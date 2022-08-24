@@ -328,15 +328,15 @@ public class Oauth2RegisteredClientServiceImpl extends ServiceImpl<Oauth2Registe
 	}
 
 	private String clientSecretDecrypt(String code, String clientSecret) {
+		if (clientSecret == null || Boolean.FALSE.toString().equals(clientSecret)) {
+			return null;
+		}
+
 		String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
 
 		String clientSecretDecrypt;
 		if (StringUtils.hasText(privateKey)) {
 			RSA rsa = new RSA(privateKey, null);
-
-			if (Boolean.FALSE.toString().equals(clientSecret)) {
-				return null;
-			}
 
 			clientSecretDecrypt = rsa.decryptStr(clientSecret, KeyType.PrivateKey);
 			ValidationUtils.validate(new ClientSecretBo(clientSecretDecrypt));
