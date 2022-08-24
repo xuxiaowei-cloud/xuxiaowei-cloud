@@ -14,7 +14,7 @@
   <el-dialog v-if="dictDialogVisible" v-model="dictDialogVisible" :title="dictDialogVisibleTitle" width="40%"
              :before-close="dictDialogHandleClose">
     <DictDialog :dialogVisible="dictDialogVisible" :edit="edit" @dialogVisibleClose="dictDialogVisibleClose"
-                  :id="dialogVisibleId"/>
+                  :dictCode="dialogVisibleDictCode"/>
   </el-dialog>
 
   <el-container>
@@ -166,8 +166,8 @@ const editId = (dictCode: string) => {
   // 字典弹窗类型：编辑
   edit.value = true
   dictDialogVisibleTitle.value = '编辑字典'
-  // 编辑字典的ID
-  dialogVisibleId.value = dictCode
+  // 编辑字典代码
+  dialogVisibleDictCode.value = dictCode
   // 字典弹窗：打开
   dictDialogVisible.value = true
 }
@@ -219,7 +219,7 @@ const cloudRemove = () => {
 }
 
 // 字典弹窗中的字典代码（修改时使用）
-const dialogVisibleId = ref<string>()
+const dialogVisibleDictCode = ref<string>()
 
 // 字典弹窗：是否打开
 const dictDialogVisible = ref(false)
@@ -234,7 +234,7 @@ const cloudAdd = () => {
   // 字典弹窗类型：添加
   edit.value = false
   dictDialogVisibleTitle.value = '添加字典'
-  dialogVisibleId.value = undefined
+  dialogVisibleDictCode.value = undefined
   // 字典弹窗：打开
   dictDialogVisible.value = true
 }

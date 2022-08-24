@@ -38,3 +38,33 @@ export const removeByIds = function (dictCodes: string[]) {
     return response.data
   })
 }
+
+/**
+ * 根据 字典代码 查询
+ * @param dictCode 字典代码
+ */
+export const getById = function (dictCode: string) {
+  return request.post('/master-data/dict/getById/' + dictCode).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 保存字典
+ * @param data 字典
+ */
+export const save = function (data: any) {
+  return request.post('/master-data/dict/save', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 更新字典
+ * @param data 字典
+ */
+export const updateById = function (data: any) {
+  return request.post('/master-data/dict/updateById', data).then(response => {
+    return response.data
+  })
+}

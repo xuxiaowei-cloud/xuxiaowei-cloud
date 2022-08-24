@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.masterdata.service.impl;
 
 import cloud.xuxiaowei.masterdata.bo.DictPageBo;
+import cloud.xuxiaowei.masterdata.bo.DictSaveBo;
+import cloud.xuxiaowei.masterdata.bo.DictUpdateBo;
 import cloud.xuxiaowei.masterdata.entity.Dict;
 import cloud.xuxiaowei.masterdata.mapper.DictMapper;
 import cloud.xuxiaowei.masterdata.service.IDictService;
@@ -82,6 +84,30 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 		IPage<Dict> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
 
 		return page(page, queryWrapper);
+	}
+
+	/**
+	 * 保存 字典
+	 * @param dictSaveBo 保存字典表参数
+	 * @return 返回 保存结果
+	 */
+	@Override
+	public boolean saveByDictSaveBo(DictSaveBo dictSaveBo) {
+		Dict dict = new Dict();
+		BeanUtils.copyProperties(dictSaveBo, dict);
+		return save(dict);
+	}
+
+	/**
+	 * 更新 字典
+	 * @param dictUpdateBo 更新字典表参数
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateByDictUpdateBo(DictUpdateBo dictUpdateBo) {
+		Dict dict = new Dict();
+		BeanUtils.copyProperties(dictUpdateBo, dict);
+		return updateById(dict);
 	}
 
 }

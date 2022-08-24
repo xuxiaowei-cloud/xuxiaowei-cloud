@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.masterdata.controller;
 
 import cloud.xuxiaowei.masterdata.bo.DictPageBo;
+import cloud.xuxiaowei.masterdata.bo.DictSaveBo;
+import cloud.xuxiaowei.masterdata.bo.DictUpdateBo;
 import cloud.xuxiaowei.masterdata.entity.Dict;
 import cloud.xuxiaowei.masterdata.service.IDictService;
 import cloud.xuxiaowei.masterdata.vo.DictVo;
@@ -8,6 +10,7 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +54,63 @@ public class DictController {
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response) {
 		List<DictVo> dictVoList = dictService.listDictVo();
 		return Response.ok(dictVoList);
+	}
+
+	/**
+	 * 根据 字典代码 查询
+	 * @param request 请求
+	 * @param response 响应
+	 * @param dictCode 字典代码
+	 * @return 返回 查询结果
+	 */
+	@ControllerAnnotation(description = "根据 字典代码 查询")
+	@PreAuthorize("hasAuthority('dict_read')")
+	@RequestMapping("/getById/{dictCode}")
+	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("dictCode") String dictCode) {
+		Dict dict = dictService.getById(dictCode);
+		if (dict == null) {
+			return Response.ok((Dict) null);
+		}
+		DictVo dictVo = new DictVo();
+		BeanUtils.copyProperties(dict, dictVo);
+		return Response.ok(dictVo);
+	}
+
+	/**
+	 * 保存 字典
+	 * @param request 请求
+	 * @param response 响应
+	 * @param dictSaveBo 保存字典表参数
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "保存 字典")
+	@RequestMapping("/save")
+	@PreAuthorize("hasAuthority('dict_add')")
+	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody DictSaveBo dictSaveBo) {
+
+		boolean save = dictService.saveByDictSaveBo(dictSaveBo);
+
+		return Response.ok(save);
+	}
+
+	/**
+	 * 更新 字典
+	 * @param request 请求
+	 * @param response 响应
+	 * @param dictUpdateBo 更新字典表参数
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "更新 字典")
+	@RequestMapping("/updateById")
+	@PreAuthorize("hasAuthority('dict_edit')")
+	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody DictUpdateBo dictUpdateBo) {
+
+		boolean update = dictService.updateByDictUpdateBo(dictUpdateBo);
+
+		return Response.ok(update);
 	}
 
 	/**

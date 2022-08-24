@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.masterdata.service;
 
 import cloud.xuxiaowei.masterdata.bo.DictPageBo;
+import cloud.xuxiaowei.masterdata.bo.DictSaveBo;
+import cloud.xuxiaowei.masterdata.bo.DictUpdateBo;
 import cloud.xuxiaowei.masterdata.entity.Dict;
 import cloud.xuxiaowei.masterdata.vo.DictVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -30,5 +32,19 @@ public interface IDictService extends IService<Dict> {
 	 * @return 返回查询结果
 	 */
 	IPage<Dict> pageByDictPageBo(DictPageBo dictPageBo);
+
+	/**
+	 * 保存 字典
+	 * @param dictSaveBo 保存字典表参数
+	 * @return 返回 保存结果
+	 */
+	boolean saveByDictSaveBo(DictSaveBo dictSaveBo);
+
+	/**
+	 * 更新 字典
+	 * @param dictUpdateBo 更新字典表参数
+	 * @return 返回 更新结果
+	 */
+	boolean updateByDictUpdateBo(DictUpdateBo dictUpdateBo);
 
 }
