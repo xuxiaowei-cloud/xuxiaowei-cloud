@@ -6,11 +6,8 @@ import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cn.hutool.crypto.symmetric.AES;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +55,11 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 	 * 大于 0 无效
 	 */
 	public static final int ORDERED = Ordered.HIGHEST_PRECEDENCE + 90000;
+
+	/**
+	 * 时间戳长度
+	 */
+	private static final int CURRENT_TIME_MILLIS_LENGTH = (System.currentTimeMillis() + "").length();
 
 	private CloudAesProperties cloudAesProperties;
 
@@ -249,10 +251,12 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 			String decryptStr = new String(decrypt);
 
 			// 检查 时间戳
-			checkCurrentTimeMillis(objectMapper, decryptStr);
+			String content = checkCurrentTimeMillis(decryptStr);
 
 			log.debug("解密后 body：{}", decryptStr);
-			return decrypt;
+			log.debug("向后传递的 body：{}", content);
+
+			return content.getBytes();
 		}
 		else {
 			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密密文不能为空", Encrypt.CIPHERTEXT);
@@ -302,41 +306,35 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 	/**
 	 * 检查 时间戳
 	 */
-	private void checkCurrentTimeMillis(ObjectMapper objectMapper, String decryptStr) {
-		JsonNode jsonNode;
-		try {
-			jsonNode = objectMapper.readTree(decryptStr);
-		}
-		catch (JsonProcessingException e) {
-			throw new CloudRuntimeException(CodeEnums.ERROR.code, "密文解密后转JsonNode异常", Encrypt.CIPHERTEXT,
-					e.getMessage());
-		}
+	private String checkCurrentTimeMillis(String decryptStr) {
+		if (StringUtils.hasText(decryptStr)) {
+			if (decryptStr.length() < CURRENT_TIME_MILLIS_LENGTH) {
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳长度不合法", Constant.CURRENT_TIME_MILLIS);
+			}
 
-		if (jsonNode.getNodeType() == JsonNodeType.ARRAY) {
-			// body 中的数据为数组，无法检查时间戳
+			String substring = decryptStr.substring(0, CURRENT_TIME_MILLIS_LENGTH);
+			long currentTimeMillis;
+			try {
+				currentTimeMillis = Long.parseLong(substring);
+			}
+			catch (Exception e) {
+				log.error("解密字符串时间戳类型不合法", e);
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳类型不合法", Constant.CURRENT_TIME_MILLIS);
+			}
+
+			long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
+
+			// noinspection AlibabaUndefineMagicConstant
+			if (time > cloudAesProperties.getTime() * 1000) {
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳不合法", Constant.CURRENT_TIME_MILLIS);
+			}
 
 		}
 		else {
-			JsonNode currentTimeMillisJsonNode = jsonNode.get(Constant.CURRENT_TIME_MILLIS);
-			if (currentTimeMillisJsonNode == null) {
-				throw new CloudRuntimeException(CodeEnums.ERROR.code, "未找到时间戳", Constant.CURRENT_TIME_MILLIS);
-			}
-			else {
-				JsonNodeType nodeType = currentTimeMillisJsonNode.getNodeType();
-				if (JsonNodeType.NUMBER == nodeType) {
-					long currentTimeMillis = currentTimeMillisJsonNode.asLong();
-					long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
-
-					// noinspection AlibabaUndefineMagicConstant
-					if (time > cloudAesProperties.getTime() * 1000) {
-						throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳不合法", Constant.CURRENT_TIME_MILLIS);
-					}
-				}
-				else {
-					throw new CloudRuntimeException(CodeEnums.ERROR.code, "时间戳格式不合法", Constant.CURRENT_TIME_MILLIS);
-				}
-			}
+			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串不能为空", Constant.CURRENT_TIME_MILLIS);
 		}
+
+		return decryptStr.substring(CURRENT_TIME_MILLIS_LENGTH);
 	}
 
 }
