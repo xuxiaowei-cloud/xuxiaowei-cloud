@@ -75,7 +75,7 @@ export const routes: Array<RouteRecordRaw> = [
     path: '',
     component: Layout,
     meta: {
-      icon: 'LocationFilled'
+      icon: 'Tickets'
     },
     children: [
       {
