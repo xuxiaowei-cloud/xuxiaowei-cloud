@@ -7,7 +7,9 @@
       </el-form-item>
       <el-form-item label="dictCode" prop="dictCode" v-else
                     :rules="[{ required: true, message: 'dictCode is required' }]">
-        <el-input v-model="param.dictCode"/>
+        <el-select clearable filterable v-model="param.dictCode" placeholder="Select dictCode">
+          <el-option v-for="item in dictCodeOptions" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </el-form-item>
 
       <el-form-item label="dictDataCode" v-if="props.edit">
@@ -25,8 +27,7 @@
       </el-form-item>
 
       <el-form-item label="dictDataSort" prop="dictDataSort">
-        <el-input v-if="props.edit" v-model="param.dictDataSort"/>
-        <el-input v-else v-model="param.dictDataSort"/>
+        <el-input type="number" v-model="param.dictDataSort"/>
       </el-form-item>
 
       <el-form-item label="dictDataExplain" prop="dictDataExplain"
@@ -60,10 +61,11 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { list as dictList } from '../../../api/master-data/dict'
 import { getById, save, updateById } from '../../../api/master-data/dict-data'
 import settings from '../../../settings'
-import { reactive, ref } from 'vue'
 
 const props = defineProps({
   dialogVisible: {
@@ -91,6 +93,28 @@ const param = reactive({
   externalLabelOne: null,
   remark: null
 })
+
+// 可选内容
+interface Option {
+  label: string
+  value: string
+}
+
+const dictCodeData: Option[] = []
+const dictCodeOptions = reactive(dictCodeData)
+
+if (!props.edit) {
+  dictList().then(response => {
+    const data = response?.data
+    for (const i in data) {
+      console.log(data[i])
+      dictCodeOptions.push({
+        value: data[i].dictCode,
+        label: data[i].dictExplain
+      })
+    }
+  })
+}
 
 // 初始化数据
 const initData = () => {
