@@ -55,6 +55,8 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 	@Override
 	public IPage<DictData> pageByDictDataPageBo(DictDataPageBo dictDataPageBo) {
 		QueryWrapper<DictData> queryWrapper = new QueryWrapper<>();
+		queryWrapper.orderByAsc("dict_code", "dict_data_sort");
+
 		Long current = dictDataPageBo.getCurrent();
 		Long size = dictDataPageBo.getSize();
 
