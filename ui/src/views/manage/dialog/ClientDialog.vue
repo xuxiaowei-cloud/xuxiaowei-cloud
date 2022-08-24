@@ -8,7 +8,8 @@
         <el-input v-if="props.edit" v-model="param.clientId" disabled/>
         <el-input v-else v-model="param.clientId"/>
       </el-form-item>
-      <el-form-item label="clientName" prop="clientName" :rules="[{ required: true, message: 'clientName is required' }]">
+      <el-form-item label="clientName" prop="clientName"
+                    :rules="[{ required: true, message: 'clientName is required' }]">
         <el-input v-model="param.clientName"/>
       </el-form-item>
       <el-form-item label="clientSecret">
@@ -25,8 +26,10 @@
       </el-form-item>
       <el-form-item label="clientAuthenticationMethods" prop="authenticationMethods"
                     :rules="[{ required: true, message: 'clientAuthenticationMethods is required' }]">
-        <el-select v-model="param.authenticationMethods" multiple placeholder="Select authenticationMethods" class="width-100%">
-          <el-option v-for="item in authenticationMethodList" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-select v-model="param.authenticationMethods" multiple placeholder="Select authenticationMethods"
+                   class="width-100%">
+          <el-option v-for="item in authenticationMethodList" :key="item.value" :label="item.label"
+                     :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="authorizationGrantTypes" prop="grantTypes"
@@ -55,7 +58,8 @@
       <el-form-item label="tokenSigningAlgorithm" prop="tokenSigningAlgorithm"
                     :rules="[{ required: true, message: 'tokenSigningAlgorithm is required' }]">
         <el-select v-model="param.tokenSigningAlgorithm" placeholder="Select tokenSigningAlgorithm" class="width-100%">
-          <el-option v-for="item in tokenSigningAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in tokenSigningAlgorithmList" :key="item.value" :label="item.label"
+                     :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="reuseRefreshTokens">
@@ -63,8 +67,10 @@
       </el-form-item>
       <el-form-item label="tokenSignatureAlgorithm" prop="tokenSignatureAlgorithm"
                     :rules="[{ required: true, message: 'tokenSignatureAlgorithm is required' }]">
-        <el-select v-model="param.tokenSignatureAlgorithm" placeholder="Select tokenSignatureAlgorithm" class="width-100%">
-          <el-option v-for="item in tokenSignatureAlgorithmList" :key="item.value" :label="item.label" :value="item.value"/>
+        <el-select v-model="param.tokenSignatureAlgorithm" placeholder="Select tokenSignatureAlgorithm"
+                   class="width-100%">
+          <el-option v-for="item in tokenSignatureAlgorithmList" :key="item.value" :label="item.label"
+                     :value="item.value"/>
         </el-select>
       </el-form-item>
       <el-form-item label="accessTokenFormat" prop="accessTokenFormat"
@@ -95,6 +101,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { JSEncrypt } from 'jsencrypt'
 import {
   getById,
   save,
@@ -109,8 +117,6 @@ import {
 import { codeRsa } from '../../../api/user'
 import { randomPassword } from '../../../utils/generate'
 import settings from '../../../settings'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { JSEncrypt } from 'jsencrypt'
 
 const props = defineProps({
   dialogVisible: {
@@ -225,7 +231,7 @@ const param = reactive({
   id: null,
   clientId: null,
   clientName: null,
-  clientSecret: '',
+  clientSecret: null,
   clientIdIssuedAt: null,
   clientSecretExpiresAt: null,
   clientAuthenticationMethods: null,
@@ -308,13 +314,16 @@ const encryption = () => {
 
   const jsEncrypt = new JSEncrypt()
   jsEncrypt.setPublicKey(publicKey.value)
-  const encrypt = jsEncrypt.encrypt(param.clientSecret)
-  if (encrypt === false) {
-    ElMessage.error('凭证加密失败')
-    return
+  if (param.clientSecret != null && param.clientSecret !== '') {
+    const encrypt = jsEncrypt.encrypt(param.clientSecret)
+    if (encrypt === false) {
+      ElMessage.error('凭证加密失败')
+      return
+    }
+
+    paramEncryption.clientSecret = encrypt
   }
 
-  paramEncryption.clientSecret = encrypt
   paramEncryption.authorizationGrantTypes = param.grantTypes.toString()
   paramEncryption.clientAuthenticationMethods = param.authenticationMethods.toString()
   paramEncryption.scopes = param.scopeList.toString()

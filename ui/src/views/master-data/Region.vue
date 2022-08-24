@@ -4,34 +4,34 @@
   </el-header>
 
   <div v-if="type">
-    <el-select clearable filterable v-model="province" placeholder="请选择省份" size="large">
+    <el-select clearable filterable v-model="province" placeholder="请选择省份">
       <el-option v-for="item in provinceOptions" :key="item.provinceCode" :value="item.provinceCode"
                  :label="item.provinceName"/>
     </el-select>
 
-    <el-select clearable filterable v-model="city" placeholder="请选择城市" size="large"
+    <el-select clearable filterable v-model="city" placeholder="请选择城市"
                :disabled="province === undefined || province === ''">
       <el-option v-for="item in cityOptions" :key="item.cityCode" :value="item.cityCode" :label="item.cityName"/>
     </el-select>
 
-    <el-select clearable filterable v-model="county" placeholder="请选择区/县" size="large"
+    <el-select clearable filterable v-model="county" placeholder="请选择区/县"
                :disabled="city === undefined || city === ''">
       <el-option v-for="item in countyOptions" :key="item.countyCode" :value="item.countyCode"
                  :label="item.countyName"/>
     </el-select>
 
-    <el-select clearable filterable v-model="town" placeholder="请选择镇" size="large"
+    <el-select clearable filterable v-model="town" placeholder="请选择镇"
                :disabled="county === undefined || county === ''">
       <el-option v-for="item in townOptions" :key="item.townCode" :value="item.townCode" :label="item.townName"/>
     </el-select>
 
-    <el-select clearable filterable v-model="village" placeholder="请选择居委会" size="large"
+    <el-select clearable filterable v-model="village" placeholder="请选择居委会"
                :disabled="town === undefined || town === ''">
       <el-option v-for="item in villageOptions" :key="item.villageCode" :value="item.villageCode"
                  :label="item.villageName"/>
     </el-select>
 
-    <el-button @click="cloudSearch" style="height: 38px">搜索</el-button>
+    <el-button @click="cloudSearch">搜索</el-button>
   </div>
   <div v-else>
     <el-input class="cloud-el-input" clearable v-model="param.provinceCode" placeholder="Please input provinceCode"/>
@@ -235,6 +235,8 @@ const cloudSearch = () => {
   let tmp
   if (type.value) {
     tmp = {
+      current: param.current,
+      size: param.size,
       provinceCode: province.value,
       cityCode: city.value,
       countyCode: county.value,

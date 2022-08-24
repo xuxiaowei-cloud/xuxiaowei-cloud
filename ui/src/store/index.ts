@@ -82,7 +82,16 @@ export const useDefineStore = defineStore('store', {
      * @param state
      */
     getKeepAliveExclude (state) {
-      return state.keepAliveExclude
+      // 删除空值
+      const tmp = ref<string[]>([])
+      for(const i in state.keepAliveExclude) {
+        const exclude = state.keepAliveExclude[i]
+        if (exclude !== null) {
+          tmp.value.push(exclude)
+        }
+      }
+      state.keepAliveExclude = tmp.value
+      return tmp
     }
   },
   actions: {

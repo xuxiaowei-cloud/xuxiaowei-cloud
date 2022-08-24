@@ -260,15 +260,14 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	private String passwordDecrypt(String code, String password) {
+		if (password == null || Boolean.FALSE.toString().equals(password)) {
+			return null;
+		}
 		String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
 
 		String passwordDecrypt;
 		if (StringUtils.hasText(privateKey)) {
 			RSA rsa = new RSA(privateKey, null);
-
-			if (Boolean.FALSE.toString().equals(password)) {
-				return null;
-			}
 
 			passwordDecrypt = rsa.decryptStr(password, KeyType.PrivateKey);
 			ValidationUtils.validate(new PasswordBo(passwordDecrypt));
