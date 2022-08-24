@@ -84,7 +84,7 @@
             vh.village_name,
             vh.village_type_code
         <include refid="page_common"/>
-        LIMIT ${(regionPageBo.current - 1) * regionPageBo.size}, ${regionPageBo.current * regionPageBo.size}
+        LIMIT ${(regionPageBo.current - 1) * regionPageBo.size}, ${regionPageBo.size}
     </select>
 
 </mapper>

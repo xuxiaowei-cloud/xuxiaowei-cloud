@@ -235,6 +235,8 @@ const cloudSearch = () => {
   let tmp
   if (type.value) {
     tmp = {
+      current: param.current,
+      size: param.size,
       provinceCode: province.value,
       cityCode: city.value,
       countyCode: county.value,
