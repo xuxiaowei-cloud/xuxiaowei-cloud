@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item label="dictCode" prop="dictCode" v-else
                     :rules="[{ required: true, message: 'dictCode is required' }]">
-        <el-select clearable filterable v-model="param.dictCode" placeholder="Select dictCode">
+        <el-select clearable filterable v-model="param.dictCode" placeholder="Select dictCode" style="width: 100%">
           <el-option v-for="item in dictCodeOptions" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </el-form-item>
@@ -22,8 +22,7 @@
 
       <el-form-item label="dictDataLabel" prop="dictDataLabel"
                     :rules="[{ required: true, message: 'dictDataLabel is required' }]">
-        <el-input v-if="props.edit" v-model="param.dictDataLabel"/>
-        <el-input v-else v-model="param.dictDataLabel"/>
+        <el-input v-model="param.dictDataLabel"/>
       </el-form-item>
 
       <el-form-item label="dictDataSort" prop="dictDataSort">
@@ -32,23 +31,19 @@
 
       <el-form-item label="dictDataExplain" prop="dictDataExplain"
                     :rules="[{ required: true, message: 'dictDataExplain is required' }]">
-        <el-input v-if="props.edit" v-model="param.dictDataExplain"/>
-        <el-input v-else v-model="param.dictDataExplain"/>
+        <el-input v-model="param.dictDataExplain"/>
       </el-form-item>
 
       <el-form-item label="externalCodeOne" prop="externalCodeOne">
-        <el-input v-if="props.edit" type="number" v-model="param.externalCodeOne"/>
-        <el-input v-else v-model="param.externalCodeOne" type="number"/>
+        <el-input v-model="param.externalCodeOne" type="number"/>
       </el-form-item>
 
       <el-form-item label="externalLabelOne" prop="externalLabelOne">
-        <el-input v-if="props.edit" v-model="param.externalLabelOne"/>
-        <el-input v-else v-model="param.externalLabelOne"/>
+        <el-input v-model="param.externalLabelOne"/>
       </el-form-item>
 
       <el-form-item label="remark" prop="remark">
-        <el-input v-if="props.edit" v-model="param.remark"/>
-        <el-input v-else v-model="param.remark"/>
+        <el-input v-model="param.remark"/>
       </el-form-item>
 
       <el-form-item>
