@@ -209,3 +209,15 @@ wx:
     config-storage:
       type: RedisTemplate
       key-prefix: wa
+
+---
+
+# 流控防护组件
+spring:
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:22222
+        # 端口冲突时，会自动 +1，直到找到可用端口为止
+        port: 9006

@@ -195,6 +195,7 @@ cloud.xuxiaowei
 | MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306  |
 | Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379  |
 | canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111 |
+| sentinel-dashboard | 流控防护组件                      |                                        | 22222 |
 |                    |                             |                                        |       |
 | ui                 | UI                          | example.xuxiaowei.cloud                | 1001  |
 | gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101  |
@@ -211,6 +212,19 @@ cloud.xuxiaowei
 | xxl-job-admin      | XXL Job Admin               |                                        | 5101  |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
 | cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |
+
+- 流控防护限流端口
+
+| 模块                 | 模块名称                        | 限流端口 | 
+|--------------------|-----------------------------|------|
+| gateway            | 网关                          | 9001 |
+| passport           | 登录                          | 9002 |
+| user               | 用户服务                        | 9003 |
+| websocket          | WebSocket 服务                | 9004 |
+| webservice         | WebService 服务               | 9005 |
+| wechat-miniprogram | 微信小程序服务                     | 9006 |
+| wechat-offiaccount | 微信公众号服务                     | 9007 |
+| master-data        | 主数据服务                       | 9008 |
 
 ### 用户名与密码
 
@@ -377,6 +391,7 @@ cloud.xuxiaowei
     2. [设置] --> [帐户] --> [生成授权码](./static/QQ-授权码.png)
 23. [XXL Job](https://www.xuxueli.com/xxl-job)
 24. [WebSocket 路由过滤器](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-websocket-routing-filter)
+25. [网关流量控制](https://sentinelguard.io/zh-cn/docs/api-gateway-flow-control.html)
 
 ## 开发工具
 
