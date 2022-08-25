@@ -11,29 +11,24 @@
 
       <el-form-item label="dictExplain" prop="dictExplain"
                     :rules="[{ required: true, message: 'dictExplain is required' }]">
-        <el-input v-if="props.edit" v-model="param.dictExplain"/>
-        <el-input v-else v-model="param.dictExplain"/>
+        <el-input v-model="param.dictExplain"/>
       </el-form-item>
 
       <el-form-item label="redisExpire" prop="redisExpire"
                     :rules="[{ required: true, message: 'redisExpire is required' }]">
-        <el-input v-if="props.edit" type="number" v-model="param.redisExpire"/>
-        <el-input v-else v-model="param.redisExpire" type="number"/>
+        <el-input type="number" v-model="param.redisExpire"/>
       </el-form-item>
 
       <el-form-item label="gb" prop="gb">
-        <el-input v-if="props.edit" v-model="param.gb"/>
-        <el-input v-else v-model="param.gb"/>
+        <el-input v-model="param.gb"/>
       </el-form-item>
 
       <el-form-item label="gbUrl" prop="gbUrl">
-        <el-input v-if="props.edit" v-model="param.gbUrl"/>
-        <el-input v-else v-model="param.gbUrl"/>
+        <el-input v-model="param.gbUrl"/>
       </el-form-item>
 
       <el-form-item label="remark" prop="remark">
-        <el-input v-if="props.edit" v-model="param.remark"/>
-        <el-input v-else v-model="param.remark"/>
+        <el-input v-model="param.remark"/>
       </el-form-item>
 
       <el-form-item>
