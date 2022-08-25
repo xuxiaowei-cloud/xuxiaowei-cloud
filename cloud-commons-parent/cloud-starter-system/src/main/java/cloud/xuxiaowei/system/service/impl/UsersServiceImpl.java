@@ -1,9 +1,6 @@
 package cloud.xuxiaowei.system.service.impl;
 
-import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
-import cloud.xuxiaowei.system.bo.PasswordBo;
-import cloud.xuxiaowei.system.bo.UsersSaveBo;
-import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
+import cloud.xuxiaowei.system.bo.*;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
@@ -13,6 +10,7 @@ import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.validation.utils.ValidationUtils;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -312,6 +310,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		// 用户密码加密
 		encode(users);
 
+		return updateById(users);
+	}
+
+	/**
+	 * 根据当前操作人更新用户
+	 * @param usersUpdateBo 用户表
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
+		Long usersId = SecurityUtils.getUsersId();
+		Users users = new Users();
+		BeanUtils.copyProperties(usersUpdateBo, users);
+		users.setUsersId(usersId);
 		return updateById(users);
 	}
 

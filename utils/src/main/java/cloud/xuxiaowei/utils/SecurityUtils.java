@@ -184,7 +184,7 @@ public class SecurityUtils {
 			return null;
 		}
 		if (usersId instanceof Long) {
-			return (Long)usersId;
+			return (Long) usersId;
 		}
 		throw new CloudRuntimeException("用户ID：" + usersId + "不合法");
 	}

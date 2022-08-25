@@ -18,32 +18,31 @@ export interface AuthorityVo {
 export interface UsersVo {
   usersId: number; // 用户主键
   username: string; // 用户名
-  email: String; // 邮箱
+  email: string; // 邮箱
   emailValid: Boolean; // 邮箱是否验证
   nickname: string; // 昵称
-  sex: String;
-  sexLabel: String;
-  sexExplain: String;
-  birthday: String;
-  provinceCode: number | String;
-  provinceName: String;
-  cityCode: number | String;
-  cityName: String;
-  countyCode: number | String;
-  countyName: String;
-  townCode: number | String;
-  townName: String;
-  villageCode: number | String;
-  villageName: String;
-  detailAddress: String;
+  sex: string;
+  sexLabel: string;
+  sexExplain: string;
+  birthday: string;
+  provinceCode: number | string;
+  provinceName: string;
+  cityCode: number | string;
+  cityName: string;
+  countyCode: number | string;
+  countyName: string;
+  townCode: number | string;
+  townName: string;
+  villageCode: number | string;
+  villageName: string;
+  detailAddress: string;
   enabled: Boolean;
   accountNonExpired: Boolean;
   credentialsNonExpired: Boolean;
   accountNonLocked: Boolean;
-  createDate: String;
-  updateDate: String;
+  createDate: string;
+  updateDate: string;
   authorityList: Array<AuthorityVo>;
-  detailedAddress: String;
 }
 
 /**
@@ -120,6 +119,16 @@ export const getById = function (usersId: number) {
  */
 export const save = function (data: any) {
   return request.post('/user/save', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 更新用户
+ * @param data 用户
+ */
+export const update = function (data: any) {
+  return request.post('/user/update', data).then(response => {
     return response.data
   })
 }
