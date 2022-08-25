@@ -139,9 +139,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	/**
-	 * 根据 用户名 查询用户信息及权限
+	 * 根据 用户名 查询用户信息、性别、区域地址及权限
 	 * @param username 用户名
-	 * @return 返回 用户信息及权限
+	 * @return 返回 用户信息、性别、区域地址及权限
 	 */
 	@Override
 	public UsersVo getUsersVoByUsername(String username) {
