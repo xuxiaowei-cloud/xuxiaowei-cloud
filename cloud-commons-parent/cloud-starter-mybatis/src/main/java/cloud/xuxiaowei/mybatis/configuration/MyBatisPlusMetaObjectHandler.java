@@ -38,10 +38,10 @@ public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
 	}
 
 	private String usersId() {
-		String usersId = SecurityUtils.getUsersId();
+		Long usersId = SecurityUtils.getUsersId();
 		String name = SecurityUtils.getUserName();
-		if (StringUtils.hasText(usersId)) {
-			return usersId;
+		if (usersId != null) {
+			return usersId + "";
 		}
 		else if (StringUtils.hasText(name)) {
 			return name;
