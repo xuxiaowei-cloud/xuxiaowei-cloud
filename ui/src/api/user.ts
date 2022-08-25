@@ -1,13 +1,56 @@
-import request from '../utils/request'
+import request, { AjaxResponse } from '../utils/request'
 import { useStore } from '../store'
 import settings from '../settings'
 import { ElMessage } from 'element-plus'
+import { AxiosResponse } from 'axios'
+
+/**
+ * 权限
+ */
+export interface AuthorityVo {
+  authority: String;
+  explain: String;
+}
+
+/**
+ * 用户信息
+ */
+export interface UsersVo {
+  usersId: number; // 用户主键
+  username: string; // 用户名
+  email: String; // 邮箱
+  emailValid: Boolean; // 邮箱是否验证
+  nickname: string; // 昵称
+  sex: String;
+  sexLabel: String;
+  sexExplain: String;
+  birthday: String;
+  provinceCode: number | String;
+  provinceName: String;
+  cityCode: number | String;
+  cityName: String;
+  countyCode: number | String;
+  countyName: String;
+  townCode: number | String;
+  townName: String;
+  villageCode: number | String;
+  villageName: String;
+  detailAddress: String;
+  enabled: Boolean;
+  accountNonExpired: Boolean;
+  credentialsNonExpired: Boolean;
+  accountNonLocked: Boolean;
+  createDate: String;
+  updateDate: String;
+  authorityList: Array<AuthorityVo>;
+  detailedAddress: String;
+}
 
 /**
  * 用户信息
  */
 export const info = function () {
-  return request.post('/user/info').then(response => {
+  return request.post('/user/info').then((response: AxiosResponse<AjaxResponse<UsersVo>>) : AjaxResponse<UsersVo> => {
     console.log('用户信息', response)
     const responseData = response.data
     if (responseData.code === settings.okCode) {
@@ -27,6 +70,7 @@ export const info = function () {
         type: 'error'
       })
     }
+    return response.data
   })
 }
 

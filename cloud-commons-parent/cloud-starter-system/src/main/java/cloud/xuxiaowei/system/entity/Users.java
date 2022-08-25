@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_FORMAT;
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
@@ -60,6 +62,74 @@ public class Users implements Serializable {
 	 */
 	@TableField("`password`")
 	private String password;
+
+	/**
+	 * 性别，取表：dict_data.dict_code = 'sex'
+	 */
+	private String sex;
+
+	/**
+	 * 性别展示
+	 */
+	@TableField(exist = false)
+	private String sexLabel;
+
+	/**
+	 * 性别说明
+	 */
+	@TableField(exist = false)
+	private String sexExplain;
+
+	/**
+	 * 生日
+	 */
+	@JsonFormat(pattern = DEFAULT_DATE_FORMAT)
+	private LocalDate birthday;
+
+	/**
+	 * 省代码，取表：province_handle.province_code
+	 */
+	private Integer provinceCode;
+
+	@TableField(exist = false)
+	private String provinceName;
+
+	/**
+	 * 市代码，取表：city_handle.city_code
+	 */
+	private Integer cityCode;
+
+	@TableField(exist = false)
+	private String cityName;
+
+	/**
+	 * 区/县代码，取表：county_handle.county_code
+	 */
+	private Integer countyCode;
+
+	@TableField(exist = false)
+	private String countyName;
+
+	/**
+	 * 镇代码，取表：town_handle.town_code
+	 */
+	private Integer townCode;
+
+	@TableField(exist = false)
+	private String townName;
+
+	/**
+	 * 居委会代码，取表：village_handle.town_code
+	 */
+	private Long villageCode;
+
+	@TableField(exist = false)
+	private String villageName;
+
+	/**
+	 * 详细地址
+	 */
+	private String detailAddress;
 
 	/**
 	 * 是否启用，不能为空
