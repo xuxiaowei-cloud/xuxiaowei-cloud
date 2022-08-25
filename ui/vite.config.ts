@@ -40,7 +40,17 @@ export default defineConfig({
     // 构建后是否生成 source map 文件。默认： false
     sourcemap: false,
     // 指定生成静态资源的存放路径（相对于 build.outDir）。默认： assets
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        // 最小化拆分包：https://rollupjs.org/guide/en/#outputmanualchunks
+        manualChunks: (id) => {
+          if (id.indexOf('node_modules') !== -1) { // 每个 node_modules 一个包
+            return id.split('node_modules/')[1].split('/')[0]
+          }
+        }
+      }
+    }
   },
   server: {
     // 代理
