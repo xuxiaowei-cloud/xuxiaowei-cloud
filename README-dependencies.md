@@ -180,16 +180,16 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 
 cloud.xuxiaowei.example:cxf-client:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
-│        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.2:compile
-│        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.2:compile
-│        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.2:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
+│        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.3:compile
+│        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.3:compile
+│        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.3:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.3:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
 cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.0:compile
-│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.0:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.3:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.3:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
