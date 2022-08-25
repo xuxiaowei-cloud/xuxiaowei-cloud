@@ -4,7 +4,7 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
-import cloud.xuxiaowei.system.bo.UsersUpdateBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
@@ -207,16 +207,16 @@ public class UserRestController {
 	 * 根据 用户主键 更新用户
 	 * @param request 请求
 	 * @param response 响应
-	 * @param usersUpdateBo 用户
+	 * @param usersUpdateByIdBo 用户
 	 * @return 返回 更新结果
 	 */
 	@ControllerAnnotation(description = "根据 用户主键 更新用户")
 	@PreAuthorize("hasAuthority('manage_user_edit')")
 	@RequestMapping("/updateById")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
-			@Valid @RequestBody UsersUpdateBo usersUpdateBo) {
+			@Valid @RequestBody UsersUpdateByIdBo usersUpdateByIdBo) {
 
-		boolean update = usersService.updateByUsersUpdateBo(usersUpdateBo);
+		boolean update = usersService.updateByUsersUpdateByIdBo(usersUpdateByIdBo);
 
 		return Response.ok(update);
 	}

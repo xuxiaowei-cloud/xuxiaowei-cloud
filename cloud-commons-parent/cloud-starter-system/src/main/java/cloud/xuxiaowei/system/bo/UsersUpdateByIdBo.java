@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 0.0.1
  */
 @Data
-public class UsersUpdateBo implements Serializable {
+public class UsersUpdateByIdBo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
