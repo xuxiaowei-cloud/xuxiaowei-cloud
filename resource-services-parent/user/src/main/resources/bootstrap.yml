@@ -197,6 +197,6 @@ spring:
     sentinel:
       eager: true
       transport:
-        dashboard: localhost:22222
+        dashboard: ${sentinel_dashboard:localhost:22222}
         # 端口冲突时，会自动 +1，直到找到可用端口为止
         port: 9003
