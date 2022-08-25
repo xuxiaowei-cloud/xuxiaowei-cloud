@@ -214,14 +214,6 @@ wx:
 
 # 流控防护组件
 spring:
-  main:
-    # The dependencies of some of the beans in the application context form a cycle:
-    #
-    #   org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration
-    #┌─────┐
-    #|  com.alibaba.cloud.sentinel.SentinelWebAutoConfiguration (field private java.util.Optional com.alibaba.cloud.sentinel.SentinelWebAutoConfiguration.sentinelWebInterceptorOptional)
-    #└─────┘
-    allow-circular-references: true
   cloud:
     sentinel:
       eager: true
