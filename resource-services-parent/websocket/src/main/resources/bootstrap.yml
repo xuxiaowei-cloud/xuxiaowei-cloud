@@ -205,3 +205,23 @@ cloud:
       - http://localhost:1001
       # tauri 生产域名
       - https://tauri.localhost
+
+---
+
+# 流控防护组件
+spring:
+  main:
+    # The dependencies of some of the beans in the application context form a cycle:
+    #
+    #   org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration
+    #┌─────┐
+    #|  com.alibaba.cloud.sentinel.SentinelWebAutoConfiguration (field private java.util.Optional com.alibaba.cloud.sentinel.SentinelWebAutoConfiguration.sentinelWebInterceptorOptional)
+    #└─────┘
+    allow-circular-references: true
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:22222
+        # 端口冲突时，会自动 +1，直到找到可用端口为止
+        port: 9004
