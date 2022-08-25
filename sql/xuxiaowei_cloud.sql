@@ -246,7 +246,7 @@ CREATE TABLE `users`  (
   `city_code` int NULL DEFAULT NULL COMMENT '市代码，取表：city_handle.city_code',
   `county_code` int NULL DEFAULT NULL COMMENT '区/县代码，取表：county_handle.county_code',
   `town_code` int NULL DEFAULT NULL COMMENT '镇代码，取表：town_handle.town_code',
-  `village_code` int NULL DEFAULT NULL COMMENT '居委会代码，取表：village_handle.town_code',
+  `village_code` bigint NULL DEFAULT NULL COMMENT '居委会代码，取表：village_handle.town_code',
   `detail_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详细地址',
   `enabled` tinyint(1) NOT NULL COMMENT '是否启用，不能为空',
   `account_non_expired` tinyint(1) NOT NULL COMMENT '帐户未过期，不能为空',
