@@ -47,6 +47,13 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
+        <!-- 提供：IOUtils -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
         <!-- 提供JSON数据处理所需的包，如：ObjectMapper、JavaTimeModule -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
