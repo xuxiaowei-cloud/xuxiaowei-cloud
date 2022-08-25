@@ -255,8 +255,8 @@ s2-user:
 
 #
 # s1 发布主数据服务
-s1-user:
-  stage: master-data
+s1-master-data:
+  stage: s2-service
   needs:
     - job: s2-package
       artifacts: true

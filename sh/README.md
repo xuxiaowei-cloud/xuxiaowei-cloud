@@ -11,3 +11,5 @@
 ## [Node](./Node.md)
 
 ## [Redis](./Redis.md)
+
+## [Sentinel](./Sentinel.md)
