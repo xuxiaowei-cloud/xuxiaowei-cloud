@@ -1,9 +1,6 @@
 package cloud.xuxiaowei.system.service.impl;
 
-import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
-import cloud.xuxiaowei.system.bo.PasswordBo;
-import cloud.xuxiaowei.system.bo.UsersSaveBo;
-import cloud.xuxiaowei.system.bo.UsersUpdateBo;
+import cloud.xuxiaowei.system.bo.*;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.mapper.UsersMapper;
@@ -13,6 +10,7 @@ import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.validation.utils.ValidationUtils;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -280,20 +278,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 	/**
 	 * 更新用户
-	 * @param usersUpdateBo 用户
+	 * @param usersUpdateByIdBo 用户
 	 * @return 返回 更新结果
 	 */
 	@Override
-	public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
+	public boolean updateByUsersUpdateByIdBo(UsersUpdateByIdBo usersUpdateByIdBo) {
 
-		String passwordDecrypt = passwordDecrypt(usersUpdateBo.getCode(), usersUpdateBo.getPassword());
+		String passwordDecrypt = passwordDecrypt(usersUpdateByIdBo.getCode(), usersUpdateByIdBo.getPassword());
 
 		Users users = new Users();
-		BeanUtils.copyProperties(usersUpdateBo, users);
+		BeanUtils.copyProperties(usersUpdateByIdBo, users);
 
-		Long usersId = usersUpdateBo.getUsersId();
+		Long usersId = usersUpdateByIdBo.getUsersId();
 
-		String email = usersUpdateBo.getEmail();
+		String email = usersUpdateByIdBo.getEmail();
 		// 邮箱，唯一键：uk__users__email
 		List<Users> usersEmailList = listByIdNotUsersIdAndEmail(usersId, email, null);
 		if (usersEmailList.size() > 0) {
@@ -301,7 +299,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		}
 
 		// 昵称，不能为空，唯一键：uk__users__nickname
-		String nickname = usersUpdateBo.getNickname();
+		String nickname = usersUpdateByIdBo.getNickname();
 		List<Users> usersNicknameList = listByIdNotUsersIdAndNickname(usersId, nickname, null);
 		if (usersNicknameList.size() > 0) {
 			throw new CloudRuntimeException("已存在此昵称：" + nickname);
@@ -312,6 +310,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		// 用户密码加密
 		encode(users);
 
+		return updateById(users);
+	}
+
+	/**
+	 * 根据当前操作人更新用户
+	 * @param usersUpdateBo 用户表
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo) {
+		Long usersId = SecurityUtils.getUsersId();
+		Users users = new Users();
+		BeanUtils.copyProperties(usersUpdateBo, users);
+		users.setUsersId(usersId);
 		return updateById(users);
 	}
 

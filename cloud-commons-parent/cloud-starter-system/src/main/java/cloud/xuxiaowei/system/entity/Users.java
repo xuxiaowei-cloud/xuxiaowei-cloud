@@ -11,6 +11,7 @@ import java.util.List;
 
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_FORMAT;
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static com.baomidou.mybatisplus.annotation.FieldStrategy.IGNORED;
 
 /**
  * <p>
@@ -89,6 +90,7 @@ public class Users implements Serializable {
 	/**
 	 * 省代码，取表：province_handle.province_code
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private Integer provinceCode;
 
 	@TableField(exist = false)
@@ -97,6 +99,7 @@ public class Users implements Serializable {
 	/**
 	 * 市代码，取表：city_handle.city_code
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private Integer cityCode;
 
 	@TableField(exist = false)
@@ -105,6 +108,7 @@ public class Users implements Serializable {
 	/**
 	 * 区/县代码，取表：county_handle.county_code
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private Integer countyCode;
 
 	@TableField(exist = false)
@@ -113,6 +117,7 @@ public class Users implements Serializable {
 	/**
 	 * 镇代码，取表：town_handle.town_code
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private Integer townCode;
 
 	@TableField(exist = false)
@@ -121,6 +126,7 @@ public class Users implements Serializable {
 	/**
 	 * 居委会代码，取表：village_handle.town_code
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private Long villageCode;
 
 	@TableField(exist = false)
@@ -129,6 +135,7 @@ public class Users implements Serializable {
 	/**
 	 * 详细地址
 	 */
+	@TableField(updateStrategy = IGNORED)
 	private String detailAddress;
 
 	/**

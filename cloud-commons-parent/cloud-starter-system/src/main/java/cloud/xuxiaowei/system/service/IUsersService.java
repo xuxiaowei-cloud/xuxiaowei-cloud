@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service;
 import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
 import cloud.xuxiaowei.system.bo.UsersSaveBo;
 import cloud.xuxiaowei.system.bo.UsersUpdateBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -96,7 +97,14 @@ public interface IUsersService extends IService<Users> {
 
 	/**
 	 * 更新用户
-	 * @param usersUpdateBo 用户
+	 * @param usersUpdateByIdBo 用户
+	 * @return 返回 更新结果
+	 */
+	boolean updateByUsersUpdateByIdBo(UsersUpdateByIdBo usersUpdateByIdBo);
+
+	/**
+	 * 根据当前操作人更新用户
+	 * @param usersUpdateBo 用户表
 	 * @return 返回 更新结果
 	 */
 	boolean updateByUsersUpdateBo(UsersUpdateBo usersUpdateBo);
