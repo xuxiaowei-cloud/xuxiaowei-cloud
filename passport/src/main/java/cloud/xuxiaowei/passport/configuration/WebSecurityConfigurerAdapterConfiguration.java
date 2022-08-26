@@ -203,6 +203,11 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		// CSRF 配置
 		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
 
+		// Q：为何使用 HttpSecurity 获取 Bean 然后放入 Controller 中？而不是直接在 Controller 中获取下列 Bean？
+		// A：因为配置方式不同，
+		// 如：有人使用创建 Bean 的形式来创建下列 Bean，还有人直接操作 HttpSecurity 来设置 Bean（这两种方式在 Security 中默认都支持），
+		// 为了兼容这两种防止，所以采用了下列做法，这也是 Security 中的默认做法
+
 		RegisteredClientRepository registeredClientRepository = OAuth2Utils.getRegisteredClientRepository(http);
 		OAuth2AuthorizationService authorizationService = OAuth2Utils.getAuthorizationService(http);
 		OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = OAuth2Utils.getTokenGenerator(http);
