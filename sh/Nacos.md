@@ -5,11 +5,11 @@
 - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos)
 
 - 本项目使用版本
-    - [2.0.4](https://github.com/alibaba/nacos/releases/tag/2.0.4)
-    - [nacos-server-2.0.4.tar.gz](https://github.com/alibaba/nacos/releases/download/2.0.4/nacos-server-2.0.4.tar.gz)
-    - 解压：`tar -zxvf nacos-server-2.0.4.tar.gz`
+    - [2.1.1](https://github.com/alibaba/nacos/releases/tag/2.1.1)
+    - [nacos-server-2.1.1.tar.gz](https://github.com/alibaba/nacos/releases/download/2.1.1/nacos-server-2.1.1.tar.gz)
+    - 解压：`tar -zxvf nacos-server-2.1.1.tar.gz`
     - 安装目录
-        - /software/nacos-server-2.0.4
+        - /software/nacos-server-2.1.1
 - 在 `startup.sh` 文件中添加 `JAVA_HOME`，防止存在多个 Java 环境时启动异常
     ```shell
     #!/bin/bash

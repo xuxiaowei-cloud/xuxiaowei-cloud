@@ -70,7 +70,8 @@ npm create vite@latest passport-ui -- --template vue-ts
     ```
 
 ```
-npm i @element-plus/icons-vue axios crypto-js element-plus jsencrypt pinia terser vue vue-router
+npm i vue
+npm i @element-plus/icons-vue axios crypto-js element-plus jsencrypt pinia terser vue-router
 ```
 
 ```

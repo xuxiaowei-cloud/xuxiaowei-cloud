@@ -5,13 +5,13 @@
 - 拉取镜像
 
 ```shell
-docker pull nacos/nacos-server:v2.0.4
+docker pull nacos/nacos-server:v2.1.1
 ```
 
 - 创建容器
     - 说明
         1. 连接 MySQL 时，需要指定连接串、用户名、密码，直接放在命令中存在风险（可使用命令`history`查看历史命令），故将其放在环境变量文件中`/etc/profile`
-        1. 表结构
+        2. 表结构
             - [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
             - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/tree/develop/distribution/conf/nacos-mysql.sql)
             - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/nacos-mysql.sql)
@@ -50,14 +50,15 @@ docker pull nacos/nacos-server:v2.0.4
                 echo $MYSQL_SERVICE_PASSWORD
                 ```
 
-        1. 执行创建命令
+        2. 执行创建命令
             ```shell
             docker run \
             -itd \
             --restart always \
             --privileged=true \
-            --name nacos-server-v2.0.4 \
+            --name nacos-server-v2.1.1 \
             -p 8848:8848 \
+            -p 9848:9848 \
             -e MODE=standalone \
             -e SPRING_DATASOURCE_PLATFORM=mysql \
             -e MYSQL_SERVICE_HOST=$MYSQL_SERVICE_HOST \
@@ -66,17 +67,17 @@ docker pull nacos/nacos-server:v2.0.4
             -e MYSQL_SERVICE_DB_PARAM=$MYSQL_SERVICE_DB_PARAM \
             -e MYSQL_SERVICE_USER=$MYSQL_SERVICE_USER \
             -e MYSQL_SERVICE_PASSWORD=$MYSQL_SERVICE_PASSWORD \
-            -d nacos/nacos-server:v2.0.4
+            -d nacos/nacos-server:v2.1.1
             ```
-        1. 查看日志
+        3. 查看日志
             ```shell
-            docker logs -f nacos-server-v2.0.4
+            docker logs -f nacos-server-v2.1.1
             ```
-        1. 进入容器
+        4. 进入容器
             ```shell
-            docker exec -it nacos-server-v2.0.4 bash
+            docker exec -it nacos-server-v2.1.1 bash
             ```
-        1. 开放端口
+        5. 开放端口
             - CentOS
                 ```shell
                 firewall-cmd --zone=public --add-port=8848/tcp --permanent
