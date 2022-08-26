@@ -1,8 +1,9 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
-import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
+import cloud.xuxiaowei.passport.controller.TokenController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +12,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2Utils;
+import org.springframework.security.oauth2.server.authorization.settings.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -36,6 +43,8 @@ import static cloud.xuxiaowei.oauth2.impl.CsrfRequestMatcherImpl.CSRF_REQUEST_MA
  */
 @Configuration
 public class WebSecurityConfigurerAdapterConfiguration {
+
+	private TokenController tokenController;
 
 	private CloudJwkKeyProperties cloudJwkKeyProperties;
 
@@ -102,6 +111,11 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		this.authenticationFailureHandler = authenticationFailureHandler;
 	}
 
+	@Autowired
+	public void setTokenController(TokenController tokenController) {
+		this.tokenController = tokenController;
+	}
+
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return (web) -> {
@@ -155,7 +169,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					// 注销登录放行
 					.antMatchers("/signout").permitAll()
 					// 放行错误地址
-					.antMatchers("/error").permitAll()
+					.antMatchers("/error").permitAll().antMatchers("/token/refresh").permitAll()
 					// 其他路径均需要授权
 					.anyRequest().authenticated();
 		});
@@ -188,6 +202,16 @@ public class WebSecurityConfigurerAdapterConfiguration {
 
 		// CSRF 配置
 		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+
+		RegisteredClientRepository registeredClientRepository = OAuth2Utils.getRegisteredClientRepository(http);
+		OAuth2AuthorizationService authorizationService = OAuth2Utils.getAuthorizationService(http);
+		OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = OAuth2Utils.getTokenGenerator(http);
+		ProviderSettings providerSettings = OAuth2Utils.getProviderSettings(http);
+
+		tokenController.setRegisteredClientRepository(registeredClientRepository);
+		tokenController.setAuthorizationService(authorizationService);
+		tokenController.setTokenGenerator(tokenGenerator);
+		tokenController.setProviderSettings(providerSettings);
 
 		return http.build();
 	}
