@@ -183,10 +183,13 @@ public class SecurityUtils {
 		if (usersId == null) {
 			return null;
 		}
-		if (usersId instanceof Long) {
-			return (Long) usersId;
+		try {
+			return Long.valueOf(usersId.toString());
 		}
-		throw new CloudRuntimeException("用户ID：" + usersId + "不合法");
+		catch (Exception e) {
+			log.error("用户ID：" + usersId + " 处理成 Long 时异常", e);
+			throw new CloudRuntimeException("用户ID：" + usersId + "不合法");
+		}
 	}
 
 	/**
