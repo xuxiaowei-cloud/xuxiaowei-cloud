@@ -81,6 +81,7 @@ docker pull nacos/nacos-server:v2.1.1
             - CentOS
                 ```shell
                 firewall-cmd --zone=public --add-port=8848/tcp --permanent
+                firewall-cmd --zone=public --add-port=9848/tcp --permanent
                 firewall-cmd --reload
                 firewall-cmd --list-all
                 ```
