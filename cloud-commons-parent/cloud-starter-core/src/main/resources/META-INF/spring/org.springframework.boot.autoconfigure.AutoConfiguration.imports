@@ -4,6 +4,7 @@ cloud.xuxiaowei.core.properties.CloudClientProperties
 cloud.xuxiaowei.core.properties.CloudCookieProperties
 cloud.xuxiaowei.core.properties.CloudCorsProperties
 cloud.xuxiaowei.core.properties.CloudJwkKeyProperties
+cloud.xuxiaowei.core.properties.CloudPatchcaProperties
 cloud.xuxiaowei.core.properties.CloudRememberMeProperties
 cloud.xuxiaowei.core.properties.CloudSecurityProperties
 cloud.xuxiaowei.core.properties.CloudSessionProperties
