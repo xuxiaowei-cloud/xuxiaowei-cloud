@@ -87,10 +87,10 @@ public class RedisCacheManagerConfiguration {
 	 * @return 返回 Redis 模板
 	 */
 	@Bean
-	public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
 		// Helper类简化了 Redis 数据访问代码
-		RedisTemplate<?, ?> template = new RedisTemplate<>();
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
 
 		// 设置连接工厂。
 		template.setConnectionFactory(redisConnectionFactory);
@@ -142,10 +142,13 @@ public class RedisCacheManagerConfiguration {
 
 		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
-		// 1
-		template.setValueSerializer(jackson2JsonRedisSerializer);
-		// 2
+		// Redis 字符串：键、值序列化
 		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+
+		// Redis Hash：键、值序列化
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
 
 		template.afterPropertiesSet();
 
