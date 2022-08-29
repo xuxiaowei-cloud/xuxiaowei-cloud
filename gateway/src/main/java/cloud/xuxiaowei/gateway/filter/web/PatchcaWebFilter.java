@@ -159,27 +159,27 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 		init();
 
 		switch (RANDOM.nextInt(5)) {
-			case 0:
-				// 摆动波纹
-				CS.setFilterFactory(new WobbleRippleFilterFactory());
-				break;
-			case 1:
-				// 大理石纹波
-				CS.setFilterFactory(new MarbleRippleFilterFactory());
-				break;
-			case 2:
-				// 双纹波
-				CS.setFilterFactory(new DoubleRippleFilterFactory());
-				break;
-			case 3:
-				// 曲线波纹
-				CS.setFilterFactory(new CurvesRippleFilterFactory(CS.getColorFactory()));
-				break;
-			case 4:
-				// 漫反射纹波
-				CS.setFilterFactory(new DiffuseRippleFilterFactory());
-				break;
-			default:
+		case 0:
+			// 摆动波纹
+			CS.setFilterFactory(new WobbleRippleFilterFactory());
+			break;
+		case 1:
+			// 大理石纹波
+			CS.setFilterFactory(new MarbleRippleFilterFactory());
+			break;
+		case 2:
+			// 双纹波
+			CS.setFilterFactory(new DoubleRippleFilterFactory());
+			break;
+		case 3:
+			// 曲线波纹
+			CS.setFilterFactory(new CurvesRippleFilterFactory(CS.getColorFactory()));
+			break;
+		case 4:
+			// 漫反射纹波
+			CS.setFilterFactory(new DiffuseRippleFilterFactory());
+			break;
+		default:
 		}
 
 		// 设置全自动区分计算机和人类的图灵测试的响应

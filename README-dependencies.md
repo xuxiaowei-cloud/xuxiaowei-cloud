@@ -9,6 +9,7 @@ cloud.xuxiaowei:admin-server:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2.2.8.RELEASE:compile
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.3:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.3:compile
+│        └──org.springframework.cloud:spring-cloud-starter-loadbalancer:jar:3.1.3:compile
 │        └──de.codecentric:spring-boot-admin-starter-server:jar:2.7.4:compile
 
 
@@ -201,7 +202,9 @@ cloud.xuxiaowei:gateway:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cn.hutool:hutool-all:jar:5.8.5:compile
+│        └──com.github.bingoohuang:patchca:jar:0.0.1:compile
 │        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0-M1:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.3:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2.2.8.RELEASE:compile
@@ -236,6 +239,7 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.3:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.3:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
+│        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.3:test
 
 
 cloud.xuxiaowei:resource-services-parent:pom:0.0.1-SNAPSHOT

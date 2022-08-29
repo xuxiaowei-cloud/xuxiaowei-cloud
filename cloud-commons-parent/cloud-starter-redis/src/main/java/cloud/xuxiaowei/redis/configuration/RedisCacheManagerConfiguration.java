@@ -15,9 +15,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -40,8 +38,6 @@ import java.util.Objects;
  * @author xuxiaowei
  * @since 0.0.1
  */
-@Configuration
-@EnableCaching
 public class RedisCacheManagerConfiguration {
 
 	/**
