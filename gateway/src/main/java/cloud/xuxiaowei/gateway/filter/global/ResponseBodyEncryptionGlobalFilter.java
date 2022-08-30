@@ -153,6 +153,7 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 							return v1(response, keyBytes, ivBytes, body);
 						}
 						else {
+							// @formatter:off
 							switch (version) {
 								case V1:
 									// 加密方式（版本）为 V1 时，使用 V1
@@ -164,6 +165,7 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 									// 未匹配到时，使用加密方式（版本）为 V0
 									return response.writeWith(body);
 							}
+							// @formatter:on
 						}
 					}
 					else {

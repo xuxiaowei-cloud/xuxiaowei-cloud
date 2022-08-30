@@ -16,15 +16,15 @@ import org.springframework.security.oauth2.server.resource.web.DefaultBearerToke
 @Configuration
 public class BearerTokenResolverConfiguration {
 
-    /**
-     * @see OAuth2ResourceServerConfigurer#configure(HttpSecurityBuilder)
-     */
-    @Bean
-    public BearerTokenResolver bearerTokenResolver() {
-        DefaultBearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
-        // 设置是否支持使用 URI 参数传输访问令牌。默认为 {@code false}。
-        bearerTokenResolver.setAllowUriQueryParameter(true);
-        return bearerTokenResolver;
-    }
+	/**
+	 * @see OAuth2ResourceServerConfigurer#configure(HttpSecurityBuilder)
+	 */
+	@Bean
+	public BearerTokenResolver bearerTokenResolver() {
+		DefaultBearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
+		// 设置是否支持使用 URI 参数传输访问令牌。默认为 {@code false}。
+		bearerTokenResolver.setAllowUriQueryParameter(true);
+		return bearerTokenResolver;
+	}
 
 }
