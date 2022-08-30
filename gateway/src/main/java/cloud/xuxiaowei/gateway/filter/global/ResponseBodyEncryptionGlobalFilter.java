@@ -154,21 +154,21 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 						}
 						else {
 							switch (version) {
-							case V0:
-								// 加密方式（版本）为 V0 时，即：不加密
-								return response.writeWith(body);
-							case V1:
-								// 加密方式（版本）为 V1 时，使用 V1，与未匹配时，采用相同的方式
-								// 故：此处使用 switch case 的穿透效果
-							default:
-								// 未匹配到时，使用加密方式（版本）为 V1
-								return v1(response, keyBytes, ivBytes, body);
+								case V1:
+									// 加密方式（版本）为 V1 时，使用 V1
+									return v1(response, keyBytes, ivBytes, body);
+								case V0:
+									// 加密方式（版本）为 V0 时，即：不加密，与未匹配时，采用相同的方式
+									// 故：此处使用 switch case 的穿透效果
+								default:
+									// 未匹配到时，使用加密方式（版本）为 V0
+									return response.writeWith(body);
 							}
 						}
 					}
 					else {
-						// 不存在：响应中的加密方式（版本），使用默认加密方式（版本），即：V1
-						return v1(response, keyBytes, ivBytes, body);
+						// 不存在：响应中的加密方式（版本），使用默认加密方式（版本），即：V0，不加密
+						return response.writeWith(body);
 					}
 				}
 
