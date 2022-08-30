@@ -161,7 +161,7 @@ cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT:compile
-│        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cn.hutool:hutool-all:jar:5.8.5:compile
 │        └──commons-io:commons-io:jar:2.11.0:compile
 │        └──org.springframework.boot:spring-boot-starter-json:jar:2.7.3:provided
