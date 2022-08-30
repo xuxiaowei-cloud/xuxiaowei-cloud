@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.gateway.filter.web;
 
 import cloud.xuxiaowei.core.properties.CloudPatchcaProperties;
+import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.github.bingoohuang.patchca.custom.ConfigurableCaptchaService;
 import com.github.bingoohuang.patchca.filter.predefined.*;
 import com.github.bingoohuang.patchca.font.RandomFontFactory;
@@ -12,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.time.Duration;
 import java.util.Random;
 
 /**
@@ -55,9 +59,16 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 
 	private CloudPatchcaProperties cloudPatchcaProperties;
 
+	private StringRedisTemplate stringRedisTemplate;
+
 	@Autowired
 	public void setCloudPatchcaProperties(CloudPatchcaProperties cloudPatchcaProperties) {
 		this.cloudPatchcaProperties = cloudPatchcaProperties;
+	}
+
+	@Autowired
+	public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
+		this.stringRedisTemplate = stringRedisTemplate;
 	}
 
 	@Setter
@@ -80,12 +91,17 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 
 		if (patchca.equals(path)) {
 			ServerHttpResponse response = exchange.getResponse();
-			try {
-				return responsePatchca(response);
-			}
-			catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			return exchange.getSession().flatMap(webSession -> {
+				String sessionId = webSession.getId();
+				System.err.println(sessionId);
+				try {
+					return responsePatchca(sessionId, response);
+				}
+				catch (IOException e) {
+					log.error("生成图片验证码异常：", e);
+					return Mono.error(new CloudRuntimeException("生成图片验证码异常"));
+				}
+			});
 		}
 
 		return chain.filter(exchange);
@@ -154,10 +170,11 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 	/**
 	 * 获取全自动区分计算机和人类的图灵测试对应的字符串
 	 */
-	private Mono<Void> responsePatchca(ServerHttpResponse response) throws IOException {
+	private Mono<Void> responsePatchca(String sessionId, ServerHttpResponse response) throws IOException {
 
 		init();
 
+		// @formatter:off
 		switch (RANDOM.nextInt(5)) {
 		case 0:
 			// 摆动波纹
@@ -181,6 +198,7 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 			break;
 		default:
 		}
+		// @formatter:on
 
 		// 设置全自动区分计算机和人类的图灵测试的响应
 		HttpHeaders headers = response.getHeaders();
@@ -196,10 +214,26 @@ public class PatchcaWebFilter implements WebFilter, Ordered {
 		String challenge = captcha.getChallenge();
 		log.info("图片验证码：{}", challenge);
 
+		// 储存图片验证码
+		redisStore(sessionId, challenge);
+
 		byte[] bytes = outputStream.toByteArray();
 
 		DataBuffer dataBuffer = response.bufferFactory().wrap(bytes);
 		return response.writeWith(Mono.just(dataBuffer));
+	}
+
+	/**
+	 * 储存
+	 * @param sessionId Session ID
+	 * @param challenge 图片验证码的文字内容
+	 */
+	private void redisStore(String sessionId, String challenge) {
+
+		String key = Constant.PATCHCA + ":" + sessionId;
+
+		// 将图片验证码放入Redis中
+		stringRedisTemplate.opsForValue().set(key, challenge, Duration.ofMinutes(cloudPatchcaProperties.getMinutes()));
 	}
 
 	/**
