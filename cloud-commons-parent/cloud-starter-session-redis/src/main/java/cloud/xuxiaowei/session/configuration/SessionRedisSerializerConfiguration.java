@@ -1,8 +1,10 @@
 package cloud.xuxiaowei.session.configuration;
 
 import cloud.xuxiaowei.redis.configuration.RedisCacheManagerConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
@@ -29,10 +31,9 @@ public class SessionRedisSerializerConfiguration {
 	 * @see RedisHttpSessionConfiguration#setDefaultRedisSerializer(RedisSerializer) 自定义
 	 * Spring {@link HttpSession} 默认 Redis 序列化程序
 	 */
-	// @Bean
-	// public RedisSerializer<?> springSessionDefaultRedisSerializer(RedisTemplate<?, ?>
-	// redisTemplate) {
-	// return redisTemplate.getValueSerializer();
-	// }
+	@Bean
+	public RedisSerializer<?> springSessionDefaultRedisSerializer(RedisTemplate<String, Object> redisTemplate) {
+		return redisTemplate.getValueSerializer();
+	}
 
 }
