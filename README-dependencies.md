@@ -87,7 +87,7 @@ cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT
 │        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.2.2:compile
 │        └──com.baomidou:mybatis-plus-boot-starter:jar:3.5.2:compile
-│        └──com.baomidou:dynamic-datasource-spring-boot-starter:jar:3.5.1:compile
+│        └──com.baomidou:dynamic-datasource-spring-boot-starter:jar:3.5.2:compile
 │        └──p6spy:p6spy:jar:3.9.1:compile
 │        └──com.baomidou:mybatis-plus-generator:jar:3.5.3:test
 │        └──org.springframework.boot:spring-boot-starter-velocity:jar:1.4.7.RELEASE:test
