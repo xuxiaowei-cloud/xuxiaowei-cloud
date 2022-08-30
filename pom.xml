@@ -93,7 +93,7 @@
         <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://github.com/baomidou/dynamic-datasource-spring-boot-starter -->
-        <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+        <dynamic-datasource-spring-boot-starter.version>3.5.2</dynamic-datasource-spring-boot-starter.version>
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-extension -->
         <!-- https://github.com/baomidou/mybatis-plus -->
@@ -160,6 +160,10 @@
         <!-- https://oss.sonatype.org/content/repositories/public/com/xuxueli/xxl-job-core -->
         <!-- https://github.com/xuxueli/xxl-job -->
         <xxl-job-core.version>2.3.1</xxl-job-core.version>
+
+        <!-- 图片验证码 -->
+        <!-- https://mvnrepository.com/artifact/com.github.bingoohuang/patchca -->
+        <patchca.version>0.0.1</patchca.version>
 
         <!-- https://nodejs.org/dist/ -->
         <!-- http://mirrors.aliyun.com/nodejs-release/ -->
@@ -417,6 +421,13 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job-core.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.bingoohuang/patchca -->
+            <dependency>
+                <groupId>com.github.bingoohuang</groupId>
+                <artifactId>patchca</artifactId>
+                <version>${patchca.version}</version>
             </dependency>
 
             <!-- 工具类 -->

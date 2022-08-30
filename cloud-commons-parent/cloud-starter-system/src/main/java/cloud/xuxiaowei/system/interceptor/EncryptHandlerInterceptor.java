@@ -42,7 +42,7 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 			if (annotationPresent) {
 
 				// 接口的客户配置
-				EncryptAnnotation.ClientIdEncryptAnnotation[] clients = encryptAnnotation.client();
+				EncryptAnnotation.ClientId[] clients = encryptAnnotation.client();
 
 				// 当前调用的客户ID
 				String clientId = SecurityUtils.getClientId();
@@ -53,10 +53,10 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 				if (StringUtils.hasText(clientId)) {
 					// 存在客户ID，使用接口中指定客户的配置
 
-					for (EncryptAnnotation.ClientIdEncryptAnnotation clientIdEncryptAnnotation : clients) {
+					for (EncryptAnnotation.ClientId clientIdEncryptAnnotation : clients) {
 						// 遍历接口的客户配置
 
-						if (clientId.equals(clientIdEncryptAnnotation.cloudId())) {
+						if (clientId.equals(clientIdEncryptAnnotation.clientId())) {
 							// 匹配接口的客户配置是否与当前用户相同
 							// 如果相同，将匹配的客户配置返回
 							aesVersion = clientIdEncryptAnnotation.value();

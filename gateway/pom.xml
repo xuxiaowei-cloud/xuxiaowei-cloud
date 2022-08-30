@@ -46,6 +46,12 @@
             <artifactId>cloud-starter-mybatis</artifactId>
         </dependency>
 
+        <!-- Redis 组件 -->
+        <dependency>
+            <groupId>cloud.xuxiaowei.commons</groupId>
+            <artifactId>cloud-starter-redis</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <dependency>
             <groupId>cn.hutool</groupId>

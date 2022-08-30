@@ -35,10 +35,10 @@
             <artifactId>cloud-starter-validation</artifactId>
         </dependency>
 
-        <!-- Redis 组件 -->
+        <!-- Session Redis 组件 -->
         <dependency>
             <groupId>cloud.xuxiaowei.commons</groupId>
-            <artifactId>cloud-starter-redis</artifactId>
+            <artifactId>cloud-starter-session-redis</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->

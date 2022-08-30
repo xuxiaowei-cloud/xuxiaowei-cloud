@@ -22,6 +22,7 @@
 | CurrentTimeMillisWebFilter        | + 70000                    | 时间戳 过滤器                          |
 | RequestBodyDecryptBeforeWebFilter | + 80000                    | 请求体 Body 解密之前 过滤器                |
 | RequestBodyDecryptWebFilter       | + 90000                    | 请求体 Body 解密 过滤器                  |
+| PatchcaWebFilter                  | + 100000                   | 图片验证码 过滤器                        |
 
 ### GlobalFilter 过滤器
 
