@@ -134,7 +134,7 @@ public class RedisCacheManagerConfiguration {
 
 		// 序列化时带全限定名
 		objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(),
-				ObjectMapper.DefaultTyping.NON_FINAL);
+				ObjectMapper.DefaultTyping.EVERYTHING);
 
 		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
