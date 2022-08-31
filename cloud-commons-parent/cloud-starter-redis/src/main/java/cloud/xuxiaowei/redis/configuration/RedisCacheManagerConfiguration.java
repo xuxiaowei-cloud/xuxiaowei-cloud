@@ -83,7 +83,8 @@ public class RedisCacheManagerConfiguration {
 	 * @return 返回 Redis 模板
 	 */
 	@Bean
-	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory,
+			ObjectMapper objectMapper) {
 
 		// Helper类简化了 Redis 数据访问代码
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -94,6 +95,23 @@ public class RedisCacheManagerConfiguration {
 		// 可以使用读写JSON
 		Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
 
+		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+		// Redis 字符串：键、值序列化
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+
+		// Redis Hash：键、值序列化
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+
+		template.afterPropertiesSet();
+
+		return template;
+	}
+
+	@Bean
+	public ObjectMapper objectMapper() {
 		// ObjectMapper 提供了从基本 POJO（普通旧Java对象）或从通用 JSON 树模型（{@link JsonNode}）读取和写入 JSON
 		// 的功能，
 		// 以及执行转换的相关功能。
@@ -136,19 +154,7 @@ public class RedisCacheManagerConfiguration {
 		objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(),
 				ObjectMapper.DefaultTyping.EVERYTHING);
 
-		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
-
-		// Redis 字符串：键、值序列化
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(jackson2JsonRedisSerializer);
-
-		// Redis Hash：键、值序列化
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(jackson2JsonRedisSerializer);
-
-		template.afterPropertiesSet();
-
-		return template;
+		return objectMapper;
 	}
 
 }
