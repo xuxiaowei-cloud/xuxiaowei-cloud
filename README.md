@@ -392,6 +392,8 @@ cloud.xuxiaowei
 23. [XXL Job](https://www.xuxueli.com/xxl-job)
 24. [WebSocket 路由过滤器](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-websocket-routing-filter)
 25. [网关流量控制](https://sentinelguard.io/zh-cn/docs/api-gateway-flow-control.html)
+26. [阿里云 短信服务](https://dysms.console.aliyun.com/overview)
+    1. [文档](https://next.api.aliyun.com/product/Dysmsapi)
 
 ## 开发工具
 
