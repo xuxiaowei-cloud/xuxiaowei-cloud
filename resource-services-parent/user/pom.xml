@@ -34,6 +34,19 @@
             <artifactId>patchca</artifactId>
         </dependency>
 
+        <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
+        <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+        </dependency>
+        <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
+        <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+        </dependency>
+
     </dependencies>
 
     <licenses>
