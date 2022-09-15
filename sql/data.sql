@@ -4,35 +4,6 @@
 INSERT INTO `users` (`users_id`, `username`, `email`, `email_valid`, `nickname`, `password`, `sex`, `birthday`, `province_code`, `city_code`, `county_code`, `town_code`, `village_code`, `detail_address`, `enabled`, `account_non_expired`, `credentials_non_expired`, `account_non_locked`, `create_date`, `update_date`, `deleted`) VALUES (1, 'xuxiaowei', 'xuxiaowei@xuxiaowei.com.cn', 1, '徐晓伟', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', '1', '1994-08-5', 37, 3702, 370213, 370213008, 370213008010, 'XX小区 105-1-505', 1, 1, 1, 1, '2022-04-06 17:32:43', '2022-08-25 02:44:39', 0);
 
 -- ----------------------------
--- Records of authorities
--- ----------------------------
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (7, 'xuxiaowei', 'user_authorities', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (8, 'xuxiaowei', 'user_details', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (9, 'xuxiaowei', 'user_info', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (10, 'xuxiaowei', 'user_oauth2_oauth2Request', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (11, 'xuxiaowei', 'user_oauth2_userAuthentication', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (12, 'xuxiaowei', 'manage_user_add', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (13, 'xuxiaowei', 'manage_user_delete', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (14, 'xuxiaowei', 'manage_user_edit', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (15, 'xuxiaowei', 'manage_user_read', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (16, 'xuxiaowei', 'manage_user_authority', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (17, 'xuxiaowei', 'manage_client_add', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (18, 'xuxiaowei', 'manage_client_delete', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (19, 'xuxiaowei', 'manage_client_edit', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (20, 'xuxiaowei', 'manage_client_read', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (21, 'xuxiaowei', 'clientId_token_delete', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (22, 'xuxiaowei', 'username_token_delete', '2022-06-14 23:01:27', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (23, 'xuxiaowei', 'audit_authorization_read', '2022-06-18 15:14:09', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (24, 'xuxiaowei', 'audit_authorization_delete', '2022-06-18 15:25:36', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (25, 'xuxiaowei', 'audit_authorization_consent_delete', '2022-06-18 15:59:06', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (26, 'xuxiaowei', 'audit_authorization_consent_read', '2022-06-18 15:59:16', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (27, 'xuxiaowei', 'region_read', '2022-08-20 02:49:04', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (28, 'xuxiaowei', 'dict_delete', '2022-08-23 10:47:05', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (29, 'xuxiaowei', 'dict_edit', '2022-08-23 10:47:15', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (30, 'xuxiaowei', 'dict_read', '2022-08-23 10:47:24', NULL);
-INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (31, 'xuxiaowei', 'dict_add', '2022-08-23 22:08:18', NULL);
-
--- ----------------------------
 -- Records of authority
 -- ----------------------------
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('audit_authorization_consent_delete', '删除授权同意书');
@@ -60,6 +31,35 @@ INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_details', '查看
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_info', '查看用户信息');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_oauth2_oauth2Request', '查看 oauth2 用户请求');
 INSERT INTO `authority` (`authority`, `explain`) VALUES ('user_oauth2_userAuthentication', '查看 oauth2 用户身份验证');
+
+-- ----------------------------
+-- Records of authorities
+-- ----------------------------
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (7, 'xuxiaowei', 'user_authorities', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (8, 'xuxiaowei', 'user_details', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (9, 'xuxiaowei', 'user_info', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (10, 'xuxiaowei', 'user_oauth2_oauth2Request', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (11, 'xuxiaowei', 'user_oauth2_userAuthentication', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (12, 'xuxiaowei', 'manage_user_add', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (13, 'xuxiaowei', 'manage_user_delete', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (14, 'xuxiaowei', 'manage_user_edit', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (15, 'xuxiaowei', 'manage_user_read', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (16, 'xuxiaowei', 'manage_user_authority', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (17, 'xuxiaowei', 'manage_client_add', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (18, 'xuxiaowei', 'manage_client_delete', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (19, 'xuxiaowei', 'manage_client_edit', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (20, 'xuxiaowei', 'manage_client_read', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (21, 'xuxiaowei', 'clientId_token_delete', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (22, 'xuxiaowei', 'username_token_delete', '2022-06-14 23:01:27', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (23, 'xuxiaowei', 'audit_authorization_read', '2022-06-18 15:14:09', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (24, 'xuxiaowei', 'audit_authorization_delete', '2022-06-18 15:25:36', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (25, 'xuxiaowei', 'audit_authorization_consent_delete', '2022-06-18 15:59:06', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (26, 'xuxiaowei', 'audit_authorization_consent_read', '2022-06-18 15:59:16', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (27, 'xuxiaowei', 'region_read', '2022-08-20 02:49:04', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (28, 'xuxiaowei', 'dict_delete', '2022-08-23 10:47:05', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (29, 'xuxiaowei', 'dict_edit', '2022-08-23 10:47:15', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (30, 'xuxiaowei', 'dict_read', '2022-08-23 10:47:24', NULL);
+INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_date`, `update_date`) VALUES (31, 'xuxiaowei', 'dict_add', '2022-08-23 22:08:18', NULL);
 
 -- ----------------------------
 -- Records of dict
