@@ -1,9 +1,6 @@
 package cloud.xuxiaowei.utils;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -26,6 +23,11 @@ public class DateUtils {
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 
 	/**
+	 * 短日期格式
+	 */
+	public static final String SHORT_DATE_FORMAT = "yyyyMMdd";
+
+	/**
 	 * 默认日期时间格式
 	 */
 	public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -39,6 +41,17 @@ public class DateUtils {
 	public static String format(LocalDateTime localDateTime, String pattern) {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
 		return localDateTime.format(dateTimeFormatter);
+	}
+
+	/**
+	 * 根据 日期、格式 处理为字符串
+	 * @param localDate 日期
+	 * @param pattern 格式
+	 * @return 返回 字符串
+	 */
+	public static String format(LocalDate localDate, String pattern) {
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+		return localDate.format(dateTimeFormatter);
 	}
 
 	/**
@@ -57,19 +70,19 @@ public class DateUtils {
 	/**
 	 * 时间戳转日期时间
 	 * @param currentTimeMillis 时间戳
-	 */
-	public static LocalDateTime parse(long currentTimeMillis) {
-		return LocalDateTime.ofEpochSecond(currentTimeMillis / 1000, 0, ZoneOffset.of("+8"));
-	}
-
-	/**
-	 * 时间戳转日期时间
-	 * @param currentTimeMillis 时间戳
 	 * @param pattern 格式
 	 */
 	public static String format(long currentTimeMillis, String pattern) {
 		LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(currentTimeMillis / 1000, 0, ZoneOffset.of("+8"));
 		return format(localDateTime, pattern);
+	}
+
+	/**
+	 * 时间戳转日期时间
+	 * @param currentTimeMillis 时间戳
+	 */
+	public static LocalDateTime parse(long currentTimeMillis) {
+		return LocalDateTime.ofEpochSecond(currentTimeMillis / 1000, 0, ZoneOffset.of("+8"));
 	}
 
 }
