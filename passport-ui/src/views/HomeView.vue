@@ -35,6 +35,7 @@
           <el-checkbox-group v-model="cloudForm.rememberMe">
             <el-checkbox label="true" name="rememberMe" v-bind="true">记住我</el-checkbox>
           </el-checkbox-group>
+          <el-link type="primary" target="_blank" class="forget" href="#/forget">忘记密码</el-link>
         </el-form-item>
 
         <el-form-item>
@@ -165,6 +166,11 @@ const submitCloudForm = () => {
   /* form 居中 */
   margin-left: auto;
   margin-right: auto;
+}
+
+.forget {
+  position: absolute;
+  right: 0;
 }
 
 .cloud-footer {
