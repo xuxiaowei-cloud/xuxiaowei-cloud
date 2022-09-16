@@ -1,4 +1,5 @@
 cloud.xuxiaowei.core.properties.CloudAesProperties
+cloud.xuxiaowei.core.properties.CloudAliyunSmsProperties
 cloud.xuxiaowei.core.properties.CloudBlackListProperties
 cloud.xuxiaowei.core.properties.CloudClientProperties
 cloud.xuxiaowei.core.properties.CloudCookieProperties

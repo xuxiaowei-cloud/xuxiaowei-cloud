@@ -200,3 +200,11 @@ spring:
         dashboard: ${sentinel_dashboard:localhost:22222}
         # 端口冲突时，会自动 +1，直到找到可用端口为止
         port: 9003
+
+cloud:
+  aliyun:
+    sms:
+      access-key-id: ${aliyun_sms_access_key_id:}
+      access-key-secret: ${aliyun_sms_access_key_secret:}
+      sign-name: ${aliyun_sms_sign_name:}
+      template-code: ${aliyun_sms_template_code:}

@@ -64,7 +64,8 @@ INSERT INTO `authorities` (`authorities_id`, `username`, `authority`, `create_da
 -- ----------------------------
 -- Records of dict
 -- ----------------------------
-INSERT INTO `dict` VALUES ('sex', '性别', 3606, 'GB/T 2261.1-2003', 'https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=0FC942D542BC6EE3C707B2647EF81CD8', NULL, '1', '2022-08-23 09:18:44', '127.0.0.1', NULL, NULL, NULL, 0);
+INSERT INTO `dict`(`dict_code`, `dict_explain`, `redis_expire`, `gb`, `gb_url`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sex', '性别', 3606, 'GB/T 2261.1-2003', 'https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=0FC942D542BC6EE3C707B2647EF81CD8', NULL, '1', '2022-08-23 09:18:44', '127.0.0.1', NULL, NULL, NULL, 0);
+INSERT INTO `dict`(`dict_code`, `dict_explain`, `redis_expire`, `gb`, `gb_url`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sms_platform', '短信平台', 100, NULL, NULL, NULL, '1', '2022-09-16 06:38:58', '127.0.0.1', NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Records of dict_data
@@ -73,6 +74,7 @@ INSERT INTO `dict_data` (`dict_code`, `dict_data_code`, `dict_data_label`, `dict
 INSERT INTO `dict_data` (`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sex', '1', '男', 1, '男性', NULL, NULL, NULL, '1', '2022-08-23 09:22:46', '127.0.0.1', NULL, NULL, NULL, 0);
 INSERT INTO `dict_data` (`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sex', '2', '女', 2, '女性', NULL, NULL, NULL, '1', '2022-08-23 09:22:46', '127.0.0.1', NULL, NULL, NULL, 0);
 INSERT INTO `dict_data` (`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sex', '9', '未说明', 3, '未说明的性别', NULL, NULL, NULL, '1', '2022-08-23 09:23:50', '127.0.0.1', NULL, NULL, NULL, 0);
+INSERT INTO `dict_data` (`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('sms_platform', '1', '阿里云短信', NULL, NULL, NULL, NULL, NULL, '1', '2022-09-16 07:54:18', '127.0.0.1', NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Records of oauth2_registered_client

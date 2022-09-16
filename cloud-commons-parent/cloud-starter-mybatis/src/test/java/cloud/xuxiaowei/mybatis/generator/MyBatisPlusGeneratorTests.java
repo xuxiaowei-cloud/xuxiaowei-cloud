@@ -115,6 +115,7 @@ class MyBatisPlusGeneratorTests {
 				new Module("cloud-commons-parent" + fileSeparator + "cloud-starter-system", "cloud.xuxiaowei.system"),
 				new Module("passport", "cloud.xuxiaowei.passport"),
 				new Module("resource-services-parent" + fileSeparator + "master-data","cloud.xuxiaowei.masterdata"),
+				new Module("resource-services-parent" + fileSeparator + "user","cloud.xuxiaowei.user"),
 				new Module("resource-services-parent" + fileSeparator + "wechat-miniprogram","cloud.xuxiaowei.wechatminiprogram")
 		);
 		// @formatter:on
