@@ -223,7 +223,7 @@ CREATE TABLE `province_handle`  (
 DROP TABLE IF EXISTS `sms`;
 CREATE TABLE `sms`  (
   `sms_id` bigint NOT NULL AUTO_INCREMENT COMMENT '短信主键',
-  `sms_platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '短信平台，不为空，字典：dict_data.dict_code = sms_platform',
+  `sms_platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '短信平台，不为空，字典：dict_data.dict_code = ''sms_platform'' AND dict_data.dict_data_code = sms.sms_platform',
   `access_key_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'AccessKey ID，不为空',
   `out_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
   `owner_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
