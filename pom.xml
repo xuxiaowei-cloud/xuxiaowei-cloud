@@ -48,12 +48,12 @@
         <!-- https://github.com/spring-cloud/spring-cloud-gateway -->
         <!-- https://github.com/spring-cloud/spring-cloud-openfeign -->
         <!-- https://github.com/spring-cloud/spring-cloud-circuitbreaker -->
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <!-- Alibaba Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/cloud/spring-cloud-alibaba-dependencies -->
         <!-- https://github.com/alibaba/spring-cloud-alibaba -->
-        <spring-cloud-alibaba.version>2.2.8.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
         <!-- 监控（管理）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/de/codecentric/spring-boot-admin-dependencies -->
@@ -63,6 +63,7 @@
         <!-- OAuth 2.1 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
         <spring-security-oauth2-authorization-server.version>0.4.0-M1
         </spring-security-oauth2-authorization-server.version>
@@ -131,12 +132,12 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.12</fastjson.version>
+        <fastjson.version>2.0.13</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
         <!-- https://github.com/dromara/hutool -->
-        <hutool-all.version>5.8.5</hutool-all.version>
+        <hutool-all.version>5.8.7</hutool-all.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
@@ -167,8 +168,10 @@
         <patchca.version>0.0.1</patchca.version>
 
         <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
+        <!-- https://mvnrepository.com/artifact/com.aliyun/dysmsapi20170525 -->
         <dysmsapi20170525.version>2.0.18</dysmsapi20170525.version>
         <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
+        <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
         <alibabacloud-dysmsapi20170525.version>1.0.1</alibabacloud-dysmsapi20170525.version>
 
         <!-- https://nodejs.org/dist/ -->
