@@ -39,10 +39,10 @@ public interface AliyunDySmsApiService {
 	 * @param bizId 业务ID
 	 * @param currentPage 当前页
 	 * @param pageSize 每页大小
-	 * @return 返回 查询发送结果，判断条件：{@link QuerySendDetailsResponse#body} ->
-	 * {@link QuerySendDetailsResponseBody#smsSendDetailDTOs} ->
+	 * @return 返回 查询发送结果，判断条件：{@link QuerySendDetailsResponse#body} -&lt;
+	 * {@link QuerySendDetailsResponseBody#smsSendDetailDTOs} -&lt;
 	 * {@link QuerySendDetailsResponseBody.QuerySendDetailsResponseBodySmsSendDetailDTOs#smsSendDetailDTO}
-	 * ->
+	 * -&lt;
 	 * {@link QuerySendDetailsResponseBody.QuerySendDetailsResponseBodySmsSendDetailDTOsSmsSendDetailDTO#sendStatus}
 	 * 的值，3：成功，2：失败，1：正在发送中
 	 */
