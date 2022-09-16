@@ -8,6 +8,8 @@
         <result column="username" property="username" />
         <result column="email" property="email" />
         <result column="email_valid" property="emailValid" />
+        <result column="phone" property="phone" />
+        <result column="phone_valid" property="phoneValid" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
         <result column="sex" property="sex" />
@@ -200,6 +202,15 @@
             <if test="deleted == false">
                 AND deleted = 0
             </if>
+    </select>
+
+    <!--  根据 用户名/手机号码/绑定邮箱 查询绑定的 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）  -->
+    <select id="getForgetVoByForgetBo" resultType="cloud.xuxiaowei.system.vo.ForgetVo">
+        SELECT
+            *
+        FROM
+            users u
+        WHERE u.username = #{forgetBo.username} OR u.email = #{forgetBo.username} OR u.phone = #{forgetBo.username}
     </select>
 
 </mapper>

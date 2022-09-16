@@ -6,7 +6,7 @@ import request from '../utils/request'
  * @param state 状态码
  */
 export const authorizationCode = function (code: string, state: string) {
-  return request.post('/code', {
+  return request.post('/passport/code', {
     code,
     state
   }).then(response => {

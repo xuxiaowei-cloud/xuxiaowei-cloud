@@ -2,17 +2,15 @@ package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
-import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
-import cloud.xuxiaowei.system.bo.UsersSaveBo;
-import cloud.xuxiaowei.system.bo.UsersUpdateBo;
-import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
+import cloud.xuxiaowei.system.bo.*;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
+import cloud.xuxiaowei.system.vo.ForgetVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.Encrypt;
+import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -272,6 +270,25 @@ public class UserRestController {
 		sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 
 		return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
+	}
+
+	/**
+	 * 忘记密码
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 更新结果
+	 */
+	@ControllerAnnotation(description = "忘记密码")
+	@PreAuthorize("permitAll()")
+	@RequestMapping("/forget")
+	public Response<?> forget(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody ForgetBo forgetBo) {
+
+		ForgetVo forgetVo = usersService.getForgetVoByForgetBo(forgetBo);
+		if (forgetVo == null) {
+			return ResponseMap.error("未查询到账户");
+		}
+		return ResponseMap.ok(forgetVo);
 	}
 
 }

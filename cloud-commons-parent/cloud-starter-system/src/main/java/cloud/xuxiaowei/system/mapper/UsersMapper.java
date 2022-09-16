@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.system.mapper;
 
+import cloud.xuxiaowei.system.bo.ForgetBo;
 import cloud.xuxiaowei.system.entity.Users;
+import cloud.xuxiaowei.system.vo.ForgetVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -90,5 +92,12 @@ public interface UsersMapper extends BaseMapper<Users> {
 	 */
 	List<Users> listByIdNotUsersIdAndNickname(@Param("usersId") Long usersId, @Param("nickname") String nickname,
 			@Param("deleted") Boolean deleted);
+
+	/**
+	 * 根据 用户名/手机号码/绑定邮箱 查询绑定的 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
+	 * @param forgetBo 用户名/手机号码/绑定邮箱
+	 * @return 返回 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
+	 */
+	ForgetVo getForgetVoByForgetBo(@Param("forgetBo") ForgetBo forgetBo);
 
 }

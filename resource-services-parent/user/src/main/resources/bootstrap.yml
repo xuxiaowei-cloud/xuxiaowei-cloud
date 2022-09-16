@@ -208,3 +208,14 @@ cloud:
       access-key-secret: ${aliyun_sms_access_key_secret:}
       sign-name: ${aliyun_sms_sign_name:}
       template-code: ${aliyun_sms_template_code:}
+
+---
+
+# CSRF 配置
+cloud:
+  security:
+    csrfDisableUrl:
+      # 找回密码
+      '[/forget]':
+        - POST
+        - OPTIONS

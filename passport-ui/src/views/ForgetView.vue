@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import { User } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
+import { forget } from '../api/user'
 
 // 表单中的值
 const cloudForm = reactive({
@@ -36,7 +37,11 @@ const submitCloudForm = () => {
   // @ts-ignore
   cloudFormRef.value.validate(valid => {
     if (valid) {
-      console.log('功能尚未开发完成')
+      forget({
+        username: cloudForm.username
+      }).then((response: any) => {
+        console.log(response)
+      })
     }
   })
 }

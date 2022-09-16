@@ -23,9 +23,19 @@ export const login = function (username: string, password: string, rememberMe: s
   const headers = {}
   // @ts-ignore
   headers[header] = token
-  return request.post('/login', formData, {
+  return request.post('/passport/login', formData, {
     headers
   }).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 忘记密码
+ * @param data
+ */
+export const forget = function (data: any) {
+  return request.post('/user/forget', data).then(response => {
     return response.data
   })
 }

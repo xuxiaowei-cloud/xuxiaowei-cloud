@@ -297,6 +297,8 @@ cloud:
         path-list:
           # 图片验证码
           - /patchca
+          # 忘记密码
+          - /forget
       - name: webservice
         path-list:
           - /cxf/**

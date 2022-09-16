@@ -8,6 +8,7 @@ import cloud.xuxiaowei.system.service.IAuthorityService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
+import cloud.xuxiaowei.system.vo.ForgetVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.SecurityUtils;
@@ -372,6 +373,16 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Override
 	public Users getLogicByEmail(String email) {
 		return baseMapper.getLogicByEmail(email);
+	}
+
+	/**
+	 * 根据 用户名/手机号码/绑定邮箱 查询绑定的 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
+	 * @param forgetBo 用户名/手机号码/绑定邮箱
+	 * @return 返回 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
+	 */
+	@Override
+	public ForgetVo getForgetVoByForgetBo(ForgetBo forgetBo) {
+		return baseMapper.getForgetVoByForgetBo(forgetBo);
 	}
 
 	/**
