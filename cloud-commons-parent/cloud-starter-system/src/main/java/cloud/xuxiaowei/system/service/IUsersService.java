@@ -150,4 +150,13 @@ public interface IUsersService extends IService<Users> {
 	 */
 	Users getLogicByEmail(String email);
 
+	/**
+	 * 根据主键更新密码
+	 * @param usersId 主键
+	 * @param password 密码
+	 * @param rsaPrivateKeyBase64 RSA 私钥
+	 * @return 返回 更新结果
+	 */
+	boolean updatePasswordById(Long usersId, String password, String rsaPrivateKeyBase64);
+
 }

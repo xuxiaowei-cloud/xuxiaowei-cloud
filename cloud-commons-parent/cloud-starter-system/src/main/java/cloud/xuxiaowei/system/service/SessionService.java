@@ -67,11 +67,29 @@ public interface SessionService {
 	void set(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit);
 
 	/**
+	 * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+	 * @param key 键
+	 * @param value 值
+	 * @param timeout 过期时间
+	 * @param unit 过期时间单位
+	 */
+	void setObj(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit);
+
+	/**
 	 * 获取 Redis 中的值
 	 * @param key 键
 	 * @return 返回 Redis 中的值
 	 */
 	String get(@NonNull String key);
+
+	/**
+	 * 获取 Redis 中的值
+	 * @param key 键
+	 * @param valueType 返回值类型
+	 * @param <T> 泛型
+	 * @return 返回 Redis 中的值
+	 */
+	<T> T getObj(@NonNull String key, @NonNull Class<T> valueType);
 
 	/**
 	 * 获取 Session（Redis） 中的值

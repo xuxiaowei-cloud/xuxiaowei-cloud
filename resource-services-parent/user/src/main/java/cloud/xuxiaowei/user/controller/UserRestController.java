@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.user.controller;
 
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.system.bo.*;
@@ -7,6 +8,8 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
+import cloud.xuxiaowei.user.bo.CheckResetPasswordTokenBo;
+import cloud.xuxiaowei.user.bo.ResetPasswordBo;
 import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -58,6 +62,8 @@ public class UserRestController {
 
 	private MailProperties mailProperties;
 
+	private CloudSecurityProperties cloudSecurityProperties;
+
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
 		this.sessionService = sessionService;
@@ -81,6 +87,11 @@ public class UserRestController {
 	@Autowired
 	public void setMailProperties(MailProperties mailProperties) {
 		this.mailProperties = mailProperties;
+	}
+
+	@Autowired
+	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+		this.cloudSecurityProperties = cloudSecurityProperties;
 	}
 
 	/**
@@ -304,7 +315,7 @@ public class UserRestController {
 	 * 忘记密码
 	 * @param request 请求
 	 * @param response 响应
-	 * @return 返回 更新结果
+	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "忘记密码")
 	@RequestMapping("/forget")
@@ -315,13 +326,11 @@ public class UserRestController {
 
 		Users byUsername = usersService.getByUsername(username);
 		if (byUsername != null) {
-			Long usersId = byUsername.getUsersId();
-			String nickname = byUsername.getNickname();
 			String email = byUsername.getEmail();
 			String phone = byUsername.getPhone();
 			if (StringUtils.hasText(email)) {
 
-				email(usersId, email, username, nickname, 6, UUID.randomUUID().toString());
+				email(byUsername);
 
 				return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
 						DesensitizedUtil.email(email))).put("type", "email");
@@ -338,11 +347,9 @@ public class UserRestController {
 
 		Users byEmail = usersService.getByEmail(username);
 		if (byEmail != null) {
-			Long usersId = byEmail.getUsersId();
-			String nickname = byEmail.getNickname();
 			String email = byEmail.getEmail();
 
-			email(usersId, email, username, nickname, 6, UUID.randomUUID().toString());
+			email(byEmail);
 
 			return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
 					DesensitizedUtil.email(email))).put("type", "email");
@@ -359,13 +366,23 @@ public class UserRestController {
 		return Response.error("未找到用户");
 	}
 
-	private void email(Long usersId, String email, String username, String nickname, int hours, String token) {
+	private void email(Users user) {
 		if (javaMailSender == null) {
 			throw new CloudRuntimeException(String.format("错误：邮箱：%s 未登录，不可发送邮件！！！", mailProperties.getUsername()));
 		}
 
+		Long usersId = user.getUsersId();
+		String username = user.getUsername();
+		String email = user.getEmail();
+		String nickname = user.getNickname();
+
+		int hours = cloudSecurityProperties.getResetPasswordTokenHours();
+
+		String token = UUID.randomUUID().toString();
 		LocalDateTime now = LocalDateTime.now();
 		LocalDateTime expire = now.plusHours(hours);
+
+		sessionService.set("reset-password-token:" + usersId, token, hours, TimeUnit.HOURS);
 
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom(mailProperties.getUsername());
@@ -375,7 +392,7 @@ public class UserRestController {
 		// @formatter:off
 		simpleMailMessage.setText(String.format("您好 %s (%s)！ \n\n" +
 				"您已经请求了重置密码，可以点击下面的链接来重置密码。 \n\n" +
-				"http://passport.example.xuxiaowei.cloud:1411/#/password?usersId=%s&reset_password_token=%s \n\n" +
+				"http://passport.example.xuxiaowei.cloud:1411/#/reset-password?usersId=%s&reset_password_token=%s \n\n" +
 				"如果您没有请求重置密码，请忽略这封邮件。 \n\n" +
 				"在您点击上面链接修改密码之前，您的密码将会保持不变。 \n\n" +
 				"链接有效期 %s 小时(%s 过期)",
@@ -383,6 +400,56 @@ public class UserRestController {
 		// @formatter:on
 
 		javaMailSender.send(simpleMailMessage);
+	}
+
+	/**
+	 * 检查重置密码凭证
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "检查重置密码凭证")
+	@RequestMapping("/check-reset-password-token")
+	public Response<?> checkResetPasswordToken(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody CheckResetPasswordTokenBo checkResetPasswordTokenBo) {
+
+		Long usersId = checkResetPasswordTokenBo.getUsersId();
+		String resetPasswordToken = checkResetPasswordTokenBo.getResetPasswordToken();
+		String token = sessionService.get("reset-password-token:" + usersId);
+		if (resetPasswordToken.equals(token)) {
+			return Response.ok();
+		}
+
+		return Response.error("重置密码凭证已失效");
+	}
+
+	/**
+	 * 重置密码
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "重置密码")
+	@RequestMapping("/reset-password")
+	public Response<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody ResetPasswordBo resetPasswordBo) {
+
+		Long usersId = resetPasswordBo.getUsersId();
+		String resetPasswordToken = resetPasswordBo.getResetPasswordToken();
+		String password = resetPasswordBo.getPassword();
+
+		HttpSession session = request.getSession();
+
+		String rsaPrivateKeyBase64 = (String) session.getAttribute("RSA_PRIVATE_KEY_BASE64");
+
+		String token = sessionService.get("reset-password-token:" + usersId);
+		if (resetPasswordToken.equals(token)) {
+			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
+			sessionService.remove("reset-password-token:" + usersId);
+			return Response.ok();
+		}
+
+		return Response.error("重置密码凭证已失效");
 	}
 
 }

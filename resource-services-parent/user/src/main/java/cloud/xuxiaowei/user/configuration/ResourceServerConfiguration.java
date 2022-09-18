@@ -76,6 +76,10 @@ public class ResourceServerConfiguration {
 			authorize
 					// 找回密码
 					.antMatchers("/forget").permitAll()
+					// 检查重置密码凭证
+					.antMatchers("/check-reset-password-token").permitAll()
+					// 重置密码
+					.antMatchers("/reset-password").permitAll()
 					// 放行端点
 					.antMatchers("/actuator/**").permitAll()
 					// 放行错误地址

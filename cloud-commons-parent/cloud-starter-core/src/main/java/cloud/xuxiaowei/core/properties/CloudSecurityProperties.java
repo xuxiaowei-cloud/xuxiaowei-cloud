@@ -79,4 +79,9 @@ public class CloudSecurityProperties {
 	 */
 	private boolean allowEmptyAuthorities = true;
 
+	/**
+	 * 重置密码 Token 有效时间（单位：小时）
+	 */
+	private int resetPasswordTokenHours = 1;
+
 }

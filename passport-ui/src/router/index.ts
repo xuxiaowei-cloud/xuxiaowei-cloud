@@ -14,6 +14,11 @@ const routes = [
     component: () => import('../views/ForgetView.vue')
   },
   {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => import('../views/ResetPasswordView.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

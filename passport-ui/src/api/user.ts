@@ -39,3 +39,30 @@ export const forget = function (data: any) {
     return response.data
   })
 }
+
+/**
+ * 检查重置密码凭证
+ * @param data
+ */
+export const checkResetPasswordToken = function (data: any) {
+  return request.post('/user/check-reset-password-token', data).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 重置密码
+ * @param header
+ * @param token
+ * @param data
+ */
+export const resetPassword = function (header: String, token: String, data: any) {
+  const headers = {}
+  // @ts-ignore
+  headers[header] = token
+  return request.post('/user/reset-password', data, {
+    headers
+  }).then(response => {
+    return response.data
+  })
+}

@@ -299,6 +299,10 @@ cloud:
           - /patchca
           # 忘记密码
           - /forget
+          # 检查重置密码凭证
+          - check-reset-password-token
+          # 重置密码
+          - reset-password
       - name: webservice
         path-list:
           - /cxf/**
