@@ -204,15 +204,12 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	/**
-	 * 移除 Session（Redis）
+	 * 移除 Redis
 	 * @param key 键
 	 */
 	@Override
 	public void remove(@NonNull String key) {
-		String sessionId = sessionId();
-		redisTemplate.delete(sessionId);
-		// 过期时间
-		expire(sessionId);
+		redisTemplate.delete(key);
 	}
 
 	/**

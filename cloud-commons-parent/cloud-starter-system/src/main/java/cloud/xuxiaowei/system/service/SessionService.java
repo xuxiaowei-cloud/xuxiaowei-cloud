@@ -87,7 +87,7 @@ public interface SessionService {
 	void removeAttribute(@NonNull String key);
 
 	/**
-	 * 移除 Session（Redis）
+	 * 移除 Redis
 	 * @param key 键
 	 */
 	void remove(@NonNull String key);
