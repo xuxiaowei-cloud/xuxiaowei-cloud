@@ -74,6 +74,8 @@ public class ResourceServerConfiguration {
 		// 路径权限控制
 		http.authorizeHttpRequests((authorize) -> {
 			authorize
+					// 找回密码
+					.antMatchers("/forget").permitAll()
 					// 放行端点
 					.antMatchers("/actuator/**").permitAll()
 					// 放行错误地址

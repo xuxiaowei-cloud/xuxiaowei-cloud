@@ -1,8 +1,10 @@
 package cloud.xuxiaowei.system.service;
 
-import cloud.xuxiaowei.system.bo.*;
+import cloud.xuxiaowei.system.bo.ManageUsersPageBo;
+import cloud.xuxiaowei.system.bo.UsersSaveBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateBo;
+import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.vo.ForgetVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -55,6 +57,13 @@ public interface IUsersService extends IService<Users> {
 	 * @return 返回 用户信息
 	 */
 	Users getByNickname(String nickname);
+
+	/**
+	 * 根据 手机号 查询用户信息
+	 * @param phone 手机号
+	 * @return 返回 用户信息
+	 */
+	Users getByPhone(String phone);
 
 	/**
 	 * 根据 昵称 查询用户信息
@@ -140,12 +149,5 @@ public interface IUsersService extends IService<Users> {
 	 * @return 返回 用户信息
 	 */
 	Users getLogicByEmail(String email);
-
-	/**
-	 * 根据 用户名/手机号码/绑定邮箱 查询绑定的 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
-	 * @param forgetBo 用户名/手机号码/绑定邮箱
-	 * @return 返回 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）
-	 */
-	ForgetVo getForgetVoByForgetBo(ForgetBo forgetBo);
 
 }

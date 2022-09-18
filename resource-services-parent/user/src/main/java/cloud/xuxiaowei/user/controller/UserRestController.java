@@ -3,23 +3,27 @@ package cloud.xuxiaowei.user.controller;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.system.bo.*;
+import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
-import cloud.xuxiaowei.system.vo.ForgetVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
-import cloud.xuxiaowei.utils.AssertUtils;
-import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.Encrypt;
-import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.*;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
+import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.base.Joiner;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
  * 用户
@@ -38,12 +46,17 @@ import java.util.concurrent.TimeUnit;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 public class UserRestController {
 
 	private SessionService sessionService;
 
 	private IUsersService usersService;
+
+	private JavaMailSender javaMailSender;
+
+	private MailProperties mailProperties;
 
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
@@ -53,6 +66,21 @@ public class UserRestController {
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
+	}
+
+	/**
+	 * 注意： 当未成功配置邮箱时，{@link Autowired} 直接注入将会失败，导致程序无法启动
+	 * <p>
+	 * 故将 {@link Autowired} 的 required 设置为 false，避免程序启动失败。使用时请判断该值是否为 null
+	 */
+	@Autowired(required = false)
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
+
+	@Autowired
+	public void setMailProperties(MailProperties mailProperties) {
+		this.mailProperties = mailProperties;
 	}
 
 	/**
@@ -279,16 +307,82 @@ public class UserRestController {
 	 * @return 返回 更新结果
 	 */
 	@ControllerAnnotation(description = "忘记密码")
-	@PreAuthorize("permitAll()")
 	@RequestMapping("/forget")
 	public Response<?> forget(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody ForgetBo forgetBo) {
 
-		ForgetVo forgetVo = usersService.getForgetVoByForgetBo(forgetBo);
-		if (forgetVo == null) {
-			return ResponseMap.error("未查询到账户");
+		String username = forgetBo.getUsername();
+
+		Users byUsername = usersService.getByUsername(username);
+		if (byUsername != null) {
+			Long usersId = byUsername.getUsersId();
+			String nickname = byUsername.getNickname();
+			String email = byUsername.getEmail();
+			String phone = byUsername.getPhone();
+			if (StringUtils.hasText(email)) {
+
+				email(usersId, email, username, nickname, 6, UUID.randomUUID().toString());
+
+				return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
+						DesensitizedUtil.email(email))).put("type", "email");
+			}
+			else if (StringUtils.hasText(phone)) {
+				return ResponseMap
+						.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
+						.put("usersId", byUsername.getUsersId()).put("type", "phone");
+			}
+			else {
+				return ResponseMap.error("账户未绑定手机号/邮箱");
+			}
 		}
-		return ResponseMap.ok(forgetVo);
+
+		Users byEmail = usersService.getByEmail(username);
+		if (byEmail != null) {
+			Long usersId = byEmail.getUsersId();
+			String nickname = byEmail.getNickname();
+			String email = byEmail.getEmail();
+
+			email(usersId, email, username, nickname, 6, UUID.randomUUID().toString());
+
+			return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
+					DesensitizedUtil.email(email))).put("type", "email");
+		}
+
+		Users byPhone = usersService.getByPhone(username);
+		if (byPhone != null) {
+			String phone = byPhone.getPhone();
+			return ResponseMap
+					.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
+					.put("usersId", byPhone.getUsersId()).put("type", "phone");
+		}
+
+		return Response.error("未找到用户");
+	}
+
+	private void email(Long usersId, String email, String username, String nickname, int hours, String token) {
+		if (javaMailSender == null) {
+			throw new CloudRuntimeException(String.format("错误：邮箱：%s 未登录，不可发送邮件！！！", mailProperties.getUsername()));
+		}
+
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime expire = now.plusHours(hours);
+
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setFrom(mailProperties.getUsername());
+		simpleMailMessage.setTo(email);
+		simpleMailMessage.setSubject("重置密码");
+
+		// @formatter:off
+		simpleMailMessage.setText(String.format("您好 %s (%s)！ \n\n" +
+				"您已经请求了重置密码，可以点击下面的链接来重置密码。 \n\n" +
+				"http://passport.example.xuxiaowei.cloud:1411/#/password?usersId=%s&reset_password_token=%s \n\n" +
+				"如果您没有请求重置密码，请忽略这封邮件。 \n\n" +
+				"在您点击上面链接修改密码之前，您的密码将会保持不变。 \n\n" +
+				"链接有效期 %s 小时(%s 过期)",
+				username, nickname, usersId, token, hours, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
+		// @formatter:on
+
+		javaMailSender.send(simpleMailMessage);
 	}
 
 }

@@ -181,6 +181,22 @@ spring:
 
 ---
 
+# 邮件
+spring:
+  # [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
+  mail:
+    host: smtp.qq.com
+    username: ${qq_mail_username:}
+    password: ${qq_mail_password:}
+    port: ${qq_mail_port:587}
+    default-encoding: UTF-8
+    properties:
+      "[mail.smtp.socketFactoryClass]": javax.net.ssl.SSLSocketFactory
+      "[mail.debug]": ${qq_mail_debug:true}
+
+
+---
+
 #
 # JWK 配置
 cloud:

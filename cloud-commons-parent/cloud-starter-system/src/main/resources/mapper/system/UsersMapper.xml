@@ -204,13 +204,4 @@
             </if>
     </select>
 
-    <!--  根据 用户名/手机号码/绑定邮箱 查询绑定的 手机号码/绑定邮箱（已脱敏的，使用 Getter 进行脱敏）  -->
-    <select id="getForgetVoByForgetBo" resultType="cloud.xuxiaowei.system.vo.ForgetVo">
-        SELECT
-            *
-        FROM
-            users u
-        WHERE u.username = #{forgetBo.username} OR u.email = #{forgetBo.username} OR u.phone = #{forgetBo.username}
-    </select>
-
 </mapper>

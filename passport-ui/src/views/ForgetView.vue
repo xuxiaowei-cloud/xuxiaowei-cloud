@@ -2,11 +2,11 @@
   <el-container>
     <el-header class="cloud-header m-20px">
       <h1>重置密码</h1>
-      <div>请通过输入用户名/手机号码/绑定邮箱重置你的帐号密码</div>
+      <div v-if="type == null">请通过输入用户名/手机号码/绑定邮箱重置你的帐号密码</div>
     </el-header>
 
     <el-main class="cloud-main">
-      <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm">
+      <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm" v-if="type == null">
         <el-form-item prop="username"
                       :rules="[{ required: true, message: '用户名/手机号码/绑定邮箱必填' }]">
           <el-input v-model.trim="cloudForm.username" :prefix-icon="User" placeholder="用户名/手机号码/绑定邮箱"/>
@@ -15,13 +15,37 @@
           <el-button class="submit-cloud-form" @click="submitCloudForm()">重置密码</el-button>
         </el-form-item>
       </el-form>
+
+      <div v-else>
+        <div v-if="type === 'email'">
+          {{ typeMsg }}
+        </div>
+
+        <el-form class="cloud-form" ref="cloudFormTypePhoneRef" :model="cloudFormTypePhone" v-if="type === 'phone'">
+          <el-input v-model="cloudFormTypePhone.code" placeholder="请输入验证码" />
+
+          <div class="h-20px"/>
+
+          <div>
+            {{ typeMsg }}
+          </div>
+
+          <div class="h-20px"/>
+
+          <el-button class="w-100%">验证</el-button>
+
+        </el-form>
+      </div>
+
     </el-main>
   </el-container>
 </template>
 
 <script setup lang="ts">
+import { ElMessage } from 'element-plus'
 import { User } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
+import settings from '../settings'
 import { forget } from '../api/user'
 
 // 表单中的值
@@ -32,6 +56,14 @@ const cloudForm = reactive({
 // 表单验证
 const cloudFormRef = ref(null)
 
+// 重置类型
+const type = ref(null)
+// 重置消息
+const typeMsg = ref(null)
+
+// 重置用户主键
+const usersId = ref(null)
+
 // 提交表单
 const submitCloudForm = () => {
   // @ts-ignore
@@ -41,10 +73,22 @@ const submitCloudForm = () => {
         username: cloudForm.username
       }).then((response: any) => {
         console.log(response)
+        if (response.code === settings.okCode) {
+          typeMsg.value = response.msg
+          type.value = response.data?.type
+          usersId.value = response.data?.usersId
+        } else {
+          ElMessage.error(response.msg)
+        }
       })
     }
   })
 }
+
+const cloudFormTypePhone = reactive({
+  usersId: null,
+  code: null
+})
 
 </script>
 <style>
