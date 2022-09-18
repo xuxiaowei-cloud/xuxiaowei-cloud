@@ -28,7 +28,8 @@ public class Sms implements Serializable {
 	private Long smsId;
 
 	/**
-	 * 短信平台，不为空，字典：dict_data.dict_code = 'sms_platform' AND dict_data.dict_data_code = sms.sms_platform
+	 * 短信平台，不为空，字典：dict_data.dict_code = 'sms_platform' AND dict_data.dict_data_code =
+	 * sms.sms_platform
 	 */
 	private String smsPlatform;
 
