@@ -101,10 +101,12 @@ s2-package:
   stage: s2-package
   image: maven:3.6.3-jdk-8
   script:
-    - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
-    - SETTINGS_FILE=`find / -name settings.xml`
+    # - SETTINGS_FILE=`find / -name settings.xml`
+    - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
     - git --version
