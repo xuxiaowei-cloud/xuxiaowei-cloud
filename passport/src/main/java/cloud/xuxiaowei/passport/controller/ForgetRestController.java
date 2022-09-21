@@ -184,9 +184,17 @@ public class ForgetRestController {
 
 		sessionService.set(REDIS_RESET_PASSWORD_CAPTCHA + phone, code, phoneCaptchaMinutes, TimeUnit.MINUTES);
 
-		log.info("重置密码时，手机号：{}，验证码：{}，有效时间：{} 分钟", phone, code, phoneCaptchaMinutes);
-
-		aliyunDySmsApiService.sendSmsCode(phone, code);
+		boolean success = false;
+		try {
+			aliyunDySmsApiService.sendSmsCode(phone, code);
+			success = true;
+		}
+		catch (Exception e) {
+			throw new CloudRuntimeException("重置密码时，发送短信验证码异常", e);
+		}
+		finally {
+			log.info("重置密码时，手机号：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, code, phoneCaptchaMinutes, success);
+		}
 	}
 
 	private void email(Users user) {
