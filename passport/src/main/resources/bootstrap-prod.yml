@@ -34,11 +34,3 @@ cloud:
       '[/oauth2-registered-client/**]':
         - POST
         - OPTIONS
-      # 找回密码
-      '[/forget]':
-        - POST
-        - OPTIONS
-      # 检查重置密码凭证
-      '[/check-reset-password-token]':
-        - POST
-        - OPTIONS

@@ -47,6 +47,7 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  */
 @Slf4j
 @RestController
+@RequestMapping("/forget")
 public class ForgetRestController {
 
 	/**
@@ -133,7 +134,7 @@ public class ForgetRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "忘记密码")
-	@RequestMapping("/forget")
+	@RequestMapping
 	public Response<?> forget(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody ForgetBo forgetBo) {
 

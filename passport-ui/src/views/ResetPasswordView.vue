@@ -29,7 +29,7 @@ import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { Key } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
-import { checkResetPasswordToken, resetPassword } from '../api/passport'
+import { checkResetPasswordToken, resetPassword } from '../api/forget'
 import settings from '../settings'
 
 const route = useRoute()
@@ -44,7 +44,18 @@ const resetPasswordToken = ref()
 router.isReady().then(() => {
   usersId.value = route.query.usersId
   resetPasswordToken.value = route.query.reset_password_token
-  checkResetPasswordToken({
+
+  let header = 'header'
+  let token = 'token'
+  // @ts-ignore
+  if (process.env.NODE_ENV === 'production') {
+    // @ts-ignore
+    header = document.head.querySelector('[name=_csrf_header][content]').content
+    // @ts-ignore
+    token = document.head.querySelector('[name=_csrf][content]').content
+  }
+
+  checkResetPasswordToken(header, token, {
     usersId: usersId.value,
     resetPasswordToken: resetPasswordToken.value
   }).then((response: any) => {

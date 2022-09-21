@@ -296,11 +296,11 @@ cloud:
           # 忘记密码
           - /forget
           # 检查重置密码凭证
-          - check-reset-password-token
+          - /forget/check-reset-password-token
           # 重置密码
-          - reset-password
+          - /forget/reset-password
           # 重置密码（手机验证码）
-          - reset-type-phone-password
+          - /forget/reset-type-phone-password
       - name: user
         path-list:
           # 图片验证码

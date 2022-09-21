@@ -154,6 +154,14 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/oauth2/token").permitAll()
 					// 注销登录放行
 					.antMatchers("/signout").permitAll()
+					// 找回密码
+					.antMatchers("/forget").permitAll()
+					// 检查重置密码凭证
+					.antMatchers("/forget/check-reset-password-token").permitAll()
+					// 重置密码
+					.antMatchers("/forget/reset-password").permitAll()
+					// 重置密码（手机验证码）
+					.antMatchers("/forget/reset-type-phone-password").permitAll()
 					// 放行错误地址
 					.antMatchers("/error").permitAll()
 					// 其他路径均需要授权

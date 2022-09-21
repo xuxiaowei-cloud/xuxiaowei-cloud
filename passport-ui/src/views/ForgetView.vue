@@ -59,7 +59,7 @@ import { User, Key } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { JSEncrypt } from 'jsencrypt'
 import settings from '../settings'
-import { forget, resetTypePhonePassword } from '../api/passport'
+import { forget, resetTypePhonePassword } from '../api/forget'
 
 // 主要内容：是否显示
 const main = ref<boolean>(true)
@@ -85,7 +85,17 @@ const submitCloudForm = () => {
   // @ts-ignore
   cloudFormRef.value.validate(valid => {
     if (valid) {
-      forget({
+      let header = 'header'
+      let token = 'token'
+      // @ts-ignore
+      if (process.env.NODE_ENV === 'production') {
+        // @ts-ignore
+        header = document.head.querySelector('[name=_csrf_header][content]').content
+        // @ts-ignore
+        token = document.head.querySelector('[name=_csrf][content]').content
+      }
+
+      forget(header, token, {
         username: cloudForm.username
       }).then((response: any) => {
         console.log(response)
