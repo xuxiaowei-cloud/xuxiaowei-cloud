@@ -5,6 +5,7 @@ import cloud.xuxiaowei.passport.bo.CheckResetPasswordTokenBo;
 import cloud.xuxiaowei.passport.bo.ResetPasswordBo;
 import cloud.xuxiaowei.passport.bo.ResetTypePhonePasswordBo;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
+import cloud.xuxiaowei.passport.service.IResetPasswordService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.bo.ForgetBo;
 import cloud.xuxiaowei.system.entity.Users;
@@ -78,6 +79,8 @@ public class ForgetRestController {
 
 	private AliyunDySmsApiService aliyunDySmsApiService;
 
+	private IResetPasswordService resetPasswordService;
+
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
 		this.sessionService = sessionService;
@@ -116,6 +119,11 @@ public class ForgetRestController {
 	@Autowired
 	public void setAliyunDySmsApiService(AliyunDySmsApiService aliyunDySmsApiService) {
 		this.aliyunDySmsApiService = aliyunDySmsApiService;
+	}
+
+	@Autowired
+	public void setResetPasswordService(IResetPasswordService resetPasswordService) {
+		this.resetPasswordService = resetPasswordService;
 	}
 
 	/**
@@ -294,6 +302,11 @@ public class ForgetRestController {
 		String resetPasswordToken = resetPasswordBo.getResetPasswordToken();
 		String password = resetPasswordBo.getPassword();
 
+		Users users = usersService.getById(usersId);
+		if (users == null) {
+			throw new CloudRuntimeException("用户不存在");
+		}
+
 		HttpSession session = request.getSession();
 
 		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
@@ -303,14 +316,16 @@ public class ForgetRestController {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
 
+			// 保存修改日志
+			String beforePassword = users.getPassword();
+			// 2：用邮件找回密码
+			resetPasswordService.saveLog(request, "2", usersId, beforePassword);
+
 			// 删除重置密码凭证
 			sessionService.remove(REDIS_RESET_PASSWORD_TOKEN + usersId);
 
-			Users users = usersService.getById(usersId);
-			if (users != null) {
-				// 删除用户的授权（踢用户下线）
-				oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
-			}
+			// 删除用户的授权（踢用户下线）
+			oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
 
 			return Response.ok();
 		}
@@ -348,6 +363,11 @@ public class ForgetRestController {
 		if (code.equals(token)) {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
+
+			// 保存修改日志
+			String beforePassword = users.getPassword();
+			// 3：用手机号找回密码
+			resetPasswordService.saveLog(request, "3", usersId, beforePassword);
 
 			// 删除重置密码的手机号验证码
 			sessionService.remove(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone);

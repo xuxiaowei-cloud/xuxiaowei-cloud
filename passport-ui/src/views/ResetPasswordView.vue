@@ -4,7 +4,7 @@
       <h1>重置密码</h1>
     </el-header>
 
-    <el-main class="cloud-main">
+    <el-main class="cloud-main" v-if="main">
       <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm">
         <el-form-item prop="password" :rules="[{ required: true, message: '新密码必填' }]">
           <el-input type="password" v-model.trim="cloudForm.password" :prefix-icon="Key" placeholder="请输入新密码"/>
@@ -34,6 +34,9 @@ import settings from '../settings'
 
 const route = useRoute()
 const router = useRouter()
+
+// 主要内容：是否显示
+const main = ref<boolean>(true)
 
 const usersId = ref()
 const resetPasswordToken = ref()
@@ -98,7 +101,8 @@ const submitCloudForm = () => {
             duration: 1500,
             type: 'success',
             onClose: () => {
-
+              // 关闭主要内容
+              main.value = false
             }
           })
         } else {
