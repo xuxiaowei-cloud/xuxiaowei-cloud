@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.bo.CheckResetPasswordTokenBo;
 import cloud.xuxiaowei.passport.bo.ResetPasswordBo;
+import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.bo.ForgetBo;
 import cloud.xuxiaowei.system.entity.Users;
@@ -51,6 +52,8 @@ public class ForgetRestController {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
+	private IOauth2AuthorizationService oauth2AuthorizationService;
+
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
 		this.sessionService = sessionService;
@@ -79,6 +82,11 @@ public class ForgetRestController {
 	@Autowired
 	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
 		this.cloudSecurityProperties = cloudSecurityProperties;
+	}
+
+	@Autowired
+	public void setOauth2AuthorizationService(IOauth2AuthorizationService oauth2AuthorizationService) {
+		this.oauth2AuthorizationService = oauth2AuthorizationService;
 	}
 
 	/**
@@ -214,8 +222,18 @@ public class ForgetRestController {
 
 		String token = sessionService.get("reset-password-token:" + usersId);
 		if (resetPasswordToken.equals(token)) {
+			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
+
+			// 删除重置密码凭证
 			sessionService.remove("reset-password-token:" + usersId);
+
+			Users users = usersService.getById(usersId);
+			if (users != null) {
+				// 删除用户的授权（踢用户下线）
+				oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
+			}
+
 			return Response.ok();
 		}
 
