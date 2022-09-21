@@ -250,7 +250,12 @@ public class ForgetRestController {
                 username, nickname, passportDomain, usersId, token, hours, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
         // @formatter:on
 
-		javaMailSender.send(simpleMailMessage);
+		try {
+			javaMailSender.send(simpleMailMessage);
+		}
+		catch (Exception e) {
+			throw new CloudRuntimeException("重置密码时，发送邮件异常");
+		}
 	}
 
 	/**
