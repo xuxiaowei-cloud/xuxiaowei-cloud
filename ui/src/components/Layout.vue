@@ -78,7 +78,6 @@
             <el-dropdown-menu>
               <el-dropdown-item command="personal">个人中心</el-dropdown-item>
               <el-dropdown-item command="security">安全设置</el-dropdown-item>
-              <el-dropdown-item command="account">账户绑定</el-dropdown-item>
               <el-dropdown-item command="social">社交绑定</el-dropdown-item>
               <el-dropdown-item command="signout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
@@ -380,7 +379,6 @@ const refreshClick = () => {
 
 const personal = ref()
 const security = ref()
-const account = ref()
 const social = ref()
 
 // 用户菜单
@@ -395,9 +393,6 @@ const handleCommand = (command: any, number: any) => {
       break
     case 'security':
       security.value.handleClick()
-      break
-    case 'account':
-      account.value.handleClick()
       break
     case 'social':
       social.value.handleClick()

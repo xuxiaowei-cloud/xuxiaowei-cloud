@@ -121,14 +121,6 @@ export const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/user/PersonalView.vue')
       },
       {
-        path: '/user/account',
-        name: '账户绑定',
-        meta: {
-          authority: ['user_info']
-        },
-        component: () => import('@/views/user/AccountView.vue')
-      },
-      {
         path: '/user/security',
         name: '安全设置',
         meta: {
