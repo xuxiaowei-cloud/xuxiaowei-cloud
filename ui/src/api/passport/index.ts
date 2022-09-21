@@ -1,6 +1,6 @@
+import { ElMessage } from 'element-plus/es'
 import request from '../../utils/request'
 import settings from '../../settings'
-import { ElMessage } from 'element-plus/es'
 import { useStore } from '../../store'
 
 /**
@@ -45,5 +45,15 @@ export const signout = function () {
         }
       })
     }
+  })
+}
+
+/**
+ * 密码重置
+ * @param data
+ */
+export const passportReset = function (data: any) {
+  return request.post('/passport/password/reset', data).then(response => {
+    return response.data
   })
 }

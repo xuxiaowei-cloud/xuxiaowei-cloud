@@ -143,6 +143,14 @@ export const routes: Array<RouteRecordRaw> = [
           authority: ['user_info']
         },
         component: () => import('@/views/user/SocialView.vue')
+      },
+      {
+        path: '/user/password',
+        name: '密码设置',
+        meta: {
+          authority: ['user_info']
+        },
+        component: () => import('@/views/user/PasswordView.vue')
       }
     ]
   },
