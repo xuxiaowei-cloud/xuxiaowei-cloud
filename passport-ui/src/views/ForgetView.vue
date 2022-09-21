@@ -2,6 +2,8 @@
   <el-container>
     <el-header class="cloud-header m-20px">
       <h1>重置密码</h1>
+      <div>重置密码完成后，所有已登录的应用均被强制下线</div>
+      <br>
       <div v-if="type == null">请通过输入用户名/手机号码/绑定邮箱重置你的帐号密码</div>
     </el-header>
 
