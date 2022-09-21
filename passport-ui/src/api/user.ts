@@ -35,7 +35,7 @@ export const login = function (username: string, password: string, rememberMe: s
  * @param data
  */
 export const forget = function (data: any) {
-  return request.post('/user/forget', data).then(response => {
+  return request.post('/passport/forget', data).then(response => {
     return response.data
   })
 }
@@ -45,7 +45,7 @@ export const forget = function (data: any) {
  * @param data
  */
 export const checkResetPasswordToken = function (data: any) {
-  return request.post('/user/check-reset-password-token', data).then(response => {
+  return request.post('/passport/check-reset-password-token', data).then(response => {
     return response.data
   })
 }
@@ -60,7 +60,7 @@ export const resetPassword = function (header: String, token: String, data: any)
   const headers = {}
   // @ts-ignore
   headers[header] = token
-  return request.post('/user/reset-password', data, {
+  return request.post('/passport/reset-password', data, {
     headers
   }).then(response => {
     return response.data

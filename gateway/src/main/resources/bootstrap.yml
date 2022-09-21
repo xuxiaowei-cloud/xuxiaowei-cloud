@@ -293,16 +293,16 @@ cloud:
           - /oauth2/token
           # 退出登录
           - /signout
-      - name: user
-        path-list:
-          # 图片验证码
-          - /patchca
           # 忘记密码
           - /forget
           # 检查重置密码凭证
           - check-reset-password-token
           # 重置密码
           - reset-password
+      - name: user
+        path-list:
+          # 图片验证码
+          - /patchca
       - name: webservice
         path-list:
           - /cxf/**

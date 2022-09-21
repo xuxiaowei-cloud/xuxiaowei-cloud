@@ -57,3 +57,15 @@ cloud:
         - OPTIONS
       '[/actuator/**]':
         - POST
+      # 找回密码
+      '[/forget]':
+        - POST
+        - OPTIONS
+      # 检查重置密码凭证
+      '[/check-reset-password-token]':
+        - POST
+        - OPTIONS
+      # 重置密码
+      '[/reset-password]':
+        - POST
+        - OPTIONS

@@ -224,22 +224,3 @@ cloud:
       access-key-secret: ${aliyun_sms_access_key_secret:}
       sign-name: ${aliyun_sms_sign_name:}
       template-code: ${aliyun_sms_template_code:}
-
----
-
-# CSRF 配置
-cloud:
-  security:
-    csrfDisableUrl:
-      # 找回密码
-      '[/forget]':
-        - POST
-        - OPTIONS
-      # 检查重置密码凭证
-      '[/check-reset-password-token]':
-        - POST
-        - OPTIONS
-      # 重置密码
-      '[/reset-password]':
-        - POST
-        - OPTIONS
