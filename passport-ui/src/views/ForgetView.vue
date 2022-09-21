@@ -22,9 +22,6 @@
         </div>
 
         <el-form class="cloud-form" ref="cloudFormTypePhoneRef" :model="cloudFormTypePhone" v-if="type === 'phone'">
-          <el-input v-model="cloudFormTypePhone.code" placeholder="请输入验证码" />
-
-          <div class="h-20px"/>
 
           <div>
             {{ typeMsg }}
@@ -32,7 +29,20 @@
 
           <div class="h-20px"/>
 
-          <el-button class="w-100%">验证</el-button>
+          <el-form-item prop="code" :rules="[{ required: true, message: '短信验证码必填' }]">
+            <el-input v-model.trim="cloudFormTypePhone.code" :prefix-icon="User" placeholder="请输入短信验证码"/>
+          </el-form-item>
+          <el-form-item prop="password" :rules="[{ required: true, message: '新密码必填' }]">
+            <el-input type="password" v-model.trim="cloudFormTypePhone.password" :prefix-icon="Key" placeholder="请输入新密码"/>
+          </el-form-item>
+          <el-form-item prop="confirmPassword"
+                        :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: 'change' }]">
+            <el-input type="password" v-model.trim="cloudFormTypePhone.confirmPassword" :prefix-icon="Key"
+                      placeholder="请输入确认密码"/>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="w-100%" @click="submitCloudTypePhoneForm()">重置密码</el-button>
+          </el-form-item>
 
         </el-form>
       </div>
@@ -43,10 +53,11 @@
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import { User } from '@element-plus/icons-vue'
+import { User, Key } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
+import { JSEncrypt } from 'jsencrypt'
 import settings from '../settings'
-import { forget } from '../api/user'
+import { forget, resetTypePhonePassword } from '../api/passport'
 
 // 表单中的值
 const cloudForm = reactive({
@@ -86,9 +97,68 @@ const submitCloudForm = () => {
 }
 
 const cloudFormTypePhone = reactive({
-  usersId: null,
-  code: null
+  code: '',
+  password: '',
+  confirmPassword: ''
 })
+
+const confirmPasswordValidator = () => {
+  return cloudFormTypePhone.password === cloudFormTypePhone.confirmPassword
+}
+
+const cloudFormTypePhoneRef = ref(null)
+
+const submitCloudTypePhoneForm = () => {
+  // @ts-ignore
+  cloudFormTypePhoneRef.value.validate(valid => {
+    if (valid) {
+      let header = 'header'
+      let token = 'token'
+      let password = cloudFormTypePhone.password
+      // @ts-ignore
+      if (process.env.NODE_ENV === 'production') {
+        // @ts-ignore
+        header = document.head.querySelector('[name=_csrf_header][content]').content
+        // @ts-ignore
+        token = document.head.querySelector('[name=_csrf][content]').content
+        // @ts-ignore
+        const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
+
+        const jsEncrypt = new JSEncrypt()
+        jsEncrypt.setPublicKey(rsaPublicKeyBase64)
+        const encrypt = jsEncrypt.encrypt(password)
+        if (encrypt === false) {
+          ElMessage.error('密码加密失败')
+          return
+        }
+
+        password = encrypt
+      }
+
+      resetTypePhonePassword(header, token, { usersId: usersId.value, code: cloudFormTypePhone.code, password }).then((response: any) => {
+        console.log(response)
+        if (response.code === settings.okCode) {
+          ElMessage({
+            message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
+            type: 'success',
+            onClose: () => {
+
+            }
+          })
+        } else {
+          ElMessage({
+            message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 3000,
+            type: 'error'
+          })
+        }
+      })
+    }
+  })
+}
 
 </script>
 <style>

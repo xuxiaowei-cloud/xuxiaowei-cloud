@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.bo.CheckResetPasswordTokenBo;
 import cloud.xuxiaowei.passport.bo.ResetPasswordBo;
+import cloud.xuxiaowei.passport.bo.ResetTypePhonePasswordBo;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.bo.ForgetBo;
@@ -34,6 +35,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static cloud.xuxiaowei.passport.controller.IndexController.RSA_PRIVATE_KEY_BASE64;
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
@@ -55,6 +57,10 @@ public class ForgetRestController {
 	 * Redis 中重置密码的 验证码
 	 */
 	private static final String REDIS_RESET_PASSWORD_CAPTCHA = "reset-password-captcha:";
+
+	private static final String EMAIL = "我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。";
+
+	private static final String PHONE = "一条包含验证码的信息已发送至你的 手机 %s，请输入 短信验证码 及 新密码 进行重置密码";
 
 	private static final Random RANDOM = new Random();
 
@@ -133,16 +139,22 @@ public class ForgetRestController {
 
 				email(byUsername);
 
-				return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
-						DesensitizedUtil.email(email))).put("type", "email");
+				// @formatter:off
+				return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email)))
+						.put("type", "email");
+				// @formatter:on
 			}
 			else if (StringUtils.hasText(phone)) {
 
+				Long usersId = byUsername.getUsersId();
+
 				phone(byUsername);
 
-				return ResponseMap
-						.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
-						.put("usersId", byUsername.getUsersId()).put("type", "phone");
+				// @formatter:off
+				return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
+						.put("usersId", usersId)
+						.put("type", "phone");
+				// @formatter:on
 			}
 			else {
 				return ResponseMap.error("账户未绑定手机号/邮箱");
@@ -155,19 +167,24 @@ public class ForgetRestController {
 
 			email(byEmail);
 
-			return ResponseMap.ok(String.format("我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。",
-					DesensitizedUtil.email(email))).put("type", "email");
+			// @formatter:off
+			return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email)))
+					.put("type", "email");
+			// @formatter:on
 		}
 
 		Users byPhone = usersService.getByPhone(username);
 		if (byPhone != null) {
 			String phone = byPhone.getPhone();
+			Long usersId = byPhone.getUsersId();
 
 			phone(byPhone);
 
-			return ResponseMap
-					.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
-					.put("usersId", byPhone.getUsersId()).put("type", "phone");
+			// @formatter:off
+			return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
+					.put("usersId", usersId)
+					.put("type", "phone");
+			// @formatter:on
 		}
 
 		return Response.error("未找到用户");
@@ -175,6 +192,7 @@ public class ForgetRestController {
 
 	private void phone(Users user) {
 
+		Long usersId = user.getUsersId();
 		String phone = user.getPhone();
 
 		// 100000 到 999999 之间的随机数
@@ -182,7 +200,8 @@ public class ForgetRestController {
 
 		int phoneCaptchaMinutes = cloudSecurityProperties.getPhoneCaptchaMinutes();
 
-		sessionService.set(REDIS_RESET_PASSWORD_CAPTCHA + phone, code, phoneCaptchaMinutes, TimeUnit.MINUTES);
+		sessionService.set(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone, code, phoneCaptchaMinutes,
+				TimeUnit.MINUTES);
 
 		boolean success = false;
 		try {
@@ -272,7 +291,7 @@ public class ForgetRestController {
 
 		HttpSession session = request.getSession();
 
-		String rsaPrivateKeyBase64 = (String) session.getAttribute("RSA_PRIVATE_KEY_BASE64");
+		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
 
 		String token = sessionService.get(REDIS_RESET_PASSWORD_TOKEN + usersId);
 		if (resetPasswordToken.equals(token)) {
@@ -287,6 +306,49 @@ public class ForgetRestController {
 				// 删除用户的授权（踢用户下线）
 				oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
 			}
+
+			return Response.ok();
+		}
+
+		return Response.error("重置密码凭证已失效");
+	}
+
+	/**
+	 * 重置密码（手机验证码）
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 结果
+	 */
+	@ControllerAnnotation(description = "重置密码（手机验证码）")
+	@RequestMapping("/reset-type-phone-password")
+	public Response<?> resetTypePhonePassword(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody ResetTypePhonePasswordBo resetTypePhonePasswordBo) {
+
+		Long usersId = resetTypePhonePasswordBo.getUsersId();
+		String code = resetTypePhonePasswordBo.getCode();
+		String password = resetTypePhonePasswordBo.getPassword();
+
+		Users users = usersService.getById(usersId);
+		if (users == null) {
+			throw new CloudRuntimeException("用户不存在");
+		}
+
+		String phone = users.getPhone();
+
+		HttpSession session = request.getSession();
+
+		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
+
+		String token = sessionService.get(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone);
+		if (code.equals(token)) {
+			// 重置密码
+			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
+
+			// 删除重置密码的手机号验证码
+			sessionService.remove(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone);
+
+			// 删除用户的授权（踢用户下线）
+			oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
 
 			return Response.ok();
 		}

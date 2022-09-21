@@ -299,6 +299,8 @@ cloud:
           - check-reset-password-token
           # 重置密码
           - reset-password
+          # 重置密码（手机验证码）
+          - reset-type-phone-password
       - name: user
         path-list:
           # 图片验证码

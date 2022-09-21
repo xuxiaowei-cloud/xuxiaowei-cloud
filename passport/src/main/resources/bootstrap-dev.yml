@@ -70,3 +70,7 @@ cloud:
       '[/reset-password]':
         - POST
         - OPTIONS
+      # 重置密码（手机验证码）
+      '[/reset-type-phone-password]':
+        - POST
+        - OPTIONS

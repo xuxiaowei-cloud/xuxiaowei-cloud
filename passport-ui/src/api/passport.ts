@@ -66,3 +66,20 @@ export const resetPassword = function (header: String, token: String, data: any)
     return response.data
   })
 }
+
+/**
+ * 重置密码（手机验证码）
+ * @param header
+ * @param token
+ * @param data
+ */
+export const resetTypePhonePassword = function (header: String, token: String, data: any) {
+  const headers = {}
+  // @ts-ignore
+  headers[header] = token
+  return request.post('/passport/reset-type-phone-password', data, {
+    headers
+  }).then(response => {
+    return response.data
+  })
+}

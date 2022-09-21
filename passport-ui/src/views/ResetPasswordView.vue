@@ -29,7 +29,7 @@ import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { Key } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
-import { checkResetPasswordToken, resetPassword } from '../api/user'
+import { checkResetPasswordToken, resetPassword } from '../api/passport'
 import settings from '../settings'
 
 const route = useRoute()

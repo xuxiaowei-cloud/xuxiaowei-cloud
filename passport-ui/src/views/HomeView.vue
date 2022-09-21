@@ -63,7 +63,7 @@ import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
-import { login } from '../api/user'
+import { login } from '../api/passport'
 import settings from '../settings'
 
 // 跨域

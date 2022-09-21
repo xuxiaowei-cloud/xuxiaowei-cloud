@@ -42,7 +42,3 @@ cloud:
       '[/check-reset-password-token]':
         - POST
         - OPTIONS
-      # 重置密码
-      '[/reset-password]':
-        - POST
-        - OPTIONS
