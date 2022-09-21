@@ -38,7 +38,7 @@
             <el-input type="password" v-model.trim="cloudFormTypePhone.password" :prefix-icon="Key" placeholder="请输入新密码"/>
           </el-form-item>
           <el-form-item prop="confirmPassword"
-                        :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: 'change' }]">
+                        :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: ['change', 'blur'] }]">
             <el-input type="password" v-model.trim="cloudFormTypePhone.confirmPassword" :prefix-icon="Key"
                       placeholder="请输入确认密码"/>
           </el-form-item>
