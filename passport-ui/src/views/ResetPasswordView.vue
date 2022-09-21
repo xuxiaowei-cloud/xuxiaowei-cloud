@@ -10,7 +10,7 @@
           <el-input type="password" v-model.trim="cloudForm.password" :prefix-icon="Key" placeholder="请输入新密码"/>
         </el-form-item>
         <el-form-item prop="confirmPassword"
-                      :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: 'change' }]">
+                      :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: ['change', 'blur'] }]">
           <el-input type="password" v-model.trim="cloudForm.confirmPassword" :prefix-icon="Key"
                     placeholder="请输入确认密码"/>
         </el-form-item>
@@ -44,7 +44,10 @@ const resetPasswordToken = ref()
 router.isReady().then(() => {
   usersId.value = route.query.usersId
   resetPasswordToken.value = route.query.reset_password_token
-  checkResetPasswordToken({ usersId: usersId.value, resetPasswordToken: resetPasswordToken.value }).then((response: any) => {
+  checkResetPasswordToken({
+    usersId: usersId.value,
+    resetPasswordToken: resetPasswordToken.value
+  }).then((response: any) => {
     console.log(response)
     if (response.code !== settings.okCode) {
       ElMessage.error(response.msg)
@@ -58,6 +61,7 @@ const cloudForm = reactive({
   confirmPassword: ''
 })
 
+// 保证确认密码与新密码一致
 const confirmPasswordValidator = () => {
   return cloudForm.password === cloudForm.confirmPassword
 }
@@ -92,7 +96,11 @@ const submitCloudForm = () => {
         password = encrypt
       }
 
-      resetPassword(header, token, { usersId: usersId.value, resetPasswordToken: resetPasswordToken.value, password }).then((response: any) => {
+      resetPassword(header, token, {
+        usersId: usersId.value,
+        resetPasswordToken: resetPasswordToken.value,
+        password
+      }).then((response: any) => {
         console.log(response)
         if (response.code === settings.okCode) {
           ElMessage({
