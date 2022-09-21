@@ -7,7 +7,7 @@
       <div v-if="type == null">请通过输入用户名/手机号码/绑定邮箱重置你的帐号密码</div>
     </el-header>
 
-    <el-main class="cloud-main">
+    <el-main class="cloud-main" v-if="main">
       <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm" v-if="type == null">
         <el-form-item prop="username"
                       :rules="[{ required: true, message: '用户名/手机号码/绑定邮箱必填' }]">
@@ -60,6 +60,9 @@ import { reactive, ref } from 'vue'
 import { JSEncrypt } from 'jsencrypt'
 import settings from '../settings'
 import { forget, resetTypePhonePassword } from '../api/passport'
+
+// 主要内容：是否显示
+const main = ref<boolean>(true)
 
 // 表单中的值
 const cloudForm = reactive({
@@ -146,7 +149,8 @@ const submitCloudTypePhoneForm = () => {
             duration: 1500,
             type: 'success',
             onClose: () => {
-
+              // 关闭主要内容
+              main.value = false
             }
           })
         } else {
