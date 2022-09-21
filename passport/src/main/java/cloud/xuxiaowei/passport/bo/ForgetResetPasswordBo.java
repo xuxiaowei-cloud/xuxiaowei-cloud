@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @since 0.0.1
  */
 @Data
-public class ResetPasswordBo {
+public class ForgetResetPasswordBo {
 
 	/**
 	 * 用户ID

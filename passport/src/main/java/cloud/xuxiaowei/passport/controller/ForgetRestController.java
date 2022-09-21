@@ -2,7 +2,7 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.bo.CheckResetPasswordTokenBo;
-import cloud.xuxiaowei.passport.bo.ResetPasswordBo;
+import cloud.xuxiaowei.passport.bo.ForgetResetPasswordBo;
 import cloud.xuxiaowei.passport.bo.ResetTypePhonePasswordBo;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.passport.service.IResetPasswordService;
@@ -297,11 +297,11 @@ public class ForgetRestController {
 	@ControllerAnnotation(description = "重置密码")
 	@RequestMapping("/reset-password")
 	public Response<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
-			@Valid @RequestBody ResetPasswordBo resetPasswordBo) {
+			@Valid @RequestBody ForgetResetPasswordBo forgetResetPasswordBo) {
 
-		Long usersId = resetPasswordBo.getUsersId();
-		String resetPasswordToken = resetPasswordBo.getResetPasswordToken();
-		String password = resetPasswordBo.getPassword();
+		Long usersId = forgetResetPasswordBo.getUsersId();
+		String resetPasswordToken = forgetResetPasswordBo.getResetPasswordToken();
+		String password = forgetResetPasswordBo.getPassword();
 
 		Users users = usersService.getById(usersId);
 		if (users == null) {
