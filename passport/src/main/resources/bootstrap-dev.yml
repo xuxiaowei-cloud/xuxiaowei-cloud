@@ -3,6 +3,7 @@ cloud:
   security:
     # 启动RSA密码加密
     enabled-rsa: false
+    passport-domain: http://passport.example.xuxiaowei.cloud:1411
   client:
     client-id: xuxiaowei_client_id
     client-secret: xuxiaowei_client_secret

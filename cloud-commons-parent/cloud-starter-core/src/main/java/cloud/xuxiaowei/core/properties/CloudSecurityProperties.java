@@ -84,4 +84,14 @@ public class CloudSecurityProperties {
 	 */
 	private int resetPasswordTokenHours = 1;
 
+	/**
+	 * 手机号验证码有效时间（范围：分钟）
+	 */
+	private int phoneCaptchaMinutes = 5;
+
+	/**
+	 * 登录域名
+	 */
+	private String passportDomain;
+
 }

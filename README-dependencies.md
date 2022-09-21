@@ -176,7 +176,9 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cn.hutool:hutool-all:jar:5.8.7:compile
 │        └──commons-io:commons-io:jar:2.11.0:compile
+│        └──com.aliyun:dysmsapi20170525:jar:2.0.18:compile
 │        └──org.springframework.boot:spring-boot-starter-json:jar:2.7.3:provided
+│        └──com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.13.3:provided
 │        └──com.fasterxml.jackson.core:jackson-annotations:jar:2.13.3:provided
 │        └──org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.65:provided
 │        └──org.springframework.security:spring-security-core:jar:5.7.3:provided
@@ -297,7 +299,6 @@ cloud.xuxiaowei:master-data:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.github.bingoohuang:patchca:jar:0.0.1:compile
-│        └──com.aliyun:dysmsapi20170525:jar:2.0.18:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2.2.9.RELEASE:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile

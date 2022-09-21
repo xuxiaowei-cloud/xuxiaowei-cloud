@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.user.mapper;
+package cloud.xuxiaowei.system.mapper;
 
-import cloud.xuxiaowei.user.entity.Sms;
+import cloud.xuxiaowei.system.entity.Sms;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

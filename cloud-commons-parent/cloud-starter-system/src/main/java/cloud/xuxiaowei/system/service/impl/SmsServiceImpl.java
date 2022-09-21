@@ -1,8 +1,8 @@
-package cloud.xuxiaowei.user.service.impl;
+package cloud.xuxiaowei.system.service.impl;
 
-import cloud.xuxiaowei.user.entity.Sms;
-import cloud.xuxiaowei.user.mapper.SmsMapper;
-import cloud.xuxiaowei.user.service.ISmsService;
+import cloud.xuxiaowei.system.entity.Sms;
+import cloud.xuxiaowei.system.mapper.SmsMapper;
+import cloud.xuxiaowei.system.service.ISmsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

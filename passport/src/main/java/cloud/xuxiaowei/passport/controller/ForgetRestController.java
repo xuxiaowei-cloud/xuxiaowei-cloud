@@ -7,6 +7,7 @@ import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.bo.ForgetBo;
 import cloud.xuxiaowei.system.entity.Users;
+import cloud.xuxiaowei.system.service.AliyunDySmsApiService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.DateUtils;
@@ -14,6 +15,7 @@ import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.core.util.DesensitizedUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -39,8 +42,21 @@ import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 public class ForgetRestController {
+
+	/**
+	 * Redis 中重置密码的 Token
+	 */
+	private static final String REDIS_RESET_PASSWORD_TOKEN = "reset-password-token:";
+
+	/**
+	 * Redis 中重置密码的 验证码
+	 */
+	private static final String REDIS_RESET_PASSWORD_CAPTCHA = "reset-password-captcha:";
+
+	private static final Random RANDOM = new Random();
 
 	private SessionService sessionService;
 
@@ -53,6 +69,8 @@ public class ForgetRestController {
 	private CloudSecurityProperties cloudSecurityProperties;
 
 	private IOauth2AuthorizationService oauth2AuthorizationService;
+
+	private AliyunDySmsApiService aliyunDySmsApiService;
 
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
@@ -89,6 +107,11 @@ public class ForgetRestController {
 		this.oauth2AuthorizationService = oauth2AuthorizationService;
 	}
 
+	@Autowired
+	public void setAliyunDySmsApiService(AliyunDySmsApiService aliyunDySmsApiService) {
+		this.aliyunDySmsApiService = aliyunDySmsApiService;
+	}
+
 	/**
 	 * 忘记密码
 	 * @param request 请求
@@ -114,6 +137,9 @@ public class ForgetRestController {
 						DesensitizedUtil.email(email))).put("type", "email");
 			}
 			else if (StringUtils.hasText(phone)) {
+
+				phone(byUsername);
+
 				return ResponseMap
 						.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
 						.put("usersId", byUsername.getUsersId()).put("type", "phone");
@@ -136,12 +162,31 @@ public class ForgetRestController {
 		Users byPhone = usersService.getByPhone(username);
 		if (byPhone != null) {
 			String phone = byPhone.getPhone();
+
+			phone(byPhone);
+
 			return ResponseMap
 					.ok(String.format("一条包含验证码的信息已发送至你的 手机 %s，请输入验证码以继续", DesensitizedUtil.mobilePhone(phone)))
 					.put("usersId", byPhone.getUsersId()).put("type", "phone");
 		}
 
 		return Response.error("未找到用户");
+	}
+
+	private void phone(Users user) {
+
+		String phone = user.getPhone();
+
+		// 100000 到 999999 之间的随机数
+		String code = RANDOM.nextInt(900000) + 100000 + "";
+
+		int phoneCaptchaMinutes = cloudSecurityProperties.getPhoneCaptchaMinutes();
+
+		sessionService.set(REDIS_RESET_PASSWORD_CAPTCHA + phone, code, phoneCaptchaMinutes, TimeUnit.MINUTES);
+
+		log.info("重置密码时，手机号：{}，验证码：{}，有效时间：{} 分钟", phone, code, phoneCaptchaMinutes);
+
+		aliyunDySmsApiService.sendSmsCode(phone, code);
 	}
 
 	private void email(Users user) {
@@ -155,12 +200,13 @@ public class ForgetRestController {
 		String nickname = user.getNickname();
 
 		int hours = cloudSecurityProperties.getResetPasswordTokenHours();
+		String passportDomain = cloudSecurityProperties.getPassportDomain();
 
 		String token = UUID.randomUUID().toString();
 		LocalDateTime now = LocalDateTime.now();
 		LocalDateTime expire = now.plusHours(hours);
 
-		sessionService.set("reset-password-token:" + usersId, token, hours, TimeUnit.HOURS);
+		sessionService.set(REDIS_RESET_PASSWORD_TOKEN + usersId, token, hours, TimeUnit.HOURS);
 
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom(mailProperties.getUsername());
@@ -170,11 +216,11 @@ public class ForgetRestController {
 		// @formatter:off
         simpleMailMessage.setText(String.format("您好 %s (%s)！ \n\n" +
                         "您已经请求了重置密码，可以点击下面的链接来重置密码。 \n\n" +
-                        "http://passport.example.xuxiaowei.cloud:1411/#/reset-password?usersId=%s&reset_password_token=%s \n\n" +
+                        "%s/#/reset-password?usersId=%s&reset_password_token=%s \n\n" +
                         "如果您没有请求重置密码，请忽略这封邮件。 \n\n" +
                         "在您点击上面链接修改密码之前，您的密码将会保持不变。 \n\n" +
                         "链接有效期 %s 小时(%s 过期)",
-                username, nickname, usersId, token, hours, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
+                username, nickname, passportDomain, usersId, token, hours, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
         // @formatter:on
 
 		javaMailSender.send(simpleMailMessage);
@@ -193,7 +239,7 @@ public class ForgetRestController {
 
 		Long usersId = checkResetPasswordTokenBo.getUsersId();
 		String resetPasswordToken = checkResetPasswordTokenBo.getResetPasswordToken();
-		String token = sessionService.get("reset-password-token:" + usersId);
+		String token = sessionService.get(REDIS_RESET_PASSWORD_TOKEN + usersId);
 		if (resetPasswordToken.equals(token)) {
 			return Response.ok();
 		}
@@ -220,13 +266,13 @@ public class ForgetRestController {
 
 		String rsaPrivateKeyBase64 = (String) session.getAttribute("RSA_PRIVATE_KEY_BASE64");
 
-		String token = sessionService.get("reset-password-token:" + usersId);
+		String token = sessionService.get(REDIS_RESET_PASSWORD_TOKEN + usersId);
 		if (resetPasswordToken.equals(token)) {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
 
 			// 删除重置密码凭证
-			sessionService.remove("reset-password-token:" + usersId);
+			sessionService.remove(REDIS_RESET_PASSWORD_TOKEN + usersId);
 
 			Users users = usersService.getById(usersId);
 			if (users != null) {

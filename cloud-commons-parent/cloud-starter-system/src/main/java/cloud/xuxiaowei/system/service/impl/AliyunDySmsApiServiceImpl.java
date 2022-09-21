@@ -1,9 +1,9 @@
-package cloud.xuxiaowei.user.service.impl;
+package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudAliyunSmsProperties;
-import cloud.xuxiaowei.user.entity.Sms;
-import cloud.xuxiaowei.user.service.AliyunDySmsApiService;
-import cloud.xuxiaowei.user.service.ISmsService;
+import cloud.xuxiaowei.system.entity.Sms;
+import cloud.xuxiaowei.system.service.AliyunDySmsApiService;
+import cloud.xuxiaowei.system.service.ISmsService;
 import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
@@ -20,6 +20,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 import static cloud.xuxiaowei.utils.DateUtils.SHORT_DATE_FORMAT;
@@ -48,6 +49,19 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 	}
 
 	/**
+	 * 发送短信验证码
+	 * @param phoneNumbers 手机号
+	 * @param code 验证码
+	 * @return 返回 发送短信结果
+	 */
+	@Override
+	public SendSmsResponse sendSmsCode(@NonNull String phoneNumbers, @NonNull String code) {
+		Map<String, String> templateParam = new HashMap<>(4);
+		templateParam.put("code", code);
+		return sendSms(phoneNumbers, templateParam);
+	}
+
+	/**
 	 * 发送短信
 	 * @param phoneNumbers 手机号
 	 * @param templateParam 模板参数
@@ -55,7 +69,20 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 	 */
 	@Override
 	public SendSmsResponse sendSms(@NonNull String phoneNumbers, @NonNull Map<String, String> templateParam) {
+		String templateCode = cloudAliyunSmsProperties.getTemplateCode();
+		return sendSmsTemplateCode(phoneNumbers, templateCode, templateParam);
+	}
 
+	/**
+	 * 发送短信
+	 * @param phoneNumbers 手机号
+	 * @param templateCode 模板代码
+	 * @param templateParam 模板参数
+	 * @return 返回 发送短信结果
+	 */
+	@Override
+	public SendSmsResponse sendSmsTemplateCode(@NonNull String phoneNumbers, @NonNull String templateCode,
+			@NonNull Map<String, String> templateParam) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
 		String json;
@@ -67,11 +94,11 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 		}
 
 		// @formatter:off
-        SendSmsRequest sendSmsRequest = new SendSmsRequest()
-                .setPhoneNumbers(phoneNumbers)
-                .setSignName(cloudAliyunSmsProperties.getSignName())
-                .setTemplateCode(cloudAliyunSmsProperties.getTemplateCode())
-                .setTemplateParam(json);
+		SendSmsRequest sendSmsRequest = new SendSmsRequest()
+				.setPhoneNumbers(phoneNumbers)
+				.setSignName(cloudAliyunSmsProperties.getSignName())
+				.setTemplateCode(templateCode)
+				.setTemplateParam(json);
 		// @formatter:on
 
 		Sms sms = new Sms();

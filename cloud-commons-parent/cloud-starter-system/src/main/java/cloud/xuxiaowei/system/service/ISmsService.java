@@ -1,6 +1,6 @@
-package cloud.xuxiaowei.user.service;
+package cloud.xuxiaowei.system.service;
 
-import cloud.xuxiaowei.user.entity.Sms;
+import cloud.xuxiaowei.system.entity.Sms;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

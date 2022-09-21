@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.user.service;
+package cloud.xuxiaowei.system.service;
 
 import com.aliyun.dysmsapi20170525.models.QuerySendDetailsResponse;
 import com.aliyun.dysmsapi20170525.models.QuerySendDetailsResponseBody;
@@ -17,12 +17,30 @@ import java.util.Map;
 public interface AliyunDySmsApiService {
 
 	/**
+	 * 发送短信验证码
+	 * @param phoneNumbers 手机号
+	 * @param code 验证码
+	 * @return 返回 发送短信结果
+	 */
+	SendSmsResponse sendSmsCode(@NonNull String phoneNumbers, @NonNull String code);
+
+	/**
 	 * 发送短信
 	 * @param phoneNumbers 手机号
 	 * @param templateParam 模板参数
 	 * @return 返回 发送短信结果
 	 */
 	SendSmsResponse sendSms(@NonNull String phoneNumbers, @NonNull Map<String, String> templateParam);
+
+	/**
+	 * 发送短信
+	 * @param phoneNumbers 手机号
+	 * @param templateCode 模板代码
+	 * @param templateParam 模板参数
+	 * @return 返回 发送短信结果
+	 */
+	SendSmsResponse sendSmsTemplateCode(@NonNull String phoneNumbers, @NonNull String templateCode,
+			@NonNull Map<String, String> templateParam);
 
 	/**
 	 * 发送短信
