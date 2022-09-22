@@ -170,3 +170,12 @@ export const codeRsa = function () {
     return response.data
   })
 }
+
+/**
+ * 获取安全设置
+ */
+export const security = function () {
+  return request.post('/user/security').then(response => {
+    return response.data
+  })
+}

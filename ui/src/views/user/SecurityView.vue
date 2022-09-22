@@ -22,18 +22,70 @@
       </el-form>
     </el-main>
 
+    <!-- 修改手机号弹窗 -->
+    <el-dialog v-if="securityPhoneDialogVisible" v-model="securityPhoneDialogVisible" title="修改手机号" width="500px"
+               :before-close="securityPhoneDialogHandleClose">
+      <SecurityPhone :dialogVisible="securityPhoneDialogVisible" @dialogVisibleClose="securityPhoneDialogVisibleClose"/>
+    </el-dialog>
+
   </el-container>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Edit } from '@element-plus/icons-vue'
+import { security } from '../../api/user'
+import settings from '../../settings'
+import SecurityPhone from './dialog/SecurityPhoneDialog.vue'
 
 const phone = ref()
 const email = ref()
 
+// 初始化数据
+const initData = () => {
+  security().then(response => {
+    console.log(response)
+    if (response.code === settings.okCode) {
+      phone.value = response.data?.phone
+      email.value = response.data?.email
+    } else {
+      ElMessage({
+        message: response.msg,
+        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+        duration: 1500,
+        type: 'error',
+        onClose: () => {
+
+        }
+      })
+    }
+  })
+}
+
+initData()
+
+// 修改手机号弹窗：是否打开
+const securityPhoneDialogVisible = ref(false)
+
+// 修改手机号弹窗关闭：弹窗右上角的 x
+const securityPhoneDialogHandleClose = (done: () => void) => {
+  console.log('关闭修改手机号弹窗')
+  done()
+  // 关闭窗口后，重新搜索
+  initData()
+}
+
+// 个人中心弹窗关闭：子窗口使用
+const securityPhoneDialogVisibleClose = () => {
+  // 个人中心弹窗：打开
+  securityPhoneDialogVisible.value = false
+  // 关闭窗口后，重新搜索
+  initData()
+}
+
 const phoneEdit = () => {
-  alert('修改手机号功能未开发')
+  securityPhoneDialogVisible.value = true
 }
 
 const emailEdit = () => {
