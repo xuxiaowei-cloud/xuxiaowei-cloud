@@ -56,9 +56,9 @@ public class ForgetRestController {
 	private static final String REDIS_RESET_PASSWORD_TOKEN = "reset-password-token:";
 
 	/**
-	 * Redis 中重置密码的 验证码
+	 * Redis 中重置密码的 短信验证码
 	 */
-	private static final String REDIS_RESET_PASSWORD_CAPTCHA = "reset-password-captcha:";
+	private static final String REDIS_RESET_PASSWORD_SMS_CAPTCHA = "reset-password-sms-captcha:";
 
 	private static final String EMAIL = "我们向邮箱 %s 发送了一封含有重置密码链接的邮件。请登录邮箱查看，如长时间没有收到邮件，请检查你的垃圾邮件文件夹。";
 
@@ -209,7 +209,7 @@ public class ForgetRestController {
 
 		int phoneCaptchaMinutes = cloudSecurityProperties.getPhoneCaptchaMinutes();
 
-		sessionService.set(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone, code, phoneCaptchaMinutes,
+		sessionService.set(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone, code, phoneCaptchaMinutes,
 				TimeUnit.MINUTES);
 
 		boolean success = false;
@@ -360,7 +360,7 @@ public class ForgetRestController {
 
 		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
 
-		String token = sessionService.get(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone);
+		String token = sessionService.get(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone);
 		if (code.equals(token)) {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
@@ -371,7 +371,7 @@ public class ForgetRestController {
 			resetPasswordService.saveLog(request, "3", usersId, beforePassword);
 
 			// 删除重置密码的手机号验证码
-			sessionService.remove(REDIS_RESET_PASSWORD_CAPTCHA + usersId + ":" + phone);
+			sessionService.remove(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone);
 
 			// 删除用户的授权（踢用户下线）
 			oauth2AuthorizationService.removeByPrincipalName(users.getUsername());
