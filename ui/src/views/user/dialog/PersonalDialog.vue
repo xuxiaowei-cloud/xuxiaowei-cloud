@@ -297,11 +297,10 @@ info().then((response: AjaxResponse<UsersVo>) => {
 const emit = defineEmits(['dialogVisibleClose'])
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 更新
 const cloudUpdate = () => {
-  // @ts-ignore
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       ElMessageBox.confirm('确认更新？', '警告', {

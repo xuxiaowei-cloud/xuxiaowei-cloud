@@ -92,11 +92,10 @@ const emit = defineEmits(['dialogVisibleClose'])
 initData()
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 保存
 const cloudSave = () => {
-  // @ts-ignore
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       ElMessageBox.confirm('确认添加？', '警告', {
@@ -129,7 +128,6 @@ const cloudSave = () => {
 
 // 更新
 const cloudUpdate = () => {
-  // @ts-ignore
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       ElMessageBox.confirm('确认更新？', '警告', {

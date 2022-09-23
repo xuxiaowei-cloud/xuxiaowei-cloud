@@ -78,11 +78,10 @@ const confirmPasswordValidator = () => {
 }
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 const submitCloudForm = () => {
-  // @ts-ignore
-  cloudFormRef.value.validate(valid => {
+  cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       let header = 'header'
       let token = 'token'

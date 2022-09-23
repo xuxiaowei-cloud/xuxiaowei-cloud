@@ -43,11 +43,10 @@ const confirmPasswordValidator = () => {
 }
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 const submitCloudForm = () => {
-  // @ts-ignore
-  cloudFormRef.value.validate(valid => {
+  cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       passportReset({ password: cloudForm.password }).then(response => {
         if (response.code === settings.okCode) {

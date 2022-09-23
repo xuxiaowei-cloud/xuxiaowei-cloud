@@ -70,7 +70,7 @@ const cloudForm = reactive({
 })
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 重置类型
 const type = ref(null)
@@ -82,8 +82,7 @@ const usersId = ref(null)
 
 // 提交表单
 const submitCloudForm = () => {
-  // @ts-ignore
-  cloudFormRef.value.validate(valid => {
+  cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       let header = 'header'
       let token = 'token'
@@ -121,11 +120,10 @@ const confirmPasswordValidator = () => {
   return cloudFormTypePhone.password === cloudFormTypePhone.confirmPassword
 }
 
-const cloudFormTypePhoneRef = ref(null)
+const cloudFormTypePhoneRef = ref()
 
 const submitCloudTypePhoneForm = () => {
-  // @ts-ignore
-  cloudFormTypePhoneRef.value.validate(valid => {
+  cloudFormTypePhoneRef.value.validate((valid: boolean) => {
     if (valid) {
       let header = 'header'
       let token = 'token'

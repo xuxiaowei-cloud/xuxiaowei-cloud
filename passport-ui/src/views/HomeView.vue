@@ -91,12 +91,11 @@ const passwordTypeClick = () => {
 }
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 提交表单
 const submitCloudForm = () => {
-  // @ts-ignore
-  cloudFormRef.value.validate(valid => {
+  cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       let header = 'header'
       let token = 'token'
