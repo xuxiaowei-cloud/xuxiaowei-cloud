@@ -34,6 +34,10 @@ spring:
         namespace:
         # 自定义注册IP（为空时使用程序自动获取本机IP）
         ip: ${passport_ip:}
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+            health: /health
       # 服务配置
       config:
         # 配置文件后缀名
