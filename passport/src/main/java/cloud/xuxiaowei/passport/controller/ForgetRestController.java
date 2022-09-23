@@ -12,12 +12,15 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.AliyunDySmsApiService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
+import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.core.util.DesensitizedUtil;
+import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.SimpleMailMessage;
@@ -157,11 +160,13 @@ public class ForgetRestController {
 
 				Long usersId = byUsername.getUsersId();
 
-				phone(byUsername);
+				// 识别码
+				String identification = phone(byUsername);
 
 				// @formatter:off
 				return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
 						.put("usersId", usersId)
+						.put("identification", identification)
 						.put("type", "phone");
 				// @formatter:on
 			}
@@ -187,11 +192,13 @@ public class ForgetRestController {
 			String phone = byPhone.getPhone();
 			Long usersId = byPhone.getUsersId();
 
-			phone(byPhone);
+			// 识别码
+			String identification = phone(byPhone);
 
 			// @formatter:off
 			return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
 					.put("usersId", usersId)
+					.put("identification", identification)
 					.put("type", "phone");
 			// @formatter:on
 		}
@@ -199,18 +206,21 @@ public class ForgetRestController {
 		return Response.error("未找到用户");
 	}
 
-	private void phone(Users user) {
+	private String phone(Users user) {
 
 		Long usersId = user.getUsersId();
 		String phone = user.getPhone();
+
+		// 识别码
+		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constant.UPPER_CASE_LIST));
 
 		// 100000 到 999999 之间的随机数
 		String code = RANDOM.nextInt(900000) + 100000 + "";
 
 		int phoneCaptchaMinutes = cloudSecurityProperties.getPhoneCaptchaMinutes();
 
-		sessionService.set(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone, code, phoneCaptchaMinutes,
-				TimeUnit.MINUTES);
+		sessionService.set(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification, code,
+				phoneCaptchaMinutes, TimeUnit.MINUTES);
 
 		boolean success = false;
 		try {
@@ -223,6 +233,8 @@ public class ForgetRestController {
 		finally {
 			log.info("重置密码时，手机号：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, code, phoneCaptchaMinutes, success);
 		}
+
+		return identification;
 	}
 
 	private void email(Users user) {
@@ -347,6 +359,7 @@ public class ForgetRestController {
 
 		Long usersId = resetTypePhonePasswordBo.getUsersId();
 		String code = resetTypePhonePasswordBo.getCode();
+		String identification = resetTypePhonePasswordBo.getIdentification();
 		String password = resetTypePhonePasswordBo.getPassword();
 
 		Users users = usersService.getById(usersId);
@@ -360,7 +373,8 @@ public class ForgetRestController {
 
 		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
 
-		String token = sessionService.get(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone);
+		String token = sessionService
+				.get(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
 		if (code.equals(token)) {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);
@@ -371,7 +385,7 @@ public class ForgetRestController {
 			resetPasswordService.saveLog(request, "3", usersId, beforePassword);
 
 			// 删除重置密码的手机号验证码
-			sessionService.remove(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone);
+			sessionService.remove(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
 
 			// 删除用户的授权（踢用户下线）
 			oauth2AuthorizationService.removeByPrincipalName(users.getUsername());

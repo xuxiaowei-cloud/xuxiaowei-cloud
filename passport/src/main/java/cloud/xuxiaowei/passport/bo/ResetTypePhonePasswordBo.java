@@ -27,6 +27,12 @@ public class ResetTypePhonePasswordBo {
 	private String code;
 
 	/**
+	 * 识别码
+	 */
+	@NotEmpty(message = "识别码不能为空")
+	private String identification;
+
+	/**
 	 * 密码
 	 */
 	@NotEmpty(message = "密码不能为空")

@@ -35,7 +35,8 @@
             <el-input v-model.trim="cloudFormTypePhone.code" :prefix-icon="User" placeholder="请输入短信验证码"/>
           </el-form-item>
           <el-form-item prop="password" :rules="[{ required: true, message: '新密码必填' }]">
-            <el-input type="password" v-model.trim="cloudFormTypePhone.password" :prefix-icon="Key" placeholder="请输入新密码"/>
+            <el-input type="password" v-model.trim="cloudFormTypePhone.password" :prefix-icon="Key"
+                      placeholder="请输入新密码"/>
           </el-form-item>
           <el-form-item prop="confirmPassword"
                         :rules="[{ required: true, message: '确认密码必填' }, { validator: confirmPasswordValidator, message: '确认密码不匹配', trigger: ['change', 'blur'] }]">
@@ -55,7 +56,7 @@
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import { User, Key } from '@element-plus/icons-vue'
+import { Key, User } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { JSEncrypt } from 'jsencrypt'
 import settings from '../settings'
@@ -79,6 +80,8 @@ const typeMsg = ref(null)
 
 // 重置用户主键
 const usersId = ref(null)
+// 识别码
+const identification = ref(null)
 
 // 提交表单
 const submitCloudForm = () => {
@@ -102,6 +105,7 @@ const submitCloudForm = () => {
           typeMsg.value = response.msg
           type.value = response.data?.type
           usersId.value = response.data?.usersId
+          identification.value = response.data?.identification
         } else {
           ElMessage.error(response.msg)
         }
@@ -148,7 +152,12 @@ const submitCloudTypePhoneForm = () => {
         password = encrypt
       }
 
-      resetTypePhonePassword(header, token, { usersId: usersId.value, code: cloudFormTypePhone.code, password }).then((response: any) => {
+      resetTypePhonePassword(header, token, {
+        usersId: usersId.value,
+        code: cloudFormTypePhone.code,
+        password,
+        identification: identification.value
+      }).then((response: any) => {
         console.log(response)
         if (response.code === settings.okCode) {
           ElMessage({
