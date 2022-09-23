@@ -49,7 +49,7 @@ export interface UsersVo {
  * 用户信息
  */
 export const info = function () {
-  return request.post('/user/info').then((response: AxiosResponse<AjaxResponse<UsersVo>>) : AjaxResponse<UsersVo> => {
+  return request.post('/user/info').then((response: AxiosResponse<AjaxResponse<UsersVo>>): AjaxResponse<UsersVo> => {
     console.log('用户信息', response)
     const responseData = response.data
     if (responseData.code === settings.okCode) {
@@ -176,6 +176,15 @@ export const codeRsa = function () {
  */
 export const security = function () {
   return request.post('/user/security').then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 发送修改手机号的短信验证码
+ */
+export const securitySms = function (phone: string) {
+  return request.post('/user/security/sms', { phone }).then(response => {
     return response.data
   })
 }

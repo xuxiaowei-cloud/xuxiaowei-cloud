@@ -4,20 +4,21 @@
     <el-main class="cloud-main">
       <el-form :model="param" ref="cloudFormRef" label-position="left" class="cloud-form">
 
-        <el-form-item>
-          <el-input v-model="param.phone" placeholder="请输入新手机号">
+        <el-form-item prop="phone"
+                      :rules="[{ required: true, message: '新手机号不能为空' }, { validator: phoneValidator, message: '新手机号不正确', trigger: ['change', 'blur'] }]">
+          <el-input id="phone" ref="phoneRef" v-model="param.phone" type="number" maxlength="11" placeholder="请输入新手机号">
             <template #append>
               <el-button @click="sms">获取短信验证码</el-button>
             </template>
           </el-input>
         </el-form-item>
 
-        <el-form-item>
+        <el-form-item prop="captcha" :rules="[{ required: true, message: '短信验证码不能为空' }]">
           <el-input v-model="param.captcha" placeholder="请输入短信验证码"/>
         </el-form-item>
 
         <el-form-item>
-          <el-button class="w-100%">更新</el-button>
+          <el-button class="w-100%" @click="submitCloudForm">更新</el-button>
         </el-form-item>
 
       </el-form>
@@ -26,7 +27,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import { ref, reactive } from 'vue'
+import { securitySms } from '../../../api/user'
+import settings from '../../../settings'
 
 // 参数
 const param = reactive({
@@ -34,12 +38,67 @@ const param = reactive({
   captcha: null
 })
 
+const phoneValidator = () => {
+  // @ts-ignore
+  return param.phone && param.phone.length === 11
+}
+
+const phoneRef = ref()
+
+// 识别码
+const identification = ref(null)
+
 // 获取短信验证码
 const sms = () => {
+  if (param.phone === null) {
+    // 光标先进入手机号输入框
+    phoneRef.value.focus()
+    // 需要有延时，否则无法触发验证
+    setTimeout(function () {
+      // 光标再移开，触发验证
+      phoneRef.value.blur()
+      // 光标再进入手机号输入框，方便用户输入
+      phoneRef.value.focus()
+    }, 1)
+  } else {
+    securitySms(param.phone).then(response => {
+      console.log(response)
+      if (response.code === settings.okCode) {
+        identification.value = response.data?.identification
+      } else {
+        ElMessage.error(response.msg)
+      }
+    })
+  }
+}
 
+// 表单验证
+const cloudFormRef = ref()
+
+const submitCloudForm = () => {
+  cloudFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      alert('功能未开发')
+    }
+  })
 }
 
 </script>
+
+<style>
+
+/*数字输入框不显示右侧的箭头*/
+#phone::-webkit-outer-spin-button,
+#phone::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+/*数字输入框不显示右侧的箭头*/
+#phone[type='number'] {
+  -moz-appearance: textfield;
+}
+
+</style>
 
 <style scoped>
 
