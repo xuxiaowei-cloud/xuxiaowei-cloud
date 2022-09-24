@@ -70,7 +70,7 @@
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
-        <spring-boot-starter-wechat-miniprogram.version>0.0.2-alpha.1</spring-boot-starter-wechat-miniprogram.version>
+        <spring-boot-starter-wechat-miniprogram.version>0.0.3-alpha.1</spring-boot-starter-wechat-miniprogram.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
