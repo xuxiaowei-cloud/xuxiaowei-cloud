@@ -137,15 +137,32 @@ spring:
 
 ---
 
-# 邮件
+## QQ邮箱
+## 不推荐使用：
+## 1：无法撤销授权码，即使关闭后重开，之前的授权码一样可以使用
+## 2：不稳定
+#spring:
+#  # [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
+#  mail:
+#    host: smtp.qq.com
+#    username: ${qq_mail_username:}
+#    password: ${qq_mail_password:}
+#    port: ${qq_mail_port:587}
+#    default-encoding: UTF-8
+#    properties:
+#      "[mail.smtp.socketFactoryClass]": javax.net.ssl.SSLSocketFactory
+#      "[mail.debug]": ${qq_mail_debug:true}
+
+# Microsoft Office 365
 spring:
-  # [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
+  # [在 Exchange Online 中启用或禁用经过身份验证的客户端 SMTP 提交 (SMTP AUTH)](https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission)
   mail:
-    host: smtp.qq.com
-    username: ${qq_mail_username:}
-    password: ${qq_mail_password:}
-    port: ${qq_mail_port:587}
+    host: smtp.office365.com
+    username: ${microsoft_office_365_mail_username:}
+    password: ${microsoft_office_365_mail_password:}
+    port: ${microsoft_office_365_mail_port:587}
     default-encoding: UTF-8
     properties:
-      "[mail.smtp.socketFactoryClass]": javax.net.ssl.SSLSocketFactory
-      "[mail.debug]": ${qq_mail_debug:true}
+      # com.sun.mail.smtp.SMTPSendFailedException: 451 5.7.3 STARTTLS is required to send mail [SG2PR04CA0180.apcprd04.prod.outlook.com]
+      "[mail.smtp.starttls.enable]": true
+      "[mail.debug]": ${microsoft_office_365_mail_debug:true}
