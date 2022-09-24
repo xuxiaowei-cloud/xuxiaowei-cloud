@@ -231,7 +231,8 @@ public class ForgetRestController {
 			throw new CloudRuntimeException("重置密码时，发送短信验证码异常", e);
 		}
 		finally {
-			log.info("重置密码时，手机号：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, code, phoneCaptchaMinutes, success);
+			log.info("重置密码时，手机号：{}，识别码：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, identification, code, phoneCaptchaMinutes,
+					success);
 		}
 
 		return identification;
