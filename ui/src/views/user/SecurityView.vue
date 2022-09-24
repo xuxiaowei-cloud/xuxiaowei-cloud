@@ -25,7 +25,15 @@
     <!-- 修改手机号弹窗 -->
     <el-dialog v-if="securityPhoneDialogVisible" v-model="securityPhoneDialogVisible" title="修改手机号" width="500px"
                :before-close="securityPhoneDialogHandleClose">
-      <SecurityPhone :dialogVisible="securityPhoneDialogVisible" @securityPhoneDialogVisibleClose="securityPhoneDialogVisibleClose"/>
+      <SecurityPhone :dialogVisible="securityPhoneDialogVisible"
+                     @securityPhoneDialogVisibleClose="securityPhoneDialogVisibleClose"/>
+    </el-dialog>
+
+    <!-- 修改邮箱弹窗 -->
+    <el-dialog v-if="securityEmailDialogVisible" v-model="securityEmailDialogVisible" title="修改邮箱" width="500px"
+               :before-close="securityEmailDialogHandleClose">
+      <SecurityEmail :dialogVisible="securityEmailDialogVisible"
+                     @securityEmailDialogVisibleClose="securityEmailDialogVisibleClose"/>
     </el-dialog>
 
   </el-container>
@@ -38,6 +46,7 @@ import { Edit } from '@element-plus/icons-vue'
 import { security } from '../../api/user'
 import settings from '../../settings'
 import SecurityPhone from './dialog/SecurityPhoneDialog.vue'
+import SecurityEmail from './dialog/SecurityEmailDialog.vue'
 
 const phone = ref()
 const email = ref()
@@ -67,6 +76,8 @@ initData()
 
 // 修改手机号弹窗：是否打开
 const securityPhoneDialogVisible = ref(false)
+// 修改邮箱弹窗：是否打开
+const securityEmailDialogVisible = ref(false)
 
 // 修改手机号弹窗关闭：弹窗右上角的 x
 const securityPhoneDialogHandleClose = (done: () => void) => {
@@ -76,10 +87,26 @@ const securityPhoneDialogHandleClose = (done: () => void) => {
   initData()
 }
 
-// 个人中心弹窗关闭：子窗口使用
+// 修改邮箱弹窗关闭：弹窗右上角的 x
+const securityEmailDialogHandleClose = (done: () => void) => {
+  console.log('关闭修改邮箱弹窗')
+  done()
+  // 关闭窗口后，重新搜索
+  initData()
+}
+
+// 修改手机号弹窗关闭：子窗口使用
 const securityPhoneDialogVisibleClose = () => {
-  // 个人中心弹窗：打开
+  // 修改手机号弹窗：打开
   securityPhoneDialogVisible.value = false
+  // 关闭窗口后，重新搜索
+  initData()
+}
+
+// 修改邮箱弹窗关闭：子窗口使用
+const securityEmailDialogVisibleClose = () => {
+  // 修改邮箱弹窗：打开
+  securityEmailDialogVisible.value = false
   // 关闭窗口后，重新搜索
   initData()
 }
@@ -89,7 +116,7 @@ const phoneEdit = () => {
 }
 
 const emailEdit = () => {
-  alert('修改邮箱功能未开发')
+  securityEmailDialogVisible.value = true
 }
 
 </script>

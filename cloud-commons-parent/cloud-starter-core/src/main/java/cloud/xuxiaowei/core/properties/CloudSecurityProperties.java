@@ -90,6 +90,11 @@ public class CloudSecurityProperties {
 	private int phoneCaptchaMinutes = 5;
 
 	/**
+	 * 邮箱验证码有效时间（范围：分钟）
+	 */
+	private int emailCaptchaMinutes = 5;
+
+	/**
 	 * 登录域名
 	 */
 	private String passportDomain;

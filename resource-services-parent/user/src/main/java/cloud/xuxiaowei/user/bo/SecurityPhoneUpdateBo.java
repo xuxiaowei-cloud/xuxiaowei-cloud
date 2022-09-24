@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
  * @since 0.0.1
  */
 @Data
-public class SecuritySmsUpdateBo {
+public class SecurityPhoneUpdateBo {
 
 	/**
 	 * 手机号

@@ -167,4 +167,12 @@ public interface IUsersService extends IService<Users> {
 	 */
 	boolean updatePhoneById(Long usersId, String phone);
 
+	/**
+	 * 根据主键更新邮箱
+	 * @param usersId 主键
+	 * @param email 邮箱
+	 * @return 返回 更新结果
+	 */
+	boolean updateEmailById(Long usersId, String email);
+
 }

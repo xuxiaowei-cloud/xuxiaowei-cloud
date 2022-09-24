@@ -448,6 +448,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	/**
+	 * 根据主键更新邮箱
+	 * @param usersId 主键
+	 * @param email 邮箱
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateEmailById(Long usersId, String email) {
+		UpdateWrapper<Users> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("email", email);
+		return update(updateWrapper);
+	}
+
+	/**
 	 * 用户密码加密
 	 * @param users 用户
 	 */
