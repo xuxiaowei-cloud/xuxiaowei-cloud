@@ -25,7 +25,7 @@
     <!-- 修改手机号弹窗 -->
     <el-dialog v-if="securityPhoneDialogVisible" v-model="securityPhoneDialogVisible" title="修改手机号" width="500px"
                :before-close="securityPhoneDialogHandleClose">
-      <SecurityPhone :dialogVisible="securityPhoneDialogVisible" @dialogVisibleClose="securityPhoneDialogVisibleClose"/>
+      <SecurityPhone :dialogVisible="securityPhoneDialogVisible" @securityPhoneDialogVisibleClose="securityPhoneDialogVisibleClose"/>
     </el-dialog>
 
   </el-container>

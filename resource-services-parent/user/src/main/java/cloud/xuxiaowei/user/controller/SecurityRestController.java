@@ -7,6 +7,8 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.AliyunDySmsApiService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
+import cloud.xuxiaowei.user.bo.SecuritySmsBo;
+import cloud.xuxiaowei.user.bo.SecuritySmsUpdateBo;
 import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.Response;
@@ -19,11 +21,13 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -99,7 +103,7 @@ public class SecurityRestController {
 	 * 安全设置：修改新手机号的短信验证码
 	 * @param request 请求
 	 * @param response 响应
-	 * @param phone 新手机号
+	 * @param securitySmsBo 新手机号
 	 * @return 返回 发送结果
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
@@ -107,9 +111,10 @@ public class SecurityRestController {
 	@PreAuthorize("hasAuthority('user_info')")
 	@RequestMapping("/sms")
 	public Response<?> sms(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
-			String phone) {
+			@Valid @RequestBody SecuritySmsBo securitySmsBo) {
 
 		Long usersId = SecurityUtils.getUsersId(authentication);
+		String phone = securitySmsBo.getPhone();
 
 		// 识别码
 		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constant.UPPER_CASE_LIST));
@@ -131,10 +136,40 @@ public class SecurityRestController {
 			throw new CloudRuntimeException("安全设置：修改新手机号的短信验证码时，发送短信验证码异常", e);
 		}
 		finally {
-			log.info("安全设置：修改新手机号的短信验证码时，手机号：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, code, phoneCaptchaMinutes, success);
+			log.info("安全设置：修改新手机号的短信验证码时，手机号：{}，识别码：{}，验证码：{}，有效时间：{} 分钟，发送结果：{}", phone, identification, code,
+					phoneCaptchaMinutes, success);
 		}
 
 		return ResponseMap.ok().put("identification", identification);
+	}
+
+	/**
+	 * 安全设置：修改新手机号
+	 * @param request 请求
+	 * @param response 响应
+	 * @param securitySmsUpdateBo 新手机号
+	 * @return 返回 发送结果
+	 */
+	@EncryptAnnotation(Encrypt.AesVersion.V1)
+	@ControllerAnnotation(description = "安全设置：修改新手机号")
+	@PreAuthorize("hasAuthority('user_info')")
+	@RequestMapping("/sms/update")
+	public Response<?> smsUpdate(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication, @Valid @RequestBody SecuritySmsUpdateBo securitySmsUpdateBo) {
+
+		Long usersId = SecurityUtils.getUsersId(authentication);
+
+		String phone = securitySmsUpdateBo.getPhone();
+		String identification = securitySmsUpdateBo.getIdentification();
+
+		String code = sessionService.get(SECURITY_PHONE_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
+		if (securitySmsUpdateBo.getCode().equals(code)) {
+			sessionService.remove(SECURITY_PHONE_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
+			boolean update = usersService.updatePhoneById(usersId, phone);
+			return Response.ok();
+		}
+
+		return Response.error("验证码无效");
 	}
 
 }

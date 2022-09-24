@@ -159,4 +159,12 @@ public interface IUsersService extends IService<Users> {
 	 */
 	boolean updatePasswordById(Long usersId, String password, String rsaPrivateKeyBase64);
 
+	/**
+	 * 根据主键更新手机号
+	 * @param usersId 主键
+	 * @param phone 手机号
+	 * @return 返回 更新结果
+	 */
+	boolean updatePhoneById(Long usersId, String phone);
+
 }

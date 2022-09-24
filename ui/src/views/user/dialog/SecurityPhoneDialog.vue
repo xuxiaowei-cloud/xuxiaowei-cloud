@@ -13,8 +13,8 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item prop="captcha" :rules="[{ required: true, message: '短信验证码不能为空' }]">
-          <el-input v-model="param.captcha" placeholder="请输入短信验证码"/>
+        <el-form-item prop="code" :rules="[{ required: true, message: '短信验证码不能为空' }]">
+          <el-input v-model="param.code" placeholder="请输入短信验证码"/>
         </el-form-item>
 
         <el-form-item>
@@ -29,28 +29,27 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import { ref, reactive } from 'vue'
-import { securitySms } from '../../../api/user'
+import { securitySms, securitySmsUpdate } from '../../../api/user'
 import settings from '../../../settings'
 
 // 参数
 const param = reactive({
-  phone: null,
-  captcha: null
+  phone: '',
+  code: ''
 })
 
 const phoneValidator = () => {
-  // @ts-ignore
   return param.phone && param.phone.length === 11
 }
 
 const phoneRef = ref()
 
 // 识别码
-const identification = ref(null)
+const identification = ref('')
 
 // 获取短信验证码
 const sms = () => {
-  if (param.phone === null) {
+  if (param.phone === '') {
     // 光标先进入手机号输入框
     phoneRef.value.focus()
     // 需要有延时，否则无法触发验证
@@ -65,6 +64,15 @@ const sms = () => {
       console.log(response)
       if (response.code === settings.okCode) {
         identification.value = response.data?.identification
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'success',
+          onClose: () => {
+
+          }
+        })
       } else {
         ElMessage.error(response.msg)
       }
@@ -75,10 +83,32 @@ const sms = () => {
 // 表单验证
 const cloudFormRef = ref()
 
+const emit = defineEmits(['securityPhoneDialogVisibleClose'])
+
 const submitCloudForm = () => {
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
-      alert('功能未开发')
+      securitySmsUpdate(param.phone, param.code, identification.value).then(response => {
+        console.log(response)
+        if (response.code === settings.okCode) {
+          ElMessage({
+            message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 1500,
+            type: 'success',
+            onClose: () => {
+              emit('securityPhoneDialogVisibleClose')
+            }
+          })
+        } else {
+          ElMessage({
+            message: response.msg,
+            // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+            duration: 3000,
+            type: 'error'
+          })
+        }
+      })
     }
   })
 }

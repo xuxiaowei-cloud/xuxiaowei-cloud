@@ -434,6 +434,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	/**
+	 * 根据主键更新手机号
+	 * @param usersId 主键
+	 * @param phone 手机号
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updatePhoneById(Long usersId, String phone) {
+		UpdateWrapper<Users> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("phone", phone);
+		return update(updateWrapper);
+	}
+
+	/**
 	 * 用户密码加密
 	 * @param users 用户
 	 */

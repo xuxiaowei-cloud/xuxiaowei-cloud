@@ -188,3 +188,12 @@ export const securitySms = function (phone: string) {
     return response.data
   })
 }
+
+/**
+ * 修改手机号
+ */
+export const securitySmsUpdate = function (phone: string, code: string, identification: string) {
+  return request.post('/user/security/sms/update', { phone, code, identification }).then(response => {
+    return response.data
+  })
+}
