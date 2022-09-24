@@ -7,14 +7,14 @@
         <el-form-item prop="email"
                       :rules="[{ required: true, message: '新邮箱不能为空' }, { validator: emailValidator, message: '新邮箱不正确', trigger: ['change', 'blur'] }]">
           <el-input id="email" ref="emailRef" v-model="param.email" type="email" placeholder="请输入邮箱">
-            <template #append>
+            <template #append v-if="smsShow">
               <el-button @click="sms">获取邮箱验证码</el-button>
             </template>
           </el-input>
         </el-form-item>
 
         <el-form-item prop="code" :rules="[{ required: true, message: '邮箱验证码不能为空' }]">
-          <el-input v-model="param.code" placeholder="请输入邮箱验证码"/>
+          <el-input v-model="param.code" :placeholder="codePlaceholder"/>
         </el-form-item>
 
         <el-form-item>
@@ -47,6 +47,11 @@ const emailRef = ref()
 // 识别码
 const identification = ref('')
 
+// 是否显示发送邮箱验证码的按钮
+const smsShow = ref(true)
+// 邮箱验证码提示语
+const codePlaceholder = ref('请输入邮箱验证码')
+
 // 获取邮箱验证码
 const sms = () => {
   if (param.email === '') {
@@ -64,13 +69,14 @@ const sms = () => {
       console.log(response)
       if (response.code === settings.okCode) {
         identification.value = response.data?.identification
+        codePlaceholder.value = '标识码：' + identification.value
         ElMessage({
           message: response.msg,
           // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
           duration: 1500,
           type: 'success',
           onClose: () => {
-
+            smsShow.value = false
           }
         })
       } else {

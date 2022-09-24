@@ -252,9 +252,10 @@ public class SecurityRestController {
 		simpleMailMessage.setText(String.format("您好 %s (%s)！ \n\n" +
 						"您已经请求了邮箱验证，请在页面中输入下方验证码。 \n\n" +
 						"验证码：%s \n\n" +
+						"标识码：%s \n\n" +
 						"如果您没有请求邮箱验证，请忽略这封邮件。 \n\n" +
-						"链接有效期 %s 分钟(%s 过期)",
-				username, nickname, code, emailCaptchaMinutes, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
+						"验证码有效期 %s 分钟(%s 过期)",
+				username, nickname, code,identification, emailCaptchaMinutes, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
 		// @formatter:on
 
 		try {
