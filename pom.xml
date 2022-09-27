@@ -154,7 +154,9 @@
         <dom4j.version>2.1.3</dom4j.version>
 
         <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-miniapp -->
+        <!-- https://mvnrepository.com/artifact/com.github.binarywang/wx-java-mp-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/github/binarywang/weixin-java-miniapp -->
+        <!-- https://oss.sonatype.org/content/repositories/public/com/github/binarywang/weixin-mp-miniapp -->
         <!-- https://github.com/Wechat-Group/WxJava -->
         <weixin-java.version>4.4.0</weixin-java.version>
 
@@ -422,6 +424,12 @@
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.github.binarywang/wx-java-mp-spring-boot-starter -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-mp-spring-boot-starter</artifactId>
                 <version>${weixin-java.version}</version>
             </dependency>
 
