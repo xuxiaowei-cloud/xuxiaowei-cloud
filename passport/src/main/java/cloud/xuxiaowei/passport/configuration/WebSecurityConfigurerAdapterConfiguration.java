@@ -162,6 +162,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/forget/reset-password").permitAll()
 					// 重置密码（手机验证码）
 					.antMatchers("/forget/reset-type-phone-password").permitAll()
+					// 微信公众号跳转到微信授权页面
+					.antMatchers("/wechat-offiaccount/authorize/*").permitAll()
+					// 微信公众号授权码接收服务
+					.antMatchers("/wechat-offiaccount/code/*").permitAll()
 					// 放行错误地址
 					.antMatchers("/error").permitAll()
 					// 其他路径均需要授权

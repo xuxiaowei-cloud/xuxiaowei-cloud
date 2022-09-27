@@ -140,9 +140,12 @@ public class AuthorizationServerConfiguration {
 		// 自定义客户授权
 		authorizationServerConfigurer.tokenEndpoint(tokenEndpointCustomizer -> tokenEndpointCustomizer
 				.accessTokenRequestConverter(new DelegatingAuthenticationConverter(Arrays.asList(
-						// 新增：微信 OAuth2 用于验证授权授予的 {@link
+						// 新增：微信小程序 OAuth2 用于验证授权授予的 {@link
 						// OAuth2WeChatMiniProgramAuthenticationToken}
 						new OAuth2WeChatMiniProgramAuthenticationConverter(),
+						// 新增：微信公众号 OAuth2 用于验证授权授予的 {@link
+						// OAuth2WeChatOffiaccountAuthenticationToken}
+						new OAuth2WeChatOffiaccountAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -154,6 +157,8 @@ public class AuthorizationServerConfiguration {
 
 		// 微信小程序 OAuth2 身份验证提供程序
 		new OAuth2WeChatMiniProgramAuthenticationProvider(http);
+		// 微信公众号 OAuth2 身份验证提供程序
+		new OAuth2WeChatOffiaccountAuthenticationProvider(http);
 
 		return http.build();
 	}

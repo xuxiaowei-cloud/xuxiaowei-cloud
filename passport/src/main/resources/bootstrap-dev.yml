@@ -74,3 +74,16 @@ cloud:
       '[/forget/reset-type-phone-password]':
         - POST
         - OPTIONS
+
+wechat:
+  offiaccount:
+    default-role: wechat_offiaccount
+    list:
+      - appid: wx6b79606ae2ab89fa
+        secret: d35bd4b037dd6760a6f9545a28f80a00
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-offiaccount/code
+        client-id: xuxiaowei_client_wechat_offiaccount_id
+        client-secret: xuxiaowei_client_wechat_offiaccount_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: wechat
+        success-url: http://example.xuxiaowei.cloud:1001

@@ -71,6 +71,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
         <spring-boot-starter-wechat-miniprogram.version>0.0.3-alpha.1</spring-boot-starter-wechat-miniprogram.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-offiaccount -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-offiaccount/ -->
+        <spring-boot-starter-wechat-offiaccount.version>0.0.1-alpha.1</spring-boot-starter-wechat-offiaccount.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -292,6 +295,13 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-wechat-miniprogram</artifactId>
                 <version>${spring-boot-starter-wechat-miniprogram.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-offiaccount -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-offiaccount/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-wechat-offiaccount</artifactId>
+                <version>${spring-boot-starter-wechat-offiaccount.version}</version>
             </dependency>
 
             <!-- MyBatis -->

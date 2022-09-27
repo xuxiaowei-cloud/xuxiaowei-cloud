@@ -301,6 +301,10 @@ cloud:
           - /forget/reset-password
           # 重置密码（手机验证码）
           - /forget/reset-type-phone-password
+          # 微信公众号跳转到微信授权页面
+          - /wechat-offiaccount/authorize/*
+          # 微信公众号授权码接收服务
+          - /wechat-offiaccount/code/*
       - name: user
         path-list:
           # 图片验证码
