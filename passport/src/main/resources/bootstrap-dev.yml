@@ -77,13 +77,13 @@ cloud:
 
 wechat:
   offiaccount:
-    default-role: wechat_offiaccount
+    default-role: ${wechat_offiaccount_default_role:}
     list:
-      - appid: wx6b79606ae2ab89fa
-        secret: d35bd4b037dd6760a6f9545a28f80a00
-        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-offiaccount/code
-        client-id: xuxiaowei_client_wechat_offiaccount_id
-        client-secret: xuxiaowei_client_wechat_offiaccount_secret
-        token-url-prefix: http://127.0.0.1:${server.port:80}
-        scope: wechat
-        success-url: http://example.xuxiaowei.cloud:1001
+      - appid: ${wechat_offiaccount_appid:}
+        secret: ${wechat_offiaccount_secret:}
+        redirect-uri-prefix: ${wechat_offiaccount_redirect_uri_prefix:}
+        client-id: ${wechat_offiaccount_client_id:}
+        client-secret: ${wechat_offiaccount_client_secret:}
+        token-url-prefix: ${wechat_offiaccount_token_url_prefix:}
+        scope: ${wechat_offiaccount_scope:}
+        success-url: ${wechat_offiaccount_success_url:}
