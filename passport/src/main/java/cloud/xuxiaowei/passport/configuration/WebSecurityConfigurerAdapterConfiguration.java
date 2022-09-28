@@ -166,6 +166,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/wechat-offiaccount/authorize/*").permitAll()
 					// 微信公众号授权码接收服务
 					.antMatchers("/wechat-offiaccount/code/*").permitAll()
+					// 微信开放平台 网站应用 跳转到微信授权页面
+					.antMatchers("/wechat-oplatform/website/authorize/*").permitAll()
+					// 微信开放平台 网站应用 授权码接收服务
+					.antMatchers("/wechat-oplatform/website/code/*").permitAll()
 					// 放行错误地址
 					.antMatchers("/error").permitAll()
 					// 其他路径均需要授权
