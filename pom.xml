@@ -215,8 +215,8 @@
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
         <!-- https://github.com/spring-io/spring-javaformat/ -->
-        <!-- JDK 8 最高支持 0.0.25 -->
-        <spring-javaformat-maven-plugin.version>0.0.25</spring-javaformat-maven-plugin.version>
+        <!-- 高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support -->
+        <spring-javaformat-maven-plugin.version>0.0.34</spring-javaformat-maven-plugin.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -701,12 +701,13 @@
             <!--
                 ./mvnw spring-javaformat:apply
                 mvn spring-javaformat:apply
+                高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support
              -->
             <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>${spring-javaformat-maven-plugin.version}</version>
+                <version>0.0.34</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
