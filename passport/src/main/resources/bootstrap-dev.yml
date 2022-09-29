@@ -81,9 +81,25 @@ wechat:
     list:
       - appid: ${wechat_offiaccount_appid:}
         secret: ${wechat_offiaccount_secret:}
-        redirect-uri-prefix: ${wechat_offiaccount_redirect_uri_prefix:}
-        client-id: ${wechat_offiaccount_client_id:}
-        client-secret: ${wechat_offiaccount_client_secret:}
-        token-url-prefix: ${wechat_offiaccount_token_url_prefix:}
-        scope: ${wechat_offiaccount_scope:}
-        success-url: ${wechat_offiaccount_success_url:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-offiaccount/code
+        client-id: xuxiaowei_client_wechat_offiaccount_id
+        client-secret: xuxiaowei_client_wechat_offiaccount_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: wechat_offiaccount
+        success-url: http://example.xuxiaowei.cloud:1001/#/
+
+---
+
+wechat:
+  oplatform:
+    website:
+      default-role: ${wechat_oplatform_website_default_role:}
+      list:
+        - appid: ${wechat_oplatform_website_appid:}
+          secret: ${wechat_oplatform_website_secret:}
+          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-oplatform/website/code
+          client-id: xuxiaowei_client_wechat_oplatform_id
+          client-secret: xuxiaowei_client_wechat_oplatform_secret
+          token-url-prefix: http://127.0.0.1:${server.port:80}
+          scope: wechat_oplatform_website
+          success-url: http://example.xuxiaowei.cloud:1001/#/
