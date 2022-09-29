@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.handler;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -32,7 +33,11 @@ public class AccessTokenAuthenticationFailureHandlerImpl implements Authenticati
 		ResponseMap error = ResponseMap.error(CodeEnums.C10000.code, CodeEnums.C10000.msg);
 		error.setExplain(exception.getMessage());
 
-		if (exception instanceof OAuth2AuthenticationException) {
+		if (exception instanceof LoginAuthenticationException) {
+			LoginAuthenticationException loginAuthenticationException = (LoginAuthenticationException) exception;
+			error.setMsg(loginAuthenticationException.getMessage());
+		}
+		else if (exception instanceof OAuth2AuthenticationException) {
 			OAuth2AuthenticationException oauth2AuthenticationException = (OAuth2AuthenticationException) exception;
 			OAuth2Error oauth2Error = oauth2AuthenticationException.getError();
 			String errorCode = oauth2Error.getErrorCode();

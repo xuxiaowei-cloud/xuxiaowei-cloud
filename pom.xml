@@ -76,7 +76,7 @@
         <spring-boot-starter-wechat-offiaccount.version>0.0.1-alpha.1</spring-boot-starter-wechat-offiaccount.version>
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-oplatform -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-oplatform/ -->
-        <spring-boot-starter-wechat-oplatform.version>0.0.1-alpha.1</spring-boot-starter-wechat-oplatform.version>
+        <spring-boot-starter-wechat-oplatform.version>0.0.1-alpha.3</spring-boot-starter-wechat-oplatform.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
