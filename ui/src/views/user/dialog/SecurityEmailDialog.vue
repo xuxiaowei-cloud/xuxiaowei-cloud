@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import { ref, reactive } from 'vue'
-import { securityEmail, securityEmailUpdate } from '../../../api/user'
+import { securityEmail, securityEmailUpdate } from '../../../api/user/security'
 import settings from '../../../settings'
 
 // 参数

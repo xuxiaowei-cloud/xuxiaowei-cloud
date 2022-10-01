@@ -21,4 +21,11 @@ public interface IWxOpenWebsiteUsersService extends IService<WxOpenWebsiteUsers>
 	 */
 	WxOpenWebsiteUsers getByAppidAndOpenid(String appid, String openid);
 
+	/**
+	 * 根据 用户主键，获取绑定的微信信息
+	 * @param usersId 用户主键
+	 * @return 返回 微信信息
+	 */
+	WxOpenWebsiteUsers getByUsersId(Long usersId);
+
 }

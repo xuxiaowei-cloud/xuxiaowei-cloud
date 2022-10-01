@@ -43,7 +43,7 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Edit } from '@element-plus/icons-vue'
-import { security } from '../../api/user'
+import { security } from '../../api/user/security'
 import settings from '../../settings'
 import SecurityPhone from './dialog/SecurityPhoneDialog.vue'
 import SecurityEmail from './dialog/SecurityEmailDialog.vue'

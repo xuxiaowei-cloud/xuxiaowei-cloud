@@ -15,6 +15,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -160,43 +162,41 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @return 返回 微信授权结果
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
 	 */
+	@SneakyThrows
 	@Override
 	public WeChatOplatformWebsiteTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl,
-			String remoteAddress, String sessionId) throws OAuth2AuthenticationException {
+			String userinfoUrl, String remoteAddress, String sessionId) throws OAuth2AuthenticationException {
 		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
 				weChatOplatformWebsiteProperties);
 		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService
-				.getAccessTokenResponse(appid, code, accessTokenUrl, remoteAddress, sessionId);
+				.getAccessTokenResponse(appid, code, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
 
 		String openid = accessTokenResponse.getOpenid();
-		String accessToken = accessTokenResponse.getAccessToken();
-		String refreshToken = accessTokenResponse.getRefreshToken();
-		String scope = accessTokenResponse.getScope();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
+		String[] privilege = accessTokenResponse.getPrivilege();
+		ObjectMapper objectMapper = new ObjectMapper();
+		String privilegeStr = objectMapper.writeValueAsString(privilege);
 
 		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
 		if (wxOpenWebsiteUsers == null) {
 
-			String unionid = accessTokenResponse.getUnionid();
-
 			WxOpenWebsiteUsers websiteUsers = new WxOpenWebsiteUsers();
-			websiteUsers.setAppid(appid);
-			websiteUsers.setOpenid(openid);
-			websiteUsers.setUnionid(unionid);
-			websiteUsers.setAccessToken(accessToken);
-			websiteUsers.setRefreshToken(refreshToken);
+
+			BeanUtils.copyProperties(accessTokenResponse, websiteUsers);
+
+			websiteUsers.setPrivilege(privilegeStr);
 			websiteUsers.setExpires(expires);
-			websiteUsers.setScope(scope);
 			websiteUsers.setCreateIp(remoteAddress);
 
 			wxOpenWebsiteUsersService.save(websiteUsers);
 		}
 		else {
-			wxOpenWebsiteUsers.setAccessToken(accessToken);
-			wxOpenWebsiteUsers.setRefreshToken(refreshToken);
+
+			BeanUtils.copyProperties(accessTokenResponse, wxOpenWebsiteUsers);
+
+			wxOpenWebsiteUsers.setPrivilege(privilegeStr);
 			wxOpenWebsiteUsers.setExpires(expires);
-			wxOpenWebsiteUsers.setScope(scope);
 			wxOpenWebsiteUsers.setUpdateIp(remoteAddress);
 			wxOpenWebsiteUsersService.updateById(wxOpenWebsiteUsers);
 		}

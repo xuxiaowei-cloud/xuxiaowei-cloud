@@ -8,7 +8,16 @@
         <result column="appid" property="appid" />
         <result column="openid" property="openid" />
         <result column="unionid" property="unionid" />
+        <result column="nickname" property="nickname" />
+        <result column="sex" property="sex" />
+        <result column="language" property="language" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="country" property="country" />
+        <result column="headimgurl" property="headimgurl" />
+        <result column="privilege" property="privilege" />
         <result column="users_id" property="usersId" />
+        <result column="binding_date" property="bindingDate" />
         <result column="access_token" property="accessToken" />
         <result column="refresh_token" property="refreshToken" />
         <result column="expires" property="expires" />

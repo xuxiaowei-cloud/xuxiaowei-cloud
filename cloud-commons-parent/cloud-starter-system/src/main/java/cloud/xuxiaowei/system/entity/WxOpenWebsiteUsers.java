@@ -27,12 +27,12 @@ public class WxOpenWebsiteUsers implements Serializable {
 	private Long wxOpenWebsiteUsersId;
 
 	/**
-	 * 微信开放平台用户appid
+	 * 微信开放平台用户appid，不为空，唯一键：uk__wx_open_website_users__appid__openid
 	 */
 	private String appid;
 
 	/**
-	 * 用户唯一标识
+	 * 用户唯一标识，不为空，唯一键：uk__wx_open_website_users__appid__openid
 	 */
 	private String openid;
 
@@ -42,9 +42,55 @@ public class WxOpenWebsiteUsers implements Serializable {
 	private String unionid;
 
 	/**
-	 * 绑定的用户主键
+	 * 普通用户昵称
+	 */
+	private String nickname;
+
+	/**
+	 * 普通用户性别，1为男性，2为女性
+	 */
+	private String sex;
+
+	/**
+	 * 国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语，默认为en
+	 */
+	@TableField("`language`")
+	private String language;
+
+	/**
+	 * 普通用户个人资料填写的省份
+	 */
+	private String province;
+
+	/**
+	 * 普通用户个人资料填写的城市
+	 */
+	private String city;
+
+	/**
+	 * 国家，如中国为CN
+	 */
+	private String country;
+
+	/**
+	 * 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+	 */
+	private String headimgurl;
+
+	/**
+	 * 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）
+	 */
+	private String privilege;
+
+	/**
+	 * 绑定的用户主键，唯一键：uk__wx_open_website_users__users_id
 	 */
 	private Long usersId;
+
+	/**
+	 * 绑定时间
+	 */
+	private LocalDateTime bindingDate;
 
 	/**
 	 * 授权凭证

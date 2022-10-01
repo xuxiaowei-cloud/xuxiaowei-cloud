@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers;
 import cloud.xuxiaowei.system.mapper.WxOpenWebsiteUsersMapper;
 import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,18 @@ public class WxOpenWebsiteUsersServiceImpl extends ServiceImpl<WxOpenWebsiteUser
 	@Override
 	public WxOpenWebsiteUsers getByAppidAndOpenid(String appid, String openid) {
 		return baseMapper.getByAppidAndOpenid(appid, openid);
+	}
+
+	/**
+	 * 根据 用户主键，获取绑定的微信信息
+	 * @param usersId 用户主键
+	 * @return 返回 微信信息
+	 */
+	@Override
+	public WxOpenWebsiteUsers getByUsersId(Long usersId) {
+		QueryWrapper<WxOpenWebsiteUsers> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("users_id", usersId);
+		return getOne(queryWrapper);
 	}
 
 }
