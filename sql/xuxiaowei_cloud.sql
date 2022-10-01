@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 27/09/2022 20:35:41
+ Date: 01/10/2022 20:13:53
 */
 
 SET NAMES utf8mb4;
@@ -417,5 +417,32 @@ CREATE TABLE `wx_mp_users`  (
   PRIMARY KEY (`wx_mp_users_id`) USING BTREE,
   UNIQUE INDEX `uk__wx_mp_users__appid__openid`(`appid`, `openid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信公众号用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for wx_open_website_users
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_open_website_users`;
+CREATE TABLE `wx_open_website_users`  (
+  `wx_open_website_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '微信开放平台-网站用户主键，自增',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '微信开放平台用户appid，不为空，唯一键：uk__wx_open_website_users__appid__openid',
+  `openid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '用户唯一标识，不为空，唯一键：uk__wx_open_website_users__appid__openid',
+  `unionid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '多账户唯一标识',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__wx_open_website_users__users_id',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权凭证',
+  `refresh_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '刷新凭证',
+  `expires` datetime NULL DEFAULT NULL COMMENT '过期时间',
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权范围',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`wx_open_website_users_id`) USING BTREE,
+  UNIQUE INDEX `uk__wx_open_website_users__appid__openid`(`appid`, `openid`) USING BTREE COMMENT '微信开放平台-网站应用、用户唯一标识 唯一索引',
+  UNIQUE INDEX `uk__wx_open_website_users__users_id`(`users_id`) USING BTREE COMMENT '每个用户只能绑定一个微信'
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信开放平台-网站用户' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
