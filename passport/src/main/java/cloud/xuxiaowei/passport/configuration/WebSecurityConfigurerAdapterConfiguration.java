@@ -170,6 +170,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/wechat-oplatform/website/authorize/*").permitAll()
 					// 微信开放平台 网站应用 授权码接收服务
 					.antMatchers("/wechat-oplatform/website/code/*").permitAll()
+					// 配置
+					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
 					.antMatchers("/error").permitAll()
 					// 其他路径均需要授权

@@ -42,6 +42,12 @@
           <el-button class="submit-cloud-form" @click="submitCloudForm()">登录</el-button>
         </el-form-item>
 
+        <el-form-item>
+          <el-link :href="weChatOplatformWebsiteUrl">
+            <img src="../assets/wechat.png" alt="微信扫码登录" width="30">
+          </el-link>
+        </el-form-item>
+
       </el-form>
 
     </el-main>
@@ -63,7 +69,7 @@ import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
-import { login } from '../api/passport'
+import { login, configuration } from '../api/passport'
 import settings from '../settings'
 
 // 跨域
@@ -74,6 +80,18 @@ const passportDomain = ref<string>('passport.example.xuxiaowei.cloud')
 const cross = ref<boolean>(location.host.includes(crossDomain.value))
 
 const route = useRoute()
+
+const weChatOplatformWebsiteUrl = ref()
+
+configuration().then(response => {
+  console.log(response)
+  const msg = response.msg
+  if (response.code === settings.okCode) {
+    weChatOplatformWebsiteUrl.value = import.meta.env.VITE_APP_BASE_API + '/passport/wechat-oplatform/website/authorize/' + response.data.weChatOplatformWebsiteAppid
+  } else {
+    ElMessage.error(msg)
+  }
+})
 
 // 表单中的值
 const cloudForm = reactive({

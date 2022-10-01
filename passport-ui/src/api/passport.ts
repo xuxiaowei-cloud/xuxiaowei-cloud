@@ -29,3 +29,12 @@ export const login = function (username: string, password: string, rememberMe: s
     return response.data
   })
 }
+
+/**
+ * 配置
+ */
+export const configuration = function () {
+  return request.post('/passport/configuration').then(response => {
+    return response.data
+  })
+}

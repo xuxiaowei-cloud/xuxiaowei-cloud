@@ -56,6 +56,9 @@ cloud:
       '[/oauth2-registered-client/**]':
         - POST
         - OPTIONS
+      '[/configuration]':
+        - POST
+        - OPTIONS
       '[/actuator/**]':
         - POST
       # 找回密码

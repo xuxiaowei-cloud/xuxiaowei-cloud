@@ -309,6 +309,8 @@ cloud:
           - /wechat-oplatform/website/authorize/*
           # 微信开放平台 网站应用 授权码接收服务
           - /wechat-oplatform/website/code/*
+          # 配置
+          - /configuration
       - name: user
         path-list:
           # 图片验证码
