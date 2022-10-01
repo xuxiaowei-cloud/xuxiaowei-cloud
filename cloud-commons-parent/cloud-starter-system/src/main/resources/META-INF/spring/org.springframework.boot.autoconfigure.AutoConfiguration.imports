@@ -11,3 +11,4 @@ cloud.xuxiaowei.system.service.impl.SmsServiceImpl
 cloud.xuxiaowei.system.service.impl.UserDetailsServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersServiceImpl
 cloud.xuxiaowei.system.service.impl.WxMaUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.WxOpenWebsiteUsersServiceImpl
