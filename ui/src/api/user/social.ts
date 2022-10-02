@@ -8,3 +8,12 @@ export const social = function () {
     return response.data
   })
 }
+
+/**
+ * 社交解绑
+ */
+export const socialUnbinding = function (socialCode: string) {
+  return request.post('/user/social/unbinding', { socialCode }).then(response => {
+    return response.data
+  })
+}

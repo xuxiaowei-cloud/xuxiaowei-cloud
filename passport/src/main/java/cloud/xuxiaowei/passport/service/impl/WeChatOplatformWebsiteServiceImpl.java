@@ -5,8 +5,11 @@ import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers;
 import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -25,6 +29,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.WeChatOplatformWebsiteAuthenticationToken;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,9 +44,13 @@ import org.springframework.security.oauth2.core.http.converter.OAuth2AccessToken
 import org.springframework.security.oauth2.server.authorization.client.InMemoryWeChatOplatformWebsiteService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteTokenResponse;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
 import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOplatformException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +60,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 微信开放平台 网站应用 服务接口 实现类
@@ -58,14 +69,23 @@ import java.util.Map;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @Service
 public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsiteService {
+
+	private final static String WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX = "wechat_oplatform_website_state_prefix";
+
+	private final static String WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX = "wechat_oplatform_website_binding_prefix";
+
+	private final static String WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX = "wechat_oplatform_website_users_prefix";
 
 	private WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties;
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
 	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
+
+	private SessionService sessionService;
 
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
@@ -80,6 +100,11 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
+	}
+
+	@Autowired
+	public void setSessionService(SessionService sessionService) {
+		this.sessionService = sessionService;
 	}
 
 	/**
@@ -97,7 +122,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @param expiresIn 过期时间
 	 * @param scope 授权范围
 	 * @return 返回 认证信息
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
@@ -156,22 +184,36 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * 根据 AppID、code、accessTokenUrl 获取Token
 	 * @param appid AppID
 	 * @param code 授权码
+	 * @param binding 是否绑定，需要使用者自己去拓展
 	 * @param accessTokenUrl 通过 code 换取网页授权 access_token 的 URL
+	 * @param userinfoUrl 通过 access_token 获取用户个人信息
 	 * @param remoteAddress 用户IP
 	 * @param sessionId SessionID
 	 * @return 返回 微信授权结果
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@SneakyThrows
 	@Override
-	public WeChatOplatformWebsiteTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl,
-			String userinfoUrl, String remoteAddress, String sessionId) throws OAuth2AuthenticationException {
+	public WeChatOplatformWebsiteTokenResponse getAccessTokenResponse(String appid, String code, String state,
+			String binding, String accessTokenUrl, String userinfoUrl, String remoteAddress, String sessionId)
+			throws OAuth2AuthenticationException {
 		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
 				weChatOplatformWebsiteProperties);
-		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService
-				.getAccessTokenResponse(appid, code, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
+		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService.getAccessTokenResponse(
+				appid, code, state, binding, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
 
 		String openid = accessTokenResponse.getOpenid();
+		if (Boolean.TRUE.toString().equals(binding)) {
+
+			String usersIdStr = sessionService.get(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
+			long usersId = Long.parseLong(usersIdStr);
+
+			wxOpenWebsiteUsersService.binding(usersId, appid, openid);
+		}
+
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
 		String[] privilege = accessTokenResponse.getPrivilege();
@@ -211,7 +253,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @param uriVariables 参数
 	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
 	 * @param weChatOplatformWebsite 微信开放平台 网站应用 配置
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public void sendRedirect(HttpServletRequest request, HttpServletResponse response, Map<String, String> uriVariables,
@@ -242,7 +287,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * 根据 appid 获取 微信开放平台 网站应用属性配置
 	 * @param appid 公众号ID
 	 * @return 返回 微信开放平台 网站应用属性配置
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public WeChatOplatformWebsiteProperties.WeChatOplatformWebsite getWeChatOplatformWebsiteByAppid(String appid)
@@ -256,7 +304,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * 根据 appid 获取重定向的地址
 	 * @param appid 开放平台 网站应用 ID
 	 * @return 返回重定向的地址
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public String getRedirectUriByAppid(String appid) throws OAuth2AuthenticationException {
@@ -273,7 +324,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @param tokenUrl Token URL
 	 * @param uriVariables 参数
 	 * @return 返回 OAuth 2.1 授权 Token
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
 	@Override
@@ -328,6 +382,61 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 				throw new CloudRuntimeException(e);
 			}
 		}
+	}
+
+	@Override
+	public String stateGenerate(HttpServletRequest request, HttpServletResponse response, String appid) {
+		String state = UUID.randomUUID().toString();
+		sessionService.set(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state, state, 30,
+				TimeUnit.MINUTES);
+		return state;
+	}
+
+	@SneakyThrows
+	@Override
+	public boolean stateValid(HttpServletRequest request, HttpServletResponse response, String appid, String code,
+			String state) {
+
+		String string = sessionService.get(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
+		if (!StringUtils.hasText(string)) {
+			Response<?> error = Response.error("非法状态码");
+			ResponseUtils.response(response, error);
+			return false;
+		}
+		else if (string.equals(state)) {
+			sessionService.remove(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
+			return true;
+		}
+		else {
+			Response<?> error = Response.error("非法状态码");
+			ResponseUtils.response(response, error);
+			return false;
+		}
+	}
+
+	@Override
+	public void storeBinding(HttpServletRequest request, HttpServletResponse response, String appid, String state,
+			String binding) {
+		if (binding != null) {
+			sessionService.set(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state, binding, 30,
+					TimeUnit.MINUTES);
+		}
+	}
+
+	@Override
+	public String getBinding(HttpServletRequest request, HttpServletResponse response, String appid, String code,
+			String state) {
+		String binding = sessionService.get(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
+		sessionService.remove(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
+		return binding;
+	}
+
+	@Override
+	public void storeUsers(HttpServletRequest request, HttpServletResponse response, String appid, String state,
+			String binding) {
+		Long usersId = SecurityUtils.getUsersId();
+		sessionService.set(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state, usersId + "", 30,
+				TimeUnit.MINUTES);
 	}
 
 }

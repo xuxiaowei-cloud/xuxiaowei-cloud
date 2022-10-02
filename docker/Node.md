@@ -9,7 +9,7 @@ docker pull node:16.14.0
 ```
 
 - 创建容器
-    ```
+    ```shell
     docker run \
     -itd \
     --restart always \

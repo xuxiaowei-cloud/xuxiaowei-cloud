@@ -11,7 +11,7 @@ docker pull nginx:1.21.6
 - 创建容器
     - 说明
         1. 将容器内 `/software/ssl` 映射到主机 `/software/ssl`，创建文件夹：`mkdir /software/ssl -p`
-        1. 将容器内 `/etc/nginx/conf.d` 映射到主机 `/etc/nginx-1.21.6/conf.d`，创建文件夹：`mkdir /etc/nginx-1.21.6/conf.d/ -p`
+        2. 将容器内 `/etc/nginx/conf.d` 映射到主机 `/etc/nginx-1.21.6/conf.d`，创建文件夹：`mkdir /etc/nginx-1.21.6/conf.d/ -p`
     - 执行创建命令
         ```shell
         docker run \
@@ -26,22 +26,22 @@ docker pull nginx:1.21.6
         -d nginx:1.21.6
       ```
     1. 测试配置
-       ```
+       ```shell
        docker exec -it nginx-1.21.6 nginx -t
        ```
-    1. 重新加载
-       ```
+    2. 重新加载
+       ```shell
        docker exec -it nginx-1.21.6 nginx -s reload
        ```
-    1. 查看日志
+    3. 查看日志
        ```shell
        docker logs -f nginx-1.21.6
        ```
-    1. 进入容器
+    4. 进入容器
        ```shell
        docker exec -it nginx-1.21.6 bash
        ```
-    1. 开放端口
+    5. 开放端口
         - CentOS
             ```shell
             firewall-cmd --zone=public --add-port=8848/tcp --permanent

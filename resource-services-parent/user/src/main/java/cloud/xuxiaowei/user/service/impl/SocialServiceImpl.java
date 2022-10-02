@@ -5,6 +5,7 @@ import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
 import cloud.xuxiaowei.user.service.SocialService;
 import cloud.xuxiaowei.user.vo.SocialVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,6 +52,22 @@ public class SocialServiceImpl implements SocialService {
 		}
 
 		return socialVoList;
+	}
+
+	/**
+	 * 社交解绑
+	 * @param usersId 用户主键
+	 * @param socialCode 社交类型，1：微信扫码
+	 * @return 返回 解绑结果
+	 */
+	@Override
+	public boolean unbinding(@NonNull Long usersId, @NonNull String socialCode) {
+		switch (socialCode) {
+			case "1":
+				return wxOpenWebsiteUsersService.unbinding(usersId);
+			default:
+				return false;
+		}
 	}
 
 }
