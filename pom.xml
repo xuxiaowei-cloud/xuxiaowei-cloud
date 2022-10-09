@@ -77,6 +77,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-oplatform -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-oplatform/ -->
         <spring-boot-starter-wechat-oplatform.version>0.1.0-SNAPSHOT</spring-boot-starter-wechat-oplatform.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+        <spring-boot-starter-gitee.version>0.1.0-SNAPSHOT</spring-boot-starter-gitee.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -312,6 +315,13 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-wechat-oplatform</artifactId>
                 <version>${spring-boot-starter-wechat-oplatform.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-gitee</artifactId>
+                <version>${spring-boot-starter-gitee.version}</version>
             </dependency>
 
             <!-- MyBatis -->

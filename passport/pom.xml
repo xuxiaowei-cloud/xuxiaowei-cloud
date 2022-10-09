@@ -92,6 +92,12 @@
             <groupId>cn.com.xuxiaowei.boot</groupId>
             <artifactId>spring-boot-starter-wechat-oplatform</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-gitee</artifactId>
+        </dependency>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->

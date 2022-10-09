@@ -46,6 +46,9 @@
           <el-link :href="weChatOplatformWebsiteUrl">
             <img src="../assets/wechat.png" alt="微信扫码登录" width="30">
           </el-link>
+          <el-link href="http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/authorize/afc0ab3bc0cb0655b4eb9b06ab5f4772ea0f65717c9e8647d2a9eec8270fc6d9?scope=user_info">
+            Gitee
+          </el-link>
         </el-form-item>
 
       </el-form>

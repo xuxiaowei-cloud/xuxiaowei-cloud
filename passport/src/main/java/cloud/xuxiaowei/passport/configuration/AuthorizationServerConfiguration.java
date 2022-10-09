@@ -2,10 +2,15 @@ package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.passport.handler.AccessTokenAuthenticationFailureHandlerImpl;
+import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
+import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
+import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -18,24 +23,31 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.authentication.AnonymousAuthenticationProvider;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
-import org.springframework.security.authentication.WeChatOplatformWebsiteAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatMiniProgramParameterNames;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
+import org.springframework.security.oauth2.server.authorization.client.GiteeService;
+import org.springframework.security.oauth2.server.authorization.client.InMemoryGiteeService;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOplatformException;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationProvider;
+import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
@@ -46,8 +58,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import java.util.Arrays;
-import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -93,6 +107,105 @@ public class AuthorizationServerConfiguration {
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
+	}
+
+	private GiteeProperties giteeProperties;
+
+	@Autowired
+	public void setGiteeProperties(GiteeProperties giteeProperties) {
+		this.giteeProperties = giteeProperties;
+	}
+
+	private CloudSecurityProperties cloudSecurityProperties;
+
+	@Autowired
+	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+		this.cloudSecurityProperties = cloudSecurityProperties;
+	}
+
+	@Bean
+	public GiteeService giteeService() {
+		return new InMemoryGiteeService(giteeProperties) {
+			@Override
+			public void sendRedirect(HttpServletRequest request, HttpServletResponse response,
+					Map<String, String> uriVariables, OAuth2AccessTokenResponse oauth2AccessTokenResponse,
+					GiteeProperties.Gitee gitee) {
+				OAuth2AccessToken oauth2AccessToken = oauth2AccessTokenResponse.getAccessToken();
+				OAuth2RefreshToken oauth2RefreshToken = oauth2AccessTokenResponse.getRefreshToken();
+
+				String successUrl = gitee.getSuccessUrl();
+				String accessToken = oauth2AccessToken.getTokenValue();
+				String refreshToken = "";
+				if (oauth2RefreshToken != null) {
+					refreshToken = oauth2RefreshToken.getTokenValue();
+				}
+
+				try {
+					response.sendRedirect(String.format("%s?store=true&accessToken=%s&refreshToken=%s", successUrl,
+							accessToken, refreshToken));
+				}
+				catch (IOException e) {
+					OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "微信开放平台 网站应用重定向异常", null);
+					throw new RedirectWeChatOplatformException(error);
+				}
+			}
+
+			@Override
+			public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
+					Map<String, Object> additionalParameters, Object details, String appid, String code, Long id,
+					Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn,
+					String scope) {
+
+				Users users;
+
+				// 去数据库查询绑定的用户
+				if (id == 1755497) {
+					users = usersService.getByUsername("xuxiaowei");
+				}
+				else {
+					OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到码云Gitee用户或已被删除", null);
+					throw new LoginAuthenticationException(error);
+				}
+
+				// Users users = wxOpenWebsiteUsers.getUsers();
+				String username;
+				if (users == null) {
+					OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到微信绑定的用户", null);
+					throw new LoginAuthenticationException(error);
+				}
+
+				username = users.getUsername();
+
+				List<GrantedAuthority> authorities = new ArrayList<>();
+
+				List<Authorities> authoritiesList = users.getAuthoritiesList();
+
+				boolean allowEmptyAuthorities = cloudSecurityProperties.isAllowEmptyAuthorities();
+				if (!allowEmptyAuthorities && authoritiesList.size() == 0) {
+					throw new LoginException(CodeEnums.A10011.code, CodeEnums.A10011.msg);
+				}
+
+				for (Authorities auth : authoritiesList) {
+					SimpleGrantedAuthority authority = new SimpleGrantedAuthority(auth.getAuthority());
+					authorities.add(authority);
+				}
+
+				SimpleGrantedAuthority authority = new SimpleGrantedAuthority(giteeProperties.getDefaultRole());
+				authorities.add(authority);
+				User user = new User(username, accessToken, authorities);
+
+				UsernamePasswordAuthenticationToken principal = UsernamePasswordAuthenticationToken.authenticated(user,
+						null, user.getAuthorities());
+
+				GiteeAuthenticationToken authenticationToken = new GiteeAuthenticationToken(authorities,
+						clientPrincipal, principal, user, additionalParameters, details, appid, code, id);
+
+				authenticationToken.setCredentials(credentials);
+				authenticationToken.setLogin(login);
+
+				return authenticationToken;
+			}
+		};
 	}
 
 	/**
@@ -150,6 +263,9 @@ public class AuthorizationServerConfiguration {
 						// 新增：微信开放平台 网站应用 OAuth2 用于验证授权授予的 {@link
 						// OAuth2WeChatOplatformWebsiteAuthenticationToken}
 						new OAuth2WeChatOplatformWebsiteAuthenticationConverter(),
+						// 新增：码云 Gitee 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2GiteeAuthenticationToken}
+						new OAuth2GiteeAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -165,6 +281,8 @@ public class AuthorizationServerConfiguration {
 		new OAuth2WeChatOffiaccountAuthenticationProvider(http);
 		// 微信开放平台 网站应用 OAuth2 身份验证提供程序
 		new OAuth2WeChatOplatformWebsiteAuthenticationProvider(http);
+		// 码云 Gitee 网站应用 OAuth2 身份验证提供程序
+		new OAuth2GiteeAuthenticationProvider(http);
 
 		return http.build();
 	}
