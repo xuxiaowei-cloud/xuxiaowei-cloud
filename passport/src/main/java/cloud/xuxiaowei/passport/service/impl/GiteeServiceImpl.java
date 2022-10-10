@@ -6,10 +6,21 @@ import cloud.xuxiaowei.system.entity.GiteeUsers;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IGiteeUsersService;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.ResponseUtils;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
+import cloud.xuxiaowei.utils.map.ResponseMap;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.GiteeAuthenticationToken;
@@ -23,8 +34,10 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.oauth2.server.authorization.client.GiteeService;
 import org.springframework.security.oauth2.server.authorization.client.GiteeTokenResponse;
 import org.springframework.security.oauth2.server.authorization.client.GiteeUserInfoResponse;
@@ -35,6 +48,7 @@ import org.springframework.security.oauth2.server.authorization.exception.Redire
 import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -276,8 +290,54 @@ public class GiteeServiceImpl implements GiteeService {
 	public OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request,
 			HttpServletResponse response, String tokenUrlPrefix, String tokenUrl, Map<String, String> uriVariables)
 			throws OAuth2AuthenticationException {
-		return new InMemoryGiteeService(giteeProperties).getOAuth2AccessTokenResponse(request, response, tokenUrlPrefix,
-				tokenUrl, uriVariables);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+		RestTemplate restTemplate = new RestTemplate();
+		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+		messageConverters.add(5, new OAuth2AccessTokenResponseHttpMessageConverter());
+		String postForObject = restTemplate.postForObject(tokenUrlPrefix + tokenUrl, httpEntity, String.class,
+				uriVariables);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		ResponseMap responseMap;
+		try {
+			responseMap = objectMapper.readValue(postForObject, ResponseMap.class);
+		}
+		catch (JsonProcessingException e) {
+			throw new CloudRuntimeException(e);
+		}
+
+		String code = responseMap.getCode();
+		if (code == null) {
+			// 不存在响应代码，代表响应的为 OAuth 2.1 授权 Token
+
+			Map<String, Object> map;
+			try {
+				map = objectMapper.readValue(postForObject, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			catch (JsonProcessingException e) {
+				throw new CloudRuntimeException(e);
+			}
+
+			DefaultMapOAuth2AccessTokenResponseConverter converter = new DefaultMapOAuth2AccessTokenResponseConverter();
+			return converter.convert(map);
+
+		}
+		else {
+			// 存在响应代码时，代表程序报错，直接响应错误内容
+
+			try {
+				ResponseUtils.response(response, responseMap);
+				return null;
+			}
+			catch (IOException e) {
+				throw new CloudRuntimeException(e);
+			}
+		}
 	}
 
 	/**
