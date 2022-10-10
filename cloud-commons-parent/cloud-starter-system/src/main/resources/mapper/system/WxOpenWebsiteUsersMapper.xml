@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers">
         <id column="wx_open_website_users_id" property="wxOpenWebsiteUsersId" />
+        <result column="users_id" property="usersId" />
         <result column="appid" property="appid" />
         <result column="openid" property="openid" />
         <result column="unionid" property="unionid" />
@@ -16,7 +17,6 @@
         <result column="country" property="country" />
         <result column="headimgurl" property="headimgurl" />
         <result column="privilege" property="privilege" />
-        <result column="users_id" property="usersId" />
         <result column="binding_date" property="bindingDate" />
         <result column="access_token" property="accessToken" />
         <result column="refresh_token" property="refreshToken" />
