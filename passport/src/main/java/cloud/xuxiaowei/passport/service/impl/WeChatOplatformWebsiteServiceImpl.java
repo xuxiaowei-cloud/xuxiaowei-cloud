@@ -206,13 +206,6 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 				appid, code, state, binding, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
 
 		String openid = accessTokenResponse.getOpenid();
-		if (Boolean.TRUE.toString().equals(binding)) {
-
-			String usersIdStr = sessionService.get(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
-			long usersId = Long.parseLong(usersIdStr);
-
-			wxOpenWebsiteUsersService.binding(usersId, appid, openid);
-		}
 
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
@@ -241,6 +234,15 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			wxOpenWebsiteUsers.setExpires(expires);
 			wxOpenWebsiteUsers.setUpdateIp(remoteAddress);
 			wxOpenWebsiteUsersService.updateById(wxOpenWebsiteUsers);
+		}
+
+		// 绑定用户
+		if (Boolean.TRUE.toString().equals(binding)) {
+
+			String usersIdStr = sessionService.get(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
+			long usersId = Long.parseLong(usersIdStr);
+
+			wxOpenWebsiteUsersService.binding(usersId, appid, openid);
 		}
 
 		return accessTokenResponse;
