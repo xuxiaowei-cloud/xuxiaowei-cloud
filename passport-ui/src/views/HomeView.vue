@@ -43,11 +43,13 @@
         </el-form-item>
 
         <el-form-item>
+          <span class="w-5px"/>
           <el-link :href="weChatOplatformWebsiteUrl">
             <img src="../assets/wechat.png" alt="微信扫码登录" width="30">
           </el-link>
-          <el-link href="http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/authorize/afc0ab3bc0cb0655b4eb9b06ab5f4772ea0f65717c9e8647d2a9eec8270fc6d9?scope=user_info">
-            Gitee
+          <span class="w-10px"/>
+          <el-link :href="giteeAppid">
+            <img src="../assets/gitee.png" alt="码云Gitee登录" width="30">
           </el-link>
         </el-form-item>
 
@@ -67,12 +69,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
-import { JSEncrypt } from 'jsencrypt'
-import { ElMessage } from 'element-plus'
-import { useRoute } from 'vue-router'
-import { login, configuration } from '../api/passport'
+import {reactive, ref} from 'vue'
+import {Key, Lock, Unlock, User} from '@element-plus/icons-vue'
+import {JSEncrypt} from 'jsencrypt'
+import {ElMessage} from 'element-plus'
+import {useRoute} from 'vue-router'
+import {configuration, login} from '../api/passport'
 import settings from '../settings'
 
 // 跨域
@@ -85,12 +87,14 @@ const cross = ref<boolean>(location.host.includes(crossDomain.value))
 const route = useRoute()
 
 const weChatOplatformWebsiteUrl = ref()
+const giteeAppid = ref()
 
 configuration().then(response => {
   console.log(response)
   const msg = response.msg
   if (response.code === settings.okCode) {
     weChatOplatformWebsiteUrl.value = import.meta.env.VITE_APP_BASE_API + '/passport/wechat-oplatform/website/authorize/' + response.data.weChatOplatformWebsiteAppid
+    giteeAppid.value = import.meta.env.VITE_APP_BASE_API + '/passport/gitee/authorize/' + response.data.giteeAppid
   } else {
     ElMessage.error(msg)
   }
