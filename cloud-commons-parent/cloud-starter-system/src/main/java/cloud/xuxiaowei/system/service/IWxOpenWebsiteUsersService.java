@@ -34,7 +34,7 @@ public interface IWxOpenWebsiteUsersService extends IService<WxOpenWebsiteUsers>
 	 * @param usersId 用户主键
 	 * @return 返回 解绑结果
 	 */
-    boolean unbinding(@NonNull Long usersId);
+	boolean unbinding(@NonNull Long usersId);
 
 	/**
 	 * 社交绑定
@@ -42,6 +42,6 @@ public interface IWxOpenWebsiteUsersService extends IService<WxOpenWebsiteUsers>
 	 * @param appid 微信开放平台-网站用户ID
 	 * @param openid 用户唯一标识
 	 */
-    void binding(long usersId, String appid, String openid);
+	void binding(long usersId, String appid, String openid);
 
 }

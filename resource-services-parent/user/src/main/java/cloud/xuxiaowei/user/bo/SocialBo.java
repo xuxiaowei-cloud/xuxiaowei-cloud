@@ -14,13 +14,12 @@ import java.io.Serializable;
 @Data
 public class SocialBo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 社交类型
-     * 1：微信扫码
-     */
-    @NotEmpty(message = "社交类型不能为空")
-    private String socialCode;
+	/**
+	 * 社交类型：1：微信扫码
+	 */
+	@NotEmpty(message = "社交类型不能为空")
+	private String socialCode;
 
 }
