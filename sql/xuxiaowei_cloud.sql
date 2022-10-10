@@ -424,6 +424,7 @@ CREATE TABLE `wx_mp_users`  (
 DROP TABLE IF EXISTS `wx_open_website_users`;
 CREATE TABLE `wx_open_website_users`  (
   `wx_open_website_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '微信开放平台-网站用户主键，自增',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__wx_open_website_users__appid__openid__users_id',
   `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '微信开放平台用户appid，不为空，唯一键：uk__wx_open_website_users__appid__openid',
   `openid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '用户唯一标识，不为空，唯一键：uk__wx_open_website_users__appid__openid',
   `unionid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '多账户唯一标识',
@@ -435,7 +436,6 @@ CREATE TABLE `wx_open_website_users`  (
   `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '国家，如中国为CN',
   `headimgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空',
   `privilege` json NULL COMMENT '用户特权信息，json数组，如微信沃卡用户为（chinaunicom）',
-  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__wx_open_website_users__users_id',
   `binding_date` datetime NULL DEFAULT NULL COMMENT '绑定时间',
   `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权凭证',
   `refresh_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '刷新凭证',
@@ -451,7 +451,7 @@ CREATE TABLE `wx_open_website_users`  (
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
   PRIMARY KEY (`wx_open_website_users_id`) USING BTREE,
   UNIQUE INDEX `uk__wx_open_website_users__appid__openid`(`appid`, `openid`) USING BTREE COMMENT '微信开放平台-网站应用、用户唯一标识 唯一索引',
-  UNIQUE INDEX `uk__wx_open_website_users__users_id`(`users_id`) USING BTREE COMMENT '每个用户只能绑定一个微信'
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信开放平台-网站用户' ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `uk__wx_open_website_users__appid__openid__users_id`(`appid`, `openid`, `users_id`) USING BTREE COMMENT '每个用户只能绑定一个微信'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信开放平台-网站用户' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -27,6 +27,11 @@ public class WxOpenWebsiteUsers implements Serializable {
 	private Long wxOpenWebsiteUsersId;
 
 	/**
+	 * 绑定的用户主键，唯一键：uk__wx_open_website_users__appid__openid__users_id
+	 */
+	private Long usersId;
+
+	/**
 	 * 微信开放平台用户appid，不为空，唯一键：uk__wx_open_website_users__appid__openid
 	 */
 	private String appid;
@@ -81,11 +86,6 @@ public class WxOpenWebsiteUsers implements Serializable {
 	 * 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）
 	 */
 	private String privilege;
-
-	/**
-	 * 绑定的用户主键，唯一键：uk__wx_open_website_users__users_id
-	 */
-	private Long usersId;
 
 	/**
 	 * 绑定时间
