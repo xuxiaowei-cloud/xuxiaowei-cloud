@@ -3,6 +3,7 @@ package cloud.xuxiaowei.system.service.impl;
 import cloud.xuxiaowei.system.entity.GiteeUsers;
 import cloud.xuxiaowei.system.mapper.GiteeUsersMapper;
 import cloud.xuxiaowei.system.service.IGiteeUsersService;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,19 @@ public class GiteeUsersServiceImpl extends ServiceImpl<GiteeUsersMapper, GiteeUs
 	@Override
 	public GiteeUsers getByAppidAndId(String appid, Integer id) {
 		return baseMapper.getByAppidAndId(appid, id);
+	}
+
+	/**
+	 * 社交解绑
+	 * @param usersId 用户主键
+	 * @return 返回 解绑结果
+	 */
+	@Override
+	public boolean unbinding(Long usersId) {
+		UpdateWrapper<GiteeUsers> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("users_id", null);
+		return update(updateWrapper);
 	}
 
 }

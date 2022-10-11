@@ -23,7 +23,7 @@ public interface SocialService {
 	/**
 	 * 社交解绑
 	 * @param usersId 用户主键
-	 * @param socialCode 社交类型，1：微信扫码
+	 * @param socialCode 社交类型，1：微信扫码，2：码云Gitee
 	 * @return 返回 解绑结果
 	 */
 	boolean unbinding(@NonNull Long usersId, @NonNull String socialCode);

@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.user.service.impl;
 
 import cloud.xuxiaowei.system.mapper.SocialMapper;
+import cloud.xuxiaowei.system.service.IGiteeUsersService;
 import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
 import cloud.xuxiaowei.system.vo.SocialVo;
 import cloud.xuxiaowei.user.service.SocialService;
@@ -25,9 +26,16 @@ public class SocialServiceImpl implements SocialService {
 
 	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
 
+	private IGiteeUsersService giteeUsersService;
+
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
+	}
+
+	@Autowired
+	public void setGiteeUsersService(IGiteeUsersService giteeUsersService) {
+		this.giteeUsersService = giteeUsersService;
 	}
 
 	/**
@@ -43,7 +51,7 @@ public class SocialServiceImpl implements SocialService {
 	/**
 	 * 社交解绑
 	 * @param usersId 用户主键
-	 * @param socialCode 社交类型，1：微信扫码
+	 * @param socialCode 社交类型，1：微信扫码，2：码云Gitee
 	 * @return 返回 解绑结果
 	 */
 	@Override
@@ -51,6 +59,8 @@ public class SocialServiceImpl implements SocialService {
 		switch (socialCode) {
 			case "1":
 				return wxOpenWebsiteUsersService.unbinding(usersId);
+			case "2":
+				return giteeUsersService.unbinding(usersId);
 			default:
 				return false;
 		}

@@ -21,4 +21,11 @@ public interface IGiteeUsersService extends IService<GiteeUsers> {
 	 */
 	GiteeUsers getByAppidAndId(String appid, Integer id);
 
+	/**
+	 * 社交解绑
+	 * @param usersId 用户主键
+	 * @return 返回 解绑结果
+	 */
+    boolean unbinding(Long usersId);
+
 }
