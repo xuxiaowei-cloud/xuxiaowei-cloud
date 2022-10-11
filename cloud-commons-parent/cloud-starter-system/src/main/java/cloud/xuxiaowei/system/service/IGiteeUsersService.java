@@ -26,6 +26,14 @@ public interface IGiteeUsersService extends IService<GiteeUsers> {
 	 * @param usersId 用户主键
 	 * @return 返回 解绑结果
 	 */
-    boolean unbinding(Long usersId);
+	boolean unbinding(Long usersId);
+
+	/**
+	 * 社交绑定
+	 * @param usersId 用户主键
+	 * @param appid 微信开放平台-网站用户ID
+	 * @param id 用户唯一标识
+	 */
+	void binding(long usersId, String appid, Integer id);
 
 }

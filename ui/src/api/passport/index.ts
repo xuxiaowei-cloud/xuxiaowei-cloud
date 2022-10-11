@@ -57,3 +57,12 @@ export const passportReset = function (data: any) {
     return response.data
   })
 }
+
+/**
+ * 配置
+ */
+export const configuration = function () {
+  return request.post('/passport/configuration').then(response => {
+    return response.data
+  })
+}

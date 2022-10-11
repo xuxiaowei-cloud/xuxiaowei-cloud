@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface SocialMapper {
 
-    /**
-     * 根据用户主键获取社交绑定
-     * @param usersId 用户主键
-     * @return 返回 社交绑定
-     */
-    List<SocialVo> listByUsersId(@Param("usersId") Long usersId);
+	/**
+	 * 根据用户主键获取社交绑定
+	 * @param usersId 用户主键
+	 * @return 返回 社交绑定
+	 */
+	List<SocialVo> listByUsersId(@Param("usersId") Long usersId);
 
 }

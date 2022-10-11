@@ -30,6 +30,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { social, socialUnbinding } from '../../api/user/social'
 import settings from '../../settings'
 import { useStore } from '../../store'
+import { configuration } from '../../api/passport'
 
 // 加载
 const loading = ref(true)
@@ -89,19 +90,32 @@ const unbinding = (row: { socialName: string; socialCode: string; }) => {
   })
 }
 
+const weChatOplatformWebsiteUrl = ref()
+const giteeUrl = ref()
+
+configuration().then(response => {
+  console.log(response)
+  const msg = response.msg
+  if (response.code === settings.okCode) {
+    weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
+    giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}&binding=true&access_token=${useStore.getAccessToken}`
+  } else {
+    ElMessage.error(msg)
+  }
+})
+
 // 绑定
 const binding = (row: { socialCode: string; }) => {
-  location.href = 'http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-oplatform/website/authorize/wx5b3079e6eba267ac?binding=true&access_token=' + useStore.getAccessToken
-  // const login = new WxLogin({
-  //   self_redirect: true,
-  //   id: 'login_container',
-  //   appid: 'wx5b3079e6eba267ac',
-  //   scope: 'snsapi_login',
-  //   redirect_uri: 'http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-oplatform/website/code/wx5b3079e6eba267ac',
-  //   state: '',
-  //   style: '',
-  //   href: ''
-  // })
+  if (row.socialCode) {
+    switch (row.socialCode) {
+      case '1':
+        location.href = weChatOplatformWebsiteUrl.value
+        break
+      case '2':
+        location.href = giteeUrl.value
+        break
+    }
+  }
 }
 
 </script>
