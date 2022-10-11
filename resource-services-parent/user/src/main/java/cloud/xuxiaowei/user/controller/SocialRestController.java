@@ -1,9 +1,9 @@
 package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
+import cloud.xuxiaowei.system.vo.SocialVo;
 import cloud.xuxiaowei.user.bo.SocialBo;
 import cloud.xuxiaowei.user.service.SocialService;
-import cloud.xuxiaowei.user.vo.SocialVo;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.user.vo;
+package cloud.xuxiaowei.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.user.service;
 
-import cloud.xuxiaowei.user.vo.SocialVo;
+import cloud.xuxiaowei.system.vo.SocialVo;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

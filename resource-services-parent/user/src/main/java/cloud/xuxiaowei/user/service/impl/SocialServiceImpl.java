@@ -1,14 +1,14 @@
 package cloud.xuxiaowei.user.service.impl;
 
-import cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers;
+import cloud.xuxiaowei.system.mapper.SocialMapper;
 import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import cloud.xuxiaowei.system.vo.SocialVo;
 import cloud.xuxiaowei.user.service.SocialService;
-import cloud.xuxiaowei.user.vo.SocialVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,6 +19,9 @@ import java.util.List;
  */
 @Service
 public class SocialServiceImpl implements SocialService {
+
+	@Resource
+	private SocialMapper socialMapper;
 
 	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
 
@@ -34,24 +37,7 @@ public class SocialServiceImpl implements SocialService {
 	 */
 	@Override
 	public List<SocialVo> listByUsersId(Long usersId) {
-		List<SocialVo> socialVoList = new ArrayList<>();
-
-		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByUsersId(usersId);
-		SocialVo socialWxOpenWebsiteVo = new SocialVo();
-		socialWxOpenWebsiteVo.setSocialName("微信");
-		socialWxOpenWebsiteVo.setSocialCode("1");
-		socialVoList.add(socialWxOpenWebsiteVo);
-		if (wxOpenWebsiteUsers == null) {
-			socialWxOpenWebsiteVo.setBinding(false);
-		}
-		else {
-			socialWxOpenWebsiteVo.setBinding(true);
-			socialWxOpenWebsiteVo.setNickname(wxOpenWebsiteUsers.getNickname());
-			socialWxOpenWebsiteVo.setHeadimgurl(wxOpenWebsiteUsers.getHeadimgurl());
-			socialWxOpenWebsiteVo.setBindingDate(wxOpenWebsiteUsers.getBindingDate());
-		}
-
-		return socialVoList;
+		return socialMapper.listByUsersId(usersId);
 	}
 
 	/**
