@@ -110,8 +110,8 @@ wechat:
 gitee:
   default-role: gitee
   list:
-    - appid: ${gitee_appid:afc0ab3bc0cb0655b4eb9b06ab5f4772ea0f65717c9e8647d2a9eec8270fc6d9}
-      secret: ${gitee_secret:c2b709ccda7b1d9b08f599478d54149e166db8a958ce2b9a6b05091718872ba3}
+    - appid: ${gitee_appid:}
+      secret: ${gitee_secret:}
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/code
       client-id: xuxiaowei_client_gitee_id
       client-secret: xuxiaowei_client_gitee_secret
