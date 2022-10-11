@@ -11,12 +11,13 @@ import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.Encrypt;
+import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.base.Joiner;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +41,7 @@ import java.util.concurrent.TimeUnit;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 public class UserRestController {
 

@@ -2,13 +2,13 @@
 
 - [QuickStart](https://github.com/alibaba/canal/wiki/QuickStart)
 
-```
+```mysql
 show variables like 'log_bin';
 ```
 
 - 修改 my.cnf，开启二进制行级日志（修改完成后，重启数据库）
 
-```
+```shell
 [mysqld]
 # 开启 binlog
 log-bin=mysql-bin
@@ -20,7 +20,7 @@ server_id=1
 
 - 创建账户并授权（注意密码格式）
 
-```
+```mysql
 CREATE USER canal IDENTIFIED BY 'canal';  
 GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';
 -- GRANT ALL PRIVILEGES ON *.* TO 'canal'@'%' ;
@@ -31,18 +31,18 @@ FLUSH PRIVILEGES;
 
 - 解压文件
 
-```
+```shell
 mkdir canal.deployer-1.1.5
 tar zxvf canal.deployer-1.1.5.tar.gz  -C canal.deployer-1.1.5
 ```
 
 - 修改配置文件
 
-```
+```shell
 vim conf/example/instance.properties
 ```
 
-```
+```shell
 # position info，需要改成自己的数据库信息
 canal.instance.master.address = 127.0.0.1:3306
 # username/password，需要改成自己的数据库信息

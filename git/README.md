@@ -14,20 +14,20 @@ git push -f --all
 
 ## 克隆
 
-```
+```shell
 git clone --progress -v "https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git"
 ```
 
 ## 分支切换
 
-```
+```shell
 git checkout -b xuxiaowei remotes/origin/xuxiaowei
 git checkout xuxiaowei
 ```
 
 ## 推送
 
-```
+```shell
 git push --all --progress "gitcode"
 git push --all --progress "gitee"
 git push --all --progress "github"
@@ -36,12 +36,13 @@ git push --all --progress "gitlab"
 
 ## 拉取
 
-```
+```shell
 git pull --progress -v --no-rebase "origin"
 ```
 
 ## 其他命令
-```
+
+```shell
 git branch
 git branch -a
 

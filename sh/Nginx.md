@@ -37,7 +37,7 @@
         make install
         ```
     - 安装目录
-        ```
+        ```shell
         Configuration summary
         + using system PCRE library
         + using system OpenSSL library
@@ -58,10 +58,10 @@
         nginx http scgi temporary files: "scgi_temp"
         ```
     - 服务脚本示例文件
-        ```
+        ```shell
         /usr/lib/systemd/system/nginx.service
         ```
-        ```
+        ```shell
         [Unit]
         Description=nginx
         After=network.target
@@ -92,30 +92,30 @@
     - 服务命令
 
         - 查看状态
-            ```
+            ```shell
             systemctl status nginx.service
             ```
         - 启动
-            ```
+            ```shell
             systemctl start nginx.service
             ```
         - 停止
-            ```
+            ```shell
             systemctl stop nginx.service
             ```
         - 重启
-            ```
+            ```shell
             systemctl restart nginx.service
             ```
         - 设置开机自启
-            ```
+            ```shell
             systemctl enable nginx.service
             ```
         - 查看开机自启
-            ```
+            ```shell
             systemctl list-unit-files | grep nginx.service
             ```
         - 关闭开机自启
-            ```
+            ```shell
             systemctl disable nginx.service
             ```

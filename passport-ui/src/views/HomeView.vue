@@ -35,10 +35,22 @@
           <el-checkbox-group v-model="cloudForm.rememberMe">
             <el-checkbox label="true" name="rememberMe" v-bind="true">记住我</el-checkbox>
           </el-checkbox-group>
+          <el-link type="primary" target="_blank" class="forget" href="#/forget">忘记密码</el-link>
         </el-form-item>
 
         <el-form-item>
           <el-button class="submit-cloud-form" @click="submitCloudForm()">登录</el-button>
+        </el-form-item>
+
+        <el-form-item>
+          <span class="w-5px"/>
+          <el-link :href="weChatOplatformWebsiteUrl">
+            <img src="../assets/wechat.png" alt="微信扫码登录" width="30">
+          </el-link>
+          <span class="w-10px"/>
+          <el-link :href="giteeUrl">
+            <img src="../assets/gitee.png" alt="码云Gitee登录" width="30">
+          </el-link>
         </el-form-item>
 
       </el-form>
@@ -58,11 +70,11 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { User, Key, Lock, Unlock } from '@element-plus/icons-vue'
+import { Key, Lock, Unlock, User } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
-import { login } from '../api/user'
+import { configuration, login } from '../api/passport'
 import settings from '../settings'
 
 // 跨域
@@ -73,6 +85,20 @@ const passportDomain = ref<string>('passport.example.xuxiaowei.cloud')
 const cross = ref<boolean>(location.host.includes(crossDomain.value))
 
 const route = useRoute()
+
+const weChatOplatformWebsiteUrl = ref()
+const giteeUrl = ref()
+
+configuration().then(response => {
+  console.log(response)
+  const msg = response.msg
+  if (response.code === settings.okCode) {
+    weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}`
+    giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}`
+  } else {
+    ElMessage.error(msg)
+  }
+})
 
 // 表单中的值
 const cloudForm = reactive({
@@ -90,12 +116,11 @@ const passwordTypeClick = () => {
 }
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 提交表单
 const submitCloudForm = () => {
-  // @ts-ignore
-  cloudFormRef.value.validate(valid => {
+  cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       let header = 'header'
       let token = 'token'
@@ -165,6 +190,11 @@ const submitCloudForm = () => {
   /* form 居中 */
   margin-left: auto;
   margin-right: auto;
+}
+
+.forget {
+  position: absolute;
+  right: 0;
 }
 
 .cloud-footer {

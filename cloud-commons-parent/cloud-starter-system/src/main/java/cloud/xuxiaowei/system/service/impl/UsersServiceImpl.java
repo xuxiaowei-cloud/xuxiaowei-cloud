@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.system.service.impl;
 
+import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.bo.*;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
@@ -16,9 +17,11 @@ import cloud.xuxiaowei.validation.utils.ValidationUtils;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -44,12 +47,15 @@ import java.util.Set;
  * @author xuxiaowei
  * @since 2022-04-04
  */
+@Slf4j
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
 
 	private IAuthorityService authorityService;
 
 	private SessionService sessionService;
+
+	private CloudSecurityProperties cloudSecurityProperties;
 
 	@Autowired
 	public void setAuthorityService(IAuthorityService authorityService) {
@@ -59,6 +65,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
 		this.sessionService = sessionService;
+	}
+
+	@Autowired
+	public void setCloudSecurityProperties(CloudSecurityProperties cloudSecurityProperties) {
+		this.cloudSecurityProperties = cloudSecurityProperties;
 	}
 
 	/**
@@ -121,6 +132,18 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	public Users getByNickname(String nickname) {
 		QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("nickname", nickname);
+		return getOne(queryWrapper);
+	}
+
+	/**
+	 * 根据 手机号 查询用户信息
+	 * @param phone 手机号
+	 * @return 返回 用户信息
+	 */
+	@Override
+	public Users getByPhone(String phone) {
+		QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("phone", phone);
 		return getOne(queryWrapper);
 	}
 
@@ -372,6 +395,70 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Override
 	public Users getLogicByEmail(String email) {
 		return baseMapper.getLogicByEmail(email);
+	}
+
+	/**
+	 * 根据主键更新密码
+	 * @param usersId 主键
+	 * @param password 密码
+	 * @param rsaPrivateKeyBase64 RSA 私钥
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updatePasswordById(Long usersId, String password, String rsaPrivateKeyBase64) {
+
+		String passwordDecrypt;
+
+		if (cloudSecurityProperties.isEnabledRsa()) {
+			log.info("更新密码时启用了RSA对密码进行解密");
+			if (StringUtils.hasText(rsaPrivateKeyBase64)) {
+				RSA rsa = new RSA(rsaPrivateKeyBase64, null);
+
+				passwordDecrypt = rsa.decryptStr(password, KeyType.PrivateKey);
+			}
+			else {
+				throw new CloudRuntimeException("未找到RSA私钥，请刷新页面后重试");
+			}
+		}
+		else {
+			log.info("更新密码时未启用RSA对密码进行解密");
+			passwordDecrypt = password;
+		}
+
+		PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+		UpdateWrapper<Users> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("password", delegatingPasswordEncoder.encode(passwordDecrypt));
+		return update(updateWrapper);
+	}
+
+	/**
+	 * 根据主键更新手机号
+	 * @param usersId 主键
+	 * @param phone 手机号
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updatePhoneById(Long usersId, String phone) {
+		UpdateWrapper<Users> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("phone", phone);
+		return update(updateWrapper);
+	}
+
+	/**
+	 * 根据主键更新邮箱
+	 * @param usersId 主键
+	 * @param email 邮箱
+	 * @return 返回 更新结果
+	 */
+	@Override
+	public boolean updateEmailById(Long usersId, String email) {
+		UpdateWrapper<Users> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.eq("users_id", usersId);
+		updateWrapper.set("email", email);
+		return update(updateWrapper);
 	}
 
 	/**

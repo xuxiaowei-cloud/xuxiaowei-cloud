@@ -3,6 +3,7 @@ cloud:
   security:
     # 启动RSA密码加密
     enabled-rsa: false
+    passport-domain: http://passport.example.xuxiaowei.cloud:1411
   client:
     client-id: xuxiaowei_client_id
     client-secret: xuxiaowei_client_secret
@@ -55,5 +56,65 @@ cloud:
       '[/oauth2-registered-client/**]':
         - POST
         - OPTIONS
+      '[/configuration]':
+        - POST
+        - OPTIONS
       '[/actuator/**]':
         - POST
+      # 找回密码
+      '[/forget]':
+        - POST
+        - OPTIONS
+      # 检查重置密码凭证
+      '[/forget/check-reset-password-token]':
+        - POST
+        - OPTIONS
+      # 重置密码
+      '[/forget/reset-password]':
+        - POST
+        - OPTIONS
+      # 重置密码（手机验证码）
+      '[/forget/reset-type-phone-password]':
+        - POST
+        - OPTIONS
+
+wechat:
+  offiaccount:
+    default-role: ${wechat_offiaccount_default_role:}
+    list:
+      - appid: ${wechat_offiaccount_appid:}
+        secret: ${wechat_offiaccount_secret:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-offiaccount/code
+        client-id: xuxiaowei_client_wechat_offiaccount_id
+        client-secret: xuxiaowei_client_wechat_offiaccount_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: wechat_offiaccount
+        success-url: http://example.xuxiaowei.cloud:1001/#/
+
+---
+
+wechat:
+  oplatform:
+    website:
+      default-role: ${wechat_oplatform_website_default_role:}
+      list:
+        - appid: ${wechat_oplatform_website_appid:}
+          secret: ${wechat_oplatform_website_secret:}
+          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-oplatform/website/code
+          client-id: xuxiaowei_client_wechat_oplatform_id
+          client-secret: xuxiaowei_client_wechat_oplatform_secret
+          token-url-prefix: http://127.0.0.1:${server.port:80}
+          scope: wechat_oplatform_website
+          success-url: http://example.xuxiaowei.cloud:1001/#/
+
+gitee:
+  default-role: gitee
+  list:
+    - appid: ${gitee_appid:}
+      secret: ${gitee_secret:}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/code
+      client-id: xuxiaowei_client_gitee_id
+      client-secret: xuxiaowei_client_gitee_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: gitee
+      success-url: http://example.xuxiaowei.cloud:1001/#/

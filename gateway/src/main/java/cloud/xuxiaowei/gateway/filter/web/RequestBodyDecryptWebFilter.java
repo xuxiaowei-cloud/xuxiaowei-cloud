@@ -179,14 +179,14 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 			}
 			else {
 				switch (version) {
-				case V1:
-					decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
-					break;
-				case V0:
-					// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
-					// 故：此处使用 switch case 的穿透效果
-				default:
-					decrypt = bytes;
+					case V1:
+						decrypt = v1(response, bytes, clientId, keyBytes, ivBytes);
+						break;
+					case V0:
+						// 加密方式（版本）为 V0 时，使用 V0，与未匹配时，采用相同的方式
+						// 故：此处使用 switch case 的穿透效果
+					default:
+						decrypt = bytes;
 				}
 			}
 

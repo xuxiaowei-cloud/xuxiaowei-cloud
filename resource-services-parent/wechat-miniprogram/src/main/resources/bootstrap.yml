@@ -197,15 +197,10 @@ wx:
   miniapp:
     appid: ${wx_miniapp_appid:}
     secret: ${wx_miniapp_secret:}
-    token: JSON
+    token:
     aesKey:
-    msgDataFormat:
-
----
-
-# 微信小程序配置：存储配置redis(可选)
-wx:
-  miniapp:
+    msgDataFormat: JSON
+    # 存储配置redis(可选)
     config-storage:
       type: RedisTemplate
       key-prefix: wa

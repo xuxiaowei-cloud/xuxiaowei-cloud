@@ -2,25 +2,25 @@
 
 ## 项目设置
 
-```
+```shell
 npm install
 ```
 
 ### 编译、热加载
 
-```
+```shell
 npm run dev
 ```
 
 ### 生产编译和压缩
 
-```
+```shell
 npm run build
 ```
 
 ### lints和修复文件
 
-```
+```shell
 npm run lint
 ```
 
@@ -171,12 +171,12 @@ npm create vite@latest ui -- --template vue-ts
 - [vite](https://www.npmjs.com/package/vite)
 - [vue-tsc](https://www.npmjs.com/package/vue-tsc)
 
-```
+```shell
 npm i vue
 npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/editor-for-vue@5 axios crypto-js echarts element-plus js-cookie jsencrypt pinia sockjs-client stompjs vue-clipboard3 vue-echarts vue-router
 ```
 
-```
+```shell
 npm i -D @tauri-apps/cli @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
 ```
 

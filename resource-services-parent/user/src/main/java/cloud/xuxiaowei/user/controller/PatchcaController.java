@@ -83,7 +83,6 @@ public class PatchcaController {
 
 		init();
 
-		// @formatter:off
 		switch (RANDOM.nextInt(5)) {
 			case 0:
 				// 摆动波纹
@@ -107,7 +106,6 @@ public class PatchcaController {
 				break;
 			default:
 		}
-		// @formatter:on
 
 		// 设置全自动区分计算机和人类的图灵测试的响应
 		setPngHeaders(response);

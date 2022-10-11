@@ -39,7 +39,7 @@
         <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
         <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
         <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
-        <spring-boot.version>2.7.3</spring-boot.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/cloud/spring-cloud-dependencies -->
@@ -48,27 +48,38 @@
         <!-- https://github.com/spring-cloud/spring-cloud-gateway -->
         <!-- https://github.com/spring-cloud/spring-cloud-openfeign -->
         <!-- https://github.com/spring-cloud/spring-cloud-circuitbreaker -->
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <!-- Alibaba Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/cloud/spring-cloud-alibaba-dependencies -->
         <!-- https://github.com/alibaba/spring-cloud-alibaba -->
-        <spring-cloud-alibaba.version>2.2.8.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
         <!-- 监控（管理）依赖 -->
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/de/codecentric/spring-boot-admin-dependencies -->
         <!-- https://github.com/codecentric/spring-boot-admin -->
-        <spring-boot-admin.version>2.7.4</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.5</spring-boot-admin.version>
 
         <!-- OAuth 2.1 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.0-M1</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.0-M2
+        </spring-security-oauth2-authorization-server.version>
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
-        <spring-boot-starter-wechat-miniprogram.version>0.0.2-alpha.1</spring-boot-starter-wechat-miniprogram.version>
+        <spring-boot-starter-wechat-miniprogram.version>0.1.0-SNAPSHOT</spring-boot-starter-wechat-miniprogram.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-offiaccount -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-offiaccount/ -->
+        <spring-boot-starter-wechat-offiaccount.version>0.1.0-SNAPSHOT</spring-boot-starter-wechat-offiaccount.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-oplatform -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-oplatform/ -->
+        <spring-boot-starter-wechat-oplatform.version>0.1.0-SNAPSHOT</spring-boot-starter-wechat-oplatform.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+        <spring-boot-starter-gitee.version>0.1.0-SNAPSHOT</spring-boot-starter-gitee.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -130,12 +141,12 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.12</fastjson.version>
+        <fastjson.version>2.0.13</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
         <!-- https://github.com/dromara/hutool -->
-        <hutool-all.version>5.8.5</hutool-all.version>
+        <hutool-all.version>5.8.8</hutool-all.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
@@ -152,7 +163,9 @@
         <dom4j.version>2.1.3</dom4j.version>
 
         <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-miniapp -->
+        <!-- https://mvnrepository.com/artifact/com.github.binarywang/wx-java-mp-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/github/binarywang/weixin-java-miniapp -->
+        <!-- https://oss.sonatype.org/content/repositories/public/com/github/binarywang/weixin-mp-miniapp -->
         <!-- https://github.com/Wechat-Group/WxJava -->
         <weixin-java.version>4.4.0</weixin-java.version>
 
@@ -164,6 +177,13 @@
         <!-- 图片验证码 -->
         <!-- https://mvnrepository.com/artifact/com.github.bingoohuang/patchca -->
         <patchca.version>0.0.1</patchca.version>
+
+        <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
+        <!-- https://mvnrepository.com/artifact/com.aliyun/dysmsapi20170525 -->
+        <dysmsapi20170525.version>2.0.18</dysmsapi20170525.version>
+        <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
+        <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
+        <alibabacloud-dysmsapi20170525.version>1.0.1</alibabacloud-dysmsapi20170525.version>
 
         <!-- https://nodejs.org/dist/ -->
         <!-- http://mirrors.aliyun.com/nodejs-release/ -->
@@ -201,8 +221,8 @@
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
         <!-- https://github.com/spring-io/spring-javaformat/ -->
-        <!-- JDK 8 最高支持 0.0.25 -->
-        <spring-javaformat-maven-plugin.version>0.0.25</spring-javaformat-maven-plugin.version>
+        <!-- 高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support -->
+        <spring-javaformat-maven-plugin.version>0.0.34</spring-javaformat-maven-plugin.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -281,6 +301,27 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-wechat-miniprogram</artifactId>
                 <version>${spring-boot-starter-wechat-miniprogram.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-offiaccount -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-offiaccount/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-wechat-offiaccount</artifactId>
+                <version>${spring-boot-starter-wechat-offiaccount.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-oplatform -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-oplatform/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-wechat-oplatform</artifactId>
+                <version>${spring-boot-starter-wechat-oplatform.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-gitee</artifactId>
+                <version>${spring-boot-starter-gitee.version}</version>
             </dependency>
 
             <!-- MyBatis -->
@@ -415,6 +456,12 @@
                 <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
                 <version>${weixin-java.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.github.binarywang/wx-java-mp-spring-boot-starter -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
             <dependency>
@@ -429,6 +476,22 @@
                 <artifactId>patchca</artifactId>
                 <version>${patchca.version}</version>
             </dependency>
+
+            <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
+            <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${dysmsapi20170525.version}</version>
+            </dependency>
+            <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
+            <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+                <version>${alibabacloud-dysmsapi20170525.version}</version>
+            </dependency>
+
 
             <!-- 工具类 -->
             <dependency>
@@ -658,6 +721,7 @@
             <!--
                 ./mvnw spring-javaformat:apply
                 mvn spring-javaformat:apply
+                高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support
              -->
             <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
             <plugin>

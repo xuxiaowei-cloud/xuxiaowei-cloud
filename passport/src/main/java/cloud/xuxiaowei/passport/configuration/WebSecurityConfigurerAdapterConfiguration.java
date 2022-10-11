@@ -1,8 +1,8 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.core.properties.CloudRememberMeProperties;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
-import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -154,6 +154,28 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/oauth2/token").permitAll()
 					// 注销登录放行
 					.antMatchers("/signout").permitAll()
+					// 找回密码
+					.antMatchers("/forget").permitAll()
+					// 检查重置密码凭证
+					.antMatchers("/forget/check-reset-password-token").permitAll()
+					// 重置密码
+					.antMatchers("/forget/reset-password").permitAll()
+					// 重置密码（手机验证码）
+					.antMatchers("/forget/reset-type-phone-password").permitAll()
+					// 微信公众号跳转到微信授权页面
+					.antMatchers("/wechat-offiaccount/authorize/*").permitAll()
+					// 微信公众号授权码接收服务
+					.antMatchers("/wechat-offiaccount/code/*").permitAll()
+					// 微信开放平台 网站应用 跳转到微信授权页面
+					.antMatchers("/wechat-oplatform/website/authorize/*").permitAll()
+					// 微信开放平台 网站应用 授权码接收服务
+					.antMatchers("/wechat-oplatform/website/code/*").permitAll()
+					// 码云 Gitee 网站应用 跳转到微信授权页面
+					.antMatchers("/gitee/authorize/*").permitAll()
+					// 码云 Gitee 网站应用 授权码接收服务
+					.antMatchers("/gitee/code/*").permitAll()
+					// 配置
+					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
 					.antMatchers("/error").permitAll()
 					// 其他路径均需要授权

@@ -8,6 +8,8 @@
         <result column="username" property="username" />
         <result column="email" property="email" />
         <result column="email_valid" property="emailValid" />
+        <result column="phone" property="phone" />
+        <result column="phone_valid" property="phoneValid" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
         <result column="sex" property="sex" />

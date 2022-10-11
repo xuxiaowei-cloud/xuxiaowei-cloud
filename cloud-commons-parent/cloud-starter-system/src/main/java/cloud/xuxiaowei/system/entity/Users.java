@@ -54,6 +54,16 @@ public class Users implements Serializable {
 	private Boolean emailValid;
 
 	/**
+	 * 手机号，唯一键：uk__users__phone
+	 */
+	private String phone;
+
+	/**
+	 * 手机号否验证，不为空，默认值：0
+	 */
+	private String phoneValid;
+
+	/**
 	 * 昵称，不能为空，唯一键：uk__users__nickname
 	 */
 	private String nickname;

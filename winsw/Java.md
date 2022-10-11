@@ -8,11 +8,11 @@
         - D:\Program Files\Java\dragonwell-8.10.11
     - 环境变量
         - 添加环境变量
-          ```
+          ```shell
           JAVA_HOME=D:\Program Files\Java\dragonwell-8.10.11
           CLASSPATH=.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar
           ```
             - Path 中添加：
-                ```
+                ```shell
                 %JAVA_HOME%\bin
                 ```

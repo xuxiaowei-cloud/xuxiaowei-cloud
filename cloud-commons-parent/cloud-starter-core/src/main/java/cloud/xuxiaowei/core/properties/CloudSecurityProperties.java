@@ -79,4 +79,24 @@ public class CloudSecurityProperties {
 	 */
 	private boolean allowEmptyAuthorities = true;
 
+	/**
+	 * 重置密码 Token 有效时间（单位：小时）
+	 */
+	private int resetPasswordTokenHours = 1;
+
+	/**
+	 * 手机号验证码有效时间（范围：分钟）
+	 */
+	private int phoneCaptchaMinutes = 5;
+
+	/**
+	 * 邮箱验证码有效时间（范围：分钟）
+	 */
+	private int emailCaptchaMinutes = 5;
+
+	/**
+	 * 登录域名
+	 */
+	private String passportDomain;
+
 }

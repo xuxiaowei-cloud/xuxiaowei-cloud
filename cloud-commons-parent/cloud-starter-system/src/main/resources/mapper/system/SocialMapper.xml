@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.SocialMapper">
+
+    <!-- 根据用户主键获取社交绑定 -->
+    <select id="listByUsersId" resultType="cloud.xuxiaowei.system.vo.SocialVo">
+        SELECT
+            t.social_code,
+            t.social_name,
+            v.nickname,
+            v.headimgurl,
+            v.binding_date,
+            CASE v.binding
+                WHEN 1 THEN 1
+                ELSE 0
+            END AS binding
+        FROM (
+                SELECT 1 AS social_code, '微信' AS social_name
+                UNION ALL
+                SELECT 2 AS social_code, '码云' AS social_name
+            ) t
+            LEFT JOIN (
+                SELECT
+                    1 AS social_code,
+                    '微信' AS social_name,
+                    wowu.nickname AS nickname,
+                    wowu.headimgurl AS headimgurl,
+                    wowu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    wx_open_website_users wowu
+                WHERE
+                    wowu.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    2 AS social_code,
+                    '码云' AS social_name,
+                    gu.`name` AS nickname,
+                    gu.avatar_url AS headimgurl,
+                    gu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    gitee_users gu
+                WHERE
+                    gu.users_id = #{usersId}
+            ) v ON v.social_code = t.social_code
+    </select>
+
+</mapper>

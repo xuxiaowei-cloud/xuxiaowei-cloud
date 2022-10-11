@@ -293,6 +293,28 @@ cloud:
           - /oauth2/token
           # 退出登录
           - /signout
+          # 忘记密码
+          - /forget
+          # 检查重置密码凭证
+          - /forget/check-reset-password-token
+          # 重置密码
+          - /forget/reset-password
+          # 重置密码（手机验证码）
+          - /forget/reset-type-phone-password
+          # 微信公众号跳转到微信授权页面
+          - /wechat-offiaccount/authorize/*
+          # 微信公众号授权码接收服务
+          - /wechat-offiaccount/code/*
+          # 微信开放平台 网站应用 跳转到微信授权页面
+          - /wechat-oplatform/website/authorize/*
+          # 微信开放平台 网站应用 授权码接收服务
+          - /wechat-oplatform/website/code/*
+          # 码云 Gitee 网站应用 跳转到微信授权页面
+          - /gitee/authorize/*
+          # 码云 Gitee 网站应用 授权码接收服务
+          - /gitee/code/*
+          # 配置
+          - /configuration
       - name: user
         path-list:
           # 图片验证码
@@ -302,6 +324,7 @@ cloud:
           - /cxf/**
     actuator-ip-list:
       - 192.168.0.5
+      - 192.168.0.8
       - 192.168.5.3
       - 192.168.5.4
       - 10.0.4.13

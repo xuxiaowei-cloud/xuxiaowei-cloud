@@ -139,11 +139,10 @@ const passwordGenerate = () => {
 }
 
 // 表单验证
-const cloudFormRef = ref(null)
+const cloudFormRef = ref()
 
 // 保存
 const cloudSave = () => {
-  // @ts-ignore
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       ElMessageBox.confirm('确认添加？', '警告', {
@@ -204,7 +203,6 @@ const cloudUpdate = () => {
     paramEncryption.password = encrypt
   }
 
-  // @ts-ignore
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
       ElMessageBox.confirm('确认更新？', '警告', {

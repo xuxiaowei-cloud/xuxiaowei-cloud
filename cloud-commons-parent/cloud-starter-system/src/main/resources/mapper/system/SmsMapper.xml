@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.SmsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Sms">
+        <id column="sms_id" property="smsId" />
+        <result column="sms_platform" property="smsPlatform" />
+        <result column="access_key_id" property="accessKeyId" />
+        <result column="out_id" property="outId" />
+        <result column="owner_id" property="ownerId" />
+        <result column="phone_numbers" property="phoneNumbers" />
+        <result column="resource_owner_account" property="resourceOwnerAccount" />
+        <result column="resource_owner_id" property="resourceOwnerId" />
+        <result column="sign_name" property="signName" />
+        <result column="sms_up_extend_code" property="smsUpExtendCode" />
+        <result column="template_code" property="templateCode" />
+        <result column="template_param" property="templateParam" />
+        <result column="headers" property="headers" />
+        <result column="status_code" property="statusCode" />
+        <result column="biz_id" property="bizId" />
+        <result column="code" property="code" />
+        <result column="message" property="message" />
+        <result column="request_id" property="requestId" />
+        <result column="exception" property="exception" />
+        <result column="exception_data" property="exceptionData" />
+        <result column="remark" property="remark" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="create_date" property="createDate" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>

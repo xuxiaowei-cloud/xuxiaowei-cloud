@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
+import org.springframework.security.authentication.WeChatOplatformWebsiteAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +36,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.settings.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationEndpointFilter;
@@ -140,9 +141,18 @@ public class AuthorizationServerConfiguration {
 		// 自定义客户授权
 		authorizationServerConfigurer.tokenEndpoint(tokenEndpointCustomizer -> tokenEndpointCustomizer
 				.accessTokenRequestConverter(new DelegatingAuthenticationConverter(Arrays.asList(
-						// 新增：微信 OAuth2 用于验证授权授予的 {@link
+						// 新增：微信小程序 OAuth2 用于验证授权授予的 {@link
 						// OAuth2WeChatMiniProgramAuthenticationToken}
 						new OAuth2WeChatMiniProgramAuthenticationConverter(),
+						// 新增：微信公众号 OAuth2 用于验证授权授予的 {@link
+						// OAuth2WeChatOffiaccountAuthenticationToken}
+						new OAuth2WeChatOffiaccountAuthenticationConverter(),
+						// 新增：微信开放平台 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2WeChatOplatformWebsiteAuthenticationToken}
+						new OAuth2WeChatOplatformWebsiteAuthenticationConverter(),
+						// 新增：码云 Gitee 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2GiteeAuthenticationToken}
+						new OAuth2GiteeAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -154,6 +164,12 @@ public class AuthorizationServerConfiguration {
 
 		// 微信小程序 OAuth2 身份验证提供程序
 		new OAuth2WeChatMiniProgramAuthenticationProvider(http);
+		// 微信公众号 OAuth2 身份验证提供程序
+		new OAuth2WeChatOffiaccountAuthenticationProvider(http);
+		// 微信开放平台 网站应用 OAuth2 身份验证提供程序
+		new OAuth2WeChatOplatformWebsiteAuthenticationProvider(http);
+		// 码云 Gitee 网站应用 OAuth2 身份验证提供程序
+		new OAuth2GiteeAuthenticationProvider(http);
 
 		return http.build();
 	}
@@ -274,16 +290,33 @@ public class AuthorizationServerConfiguration {
 					claims.claim(OAuth2WeChatMiniProgramParameterNames.OPENID, openid);
 					claims.claim(OAuth2WeChatMiniProgramParameterNames.UNIONID, unionid);
 				}
+				else if (principal instanceof WeChatOplatformWebsiteAuthenticationToken) {
+					WeChatOplatformWebsiteAuthenticationToken authenticationToken = (WeChatOplatformWebsiteAuthenticationToken) principal;
+					// 微信公众平台 网站应用 的appid，不能为空
+					String appid = authenticationToken.getAppid();
+					// 用户唯一标识，不能为空
+					String openid = authenticationToken.getOpenid();
+					// 用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台帐号下会返回，详见 <a
+					// href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/union-id.html">UnionID
+					// 机制说明</a>。
+					String unionid = authenticationToken.getUnionid();
+					claims.claim(OAuth2WeChatMiniProgramParameterNames.APPID, appid);
+					claims.claim(OAuth2WeChatMiniProgramParameterNames.OPENID, openid);
+					claims.claim(OAuth2WeChatMiniProgramParameterNames.UNIONID, unionid);
+				}
 			}
 		};
 	}
 
 	/**
-	 * {@link ProviderSettings} 配置 Spring Authorization Server 的实例。
+	 * {@link AuthorizationServerSettings} 配置 Spring Authorization Server 的实例。
+	 * @see <a href=
+	 * "https://github.com/spring-projects/spring-authorization-server/commit/c60ae4532f1d745bff6eb793113731aba0493b70">Rename
+	 * ProviderSettings</a>
 	 */
 	@Bean
-	public ProviderSettings providerSettings() {
-		return ProviderSettings.builder().build();
+	public AuthorizationServerSettings authorizationServerSettings() {
+		return AuthorizationServerSettings.builder().build();
 	}
 
 }

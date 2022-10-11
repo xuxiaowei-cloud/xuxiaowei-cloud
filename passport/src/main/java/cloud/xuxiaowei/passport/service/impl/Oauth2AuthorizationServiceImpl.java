@@ -88,4 +88,16 @@ public class Oauth2AuthorizationServiceImpl extends ServiceImpl<Oauth2Authorizat
 		return remove(queryWrapper);
 	}
 
+	/**
+	 * 删除用户的授权（踢用户下线）
+	 * @param principalName 用户名
+	 * @return 返回 删除结果
+	 */
+	@Override
+	public boolean removeByPrincipalName(String principalName) {
+		QueryWrapper<Oauth2Authorization> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("principal_name", principalName);
+		return remove(queryWrapper);
+	}
+
 }

@@ -26,7 +26,7 @@
         make install
         ```
     - Ubuntu 安装
-        ```
+        ```shell
         # Command 'make' not found, but can be installed with:
         sudo apt-get install -y make
         # /bin/sh: 1: cc: not found
@@ -41,116 +41,45 @@
         make install
         ```
     - 安装位置
-        ```
+        ```shell
         /usr/local/bin/redis-server
         /usr/local/bin/redis-benchmark
         /usr/local/bin/redis-cli
         ```
-    - 服务脚本示例文件
-        ```
-        /software/redis-6.2.6/utils/systemd-redis_multiple_servers@.service
-        ```
-        内容大致如下：
-        ```shell
-        # example systemd template service unit file for multiple redis-servers
-        #
-        # You can use this file as a blueprint for your actual template service unit
-        # file, if you intend to run multiple independent redis-server instances in
-        # parallel using systemd's "template unit files" feature. If you do, you will
-        # want to choose a better basename for your service unit by renaming this file
-        # when copying it.
-        #
-        # Please take a look at the provided "systemd-redis_server.service" example
-        # service unit file, too, if you choose to use this approach at managing
-        # multiple redis-server instances via systemd.
-        
-        [Unit]
-        Description=Redis data structure server - instance %i
-        Documentation=https://redis.io/documentation
-        # This template unit assumes your redis-server configuration file(s)
-        # to live at /etc/redis/redis_server_<INSTANCE_NAME>.conf
-        AssertPathExists=/etc/redis/redis_server_%i.conf
-        #Before=your_application.service another_example_application.service
-        #AssertPathExists=/var/lib/redis
-        
-        [Service]
-        ExecStart=/usr/local/bin/redis-server /etc/redis/redis_server_%i.conf
-        LimitNOFILE=10032
-        NoNewPrivileges=yes
-        #OOMScoreAdjust=-900
-        #PrivateTmp=yes
-        Type=notify
-        TimeoutStartSec=infinity
-        TimeoutStopSec=infinity
-        UMask=0077
-        #User=redis
-        #Group=redis
-        #WorkingDirectory=/var/lib/redis
-        
-        [Install]
-        WantedBy=multi-user.target
-        ```
     - 编写服务脚本
         1. 复制`/software/redis-6.2.6/redis.conf`到`/etc/redis/redis_server_6379.conf`：
-            ```
+            ```shell
             mkdir -p /etc/redis
             cp /software/redis-6.2.6/redis.conf /etc/redis/redis_server_6379.conf
             ```
-        1. 复制`/software/redis-6.2.6/utils/systemd-redis_multiple_servers@.service`
-           到`/usr/lib/systemd/system/redis_6379.service`：
-            ```
-            cp /software/redis-6.2.6/utils/systemd-redis_multiple_servers@.service /usr/lib/systemd/system/redis_6379.service
-            ```
-           将`/usr/lib/systemd/system/redis_6379.service`中的参数`%i`改为`6379`，并将`Type=notify`修改为`Type=forking`：
+        2. 新建文件`/usr/lib/systemd/system/redis_6379.service`：
             ```shell
-            # example systemd template service unit file for multiple redis-servers
-            #
-            # You can use this file as a blueprint for your actual template service unit
-            # file, if you intend to run multiple independent redis-server instances in
-            # parallel using systemd's "template unit files" feature. If you do, you will
-            # want to choose a better basename for your service unit by renaming this file
-            # when copying it.
-            #
-            # Please take a look at the provided "systemd-redis_server.service" example
-            # service unit file, too, if you choose to use this approach at managing
-            # multiple redis-server instances via systemd.
-            
+            vim /usr/lib/systemd/system/redis_6379.service
+            ```
+            ```shell
             [Unit]
-            Description=Redis data structure server - instance 6379
-            Documentation=https://redis.io/documentation
-            # This template unit assumes your redis-server configuration file(s)
-            # to live at /etc/redis/redis_server_<INSTANCE_NAME>.conf
-            AssertPathExists=/etc/redis/redis_server_6379.conf
-            #Before=your_application.service another_example_application.service
-            #AssertPathExists=/var/lib/redis
-            
+            Description=nacos
+            After=syslog.target
+ 
             [Service]
+            Type=oneshot
             ExecStart=/usr/local/bin/redis-server /etc/redis/redis_server_6379.conf
-            LimitNOFILE=10032
-            NoNewPrivileges=yes
-            #OOMScoreAdjust=-900
-            #PrivateTmp=yes
-            Type=forking
-            TimeoutStartSec=infinity
-            TimeoutStopSec=infinity
-            UMask=0077
-            #User=redis
-            #Group=redis
-            #WorkingDirectory=/var/lib/redis
-            
+            ExecReload=/bin/kill -s HUP $MAINPID
+            RemainAfterExit=yes
+ 
             [Install]
             WantedBy=multi-user.target
             ```
-        1. 开放远程连接与后台运行：
-            ```
+        3. 开放远程连接与后台运行：
+            ```shell
             vim /etc/redis/redis_server_6379.conf
             ```
-            ```
+            ```shell
             # bind 127.0.0.1 -::1
             protected-mode no
             daemonize yes
             ```
-        1. 开放端口
+        4. 开放端口
             - CentOS
                 ```shell
                 firewall-cmd --zone=public --add-port=6379/tcp --permanent
@@ -161,32 +90,32 @@
                 ```shell
                 sudo ufw allow 6379
                 ```
-        1. 服务命令
+        5. 服务命令
             - 查看状态
-                ```
+                ```shell
                 systemctl status redis_6379.service
                 ```
             - 启动
-                ```
+                ```shell
                 systemctl start redis_6379.service
                 ```
             - 停止
-                ```
+                ```shell
                 systemctl stop redis_6379.service
                 ```
             - 重启
-                ```
+                ```shell
                 systemctl restart redis_6379.service
                 ```
             - 设置开机自启
-                ```
+                ```shell
                 systemctl enable redis_6379.service
-                ```
+                ```shell
             - 查看开机自启
-                ```
+                ```shell
                 systemctl list-unit-files | grep redis_6379.service
                 ```
             - 关闭开机自启
-                ```
+                ```shell
                 systemctl disable redis_6379.service
                 ```

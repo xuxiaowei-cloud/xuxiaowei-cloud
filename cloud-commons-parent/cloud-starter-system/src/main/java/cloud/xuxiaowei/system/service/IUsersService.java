@@ -59,6 +59,13 @@ public interface IUsersService extends IService<Users> {
 	Users getByNickname(String nickname);
 
 	/**
+	 * 根据 手机号 查询用户信息
+	 * @param phone 手机号
+	 * @return 返回 用户信息
+	 */
+	Users getByPhone(String phone);
+
+	/**
 	 * 根据 昵称 查询用户信息
 	 * <p>
 	 * 条件无逻辑删除的判断
@@ -142,5 +149,30 @@ public interface IUsersService extends IService<Users> {
 	 * @return 返回 用户信息
 	 */
 	Users getLogicByEmail(String email);
+
+	/**
+	 * 根据主键更新密码
+	 * @param usersId 主键
+	 * @param password 密码
+	 * @param rsaPrivateKeyBase64 RSA 私钥
+	 * @return 返回 更新结果
+	 */
+	boolean updatePasswordById(Long usersId, String password, String rsaPrivateKeyBase64);
+
+	/**
+	 * 根据主键更新手机号
+	 * @param usersId 主键
+	 * @param phone 手机号
+	 * @return 返回 更新结果
+	 */
+	boolean updatePhoneById(Long usersId, String phone);
+
+	/**
+	 * 根据主键更新邮箱
+	 * @param usersId 主键
+	 * @param email 邮箱
+	 * @return 返回 更新结果
+	 */
+	boolean updateEmailById(Long usersId, String email);
 
 }

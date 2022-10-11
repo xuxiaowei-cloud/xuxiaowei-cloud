@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.5.4-docker
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80028
- Source Host           : 192.168.5.4:3306
+ Source Host           : localhost:3306
  Source Schema         : xuxiaowei_cloud
 
  Target Server Type    : MySQL
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 23/08/2022 18:13:49
+ Date: 10/10/2022 22:17:38
 */
 
 SET NAMES utf8mb4;
@@ -54,7 +54,7 @@ CREATE TABLE `city_handle`  (
   `city_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城市名称',
   UNIQUE INDEX `uk__city_handle__city_code`(`city_code`) USING BTREE,
   INDEX `idx__city_handle__province_code`(`province_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '城市' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '城市' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for county_handle
@@ -66,7 +66,7 @@ CREATE TABLE `county_handle`  (
   `county_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '县名称',
   UNIQUE INDEX `uk__county_handle__county_code`(`county_code`) USING BTREE,
   INDEX `idx__county_handle__city_code`(`city_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '县' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '县' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for dict
@@ -111,6 +111,64 @@ CREATE TABLE `dict_data`  (
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
   PRIMARY KEY (`dict_code`, `dict_data_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据表\r\n<p>\r\n为何本表不使用自增主键？\r\n<p>\r\n答：考虑到开发环境添加数据、正式环境添加数据、开发环境向正式环境同步字典数据等情况，相同的字典代码与字典数据代码可能对应不同的自增主键，故放弃自增主键，改用字典代码与字典数据代码作为联合主键。\r\n<p>\r\n本表external_code与external_label开头的字段有何作用？\r\n<p>\r\n答：对接外部系统时，如果外部系统与本系统针对某一字典值、名称不同时，在此增加两列做对照，并在字段中在增加对外部系统的描述，使用时，直接取不同系统对照的不同字段即可' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for gitee_users
+-- ----------------------------
+DROP TABLE IF EXISTS `gitee_users`;
+CREATE TABLE `gitee_users`  (
+  `gitee_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '码云Gitee用户表主键，自增',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__gitee_users__appid__id__users_id',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT 'AppID(码云Gitee client_id)，唯一键：uk__gitee_users__appid__id',
+  `id` int NOT NULL COMMENT '码云Gitee唯一标识，不为空，唯一键：uk__gitee_users__appid__id',
+  `login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '码云Gitee登录用户名，不为空',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '码云Gitee用户名，不为空',
+  `avatar_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '头像',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '公开资料URL',
+  `html_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '空间URL',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '企业备注名',
+  `followers_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '粉丝URL',
+  `following_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
+  `gists_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
+  `starred_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT 'star项目URL',
+  `subscriptions_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '订阅项目URL',
+  `organizations_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '组织URL',
+  `repos_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '仓库URL',
+  `events_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
+  `received_events_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '接收事件',
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '类型',
+  `blog` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '博客地址',
+  `weibo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '微博地址',
+  `bio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '自我介绍',
+  `public_repos` int NULL DEFAULT NULL COMMENT '公共仓库数',
+  `public_gists` int NULL DEFAULT NULL,
+  `followers` int NULL DEFAULT NULL COMMENT '粉丝数',
+  `following` int NULL DEFAULT NULL COMMENT '关注的人',
+  `stared` int NULL DEFAULT NULL COMMENT 'star数',
+  `watched` int NULL DEFAULT NULL COMMENT '关注的仓库',
+  `created_at` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '邮箱',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权凭证',
+  `refresh_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '刷新凭证',
+  `expires` datetime NULL DEFAULT NULL COMMENT '过期时间',
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权范围',
+  `company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '公司',
+  `profession` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '职务',
+  `wechat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '微信',
+  `qq` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT 'QQ',
+  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '领英账户',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`gitee_users_id`) USING BTREE,
+  UNIQUE INDEX `uk__gitee_users__appid__id`(`appid`, `id`) USING BTREE,
+  UNIQUE INDEX `uk__gitee_users__appid__id__users_id`(`appid`, `id`, `users_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '码云Gitee用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for group_authorities
@@ -215,7 +273,76 @@ CREATE TABLE `province_handle`  (
   `province_code` int NULL DEFAULT NULL COMMENT '省份代码，唯一键：uk__province_handle__province_code',
   `province_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省份名称',
   UNIQUE INDEX `uk__province_handle__province_code`(`province_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '省份' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '省份' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for reset_password
+-- ----------------------------
+DROP TABLE IF EXISTS `reset_password`;
+CREATE TABLE `reset_password`  (
+  `reset_password_id` bigint NOT NULL AUTO_INCREMENT COMMENT '重置密码表主键，自增',
+  `users_id` bigint NOT NULL COMMENT '用户ID，不为空',
+  `before_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改之前的密码',
+  `reset_password_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '重置密码类型，不为空，取表：dict_data.dict_code = \'reset_password_type\'',
+  `headers_map` json NOT NULL COMMENT '请求头，不为空，json',
+  `authorization` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'headers中authorization',
+  `payload` json NULL COMMENT 'authorization解密',
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '标识',
+  `request_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '请求ID，不为空',
+  `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Session ID',
+  `browscap` tinyint(1) NULL DEFAULT NULL COMMENT 'browscap 是否处理',
+  `browser` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '浏览器值（例如 Chrome）',
+  `browser_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '浏览器类型（例如 Browser 或 Application）',
+  `browser_major_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '浏览器的主要版本（例如，Chrome 为 55）',
+  `platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '平台名称（例如 Android、iOS、Win7、Win10）',
+  `platform_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '平台版本（例如 4.2、10，取决于平台是什么）',
+  `device_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '设备类型（例如手机、台式机、平板电脑、控制台、电视设备）',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空，数据库自动生成',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`reset_password_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '重置密码表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for sms
+-- ----------------------------
+DROP TABLE IF EXISTS `sms`;
+CREATE TABLE `sms`  (
+  `sms_id` bigint NOT NULL AUTO_INCREMENT COMMENT '短信主键',
+  `sms_platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '短信平台，不为空，字典：dict_data.dict_code = \'sms_platform\' AND dict_data.dict_data_code = sms.sms_platform',
+  `access_key_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'AccessKey ID，不为空',
+  `out_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `owner_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `phone_numbers` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号码',
+  `resource_owner_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `resource_owner_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `sign_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '签名名称',
+  `sms_up_extend_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `template_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模板CODE',
+  `template_param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模板参数',
+  `headers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '阿里云平台的值，响应头',
+  `status_code` int NULL DEFAULT NULL COMMENT '阿里云平台的值，响应代码',
+  `biz_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `request_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '阿里云平台的值',
+  `exception` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '异常',
+  `exception_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '异常中的数据',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空，数据库自动生成',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`sms_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '短信表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for town_handle
@@ -227,7 +354,7 @@ CREATE TABLE `town_handle`  (
   `town_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '镇名称',
   UNIQUE INDEX `uk__town_handle__town_code`(`town_code`) USING BTREE,
   INDEX `idx__town_handle__county_code`(`county_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '镇' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '镇' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for users
@@ -238,6 +365,8 @@ CREATE TABLE `users`  (
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名，不能为空，唯一键：uk__users__username',
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱，唯一键：uk__users__email',
   `email_valid` tinyint(1) NOT NULL DEFAULT 0 COMMENT '邮箱是否验证，不为空，默认值：0',
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号，唯一键：uk__users__phone',
+  `phone_valid` tinyint(1) NOT NULL DEFAULT 0 COMMENT '手机号否验证，不为空，默认值：0',
   `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '昵称，不能为空，唯一键：uk__users__nickname',
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码，不能为空',
   `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别，取表：dict_data.dict_code = \'sex\'',
@@ -258,7 +387,8 @@ CREATE TABLE `users`  (
   PRIMARY KEY (`users_id`) USING BTREE,
   UNIQUE INDEX `uk__users__username`(`username`) USING BTREE,
   UNIQUE INDEX `uk__users__nickname`(`nickname`) USING BTREE,
-  UNIQUE INDEX `uk__users__email`(`email`) USING BTREE
+  UNIQUE INDEX `uk__users__email`(`email`) USING BTREE,
+  UNIQUE INDEX `uk__users__phone`(`phone`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表。\r\n原表结构：spring-security-core-*.*.*.jar!/org/springframework/security/core/userdetails/jdbc/users.ddl\r\n原表结构：https://github.com/spring-projects/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl\r\nGitCode 镜像仓库：https://gitcode.net/mirrors/spring-projects/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl\r\nGitee 镜像仓库：https://gitee.com/mirrors/spring-security/blob/main/core/src/main/resources/org/springframework/security/core/userdetails/jdbc/users.ddl' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -302,7 +432,7 @@ CREATE TABLE `village_handle`  (
   `village_type_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '居委会类型代码',
   UNIQUE INDEX `uk__village_handle__village_code`(`village_code`) USING BTREE,
   INDEX `idx__village_handle__town_code`(`town_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '居委会' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '居委会' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for wx_ma_users
@@ -323,6 +453,63 @@ CREATE TABLE `wx_ma_users`  (
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
   PRIMARY KEY (`wx_ma_users_id`) USING BTREE,
   UNIQUE INDEX `uk__wx_ma_users__appid__openid`(`appid`, `openid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微信小程序用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微信小程序用户' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for wx_mp_users
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_mp_users`;
+CREATE TABLE `wx_mp_users`  (
+  `wx_mp_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '微信公众号用户表主键，自增',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公众号标识，不为空，唯一键：uk__wx_mp_users__appid__openid',
+  `openid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户标识（针对于某个公众号），不为空，唯一键：uk__wx_mp_users__appid__openid',
+  `unionid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户标识（针对于同一开放平台）',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`wx_mp_users_id`) USING BTREE,
+  UNIQUE INDEX `uk__wx_mp_users__appid__openid`(`appid`, `openid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信公众号用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for wx_open_website_users
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_open_website_users`;
+CREATE TABLE `wx_open_website_users`  (
+  `wx_open_website_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '微信开放平台-网站用户主键，自增',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__wx_open_website_users__appid__openid__users_id',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '微信开放平台用户appid，不为空，唯一键：uk__wx_open_website_users__appid__openid',
+  `openid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '用户唯一标识，不为空，唯一键：uk__wx_open_website_users__appid__openid',
+  `unionid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '多账户唯一标识',
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '普通用户昵称',
+  `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '普通用户性别，1为男性，2为女性',
+  `language` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语，默认为en',
+  `province` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '普通用户个人资料填写的省份',
+  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '普通用户个人资料填写的城市',
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '国家，如中国为CN',
+  `headimgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空',
+  `privilege` json NULL COMMENT '用户特权信息，json数组，如微信沃卡用户为（chinaunicom）',
+  `binding_date` datetime NULL DEFAULT NULL COMMENT '绑定时间',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权凭证',
+  `refresh_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '刷新凭证',
+  `expires` datetime NULL DEFAULT NULL COMMENT '过期时间',
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权范围',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`wx_open_website_users_id`) USING BTREE,
+  UNIQUE INDEX `uk__wx_open_website_users__appid__openid`(`appid`, `openid`) USING BTREE COMMENT '微信开放平台-网站应用、用户唯一标识 唯一索引',
+  UNIQUE INDEX `uk__wx_open_website_users__appid__openid__users_id`(`appid`, `openid`, `users_id`) USING BTREE COMMENT '每个用户只能绑定一个微信'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微信开放平台-网站用户' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

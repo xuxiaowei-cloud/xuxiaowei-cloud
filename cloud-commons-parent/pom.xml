@@ -61,6 +61,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
         <!-- 工具类 -->
         <dependency>
             <groupId>cloud.xuxiaowei</groupId>

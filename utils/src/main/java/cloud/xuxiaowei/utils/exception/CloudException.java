@@ -2,6 +2,7 @@ package cloud.xuxiaowei.utils.exception;
 
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
+import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,8 +15,9 @@ import lombok.Setter;
  * <p>
  * 1、{@link LoginException} 及其子异常不属于此异常的子类
  * <p>
- * 1、ClientException 及其子异常不属于此异常的子类
+ * 2、ClientException 及其子异常不属于此异常的子类
  * <p>
+ * 3、{@link LoginAuthenticationException} 及其子异常不属于此异常的子类
  *
  * @author xuxiaowei
  * @since 0.0.1

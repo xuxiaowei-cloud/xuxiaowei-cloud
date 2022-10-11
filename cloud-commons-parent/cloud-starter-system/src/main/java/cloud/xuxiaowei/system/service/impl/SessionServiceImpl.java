@@ -2,6 +2,9 @@ package cloud.xuxiaowei.system.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSessionProperties;
 import cloud.xuxiaowei.system.service.SessionService;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -171,6 +174,18 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	/**
+	 * 设置 Redis 中的值（自定义过期时间，不会跟随用户使用系统更新）
+	 * @param key 键
+	 * @param value 值
+	 * @param timeout 过期时间
+	 * @param unit 过期时间单位
+	 */
+	@Override
+	public void setObj(@NonNull String key, @NonNull String value, long timeout, @NonNull TimeUnit unit) {
+		redisTemplate.opsForValue().set(key, value, timeout, unit);
+	}
+
+	/**
 	 * 获取 Redis 中的值
 	 * @param key 键
 	 * @return 返回 Redis 中的值
@@ -178,6 +193,28 @@ public class SessionServiceImpl implements SessionService {
 	@Override
 	public String get(@NonNull String key) {
 		return stringRedisTemplate.opsForValue().get(key);
+	}
+
+	/**
+	 * 获取 Redis 中的值
+	 * @param key 键
+	 * @param valueType 返回值类型
+	 * @param <T> 泛型
+	 * @return 返回 Redis 中的值
+	 */
+	@Override
+	public <T> T getObj(@NonNull String key, @NonNull Class<T> valueType) {
+		Object object = redisTemplate.opsForValue().get(key);
+		if (object == null) {
+			return null;
+		}
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			return objectMapper.readValue(object + "", valueType);
+		}
+		catch (JsonProcessingException e) {
+			throw new CloudRuntimeException(e);
+		}
 	}
 
 	/**
@@ -204,15 +241,12 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	/**
-	 * 移除 Session（Redis）
+	 * 移除 Redis
 	 * @param key 键
 	 */
 	@Override
 	public void remove(@NonNull String key) {
-		String sessionId = sessionId();
-		redisTemplate.delete(sessionId);
-		// 过期时间
-		expire(sessionId);
+		redisTemplate.delete(key);
 	}
 
 	/**

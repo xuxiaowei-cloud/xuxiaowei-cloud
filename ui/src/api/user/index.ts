@@ -1,6 +1,6 @@
-import request, { AjaxResponse } from '../utils/request'
-import { useStore } from '../store'
-import settings from '../settings'
+import request, { AjaxResponse } from '../../utils/request'
+import { useStore } from '../../store'
+import settings from '../../settings'
 import { ElMessage } from 'element-plus'
 import { AxiosResponse } from 'axios'
 
@@ -49,7 +49,7 @@ export interface UsersVo {
  * 用户信息
  */
 export const info = function () {
-  return request.post('/user/info').then((response: AxiosResponse<AjaxResponse<UsersVo>>) : AjaxResponse<UsersVo> => {
+  return request.post('/user/info').then((response: AxiosResponse<AjaxResponse<UsersVo>>): AjaxResponse<UsersVo> => {
     console.log('用户信息', response)
     const responseData = response.data
     if (responseData.code === settings.okCode) {

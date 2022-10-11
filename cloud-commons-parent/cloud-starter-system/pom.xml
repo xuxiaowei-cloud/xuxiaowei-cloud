@@ -54,10 +54,31 @@
             <artifactId>commons-io</artifactId>
         </dependency>
 
+        <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
+        <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+        </dependency>
+        <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
+        <!-- 阿里云 升级版 SDK 与原版 SDK 的区别：https://help.aliyun.com/document_detail/207241.html -->
+        <!--<dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+        </dependency>-->
+
         <!-- 提供JSON数据处理所需的包，如：ObjectMapper、JavaTimeModule -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-json</artifactId>
+            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 提供 JavaTimeModule -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
             <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
             <scope>provided</scope>
         </dependency>

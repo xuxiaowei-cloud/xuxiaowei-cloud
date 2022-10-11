@@ -23,9 +23,18 @@ export const login = function (username: string, password: string, rememberMe: s
   const headers = {}
   // @ts-ignore
   headers[header] = token
-  return request.post('/login', formData, {
+  return request.post('/passport/login', formData, {
     headers
   }).then(response => {
+    return response.data
+  })
+}
+
+/**
+ * 配置
+ */
+export const configuration = function () {
+  return request.post('/passport/configuration').then(response => {
     return response.data
   })
 }

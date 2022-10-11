@@ -35,4 +35,11 @@ public interface IOauth2AuthorizationService extends IService<Oauth2Authorizatio
 	 */
 	boolean removeByAccessTokenValue(String accessToken);
 
+	/**
+	 * 删除用户的授权（踢用户下线）
+	 * @param principalName 用户名
+	 * @return 返回 删除结果
+	 */
+	boolean removeByPrincipalName(String principalName);
+
 }

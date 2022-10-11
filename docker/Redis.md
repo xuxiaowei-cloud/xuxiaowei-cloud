@@ -4,7 +4,7 @@
 
 - 拉取镜像
 
-```
+```shell
 docker pull redis:6.2.6
 ```
 
