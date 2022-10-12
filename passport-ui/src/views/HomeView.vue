@@ -51,6 +51,9 @@
           <el-link :href="giteeUrl">
             <img src="../assets/gitee.png" alt="码云Gitee登录" width="30">
           </el-link>
+          <el-link href="http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101575506">
+            QQ
+          </el-link>
         </el-form-item>
 
       </el-form>
