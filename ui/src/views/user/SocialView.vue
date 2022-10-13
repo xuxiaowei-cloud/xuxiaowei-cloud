@@ -114,6 +114,9 @@ const binding = (row: { socialCode: string; }) => {
       case '2':
         location.href = giteeUrl.value
         break
+      case '3':
+        location.href = `http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info&binding=true&access_token=${useStore.getAccessToken}`
+        break
     }
   }
 }

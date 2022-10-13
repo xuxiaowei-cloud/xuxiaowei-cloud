@@ -18,6 +18,8 @@
                 SELECT 1 AS social_code, '微信' AS social_name
                 UNION ALL
                 SELECT 2 AS social_code, '码云' AS social_name
+                UNION ALL
+                SELECT 3 AS social_code, 'QQ' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -45,6 +47,20 @@
                     gitee_users gu
                 WHERE
                     gu.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    3 AS social_code,
+                    'QQ' AS social_name,
+                    qwu.nickname AS nickname,
+                    qwu.figureurl_2 AS headimgurl,
+                    qwu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    qq_website_users qwu
+                WHERE
+                    qwu.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 
