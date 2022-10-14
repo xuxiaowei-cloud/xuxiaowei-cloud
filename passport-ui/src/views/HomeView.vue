@@ -43,38 +43,72 @@
         </el-form-item>
 
         <el-form-item>
-          <span class="w-5px"/>
-          <el-link :href="weChatOplatformWebsiteUrl">
-            <img src="../assets/wechat.png" alt="微信扫码登录" width="30">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link :href="giteeUrl">
-            <img src="../assets/gitee.png" alt="码云Gitee登录" width="30">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info">
-            <img src="../assets/qq.png" alt="QQ扫码登录" width="30">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
-            <img src="../assets/dingtalk.png" alt="钉钉扫码登录" width="30">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
-            <img src="../assets/alipay.png" alt="支付宝扫码登录" width="30">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
-            <img src="../assets/weibo.png" alt="微博扫码登录" width="33">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
-            <img src="../assets/gitlab.png" alt="GitLab登录" width="37">
-          </el-link>
-          <span class="w-10px"/>
-          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
-            <img src="../assets/work-wechat.png" alt="企业微信登录" width="34">
-          </el-link>
+
+          <el-tooltip class="box-item" effect="dark" content="微信扫码登录" placement="top">
+            <el-link :href="weChatOplatformWebsiteUrl" class="mr-5px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/wechat-fill.png" alt="微信扫码登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="码云Gitee登录" placement="top">
+            <el-link :href="giteeUrl" class="ml-4px mr-4px">
+              <!-- AnimaUI：https://www.iconfont.cn/collections/detail?cid=21749 -->
+              <img src="../assets/gitee-fill-round.png" alt="码云Gitee登录" width="27">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="QQ扫码登录" placement="top">
+            <el-link
+              href="http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info"
+              class="ml-4px mr-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/QQ-circle-fill.png" alt="QQ扫码登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="钉钉扫码登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/dingtalk-circle-fill.png" alt="钉钉扫码登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="支付宝扫码登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/alipay-circle-fill.png" alt="支付宝扫码登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="微博扫码登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/weibo-circle-fill.png" alt="微博扫码登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="GitLab登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/Gitlab-fill.png" alt="GitLab登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="企业微信登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+              <!-- 吉利工业互联网WEB-Fill：https://www.iconfont.cn/collections/detail?cid=27812 -->
+              <img src="../assets/external_ enteerprise-wechat.png" alt="企业微信登录" width="30">
+            </el-link>
+          </el-tooltip>
+
+          <el-tooltip class="box-item" effect="dark" content="GitHub登录" placement="top">
+            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px">
+              <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
+              <img src="../assets/github-fill.png" alt="GitHub登录" width="30">
+            </el-link>
+          </el-tooltip>
+
         </el-form-item>
 
       </el-form>
