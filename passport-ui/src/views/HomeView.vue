@@ -55,6 +55,26 @@
           <el-link href="http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info">
             <img src="../assets/qq.png" alt="QQ扫码登录" width="30">
           </el-link>
+          <span class="w-10px"/>
+          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
+            <img src="../assets/dingtalk.png" alt="钉钉扫码登录" width="30">
+          </el-link>
+          <span class="w-10px"/>
+          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
+            <img src="../assets/alipay.png" alt="支付宝扫码登录" width="30">
+          </el-link>
+          <span class="w-10px"/>
+          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
+            <img src="../assets/weibo.png" alt="微博扫码登录" width="33">
+          </el-link>
+          <span class="w-10px"/>
+          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
+            <img src="../assets/gitlab.png" alt="GitLab登录" width="37">
+          </el-link>
+          <span class="w-10px"/>
+          <el-link href="javascript:void(0);" onclick="alert('正在开发中')">
+            <img src="../assets/work-wechat.png" alt="企业微信登录" width="34">
+          </el-link>
         </el-form-item>
 
       </el-form>
