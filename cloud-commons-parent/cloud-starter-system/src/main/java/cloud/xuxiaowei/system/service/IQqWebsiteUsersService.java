@@ -13,27 +13,27 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IQqWebsiteUsersService extends IService<QqWebsiteUsers> {
 
-    /**
-     * 根据 QQ开放平台-网站用户ID、用户唯一标识 查询用户
-     * @param appid QQ开放平台-网站用户ID
-     * @param openid 用户唯一标识
-     * @return 返回 用户
-     */
-    QqWebsiteUsers getByAppidAndOpenid(String appid, String openid);
+	/**
+	 * 根据 QQ开放平台-网站用户ID、用户唯一标识 查询用户
+	 * @param appid QQ开放平台-网站用户ID
+	 * @param openid 用户唯一标识
+	 * @return 返回 用户
+	 */
+	QqWebsiteUsers getByAppidAndOpenid(String appid, String openid);
 
-    /**
-     * 社交绑定
-     * @param usersId 用户主键
-     * @param appid QQ开放平台-网站用户ID
-     * @param openid 用户唯一标识
-     */
-    void binding(long usersId, String appid, String openid);
+	/**
+	 * 社交绑定
+	 * @param usersId 用户主键
+	 * @param appid QQ开放平台-网站用户ID
+	 * @param openid 用户唯一标识
+	 */
+	void binding(long usersId, String appid, String openid);
 
-    /**
-     * 社交解绑
-     * @param usersId 用户主键
-     * @return 返回 解绑结果
-     */
-    boolean unbinding(Long usersId);
+	/**
+	 * 社交解绑
+	 * @param usersId 用户主键
+	 * @return 返回 解绑结果
+	 */
+	boolean unbinding(Long usersId);
 
 }
