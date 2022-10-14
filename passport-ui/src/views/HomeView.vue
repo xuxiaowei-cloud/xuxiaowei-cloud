@@ -98,7 +98,7 @@
           <el-tooltip class="box-item" effect="dark" content="企业微信登录" placement="top">
             <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
               <!-- 吉利工业互联网WEB-Fill：https://www.iconfont.cn/collections/detail?cid=27812 -->
-              <img src="../assets/external_ enteerprise-wechat.png" alt="企业微信登录" width="30">
+              <img src="../assets/external_enteerprise-wechat.png" alt="企业微信登录" width="30">
             </el-link>
           </el-tooltip>
 
