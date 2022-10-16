@@ -12,9 +12,11 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
+import org.springframework.security.oauth2.server.authorization.authentication.*;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,11 +65,17 @@ public class Oauth2RegisteredClientController {
 	@ControllerAnnotation(description = "授权类型选项")
 	public Response<?> grantTypeOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
-		list.add(new OptionVo("authorization_code", "authorization_code"));
-		list.add(new OptionVo("refresh_token", "refresh_token"));
-		list.add(new OptionVo("client_credentials", "client_credentials"));
-		list.add(new OptionVo("password", "password"));
-		list.add(new OptionVo("wechat_miniprogram", "wechat_miniprogram"));
+		// @formatter:off
+		list.add(new OptionVo(AuthorizationGrantType.AUTHORIZATION_CODE.getValue(), AuthorizationGrantType.AUTHORIZATION_CODE.getValue()));
+		list.add(new OptionVo(AuthorizationGrantType.REFRESH_TOKEN.getValue(), AuthorizationGrantType.REFRESH_TOKEN.getValue()));
+		list.add(new OptionVo(AuthorizationGrantType.CLIENT_CREDENTIALS.getValue(), AuthorizationGrantType.CLIENT_CREDENTIALS.getValue()));
+		list.add(new OptionVo(AuthorizationGrantType.PASSWORD.getValue(), AuthorizationGrantType.PASSWORD.getValue()));
+		list.add(new OptionVo(OAuth2GiteeAuthenticationToken.GITEE.getValue(), OAuth2GiteeAuthenticationToken.GITEE.getValue()));
+		list.add(new OptionVo(OAuth2QQWebsiteAuthenticationToken.QQ_WEBSITE.getValue(), OAuth2QQWebsiteAuthenticationToken.QQ_WEBSITE.getValue()));
+		list.add(new OptionVo(OAuth2WeChatMiniProgramAuthenticationToken.WECHAT_MINIPROGRAM.getValue(), OAuth2WeChatMiniProgramAuthenticationToken.WECHAT_MINIPROGRAM.getValue()));
+		list.add(new OptionVo(OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT.getValue(), OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT.getValue()));
+		list.add(new OptionVo(OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue(), OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue()));
+		// @formatter:on
 		return Response.ok(list);
 	}
 
@@ -81,18 +89,13 @@ public class Oauth2RegisteredClientController {
 	@ControllerAnnotation(description = "客户端身份验证方法选项")
 	public Response<?> authenticationMethodOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
-		list.add(
-				new OptionVo(ClientAuthenticationMethod.BASIC.getValue(), ClientAuthenticationMethod.BASIC.getValue()));
-		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue(),
-				ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue()));
-		list.add(new OptionVo(ClientAuthenticationMethod.POST.getValue(), ClientAuthenticationMethod.POST.getValue()));
-		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue(),
-				ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue()));
-		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_JWT.getValue(),
-				ClientAuthenticationMethod.CLIENT_SECRET_JWT.getValue()));
-		list.add(new OptionVo(ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue(),
-				ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue()));
+		// @formatter:off
+		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue(), ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue()));
+		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue(), ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue()));
+		list.add(new OptionVo(ClientAuthenticationMethod.CLIENT_SECRET_JWT.getValue(), ClientAuthenticationMethod.CLIENT_SECRET_JWT.getValue()));
+		list.add(new OptionVo(ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue(), ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue()));
 		list.add(new OptionVo(ClientAuthenticationMethod.NONE.getValue(), ClientAuthenticationMethod.NONE.getValue()));
+		// @formatter:on
 		return Response.ok(list);
 	}
 
