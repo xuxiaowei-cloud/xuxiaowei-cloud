@@ -292,6 +292,9 @@
 
             <!-- OAuth 2.1 依赖 -->
             <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+            <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+            <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
+            <!-- https://github.com/spring-projects/spring-authorization-server -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
@@ -755,17 +758,6 @@
     <profiles>
 
         <profile>
-            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
-            <id>oss</id>
-            <repositories>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                </repository>
-            </repositories>
-        </profile>
-
-        <profile>
             <!-- 使用 -Paliyun 激活阿里云仓库下载依赖 -->
             <id>aliyun</id>
             <repositories>
@@ -846,9 +838,10 @@
 
     <repositories>
 
+        <!-- 如果使用浏览器访问时，需要添加域名才有结果 -->
         <repository>
-            <id>repo1</id>
-            <url>https://repo1.maven.org/maven2/</url>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/public/</url>
         </repository>
 
         <repository>
