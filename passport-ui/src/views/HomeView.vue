@@ -59,8 +59,7 @@
           </el-tooltip>
 
           <el-tooltip class="box-item" effect="dark" content="QQ扫码登录" placement="top">
-            <el-link
-              href="http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info"
+            <el-link :href="qqWebsiteUrl"
               class="ml-4px mr-4px">
               <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
               <img src="../assets/QQ-circle-fill.png" alt="QQ扫码登录" width="30">
@@ -146,6 +145,7 @@ const route = useRoute()
 
 const weChatOplatformWebsiteUrl = ref()
 const giteeUrl = ref()
+const qqWebsiteUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -153,6 +153,7 @@ configuration().then(response => {
   if (response.code === settings.okCode) {
     weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}`
     giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}`
+    qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}`
   } else {
     ElMessage.error(msg)
   }
