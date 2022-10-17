@@ -83,6 +83,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
         <spring-boot-starter-qq-connect.version>0.1.0-SNAPSHOT</spring-boot-starter-qq-connect.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
+        <spring-boot-starter-weibo.version>0.1.0-SNAPSHOT</spring-boot-starter-weibo.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -329,12 +332,19 @@
                 <artifactId>spring-boot-starter-gitee</artifactId>
                 <version>${spring-boot-starter-gitee.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
-            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
             <dependency>
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-qq-connect</artifactId>
                 <version>${spring-boot-starter-qq-connect.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-weibo</artifactId>
+                <version>${spring-boot-starter-weibo.version}</version>
             </dependency>
 
             <!-- MyBatis -->

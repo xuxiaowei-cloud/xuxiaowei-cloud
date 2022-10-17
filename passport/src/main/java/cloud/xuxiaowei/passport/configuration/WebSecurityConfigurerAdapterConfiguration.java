@@ -178,6 +178,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/qq/website/authorize/*").permitAll()
 					// QQ 网站应用 授权码接收服务
 					.antMatchers("/qq/website/code/*").permitAll()
+					// 微博 网站应用 跳转到微博授权页面
+					.antMatchers("/weibo/authorize/*").permitAll()
+					// 微博 网站应用 授权码接收服务
+					.antMatchers("/weibo/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址

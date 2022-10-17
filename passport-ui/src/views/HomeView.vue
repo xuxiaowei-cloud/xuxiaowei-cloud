@@ -81,7 +81,7 @@
           </el-tooltip>
 
           <el-tooltip class="box-item" effect="dark" content="微博扫码登录" placement="top">
-            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+            <el-link :href="weiBoWebsiteUrl" class="ml-4px mr-4px">
               <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
               <img src="../assets/weibo-circle-fill.png" alt="微博扫码登录" width="30">
             </el-link>
@@ -146,6 +146,7 @@ const route = useRoute()
 const weChatOplatformWebsiteUrl = ref()
 const giteeUrl = ref()
 const qqWebsiteUrl = ref()
+const weiBoWebsiteUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -154,6 +155,7 @@ configuration().then(response => {
     weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}`
     giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}`
     qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}`
+    weiBoWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/weibo/authorize/${response.data.weiBoWebsiteAppid}`
   } else {
     ElMessage.error(msg)
   }

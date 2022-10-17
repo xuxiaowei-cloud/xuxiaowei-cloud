@@ -317,6 +317,10 @@ cloud:
           - /qq/website/authorize/*
           # QQ 网站应用 授权码接收服务
           - /qq/website/code/*
+          # 微博 网站应用 授权码接收服务
+          - /weibo/authorize/*
+          # 微博 网站应用 授权码接收服务
+          - /weibo/code/*
           # 配置
           - /configuration
       - name: user

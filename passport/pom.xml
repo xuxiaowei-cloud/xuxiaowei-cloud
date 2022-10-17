@@ -101,11 +101,17 @@
             <groupId>cn.com.xuxiaowei.boot</groupId>
             <artifactId>spring-boot-starter-gitee</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
         <dependency>
             <groupId>cn.com.xuxiaowei.boot</groupId>
             <artifactId>spring-boot-starter-qq-connect</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-weibo</artifactId>
         </dependency>
 
         <!-- SQL 性能分析 -->

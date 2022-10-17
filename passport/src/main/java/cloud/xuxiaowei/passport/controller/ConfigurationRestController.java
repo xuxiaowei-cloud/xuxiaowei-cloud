@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
 import org.springframework.security.oauth2.server.authorization.properties.QQWebsiteProperties;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
+import org.springframework.security.oauth2.server.authorization.properties.WeiBoWebsiteProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,8 @@ public class ConfigurationRestController {
 
 	private QQWebsiteProperties qqWebsiteProperties;
 
+	private WeiBoWebsiteProperties weiBoWebsiteProperties;
+
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
 		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
@@ -42,6 +45,11 @@ public class ConfigurationRestController {
 	@Autowired
 	public void setQqWebsiteProperties(QQWebsiteProperties qqWebsiteProperties) {
 		this.qqWebsiteProperties = qqWebsiteProperties;
+	}
+
+	@Autowired
+	public void setWeiBoWebsiteProperties(WeiBoWebsiteProperties weiBoWebsiteProperties) {
+		this.weiBoWebsiteProperties = weiBoWebsiteProperties;
 	}
 
 	@RequestMapping
@@ -66,13 +74,21 @@ public class ConfigurationRestController {
 			qqWebsiteAppid = qqWebsitePropertiesList.get(0).getAppid();
 		}
 
+		List<WeiBoWebsiteProperties.WeiBoWebsite> weiBoWebsitePropertiesList = weiBoWebsiteProperties.getList();
+		String weiBoWebsiteAppid = null;
+		if (weiBoWebsitePropertiesList != null && weiBoWebsitePropertiesList.size() > 0) {
+			weiBoWebsiteAppid = weiBoWebsitePropertiesList.get(0).getAppid();
+		}
+
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
 				.put("weChatOplatformWebsiteAppid", weChatOplatformWebsiteAppid)
 				// 码云Gitee 网站应用 ID
 				.put("giteeAppid", giteeAppid + "?scope=user_info")
 				// QQ 网站应用 ID
-				.put("qqWebsiteAppid", qqWebsiteAppid + "?scope=get_user_info");
+				.put("qqWebsiteAppid", qqWebsiteAppid + "?scope=get_user_info")
+				// 微博 网站应用 ID
+				.put("weiBoWebsiteAppid", weiBoWebsiteAppid);
 	}
 
 }
