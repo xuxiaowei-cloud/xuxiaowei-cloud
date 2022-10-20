@@ -335,7 +335,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 		String secret = qqWebsite.getSecret();
 
 		uriVariables.put(OAuth2ParameterNames.CLIENT_SECRET, secret);
-		uriVariables.put(OAuth2QQParameterNames.CODE, code);
+		uriVariables.put(OAuth2ParameterNames.CODE, code);
 
 		RestTemplate restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
