@@ -59,6 +59,12 @@
             <artifactId>cloud-starter-oauth2</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <!-- Nacos 注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
