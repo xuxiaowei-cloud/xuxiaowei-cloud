@@ -124,7 +124,7 @@ qq:
     list:
       - appid: ${qq_website_appid:}
         secret: ${qq_website_secret:}
-        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud/passport/qq/website/code
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/code
         client-id: xuxiaowei_client_qq_website_id
         client-secret: xuxiaowei_client_qq_website_secret
         token-url-prefix: http://127.0.0.1:${server.port:80}
