@@ -39,7 +39,7 @@
         <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
         <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
         <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
-        <spring-boot.version>2.7.4</spring-boot.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/cloud/spring-cloud-dependencies -->
@@ -58,7 +58,7 @@
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/de/codecentric/spring-boot-admin-dependencies -->
         <!-- https://github.com/codecentric/spring-boot-admin -->
-        <spring-boot-admin.version>2.7.5</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.6</spring-boot-admin.version>
 
         <!-- OAuth 2.1 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
@@ -80,6 +80,12 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
         <spring-boot-starter-gitee.version>0.1.0-SNAPSHOT</spring-boot-starter-gitee.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
+        <spring-boot-starter-qq-connect.version>0.1.0-SNAPSHOT</spring-boot-starter-qq-connect.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
+        <spring-boot-starter-weibo.version>0.1.0-SNAPSHOT</spring-boot-starter-weibo.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -141,7 +147,7 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.13</fastjson.version>
+        <fastjson.version>2.0.15</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
@@ -155,7 +161,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/cxf/cxf-rt-transports-http -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/cxf/cxf-rt-features-logging -->
         <!-- https://github.com/apache/cxf -->
-        <cxf.version>3.5.3</cxf.version>
+        <cxf.version>3.5.4</cxf.version>
 
         <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/dom4j/dom4j -->
@@ -180,7 +186,7 @@
 
         <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
         <!-- https://mvnrepository.com/artifact/com.aliyun/dysmsapi20170525 -->
-        <dysmsapi20170525.version>2.0.18</dysmsapi20170525.version>
+        <dysmsapi20170525.version>2.0.22</dysmsapi20170525.version>
         <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
         <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
         <alibabacloud-dysmsapi20170525.version>1.0.1</alibabacloud-dysmsapi20170525.version>
@@ -222,7 +228,7 @@
         <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
         <!-- https://github.com/spring-io/spring-javaformat/ -->
         <!-- 高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support -->
-        <spring-javaformat-maven-plugin.version>0.0.34</spring-javaformat-maven-plugin.version>
+        <spring-javaformat-maven-plugin.version>0.0.35</spring-javaformat-maven-plugin.version>
 
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
@@ -289,6 +295,9 @@
 
             <!-- OAuth 2.1 依赖 -->
             <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+            <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+            <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
+            <!-- https://github.com/spring-projects/spring-authorization-server -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
@@ -322,6 +331,20 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-gitee</artifactId>
                 <version>${spring-boot-starter-gitee.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-qq-connect</artifactId>
+                <version>${spring-boot-starter-qq-connect.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-weibo</artifactId>
+                <version>${spring-boot-starter-weibo.version}</version>
             </dependency>
 
             <!-- MyBatis -->
@@ -745,17 +768,6 @@
     <profiles>
 
         <profile>
-            <!-- 使用 -Poss 激活OSS仓库下载依赖 -->
-            <id>oss</id>
-            <repositories>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
-                </repository>
-            </repositories>
-        </profile>
-
-        <profile>
             <!-- 使用 -Paliyun 激活阿里云仓库下载依赖 -->
             <id>aliyun</id>
             <repositories>
@@ -836,9 +848,10 @@
 
     <repositories>
 
+        <!-- 如果使用浏览器访问时，需要添加域名才有结果 -->
         <repository>
-            <id>repo1</id>
-            <url>https://repo1.maven.org/maven2/</url>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/public/</url>
         </repository>
 
         <repository>

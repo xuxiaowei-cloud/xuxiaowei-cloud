@@ -118,3 +118,28 @@ gitee:
       token-url-prefix: http://127.0.0.1:${server.port:80}
       scope: gitee
       success-url: http://example.xuxiaowei.cloud:1001/#/
+qq:
+  website:
+    default-role: qq
+    list:
+      - appid: ${qq_website_appid:}
+        secret: ${qq_website_secret:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/code
+        client-id: xuxiaowei_client_qq_website_id
+        client-secret: xuxiaowei_client_qq_website_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: qq
+        success-url: http://example.xuxiaowei.cloud:1001/#/
+
+weibo:
+  website:
+    default-role: weibo
+    list:
+      - appid: ${weibo_appid:}
+        secret: ${weibo_secret:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/weibo/code
+        client-id: xuxiaowei_client_weibo_id
+        client-secret: xuxiaowei_client_weibo_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: weibo
+        success-url: http://example.xuxiaowei.cloud:1001/#/

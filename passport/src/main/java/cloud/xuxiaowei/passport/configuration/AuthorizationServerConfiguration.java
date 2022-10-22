@@ -153,6 +153,12 @@ public class AuthorizationServerConfiguration {
 						// 新增：码云 Gitee 网站应用 OAuth2 用于验证授权授予的 {@link
 						// OAuth2GiteeAuthenticationToken}
 						new OAuth2GiteeAuthenticationConverter(),
+						// 新增：QQ 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2QQWebsiteAuthenticationToken}
+						new OAuth2QQWebsiteAuthenticationConverter(),
+						// 新增：微博 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2WeiBoWebsiteAuthenticationToken}
+						new OAuth2WeiBoWebsiteAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -170,6 +176,10 @@ public class AuthorizationServerConfiguration {
 		new OAuth2WeChatOplatformWebsiteAuthenticationProvider(http);
 		// 码云 Gitee 网站应用 OAuth2 身份验证提供程序
 		new OAuth2GiteeAuthenticationProvider(http);
+		// QQ 网站应用 OAuth2 身份验证提供程序
+		new OAuth2QQWebsiteAuthenticationProvider(http);
+		// 微博 网站应用 OAuth2 身份验证提供程序
+		new OAuth2WeiBoWebsiteAuthenticationProvider(http);
 
 		return http.build();
 	}

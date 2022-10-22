@@ -309,10 +309,18 @@ cloud:
           - /wechat-oplatform/website/authorize/*
           # 微信开放平台 网站应用 授权码接收服务
           - /wechat-oplatform/website/code/*
-          # 码云 Gitee 网站应用 跳转到微信授权页面
+          # 码云 Gitee 网站应用 跳转到码云Gitee授权页面
           - /gitee/authorize/*
           # 码云 Gitee 网站应用 授权码接收服务
           - /gitee/code/*
+          # QQ 网站应用 跳转到QQ授权页面
+          - /qq/website/authorize/*
+          # QQ 网站应用 授权码接收服务
+          - /qq/website/code/*
+          # 微博 网站应用 授权码接收服务
+          - /weibo/authorize/*
+          # 微博 网站应用 授权码接收服务
+          - /weibo/code/*
           # 配置
           - /configuration
       - name: user

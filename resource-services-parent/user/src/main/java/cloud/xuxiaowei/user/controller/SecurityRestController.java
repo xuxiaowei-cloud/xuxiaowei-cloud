@@ -16,7 +16,7 @@ import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.SimpleMailMessage;

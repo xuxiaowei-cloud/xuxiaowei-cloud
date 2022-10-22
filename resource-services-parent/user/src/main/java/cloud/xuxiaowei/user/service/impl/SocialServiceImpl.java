@@ -2,6 +2,8 @@ package cloud.xuxiaowei.user.service.impl;
 
 import cloud.xuxiaowei.system.mapper.SocialMapper;
 import cloud.xuxiaowei.system.service.IGiteeUsersService;
+import cloud.xuxiaowei.system.service.IQqWebsiteUsersService;
+import cloud.xuxiaowei.system.service.IWeiBoWebsiteUsersService;
 import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
 import cloud.xuxiaowei.system.vo.SocialVo;
 import cloud.xuxiaowei.user.service.SocialService;
@@ -28,6 +30,10 @@ public class SocialServiceImpl implements SocialService {
 
 	private IGiteeUsersService giteeUsersService;
 
+	private IQqWebsiteUsersService qqWebsiteUsersService;
+
+	private IWeiBoWebsiteUsersService weiBoWebsiteUsersService;
+
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
@@ -36,6 +42,16 @@ public class SocialServiceImpl implements SocialService {
 	@Autowired
 	public void setGiteeUsersService(IGiteeUsersService giteeUsersService) {
 		this.giteeUsersService = giteeUsersService;
+	}
+
+	@Autowired
+	public void setQqWebsiteUsersService(IQqWebsiteUsersService qqWebsiteUsersService) {
+		this.qqWebsiteUsersService = qqWebsiteUsersService;
+	}
+
+	@Autowired
+	public void setWeiBoWebsiteUsersService(IWeiBoWebsiteUsersService weiBoWebsiteUsersService) {
+		this.weiBoWebsiteUsersService = weiBoWebsiteUsersService;
 	}
 
 	/**
@@ -61,6 +77,10 @@ public class SocialServiceImpl implements SocialService {
 				return wxOpenWebsiteUsersService.unbinding(usersId);
 			case "2":
 				return giteeUsersService.unbinding(usersId);
+			case "3":
+				return qqWebsiteUsersService.unbinding(usersId);
+			case "4":
+				return weiBoWebsiteUsersService.unbinding(usersId);
 			default:
 				return false;
 		}

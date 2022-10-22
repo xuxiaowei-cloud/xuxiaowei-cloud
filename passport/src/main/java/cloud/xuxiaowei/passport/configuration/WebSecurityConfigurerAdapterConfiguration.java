@@ -170,10 +170,18 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/wechat-oplatform/website/authorize/*").permitAll()
 					// 微信开放平台 网站应用 授权码接收服务
 					.antMatchers("/wechat-oplatform/website/code/*").permitAll()
-					// 码云 Gitee 网站应用 跳转到微信授权页面
+					// 码云 Gitee 网站应用 跳转到码云Gitee授权页面
 					.antMatchers("/gitee/authorize/*").permitAll()
 					// 码云 Gitee 网站应用 授权码接收服务
 					.antMatchers("/gitee/code/*").permitAll()
+					// QQ 网站应用 跳转到微信授权页面
+					.antMatchers("/qq/website/authorize/*").permitAll()
+					// QQ 网站应用 授权码接收服务
+					.antMatchers("/qq/website/code/*").permitAll()
+					// 微博 网站应用 跳转到微博授权页面
+					.antMatchers("/weibo/authorize/*").permitAll()
+					// 微博 网站应用 授权码接收服务
+					.antMatchers("/weibo/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
