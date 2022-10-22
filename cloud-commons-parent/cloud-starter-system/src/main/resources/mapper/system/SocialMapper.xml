@@ -20,6 +20,8 @@
                 SELECT 2 AS social_code, '码云' AS social_name
                 UNION ALL
                 SELECT 3 AS social_code, 'QQ' AS social_name
+                UNION ALL
+                SELECT 4 AS social_code, '微博' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -61,6 +63,20 @@
                     qq_website_users qwu
                 WHERE
                     qwu.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    4 AS social_code,
+                    '微博' AS social_name,
+                    wbwu.screen_name AS nickname,
+                    wbwu.profile_image_url AS headimgurl,
+                    wbwu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    wei_bo_website_users wbwu
+                WHERE
+                    wbwu.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 

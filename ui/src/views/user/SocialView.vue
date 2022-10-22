@@ -92,6 +92,8 @@ const unbinding = (row: { socialName: string; socialCode: string; }) => {
 
 const weChatOplatformWebsiteUrl = ref()
 const giteeUrl = ref()
+const qqWebsiteUrl = ref()
+const weiBoWebsiteUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -99,6 +101,8 @@ configuration().then(response => {
   if (response.code === settings.okCode) {
     weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
     giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}&binding=true&access_token=${useStore.getAccessToken}`
+    qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}&binding=true&access_token=${useStore.getAccessToken}`
+    weiBoWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/weibo/authorize/${response.data.weiBoWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
   } else {
     ElMessage.error(msg)
   }
@@ -115,7 +119,10 @@ const binding = (row: { socialCode: string; }) => {
         location.href = giteeUrl.value
         break
       case '3':
-        location.href = `http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/authorize/101572634?scope=get_user_info&binding=true&access_token=${useStore.getAccessToken}`
+        location.href = qqWebsiteUrl.value
+        break
+      case '4':
+        location.href = weiBoWebsiteUrl.value
         break
     }
   }
