@@ -9,9 +9,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 #end
+import com.fasterxml.jackson.annotation.JsonProperty;
 #if(${entityLombokModel})
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 #if(${chainModel})
 import lombok.experimental.Accessors;
 #end
@@ -26,8 +26,7 @@ import lombok.experimental.Accessors;
  * @since ${date}
  */
 #if(${entityLombokModel})
-@Getter
-@Setter
+@Data
   #if(${chainModel})
 @Accessors(chain = true)
   #end
@@ -98,6 +97,7 @@ public class ${entity} {
 #if(${field.logicDeleteField})
     @TableLogic
 #end
+    @JsonProperty
     private ${field.propertyType} ${field.propertyName};
 #end
 ## ----------  END 字段循环遍历  ----------
