@@ -15,7 +15,7 @@ package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>mirror</id><mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf><name>mirror</name><url>https://maven.aliyun.com/nexus/content/groups/public</url></mirror>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -59,7 +59,7 @@ package:
     - echo 项目的HTTP（S）地址：$CI_PROJECT_URL
     - echo 克隆Git存储库的URL：$CI_REPOSITORY_URL
     - wget --version
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -Ptencentyun -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   artifacts:
     name: package
@@ -93,13 +93,13 @@ s2-package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>mirror</id><mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf><name>mirror</name><url>https://maven.aliyun.com/nexus/content/groups/public</url></mirror>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -Ptencentyun -Pgpg -DskipTests && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   artifacts:
     paths:
