@@ -7,12 +7,10 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +32,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/oauth2-authorization")
-public class Oauth2AuthorizationController {
+@Tag(name = "Oauth2AuthorizationRestController", description = "授权表")
+public class Oauth2AuthorizationRestController {
 
 	private IOauth2AuthorizationService oauth2AuthorizationService;
 
@@ -52,7 +51,7 @@ public class Oauth2AuthorizationController {
 	 */
 	@ControllerAnnotation(description = "分页查询授权")
 	@PreAuthorize("hasAuthority('audit_authorization_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationPageBo oauth2AuthorizationPageBo) {
 
@@ -71,7 +70,7 @@ public class Oauth2AuthorizationController {
 	 */
 	@ControllerAnnotation(description = "根据 主键 删除 授权表")
 	@PreAuthorize("hasAuthority('audit_authorization_delete')")
-	@RequestMapping("/removeById/{id}")
+	@GetMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
 
@@ -89,7 +88,7 @@ public class Oauth2AuthorizationController {
 	 */
 	@ControllerAnnotation(description = "根据 主键 批量删除 授权表")
 	@PreAuthorize("hasAuthority('audit_authorization_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<String> ids) {
 

@@ -26,6 +26,7 @@ import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -137,7 +138,7 @@ public class ForgetRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "忘记密码")
-	@RequestMapping
+	@PostMapping
 	public Response<?> forget(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody ForgetBo forgetBo) {
 
@@ -287,7 +288,7 @@ public class ForgetRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "检查重置密码凭证")
-	@RequestMapping("/check-reset-password-token")
+	@PostMapping("/check-reset-password-token")
 	public Response<?> checkResetPasswordToken(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody CheckResetPasswordTokenBo checkResetPasswordTokenBo) {
 
@@ -308,7 +309,7 @@ public class ForgetRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "重置密码")
-	@RequestMapping("/reset-password")
+	@PostMapping("/reset-password")
 	public Response<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody ForgetResetPasswordBo forgetResetPasswordBo) {
 
@@ -354,7 +355,7 @@ public class ForgetRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "重置密码（手机验证码）")
-	@RequestMapping("/reset-type-phone-password")
+	@PostMapping("/reset-type-phone-password")
 	public Response<?> resetTypePhonePassword(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody ResetTypePhonePasswordBo resetTypePhonePasswordBo) {
 

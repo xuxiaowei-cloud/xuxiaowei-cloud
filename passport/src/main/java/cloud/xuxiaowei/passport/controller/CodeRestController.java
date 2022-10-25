@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessT
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,9 +66,10 @@ public class CodeRestController {
 	 * @param state 状态码
 	 * @throws IOException 重定向异常
 	 */
-	@RequestMapping(params = { OAuth2ParameterNames.CODE, OAuth2ParameterNames.STATE })
-	public void index(HttpServletRequest request, HttpServletResponse response, HttpSession session, String code,
-			String state) throws IOException {
+	@GetMapping(params = { OAuth2ParameterNames.CODE, OAuth2ParameterNames.STATE })
+	public void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(OAuth2ParameterNames.CODE) String code,
+			@RequestParam(OAuth2ParameterNames.STATE) String state) throws IOException {
 
 		String stateName = cloudClientProperties.getStateName();
 		String sessionState = session.getAttribute(stateName) + "";
@@ -146,7 +148,7 @@ public class CodeRestController {
 	 * @param state 状态码
 	 * @return 返回 授权失败
 	 */
-	@RequestMapping(params = { OAuth2ParameterNames.ERROR, OAuth2ParameterNames.ERROR_DESCRIPTION,
+	@GetMapping(params = { OAuth2ParameterNames.ERROR, OAuth2ParameterNames.ERROR_DESCRIPTION,
 			OAuth2ParameterNames.STATE, OAuth2ParameterNames.ERROR_URI })
 	public Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			@RequestParam(OAuth2ParameterNames.ERROR) String error,

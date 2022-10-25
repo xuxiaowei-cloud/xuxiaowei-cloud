@@ -5,10 +5,13 @@ import cloud.xuxiaowei.passport.service.IOauth2AuthorizationService;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.Response;
 import cn.hutool.crypto.asymmetric.RSA;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +29,7 @@ import java.security.interfaces.RSAPublicKey;
 @Slf4j
 @RestController
 @RequestMapping("/signout")
+@Tag(name = "SignoutRestController", description = "退出")
 public class SignoutRestController {
 
 	private CloudJwkKeyProperties cloudJwkKeyProperties;
@@ -50,7 +54,8 @@ public class SignoutRestController {
 	 * @return 返回 退出提示语
 	 */
 	@ControllerAnnotation(description = "退出")
-	@RequestMapping
+	@GetMapping
+	@Operation(summary = "退出", description = "退出")
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			String accessToken) {
 

@@ -191,6 +191,13 @@
         <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
         <alibabacloud-dysmsapi20170525.version>1.0.1</alibabacloud-dysmsapi20170525.version>
 
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-security -->
+        <springdoc.version>1.6.12</springdoc.version>
+        <!-- https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc -->
+        <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
+
         <!-- https://nodejs.org/dist/ -->
         <!-- http://mirrors.aliyun.com/nodejs-release/ -->
         <node.version>v16.17.0</node.version>
@@ -219,6 +226,8 @@
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <lombok.version>1.18.24</lombok.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
         <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
         <!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
@@ -515,6 +524,26 @@
                 <version>${alibabacloud-dysmsapi20170525.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <!-- https://springdoc.org/#javadoc-support -->
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-javadoc</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-security -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-security</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
 
             <!-- 工具类 -->
             <dependency>
@@ -665,6 +694,22 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <!-- https://springdoc.org/#javadoc-support -->
+                        <path>
+                            <groupId>com.github.therapi</groupId>
+                            <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+                            <version>${therapi-runtime-javadoc.version}</version>
+                        </path>
+                        <!-- 修复 lombok、springdoc 冲突 -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
 
             <!-- mvn clean source:jar deploy -->

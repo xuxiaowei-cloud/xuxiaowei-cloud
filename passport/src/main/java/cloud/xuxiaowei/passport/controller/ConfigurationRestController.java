@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.server.authorization.properties.Gitee
 import org.springframework.security.oauth2.server.authorization.properties.QQWebsiteProperties;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
 import org.springframework.security.oauth2.server.authorization.properties.WeiBoWebsiteProperties;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +53,7 @@ public class ConfigurationRestController {
 		this.weiBoWebsiteProperties = weiBoWebsiteProperties;
 	}
 
-	@RequestMapping
+	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
 		List<WeChatOplatformWebsiteProperties.WeChatOplatformWebsite> weChatOplatformWebsiteList = weChatOplatformWebsiteProperties

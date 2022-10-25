@@ -3,8 +3,10 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
 import cloud.xuxiaowei.utils.Encrypt;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +25,9 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/oauth2")
+@Tag(name = "OAuth2RestController", description = "OAuth 2")
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
-public class OAuth2Controller {
+public class OAuth2RestController {
 
 	/**
 	 * 检查 Token
@@ -37,7 +40,7 @@ public class OAuth2Controller {
 			client = { @EncryptAnnotation.ClientId(clientId = "xuxiaowei_client_wechat_miniprogram_id",
 					value = Encrypt.AesVersion.V1) })
 	@ControllerAnnotation(description = "检查 Token")
-	@RequestMapping("/check_token")
+	@PostMapping("/check_token")
 	public Map<String, Object> checkToken(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 		Map<String, Object> map = new HashMap<>(4);

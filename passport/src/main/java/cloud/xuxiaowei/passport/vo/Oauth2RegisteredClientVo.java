@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static cloud.xuxiaowei.passport.controller.Oauth2RegisteredClientController.ALGORITHM_SPLIT;
+import static cloud.xuxiaowei.passport.controller.Oauth2RegisteredClientRestController.ALGORITHM_SPLIT;
 import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 
 /**
