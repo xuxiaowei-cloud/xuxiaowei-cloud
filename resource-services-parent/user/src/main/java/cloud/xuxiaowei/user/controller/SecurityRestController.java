@@ -23,9 +23,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -109,7 +107,7 @@ public class SecurityRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping
+	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
 		Long usersId = SecurityUtils.getUsersId(authentication);
@@ -135,7 +133,7 @@ public class SecurityRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新手机号的短信验证码")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/phone")
+	@PostMapping("/phone")
 	public Response<?> phone(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
 			@Valid @RequestBody SecurityPhoneBo securityPhoneBo) {
 
@@ -179,7 +177,7 @@ public class SecurityRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新手机号")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/phone/update")
+	@PostMapping("/phone/update")
 	public Response<?> phoneUpdate(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SecurityPhoneUpdateBo securityPhoneUpdateBo) {
 
@@ -208,7 +206,7 @@ public class SecurityRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新邮箱的验证码")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/email")
+	@PostMapping("/email")
 	public Response<?> email(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
 			@Valid @RequestBody SecurityEmailBo securityEmailBo) {
 
@@ -282,7 +280,7 @@ public class SecurityRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新邮箱")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/email/update")
+	@PostMapping("/email/update")
 	public Response<?> emailUpdate(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SecurityEmailUpdateBo securityEmailUpdateBo) {
 

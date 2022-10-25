@@ -87,6 +87,18 @@ spring:
           uri: lb://passport
           predicates:
             - Path=/passport/**
+        # 此配置原来默认缺省
+        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 user 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 user 服务）
+        - id: user
+          uri: lb://user
+          predicates:
+            - Path=/user/**
+        # 此配置原来默认缺省
+        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 master-data 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 master-data 服务）
+        - id: master-data
+          uri: lb://master-data
+          predicates:
+            - Path=/master-data/**
 
 #
 # 日志 配置
@@ -351,6 +363,12 @@ cloud:
         path-list:
           # 图片验证码
           - /patchca
+          # springdoc
+          - /v3/api-docs/**
+      - name: master-data
+        path-list:
+          # springdoc
+          - /v3/api-docs/**
       - name: webservice
         path-list:
           - /cxf/**

@@ -23,10 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,7 +64,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "用户信息")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/info")
+	@PostMapping("/info")
 	public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
 		String name = authentication.getName();
@@ -88,7 +85,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "根据当前操作人更新用户")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/update")
+	@PostMapping("/update")
 	public Response<?> update(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody UsersUpdateBo usersUpdateBo) {
 
@@ -105,7 +102,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "用户权限")
 	@PreAuthorize("hasAuthority('user_authorities')")
-	@RequestMapping("/authorities")
+	@PostMapping("/authorities")
 	public Response<?> authorities(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 
@@ -122,7 +119,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "用户详情")
 	@PreAuthorize("hasAuthority('user_details')")
-	@RequestMapping("/details")
+	@PostMapping("/details")
 	public Response<?> details(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 
@@ -141,7 +138,7 @@ public class UserRestController {
 	@EncryptAnnotation(Encrypt.AesVersion.V0)
 	@ControllerAnnotation(description = "分页查询用户")
 	@PreAuthorize("hasAuthority('manage_user_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody ManageUsersPageBo manageUsersPageBo) {
 
@@ -159,7 +156,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "根据 用户主键 删除 用户")
 	@PreAuthorize("hasAuthority('manage_user_delete')")
-	@RequestMapping("/removeById/{usersId}")
+	@PostMapping("/removeById/{usersId}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("usersId") Long usersId) {
 
@@ -177,7 +174,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "根据 用户主键 批量删除 用户")
 	@PreAuthorize("hasAuthority('manage_user_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<Long> usersIds) {
 
@@ -197,7 +194,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "根据 用户主键 查询用户")
 	@PreAuthorize("hasAuthority('manage_user_read')")
-	@RequestMapping("/getById/{usersId}")
+	@PostMapping("/getById/{usersId}")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("usersId") Long usersId) {
 
@@ -215,7 +212,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "保存用户")
 	@PreAuthorize("hasAuthority('manage_user_add')")
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody UsersSaveBo usersSaveBo) {
 
@@ -233,7 +230,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "根据 用户主键 更新用户")
 	@PreAuthorize("hasAuthority('manage_user_edit')")
-	@RequestMapping("/updateById")
+	@PostMapping("/updateById")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody UsersUpdateByIdBo usersUpdateByIdBo) {
 
@@ -259,7 +256,7 @@ public class UserRestController {
 	 */
 	@ControllerAnnotation(description = "获取用户识别码")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/code/rsa")
+	@PostMapping("/code/rsa")
 	public Response<?> code(HttpServletRequest request, HttpServletResponse response) {
 
 		RSA generate = new RSA();

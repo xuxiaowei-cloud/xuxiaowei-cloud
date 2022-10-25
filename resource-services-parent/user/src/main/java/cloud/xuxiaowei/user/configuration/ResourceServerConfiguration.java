@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.user.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
+import org.springdoc.core.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -60,7 +61,11 @@ public class ResourceServerConfiguration {
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/favicon.ico");
+		return (web) -> {
+			web.ignoring().antMatchers("/favicon.ico");
+			web.ignoring().antMatchers(Constants.SWAGGER_UI_PREFIX + "/**");
+			web.ignoring().antMatchers(Constants.DEFAULT_API_DOCS_URL + "/**");
+		};
 	}
 
 	/**

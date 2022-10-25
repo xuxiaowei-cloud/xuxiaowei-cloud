@@ -15,6 +15,7 @@ import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +66,7 @@ public class PatchcaController {
 	 * @param request 请求
 	 * @param response 响应
 	 */
-	@RequestMapping()
+	@PostMapping
 	public void index(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			responsePatchca(request, response);

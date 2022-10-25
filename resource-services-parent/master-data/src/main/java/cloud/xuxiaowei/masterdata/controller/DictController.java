@@ -13,10 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +47,7 @@ public class DictController {
 	 */
 	@ControllerAnnotation(description = "查询字典代码列表")
 	@PreAuthorize("hasAuthority('dict_read')")
-	@RequestMapping("/list")
+	@PostMapping("/list")
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response) {
 		List<DictVo> dictVoList = dictService.listDictVo();
 		return Response.ok(dictVoList);
@@ -65,7 +62,7 @@ public class DictController {
 	 */
 	@ControllerAnnotation(description = "根据 字典代码 查询")
 	@PreAuthorize("hasAuthority('dict_read')")
-	@RequestMapping("/getById/{dictCode}")
+	@PostMapping("/getById/{dictCode}")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("dictCode") String dictCode) {
 		Dict dict = dictService.getById(dictCode);
@@ -85,7 +82,7 @@ public class DictController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "保存 字典")
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	@PreAuthorize("hasAuthority('dict_add')")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictSaveBo dictSaveBo) {
@@ -103,7 +100,7 @@ public class DictController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "更新 字典")
-	@RequestMapping("/updateById")
+	@PostMapping("/updateById")
 	@PreAuthorize("hasAuthority('dict_edit')")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictUpdateBo dictUpdateBo) {
@@ -122,7 +119,7 @@ public class DictController {
 	 */
 	@ControllerAnnotation(description = "分页查询字典")
 	@PreAuthorize("hasAuthority('dict_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictPageBo dictPageBo) {
 		IPage<Dict> page = dictService.pageByDictPageBo(dictPageBo);
@@ -138,7 +135,7 @@ public class DictController {
 	 */
 	@ControllerAnnotation(description = "根据 字典代码 删除")
 	@PreAuthorize("hasAuthority('dict_delete')")
-	@RequestMapping("/removeById/{dictCode}")
+	@PostMapping("/removeById/{dictCode}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("dictCode") String dictCode) {
 
@@ -156,7 +153,7 @@ public class DictController {
 	 */
 	@ControllerAnnotation(description = "根据 字典代码 批量删除")
 	@PreAuthorize("hasAuthority('dict_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<String> dictCodes) {
 

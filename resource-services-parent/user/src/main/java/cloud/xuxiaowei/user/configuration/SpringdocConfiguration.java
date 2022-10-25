@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.passport.configuration;
+package cloud.xuxiaowei.user.configuration;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 0.0.1
  */
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Passport API"))
+@OpenAPIDefinition(info = @Info(title = "User API"))
 public class SpringdocConfiguration {
 
 }
