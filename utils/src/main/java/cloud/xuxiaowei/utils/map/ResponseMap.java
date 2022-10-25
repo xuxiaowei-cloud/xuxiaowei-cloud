@@ -45,7 +45,7 @@ public class ResponseMap extends cloud.xuxiaowei.utils.Response<Map<String, Obje
 	}
 
 	public static ResponseMap ok(Map<String, Object> data, String msg) {
-		ResponseMap response = new ResponseMap(CodeEnums.OK.code, CodeEnums.OK.msg);
+		ResponseMap response = new ResponseMap(CodeEnums.OK.code, msg);
 		response.setData(data);
 		return response;
 	}
