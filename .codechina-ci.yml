@@ -15,6 +15,7 @@ package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -92,6 +93,7 @@ s2-package:
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
