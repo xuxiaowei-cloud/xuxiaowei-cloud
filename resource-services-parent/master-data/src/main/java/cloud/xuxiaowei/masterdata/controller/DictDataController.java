@@ -11,13 +11,11 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +39,7 @@ import java.util.List;
  * @since 2022-08-23
  */
 @RestController
+@Tag(name = "DictDataController", description = "字典数据表")
 @RequestMapping("/dict-data")
 public class DictDataController {
 
@@ -60,7 +59,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "根据字典代码查询字典列表")
 	@PreAuthorize("hasAnyAuthority('dict_read', 'user_info')")
-	@RequestMapping("/{dictCode}")
+	@PostMapping("/{dictCode}")
 	public Response<?> listByDictCode(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("dictCode") String dictCode) {
 		List<DictDataVo> dictDataVoList = dictDataService.listByDictCode(dictCode);
@@ -76,7 +75,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "根据 字典数据表联合主键 查询")
 	@PreAuthorize("hasAuthority('dict_read')")
-	@RequestMapping("/getById")
+	@PostMapping("/getById")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPrimaryKey dictDataPrimaryKey) {
 		DictData dictData = dictDataService.getByDictDataPrimaryKey(dictDataPrimaryKey);
@@ -96,7 +95,7 @@ public class DictDataController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "保存 字典数据")
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	@PreAuthorize("hasAuthority('dict_add')")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataSaveBo dictDataSaveBo) {
@@ -114,7 +113,7 @@ public class DictDataController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "更新 字典数据")
-	@RequestMapping("/updateById")
+	@PostMapping("/updateById")
 	@PreAuthorize("hasAuthority('dict_edit')")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataUpdateBo dictDataUpdateBo) {
@@ -133,7 +132,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "分页查询字典数据")
 	@PreAuthorize("hasAuthority('dict_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPageBo dictDataPageBo) {
 		IPage<DictData> page = dictDataService.pageByDictDataPageBo(dictDataPageBo);
@@ -149,7 +148,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "根据 字典数据表联合主键 删除")
 	@PreAuthorize("hasAuthority('dict_delete')")
-	@RequestMapping("/removeById")
+	@PostMapping("/removeById")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPrimaryKey dictDataPrimaryKey) {
 
@@ -167,7 +166,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "根据 字典代码 批量删除")
 	@PreAuthorize("hasAuthority('dict_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<DictDataPrimaryKey> dictDataPrimaryKeys) {
 

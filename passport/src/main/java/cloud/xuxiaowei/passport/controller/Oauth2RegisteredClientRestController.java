@@ -10,6 +10,7 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -18,10 +19,7 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +42,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/oauth2-registered-client")
-public class Oauth2RegisteredClientController {
+@Tag(name = "Oauth2RegisteredClientRestController", description = "客户表")
+public class Oauth2RegisteredClientRestController {
 
 	public static final String ALGORITHM_SPLIT = "#";
 
@@ -61,7 +60,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 授权类型选项
 	 */
-	@RequestMapping("/grant-type-options")
+	@GetMapping("/grant-type-options")
 	@ControllerAnnotation(description = "授权类型选项")
 	public Response<?> grantTypeOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -85,7 +84,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 客户端身份验证方法选项
 	 */
-	@RequestMapping("/authentication-method-options")
+	@GetMapping("/authentication-method-options")
 	@ControllerAnnotation(description = "客户端身份验证方法选项")
 	public Response<?> authenticationMethodOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -105,7 +104,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 授权Token格式选项
 	 */
-	@RequestMapping("/access-token-format-options")
+	@GetMapping("/access-token-format-options")
 	@ControllerAnnotation(description = "授权Token格式选项")
 	public Response<?> accessTokenFormatOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -122,7 +121,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 授权范围选项
 	 */
-	@RequestMapping("/scope-options")
+	@GetMapping("/scope-options")
 	@ControllerAnnotation(description = "授权范围选项")
 	public Response<?> scopeOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -137,7 +136,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 令牌端点认证签名算法选项
 	 */
-	@RequestMapping("/token-signing-algorithm-options")
+	@GetMapping("/token-signing-algorithm-options")
 	@ControllerAnnotation(description = "令牌端点认证签名算法选项")
 	public Response<?> tokenSigningAlgorithmOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -163,7 +162,7 @@ public class Oauth2RegisteredClientController {
 	 * @param response 响应
 	 * @return 返回 id 令牌签名算法选项
 	 */
-	@RequestMapping("/token-signature-algorithm-options")
+	@GetMapping("/token-signature-algorithm-options")
 	@ControllerAnnotation(description = "id 令牌签名算法选项")
 	public Response<?> tokenSignatureAlgorithmOptions(HttpServletRequest request, HttpServletResponse response) {
 		List<OptionVo> list = new ArrayList<>();
@@ -186,7 +185,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "分页查询客户")
 	@PreAuthorize("hasAuthority('manage_client_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientPageBo oauth2RegisteredClientPageBo) {
 
@@ -205,7 +204,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 删除 授权码")
 	@PreAuthorize("hasAuthority('manage_client_delete')")
-	@RequestMapping("/removeById/{id}")
+	@GetMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
 
@@ -223,7 +222,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 批量删除 授权码")
 	@PreAuthorize("hasAuthority('manage_client_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<String> ids) {
 
@@ -243,7 +242,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 查询客户")
 	@PreAuthorize("hasAuthority('manage_client_read')")
-	@RequestMapping("/getById/{id}")
+	@GetMapping("/getById/{id}")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
 
@@ -261,7 +260,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "保存客户")
 	@PreAuthorize("hasAuthority('manage_client_add')")
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientSaveBo oauth2RegisteredClientSaveBo) {
 
@@ -279,7 +278,7 @@ public class Oauth2RegisteredClientController {
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 更新客户")
 	@PreAuthorize("hasAuthority('manage_client_edit')")
-	@RequestMapping("/updateById")
+	@PostMapping("/updateById")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientUpdateBo oauth2RegisteredClientUpdateBo) {
 

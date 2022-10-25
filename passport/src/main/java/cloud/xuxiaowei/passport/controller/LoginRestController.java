@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,7 +48,7 @@ public class LoginRestController {
 	 * @param homePage 主页
 	 * @return 返回 登录成功提示语
 	 */
-	@RequestMapping("/success")
+	@PostMapping("/success")
 	public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			String redirectUri, String homePage) {
 		String state = UUID.randomUUID().toString();
@@ -93,7 +95,7 @@ public class LoginRestController {
 	 * @param session Session，不存在时自动创建
 	 * @return 返回 登录成功主页
 	 */
-	@RequestMapping("/home-page")
+	@GetMapping("/home-page")
 	public Response<?> homePage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		// 返回的主页可根据权限，或者用户设置的默认系统等信息返回不同的主页

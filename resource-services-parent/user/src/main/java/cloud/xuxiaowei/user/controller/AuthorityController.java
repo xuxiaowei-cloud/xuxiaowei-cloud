@@ -9,6 +9,7 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class AuthorityController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "获取 权限与权限说明 字典")
-	@RequestMapping("/list")
+	@PostMapping("/list")
 	@PreAuthorize("hasAuthority('manage_user_authority')")
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody AuthorityBo authorityBo) {
@@ -62,7 +63,7 @@ public class AuthorityController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "获取 权限与权限说明 分页字典")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	@PreAuthorize("hasAuthority('manage_user_authority')")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody AuthorityPageBo authorityPageBo) {

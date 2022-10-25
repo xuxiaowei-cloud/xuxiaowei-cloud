@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static cloud.xuxiaowei.passport.controller.Oauth2RegisteredClientController.ALGORITHM_SPLIT;
+import static cloud.xuxiaowei.passport.controller.Oauth2RegisteredClientRestController.ALGORITHM_SPLIT;
 
 /**
  * <p>

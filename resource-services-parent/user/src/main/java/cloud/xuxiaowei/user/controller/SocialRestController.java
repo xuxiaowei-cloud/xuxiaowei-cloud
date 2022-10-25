@@ -9,9 +9,7 @@ import cloud.xuxiaowei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +41,7 @@ public class SocialRestController {
 	 */
 	@ControllerAnnotation(description = "获取社交绑定")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping
+	@PostMapping
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		Long usersId = SecurityUtils.getUsersId(authentication);
 		List<SocialVo> socialVoList = socialService.listByUsersId(usersId);
@@ -58,7 +56,7 @@ public class SocialRestController {
 	 */
 	@ControllerAnnotation(description = "社交解绑")
 	@PreAuthorize("hasAuthority('user_info')")
-	@RequestMapping("/unbinding")
+	@PostMapping("/unbinding")
 	public Response<?> unbinding(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SocialBo socialBo) {
 		Long usersId = SecurityUtils.getUsersId(authentication);

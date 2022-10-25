@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 13/10/2022 23:05:53
+ Date: 25/10/2022 19:26:27
 */
 
 SET NAMES utf8mb4;
@@ -481,6 +481,62 @@ CREATE TABLE `village_handle`  (
   UNIQUE INDEX `uk__village_handle__village_code`(`village_code`) USING BTREE,
   INDEX `idx__village_handle__town_code`(`town_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '居委会' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for wei_bo_website_users
+-- ----------------------------
+DROP TABLE IF EXISTS `wei_bo_website_users`;
+CREATE TABLE `wei_bo_website_users`  (
+  `wei_bo_website_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '微博网站用户主键，自增',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：uk__wei_bo_website_users__users_id',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '微博客户ID，唯一键：uk__wei_bo_website_users__appid__id',
+  `id` bigint NOT NULL COMMENT '用户UID，不为空，唯一键：uk__wei_bo_website_users__appid__id',
+  `idstr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '字符串型的用户UID',
+  `screen_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户昵称',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '友好显示名称',
+  `province` int NULL DEFAULT NULL COMMENT '用户所在省级ID',
+  `city` int NULL DEFAULT NULL COMMENT '用户所在城市ID',
+  `location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户所在地',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户个人描述',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户博客地址',
+  `profile_image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户头像地址（中图），50×50像素',
+  `profile_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户的微博统一URL地址',
+  `domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户的个性化域名',
+  `weihao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户的微号',
+  `gender` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '性别，m：男、f：女、n：未知',
+  `followers_count` int NULL DEFAULT NULL COMMENT '粉丝数',
+  `friends_count` int NULL DEFAULT NULL COMMENT '关注数',
+  `statuses_count` int NULL DEFAULT NULL COMMENT '微博数',
+  `favourites_count` int NULL DEFAULT NULL COMMENT '收藏数',
+  `created_at` datetime NULL DEFAULT NULL COMMENT '用户创建（注册）时间',
+  `following` tinyint(1) NULL DEFAULT NULL COMMENT '暂未支持',
+  `allow_all_act_msg` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许所有人给我发私信，true：是，false：否',
+  `geo_enabled` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许标识用户的地理位置，true：是，false：否',
+  `verified` tinyint(1) NULL DEFAULT NULL COMMENT '是否是微博认证用户，即加V用户，true：是，false：否',
+  `verified_type` int NULL DEFAULT NULL COMMENT '暂未支持',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户备注信息，只有在查询用户关系时才返回此字段',
+  `allow_all_comment` int NULL DEFAULT NULL COMMENT '是否允许所有人对我的微博进行评论，true：是，false：否',
+  `avatar_large` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户头像地址（大图），180×180像素',
+  `avatar_hd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户头像地址（高清），高清头像原图',
+  `verified_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '认证原因',
+  `follow_me` tinyint(1) NULL DEFAULT NULL COMMENT '该用户是否关注当前登录用户，true：是，false：否',
+  `online_status` int NULL DEFAULT NULL COMMENT '用户的在线状态，0：不在线、1：在线',
+  `bi_followers_count` int NULL DEFAULT NULL COMMENT '用户的互粉数',
+  `lang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户当前的语言版本，zh-cn：简体中文，zh-tw：繁体中文，en：英语',
+  `binding_date` datetime NULL DEFAULT NULL COMMENT '绑定时间',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '授权凭证',
+  `expires` datetime NULL DEFAULT NULL COMMENT '过期时间',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`wei_bo_website_users_id`) USING BTREE,
+  UNIQUE INDEX `uk__wei_bo_website_users__users_id`(`users_id`) USING BTREE,
+  INDEX `uk__wei_bo_website_users__appid__id`(`appid`, `id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '微博网站用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wx_ma_users

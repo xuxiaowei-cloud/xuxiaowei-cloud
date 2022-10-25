@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * 检查重置密码凭证
+ * 检查重置密码凭证参数
  *
  * @author xuxiaowei
  * @since 0.0.1

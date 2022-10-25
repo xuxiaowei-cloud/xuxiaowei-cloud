@@ -8,8 +8,10 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +36,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/oauth2-authorization-consent")
-public class Oauth2AuthorizationConsentController {
+@Tag(name = "Oauth2AuthorizationConsentRestController", description = "授权同意书表")
+public class Oauth2AuthorizationConsentRestController {
 
 	private IOauth2AuthorizationConsentService oauth2AuthorizationConsentService;
 
@@ -53,7 +56,7 @@ public class Oauth2AuthorizationConsentController {
 	 */
 	@ControllerAnnotation(description = "分页查询授权同意书")
 	@PreAuthorize("hasAuthority('audit_authorization_consent_read')")
-	@RequestMapping("/page")
+	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo) {
 
@@ -72,7 +75,7 @@ public class Oauth2AuthorizationConsentController {
 	 */
 	@ControllerAnnotation(description = "根据 主键 删除 授权同意书")
 	@PreAuthorize("hasAuthority('audit_authorization_consent_delete')")
-	@RequestMapping("/removeById")
+	@PostMapping("/removeById")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody Oauth2AuthorizationConsentPrimaryKey oauth2AuthorizationConsentPrimaryKey) {
 
@@ -91,7 +94,7 @@ public class Oauth2AuthorizationConsentController {
 	 */
 	@ControllerAnnotation(description = "根据 主键 批量删除 授权同意书")
 	@PreAuthorize("hasAuthority('audit_authorization_consent_delete')")
-	@RequestMapping("/removeByIds")
+	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<Oauth2AuthorizationConsentPrimaryKey> oauth2AuthorizationConsentPrimaryKeys) {
 

@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 /**
- * 密码重置
+ * 密码重置参数
  *
  * @author xuxiaowei
  * @since 0.0.1

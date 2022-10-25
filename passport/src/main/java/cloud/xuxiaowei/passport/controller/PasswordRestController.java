@@ -10,6 +10,7 @@ import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ import static cloud.xuxiaowei.passport.controller.IndexController.RSA_PRIVATE_KE
  */
 @RestController
 @RequestMapping("/password")
-public class PasswordController {
+public class PasswordRestController {
 
 	private IUsersService usersService;
 
@@ -59,7 +60,7 @@ public class PasswordController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "修改密码（用户修改自己的密码）")
-	@RequestMapping("/reset")
+	@PostMapping("/reset")
 	public Response<?> reset(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
 			@Valid @RequestBody PasswordResetBo passwordResetBo) {
 

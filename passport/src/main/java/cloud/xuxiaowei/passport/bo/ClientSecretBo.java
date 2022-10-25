@@ -22,6 +22,9 @@ public class ClientSecretBo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 客户凭证
+	 */
 	@NumberAnnotation(message = "客户凭证必须包含数字")
 	@LowerCaseAnnotation(message = "客户凭证必须包含小写字母")
 	@UpperCaseAnnotation(message = "客户凭证必须包含大写字母")
