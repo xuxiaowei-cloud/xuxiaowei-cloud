@@ -831,6 +831,17 @@
         </profile>
 
         <profile>
+            <!-- 使用 -Ptencentyun 激活腾讯云仓库下载依赖 -->
+            <id>tencentyun</id>
+            <repositories>
+                <repository>
+                    <id>tencentyun</id>
+                    <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
