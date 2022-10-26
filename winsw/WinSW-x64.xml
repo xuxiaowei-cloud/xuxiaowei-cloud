@@ -12,11 +12,11 @@
     <!-- Windows 服务名 -->
     <id>nacos</id>
     <!-- 名称 -->
-    <name>nacos-server-2.1.1</name>
+    <name>nacos-server-2.1.2</name>
     <!-- 描述 -->
     <description>nacos 服务</description>
     <!-- 执行命令 -->
-    <executable>"D:\Alibaba\nacos-server-2.1.1\bin\startup.cmd"</executable>
+    <executable>"D:\Alibaba\nacos-server-2.1.2\bin\startup.cmd"</executable>
     <!-- 执行参数 -->
     <arguments>-m standalone</arguments>
     <!--
