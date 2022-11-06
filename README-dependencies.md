@@ -199,13 +199,13 @@ cloud.xuxiaowei.example:cxf-client:jar:0.0.1-SNAPSHOT
 │        └──org.apache.cxf:cxf-rt-frontend-jaxws:jar:3.5.3:compile
 │        └──org.apache.cxf:cxf-rt-transports-http:jar:3.5.3:compile
 │        └──org.apache.cxf:cxf-rt-features-logging:jar:3.5.3:compile
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.4:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.5:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
 cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
-│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.4:compile
-│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.4:compile
+│        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.5:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.5:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
 
 
