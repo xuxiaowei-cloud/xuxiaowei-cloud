@@ -410,12 +410,12 @@ cloud.xuxiaowei
 
 ## 开发工具
 
-1. IDEA 2022.1.4
-    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.exe)
-    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.win.zip)
-    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.tar.gz)
-    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.dmg)
-    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4-aarch64.dmg)
+1. IDEA 2022.2.3
+    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.exe)
+    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.win.zip)
+    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.tar.gz)
+    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.dmg)
+    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3-aarch64.dmg)
     - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
     - 插件
         1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
