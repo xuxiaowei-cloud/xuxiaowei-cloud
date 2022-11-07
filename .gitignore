@@ -59,3 +59,9 @@ pnpm-debug.log*
 package-lock.json
 .cache
 .temp
+/*/node
+/*/dist
+/*/src-tauri
+/*/.eslintcache
+/*/components.d.ts
+/*/auto-imports.d.ts
