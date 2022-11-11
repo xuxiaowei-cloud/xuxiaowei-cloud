@@ -109,7 +109,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2.2.8.RELEASE&color=blue">
+    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2.2.9.RELEASE&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
