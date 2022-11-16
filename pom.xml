@@ -844,7 +844,7 @@
             <repositories>
                 <repository>
                     <id>tencentyun</id>
-                    <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
                 </repository>
             </repositories>
         </profile>
