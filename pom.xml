@@ -737,8 +737,9 @@
                 <version>${maven-source-plugin.version}</version>
             </plugin>
 
-            <!-- 列举开源协议：license:license-list -->
+            <!-- 列举开源协议：mvn license:license-list -->
             <!-- 添加开源协议：mvn license:update-file-header -->
+            <!-- 删除开源协议：mvn license:remove-file-header -->
             <!-- http://www.mojohaus.org/license-maven-plugin/index.html -->
             <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
             <plugin>
