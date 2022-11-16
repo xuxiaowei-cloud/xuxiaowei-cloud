@@ -101,19 +101,19 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.4&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.5&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Cloud" src="https://img.shields.io/static/v1?label=Spring Cloud&message=2021.0.3&color=blue">
+    <img alt="Spring Cloud" src="https://img.shields.io/static/v1?label=Spring Cloud&message=2021.0.5&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2.2.8.RELEASE&color=blue">
+    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2.2.9.RELEASE&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.0-M2&color=blue">
+    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.0-RC1&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
@@ -240,11 +240,12 @@ cloud.xuxiaowei
 |------------|------|-----|
 | xuxiaowei  | 123  | 1   |
 
-- XXL Job
+### 其他服务
 
-| 地址                                   | 账户名    | 密码      |
-|--------------------------------------|--------|---------|
-| http://127.0.0.1:5101/xxl-job-admin  | admin  | 123456  |
+| 名称      | 地址                                                  | 账户名   | 密码     |
+|---------|-----------------------------------------------------|-------|--------|
+| XXL Job | http://127.0.0.1:5101/xxl-job-admin                 | admin | 123456 |
+| Swagger | http://127.0.0.1:1101/webjars/swagger-ui/index.html |       |        |
 
 ### 权限
 
@@ -410,12 +411,12 @@ cloud.xuxiaowei
 
 ## 开发工具
 
-1. IDEA 2022.1.4
-    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.exe)
-    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.win.zip)
-    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.tar.gz)
-    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4.dmg)
-    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.1.4-aarch64.dmg)
+1. IDEA 2022.2.3
+    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.exe)
+    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.win.zip)
+    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.tar.gz)
+    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.dmg)
+    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3-aarch64.dmg)
     - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
     - 插件
         1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)

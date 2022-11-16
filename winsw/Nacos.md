@@ -1,10 +1,10 @@
 # [Nacos](https://github.com/alibaba/nacos)
 
 - 本项目使用版本
-    - [2.1.1](https://github.com/alibaba/nacos/releases/tag/2.1.1)
-    - [nacos-server-2.1.1.zip](https://github.com/alibaba/nacos/releases/download/2.1.1/nacos-server-2.1.1.zip)
+    - [2.1.2](https://github.com/alibaba/nacos/releases/tag/2.1.2)
+    - [nacos-server-2.1.2.zip](https://github.com/alibaba/nacos/releases/download/2.1.2/nacos-server-2.1.2.zip)
     - 安装目录
-        - D:\Alibaba\nacos-server-2.1.1
+        - D:\Alibaba\nacos-server-2.1.2
 - 在 `startup.cmd` 文件中添加 `JAVA_HOME`，防止存在多个 Java 环境时启动异常
     ```shell
     @echo off
