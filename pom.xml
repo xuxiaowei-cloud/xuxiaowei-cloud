@@ -65,7 +65,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.0-RC1
+        <spring-security-oauth2-authorization-server.version>0.4.0
         </spring-security-oauth2-authorization-server.version>
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
@@ -944,15 +944,6 @@
         <repository>
             <id>oss-s01</id>
             <url>https://s01.oss.sonatype.org/content/repositories/public/</url>
-        </repository>
-
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
 
     </repositories>
