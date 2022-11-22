@@ -65,7 +65,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.0-RC1
+        <spring-security-oauth2-authorization-server.version>0.4.0
         </spring-security-oauth2-authorization-server.version>
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
@@ -229,6 +229,8 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
+        <license-maven-plugin.version>2.0.0</license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
         <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
@@ -735,6 +737,20 @@
                 <version>${maven-source-plugin.version}</version>
             </plugin>
 
+            <!-- 列举开源协议：mvn license:license-list -->
+            <!-- 添加开源协议：mvn license:update-file-header -->
+            <!-- 删除开源协议：mvn license:remove-file-header -->
+            <!-- http://www.mojohaus.org/license-maven-plugin/index.html -->
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven-plugin.version}</version>
+                <configuration>
+                    <licenseName>apache_v2</licenseName>
+                </configuration>
+            </plugin>
+
             <!-- mvn lombok:delombok -->
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
             <plugin>
@@ -844,7 +860,7 @@
             <repositories>
                 <repository>
                     <id>tencentyun</id>
-                    <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
                 </repository>
             </repositories>
         </profile>
@@ -928,15 +944,6 @@
         <repository>
             <id>oss-s01</id>
             <url>https://s01.oss.sonatype.org/content/repositories/public/</url>
-        </repository>
-
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
 
     </repositories>

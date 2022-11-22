@@ -220,7 +220,7 @@ cloud.xuxiaowei:gateway:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springdoc:springdoc-openapi-webflux-ui:jar:1.6.12:compile
 │        └──cn.hutool:hutool-all:jar:5.8.9:compile
-│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0-RC1:compile
+│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.5:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2.2.9.RELEASE:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2.2.9.RELEASE:compile
@@ -249,7 +249,7 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2.2.9.RELEASE:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.5:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.7.5:compile
-│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0-RC1:compile
+│        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.0:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-miniprogram:jar:0.1.0-SNAPSHOT:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-offiaccount:jar:0.1.0-SNAPSHOT:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-oplatform:jar:0.1.0-SNAPSHOT:compile
