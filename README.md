@@ -408,6 +408,7 @@ cloud.xuxiaowei
 25. [网关流量控制](https://sentinelguard.io/zh-cn/docs/api-gateway-flow-control.html)
 26. [阿里云 短信服务](https://dysms.console.aliyun.com/overview)
     1. [文档](https://next.api.aliyun.com/product/Dysmsapi)
+27. [Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
 
 ## 开发工具
 
