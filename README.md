@@ -101,7 +101,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.5&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.6&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -408,6 +408,7 @@ cloud.xuxiaowei
 25. [网关流量控制](https://sentinelguard.io/zh-cn/docs/api-gateway-flow-control.html)
 26. [阿里云 短信服务](https://dysms.console.aliyun.com/overview)
     1. [文档](https://next.api.aliyun.com/product/Dysmsapi)
+27. [Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
 
 ## 开发工具
 
