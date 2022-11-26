@@ -90,7 +90,7 @@ cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT
-│        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.2.2:compile
+│        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.3.0:compile
 │        └──com.baomidou:mybatis-plus-boot-starter:jar:3.5.2:compile
 │        └──com.baomidou:dynamic-datasource-spring-boot-starter:jar:3.5.2:compile
 │        └──p6spy:p6spy:jar:3.9.1:compile
@@ -421,7 +421,7 @@ cloud.xuxiaowei:xxl-job-admin:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-freemarker:jar:2.7.6:compile
 │        └──org.springframework.boot:spring-boot-starter-mail:jar:2.7.6:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.6:compile
-│        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.2.2:compile
+│        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.3.0:compile
 │        └──com.mysql:mysql-connector-j:jar:8.0.31:runtime
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.6:compile
 │        └──org.projectlombok:lombok:jar:1.18.24:compile
