@@ -88,7 +88,7 @@
           </el-tooltip>
 
           <el-tooltip class="box-item" effect="dark" content="GitLab登录" placement="top">
-            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+            <el-link :href="gitlabUrl" class="ml-4px mr-4px">
               <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
               <img src="../assets/Gitlab-fill.png" alt="GitLab登录" width="30">
             </el-link>
@@ -147,6 +147,7 @@ const weChatOplatformWebsiteUrl = ref()
 const giteeUrl = ref()
 const qqWebsiteUrl = ref()
 const weiBoWebsiteUrl = ref()
+const gitlabUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -156,6 +157,7 @@ configuration().then(response => {
     giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}`
     qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}`
     weiBoWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/weibo/authorize/${response.data.weiBoWebsiteAppid}`
+    gitlabUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitlab/authorize/${response.data.gitlabAppid}`
   } else {
     ElMessage.error(msg)
   }

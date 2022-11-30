@@ -3,10 +3,7 @@ package cloud.xuxiaowei.passport.controller;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
-import org.springframework.security.oauth2.server.authorization.properties.QQWebsiteProperties;
-import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
-import org.springframework.security.oauth2.server.authorization.properties.WeiBoWebsiteProperties;
+import org.springframework.security.oauth2.server.authorization.properties.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +30,8 @@ public class ConfigurationRestController {
 
 	private WeiBoWebsiteProperties weiBoWebsiteProperties;
 
+	private GitLabProperties gitLabProperties;
+
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
 		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
@@ -51,6 +50,11 @@ public class ConfigurationRestController {
 	@Autowired
 	public void setWeiBoWebsiteProperties(WeiBoWebsiteProperties weiBoWebsiteProperties) {
 		this.weiBoWebsiteProperties = weiBoWebsiteProperties;
+	}
+
+	@Autowired
+	public void setGitLabProperties(GitLabProperties gitLabProperties) {
+		this.gitLabProperties = gitLabProperties;
 	}
 
 	@PostMapping
@@ -81,6 +85,12 @@ public class ConfigurationRestController {
 			weiBoWebsiteAppid = weiBoWebsitePropertiesList.get(0).getAppid();
 		}
 
+		List<GitLabProperties.GitLab> gitLabPropertiesList = gitLabProperties.getList();
+		String gitlabAppid = null;
+		if (gitLabPropertiesList != null && gitLabPropertiesList.size() > 0) {
+			gitlabAppid = gitLabPropertiesList.get(0).getAppid();
+		}
+
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
 				.put("weChatOplatformWebsiteAppid", weChatOplatformWebsiteAppid)
@@ -89,7 +99,9 @@ public class ConfigurationRestController {
 				// QQ 网站应用 ID
 				.put("qqWebsiteAppid", qqWebsiteAppid + "?scope=get_user_info")
 				// 微博 网站应用 ID
-				.put("weiBoWebsiteAppid", weiBoWebsiteAppid);
+				.put("weiBoWebsiteAppid", weiBoWebsiteAppid)
+				// GitLab 网站应用 ID
+				.put("gitlabAppid", gitlabAppid + "?scope=read_user");
 	}
 
 }

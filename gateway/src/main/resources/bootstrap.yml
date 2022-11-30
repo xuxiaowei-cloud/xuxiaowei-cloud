@@ -355,6 +355,10 @@ cloud:
           - /weibo/authorize/*
           # 微博 网站应用 授权码接收服务
           - /weibo/code/*
+          # GitLab 网站应用 授权码接收服务
+          - /gitlab/authorize/*
+          # GitLab 网站应用 授权码接收服务
+          - /gitlab/code/*
           # 配置
           - /configuration
           # springdoc

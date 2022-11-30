@@ -185,6 +185,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/weibo/authorize/*").permitAll()
 					// 微博 网站应用 授权码接收服务
 					.antMatchers("/weibo/code/*").permitAll()
+					// GitLab 网站应用 跳转到GitLab授权页面
+					.antMatchers("/gitlab/authorize/*").permitAll()
+					// GitLab 网站应用 授权码接收服务
+					.antMatchers("/gitlab/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
