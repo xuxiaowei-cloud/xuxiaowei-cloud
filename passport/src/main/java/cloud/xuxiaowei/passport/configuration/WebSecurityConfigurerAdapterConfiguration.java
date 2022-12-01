@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.authorization.web.OAuth2TokenRevocationEndpointFilter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -189,6 +190,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/gitlab/authorize/*").permitAll()
 					// GitLab 网站应用 授权码接收服务
 					.antMatchers("/gitlab/code/*").permitAll()
+					.antMatchers("/oauth2/revoke").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
@@ -225,6 +227,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 
 		// CSRF 配置
 		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+
+		OAuth2TokenRevocationEndpointFilter sharedObject = http.getSharedObject(OAuth2TokenRevocationEndpointFilter.class);
 
 		return http.build();
 	}

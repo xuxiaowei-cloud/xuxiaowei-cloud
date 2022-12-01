@@ -172,6 +172,31 @@ CREATE TABLE `gitee_users`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '码云Gitee用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for gitlab_users
+-- ----------------------------
+DROP TABLE IF EXISTS `gitlab_users`;
+CREATE TABLE `gitlab_users`  (
+  `gitlab_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT 'GitLab用户主键，自增',
+  `domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '域名，不为空',
+  `users_id` bigint NULL DEFAULT NULL COMMENT '绑定的用户主键，唯一键：',
+  `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'GitLab客户ID',
+  `id` bigint NOT NULL COMMENT 'GitLab网站唯一标识',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'GitLab网站登录用户名，可能会被修改',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT 'GitLab网站用户名称',
+  `avatar_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '头像',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '邮箱',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户备注信息，只有在查询用户关系时才返回此字段',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，不为空',
+  `update_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，未更新时为空',
+  `create_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人，不为空',
+  `update_users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人，未更新时为空',
+  `create_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者IP，不为空',
+  `update_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者IP，未更新时为空',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
+  PRIMARY KEY (`gitlab_users_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = 'GitLab用户' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for group_authorities
 -- ----------------------------
 DROP TABLE IF EXISTS `group_authorities`;

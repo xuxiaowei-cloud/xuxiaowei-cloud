@@ -404,13 +404,12 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		}
 
 		Users users = wxOpenWebsiteUsers.getUsers();
-		String username;
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到微信绑定的用户", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		username = users.getUsername();
+		String username = users.getUsername();
 
 		List<GrantedAuthority> authorities = new ArrayList<>();
 

@@ -44,8 +44,13 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2TokenE
 import org.springframework.security.oauth2.server.authorization.web.authentication.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -121,7 +126,8 @@ public class AuthorizationServerConfiguration {
 	 */
 	@Bean
 	@Order(-1)
-	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, JdbcOperations jdbcOperations,
+			RegisteredClientRepository registeredClientRepository) throws Exception {
 
 		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
 
@@ -185,6 +191,29 @@ public class AuthorizationServerConfiguration {
 		new OAuth2WeiBoWebsiteAuthenticationProvider(http);
 		// GitLab 网站应用 OAuth2 身份验证提供程序
 		new OAuth2GitLabAuthenticationProvider(http);
+
+		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
+			tokenRevocationEndpointCustomizer.revocationResponseHandler(new AuthenticationSuccessHandler() {
+				@Override
+				public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+						Authentication authentication) throws IOException, ServletException {
+					JdbcOAuth2AuthorizationService service = new JdbcOAuth2AuthorizationService(jdbcOperations,
+							registeredClientRepository);
+					if (authentication instanceof OAuth2TokenRevocationAuthenticationToken) {
+						OAuth2TokenRevocationAuthenticationToken authenticationToken = (OAuth2TokenRevocationAuthenticationToken) authentication;
+						String token = authenticationToken.getToken();
+						OAuth2Authorization authorization = service.findByToken(token, OAuth2TokenType.ACCESS_TOKEN);
+						if (authorization == null) {
+							log.warn("未找到Token");
+						}
+						else {
+							service.remove(authorization);
+							log.info("删除Token成功");
+						}
+					}
+				}
+			});
+		});
 
 		return http.build();
 	}
