@@ -157,6 +157,10 @@
 
 ## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
 
+## [语雀文档](https://www.yuque.com/xuxiaowei-com-cn)
+
+1. [GitLab、kubernetes（k8s）、私库等](https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s)
+
 ## 模块
 
 - [依赖分析](./README-dependencies.md)
@@ -223,22 +227,22 @@ cloud.xuxiaowei
 
 - 流控防护限流端口
 
-| 模块                 | 模块名称                        | 限流端口 | 
-|--------------------|-----------------------------|------|
-| gateway            | 网关                          | 9001 |
-| passport           | 登录                          | 9002 |
-| user               | 用户服务                        | 9003 |
-| websocket          | WebSocket 服务                | 9004 |
-| webservice         | WebService 服务               | 9005 |
-| wechat-miniprogram | 微信小程序服务                     | 9006 |
-| wechat-offiaccount | 微信公众号服务                     | 9007 |
-| master-data        | 主数据服务                       | 9008 |
+| 模块                 | 模块名称          | 限流端口 | 
+|--------------------|---------------|------|
+| gateway            | 网关            | 9001 |
+| passport           | 登录            | 9002 |
+| user               | 用户服务          | 9003 |
+| websocket          | WebSocket 服务  | 9004 |
+| webservice         | WebService 服务 | 9005 |
+| wechat-miniprogram | 微信小程序服务       | 9006 |
+| wechat-offiaccount | 微信公众号服务       | 9007 |
+| master-data        | 主数据服务         | 9008 |
 
 ### 用户名与密码
 
-| 账户名        | 密码   | 启用  |
-|------------|------|-----|
-| xuxiaowei  | 123  | 1   |
+| 账户名       | 密码  | 启用  |
+|-----------|-----|-----|
+| xuxiaowei | 123 | 1   |
 
 ### 其他服务
 
@@ -279,16 +283,16 @@ cloud.xuxiaowei
 
 ### 客户ID与秘钥
 
-| 字段        | id  | client_id                              | client_id_issued_at   | client_secret                              | client_secret_expires_at | client_authentication_methods           | authorization_grant_types                                    | redirect_uris                                                                                                                              | scopes                  | require-authorization-consent | authorization-code-time-to-live | access-token-time-to-live | refresh-token-time-to-live | 
-|-----------|-----|----------------------------------------|-----------------------|--------------------------------------------|--------------------------|-----------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-------------------------------|---------------------------------|---------------------------|----------------------------|
-| 说明        | 主键  | 客户ID                                   | 客户ID发布时间              | 客户秘钥                                       | 客户秘钥过期时间                 | 授权认证方法                                  | 授权类型                                                         | 授权码重定向地址                                                                                                                                   | 范围                      | 是否需要客户授权同意                    | 授权code有效时间                      | 授权Token有效时间               | 刷新Token有效时间                |
-| 网站使用      | 1   | xuxiaowei_client_id                    | 2022-05-30 17:17:41   | xuxiaowei_client_secret                    |                          | client_secret_post,client_secret_basic  | refresh_token,implicit,client_credentials,authorization_code | http://127.0.0.1:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信小程序使用   | 2   | xuxiaowei_client_wechat_miniprogram_id | 2022-05-30 17:17:41   | xuxiaowei_client_wechat_miniprogram_secret |                          | client_secret_post,client_secret_basic  | refresh_token,wechat_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信公众号使用   | 3   | xuxiaowei_client_wechat_offiaccount_id | 2022-05-30 17:17:41   | xuxiaowei_client_wechat_offiaccount_secret |                          | client_secret_post,client_secret_basic  | refresh_token,wechat_offiaccount                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信扫码使用    | 4   | xuxiaowei_client_wechat_oplatform_id   | 2022-05-30 17:17:41   | xuxiaowei_client_wechat_oplatform_secret   |                          | client_secret_post,client_secret_basic  | refresh_token,wechat_oplatform_website                       |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 码云Gitee使用 | 5   | xuxiaowei_client_gitee_id              | 2022-05-30 17:17:41   | xuxiaowei_client_gitee_secret              |                          | client_secret_post,client_secret_basic  | refresh_token,gitee                                          |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| QQ扫码使用    | 6   | xuxiaowei_client_qq_website_id         | 2022-05-30 17:17:41   | xuxiaowei_client_qq_website_secret         |                          | client_secret_post,client_secret_basic  | refresh_token,qq_website                                     |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微博扫码使用    | 7   | xuxiaowei_client_weibo_id              | 2022-05-30 17:17:41   | xuxiaowei_client_weibo_secret              |                          | client_secret_post,client_secret_basic  | refresh_token,weibo_website                                  |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 字段        | id  | client_id                              | client_id_issued_at | client_secret                              | client_secret_expires_at | client_authentication_methods          | authorization_grant_types                                    | redirect_uris                                                                                                                              | scopes                  | require-authorization-consent | authorization-code-time-to-live | access-token-time-to-live | refresh-token-time-to-live | 
+|-----------|-----|----------------------------------------|---------------------|--------------------------------------------|--------------------------|----------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-------------------------------|---------------------------------|---------------------------|----------------------------|
+| 说明        | 主键  | 客户ID                                   | 客户ID发布时间            | 客户秘钥                                       | 客户秘钥过期时间                 | 授权认证方法                                 | 授权类型                                                         | 授权码重定向地址                                                                                                                                   | 范围                      | 是否需要客户授权同意                    | 授权code有效时间                      | 授权Token有效时间               | 刷新Token有效时间                |
+| 网站使用      | 1   | xuxiaowei_client_id                    | 2022-05-30 17:17:41 | xuxiaowei_client_secret                    |                          | client_secret_post,client_secret_basic | refresh_token,implicit,client_credentials,authorization_code | http://127.0.0.1:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信小程序使用   | 2   | xuxiaowei_client_wechat_miniprogram_id | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_miniprogram_secret |                          | client_secret_post,client_secret_basic | refresh_token,wechat_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信公众号使用   | 3   | xuxiaowei_client_wechat_offiaccount_id | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_offiaccount_secret |                          | client_secret_post,client_secret_basic | refresh_token,wechat_offiaccount                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信扫码使用    | 4   | xuxiaowei_client_wechat_oplatform_id   | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_oplatform_secret   |                          | client_secret_post,client_secret_basic | refresh_token,wechat_oplatform_website                       |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 码云Gitee使用 | 5   | xuxiaowei_client_gitee_id              | 2022-05-30 17:17:41 | xuxiaowei_client_gitee_secret              |                          | client_secret_post,client_secret_basic | refresh_token,gitee                                          |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| QQ扫码使用    | 6   | xuxiaowei_client_qq_website_id         | 2022-05-30 17:17:41 | xuxiaowei_client_qq_website_secret         |                          | client_secret_post,client_secret_basic | refresh_token,qq_website                                     |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微博扫码使用    | 7   | xuxiaowei_client_weibo_id              | 2022-05-30 17:17:41 | xuxiaowei_client_weibo_secret              |                          | client_secret_post,client_secret_basic | refresh_token,weibo_website                                  |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
 
 - authorization_grant_types
     - 授权码模式 authorization_code
