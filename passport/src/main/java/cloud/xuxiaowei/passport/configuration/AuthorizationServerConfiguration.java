@@ -13,11 +13,10 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
@@ -28,10 +27,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatMiniProgramParameterNames;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.*;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
-import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
@@ -47,10 +44,6 @@ import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -85,6 +78,8 @@ public class AuthorizationServerConfiguration {
 
 	private IUsersService usersService;
 
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+
 	@Autowired
 	public void setCloudJwkKeyProperties(CloudJwkKeyProperties cloudJwkKeyProperties) {
 		this.cloudJwkKeyProperties = cloudJwkKeyProperties;
@@ -98,6 +93,12 @@ public class AuthorizationServerConfiguration {
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
+	}
+
+	@Autowired
+	@Qualifier("revocationAuthenticationSuccessHandler")
+	public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
 	}
 
 	/**
@@ -126,8 +127,7 @@ public class AuthorizationServerConfiguration {
 	 */
 	@Bean
 	@Order(-1)
-	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, JdbcOperations jdbcOperations,
-			RegisteredClientRepository registeredClientRepository) throws Exception {
+	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
 
@@ -193,55 +193,11 @@ public class AuthorizationServerConfiguration {
 		new OAuth2GitLabAuthenticationProvider(http);
 
 		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
-			tokenRevocationEndpointCustomizer.revocationResponseHandler(new AuthenticationSuccessHandler() {
-				@Override
-				public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-						Authentication authentication) throws IOException, ServletException {
-					JdbcOAuth2AuthorizationService service = new JdbcOAuth2AuthorizationService(jdbcOperations,
-							registeredClientRepository);
-					if (authentication instanceof OAuth2TokenRevocationAuthenticationToken) {
-						OAuth2TokenRevocationAuthenticationToken authenticationToken = (OAuth2TokenRevocationAuthenticationToken) authentication;
-						String token = authenticationToken.getToken();
-						OAuth2Authorization authorization = service.findByToken(token, OAuth2TokenType.ACCESS_TOKEN);
-						if (authorization == null) {
-							log.warn("未找到Token");
-						}
-						else {
-							service.remove(authorization);
-							log.info("删除Token成功");
-						}
-					}
-				}
-			});
+			// 自定义撤销授权成功后的处理
+			tokenRevocationEndpointCustomizer.revocationResponseHandler(authenticationSuccessHandler);
 		});
 
 		return http.build();
-	}
-
-	/**
-	 * @see RegisteredClientRepository 用于管理客户端的实例。
-	 */
-	@Bean
-	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-		return new JdbcRegisteredClientRepository(jdbcTemplate);
-	}
-
-	/**
-	 * 授权码、授权Token、刷新Token 持久化
-	 */
-	@Bean
-	public OAuth2AuthorizationService oauth2AuthorizationService(JdbcOperations jdbcOperations,
-			RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationService(jdbcOperations, registeredClientRepository);
-	}
-
-	/**
-	 * 授权 持久化
-	 */
-	@Bean
-	public OAuth2AuthorizationConsentService oauth2AuthorizationConsentService(JdbcOperations jdbcOperations,
-			RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationConsentService(jdbcOperations, registeredClientRepository);
 	}
 
 	/**

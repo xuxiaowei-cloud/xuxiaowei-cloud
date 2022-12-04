@@ -94,6 +94,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 	}
 
 	@Autowired
+	@Qualifier("authenticationSuccessHandlerImpl")
 	public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
 		this.authenticationSuccessHandler = authenticationSuccessHandler;
 	}
@@ -156,6 +157,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/oauth2/check_token").permitAll()
 					// 放行Token
 					.antMatchers("/oauth2/token").permitAll()
+					// OAuth2 撤销端点
+					.antMatchers("/oauth2/revoke").permitAll()
 					// 注销登录放行
 					.antMatchers("/signout").permitAll()
 					// 找回密码
@@ -190,7 +193,6 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/gitlab/authorize/*").permitAll()
 					// GitLab 网站应用 授权码接收服务
 					.antMatchers("/gitlab/code/*").permitAll()
-					.antMatchers("/oauth2/revoke").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址
@@ -228,7 +230,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		// CSRF 配置
 		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
 
-		OAuth2TokenRevocationEndpointFilter sharedObject = http.getSharedObject(OAuth2TokenRevocationEndpointFilter.class);
+		OAuth2TokenRevocationEndpointFilter sharedObject = http
+				.getSharedObject(OAuth2TokenRevocationEndpointFilter.class);
 
 		return http.build();
 	}
