@@ -114,4 +114,10 @@ public class GitlabUsers implements Serializable {
 	@TableLogic
 	private Boolean deleted;
 
+	/**
+	 * 绑定的用户
+	 */
+	@TableField(exist = false)
+	private Users users;
+
 }
