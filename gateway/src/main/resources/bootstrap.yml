@@ -87,18 +87,30 @@ spring:
           uri: lb://passport
           predicates:
             - Path=/passport/**
+          filters:
+            # 规则
+            # 将 /passport/** 转发到 /**
+            - RewritePath=/passport/(?<path>.*), /$\{path}
         # 此配置原来默认缺省
         # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 user 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 user 服务）
         - id: user
           uri: lb://user
           predicates:
             - Path=/user/**
+          filters:
+            # 规则
+            # 将 /user/** 转发到 /**
+            - RewritePath=/user/(?<path>.*), /$\{path}
         # 此配置原来默认缺省
         # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 master-data 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 master-data 服务）
         - id: master-data
           uri: lb://master-data
           predicates:
             - Path=/master-data/**
+          filters:
+            # 规则
+            # 将 /master-data/** 转发到 /**
+            - RewritePath=/master-data/(?<path>.*), /$\{path}
 
 #
 # 日志 配置
