@@ -1,6 +1,11 @@
 import { createApp } from 'vue'
 import './style.css'
 
+// 防止 ElMessageBox 样式无效
+// 防止 ElMessageBox 的样式在 Table 之下
+// 不可放在 style.css 中
+import 'element-plus/es/components/message-box/style/css'
+
 // https://github.com/unocss/unocss/#vite
 import 'uno.css'
 
