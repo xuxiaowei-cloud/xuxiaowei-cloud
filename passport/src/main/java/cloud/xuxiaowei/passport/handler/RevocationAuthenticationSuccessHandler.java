@@ -19,7 +19,7 @@ import java.io.IOException;
  * 撤销授权成功后的处理
  *
  * @author xuxiaowei
- * @see 0.0.1
+ * @since 0.0.1
  */
 @Slf4j
 @Component

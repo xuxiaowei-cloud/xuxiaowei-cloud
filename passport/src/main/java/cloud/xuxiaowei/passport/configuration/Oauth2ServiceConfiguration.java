@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  * 从 {@link AuthorizationServerConfiguration} 中拿出来的，防止出现依赖循环引用的错误
  *
  * @author xuxiaowei
- * @see 0.0.1
+ * @since 0.0.1
  */
 @Configuration
 public class Oauth2ServiceConfiguration {

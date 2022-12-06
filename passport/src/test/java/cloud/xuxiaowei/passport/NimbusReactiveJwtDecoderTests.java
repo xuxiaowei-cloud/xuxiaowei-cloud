@@ -17,7 +17,7 @@ import java.security.interfaces.RSAPublicKey;
  * 响应式 Nimbus Jwt 解码器 测试类
  *
  * @author xuxiaowei
- * @see 0.0.1
+ * @since 0.0.1
  */
 @Slf4j
 class NimbusReactiveJwtDecoderTests {
