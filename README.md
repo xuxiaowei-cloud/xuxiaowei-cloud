@@ -186,7 +186,7 @@
 | @element-plus/icons-vue          | 2.0.10  | <img src="https://img.shields.io/npm/v/@element-plus/icons-vue">          |     |
 | @tauri-apps/api                  | 1.2.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/api">                  |     |
 | @toast-ui/editor                 | 3.2.1   | <img src="https://img.shields.io/npm/v/@toast-ui/editor">                 |     |
-| @wangeditor/editor-for-vue       | 5.1.12  | <img src="https://img.shields.io/npm/v/@wangeditor/editor-for-vue">       |     |
+| @wangeditor/editor-for-vue       | 5.1.12  | <img src="https://img.shields.io/npm/v/@wangeditor/editor-for-vue/next">  |     |
 | axios                            | 1.2.1   | <img src="https://img.shields.io/npm/v/axios">                            |     |
 | crypto-js                        | 4.1.1   | <img src="https://img.shields.io/npm/v/crypto-js">                        |     |
 | echarts                          | 5.4.1   | <img src="https://img.shields.io/npm/v/echarts">                          |     |
