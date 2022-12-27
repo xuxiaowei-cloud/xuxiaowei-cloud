@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 配置
@@ -60,48 +59,23 @@ public class ConfigurationRestController {
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
-		List<WeChatOplatformWebsiteProperties.WeChatOplatformWebsite> weChatOplatformWebsiteList = weChatOplatformWebsiteProperties
-				.getList();
-		String weChatOplatformWebsiteAppid = null;
-		if (weChatOplatformWebsiteList != null && weChatOplatformWebsiteList.size() > 0) {
-			weChatOplatformWebsiteAppid = weChatOplatformWebsiteList.get(0).getAppid();
-		}
-
-		List<GiteeProperties.Gitee> giteeList = giteeProperties.getList();
-		String giteeAppid = null;
-		if (giteeList != null && giteeList.size() > 0) {
-			giteeAppid = giteeList.get(0).getAppid();
-		}
-
-		List<QQWebsiteProperties.QQWebsite> qqWebsitePropertiesList = qqWebsiteProperties.getList();
-		String qqWebsiteAppid = null;
-		if (qqWebsitePropertiesList != null && qqWebsitePropertiesList.size() > 0) {
-			qqWebsiteAppid = qqWebsitePropertiesList.get(0).getAppid();
-		}
-
-		List<WeiBoWebsiteProperties.WeiBoWebsite> weiBoWebsitePropertiesList = weiBoWebsiteProperties.getList();
-		String weiBoWebsiteAppid = null;
-		if (weiBoWebsitePropertiesList != null && weiBoWebsitePropertiesList.size() > 0) {
-			weiBoWebsiteAppid = weiBoWebsitePropertiesList.get(0).getAppid();
-		}
-
-		List<GitLabProperties.GitLab> gitLabPropertiesList = gitLabProperties.getList();
-		String gitlabAppid = null;
-		if (gitLabPropertiesList != null && gitLabPropertiesList.size() > 0) {
-			gitlabAppid = gitLabPropertiesList.get(0).getAppid();
-		}
+		String weChatOplatformWebsiteAppid = weChatOplatformWebsiteProperties.getDefaultAppid();
+		String giteeAppid = giteeProperties.getDefaultAppid();
+		String qqWebsiteAppid = qqWebsiteProperties.getDefaultAppid();
+		String weiBoWebsiteAppid = weiBoWebsiteProperties.getDefaultAppid();
+		String gitlabAppid = gitLabProperties.getDefaultAppid();
 
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
 				.put("weChatOplatformWebsiteAppid", weChatOplatformWebsiteAppid)
 				// 码云Gitee 网站应用 ID
-				.put("giteeAppid", giteeAppid + "?scope=user_info")
+				.put("giteeAppid", giteeAppid)
 				// QQ 网站应用 ID
-				.put("qqWebsiteAppid", qqWebsiteAppid + "?scope=get_user_info")
+				.put("qqWebsiteAppid", qqWebsiteAppid)
 				// 微博 网站应用 ID
 				.put("weiBoWebsiteAppid", weiBoWebsiteAppid)
 				// GitLab 网站应用 ID
-				.put("gitlabAppid", gitlabAppid + "?scope=read_user");
+				.put("gitlabAppid", gitlabAppid);
 	}
 
 }
