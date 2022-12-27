@@ -132,7 +132,7 @@
 ## 相关项目
 
 - xuxiaowei-cloud-next
-    - 使用 Spring Boot 3.0.0，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
+    - 使用 Spring Boot 3.x.x，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
         1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
         2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
         3. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
