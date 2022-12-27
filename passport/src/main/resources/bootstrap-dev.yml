@@ -83,7 +83,7 @@ cloud:
 
 wechat:
   offiaccount:
-    default-role: ${wechat_offiaccount_default_role:}
+    default-role: ${wechat_offiaccount_default_role:wechat_offiaccount}
     list:
       - appid: ${wechat_offiaccount_appid:}
         secret: ${wechat_offiaccount_secret:}
@@ -99,7 +99,7 @@ wechat:
 wechat:
   oplatform:
     website:
-      default-role: ${wechat_oplatform_website_default_role:}
+      default-role: ${wechat_oplatform_website_default_role:wechat_oplatform_website}
       list:
         - appid: ${wechat_oplatform_website_appid:}
           secret: ${wechat_oplatform_website_secret:}
@@ -111,7 +111,7 @@ wechat:
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
 gitee:
-  default-role: gitee
+  default-role: ${gitee_default_role:gitee}
   list:
     - appid: ${gitee_appid:}
       secret: ${gitee_secret:}
@@ -123,7 +123,7 @@ gitee:
       success-url: http://example.xuxiaowei.cloud:1001/#/
 qq:
   website:
-    default-role: qq
+    default-role: ${qq_website_default_role:qq_website}
     list:
       - appid: ${qq_website_appid:}
         secret: ${qq_website_secret:}
@@ -131,12 +131,12 @@ qq:
         client-id: xuxiaowei_client_qq_website_id
         client-secret: xuxiaowei_client_qq_website_secret
         token-url-prefix: http://127.0.0.1:${server.port:80}
-        scope: qq
+        scope: qq_website
         success-url: http://example.xuxiaowei.cloud:1001/#/
 
 weibo:
   website:
-    default-role: weibo
+    default-role: ${weibo_default_role:weibo}
     list:
       - appid: ${weibo_appid:}
         secret: ${weibo_secret:}
@@ -148,10 +148,10 @@ weibo:
         success-url: http://example.xuxiaowei.cloud:1001/#/
 
 gitlab:
-  default-role: gitlab
+  default-role: ${gitlab_default_role:gitlab}
   list:
-    - appid: ${gitlab_appid:ac20813d473f1454519bc5e04e9dd3e633aaf599a48540e9e514500c2276b1d9}
-      secret: ${gitlab_secret:b0cf6464db3fad1839eeab0e72189ef16a6e354dbe2bb7c762ccba01431336ab}
+    - appid: ${gitlab_appid:}
+      secret: ${gitlab_secret:}
       domain: https://gitlab.xuxiaowei.cn
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitlab/code
       client-id: xuxiaowei_client_gitlab_id
@@ -165,7 +165,7 @@ gitlab:
 wechat:
   work:
     website:
-      default-role: wechat_work_website
+      default-role: ${wechat_work_website_default_role:wechat_work_website}
       list:
         - appid: ${wechat_work_website_appid:}
           agentid: ${wechat_work_website_agentid:}
