@@ -363,14 +363,18 @@ cloud:
           - /qq/website/authorize/*
           # QQ 网站应用 授权码接收服务
           - /qq/website/code/*
-          # 微博 网站应用 授权码接收服务
+          # 微博 网站应用 授权页面
           - /weibo/authorize/*
           # 微博 网站应用 授权码接收服务
           - /weibo/code/*
-          # GitLab 网站应用 授权码接收服务
+          # GitLab 网站应用 授权页面
           - /gitlab/authorize/*
           # GitLab 网站应用 授权码接收服务
           - /gitlab/code/*
+          # 企业微信扫码登录 授权页面
+          - /wechat-work/website/authorize/*/*
+          # 企业微信扫码登录 授权码接收服务
+          - /wechat-work/website/code/*/*
           # 配置
           - /configuration
           # springdoc

@@ -143,7 +143,12 @@
             <groupId>cn.com.xuxiaowei.boot</groupId>
             <artifactId>spring-boot-starter-gitlab</artifactId>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-work -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-work/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-wechat-work</artifactId>
+        </dependency>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->

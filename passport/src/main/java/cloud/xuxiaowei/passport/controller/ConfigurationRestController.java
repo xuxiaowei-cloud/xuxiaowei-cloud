@@ -31,6 +31,8 @@ public class ConfigurationRestController {
 
 	private GitLabProperties gitLabProperties;
 
+	private WeChatWorkWebsiteProperties weChatWorkWebsiteProperties;
+
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
 		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
@@ -56,6 +58,11 @@ public class ConfigurationRestController {
 		this.gitLabProperties = gitLabProperties;
 	}
 
+	@Autowired
+	public void setWeChatWorkWebsiteProperties(WeChatWorkWebsiteProperties weChatWorkWebsiteProperties) {
+		this.weChatWorkWebsiteProperties = weChatWorkWebsiteProperties;
+	}
+
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
@@ -64,6 +71,8 @@ public class ConfigurationRestController {
 		String qqWebsiteAppid = qqWebsiteProperties.getDefaultAppid();
 		String weiBoWebsiteAppid = weiBoWebsiteProperties.getDefaultAppid();
 		String gitlabAppid = gitLabProperties.getDefaultAppid();
+		String weChatWorkWebsiteAppid = weChatWorkWebsiteProperties.getDefaultAppid();
+		String weChatWorkWebsiteAgentid = weChatWorkWebsiteProperties.getGetDefaultAgentid();
 
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
@@ -75,7 +84,10 @@ public class ConfigurationRestController {
 				// 微博 网站应用 ID
 				.put("weiBoWebsiteAppid", weiBoWebsiteAppid)
 				// GitLab 网站应用 ID
-				.put("gitlabAppid", gitlabAppid);
+				.put("gitlabAppid", gitlabAppid)
+				// 企业微信扫码 网站应用 ID
+				.put("weChatWorkWebsiteAppid", weChatWorkWebsiteAppid)
+				.put("weChatWorkWebsiteAgentid", weChatWorkWebsiteAgentid);
 	}
 
 }

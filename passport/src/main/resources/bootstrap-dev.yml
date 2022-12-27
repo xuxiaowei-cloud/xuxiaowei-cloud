@@ -159,3 +159,20 @@ gitlab:
       token-url-prefix: http://127.0.0.1:${server.port:80}
       scope: gitlab
       success-url: http://example.xuxiaowei.cloud:1001/#/
+
+---
+
+wechat:
+  work:
+    website:
+      default-role: wechat_work_website
+      list:
+        - appid: ${wechat_work_website_appid:}
+          agentid: ${wechat_work_website_agentid:}
+          secret: ${wechat_work_website_secret:}
+          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-work/website/code
+          client-id: xuxiaowei_client_wechat_work_website_id
+          client-secret: xuxiaowei_client_wechat_work_website_secret
+          token-url-prefix: http://127.0.0.1:${server.port:80}
+          scope: wechat_work_website
+          success-url: http://example.xuxiaowei.cloud:1001/#/
