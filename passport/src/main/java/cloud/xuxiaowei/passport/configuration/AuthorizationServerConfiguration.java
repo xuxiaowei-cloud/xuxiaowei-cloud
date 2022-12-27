@@ -194,8 +194,8 @@ public class AuthorizationServerConfiguration {
 		new OAuth2WeiBoWebsiteAuthenticationProvider(http);
 		// GitLab 网站应用 OAuth2 身份验证提供程序
 		new OAuth2GitLabAuthenticationProvider(http);
-        // 企业微信扫码登录 OAuth2 身份验证提供程序
-        new OAuth2WeChatWorkWebsiteAuthenticationProvider(http);
+		// 企业微信扫码登录 OAuth2 身份验证提供程序
+		new OAuth2WeChatWorkWebsiteAuthenticationProvider(http);
 
 		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
 			// 自定义撤销授权成功后的处理
