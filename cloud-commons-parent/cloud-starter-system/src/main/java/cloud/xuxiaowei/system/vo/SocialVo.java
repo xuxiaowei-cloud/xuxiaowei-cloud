@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 社交绑定
@@ -39,7 +39,7 @@ public class SocialVo {
 	/**
 	 * 绑定时间
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime bindingDate;
 
 	/**

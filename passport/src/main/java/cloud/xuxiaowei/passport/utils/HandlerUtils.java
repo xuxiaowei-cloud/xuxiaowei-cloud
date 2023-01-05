@@ -8,6 +8,7 @@ import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
+import cn.hutool.core.date.DatePattern;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
@@ -116,7 +117,7 @@ public class HandlerUtils {
 			return;
 		}
 
-		String now = DateUtils.format(LocalDateTime.now(), DateUtils.DEFAULT_DATE_TIME_FORMAT);
+		String now = DateUtils.format(LocalDateTime.now(), DatePattern.NORM_DATETIME_PATTERN);
 
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom(mailProperties.getUsername());

@@ -1,5 +1,7 @@
 package cloud.xuxiaowei.utils;
 
+import cn.hutool.core.date.DatePattern;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -9,28 +11,9 @@ import java.util.Date;
  *
  * @author xuxiaowei
  * @since 0.0.1
+ * @see DatePattern
  */
 public class DateUtils {
-
-	/**
-	 * 默认时间格式
-	 */
-	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
-
-	/**
-	 * 默认日期格式
-	 */
-	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-
-	/**
-	 * 短日期格式
-	 */
-	public static final String SHORT_DATE_FORMAT = "yyyyMMdd";
-
-	/**
-	 * 默认日期时间格式
-	 */
-	public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 根据 日期时间、格式 处理为字符串

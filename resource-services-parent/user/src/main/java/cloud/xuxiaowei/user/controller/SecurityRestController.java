@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 安全设置
@@ -253,7 +253,7 @@ public class SecurityRestController {
 						"标识码：%s \n\n" +
 						"如果您没有请求邮箱验证，请忽略这封邮件。 \n\n" +
 						"验证码有效期 %s 分钟(%s 过期)",
-				username, nickname, code,identification, emailCaptchaMinutes, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
+				username, nickname, code,identification, emailCaptchaMinutes, DateUtils.format(expire, NORM_DATETIME_PATTERN)));
 		// @formatter:on
 
 		try {

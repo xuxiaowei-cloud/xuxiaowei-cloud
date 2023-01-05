@@ -22,13 +22,6 @@
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <!-- 依赖传递性：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html -->
-            <scope>provided</scope>
-        </dependency>
-
         <!-- 仅为了提供：@RefreshScope -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

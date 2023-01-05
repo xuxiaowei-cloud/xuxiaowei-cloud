@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static cloud.xuxiaowei.passport.controller.Oauth2RegisteredClientRestController.ALGORITHM_SPLIT;
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 客户表
@@ -42,10 +42,10 @@ public class Oauth2RegisteredClientVo implements Serializable {
 
 	private String clientName;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientIdIssuedAt;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientSecretExpiresAt;
 
 	private String clientAuthenticationMethods;

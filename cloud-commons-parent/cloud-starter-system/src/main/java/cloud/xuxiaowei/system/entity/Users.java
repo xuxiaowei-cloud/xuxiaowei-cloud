@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_FORMAT;
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATE_PATTERN;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 import static com.baomidou.mybatisplus.annotation.FieldStrategy.IGNORED;
 
 /**
@@ -94,7 +94,7 @@ public class Users implements Serializable {
 	/**
 	 * 生日
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_FORMAT)
+	@JsonFormat(pattern = NORM_DATE_PATTERN)
 	private LocalDate birthday;
 
 	/**
@@ -171,14 +171,14 @@ public class Users implements Serializable {
 	/**
 	 * 更新时间，未更新时为空
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.UPDATE)
 	private LocalDateTime updateDate;
 
 	/**
 	 * 创建时间，不为空，数据库自动生成
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 

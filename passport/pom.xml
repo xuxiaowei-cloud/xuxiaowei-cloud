@@ -157,12 +157,6 @@
             <artifactId>p6spy</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-
         <!-- Nacos 注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
