@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import { ElMessage } from 'element-plus'
 import { JSEncrypt } from 'jsencrypt'
 import CryptoJS from 'crypto-js'
@@ -26,10 +26,7 @@ const service = axios.create({
 })
 
 // request interceptor
-service.interceptors.request.use((config: AxiosRequestConfig) => {
-  if (!config.headers) {
-    config.headers = {}
-  }
+service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   config.headers.authorization = 'Bearer ' + useStore.getAccessToken
 
   if (config.method === 'post' || config.method === 'POST') { // POST 请求加密

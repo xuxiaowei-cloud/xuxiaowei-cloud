@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import { ElMessage } from 'element-plus'
 import CryptoJS from 'crypto-js'
 import settings from '../settings'
@@ -11,7 +11,7 @@ const service = axios.create({
 })
 
 // request interceptor
-service.interceptors.request.use((config: AxiosRequestConfig) => {
+service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config
 },
 error => {
