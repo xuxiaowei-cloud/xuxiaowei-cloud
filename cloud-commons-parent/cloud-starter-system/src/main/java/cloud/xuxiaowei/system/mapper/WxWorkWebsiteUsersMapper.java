@@ -14,13 +14,13 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface WxWorkWebsiteUsersMapper extends BaseMapper<WxWorkWebsiteUsers> {
 
-    /**
-     * 根据 企业ID、应用ID、用户唯一标识 查询用户
-     * @param appid 企业ID
-     * @param agentid 应用ID
-     * @param openid 用户唯一标识
-     * @return 用户
-     */
+	/**
+	 * 根据 企业ID、应用ID、用户唯一标识 查询用户
+	 * @param appid 企业ID
+	 * @param agentid 应用ID
+	 * @param openid 用户唯一标识
+	 * @return 用户
+	 */
 	WxWorkWebsiteUsers getByAppidAndAgentidAndOpenid(@Param("appid") String appid, @Param("agentid") String agentid,
 			@Param("openid") String openid);
 
