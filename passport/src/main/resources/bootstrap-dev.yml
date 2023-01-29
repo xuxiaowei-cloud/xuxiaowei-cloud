@@ -152,7 +152,7 @@ gitlab:
   list:
     - appid: ${gitlab_appid:}
       secret: ${gitlab_secret:}
-      domain: https://gitlab.xuxiaowei.cn
+      domain: ${gitlab_domain:https://gitlab.com}
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitlab/code
       client-id: xuxiaowei_client_gitlab_id
       client-secret: xuxiaowei_client_gitlab_secret
