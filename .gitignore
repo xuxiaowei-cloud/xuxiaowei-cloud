@@ -63,3 +63,4 @@ node
 
 pom.xml.versionsBackup
 spy.log
+/.murphy.yml
