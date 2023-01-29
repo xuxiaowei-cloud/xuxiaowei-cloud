@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-01
  */
 @RestController
-@RequestMapping("//wx-open-website-users")
+@RequestMapping("/wx-open-website-users")
 public class WxOpenWebsiteUsersController {
 
 }
