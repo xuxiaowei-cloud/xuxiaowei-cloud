@@ -13,11 +13,10 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
@@ -28,10 +27,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatMiniProgramParameterNames;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.*;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
-import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
@@ -44,6 +41,7 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2TokenE
 import org.springframework.security.oauth2.server.authorization.web.authentication.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.Arrays;
@@ -80,6 +78,8 @@ public class AuthorizationServerConfiguration {
 
 	private IUsersService usersService;
 
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+
 	@Autowired
 	public void setCloudJwkKeyProperties(CloudJwkKeyProperties cloudJwkKeyProperties) {
 		this.cloudJwkKeyProperties = cloudJwkKeyProperties;
@@ -93,6 +93,12 @@ public class AuthorizationServerConfiguration {
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
+	}
+
+	@Autowired
+	@Qualifier("revocationAuthenticationSuccessHandler")
+	public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
 	}
 
 	/**
@@ -159,6 +165,12 @@ public class AuthorizationServerConfiguration {
 						// 新增：微博 网站应用 OAuth2 用于验证授权授予的 {@link
 						// OAuth2WeiBoWebsiteAuthenticationToken}
 						new OAuth2WeiBoWebsiteAuthenticationConverter(),
+						// 新增：GitLab 网站应用 OAuth2 用于验证授权授予的 {@link
+						// OAuth2GitLabAuthenticationToken}
+						new OAuth2GitLabAuthenticationConverter(),
+						// 新增：企业微信扫码登录 OAuth2 用于验证授权授予的 {@link
+						// OAuth2WeChatWorkWebsiteAuthenticationToken}
+						new OAuth2WeChatWorkWebsiteAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -180,34 +192,17 @@ public class AuthorizationServerConfiguration {
 		new OAuth2QQWebsiteAuthenticationProvider(http);
 		// 微博 网站应用 OAuth2 身份验证提供程序
 		new OAuth2WeiBoWebsiteAuthenticationProvider(http);
+		// GitLab 网站应用 OAuth2 身份验证提供程序
+		new OAuth2GitLabAuthenticationProvider(http);
+		// 企业微信扫码登录 OAuth2 身份验证提供程序
+		new OAuth2WeChatWorkWebsiteAuthenticationProvider(http);
+
+		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
+			// 自定义撤销授权成功后的处理
+			tokenRevocationEndpointCustomizer.revocationResponseHandler(authenticationSuccessHandler);
+		});
 
 		return http.build();
-	}
-
-	/**
-	 * @see RegisteredClientRepository 用于管理客户端的实例。
-	 */
-	@Bean
-	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-		return new JdbcRegisteredClientRepository(jdbcTemplate);
-	}
-
-	/**
-	 * 授权码、授权Token、刷新Token 持久化
-	 */
-	@Bean
-	public OAuth2AuthorizationService oauth2AuthorizationService(JdbcOperations jdbcOperations,
-			RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationService(jdbcOperations, registeredClientRepository);
-	}
-
-	/**
-	 * 授权 持久化
-	 */
-	@Bean
-	public OAuth2AuthorizationConsentService oauth2AuthorizationConsentService(JdbcOperations jdbcOperations,
-			RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationConsentService(jdbcOperations, registeredClientRepository);
 	}
 
 	/**

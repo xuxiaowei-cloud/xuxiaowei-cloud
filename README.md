@@ -23,7 +23,7 @@
 <p></p>
 
 <div align="center" style="text-align: center;">
-  基于 JDK 8/11、Spring Boot 2.7.x、OAuth 2.1、Vite 3、Vue 3、Element Plus 的微服务
+  基于 JDK 8/11、Spring Boot 2.7.x、OAuth 2.1、Vite 4、Vue 3、Element Plus 的微服务
 </div>
 
 <p></p>
@@ -101,7 +101,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.6&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.7&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -132,7 +132,7 @@
 ## 相关项目
 
 - xuxiaowei-cloud-next
-    - 使用 Spring Boot 3.0.0，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
+    - 使用 Spring Boot 3.x.x，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
         1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
         2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
         3. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
@@ -160,6 +160,66 @@
 ## [语雀文档](https://www.yuque.com/xuxiaowei-com-cn)
 
 1. [GitLab、kubernetes（k8s）、私库等](https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s)
+
+## 依赖版本对比
+
+### 后端
+
+| 依赖                          | 本项目版本          | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                       |
+|-----------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| spring-boot                 | v2.7.8         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 JDK 8，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a> |
+| spring-cloud                | v2021.0.5      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml">                    |                                                                                                          |
+| spring-cloud-alibaba        | v2.2.9.RELEASE | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionSuffix=RELEASE&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml">                     | 使用的是带 .RELEASE 后缀的版本                                                                                     |
+| spring-boot-admin           | v2.7.10        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml">                                | 限制 JDK 8                                                                                                 |
+| spring-authorization-server | v0.4.0         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 JDK 8                                                                                                 |
+| mybatis                     | v2.3.0         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml">                          | 限制 JDK 8，指 mybatis-spring-boot-starter                                                                   |
+| mybatis-plus                | v3.5.3.1       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml">                                                        |                                                                                                          |
+| dynamic-datasource          | v3.6.1         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                 |
+| guava                       | v31.1-jre      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                          |
+| fastjson                    | v2.0.23        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                            |
+| hutool                      | v5.8.11        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                          |
+
+### 前端
+
+| 依赖                               | 本项目版本   | 新版                                                                        | 说明  |
+|----------------------------------|---------|---------------------------------------------------------------------------|-----|
+| @element-plus/icons-vue          | 2.0.10  | <img src="https://img.shields.io/npm/v/@element-plus/icons-vue">          |     |
+| @tauri-apps/api                  | 1.2.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/api">                  |     |
+| @toast-ui/editor                 | 3.2.1   | <img src="https://img.shields.io/npm/v/@toast-ui/editor">                 |     |
+| @wangeditor/editor-for-vue       | 5.1.12  | <img src="https://img.shields.io/npm/v/@wangeditor/editor-for-vue/next">  |     |
+| axios                            | 1.2.5   | <img src="https://img.shields.io/npm/v/axios">                            |     |
+| crypto-js                        | 4.1.1   | <img src="https://img.shields.io/npm/v/crypto-js">                        |     |
+| echarts                          | 5.4.1   | <img src="https://img.shields.io/npm/v/echarts">                          |     |
+| element-plus                     | 2.2.28  | <img src="https://img.shields.io/npm/v/element-plus">                     |     |
+| js-cookie                        | 3.0.1   | <img src="https://img.shields.io/npm/v/js-cookie">                        |     |
+| jsencrypt                        | 3.3.1   | <img src="https://img.shields.io/npm/v/jsencrypt">                        |     |
+| pinia                            | 2.0.29  | <img src="https://img.shields.io/npm/v/pinia">                            |     |
+| sockjs-client                    | 1.6.1   | <img src="https://img.shields.io/npm/v/sockjs-client">                    |     |
+| stompjs                          | 2.3.3   | <img src="https://img.shields.io/npm/v/stompjs">                          |     |
+| vue                              | 3.2.45  | <img src="https://img.shields.io/npm/v/vue">                              |     |
+| vue-clipboard3                   | 2.0.0   | <img src="https://img.shields.io/npm/v/vue-clipboard3">                   |     |
+| vue-echarts                      | 6.5.1   | <img src="https://img.shields.io/npm/v/vue-echarts">                      |     |
+| vue-router                       | 4.1.6   | <img src="https://img.shields.io/npm/v/vue-router">                       |     |
+|                                  |         |                                                                           |     |
+| @tauri-apps/cli                  | 1.2.3   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                  |     |
+| @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                 |     |
+| @typescript-eslint/eslint-plugin | 5.49.0  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin"> |     |
+| @typescript-eslint/parser        | 5.49.0  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">        |     |
+| @vitejs/plugin-vue               | 4.0.0   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">               |     |
+| eslint                           | 8.32.0  | <img src="https://img.shields.io/npm/v/eslint">                           |     |
+| eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">           |     |
+| eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">             |     |
+| eslint-plugin-n                  | 15.6.1  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                  |     |
+| eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">            |     |
+| eslint-plugin-vue                | 9.9.0   | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                |     |
+| lint-staged                      | 13.1.0  | <img src="https://img.shields.io/npm/v/lint-staged">                      |     |
+| terser                           | 5.16.1  | <img src="https://img.shields.io/npm/v/terser">                           |     |
+| typescript                       | 4.9.4   | <img src="https://img.shields.io/npm/v/typescript">                       |     |
+| unocss                           | 0.49.1  | <img src="https://img.shields.io/npm/v/unocss">                           |     |
+| unplugin-auto-import             | 0.12.2  | <img src="https://img.shields.io/npm/v/unplugin-auto-import">             |     |
+| unplugin-vue-components          | 0.22.12 | <img src="https://img.shields.io/npm/v/unplugin-vue-components">          |     |
+| vite                             | 4.0.4   | <img src="https://img.shields.io/npm/v/vite">                             |     |
+| vue-tsc                          | 1.0.24  | <img src="https://img.shields.io/npm/v/vue-tsc">                          |     |
 
 ## 模块
 
@@ -283,16 +343,18 @@ cloud.xuxiaowei
 
 ### 客户ID与秘钥
 
-| 字段        | id  | client_id                              | client_id_issued_at | client_secret                              | client_secret_expires_at | client_authentication_methods          | authorization_grant_types                                    | redirect_uris                                                                                                                              | scopes                  | require-authorization-consent | authorization-code-time-to-live | access-token-time-to-live | refresh-token-time-to-live | 
-|-----------|-----|----------------------------------------|---------------------|--------------------------------------------|--------------------------|----------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-------------------------------|---------------------------------|---------------------------|----------------------------|
-| 说明        | 主键  | 客户ID                                   | 客户ID发布时间            | 客户秘钥                                       | 客户秘钥过期时间                 | 授权认证方法                                 | 授权类型                                                         | 授权码重定向地址                                                                                                                                   | 范围                      | 是否需要客户授权同意                    | 授权code有效时间                      | 授权Token有效时间               | 刷新Token有效时间                |
-| 网站使用      | 1   | xuxiaowei_client_id                    | 2022-05-30 17:17:41 | xuxiaowei_client_secret                    |                          | client_secret_post,client_secret_basic | refresh_token,implicit,client_credentials,authorization_code | http://127.0.0.1:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信小程序使用   | 2   | xuxiaowei_client_wechat_miniprogram_id | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_miniprogram_secret |                          | client_secret_post,client_secret_basic | refresh_token,wechat_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信公众号使用   | 3   | xuxiaowei_client_wechat_offiaccount_id | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_offiaccount_secret |                          | client_secret_post,client_secret_basic | refresh_token,wechat_offiaccount                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微信扫码使用    | 4   | xuxiaowei_client_wechat_oplatform_id   | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_oplatform_secret   |                          | client_secret_post,client_secret_basic | refresh_token,wechat_oplatform_website                       |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 码云Gitee使用 | 5   | xuxiaowei_client_gitee_id              | 2022-05-30 17:17:41 | xuxiaowei_client_gitee_secret              |                          | client_secret_post,client_secret_basic | refresh_token,gitee                                          |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| QQ扫码使用    | 6   | xuxiaowei_client_qq_website_id         | 2022-05-30 17:17:41 | xuxiaowei_client_qq_website_secret         |                          | client_secret_post,client_secret_basic | refresh_token,qq_website                                     |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
-| 微博扫码使用    | 7   | xuxiaowei_client_weibo_id              | 2022-05-30 17:17:41 | xuxiaowei_client_weibo_secret              |                          | client_secret_post,client_secret_basic | refresh_token,weibo_website                                  |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 字段        | id  | client_id                               | client_id_issued_at | client_secret                               | client_secret_expires_at | client_authentication_methods          | authorization_grant_types                                    | redirect_uris                                                                                                                              | scopes                  | require-authorization-consent | authorization-code-time-to-live | access-token-time-to-live | refresh-token-time-to-live | 
+|-----------|-----|-----------------------------------------|---------------------|---------------------------------------------|--------------------------|----------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-------------------------------|---------------------------------|---------------------------|----------------------------|
+| 说明        | 主键  | 客户ID                                    | 客户ID发布时间            | 客户秘钥                                        | 客户秘钥过期时间                 | 授权认证方法                                 | 授权类型                                                         | 授权码重定向地址                                                                                                                                   | 范围                      | 是否需要客户授权同意                    | 授权code有效时间                      | 授权Token有效时间               | 刷新Token有效时间                |
+| 网站使用      | 1   | xuxiaowei_client_id                     | 2022-05-30 17:17:41 | xuxiaowei_client_secret                     |                          | client_secret_post,client_secret_basic | refresh_token,implicit,client_credentials,authorization_code | http://127.0.0.1:1401/code,http://gateway.example.xuxiaowei.cloud:1101/passport/code,https://gateway.example.xuxiaowei.cloud/passport/code | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信小程序使用   | 2   | xuxiaowei_client_wechat_miniprogram_id  | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_miniprogram_secret  |                          | client_secret_post,client_secret_basic | refresh_token,wechat_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信公众号使用   | 3   | xuxiaowei_client_wechat_offiaccount_id  | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_offiaccount_secret  |                          | client_secret_post,client_secret_basic | refresh_token,wechat_offiaccount                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微信扫码使用    | 4   | xuxiaowei_client_wechat_oplatform_id    | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_oplatform_secret    |                          | client_secret_post,client_secret_basic | refresh_token,wechat_oplatform_website                       |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 码云Gitee使用 | 5   | xuxiaowei_client_gitee_id               | 2022-05-30 17:17:41 | xuxiaowei_client_gitee_secret               |                          | client_secret_post,client_secret_basic | refresh_token,gitee                                          |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| QQ扫码使用    | 6   | xuxiaowei_client_qq_website_id          | 2022-05-30 17:17:41 | xuxiaowei_client_qq_website_secret          |                          | client_secret_post,client_secret_basic | refresh_token,qq_website                                     |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 微博扫码使用    | 7   | xuxiaowei_client_weibo_id               | 2022-05-30 17:17:41 | xuxiaowei_client_weibo_secret               |                          | client_secret_post,client_secret_basic | refresh_token,weibo_website                                  |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| gitlab使用  | 8   | xuxiaowei_client_gitlab_id              | 2022-05-30 17:17:41 | xuxiaowei_client_gitlab_secret              |                          | client_secret_post,client_secret_basic | refresh_token,gitlab                                         |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 企业微信扫码使用  | 9   | xuxiaowei_client_wechat_work_website_id | 2022-05-30 17:17:41 | xuxiaowei_client_wechat_work_website_secret |                          | client_secret_post,client_secret_basic | refresh_token,wechat_work_website                            |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
 
 - authorization_grant_types
     - 授权码模式 authorization_code
@@ -301,6 +363,13 @@ cloud.xuxiaowei
     - 密码模式 password
     - 简化模式 implicit
     - 微信小程序（个人开发适配 OAuth 2.1、微信小程序的授权方式） wechat_miniprogram
+    - 微信公众号（个人开发适配 OAuth 2.1、微信公众号的授权方式） wechat_offiaccount
+    - 微信扫码（个人开发适配 OAuth 2.1、微信扫码的授权方式） wechat_oplatform_website
+    - 码云（个人开发适配 OAuth 2.1、码云的授权方式） gitee
+    - QQ扫码（个人开发适配 OAuth 2.1、QQ扫码的授权方式） qq_website
+    - 微博扫码（个人开发适配 OAuth 2.1、微博扫码的授权方式） weibo_website
+    - gitlab授权（个人开发适配 OAuth 2.1、gitlab的授权方式） gitlab
+    - 企业微信扫码（个人开发适配 OAuth 2.1、企业微信扫码的授权方式） wechat_work_website
 
 ### [Docker 说明](./docker)
 

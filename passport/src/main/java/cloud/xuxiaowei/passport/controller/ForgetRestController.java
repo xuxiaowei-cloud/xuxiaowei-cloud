@@ -41,7 +41,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static cloud.xuxiaowei.passport.controller.IndexController.RSA_PRIVATE_KEY_BASE64;
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 忘记密码
@@ -270,7 +270,7 @@ public class ForgetRestController {
                         "如果您没有请求重置密码，请忽略这封邮件。 \n\n" +
                         "在您点击上面链接修改密码之前，您的密码将会保持不变。 \n\n" +
                         "链接有效期 %s 小时(%s 过期)",
-                username, nickname, passportDomain, usersId, token, hours, DateUtils.format(expire, DEFAULT_DATE_TIME_FORMAT)));
+                username, nickname, passportDomain, usersId, token, hours, DateUtils.format(expire, NORM_DATETIME_PATTERN)));
         // @formatter:on
 
 		try {

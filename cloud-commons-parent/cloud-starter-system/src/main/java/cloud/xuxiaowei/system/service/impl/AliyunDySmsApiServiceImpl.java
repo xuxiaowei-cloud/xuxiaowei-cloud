@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cloud.xuxiaowei.utils.DateUtils.SHORT_DATE_FORMAT;
+import static cn.hutool.core.date.DatePattern.PURE_DATE_PATTERN;
 
 /**
  * 阿里云 短信服务 升级版
@@ -179,7 +179,7 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 		QuerySendDetailsRequest querySendDetailsRequest = new QuerySendDetailsRequest()
 				.setPhoneNumber(phoneNumber)
 				.setBizId(bizId)
-				.setSendDate(DateUtils.format(sendDate, SHORT_DATE_FORMAT))
+				.setSendDate(DateUtils.format(sendDate, PURE_DATE_PATTERN))
 				.setCurrentPage(currentPage)
 				.setPageSize(pageSize);
 		// @formatter:on

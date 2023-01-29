@@ -1,10 +1,7 @@
 package cloud.xuxiaowei.user.service.impl;
 
 import cloud.xuxiaowei.system.mapper.SocialMapper;
-import cloud.xuxiaowei.system.service.IGiteeUsersService;
-import cloud.xuxiaowei.system.service.IQqWebsiteUsersService;
-import cloud.xuxiaowei.system.service.IWeiBoWebsiteUsersService;
-import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import cloud.xuxiaowei.system.service.*;
 import cloud.xuxiaowei.system.vo.SocialVo;
 import cloud.xuxiaowei.user.service.SocialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,10 @@ public class SocialServiceImpl implements SocialService {
 
 	private IWeiBoWebsiteUsersService weiBoWebsiteUsersService;
 
+	private IGitlabUsersService gitlabUsersService;
+
+	private IWxWorkWebsiteUsersService wxWorkWebsiteUsersService;
+
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
@@ -52,6 +53,16 @@ public class SocialServiceImpl implements SocialService {
 	@Autowired
 	public void setWeiBoWebsiteUsersService(IWeiBoWebsiteUsersService weiBoWebsiteUsersService) {
 		this.weiBoWebsiteUsersService = weiBoWebsiteUsersService;
+	}
+
+	@Autowired
+	public void setGitlabUsersService(IGitlabUsersService gitlabUsersService) {
+		this.gitlabUsersService = gitlabUsersService;
+	}
+
+	@Autowired
+	public void setWxWorkWebsiteUsersService(IWxWorkWebsiteUsersService wxWorkWebsiteUsersService) {
+		this.wxWorkWebsiteUsersService = wxWorkWebsiteUsersService;
 	}
 
 	/**
@@ -81,6 +92,10 @@ public class SocialServiceImpl implements SocialService {
 				return qqWebsiteUsersService.unbinding(usersId);
 			case "4":
 				return weiBoWebsiteUsersService.unbinding(usersId);
+			case "5":
+				return gitlabUsersService.unbinding(usersId);
+			case "6":
+				return wxWorkWebsiteUsersService.unbinding(usersId);
 			default:
 				return false;
 		}

@@ -22,6 +22,7 @@ package:
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 分支上存在的上一个最新提交：$CI_COMMIT_BEFORE_SHA
     - echo 分支上存在的上一个最新提交前八个字符：$CI_COMMIT_SHORT_SHA
@@ -86,6 +87,7 @@ package:
       - "*/*/target/*.pom"
       - ui/dist
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
@@ -111,6 +113,7 @@ s2-package:
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR

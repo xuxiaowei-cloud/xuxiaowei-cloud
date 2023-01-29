@@ -39,7 +39,7 @@
         <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
         <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
         <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
-        <spring-boot.version>2.7.6</spring-boot.version>
+        <spring-boot.version>2.7.8</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/cloud/spring-cloud-dependencies -->
@@ -58,7 +58,7 @@
         <!-- https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/de/codecentric/spring-boot-admin-dependencies -->
         <!-- https://github.com/codecentric/spring-boot-admin -->
-        <spring-boot-admin.version>2.7.7</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
 
         <!-- OAuth 2.1 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
@@ -86,22 +86,29 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
         <spring-boot-starter-weibo.version>0.1.0-SNAPSHOT</spring-boot-starter-weibo.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitlab -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitlab/ -->
+        <spring-boot-starter-gitlab.version>0.1.0-SNAPSHOT</spring-boot-starter-gitlab.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-work -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-work/ -->
+        <spring-boot-starter-wechat-work.version>0.1.0-SNAPSHOT</spring-boot-starter-wechat-work.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/mybatis/spring/boot/mybatis-spring-boot-starter -->
         <!-- https://github.com/mybatis/spring-boot-starter -->
-        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <!-- 从 3.0.0 开始，需要 JDK 17，参见：https://repo1.maven.org/maven2/org/mybatis/spring/boot/mybatis-spring-boot/3.0.0/mybatis-spring-boot-3.0.0.pom -->
+        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
         <!-- MyBatis Plus -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-boot-starter -->
         <!-- https://github.com/baomidou/mybatis-plus -->
-        <mybatis-plus-boot-starter.version>3.5.2</mybatis-plus-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <!-- MyBatis Plus Generator -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-generator -->
         <!-- https://github.com/baomidou/generator -->
-        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+        <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
         <!-- Velocity -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/boot/spring-boot-starter-velocity -->
@@ -110,11 +117,11 @@
         <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://github.com/baomidou/dynamic-datasource-spring-boot-starter -->
-        <dynamic-datasource-spring-boot-starter.version>3.5.2</dynamic-datasource-spring-boot-starter.version>
+        <dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-extension -->
         <!-- https://github.com/baomidou/mybatis-plus -->
-        <mybatis-plus-extension.version>3.5.2</mybatis-plus-extension.version>
+        <mybatis-plus-extension.version>3.5.3.1</mybatis-plus-extension.version>
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
         <!-- https://oss.sonatype.org/content/repositories/public/p6spy/p6spy -->
@@ -147,12 +154,12 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.18</fastjson.version>
+        <fastjson.version>2.0.23</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
         <!-- https://github.com/dromara/hutool -->
-        <hutool-all.version>5.8.9</hutool-all.version>
+        <hutool-all.version>5.8.11</hutool-all.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
@@ -161,7 +168,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/cxf/cxf-rt-transports-http -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/cxf/cxf-rt-features-logging -->
         <!-- https://github.com/apache/cxf -->
-        <cxf.version>3.5.4</cxf.version>
+        <cxf.version>3.5.5</cxf.version>
 
         <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/dom4j/dom4j -->
@@ -192,7 +199,7 @@
         <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
         <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
         <!-- https://repo1.maven.org/maven2/com/aliyun/alibabacloud-dysmsapi20170525/ -->
-        <alibabacloud-dysmsapi20170525.version>1.0.1</alibabacloud-dysmsapi20170525.version>
+        <alibabacloud-dysmsapi20170525.version>2.0.22</alibabacloud-dysmsapi20170525.version>
 
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
@@ -202,7 +209,7 @@
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-javadoc/ -->
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-security/ -->
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-webflux-ui/ -->
-        <springdoc.version>1.6.12</springdoc.version>
+        <springdoc.version>1.6.13</springdoc.version>
         <!-- https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc -->
         <!-- https://repo1.maven.org/maven2/com/github/therapi/therapi-runtime-javadoc/ -->
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
@@ -365,6 +372,20 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-weibo</artifactId>
                 <version>${spring-boot-starter-weibo.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitlab -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitlab/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-gitlab</artifactId>
+                <version>${spring-boot-starter-gitlab.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-work -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-work/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-wechat-work</artifactId>
+                <version>${spring-boot-starter-wechat-work.version}</version>
             </dependency>
 
             <!-- MyBatis -->

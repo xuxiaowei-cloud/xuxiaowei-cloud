@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * <p>
@@ -122,14 +122,14 @@ public class UsersLogin implements Serializable {
 	/**
 	 * 创建时间，不为空，数据库自动生成
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 
 	/**
 	 * 更新时间，未更新时为空
 	 */
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.UPDATE)
 	private LocalDateTime updateDate;
 

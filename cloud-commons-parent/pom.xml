@@ -67,6 +67,12 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
         <!-- 工具类 -->
         <dependency>
             <groupId>cloud.xuxiaowei</groupId>

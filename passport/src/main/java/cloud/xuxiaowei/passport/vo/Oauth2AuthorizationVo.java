@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 授权表
@@ -33,20 +33,20 @@ public class Oauth2AuthorizationVo implements Serializable {
 
 	private String authorizationCodeValue;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime authorizationCodeIssuedAt;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime authorizationCodeExpiresAt;
 
 	private String authorizationCodeMetadata;
 
 	private String accessTokenValue;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime accessTokenIssuedAt;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime accessTokenExpiresAt;
 
 	private String accessTokenMetadata;
@@ -57,20 +57,20 @@ public class Oauth2AuthorizationVo implements Serializable {
 
 	private String oidcIdTokenValue;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime oidcIdTokenIssuedAt;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime oidcIdTokenExpiresAt;
 
 	private String oidcIdTokenMetadata;
 
 	private String refreshTokenValue;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime refreshTokenIssuedAt;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime refreshTokenExpiresAt;
 
 	private String refreshTokenMetadata;

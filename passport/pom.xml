@@ -137,18 +137,24 @@
             <groupId>cn.com.xuxiaowei.boot</groupId>
             <artifactId>spring-boot-starter-weibo</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitlab -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitlab/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-gitlab</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-work -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-work/ -->
+        <dependency>
+            <groupId>cn.com.xuxiaowei.boot</groupId>
+            <artifactId>spring-boot-starter-wechat-work</artifactId>
+        </dependency>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
         </dependency>
 
         <!-- Nacos 注册 -->

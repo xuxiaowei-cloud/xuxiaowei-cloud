@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * Canal 命令行运行器
@@ -115,7 +115,7 @@ public class CanalScheduled {
 
 		CanalEntry.Header header = entry.getHeader();
 		long executeTime = header.getExecuteTime();
-		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+		String executeTimeFormat = DateUtils.format(executeTime, NORM_DATETIME_PATTERN);
 
 		try {
 			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
@@ -170,7 +170,7 @@ public class CanalScheduled {
 		CanalEntry.Header header = entry.getHeader();
 		long executeTime = header.getExecuteTime();
 
-		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+		String executeTimeFormat = DateUtils.format(executeTime, NORM_DATETIME_PATTERN);
 
 		try {
 			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
@@ -227,7 +227,7 @@ public class CanalScheduled {
 		long executeTime = header.getExecuteTime();
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		String executeTimeFormat = DateUtils.format(executeTime, DEFAULT_DATE_TIME_FORMAT);
+		String executeTimeFormat = DateUtils.format(executeTime, NORM_DATETIME_PATTERN);
 
 		try {
 			CanalEntry.RowChange rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());

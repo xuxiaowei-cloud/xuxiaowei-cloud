@@ -7,6 +7,7 @@ cloud.xuxiaowei.system.service.impl.AliyunDySmsApiServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthoritiesServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthorityServiceImpl
 cloud.xuxiaowei.system.service.impl.GiteeUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.GitlabUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.QqWebsiteUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.SessionServiceImpl
 cloud.xuxiaowei.system.service.impl.SmsServiceImpl
@@ -16,3 +17,4 @@ cloud.xuxiaowei.system.service.impl.WeiBoWebsiteUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.WxMaUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.WxMpUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.WxOpenWebsiteUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.WxWorkWebsiteUsersServiceImpl

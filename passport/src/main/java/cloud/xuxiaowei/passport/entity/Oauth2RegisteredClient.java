@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * <p>
@@ -34,12 +34,12 @@ public class Oauth2RegisteredClient implements Serializable {
 
 	private String clientId;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientIdIssuedAt;
 
 	private String clientSecret;
 
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientSecretExpiresAt;
 
 	private String clientName;

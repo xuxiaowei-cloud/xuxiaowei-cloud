@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * <p>
@@ -37,8 +37,8 @@ public class Oauth2RegisteredClientUpdateBo implements Serializable {
 	/**
 	 * 客户ID发布时间
 	 */
-	@Schema(pattern = DEFAULT_DATE_TIME_FORMAT)
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@Schema(pattern = NORM_DATETIME_PATTERN)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientIdIssuedAt;
 
 	/**
@@ -49,8 +49,8 @@ public class Oauth2RegisteredClientUpdateBo implements Serializable {
 	/**
 	 * 客户秘钥过期时间
 	 */
-	@Schema(pattern = DEFAULT_DATE_TIME_FORMAT)
-	@JsonFormat(pattern = DEFAULT_DATE_TIME_FORMAT)
+	@Schema(pattern = NORM_DATETIME_PATTERN)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	private LocalDateTime clientSecretExpiresAt;
 
 	/**

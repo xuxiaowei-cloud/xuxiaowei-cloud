@@ -22,7 +22,7 @@ import java.util.Map;
  * 微信小程序 授权 测试类
  *
  * @author xuxiaowei
- * @see 0.0.1
+ * @since 0.0.1
  */
 @Slf4j
 class OAuth2WeChatMiniProgramTests {

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import static cloud.xuxiaowei.utils.DateUtils.DEFAULT_DATE_FORMAT;
+import static cn.hutool.core.date.DatePattern.NORM_DATE_PATTERN;
 
 /**
  * 用户表
@@ -39,7 +39,7 @@ public class UsersUpdateBo implements Serializable {
 	 * 生日
 	 */
 	@NotNull(message = "生日 不能为空")
-	@JsonFormat(pattern = DEFAULT_DATE_FORMAT)
+	@JsonFormat(pattern = NORM_DATE_PATTERN)
 	private LocalDate birthday;
 
 	/**
