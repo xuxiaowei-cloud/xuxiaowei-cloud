@@ -9,7 +9,10 @@ import cloud.xuxiaowei.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +64,12 @@ public class SocialRestController {
 			Authentication authentication, @Valid @RequestBody SocialBo socialBo) {
 		Long usersId = SecurityUtils.getUsersId(authentication);
 		boolean unbinding = socialService.unbinding(usersId, socialBo.getSocialCode());
-		return Response.ok(unbinding);
+		if (unbinding) {
+			return Response.ok("解绑成功");
+		}
+		else {
+			return Response.error("解绑失败");
+		}
 	}
 
 }
