@@ -94,6 +94,7 @@ const weChatOplatformWebsiteUrl = ref()
 const giteeUrl = ref()
 const qqWebsiteUrl = ref()
 const weiBoWebsiteUrl = ref()
+const gitlabUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -103,6 +104,7 @@ configuration().then(response => {
     giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}&binding=true&access_token=${useStore.getAccessToken}`
     qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}&binding=true&access_token=${useStore.getAccessToken}`
     weiBoWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/weibo/authorize/${response.data.weiBoWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
+    gitlabUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitlab/authorize/${response.data.gitlabAppid}?binding=true&access_token=${useStore.getAccessToken}`
   } else {
     ElMessage.error(msg)
   }
@@ -123,6 +125,8 @@ const binding = (row: { socialCode: string; }) => {
         break
       case '4':
         location.href = weiBoWebsiteUrl.value
+      case '5':
+        location.href = gitlabUrl.value
         break
     }
   }
