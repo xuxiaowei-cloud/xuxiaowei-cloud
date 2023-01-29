@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static cn.hutool.core.date.DatePattern.NORM_DATE_PATTERN;
 import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
+import static cn.hutool.core.date.DatePattern.NORM_DATE_PATTERN;
 import static com.baomidou.mybatisplus.annotation.FieldStrategy.IGNORED;
 
 /**
