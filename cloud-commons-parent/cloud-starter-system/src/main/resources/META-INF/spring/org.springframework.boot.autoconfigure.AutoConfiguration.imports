@@ -7,6 +7,7 @@ cloud.xuxiaowei.system.service.impl.AliyunDySmsApiServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthoritiesServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthorityServiceImpl
 cloud.xuxiaowei.system.service.impl.GiteeUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.GithubUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GitlabUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.QqWebsiteUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.SessionServiceImpl

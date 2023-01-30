@@ -8,64 +8,99 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * GitLab用户
+ * Github用户表
  * </p>
  *
- * @author 徐晓伟
- * @since 2022-12-01
+ * @author xuxiaowei
+ * @since 2023-01-30
  */
 @Data
-@TableName("gitlab_users")
-public class GitlabUsers implements Serializable {
+@TableName("github_users")
+public class GithubUsers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * GitLab用户主键，自增
+	 * Github用户表主键，自增
 	 */
-	@TableId(value = "gitlab_users_id", type = IdType.AUTO)
-	private Long gitlabUsersId;
+	@TableId(value = "github_users_id", type = IdType.AUTO)
+	private Long githubUsersId;
 
-	/**
-	 * 域名，不为空
-	 */
-	private String domain;
+	private String usersId;
 
-	/**
-	 * 绑定的用户主键，唯一键：
-	 */
-	private Long usersId;
-
-	/**
-	 * GitLab客户ID
-	 */
 	private String appid;
 
-	/**
-	 * GitLab网站唯一标识
-	 */
-	private Long id;
+	private String login;
 
-	/**
-	 * GitLab网站登录用户名，可能会被修改
-	 */
-	private String username;
+	private Integer id;
 
-	/**
-	 * GitLab网站用户名称
-	 */
+	private String nodeId;
+
+	private String avatarUrl;
+
+	private Integer gravatarId;
+
+	private String url;
+
+	private String htmlUrl;
+
+	private String followersUrl;
+
+	private String followingUrl;
+
+	private String gistsUrl;
+
+	private String starredUrl;
+
+	private String subscriptionsUrl;
+
+	private String organizationsUrl;
+
+	private String reposUrl;
+
+	private String eventsUrl;
+
+	private String receivedEventsUrl;
+
+	@TableField("`type`")
+	private String type;
+
+	private String siteAdmin;
+
 	@TableField("`name`")
 	private String name;
 
-	/**
-	 * 头像
-	 */
-	private String avatarUrl;
+	private String company;
+
+	private String blog;
+
+	private String location;
+
+	private String email;
+
+	private String hireable;
+
+	private String bio;
+
+	private String twitterUsername;
+
+	private String publicRepos;
+
+	private String publicGists;
+
+	private String followers;
+
+	@TableField("`following`")
+	private String following;
+
+	private String createdAt;
+
+	private String updatedAt;
 
 	/**
-	 * 邮箱
+	 * 绑定时间
 	 */
-	private String email;
+	private LocalDateTime bindingDate;
 
 	/**
 	 * 授权凭证

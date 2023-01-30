@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cloud.xuxiaowei.system.mapper.GitlabUsersMapper">
+<mapper namespace="cloud.xuxiaowei.system.mapper.GithubUsersMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.GitlabUsers">
-        <id column="gitlab_users_id" property="gitlabUsersId" />
-        <result column="domain" property="domain" />
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.GithubUsers">
+        <id column="github_users_id" property="githubUsersId" />
         <result column="users_id" property="usersId" />
         <result column="appid" property="appid" />
+        <result column="login" property="login" />
         <result column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="name" property="name" />
+        <result column="node_id" property="nodeId" />
         <result column="avatar_url" property="avatarUrl" />
+        <result column="gravatar_id" property="gravatarId" />
+        <result column="url" property="url" />
+        <result column="html_url" property="htmlUrl" />
+        <result column="followers_url" property="followersUrl" />
+        <result column="following_url" property="followingUrl" />
+        <result column="gists_url" property="gistsUrl" />
+        <result column="starred_url" property="starredUrl" />
+        <result column="subscriptions_url" property="subscriptionsUrl" />
+        <result column="organizations_url" property="organizationsUrl" />
+        <result column="repos_url" property="reposUrl" />
+        <result column="events_url" property="eventsUrl" />
+        <result column="received_events_url" property="receivedEventsUrl" />
+        <result column="type" property="type" />
+        <result column="site_admin" property="siteAdmin" />
+        <result column="name" property="name" />
+        <result column="company" property="company" />
+        <result column="blog" property="blog" />
+        <result column="location" property="location" />
         <result column="email" property="email" />
+        <result column="hireable" property="hireable" />
+        <result column="bio" property="bio" />
+        <result column="twitter_username" property="twitterUsername" />
+        <result column="public_repos" property="publicRepos" />
+        <result column="public_gists" property="publicGists" />
+        <result column="followers" property="followers" />
+        <result column="following" property="following" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="binding_date" property="bindingDate" />
         <result column="access_token" property="accessToken" />
         <result column="refresh_token" property="refreshToken" />
         <result column="expires" property="expires" />
@@ -71,8 +98,8 @@
 
     </resultMap>
 
-    <!-- 根据 GitLab-网站用户ID、用户唯一标识 查询用户 -->
-    <select id="getByAppidAndOpenid" resultMap="BaseResultMap">
+    <!-- 根据 GitHub唯一标识 查询 GitHub用户表 -->
+    <select id="getByAppidAndId" resultMap="BaseResultMap">
         SELECT
             gu.*,
             u.users_id AS u_users_id,
@@ -104,7 +131,7 @@
             a.update_date   AS a_update_date,
             a.create_date   AS a_create_date
         FROM
-            gitlab_users gu
+            github_users gu
                 LEFT JOIN users u ON gu.users_id = u.users_id
                 LEFT JOIN authorities AS a ON u.username = a.username
                 LEFT JOIN authority as ay ON ay.authority = a.authority
@@ -112,5 +139,4 @@
           AND gu.appid = #{appid}
           AND gu.id = #{id}
     </select>
-
 </mapper>

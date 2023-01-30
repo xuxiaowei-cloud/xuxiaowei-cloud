@@ -26,6 +26,8 @@
                 SELECT 5 AS social_code, 'GitLab' AS social_name
                 UNION ALL
                 SELECT 6 AS social_code, '企业微信' AS social_name
+                UNION ALL
+                SELECT 7 AS social_code, 'GitHub' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -109,6 +111,20 @@
                     wx_work_website_users wwwu
                 WHERE
                     wwwu.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    7 AS social_code,
+                    'GitHub' AS social_name,
+                    gu.name AS nickname,
+                    gu.avatar_url AS headimgurl,
+                    gu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    github_users gu
+                WHERE
+                    gu.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 
