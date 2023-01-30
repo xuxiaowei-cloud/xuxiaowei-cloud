@@ -329,6 +329,7 @@ public class GitLabServiceImpl implements GitLabService {
 		long id = userInfo.getId();
 
 		String accessToken = accessTokenResponse.getAccessToken();
+		String refreshToken = accessTokenResponse.getRefreshToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
 		GitlabUsers gitlabUsers = gitlabUsersService.getByAppidAndId(appid, id);
@@ -339,8 +340,9 @@ public class GitLabServiceImpl implements GitLabService {
 			BeanUtils.copyProperties(userInfo, users);
 
 			users.setAppid(appid);
-			// users.setAccessToken(accessToken);
-			// users.setExpires(expires);
+			users.setAccessToken(accessToken);
+			users.setRefreshToken(refreshToken);
+			users.setExpires(expires);
 			users.setCreateIp(remoteAddress);
 			users.setDomain(domain);
 			users.setId(id);
@@ -351,8 +353,9 @@ public class GitLabServiceImpl implements GitLabService {
 
 			BeanUtils.copyProperties(userInfo, gitlabUsers);
 
-			// gitlabUsers.setAccessToken(accessToken);
-			// gitlabUsers.setExpires(expires);
+			gitlabUsers.setAccessToken(accessToken);
+			gitlabUsers.setRefreshToken(refreshToken);
+			gitlabUsers.setExpires(expires);
 			gitlabUsers.setUpdateIp(remoteAddress);
 			gitlabUsersService.updateById(gitlabUsers);
 		}

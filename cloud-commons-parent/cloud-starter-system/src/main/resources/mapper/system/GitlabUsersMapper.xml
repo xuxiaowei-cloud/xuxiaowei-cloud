@@ -13,6 +13,9 @@
         <result column="name" property="name" />
         <result column="avatar_url" property="avatarUrl" />
         <result column="email" property="email" />
+        <result column="access_token" property="accessToken" />
+        <result column="refresh_token" property="refreshToken" />
+        <result column="expires" property="expires" />
         <result column="remark" property="remark" />
         <result column="create_date" property="createDate" />
         <result column="update_date" property="updateDate" />

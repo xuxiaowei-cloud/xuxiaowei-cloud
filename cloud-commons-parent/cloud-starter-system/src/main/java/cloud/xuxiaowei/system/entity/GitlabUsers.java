@@ -68,6 +68,21 @@ public class GitlabUsers implements Serializable {
 	private String email;
 
 	/**
+	 * 授权凭证
+	 */
+	private String accessToken;
+
+	/**
+	 * 刷新凭证
+	 */
+	private String refreshToken;
+
+	/**
+	 * 过期时间
+	 */
+	private LocalDateTime expires;
+
+	/**
 	 * 用户备注信息，只有在查询用户关系时才返回此字段
 	 */
 	private String remark;
