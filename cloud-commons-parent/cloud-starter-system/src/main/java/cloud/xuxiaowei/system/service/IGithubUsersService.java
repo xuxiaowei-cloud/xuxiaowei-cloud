@@ -27,13 +27,13 @@ public interface IGithubUsersService extends IService<GithubUsers> {
 	 * @param appid github-网站用户ID
 	 * @param id 用户唯一标识
 	 */
-    void binding(long usersId, String appid, int id);
+	void binding(long usersId, String appid, int id);
 
 	/**
 	 * 社交解绑
 	 * @param usersId 用户主键
 	 * @return 返回 解绑结果
 	 */
-    boolean unbinding(Long usersId);
+	boolean unbinding(Long usersId);
 
 }

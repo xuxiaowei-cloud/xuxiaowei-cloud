@@ -14,12 +14,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface GithubUsersMapper extends BaseMapper<GithubUsers> {
 
-    /**
-     * 根据 GitHub唯一标识 查询 GitHub用户表
-     * @param appid 此处是 {@link String} 类型的 clientId，并不是 GitHub 中的 {@link Integer} 类型的appid
-     * @param id GitHub唯一标识
-     * @return 返回 GitHub用户表
-     */
-    GithubUsers getByAppidAndId(@Param("appid") String appid, @Param("id") int id);
+	/**
+	 * 根据 GitHub唯一标识 查询 GitHub用户表
+	 * @param appid 此处是 {@link String} 类型的 clientId，并不是 GitHub 中的 {@link Integer} 类型的appid
+	 * @param id GitHub唯一标识
+	 * @return 返回 GitHub用户表
+	 */
+	GithubUsers getByAppidAndId(@Param("appid") String appid, @Param("id") int id);
 
 }
