@@ -193,10 +193,14 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/gitlab/authorize/*").permitAll()
 					// GitLab 网站应用 授权码接收服务
 					.antMatchers("/gitlab/code/*").permitAll()
-					// 企业微信扫码登录 授权码接收服务
+					// 企业微信扫码登录 跳转到企业微信授权页面
 					.antMatchers("/wechat-work/website/authorize/*/*").permitAll()
 					// 企业微信扫码登录 授权码接收服务
 					.antMatchers("/wechat-work/website/code/*/*").permitAll()
+					// Github 登录 跳转到Github授权页面
+					.antMatchers("/github/authorize/*").permitAll()
+					// Github 登录 授权码接收服务
+					.antMatchers("/github/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址

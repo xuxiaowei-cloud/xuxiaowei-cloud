@@ -35,6 +35,8 @@ public class SocialServiceImpl implements SocialService {
 
 	private IWxWorkWebsiteUsersService wxWorkWebsiteUsersService;
 
+	private IGithubUsersService githubUsersService;
+
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
@@ -63,6 +65,11 @@ public class SocialServiceImpl implements SocialService {
 	@Autowired
 	public void setWxWorkWebsiteUsersService(IWxWorkWebsiteUsersService wxWorkWebsiteUsersService) {
 		this.wxWorkWebsiteUsersService = wxWorkWebsiteUsersService;
+	}
+
+	@Autowired
+	public void setGithubUsersService(IGithubUsersService githubUsersService) {
+		this.githubUsersService = githubUsersService;
 	}
 
 	/**
@@ -96,6 +103,8 @@ public class SocialServiceImpl implements SocialService {
 				return gitlabUsersService.unbinding(usersId);
 			case "6":
 				return wxWorkWebsiteUsersService.unbinding(usersId);
+			case "7":
+				return githubUsersService.unbinding(usersId);
 			default:
 				return false;
 		}

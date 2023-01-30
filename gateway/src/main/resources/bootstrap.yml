@@ -375,6 +375,10 @@ cloud:
           - /wechat-work/website/authorize/*/*
           # 企业微信扫码登录 授权码接收服务
           - /wechat-work/website/code/*/*
+          # Github 登录 授权页面
+          - /github/authorize/*
+          # Github 登录 授权码接收服务
+          - /github/code/*
           # 配置
           - /configuration
           # springdoc

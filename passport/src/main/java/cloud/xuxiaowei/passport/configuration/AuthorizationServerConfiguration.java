@@ -171,6 +171,9 @@ public class AuthorizationServerConfiguration {
 						// 新增：企业微信扫码登录 OAuth2 用于验证授权授予的 {@link
 						// OAuth2WeChatWorkWebsiteAuthenticationToken}
 						new OAuth2WeChatWorkWebsiteAuthenticationConverter(),
+						// 新增：GitHub 登录 OAuth2 用于验证授权授予的 {@link
+						// OAuth2GitHubAuthenticationToken}
+						new OAuth2GitHubAuthenticationConverter(),
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
 						// 默认值：OAuth2 刷新令牌认证转换器
@@ -196,6 +199,8 @@ public class AuthorizationServerConfiguration {
 		new OAuth2GitLabAuthenticationProvider(http);
 		// 企业微信扫码登录 OAuth2 身份验证提供程序
 		new OAuth2WeChatWorkWebsiteAuthenticationProvider(http);
+		// GitHub 登录 OAuth2 身份验证提供程序
+		new OAuth2GitHubAuthenticationProvider(http);
 
 		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
 			// 自定义撤销授权成功后的处理

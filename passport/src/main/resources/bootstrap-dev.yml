@@ -176,3 +176,16 @@ wechat:
           token-url-prefix: http://127.0.0.1:${server.port:80}
           scope: wechat_work_website
           success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+github:
+  default-role: ${github_default_role:github}
+  list:
+    - appid: ${github_appid:}
+      secret: ${github_secret:}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/github/code
+      client-id: xuxiaowei_client_github_id
+      client-secret: xuxiaowei_client_github_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: github
+      success-url: http://example.xuxiaowei.cloud:1001/#/
