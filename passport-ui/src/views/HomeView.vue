@@ -67,7 +67,7 @@
           </el-tooltip>
 
           <el-tooltip class="box-item" effect="dark" content="钉钉扫码登录" placement="top">
-            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+            <el-link :href="dingtalkUrl" class="ml-4px mr-4px">
               <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
               <img src="../assets/dingtalk-circle-fill.png" alt="钉钉扫码登录" width="30">
             </el-link>
@@ -150,6 +150,7 @@ const weiBoWebsiteUrl = ref()
 const gitlabUrl = ref()
 const weChatWorkWebsiteUrl = ref()
 const githubUrl = ref()
+const dingtalkUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -162,6 +163,7 @@ configuration().then(response => {
     gitlabUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitlab/authorize/${response.data.gitlabAppid}`
     weChatWorkWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-work/website/authorize/${response.data.weChatWorkWebsiteAppid}/${response.data.weChatWorkWebsiteAgentid}`
     githubUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/github/authorize/${response.data.githubAppid}`
+    dingtalkUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/dingtalk/authorize/${response.data.dingtalkAppid}`
   } else {
     ElMessage.error(msg)
   }

@@ -95,6 +95,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-github -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-github/ -->
         <spring-boot-starter-github.version>0.1.0-SNAPSHOT</spring-boot-starter-github.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-dingtalk -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-dingtalk/ -->
+        <spring-boot-starter-dingtalk.version>0.1.0-SNAPSHOT</spring-boot-starter-dingtalk.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -396,6 +399,13 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-github</artifactId>
                 <version>${spring-boot-starter-github.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-dingtalk -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-dingtalk/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-dingtalk</artifactId>
+                <version>${spring-boot-starter-dingtalk.version}</version>
             </dependency>
 
             <!-- MyBatis -->

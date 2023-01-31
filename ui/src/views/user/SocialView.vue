@@ -2,7 +2,7 @@
   <!-- 引入微信扫码登录：网站内嵌二维码微信登录 JS -->
   <!-- <component :is="'script'" src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"/> -->
   <el-container>
-    <el-table stripe :data="tableData" v-loading="loading" height="500">
+    <el-table stripe :data="tableData" v-loading="loading" height="550">
       <el-table-column prop="socialName" label="socialName" width="200"/>
       <el-table-column prop="nickname" label="nickname" width="200"/>
       <el-table-column prop="headimgurl" label="headimgurl" width="200">
@@ -97,6 +97,7 @@ const weiBoWebsiteUrl = ref()
 const gitlabUrl = ref()
 const weChatWorkWebsiteUrl = ref()
 const githubUrl = ref()
+const dingtalkUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -109,6 +110,7 @@ configuration().then(response => {
     gitlabUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitlab/authorize/${response.data.gitlabAppid}?binding=true&access_token=${useStore.getAccessToken}`
     weChatWorkWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-work/website/authorize/${response.data.weChatWorkWebsiteAppid}/${response.data.weChatWorkWebsiteAgentid}?binding=true&access_token=${useStore.getAccessToken}`
     githubUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/github/authorize/${response.data.githubAppid}?binding=true&access_token=${useStore.getAccessToken}`
+    dingtalkUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/dingtalk/authorize/${response.data.dingtalkAppid}?binding=true&access_token=${useStore.getAccessToken}`
   } else {
     ElMessage.error(msg)
   }
@@ -138,6 +140,8 @@ const binding = (row: { socialCode: string; }) => {
         break
       case '7':
         location.href = githubUrl.value
+      case '8':
+        location.href = dingtalkUrl.value
         break
     }
   }

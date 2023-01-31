@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.DingtalkUsersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.DingtalkUsers">
+        <id column="dingtalk_users_id" property="dingtalkUsersId" />
+        <result column="users_id" property="usersId" />
+        <result column="appid" property="appid" />
+        <result column="corp_id" property="corpId" />
+        <result column="open_id" property="openId" />
+        <result column="union_id" property="unionId" />
+        <result column="nick" property="nick" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="email" property="email" />
+        <result column="state_code" property="stateCode" />
+        <result column="mobile" property="mobile" />
+        <result column="access_token" property="accessToken" />
+        <result column="refresh_token" property="refreshToken" />
+        <result column="expire_in" property="expireIn" />
+        <result column="expires" property="expires" />
+        <result column="binding_date" property="bindingDate" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+
+        <association property="users" javaType="cloud.xuxiaowei.system.entity.Users">
+
+            <id column="u_users_id" property="usersId" />
+            <result column="u_username" property="username" />
+            <result column="u_email" property="email" />
+            <result column="u_email_valid" property="emailValid" />
+            <result column="u_phone" property="phone" />
+            <result column="u_phone_valid" property="phoneValid" />
+            <result column="u_nickname" property="nickname" />
+            <result column="u_password" property="password" />
+            <result column="u_sex" property="sex" />
+            <result column="u_sex_label" property="sexLabel" />
+            <result column="u_sex_explain" property="sexExplain" />
+            <result column="u_birthday" property="birthday" />
+            <result column="u_province_code" property="provinceCode" />
+            <result column="u_province_name" property="provinceName" />
+            <result column="u_city_code" property="cityCode" />
+            <result column="u_city_name" property="cityName" />
+            <result column="u_county_code" property="countyCode" />
+            <result column="u_county_name" property="countyName" />
+            <result column="u_town_code" property="townCode" />
+            <result column="u_town_name" property="townName" />
+            <result column="u_village_code" property="villageCode" />
+            <result column="u_village_name" property="villageName" />
+            <result column="u_detail_address" property="detailAddress" />
+            <result column="u_enabled" property="enabled" />
+            <result column="u_account_non_expired" property="accountNonExpired" />
+            <result column="u_credentials_non_expired" property="credentialsNonExpired" />
+            <result column="u_account_non_locked" property="accountNonLocked" />
+            <result column="u_update_date" property="updateDate" />
+            <result column="u_create_date" property="createDate" />
+            <result column="u_deleted" property="deleted" />
+
+            <!-- 权限 -->
+            <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
+                <id column="a_username" property="username" />
+                <id column="a_authority" property="authority" />
+                <result column="a_explain" property="explain" />
+                <result column="a_update_date" property="updateDate" />
+                <result column="a_create_date" property="createDate" />
+            </collection>
+
+        </association>
+
+    </resultMap>
+
+    <!-- 根据 钉钉-网站用户ID、用户唯一标识 查询用户 -->
+    <select id="getByAppidAndOpenId" resultMap="BaseResultMap">
+        SELECT
+            du.*,
+            u.users_id AS u_users_id,
+            u.username AS u_username,
+            u.email AS u_email,
+            u.email_valid AS u_email_valid,
+            u.phone AS u_phone,
+            u.phone_valid AS u_phone_valid,
+            u.nickname AS u_nickname,
+            u.`password` AS u_password,
+            u.sex AS u_sex,
+            u.birthday AS u_birthday,
+            u.province_code AS u_province_code,
+            u.city_code AS u_city_code,
+            u.county_code AS u_county_code,
+            u.town_code AS u_town_code,
+            u.village_code AS u_village_code,
+            u.detail_address AS u_detail_address,
+            u.enabled AS u_enabled,
+            u.account_non_expired AS u_account_non_expired,
+            u.credentials_non_expired AS u_credentials_non_expired,
+            u.account_non_locked AS u_account_non_locked,
+            u.create_date AS u_create_date,
+            u.update_date AS u_update_date,
+            u.deleted AS u_deleted,
+            a.username      AS a_username,
+            a.authority     AS a_authority,
+            ay.explain      AS a_explain,
+            a.update_date   AS a_update_date,
+            a.create_date   AS a_create_date
+        FROM
+            dingtalk_users AS du
+            LEFT JOIN users AS u ON du.users_id = u.users_id AND u.deleted = 0
+            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authority as ay ON ay.authority = a.authority
+        WHERE du.deleted = 0
+            AND du.appid = #{appid}
+            AND du.open_id = #{openId}
+    </select>
+</mapper>
