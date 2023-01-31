@@ -98,6 +98,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-dingtalk -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-dingtalk/ -->
         <spring-boot-starter-dingtalk.version>0.1.0-SNAPSHOT</spring-boot-starter-dingtalk.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-miniprogram -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-miniprogram/ -->
+        <spring-boot-starter-qq-miniprogram.version>0.1.0-SNAPSHOT</spring-boot-starter-qq-miniprogram.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -406,6 +409,13 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-dingtalk</artifactId>
                 <version>${spring-boot-starter-dingtalk.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-miniprogram -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-miniprogram/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-qq-miniprogram</artifactId>
+                <version>${spring-boot-starter-qq-miniprogram.version}</version>
             </dependency>
 
             <!-- MyBatis -->
