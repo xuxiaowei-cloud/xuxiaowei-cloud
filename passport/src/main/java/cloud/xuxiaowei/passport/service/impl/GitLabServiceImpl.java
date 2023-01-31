@@ -46,7 +46,7 @@ import org.springframework.security.oauth2.server.authorization.client.GitLabTok
 import org.springframework.security.oauth2.server.authorization.client.InMemoryGitLabService;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectWeiBoException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectGitLabException;
 import org.springframework.security.oauth2.server.authorization.properties.GitLabProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
@@ -471,7 +471,7 @@ public class GitLabServiceImpl implements GitLabService {
 		}
 		catch (IOException e) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "GitLab 网站应用重定向异常", null);
-			throw new RedirectWeiBoException(error);
+			throw new RedirectGitLabException(error);
 		}
 
 	}
