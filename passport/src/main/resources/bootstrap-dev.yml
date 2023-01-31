@@ -177,6 +177,16 @@ wechat:
           scope: wechat_work_website
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
+---
+
+wechat:
+  mini:
+    program:
+      default-role: ${wechat_miniprogram_default_role:wechat_miniprogram}
+      list:
+        - appid: ${wechat_miniprogram_appid:}
+          secret: ${wechat_miniprogram_secret:}
+
 
 github:
   default-role: ${github_default_role:github}
