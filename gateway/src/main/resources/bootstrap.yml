@@ -379,6 +379,10 @@ cloud:
           - /github/authorize/*
           # Github 登录 授权码接收服务
           - /github/code/*
+          # 钉钉 dingtalk 登录 授权页面
+          - /dingtalk/authorize/*
+          # 钉钉 dingtalk 登录 授权码接收服务
+          - /dingtalk/code/*
           # 配置
           - /configuration
           # springdoc

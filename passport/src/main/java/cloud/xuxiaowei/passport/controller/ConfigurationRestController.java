@@ -35,6 +35,8 @@ public class ConfigurationRestController {
 
 	private GitHubProperties gitHubProperties;
 
+	private DingtalkProperties dingtalkProperties;
+
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
 		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
@@ -70,6 +72,11 @@ public class ConfigurationRestController {
 		this.gitHubProperties = gitHubProperties;
 	}
 
+	@Autowired
+	public void setDingtalkProperties(DingtalkProperties dingtalkProperties) {
+		this.dingtalkProperties = dingtalkProperties;
+	}
+
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
@@ -81,6 +88,7 @@ public class ConfigurationRestController {
 		String weChatWorkWebsiteAppid = weChatWorkWebsiteProperties.getDefaultAppid();
 		String weChatWorkWebsiteAgentid = weChatWorkWebsiteProperties.getGetDefaultAgentid();
 		String githubAppid = gitHubProperties.getDefaultAppid();
+		String dingtalkAppid = dingtalkProperties.getDefaultAppid();
 
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
@@ -97,7 +105,9 @@ public class ConfigurationRestController {
 				.put("weChatWorkWebsiteAppid", weChatWorkWebsiteAppid)
 				.put("weChatWorkWebsiteAgentid", weChatWorkWebsiteAgentid)
 				// GitHub 网站应用 ID
-				.put("githubAppid", githubAppid);
+				.put("githubAppid", githubAppid)
+				// 钉钉 dingtalk 网站应用 ID
+				.put("dingtalkAppid", dingtalkAppid);
 	}
 
 }

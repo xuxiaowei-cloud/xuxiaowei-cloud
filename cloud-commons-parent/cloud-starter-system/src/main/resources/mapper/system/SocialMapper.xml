@@ -28,6 +28,8 @@
                 SELECT 6 AS social_code, '企业微信' AS social_name
                 UNION ALL
                 SELECT 7 AS social_code, 'GitHub' AS social_name
+                UNION ALL
+                SELECT 8 AS social_code, '钉钉' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -125,6 +127,20 @@
                     github_users gu
                 WHERE
                     gu.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    8 AS social_code,
+                    '钉钉' AS social_name,
+                    du.nick AS nickname,
+                    du.avatar_url AS headimgurl,
+                    du.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    dingtalk_users du
+                WHERE
+                    du.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 

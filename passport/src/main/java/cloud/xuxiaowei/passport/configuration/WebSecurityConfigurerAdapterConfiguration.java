@@ -201,6 +201,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/github/authorize/*").permitAll()
 					// Github 登录 授权码接收服务
 					.antMatchers("/github/code/*").permitAll()
+					// 钉钉 dingtalk 登录 跳转到 钉钉 dingtalk 授权页面
+					.antMatchers("/dingtalk/authorize/*").permitAll()
+					// 钉钉 dingtalk 登录 授权码接收服务
+					.antMatchers("/dingtalk/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址

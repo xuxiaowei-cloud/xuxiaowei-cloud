@@ -37,6 +37,8 @@ public class SocialServiceImpl implements SocialService {
 
 	private IGithubUsersService githubUsersService;
 
+	private IDingtalkUsersService dingtalkUsersService;
+
 	@Autowired
 	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
@@ -72,6 +74,11 @@ public class SocialServiceImpl implements SocialService {
 		this.githubUsersService = githubUsersService;
 	}
 
+	@Autowired
+	public void setDingtalkUsersService(IDingtalkUsersService dingtalkUsersService) {
+		this.dingtalkUsersService = dingtalkUsersService;
+	}
+
 	/**
 	 * 根据用户主键获取社交绑定
 	 * @param usersId 用户主键
@@ -105,6 +112,8 @@ public class SocialServiceImpl implements SocialService {
 				return wxWorkWebsiteUsersService.unbinding(usersId);
 			case "7":
 				return githubUsersService.unbinding(usersId);
+			case "8":
+				return dingtalkUsersService.unbinding(usersId);
 			default:
 				return false;
 		}
