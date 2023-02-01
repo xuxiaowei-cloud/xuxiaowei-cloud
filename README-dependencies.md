@@ -267,6 +267,10 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-weibo:jar:0.1.0-SNAPSHOT:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-gitlab:jar:0.1.0-SNAPSHOT:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-wechat-work:jar:0.1.0-SNAPSHOT:compile
+│        └──cn.com.xuxiaowei.boot:spring-boot-starter-github:jar:0.1.0-SNAPSHOT:compile
+│        └──cn.com.xuxiaowei.boot:spring-boot-starter-dingtalk:jar:0.1.0-SNAPSHOT:compile
+│        └──cn.com.xuxiaowei.boot:spring-boot-starter-qq-miniprogram:jar:0.1.0-SNAPSHOT:compile
+│        └──cn.com.xuxiaowei.boot:spring-boot-starter-alipay-miniprogram:jar:0.1.0-SNAPSHOT:compile
 │        └──p6spy:p6spy:jar:3.9.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2.2.9.RELEASE:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2.2.9.RELEASE:compile

@@ -358,6 +358,7 @@ cloud.xuxiaowei
 | github使用     | 10  | xuxiaowei_client_github_id              | 2022-05-30 17:17:41 | xuxiaowei_client_github_secret              |                          | client_secret_post,client_secret_basic | refresh_token,github                                         |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
 | 钉钉dingtalk使用 | 11  | xuxiaowei_client_dingtalk_id            | 2022-05-30 17:17:41 | xuxiaowei_client_dingtalk_secret            |                          | client_secret_post,client_secret_basic | refresh_token,dingtalk                                       |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
 | QQ小程序使用      | 12  | xuxiaowei_client_qq_miniprogram_id      | 2022-05-30 17:17:41 | xuxiaowei_client_qq_miniprogram_secret      |                          | client_secret_post,client_secret_basic | refresh_token,qq_miniprogram                                 |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
+| 支付宝小程序使用     | 13  | xuxiaowei_client_alipay_miniprogram_id  | 2022-05-30 17:17:41 | xuxiaowei_client_alipay_miniprogram_secret  |                          | client_secret_post,client_secret_basic | refresh_token,alipay_miniprogram                             |                                                                                                                                            | snsapi_base,snsapi_info | false                         | 300                             | 43200                     | 2592000                    |
 
 - authorization_grant_types
     - 授权码模式 authorization_code
@@ -375,6 +376,7 @@ cloud.xuxiaowei
     - 企业微信扫码（个人开发适配 OAuth 2.1、企业微信扫码的授权方式） wechat_work_website
     - github授权（个人开发适配 OAuth 2.1、gitlab的授权方式） github
     - 钉钉dingtalk扫码（个人开发适配 OAuth 2.1、钉钉dingtalk扫码的授权方式） dingtalk
+    - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
 
 ### [Docker 说明](./docker)
 
