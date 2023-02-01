@@ -376,6 +376,7 @@ cloud.xuxiaowei
     - 企业微信扫码（个人开发适配 OAuth 2.1、企业微信扫码的授权方式） wechat_work_website
     - github授权（个人开发适配 OAuth 2.1、gitlab的授权方式） github
     - 钉钉dingtalk扫码（个人开发适配 OAuth 2.1、钉钉dingtalk扫码的授权方式） dingtalk
+    - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
 
 ### [Docker 说明](./docker)
 
