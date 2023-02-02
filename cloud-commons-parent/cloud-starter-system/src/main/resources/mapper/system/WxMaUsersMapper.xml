@@ -8,6 +8,7 @@
         <result column="appid" property="appid" />
         <result column="openid" property="openid" />
         <result column="unionid" property="unionid" />
+        <result column="session_key" property="sessionKey" />
         <result column="remark" property="remark" />
         <result column="create_date" property="createDate" />
         <result column="update_date" property="updateDate" />

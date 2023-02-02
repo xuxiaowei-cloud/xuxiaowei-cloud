@@ -45,6 +45,11 @@ public class WxMaUsers implements Serializable {
 	private String unionid;
 
 	/**
+	 * 会话密钥
+	 */
+	private String sessionKey;
+
+	/**
 	 * 备注
 	 */
 	private String remark;
