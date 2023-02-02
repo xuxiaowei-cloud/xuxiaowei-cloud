@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author xuxiaoweei
  * @since 2023-02-02
  */
-@Getter
-@Setter
+@Data
 @TableName("qq_miniprogram_users")
 public class QqMiniprogramUsers implements Serializable {
 

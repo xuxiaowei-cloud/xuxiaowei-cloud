@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2022-09-27
  */
-@Getter
-@Setter
+@Data
 @TableName("wx_mp_users")
 public class WxMpUsers implements Serializable {
 

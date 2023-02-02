@@ -1,9 +1,6 @@
 package cloud.xuxiaowei.system.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -26,6 +23,7 @@ public class AlipayMiniprogramUsers implements Serializable {
 	/**
 	 * 支付宝小程序用户主键ID，自增
 	 */
+	@TableId(value = "alipay_miniprogram_users_id", type = IdType.AUTO)
 	private Long alipayMiniprogramUsersId;
 
 	private String appid;
