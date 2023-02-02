@@ -10,6 +10,7 @@ cloud.xuxiaowei.system.service.impl.DingtalkUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GiteeUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GithubUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GitlabUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.QqMiniprogramUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.QqWebsiteUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.SessionServiceImpl
 cloud.xuxiaowei.system.service.impl.SmsServiceImpl
