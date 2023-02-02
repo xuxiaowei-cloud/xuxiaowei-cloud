@@ -138,7 +138,7 @@ qq:
 qq:
   mini:
     program:
-      default-role: ${qq_miniprogram_default_role:qq_website}
+      default-role: ${qq_miniprogram_default_role:qq_miniprogram}
       list:
         - appid: ${qq_miniprogram_appid:}
           secret: ${qq_miniprogram_secret:}

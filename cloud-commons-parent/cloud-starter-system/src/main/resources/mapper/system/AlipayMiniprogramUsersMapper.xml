@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.AlipayMiniprogramUsersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.AlipayMiniprogramUsers">
+        <id column="alipay_miniprogram_users_id" property="alipayMiniprogramUsersId" />
+        <result column="appid" property="appid" />
+        <result column="user_id" property="userId" />
+        <result column="union_id" property="unionId" />
+        <result column="open_id" property="openId" />
+        <result column="taobao_id" property="taobaoId" />
+        <result column="age" property="age" />
+        <result column="area" property="area" />
+        <result column="avatar" property="avatar" />
+        <result column="business_scope" property="businessScope" />
+        <result column="cert_no" property="certNo" />
+        <result column="cert_type" property="certType" />
+        <result column="city" property="city" />
+        <result column="college_name" property="collegeName" />
+        <result column="country_code" property="countryCode" />
+        <result column="degree" property="degree" />
+        <result column="display_name" property="displayName" />
+        <result column="email" property="email" />
+        <result column="enrollment_time" property="enrollmentTime" />
+        <result column="ent_license_address" property="entLicenseAddress" />
+        <result column="ent_license_area" property="entLicenseArea" />
+        <result column="ent_license_city" property="entLicenseCity" />
+        <result column="ent_license_province" property="entLicenseProvince" />
+        <result column="firm_agent_person_cert_expiry_date" property="firmAgentPersonCertExpiryDate" />
+        <result column="firm_agent_person_cert_no" property="firmAgentPersonCertNo" />
+        <result column="firm_agent_person_cert_type" property="firmAgentPersonCertType" />
+        <result column="firm_agent_person_name" property="firmAgentPersonName" />
+        <result column="firm_legal_person_cert_expiry_date" property="firmLegalPersonCertExpiryDate" />
+        <result column="firm_legal_person_cert_no" property="firmLegalPersonCertNo" />
+        <result column="firm_legal_person_cert_type" property="firmLegalPersonCertType" />
+        <result column="firm_legal_person_name" property="firmLegalPersonName" />
+        <result column="firm_type" property="firmType" />
+        <result column="gender" property="gender" />
+        <result column="graduation_time" property="graduationTime" />
+        <result column="identity_card_address" property="identityCardAddress" />
+        <result column="identity_card_area" property="identityCardArea" />
+        <result column="identity_card_city" property="identityCardCity" />
+        <result column="identity_card_province" property="identityCardProvince" />
+        <result column="inst_or_corp" property="instOrCorp" />
+        <result column="is_adult" property="isAdult" />
+        <result column="is_balance_frozen" property="isBalanceFrozen" />
+        <result column="is_blocked" property="isBlocked" />
+        <result column="is_certified" property="isCertified" />
+        <result column="is_student_certified" property="isStudentCertified" />
+        <result column="license_expiry_date" property="licenseExpiryDate" />
+        <result column="license_no" property="licenseNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="mobile" property="mobile" />
+        <result column="nick_name" property="nickName" />
+        <result column="organization_code" property="organizationCode" />
+        <result column="person_birthday" property="personBirthday" />
+        <result column="person_birthday_without_year" property="personBirthdayWithoutYear" />
+        <result column="person_cert_expiry_date" property="personCertExpiryDate" />
+        <result column="person_cert_issue_date" property="personCertIssueDate" />
+        <result column="phone" property="phone" />
+        <result column="profession" property="profession" />
+        <result column="province" property="province" />
+        <result column="address" property="address" />
+        <result column="user_name" property="userName" />
+        <result column="user_nation" property="userNation" />
+        <result column="user_status" property="userStatus" />
+        <result column="user_type" property="userType" />
+        <result column="zip" property="zip" />
+        <result column="access_token" property="accessToken" />
+        <result column="auth_start" property="authStart" />
+        <result column="auth_token_type" property="authTokenType" />
+        <result column="expires_in" property="expiresIn" />
+        <result column="re_expires_in" property="reExpiresIn" />
+        <result column="refresh_token" property="refreshToken" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>

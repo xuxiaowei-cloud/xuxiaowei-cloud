@@ -1,41 +1,40 @@
 package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
-
 /**
  * <p>
- * 微信小程序用户
+ * QQ小程序用户
  * </p>
  *
- * @author xuxiaowei
- * @since 2022-05-15
+ * @author xuxiaoweei
+ * @since 2023-02-02
  */
-@Data
-@TableName("wx_ma_users")
-public class WxMaUsers implements Serializable {
+@Getter
+@Setter
+@TableName("qq_miniprogram_users")
+public class QqMiniprogramUsers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 微信小程序用户主键ID，自增
+	 * QQ小程序用户主键ID，自增
 	 */
-	@TableId(value = "wx_ma_users_id", type = IdType.AUTO)
-	private Long wxMaUsersId;
+	@TableId(value = "qq_miniprogram_users_id", type = IdType.AUTO)
+	private Long qqMiniprogramUsersId;
 
 	/**
-	 * 小程序标识，不为空，唯一键：uk__wx_ma_users__appid__openid
+	 * 小程序标识，不为空，唯一键：uk__qq_miniprogram_users__appid__openid
 	 */
 	private String appid;
 
 	/**
-	 * 用户标识（针对于某个小程序），不为空，唯一键：uk__wx_ma_users__appid__openid
+	 * 用户标识（针对于某个小程序），不为空，唯一键：uk__qq_miniprogram_users__appid__openid
 	 */
 	private String openid;
 
@@ -57,14 +56,12 @@ public class WxMaUsers implements Serializable {
 	/**
 	 * 创建时间，不为空
 	 */
-	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 
 	/**
 	 * 更新时间，未更新时为空
 	 */
-	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
 	@TableField(fill = FieldFill.UPDATE)
 	private LocalDateTime updateDate;
 

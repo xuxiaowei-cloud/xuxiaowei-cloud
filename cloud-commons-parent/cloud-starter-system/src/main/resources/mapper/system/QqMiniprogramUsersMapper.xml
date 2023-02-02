@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cloud.xuxiaowei.system.mapper.WxMaUsersMapper">
+<mapper namespace="cloud.xuxiaowei.system.mapper.QqMiniprogramUsersMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.WxMaUsers">
-        <id column="wx_ma_users_id" property="wxMaUsersId" />
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.QqMiniprogramUsers">
+        <id column="qq_miniprogram_users_id" property="qqMiniprogramUsersId" />
         <result column="appid" property="appid" />
         <result column="openid" property="openid" />
         <result column="unionid" property="unionid" />

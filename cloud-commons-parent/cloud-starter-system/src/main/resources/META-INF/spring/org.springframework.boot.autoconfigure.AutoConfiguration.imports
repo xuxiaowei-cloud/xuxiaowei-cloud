@@ -3,6 +3,7 @@ cloud.xuxiaowei.system.configuration.WebMvcConfigurerConfiguration
 cloud.xuxiaowei.system.filter.HttpServletRequestInputStreamFilter
 cloud.xuxiaowei.system.filter.LogHttpFilter
 cloud.xuxiaowei.system.interceptor.EncryptHandlerInterceptor
+cloud.xuxiaowei.system.service.impl.AlipayMiniprogramUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.AliyunDySmsApiServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthoritiesServiceImpl
 cloud.xuxiaowei.system.service.impl.AuthorityServiceImpl
@@ -10,6 +11,7 @@ cloud.xuxiaowei.system.service.impl.DingtalkUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GiteeUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GithubUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.GitlabUsersServiceImpl
+cloud.xuxiaowei.system.service.impl.QqMiniprogramUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.QqWebsiteUsersServiceImpl
 cloud.xuxiaowei.system.service.impl.SessionServiceImpl
 cloud.xuxiaowei.system.service.impl.SmsServiceImpl
