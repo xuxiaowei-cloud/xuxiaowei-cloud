@@ -228,7 +228,6 @@ alipay:
     program:
       default-role: ${alipay_miniprogram_default_role:alipay_miniprogram}
       list:
-        - appid: ${alipay_miniprogram_appid:}
+        - app-id: ${alipay_miniprogram_appid:}
           private-key: ${alipay_miniprogram_private_key:}
           alipay-public-key: ${alipay_miniprogram_alipay_public_key:}
-          sign-type: ${alipay_miniprogram_alipay_sign_type:RSA2}
