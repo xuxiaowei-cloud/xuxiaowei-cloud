@@ -1,8 +1,7 @@
 package cloud.xuxiaowei.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author xuxiaowei
  * @since 2023-01-31
  */
-@Getter
-@Setter
+@Data
 @TableName("dingtalk_users")
 public class DingtalkUsers implements Serializable {
 
