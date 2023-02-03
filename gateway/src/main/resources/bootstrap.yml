@@ -383,6 +383,10 @@ cloud:
           - /dingtalk/authorize/*
           # 钉钉 dingtalk 登录 授权码接收服务
           - /dingtalk/code/*
+          # 支付宝 网站应用 登录 授权页面
+          - /alipay-oplatform/website/authorize/*
+          # 支付宝 网站应用 登录 授权码接收服务
+          - /alipay-oplatform/website/code/*
           # 配置
           - /configuration
           # springdoc

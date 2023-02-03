@@ -37,6 +37,8 @@ public class ConfigurationRestController {
 
 	private DingtalkProperties dingtalkProperties;
 
+	private AlipayOplatformWebsiteProperties alipayOplatformWebsiteProperties;
+
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
 		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
@@ -77,6 +79,11 @@ public class ConfigurationRestController {
 		this.dingtalkProperties = dingtalkProperties;
 	}
 
+	@Autowired
+	public void setAlipayOplatformWebsiteProperties(AlipayOplatformWebsiteProperties alipayOplatformWebsiteProperties) {
+		this.alipayOplatformWebsiteProperties = alipayOplatformWebsiteProperties;
+	}
+
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
@@ -89,6 +96,7 @@ public class ConfigurationRestController {
 		String weChatWorkWebsiteAgentid = weChatWorkWebsiteProperties.getGetDefaultAgentid();
 		String githubAppid = gitHubProperties.getDefaultAppid();
 		String dingtalkAppid = dingtalkProperties.getDefaultAppid();
+		String alipayOplatformWebsiteAppid = alipayOplatformWebsiteProperties.getDefaultAppid();
 
 		return ResponseMap.ok()
 				// 微信开放平台 网站应用 ID
@@ -107,7 +115,9 @@ public class ConfigurationRestController {
 				// GitHub 网站应用 ID
 				.put("githubAppid", githubAppid)
 				// 钉钉 dingtalk 网站应用 ID
-				.put("dingtalkAppid", dingtalkAppid);
+				.put("dingtalkAppid", dingtalkAppid)
+				// 支付宝 网站应用 ID
+				.put("alipayOplatformWebsiteAppid", alipayOplatformWebsiteAppid);
 	}
 
 }

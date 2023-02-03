@@ -74,7 +74,7 @@
           </el-tooltip>
 
           <el-tooltip class="box-item" effect="dark" content="支付宝扫码登录" placement="top">
-            <el-link href="javascript:void(0);" onclick="alert('正在开发中')" class="ml-4px mr-4px">
+            <el-link :href="alipayOplatformWebsiteUrl" class="ml-4px mr-4px">
               <!-- Ant Design 官方图标库：https://www.iconfont.cn/collections/detail?cid=9402 -->
               <img src="../assets/alipay-circle-fill.png" alt="支付宝扫码登录" width="30">
             </el-link>
@@ -151,6 +151,7 @@ const gitlabUrl = ref()
 const weChatWorkWebsiteUrl = ref()
 const githubUrl = ref()
 const dingtalkUrl = ref()
+const alipayOplatformWebsiteUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -164,6 +165,7 @@ configuration().then(response => {
     weChatWorkWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-work/website/authorize/${response.data.weChatWorkWebsiteAppid}/${response.data.weChatWorkWebsiteAgentid}`
     githubUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/github/authorize/${response.data.githubAppid}`
     dingtalkUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/dingtalk/authorize/${response.data.dingtalkAppid}`
+    alipayOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/alipay-oplatform/website/authorize/${response.data.alipayOplatformWebsiteAppid}`
   } else {
     ElMessage.error(msg)
   }

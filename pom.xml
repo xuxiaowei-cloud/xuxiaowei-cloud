@@ -104,6 +104,9 @@
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-alipay-miniprogram -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-alipay-miniprogram/ -->
         <spring-boot-starter-alipay-miniprogram.version>0.1.0-SNAPSHOT</spring-boot-starter-alipay-miniprogram.version>
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-alipay-oplatform -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-alipay-oplatform/ -->
+        <spring-boot-starter-alipay-oplatform.version>0.1.0-SNAPSHOT</spring-boot-starter-alipay-oplatform.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -426,6 +429,13 @@
                 <groupId>cn.com.xuxiaowei.boot</groupId>
                 <artifactId>spring-boot-starter-alipay-miniprogram</artifactId>
                 <version>${spring-boot-starter-alipay-miniprogram.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-alipay-oplatform -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-alipay-oplatform/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-boot-starter-alipay-oplatform</artifactId>
+                <version>${spring-boot-starter-alipay-oplatform.version}</version>
             </dependency>
 
             <!-- MyBatis -->
