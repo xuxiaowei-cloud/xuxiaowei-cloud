@@ -26,7 +26,7 @@ public class WxWorkWebsiteUsers implements Serializable {
 	@TableId(value = "wx_work_website_users_id", type = IdType.AUTO)
 	private Long wxWorkWebsiteUsersId;
 
-	private String usersId;
+	private Long usersId;
 
 	private String appid;
 

@@ -26,7 +26,7 @@ public class GithubUsers implements Serializable {
 	@TableId(value = "github_users_id", type = IdType.AUTO)
 	private Long githubUsersId;
 
-	private String usersId;
+	private Long usersId;
 
 	private String appid;
 

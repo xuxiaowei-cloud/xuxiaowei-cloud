@@ -26,7 +26,7 @@ public class DingtalkUsers implements Serializable {
 	@TableId(value = "dingtalk_users_id", type = IdType.AUTO)
 	private Long dingtalkUsersId;
 
-	private String usersId;
+	private Long usersId;
 
 	private String appid;
 
