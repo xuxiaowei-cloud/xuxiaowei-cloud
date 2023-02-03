@@ -46,7 +46,7 @@ import org.springframework.security.oauth2.core.http.converter.OAuth2AccessToken
 import org.springframework.security.oauth2.server.authorization.client.*;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectUriAlipayOplatformException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectUriAlipayOplatformWebsiteException;
 import org.springframework.security.oauth2.server.authorization.properties.AlipayOplatformWebsiteProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
@@ -489,7 +489,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		}
 		catch (IOException e) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "支付宝 网站应用重定向异常", null);
-			throw new RedirectUriAlipayOplatformException(error);
+			throw new RedirectUriAlipayOplatformWebsiteException(error);
 		}
 	}
 

@@ -46,7 +46,7 @@ import org.springframework.security.oauth2.server.authorization.client.WeChatOpl
 import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteTokenResponse;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOplatformException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOplatformWebsiteException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
@@ -475,7 +475,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		}
 		catch (IOException e) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "微信开放平台 网站应用重定向异常", null);
-			throw new RedirectWeChatOplatformException(error);
+			throw new RedirectWeChatOplatformWebsiteException(error);
 		}
 	}
 

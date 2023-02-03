@@ -80,12 +80,12 @@ public class AlipayMiniProgramServiceImpl implements AlipayMiniProgramService {
 	 * 拦截处理此异常
 	 */
 	@Override
-	public AlipayMiniProgramTokenResponse getAlipayTokenResponse(String appid, String code)
+	public AlipayMiniProgramTokenResponse getAccessTokenResponse(String appid, String code)
 			throws OAuth2AuthenticationException {
 		InMemoryAlipayMiniProgramService inMemoryAlipayMiniProgramService = new InMemoryAlipayMiniProgramService(
 				alipayMiniProgramProperties);
 		AlipayMiniProgramTokenResponse alipayMiniProgramTokenResponse = inMemoryAlipayMiniProgramService
-				.getAlipayTokenResponse(appid, code);
+				.getAccessTokenResponse(appid, code);
 
 		AlipaySystemOauthTokenResponse systemOauthTokenResponse = alipayMiniProgramTokenResponse
 				.getSystemOauthTokenResponse();
