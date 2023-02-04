@@ -231,3 +231,20 @@ alipay:
         - app-id: ${alipay_miniprogram_appid:}
           private-key: ${alipay_miniprogram_private_key:}
           alipay-public-key: ${alipay_miniprogram_alipay_public_key:}
+
+---
+
+alipay:
+  oplatform:
+    website:
+      default-role: ${alipay_oplatform_website_default_role:alipay_oplatform_website}
+      list:
+        - app-id: ${alipay_oplatform_website_appid:}
+          private-key: ${alipay_oplatform_website_private_key:}
+          alipay-public-key: ${alipay_oplatform_website_alipay_public_key:}
+          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/alipay-oplatform/website/code
+          client-id: xuxiaowei_client_alipay_oplatform_website_id
+          client-secret: xuxiaowei_client_alipay_oplatform_website_secret
+          token-url-prefix: http://127.0.0.1:${server.port:80}
+          scope: alipay_oplatform_website
+          success-url: http://example.xuxiaowei.cloud:1001/#/

@@ -1,10 +1,10 @@
 package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
+import cloud.xuxiaowei.system.entity.AlipayOplatformWebsiteUsers;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers;
-import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import cloud.xuxiaowei.system.service.IAlipayOplatformWebsiteUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -14,6 +14,8 @@ import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.oauth2.LoginAuthenticationException;
 import cloud.xuxiaowei.utils.map.ResponseMap;
+import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.alipay.api.response.AlipayUserInfoShareResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,8 +29,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AlipayOplatformWebsiteAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.WeChatOplatformWebsiteAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,13 +43,11 @@ import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryWeChatOplatformWebsiteService;
-import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteService;
-import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteTokenResponse;
+import org.springframework.security.oauth2.server.authorization.client.*;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOplatformWebsiteException;
-import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectUriAlipayOplatformWebsiteException;
+import org.springframework.security.oauth2.server.authorization.properties.AlipayOplatformWebsiteProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -56,7 +56,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,32 +63,35 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 微信开放平台 网站应用 服务接口 实现类
+ * 支付宝 网站应用 账户服务接口
  *
  * @author xuxiaowei
  * @since 0.0.1
+ * @see RegisteredClientRepository
+ * @see InMemoryRegisteredClientRepository
+ * @see JdbcRegisteredClientRepository
  */
 @Slf4j
 @Service
-public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsiteService {
+public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsiteService {
 
-	private final static String WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX = "wechat_oplatform_website_state_prefix";
+	private final static String ALIPAY_OPLATFORM_WEBSITE_STATE_PREFIX = "alipay_oplatform_website_state_prefix";
 
-	private final static String WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX = "wechat_oplatform_website_binding_prefix";
+	private final static String ALIPAY_OPLATFORM_WEBSITE_BINDING_PREFIX = "alipay_oplatform_website_binding_prefix";
 
-	private final static String WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX = "wechat_oplatform_website_users_prefix";
+	private final static String ALIPAY_OPLATFORM_WEBSITE_USERS_PREFIX = "alipay_oplatform_website_users_prefix";
 
-	private WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties;
+	private AlipayOplatformWebsiteProperties alipayOplatformWebsiteProperties;
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
+	private IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService;
 
 	private SessionService sessionService;
 
 	@Autowired
-	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
-		this.weChatOplatformWebsiteProperties = weChatOplatformWebsiteProperties;
+	public void setAlipayOplatformWebsiteProperties(AlipayOplatformWebsiteProperties alipayOplatformWebsiteProperties) {
+		this.alipayOplatformWebsiteProperties = alipayOplatformWebsiteProperties;
 	}
 
 	@Autowired
@@ -98,8 +100,9 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	}
 
 	@Autowired
-	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
-		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
+	public void setAlipayOplatformWebsiteUsersService(
+			IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService) {
+		this.alipayOplatformWebsiteUsersService = alipayOplatformWebsiteUsersService;
 	}
 
 	@Autowired
@@ -118,9 +121,9 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 */
 	@Override
 	public String getRedirectUriByAppid(String appid) throws OAuth2AuthenticationException {
-		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
-				weChatOplatformWebsiteProperties);
-		return weChatOplatformWebsiteService.getRedirectUriByAppid(appid);
+		InMemoryAlipayOplatformWebsiteService gitLabService = new InMemoryAlipayOplatformWebsiteService(
+				alipayOplatformWebsiteProperties);
+		return gitLabService.getRedirectUriByAppid(appid);
 	}
 
 	/**
@@ -133,7 +136,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	@Override
 	public String stateGenerate(HttpServletRequest request, HttpServletResponse response, String appid) {
 		String state = UUID.randomUUID().toString();
-		sessionService.set(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state, state, 30,
+		sessionService.set(ALIPAY_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state, state, 30,
 				TimeUnit.MINUTES);
 		return state;
 	}
@@ -150,7 +153,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	public void storeBinding(HttpServletRequest request, HttpServletResponse response, String appid, String state,
 			String binding) {
 		if (binding != null) {
-			sessionService.set(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state, binding, 30,
+			sessionService.set(ALIPAY_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state, binding, 30,
 					TimeUnit.MINUTES);
 		}
 	}
@@ -167,7 +170,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	public void storeUsers(HttpServletRequest request, HttpServletResponse response, String appid, String state,
 			String binding) {
 		Long usersId = SecurityUtils.getUsersId();
-		sessionService.set(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state, usersId + "", 30,
+		sessionService.set(ALIPAY_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state, usersId + "", 30,
 				TimeUnit.MINUTES);
 	}
 
@@ -184,14 +187,14 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	@Override
 	public boolean stateValid(HttpServletRequest request, HttpServletResponse response, String appid, String code,
 			String state) {
-		String string = sessionService.get(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
+		String string = sessionService.get(ALIPAY_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
 		if (!StringUtils.hasText(string)) {
 			Response<?> error = Response.error("非法状态码");
 			ResponseUtils.response(response, error);
 			return false;
 		}
 		else if (string.equals(state)) {
-			sessionService.remove(WECHAT_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
+			sessionService.remove(ALIPAY_OPLATFORM_WEBSITE_STATE_PREFIX + ":" + appid + ":" + state);
 			return true;
 		}
 		else {
@@ -213,26 +216,26 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	@Override
 	public String getBinding(HttpServletRequest request, HttpServletResponse response, String appid, String code,
 			String state) {
-		String binding = sessionService.get(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
-		sessionService.remove(WECHAT_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
+		String binding = sessionService.get(ALIPAY_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
+		sessionService.remove(ALIPAY_OPLATFORM_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + state);
 		return binding;
 	}
 
 	/**
-	 * 根据 appid 获取 微信开放平台 网站应用属性配置
+	 * 根据 appid 获取 支付宝 网站应用属性配置
 	 * @param appid 公众号ID
-	 * @return 返回 微信开放平台 网站应用属性配置
+	 * @return 返回 支付宝 网站应用属性配置
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
 	 * 拦截处理此异常
 	 */
 	@Override
-	public WeChatOplatformWebsiteProperties.WeChatOplatformWebsite getWeChatOplatformWebsiteByAppid(String appid)
+	public AlipayOplatformWebsiteProperties.AlipayOplatformWebsite getAlipayOplatformWebsiteByAppid(String appid)
 			throws OAuth2AuthenticationException {
-		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
-				weChatOplatformWebsiteProperties);
-		return weChatOplatformWebsiteService.getWeChatOplatformWebsiteByAppid(appid);
+		InMemoryAlipayOplatformWebsiteService gitLabService = new InMemoryAlipayOplatformWebsiteService(
+				alipayOplatformWebsiteProperties);
+		return gitLabService.getAlipayOplatformWebsiteByAppid(appid);
 	}
 
 	/**
@@ -255,9 +258,12 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+
 		RestTemplate restTemplate = new RestTemplate();
+
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
 		messageConverters.add(5, new OAuth2AccessTokenResponseHttpMessageConverter());
+
 		String postForObject = restTemplate.postForObject(tokenUrlPrefix + tokenUrl, httpEntity, String.class,
 				uriVariables);
 
@@ -308,83 +314,93 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @param code 授权码
 	 * @param state 状态码
 	 * @param binding 是否绑定，需要使用者自己去拓展
-	 * @param accessTokenUrl 通过 code 换取网页授权 access_token 的 URL
-	 * @param userinfoUrl 通过 access_token 获取用户个人信息
 	 * @param remoteAddress 用户IP
 	 * @param sessionId SessionID
-	 * @return 返回 微信授权结果
+	 * @return 返回 支付宝授权结果
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
 	 * 拦截处理此异常
 	 */
-	@SneakyThrows
 	@Override
-	public WeChatOplatformWebsiteTokenResponse getAccessTokenResponse(String appid, String code, String state,
-			String binding, String accessTokenUrl, String userinfoUrl, String remoteAddress, String sessionId)
-			throws OAuth2AuthenticationException {
-		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
-				weChatOplatformWebsiteProperties);
-		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService.getAccessTokenResponse(
-				appid, code, state, binding, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
+	public AlipayOplatformWebsiteTokenResponse getAccessTokenResponse(String appid, String code, String state,
+			String binding, String remoteAddress, String sessionId) throws OAuth2AuthenticationException {
+		InMemoryAlipayOplatformWebsiteService dingtalkService = new InMemoryAlipayOplatformWebsiteService(
+				alipayOplatformWebsiteProperties);
+		AlipayOplatformWebsiteTokenResponse accessTokenResponse = dingtalkService.getAccessTokenResponse(appid, code,
+				state, binding, remoteAddress, sessionId);
 
-		String openid = accessTokenResponse.getOpenid();
+		AlipaySystemOauthTokenResponse systemOauthTokenResponse = accessTokenResponse.getSystemOauthTokenResponse();
+		AlipayUserInfoShareResponse userInfoShareResponse = accessTokenResponse.getUserInfoShareResponse();
 
-		Integer expiresIn = accessTokenResponse.getExpiresIn();
-		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		String[] privilege = accessTokenResponse.getPrivilege();
-		ObjectMapper objectMapper = new ObjectMapper();
-		String privilegeStr = objectMapper.writeValueAsString(privilege);
+		String userId = systemOauthTokenResponse.getUserId();
+		String accessToken = systemOauthTokenResponse.getAccessToken();
+		String refreshToken = systemOauthTokenResponse.getRefreshToken();
+		String expiresIn = systemOauthTokenResponse.getExpiresIn();
+		// LocalDateTime expires = LocalDateTime.now().plusSeconds(expireIn);
+		String openId = userInfoShareResponse.getOpenId();
+		String unionId = systemOauthTokenResponse.getUnionId();
 
-		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
-		if (wxOpenWebsiteUsers == null) {
+		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
+				.getByAppidAndUserId(appid, userId);
+		// @formatter:off
+		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndOpenId(appid,
+		// 		openId);
+		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndUnionId(appid,
+		// 		unionId);
+		// @formatter:on
 
-			WxOpenWebsiteUsers websiteUsers = new WxOpenWebsiteUsers();
+		if (alipayOplatformWebsiteUsers == null) {
 
-			BeanUtils.copyProperties(accessTokenResponse, websiteUsers);
+			AlipayOplatformWebsiteUsers users = new AlipayOplatformWebsiteUsers();
 
-			websiteUsers.setPrivilege(privilegeStr);
-			websiteUsers.setExpires(expires);
-			websiteUsers.setCreateIp(remoteAddress);
+			BeanUtils.copyProperties(systemOauthTokenResponse, users);
+			BeanUtils.copyProperties(userInfoShareResponse, users);
 
-			wxOpenWebsiteUsersService.save(websiteUsers);
+			users.setAppid(appid);
+			users.setAccessToken(accessToken);
+			users.setRefreshToken(refreshToken);
+			// users.setExpires(expires);
+			users.setCreateIp(remoteAddress);
+
+			alipayOplatformWebsiteUsersService.save(users);
 		}
 		else {
 
-			BeanUtils.copyProperties(accessTokenResponse, wxOpenWebsiteUsers);
+			BeanUtils.copyProperties(systemOauthTokenResponse, alipayOplatformWebsiteUsers);
+			BeanUtils.copyProperties(userInfoShareResponse, alipayOplatformWebsiteUsers);
 
-			wxOpenWebsiteUsers.setPrivilege(privilegeStr);
-			wxOpenWebsiteUsers.setExpires(expires);
-			wxOpenWebsiteUsers.setUpdateIp(remoteAddress);
-			wxOpenWebsiteUsersService.updateById(wxOpenWebsiteUsers);
+			// alipayOplatformWebsiteUsers.setExpires(expires);
+			alipayOplatformWebsiteUsers.setUpdateIp(remoteAddress);
+			alipayOplatformWebsiteUsersService.updateById(alipayOplatformWebsiteUsers);
 		}
 
 		// 绑定用户
 		if (Boolean.TRUE.toString().equals(binding)) {
 
-			String usersIdStr = sessionService.get(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
+			String usersIdStr = sessionService.get(ALIPAY_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			wxOpenWebsiteUsersService.binding(usersId, appid, openid);
+			alipayOplatformWebsiteUsersService.binding(usersId, appid, userId);
 		}
 
 		return accessTokenResponse;
 	}
 
 	/**
-	 * 构建 微信开放平台 网站应用 认证信息
+	 * 构建 支付宝 网站应用 认证信息
 	 * @param clientPrincipal 经过身份验证的客户端主体
 	 * @param additionalParameters 附加参数
 	 * @param details 登录信息
 	 * @param appid AppID
 	 * @param code 授权码
-	 * @param openid 用户唯一标识
+	 * @param userId
+	 * @param openId 用户唯一标识
 	 * @param credentials 证书
 	 * @param unionid 多账户用户唯一标识
 	 * @param accessToken 授权凭证
 	 * @param refreshToken 刷新凭证
 	 * @param expiresIn 过期时间
-	 * @param scope 授权范围
 	 * @return 返回 认证信息
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
@@ -393,26 +409,24 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 */
 	@Override
 	public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
-			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
-			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn,
-			String scope) throws OAuth2AuthenticationException {
-		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+			Map<String, Object> additionalParameters, Object details, String appid, String code, String userId,
+			String openId, Object credentials, String unionid, String accessToken, String refreshToken,
+			String expiresIn) throws OAuth2AuthenticationException {
+		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
+				.getByAppidAndUserId(appid, userId);
 
-		if (wxOpenWebsiteUsers == null) {
-			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到微信用户或已被删除", null);
+		if (alipayOplatformWebsiteUsers == null) {
+			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到支付宝网站应用用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = wxOpenWebsiteUsers.getUsers();
+		Users users = alipayOplatformWebsiteUsers.getUsers();
 		if (users == null) {
-			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到微信绑定的用户", null);
+			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到支付宝网站应用绑定的用户", null);
 			throw new LoginAuthenticationException(error);
 		}
-
 		String username = users.getUsername();
-
 		List<GrantedAuthority> authorities = new ArrayList<>();
-
 		List<Authorities> authoritiesList = users.getAuthoritiesList();
 
 		boolean allowEmptyAuthorities = cloudSecurityProperties.isAllowEmptyAuthorities();
@@ -424,17 +438,17 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(auth.getAuthority());
 			authorities.add(authority);
 		}
-
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(
-				weChatOplatformWebsiteProperties.getDefaultRole());
+				alipayOplatformWebsiteProperties.getDefaultRole());
 		authorities.add(authority);
 		User user = new User(username, accessToken, authorities);
 
 		UsernamePasswordAuthenticationToken principal = UsernamePasswordAuthenticationToken.authenticated(user, null,
 				user.getAuthorities());
 
-		WeChatOplatformWebsiteAuthenticationToken authenticationToken = new WeChatOplatformWebsiteAuthenticationToken(
-				authorities, clientPrincipal, principal, user, additionalParameters, details, appid, code, openid);
+		AlipayOplatformWebsiteAuthenticationToken authenticationToken = new AlipayOplatformWebsiteAuthenticationToken(
+				authorities, clientPrincipal, principal, user, additionalParameters, details, appid, code, userId,
+				openId);
 
 		authenticationToken.setCredentials(credentials);
 		authenticationToken.setUnionid(unionid);
@@ -448,7 +462,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * @param response 响应
 	 * @param uriVariables 参数
 	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
-	 * @param weChatOplatformWebsite 微信开放平台 网站应用 配置
+	 * @param alipayOplatformWebsite 支付宝 网站应用 配置
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
@@ -457,12 +471,12 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	@Override
 	public void sendRedirect(HttpServletRequest request, HttpServletResponse response, Map<String, String> uriVariables,
 			OAuth2AccessTokenResponse oauth2AccessTokenResponse,
-			WeChatOplatformWebsiteProperties.WeChatOplatformWebsite weChatOplatformWebsite)
+			AlipayOplatformWebsiteProperties.AlipayOplatformWebsite alipayOplatformWebsite)
 			throws OAuth2AuthenticationException {
 		OAuth2AccessToken oauth2AccessToken = oauth2AccessTokenResponse.getAccessToken();
 		OAuth2RefreshToken oauth2RefreshToken = oauth2AccessTokenResponse.getRefreshToken();
 
-		String successUrl = weChatOplatformWebsite.getSuccessUrl();
+		String successUrl = alipayOplatformWebsite.getSuccessUrl();
 		String accessToken = oauth2AccessToken.getTokenValue();
 		String refreshToken = "";
 		if (oauth2RefreshToken != null) {
@@ -474,8 +488,8 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 					refreshToken));
 		}
 		catch (IOException e) {
-			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "微信开放平台 网站应用重定向异常", null);
-			throw new RedirectWeChatOplatformWebsiteException(error);
+			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "支付宝 网站应用重定向异常", null);
+			throw new RedirectUriAlipayOplatformWebsiteException(error);
 		}
 	}
 

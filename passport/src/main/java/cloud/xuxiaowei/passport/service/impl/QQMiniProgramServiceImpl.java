@@ -113,11 +113,11 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 	 * 拦截处理此异常
 	 */
 	@Override
-	public Code2SessionResponse getCode2SessionResponse(String appid, String code, String jsCode2SessionUrl)
+	public QQMiniProgramTokenResponse getAccessTokenResponse(String appid, String code, String jsCode2SessionUrl)
 			throws OAuth2AuthenticationException {
 		InMemoryQQMiniProgramService inMemoryQqMiniProgramService = new InMemoryQQMiniProgramService(
 				qqMiniProgramProperties);
-		return inMemoryQqMiniProgramService.getCode2SessionResponse(appid, code, jsCode2SessionUrl);
+		return inMemoryQqMiniProgramService.getAccessTokenResponse(appid, code, jsCode2SessionUrl);
 	}
 
 	/**

@@ -205,6 +205,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/dingtalk/authorize/*").permitAll()
 					// 钉钉 dingtalk 登录 授权码接收服务
 					.antMatchers("/dingtalk/code/*").permitAll()
+					// 支付宝 网站应用 登录 跳转到 支付宝 网站应用 授权页面
+					.antMatchers("/alipay-oplatform/website/authorize/*").permitAll()
+					// 支付宝 网站应用 登录 授权码接收服务
+					.antMatchers("/alipay-oplatform/website/code/*").permitAll()
 					// 配置
 					.antMatchers("/configuration").permitAll()
 					// 放行错误地址

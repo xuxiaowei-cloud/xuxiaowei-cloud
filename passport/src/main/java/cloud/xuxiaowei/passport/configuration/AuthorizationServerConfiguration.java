@@ -183,6 +183,9 @@ public class AuthorizationServerConfiguration {
 						// 新增：支付宝小程序 登录 OAuth2 用于验证授权授予的 {@link
 						// OAuth2AlipayMiniProgramAuthenticationToken}
 						new OAuth2AlipayMiniProgramAuthenticationConverter(),
+						// 新增：支付宝网站应用 登录 OAuth2 用于验证授权授予的 {@link
+						// OAuth2AlipayOplatformWebsiteAuthenticationToken}
+						new OAuth2AlipayOplatformWebsiteAuthenticationConverter(),
 
 						// 默认值：OAuth2 授权码认证转换器
 						new OAuth2AuthorizationCodeAuthenticationConverter(),
@@ -217,6 +220,8 @@ public class AuthorizationServerConfiguration {
 		new OAuth2QQMiniProgramAuthenticationProvider(http);
 		// 支付宝 小程序 登录 OAuth2 身份验证提供程序
 		new OAuth2AlipayMiniProgramAuthenticationProvider(http);
+		// 支付宝 网站应用 登录 OAuth2 身份验证提供程序
+		new OAuth2AlipayOplatformWebsiteAuthenticationProvider(http);
 
 		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
 			// 自定义撤销授权成功后的处理

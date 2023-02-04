@@ -108,11 +108,11 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 	 * 拦截处理此异常
 	 */
 	@Override
-	public Code2SessionResponse getCode2SessionResponse(String appid, String code, String jsCode2SessionUrl)
+	public WeChatMiniProgramTokenResponse getAccessTokenResponse(String appid, String code, String jsCode2SessionUrl)
 			throws OAuth2AuthenticationException {
 		InMemoryWeChatMiniProgramService inMemoryWeChatMiniProgramService = new InMemoryWeChatMiniProgramService(
 				weChatMiniProgramProperties);
-		return inMemoryWeChatMiniProgramService.getCode2SessionResponse(appid, code, jsCode2SessionUrl);
+		return inMemoryWeChatMiniProgramService.getAccessTokenResponse(appid, code, jsCode2SessionUrl);
 	}
 
 	/**

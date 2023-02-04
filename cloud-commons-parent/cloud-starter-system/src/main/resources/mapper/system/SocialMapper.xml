@@ -30,6 +30,8 @@
                 SELECT 7 AS social_code, 'GitHub' AS social_name
                 UNION ALL
                 SELECT 8 AS social_code, '钉钉' AS social_name
+                UNION ALL
+                SELECT 9 AS social_code, '支付宝' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -141,6 +143,20 @@
                     dingtalk_users du
                 WHERE
                     du.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    9 AS social_code,
+                    '支付宝' AS social_name,
+                    aowu.nick_name AS nickname,
+                    aowu.avatar AS headimgurl,
+                    aowu.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    alipay_oplatform_website_users aowu
+                WHERE
+                    aowu.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 

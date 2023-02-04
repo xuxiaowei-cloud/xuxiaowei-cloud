@@ -42,14 +42,14 @@ import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatWorkParameterNames;
+import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatWorkWebsiteParameterNames;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryWeChatWorkWebsiteService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatWorkWebsiteService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatWorkWebsiteTokenResponse;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatWorkException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatWorkWebsiteException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatWorkWebsiteProperties;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2WeChatWorkWebsiteEndpointUtils;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -347,11 +347,11 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 			String state, String binding, String accessTokenUrl, String userinfoUrl, String getUserUrl,
 			String convertToOpenidUrl, String remoteAddress, String sessionId) throws OAuth2AuthenticationException {
 		Map<String, String> uriVariables = new HashMap<>(8);
-		uriVariables.put(OAuth2WeChatWorkParameterNames.APPID, appid);
+		uriVariables.put(OAuth2WeChatWorkWebsiteParameterNames.APPID, appid);
 
 		String secret = getSecretByAppid(appid, agentid);
 
-		uriVariables.put(OAuth2WeChatWorkParameterNames.SECRET, secret);
+		uriVariables.put(OAuth2WeChatWorkWebsiteParameterNames.SECRET, secret);
 
 		RestTemplate restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
@@ -413,7 +413,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 
 			Map<String, String> uriVariablesMap = new HashMap<>(4);
 			uriVariablesMap.put(OAuth2ParameterNames.ACCESS_TOKEN, accessToken);
-			uriVariablesMap.put(OAuth2WeChatWorkParameterNames.USERID, userid);
+			uriVariablesMap.put(OAuth2WeChatWorkWebsiteParameterNames.USERID, userid);
 
 			String getForObject = restTemplate.getForObject(getUserUrl, String.class, uriVariablesMap);
 			try {
@@ -430,7 +430,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 			Map<String, String> body = new HashMap<>(4);
-			body.put(OAuth2WeChatWorkParameterNames.USERID, userid);
+			body.put(OAuth2WeChatWorkWebsiteParameterNames.USERID, userid);
 			HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(body, httpHeaders);
 
 			String post = restTemplate.postForObject(convertToOpenidUrl, httpEntity, String.class, uriVariablesMap);
@@ -594,7 +594,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 		}
 		catch (IOException e) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "微信开放平台 网站应用重定向异常", null);
-			throw new RedirectWeChatWorkException(error);
+			throw new RedirectWeChatWorkWebsiteException(error);
 		}
 
 	}

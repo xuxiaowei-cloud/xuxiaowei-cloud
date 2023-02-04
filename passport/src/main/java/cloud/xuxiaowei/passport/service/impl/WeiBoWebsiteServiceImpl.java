@@ -48,7 +48,7 @@ import org.springframework.security.oauth2.server.authorization.client.WeiBoWebs
 import org.springframework.security.oauth2.server.authorization.client.WeiBoWebsiteTokenResponse;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectWeiBoException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectWeiBoWebsiteException;
 import org.springframework.security.oauth2.server.authorization.properties.WeiBoWebsiteProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
@@ -468,7 +468,7 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 		}
 		catch (IOException e) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "微博开放平台 网站应用重定向异常", null);
-			throw new RedirectWeiBoException(error);
+			throw new RedirectWeiBoWebsiteException(error);
 		}
 	}
 

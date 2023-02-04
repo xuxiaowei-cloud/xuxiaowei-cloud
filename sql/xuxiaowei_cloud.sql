@@ -118,7 +118,7 @@ CREATE TABLE `dict_data`  (
 DROP TABLE IF EXISTS `dingtalk_users`;
 CREATE TABLE `dingtalk_users`  (
   `dingtalk_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '钉钉用户主键ID，自增',
-  `users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `users_id` bigint CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `corp_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所选企业corpId',
   `open_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -209,7 +209,7 @@ CREATE TABLE `gitee_users`  (
 DROP TABLE IF EXISTS `github_users`;
 CREATE TABLE `github_users`  (
   `github_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Github用户表主键，自增',
-  `users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `users_id` bigint CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `id` int NULL DEFAULT NULL,
@@ -761,7 +761,7 @@ CREATE TABLE `wx_open_website_users`  (
 DROP TABLE IF EXISTS `wx_work_website_users`;
 CREATE TABLE `wx_work_website_users`  (
   `wx_work_website_users_id` bigint NOT NULL AUTO_INCREMENT COMMENT '企业微信-网站用户，自增',
-  `users_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `users_id` bigint CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `appid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `agentid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `openid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
