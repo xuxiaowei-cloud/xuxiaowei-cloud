@@ -101,83 +101,11 @@
             <artifactId>spring-security-oauth2-authorization-server</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-miniprogram -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/snapshots/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-miniprogram/ -->
+        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-oauth2 -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-oauth2/ -->
         <dependency>
             <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-wechat-miniprogram</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-offiaccount -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-offiaccount/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-wechat-offiaccount</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-oplatform -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-oplatform/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-wechat-oplatform</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitee -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitee/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-gitee</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-connect -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-connect/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-qq-connect</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-weibo -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-weibo/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-weibo</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-gitlab -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-gitlab/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-gitlab</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-wechat-work -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-wechat-work/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-wechat-work</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-github -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-github/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-github</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-dingtalk -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-dingtalk/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-dingtalk</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-qq-miniprogram -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-qq-miniprogram/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-qq-miniprogram</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-alipay-miniprogram -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-alipay-miniprogram/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-alipay-miniprogram</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-alipay-oplatform -->
-        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-alipay-oplatform/ -->
-        <dependency>
-            <groupId>cn.com.xuxiaowei.boot</groupId>
-            <artifactId>spring-boot-starter-alipay-oplatform</artifactId>
+            <artifactId>spring-boot-starter-oauth2</artifactId>
         </dependency>
 
         <!-- SQL 性能分析 -->
