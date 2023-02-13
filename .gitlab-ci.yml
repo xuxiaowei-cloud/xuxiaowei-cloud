@@ -108,19 +108,20 @@ package:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
-  artifacts:
-    name: package
-    paths:
-      - target/*.jar
-      - target/*.asc
-      - target/*.pom
-      - "*/target/*.jar"
-      - "*/target/*.asc"
-      - "*/target/*.pom"
-      - "*/*/target/*.jar"
-      - "*/*/target/*.asc"
-      - "*/*/target/*.pom"
-      - ui/dist
+  # 产物超过 1000M，取消产物上传，节省时间
+  #  artifacts:
+  #    name: package
+  #    paths:
+  #      - target/*.jar
+  #      - target/*.asc
+  #      - target/*.pom
+  #      - "*/target/*.jar"
+  #      - "*/target/*.asc"
+  #      - "*/target/*.pom"
+  #      - "*/*/target/*.jar"
+  #      - "*/*/target/*.asc"
+  #      - "*/*/target/*.pom"
+  #      - ui/dist
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
