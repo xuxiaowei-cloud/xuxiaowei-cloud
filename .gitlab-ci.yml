@@ -1,7 +1,32 @@
 stages:
+  - murphysec
   - package
   - s2-package
   - s2-service
+
+# murphysec
+murphysec:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: package
+  # Docker 镜像开源地址：https://gitee.com/xuxiaowei-com-cn/murphysec
+  image: xuxiaoweicomcn/murphysec:v3.0.1-maven-3.6.3-jdk-8
+  script:
+    # murphysec 文档：https://www.murphysec.com/docs/guides/scan-scene/cli.html
+    - murphysec auth login $murphysec_token
+    - murphysec scan . --log-level info --write-log-to murphysec.log --json --task-id $task_id
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  artifacts:
+    name: murphysec
+    paths:
+      - murphysec.log
 
 #
 # package
@@ -72,34 +97,34 @@ package:
     # 相关资料：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s
     - if [[ $CI_SERVER_HOST =~ $EXECUTE_DOCKER_SERVER_HOST ]];
       then
-        mvn -pl admin-server docker:build;
-        mvn -pl admin-server docker:push;
-        mvn -pl gateway docker:build;
-        mvn -pl gateway docker:push;
-        mvn -pl passport docker:build;
-        mvn -pl passport docker:push;
-        mvn -pl resource-services-parent/canal docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/canal docker:push;
-        mvn -pl resource-services-parent/file docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/file docker:push;
-        mvn -pl resource-services-parent/master-data docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/master-data docker:push;
-        mvn -pl resource-services-parent/user docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/user docker:push;
-        mvn -pl resource-services-parent/webservice docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/webservice docker:push;
-        mvn -pl resource-services-parent/websocket docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/websocket docker:push;
-        mvn -pl resource-services-parent/wechat-miniprogram docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/wechat-miniprogram docker:push;
-        mvn -pl resource-services-parent/wechat-offiaccount docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl resource-services-parent/wechat-offiaccount docker:push;
-        mvn -pl ui docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl ui docker:push;
-        mvn -pl xxl-job-admin docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
-        mvn -pl xxl-job-admin docker:push;
+      mvn -pl admin-server docker:build;
+      mvn -pl admin-server docker:push;
+      mvn -pl gateway docker:build;
+      mvn -pl gateway docker:push;
+      mvn -pl passport docker:build;
+      mvn -pl passport docker:push;
+      mvn -pl resource-services-parent/canal docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/canal docker:push;
+      mvn -pl resource-services-parent/file docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/file docker:push;
+      mvn -pl resource-services-parent/master-data docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/master-data docker:push;
+      mvn -pl resource-services-parent/user docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/user docker:push;
+      mvn -pl resource-services-parent/webservice docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/webservice docker:push;
+      mvn -pl resource-services-parent/websocket docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/websocket docker:push;
+      mvn -pl resource-services-parent/wechat-miniprogram docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/wechat-miniprogram docker:push;
+      mvn -pl resource-services-parent/wechat-offiaccount docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl resource-services-parent/wechat-offiaccount docker:push;
+      mvn -pl ui docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl ui docker:push;
+      mvn -pl xxl-job-admin docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID -DCI_JOB_ID=$CI_JOB_ID;
+      mvn -pl xxl-job-admin docker:push;
       else
-        echo '不执行 Docker 相关命令';
+      echo '不执行 Docker 相关命令';
       fi
   cache:
     paths:
