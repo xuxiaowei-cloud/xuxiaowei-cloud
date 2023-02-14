@@ -2,10 +2,10 @@
 
 - [历史版本下载](https://nginx.org/download/)
     - 本项目使用版本
-        - [nginx-1.21.6.tar.gz](https://nginx.org/download/nginx-1.21.6.tar.gz)
+        - [nginx-1.23.3.tar.gz](https://nginx.org/download/nginx-1.23.3.tar.gz)
     - 解压目录
-        - 解压：`tar -zxvf nginx-1.21.6.tar.gz`
-        - /software/nginx-1.21.6
+        - 解压：`tar -zxvf nginx-1.23.3.tar.gz`
+        - /software/nginx-1.23.3
     - CetOS 安装
         ```shell
         # checking for C compiler ... not found
