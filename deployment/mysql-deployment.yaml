@@ -1,0 +1,51 @@
+# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
+# 创建 pod    ：kubectl apply -f mysql-deployment.yaml
+# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
+# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
+# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment mysql-deployment
+# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment mysql-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0.32
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: xuxiaowei.com.cn
+          ports:
+            - containerPort: 3306
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment mysql-deployment --type=NodePort --name=mysql-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service mysql-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service mysql-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    - nodePort: 30306
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    app: mysql
+  type: NodePort
