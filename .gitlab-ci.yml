@@ -195,6 +195,7 @@ s2-package:
       - ui/node/
       - ui/node_modules/
   artifacts:
+    name: package
     paths:
       - target/*.jar
       - target/*.asc
