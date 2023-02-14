@@ -1,0 +1,48 @@
+# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
+# 创建 pod    ：kubectl apply -f nginx-deployment.yaml
+# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
+# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
+# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment nginx-deployment
+# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment nginx-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.23.3
+          ports:
+            - containerPort: 80
+
+---
+
+# 创建 Service（不能指定 nodenodePort） ：kubectl -n xuxiaowei-cloud expose deployment nginx-deployment --type=NodePort --name=nginx-service
+# 编辑 Service                        ：kubectl -n xuxiaowei-cloud edit service nginx-service
+# 删除 Service                        ：kubectl -n xuxiaowei-cloud delete service nginx-service
+# 查看 pod、Service                    ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    - nodePort: 30080
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
