@@ -29,6 +29,20 @@ data:
 
 ---
 
+# https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/
+#
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-password
+  namespace: xuxiaowei-cloud
+type: Opaque
+data:
+  # xuxiaowei.com.cn 计算 base64 之后为 eHV4aWFvd2VpLmNvbS5jbg==
+  password: eHV4aWFvd2VpLmNvbS5jbg==
+
+---
+
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
 kind: Deployment
@@ -50,7 +64,12 @@ spec:
           image: mysql:8.0.32
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: xuxiaowei.com.cn
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-password
+                  key: password
+                  # 此值为默认值；意味着 "mysql-password" 必须存在且包含名为 "password" 的主键
+                  optional: false
           ports:
             - containerPort: 3306
           args:
