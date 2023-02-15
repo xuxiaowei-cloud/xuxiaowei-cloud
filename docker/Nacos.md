@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull nacos/nacos-server:v2.1.2
+docker pull nacos/nacos-server:v2.2.0
 ```
 
 - 创建容器
@@ -56,7 +56,7 @@ docker pull nacos/nacos-server:v2.1.2
             -itd \
             --restart always \
             --privileged=true \
-            --name nacos-server-v2.1.2 \
+            --name nacos-server-v2.2.0 \
             -p 8848:8848 \
             -p 9848:9848 \
             -e MODE=standalone \
@@ -67,15 +67,15 @@ docker pull nacos/nacos-server:v2.1.2
             -e MYSQL_SERVICE_DB_PARAM=$MYSQL_SERVICE_DB_PARAM \
             -e MYSQL_SERVICE_USER=$MYSQL_SERVICE_USER \
             -e MYSQL_SERVICE_PASSWORD=$MYSQL_SERVICE_PASSWORD \
-            -d nacos/nacos-server:v2.1.2
+            -d nacos/nacos-server:v2.2.0
             ```
         3. 查看日志
             ```shell
-            docker logs -f nacos-server-v2.1.2
+            docker logs -f nacos-server-v2.2.0
             ```
         4. 进入容器
             ```shell
-            docker exec -it nacos-server-v2.1.2 bash
+            docker exec -it nacos-server-v2.2.0 bash
             ```
         5. 开放端口
             - CentOS

@@ -20,9 +20,9 @@
 # firewall-cmd --list-all
 #
 # 连接 MySQL 数据库
-# 表结构：nacos-server-2.1.2/conf/nacos-mysql.sql
+# 表结构：nacos-server-2.2.0/conf/nacos-mysql.sql
 # 数据库名：nacos_config
-# 修改：nacos-server-2.1.2/conf/application.properties（注意，一下内容要去掉开头的“#”）
+# 修改：nacos-server-2.2.0/conf/application.properties（注意，一下内容要去掉开头的“#”）
 # spring.datasource.platform=mysql
 # db.num=1
 # db.url.0=jdbc:mysql://192.168.5.4:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
@@ -36,8 +36,8 @@ After=syslog.target
 
 [Service]
 Type=oneshot
-ExecStart=/software/nacos-server-2.1.2/bin/startup.sh -m standalone
-ExecStop=/software/nacos-server-2.1.2/bin/shutdown.sh
+ExecStart=/software/nacos-server-2.2.0/bin/startup.sh -m standalone
+ExecStop=/software/nacos-server-2.2.0/bin/shutdown.sh
 ExecReload=/bin/kill -s HUP $MAINPID
 RemainAfterExit=yes
 
