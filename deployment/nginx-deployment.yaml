@@ -5,6 +5,8 @@
 # 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment nginx-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment nginx-deployment
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,11 +30,12 @@ spec:
 
 ---
 
-# 创建 Service（不能指定 nodenodePort） ：kubectl -n xuxiaowei-cloud expose deployment nginx-deployment --type=NodePort --name=nginx-service
-# 编辑 Service                        ：kubectl -n xuxiaowei-cloud edit service nginx-service
-# 删除 Service                        ：kubectl -n xuxiaowei-cloud delete service nginx-service
-# 查看 pod、Service                    ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment nginx-deployment --type=NodePort --name=nginx-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service nginx-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service nginx-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
 apiVersion: v1
 kind: Service
 metadata:

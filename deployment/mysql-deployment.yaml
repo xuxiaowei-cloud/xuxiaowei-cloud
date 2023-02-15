@@ -6,6 +6,7 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment mysql-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment mysql-deployment
 
+# https://kubernetes.io/zh-cn/docs/concepts/configuration/configmap/
 # 查看 描述 ：kubectl -n xuxiaowei-cloud describe configmap mysql-config-map
 apiVersion: v1
 kind: ConfigMap
@@ -28,6 +29,7 @@ data:
 
 ---
 
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -78,6 +80,7 @@ spec:
 # 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service mysql-service
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
 apiVersion: v1
 kind: Service
 metadata:
