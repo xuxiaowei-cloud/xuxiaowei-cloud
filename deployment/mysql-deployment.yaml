@@ -5,6 +5,29 @@
 # 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment mysql-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment mysql-deployment
+
+# 查看 描述 ：kubectl -n xuxiaowei-cloud describe configmap mysql-config-map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config-map
+  namespace: xuxiaowei-cloud
+data:
+  mysql.cnf: |
+    [mysqld]
+    # 最大连接数
+    max_connections=1000
+    
+    # 以下内容未启动，使用的是启动参数
+    # log-bin = mysql-bin
+    # server-id = 1
+    # MySQL 二进制日志过期天数
+    # expire_logs_days = 14
+    # character_set_server = utf8mb4"
+    # collation_server = utf8mb4_general_ci"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,6 +51,25 @@ spec:
               value: xuxiaowei.com.cn
           ports:
             - containerPort: 3306
+          args:
+            # 创建容器时的参数
+            - "--log-bin=mysql-bin"
+            - "--server-id=1"
+            - "--expire_logs_days=14"
+            - "--character-set-server=utf8mb4"
+            - "--collation-server=utf8mb4_general_ci"
+          volumeMounts:
+            # 引用卷的名称
+            - name: mysql-config-volume
+              # 挂载到容器的目录
+              mountPath: /etc/mysql/conf.d/
+      volumes:
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-config-map
+            items:
+              - key: mysql.cnf
+                path: mysql.cnf
 
 ---
 
