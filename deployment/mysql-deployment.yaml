@@ -61,6 +61,7 @@ spec:
     spec:
       containers:
         - name: mysql
+          # https://hub.docker.com/_/mysql
           image: mysql:8.0.32
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -83,7 +84,9 @@ spec:
             # 引用卷的名称
             - name: mysql-config-volume
               # 挂载到容器的目录
+              # 用于配置 MySQL
               mountPath: /etc/mysql/conf.d/
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
       volumes:
         - name: mysql-config-volume
           configMap:
