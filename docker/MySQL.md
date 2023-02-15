@@ -92,6 +92,8 @@ docker pull mysql:8.0.32
             # 查看最大连接数
             show variables like "max_connections";
             # 设置最大连接数
+            # 此处仅为临时修改,重启后失效
+            # 永久修改:在MySQL配置文件中的[mysqld]节点增加设置max_connections=1000
             set global max_connections=1000;
 
             # 查看二进制文件
