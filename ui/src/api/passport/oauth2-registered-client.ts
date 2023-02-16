@@ -4,7 +4,7 @@ import request from '../../utils/request'
  * 授权类型选项
  */
 export const grantTypeOptions = function () {
-  return request.post('/passport/oauth2-registered-client/grant-type-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/grant-type-options').then(response => {
     return response.data
   })
 }
@@ -13,7 +13,7 @@ export const grantTypeOptions = function () {
  * 客户端身份验证方法选项
  */
 export const authenticationMethodOptions = function () {
-  return request.post('/passport/oauth2-registered-client/authentication-method-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/authentication-method-options').then(response => {
     return response.data
   })
 }
@@ -22,7 +22,7 @@ export const authenticationMethodOptions = function () {
  * 授权范围选项
  */
 export const scopeOptions = function () {
-  return request.post('/passport/oauth2-registered-client/scope-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/scope-options').then(response => {
     return response.data
   })
 }
@@ -31,7 +31,7 @@ export const scopeOptions = function () {
  * 令牌端点认证签名算法选项
  */
 export const tokenSigningAlgorithmOptions = function () {
-  return request.post('/passport/oauth2-registered-client/token-signing-algorithm-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/token-signing-algorithm-options').then(response => {
     return response.data
   })
 }
@@ -40,7 +40,7 @@ export const tokenSigningAlgorithmOptions = function () {
  * id 令牌签名算法选项
  */
 export const tokenSignatureAlgorithmOptions = function () {
-  return request.post('/passport/oauth2-registered-client/token-signature-algorithm-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/token-signature-algorithm-options').then(response => {
     return response.data
   })
 }
@@ -49,7 +49,7 @@ export const tokenSignatureAlgorithmOptions = function () {
  * 授权Token格式选项
  */
 export const accessTokenFormatOptions = function () {
-  return request.post('/passport/oauth2-registered-client/access-token-format-options').then(response => {
+  return request.get('/passport/oauth2-registered-client/access-token-format-options').then(response => {
     return response.data
   })
 }
@@ -89,7 +89,7 @@ export const removeByIds = function (clientIds: number[]) {
  * @param usersId 客户主键
  */
 export const getById = function (usersId: string) {
-  return request.post('/passport/oauth2-registered-client/getById/' + usersId).then(response => {
+  return request.get('/passport/oauth2-registered-client/getById/' + usersId).then(response => {
     return response.data
   })
 }
