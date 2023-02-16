@@ -40,6 +40,9 @@ spec:
       containers:
         - name: nacos
           # https://hub.docker.com/r/nacos/nacos-server
+          # [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
+          # [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
+          # [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
           image: nacos/nacos-server:v2.2.0
           env:
             - name: MODE
