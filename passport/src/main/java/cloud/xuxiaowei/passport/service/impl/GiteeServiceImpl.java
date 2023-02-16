@@ -341,6 +341,7 @@ public class GiteeServiceImpl implements GiteeService {
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
 
 		Integer id = userInfo.getId();
+		String avatarUrl = userInfo.getAvatarUrl();
 		GiteeUsers giteeUsers = giteeUsersService.getByAppidAndId(appid, id);
 		if (giteeUsers == null) {
 			GiteeUsers gitee = new GiteeUsers();
@@ -357,6 +358,7 @@ public class GiteeServiceImpl implements GiteeService {
 			giteeUsers.setRefreshToken(refreshToken);
 			giteeUsers.setExpires(expires);
 			giteeUsers.setScope(scope);
+			giteeUsers.setAvatarUrl(avatarUrl);
 			giteeUsersService.updateById(giteeUsers);
 		}
 
