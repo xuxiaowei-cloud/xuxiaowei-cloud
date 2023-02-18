@@ -22,8 +22,9 @@ data:
     # 以下内容未启动，使用的是启动参数
     # log-bin = mysql-bin
     # server-id = 1
-    # MySQL 二进制日志过期天数
-    # expire_logs_days = 14
+    # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
+    # MySQL 二进制日志过期时间，单位秒，60 * 60 * 24 * 14 = 1209600
+    # binlog_expire_logs_seconds = 1209600
     # character_set_server = utf8mb4"
     # collation_server = utf8mb4_general_ci"
 
@@ -95,7 +96,9 @@ spec:
             # 创建容器时的参数
             - "--log-bin=mysql-bin"
             - "--server-id=1"
-            - "--expire_logs_days=14"
+            # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
+            # MySQL 二进制日志过期时间，单位秒，60 * 60 * 24 * 14 = 1209600
+            - "--binlog_expire_logs_seconds=1209600"
             - "--character-set-server=utf8mb4"
             - "--collation-server=utf8mb4_general_ci"
           volumeMounts:

@@ -39,6 +39,7 @@ docker pull mysql:8.0.32
                 ```
         2. 执行创建命令
             ```shell
+            # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
             docker run \
             -itd \
             --restart always \
@@ -50,7 +51,7 @@ docker pull mysql:8.0.32
             -d mysql:8.0.32 \
             --log-bin=mysql-bin \
             --server-id=1 \
-            --expire_logs_days=14 \
+            --binlog_expire_logs_seconds=1209600 \
             --character-set-server=utf8mb4 \
             --collation-server=utf8mb4_general_ci
             ```
@@ -83,8 +84,9 @@ docker pull mysql:8.0.32
             show variables;
             # 查看是否开启二进制日志
             show variables like 'log_bin';
-            # 查看二进制日志过期天数
-            show variables like 'expire_logs_days';
+            # expire_logs_days:已过时,推荐使用 binlog_expire_logs_seconds
+            # MySQL 二进制日志过期时间,单位秒,60 * 60 * 24 * 14 = 1209600
+            show variables like 'binlog_expire_logs_seconds';
 
             # 查看编码
             show VARIABLES like 'character%';
