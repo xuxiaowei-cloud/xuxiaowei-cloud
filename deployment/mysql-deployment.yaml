@@ -43,6 +43,24 @@ data:
 
 ---
 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-data-volume
+  namespace: xuxiaowei-cloud
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # 需要存在此文件夹
+    path: /nfs/mysql/data
+    # 填写你的 NFS（Network File System，网络文件系统） 地址
+    server: 192.168.0.12
+
+---
+
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
 kind: Deployment
@@ -86,6 +104,9 @@ spec:
               # 挂载到容器的目录
               # 用于配置 MySQL
               mountPath: /etc/mysql/conf.d/
+            - name: mysql-data-volume
+              # MySQL 数据目录
+              mountPath: /var/lib/mysql
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
       volumes:
         - name: mysql-config-volume
@@ -94,6 +115,10 @@ spec:
             items:
               - key: mysql.cnf
                 path: mysql.cnf
+        - name: mysql-data-volume
+          nfs:
+            path: /nfs/mysql/data
+            server: 192.168.0.12
 
 ---
 
