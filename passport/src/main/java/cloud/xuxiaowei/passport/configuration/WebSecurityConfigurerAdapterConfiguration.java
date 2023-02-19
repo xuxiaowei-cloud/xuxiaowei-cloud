@@ -111,6 +111,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 			web.ignoring().antMatchers("/favicon.ico");
 			web.ignoring().antMatchers("/**/**.js");
 			web.ignoring().antMatchers("/**/**.css");
+			web.ignoring().antMatchers("/**/**.png");
 			web.ignoring().antMatchers(Constants.SWAGGER_UI_PREFIX + "/**");
 			web.ignoring().antMatchers(Constants.DEFAULT_API_DOCS_URL + "/**");
 		};

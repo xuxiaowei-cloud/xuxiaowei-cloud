@@ -333,6 +333,8 @@ cloud:
           - /passport-assets/index.css
           # 固定名称的JS
           - /passport-assets/index.js
+          # 图片
+          - /passport-assets/*.png
           # 登录请求
           - /login
           # 登录失败
