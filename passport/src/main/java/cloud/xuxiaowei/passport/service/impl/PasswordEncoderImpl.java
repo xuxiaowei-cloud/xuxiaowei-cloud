@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
 import org.springframework.stereotype.Component;
@@ -46,7 +47,8 @@ public class PasswordEncoderImpl implements PasswordEncoder {
 			OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT.getValue(),
 			OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue(),
 			OAuth2WeChatWorkWebsiteAuthenticationToken.WECHAT_WORK_WEBSITE.getValue(),
-			OAuth2WeiBoWebsiteAuthenticationToken.WEIBO_WEBSITE.getValue());
+			OAuth2WeiBoWebsiteAuthenticationToken.WEIBO_WEBSITE.getValue(),
+			AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
 	// @formatter:on
 
 	private HttpServletRequest request;
