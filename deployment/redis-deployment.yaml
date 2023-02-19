@@ -6,6 +6,24 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment redis-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment redis-deployment
 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-data-volume
+  namespace: xuxiaowei-cloud
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # 需要存在此文件夹
+    path: /nfs/redis/data
+    # 填写你的 NFS（Network File System，网络文件系统） 地址
+    server: 192.168.0.12
+
+---
+
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
 kind: Deployment
@@ -34,16 +52,25 @@ spec:
             # https://hub.docker.com/_/redis
             # 设置密码
             - "--requirepass xuxiaowei.com.cn"
+            # AOF
+            - "--appendonly yes"
           volumeMounts:
             # 时区
             - name: time-zone
               mountPath: /etc/localtime
+            - name: redis-data-volume
+              # redis 数据目录
+              mountPath: /data
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
       volumes:
         # 时区
         - name: time-zone
           hostPath:
             path: /etc/localtime
+        - name: redis-data-volume
+          nfs:
+            path: /nfs/redis/data
+            server: 192.168.0.12
 
 ---
 
