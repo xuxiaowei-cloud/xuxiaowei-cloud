@@ -385,6 +385,8 @@ cloud.xuxiaowei
     - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
     - 支付宝网站应用（个人开发适配 OAuth 2.1、支付宝网站应用的授权方式） alipay_oplatform_website
 
+### [kubernetes（k8s）](./deployment)
+
 ### [Docker 说明](./docker)
 
 ### [常用 exe 说明](./exe)
