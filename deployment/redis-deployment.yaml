@@ -1,0 +1,53 @@
+# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
+# 创建 pod    ：kubectl apply -f redis-deployment.yaml
+# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
+# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
+# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
+# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment redis-deployment
+# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment redis-deployment
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          # https://hub.docker.com/_/redis
+          image: redis:7.0.8
+          ports:
+            - containerPort: 6379
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment redis-deployment --type=NodePort --name=redis-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service redis-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service redis-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    - nodePort: 30379
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+  selector:
+    app: redis
+  type: NodePort
