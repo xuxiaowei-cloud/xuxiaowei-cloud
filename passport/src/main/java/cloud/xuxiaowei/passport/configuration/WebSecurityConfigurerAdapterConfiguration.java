@@ -160,6 +160,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 					.antMatchers("/oauth2/token").permitAll()
 					// OAuth2 撤销端点
 					.antMatchers("/oauth2/revoke").permitAll()
+					// 授权码
+					.antMatchers("/code").permitAll()
 					// 注销登录放行
 					.antMatchers("/signout").permitAll()
 					// 找回密码
