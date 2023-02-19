@@ -28,6 +28,16 @@ spec:
           image: nginx:1.23.3
           ports:
             - containerPort: 80
+          volumeMounts:
+            # 时区
+            - name: time-zone
+              mountPath: /etc/localtime
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      volumes:
+        # 时区
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
 
 ---
 

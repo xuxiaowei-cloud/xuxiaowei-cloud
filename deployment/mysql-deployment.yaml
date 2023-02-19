@@ -102,6 +102,9 @@ spec:
             - "--character-set-server=utf8mb4"
             - "--collation-server=utf8mb4_general_ci"
           volumeMounts:
+            # 时区
+            - name: time-zone
+              mountPath: /etc/localtime
             # 引用卷的名称
             - name: mysql-config-volume
               # 挂载到容器的目录
@@ -112,6 +115,10 @@ spec:
               mountPath: /var/lib/mysql
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
       volumes:
+        # 时区
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
         - name: mysql-config-volume
           configMap:
             name: mysql-config-map

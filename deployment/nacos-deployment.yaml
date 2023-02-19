@@ -70,6 +70,16 @@ spec:
           ports:
             - containerPort: 8848
             - containerPort: 9848
+          volumeMounts:
+            # 时区
+            - name: time-zone
+              mountPath: /etc/localtime
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      volumes:
+        # 时区
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
 
 ---
 
