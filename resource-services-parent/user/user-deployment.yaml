@@ -1,0 +1,97 @@
+# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
+# 创建 pod    ：kubectl apply -f user-deployment.yaml
+# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
+# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
+# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
+# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment user-deployment
+# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment user-deployment
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: user-data-volume
+  namespace: xuxiaowei-cloud
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # 需要存在此文件夹
+    path: /nfs/user/data
+    # 填写你的 NFS（Network File System，网络文件系统） 地址
+    server: 192.168.0.12
+
+---
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: user
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT
+          env:
+            - name: nacos_xuxiaowei_cloud_addr
+              value: nacos-service
+            - name: mysql_xuxiaowei_cloud
+              value: mysql-service
+            - name: redis_xuxiaowei_cloud_host
+              value: redis-service
+            - name: sentinel_dashboard
+              value: sentinel-service
+          ports:
+            - containerPort: 1701
+          volumeMounts:
+            # 时区
+            - name: time-zone
+              mountPath: /etc/localtime
+            # 引用卷的名称
+            - name: user-data-volume
+              # Admin Server 数据目录
+              mountPath: /logs
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      volumes:
+        # 时区
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+        - name: user-data-volume
+          nfs:
+            path: /nfs/user/data
+            server: 192.168.0.12
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment user-deployment --type=NodePort --name=user-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service user-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service user-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    - nodePort: 31701
+      port: 1701
+      protocol: TCP
+      targetPort: 1701
+  selector:
+    app: user
+  type: NodePort
