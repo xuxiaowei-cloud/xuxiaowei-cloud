@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 13/09/2022 20:05:04
+ Date: 19/02/2023 23:37:03
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `log`  (
   `day` int NULL DEFAULT NULL COMMENT '日，不为空',
   `hour` int NOT NULL COMMENT '小时，不为空',
   `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '方法，不为空',
-  `request_uri` varchar(768) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'URI，不为空',
+  `request_uri` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'URI，不为空',
   `query_string` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '参数',
   `headers_map` json NOT NULL COMMENT '请求头，不为空，json',
   `authorization` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'headers中authorization',
@@ -58,7 +58,7 @@ CREATE TABLE `log`  (
   `port` int NULL DEFAULT NULL COMMENT '服务端口',
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0 未删除，1 删除，MySQL 默认值 0，不为 NULL，注解@TableLogic。',
   PRIMARY KEY (`log_id`) USING BTREE,
-  INDEX `idx_log__request_uri`(`request_uri`) USING BTREE
+  FULLTEXT INDEX `idx_log__request_uri`(`request_uri`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
