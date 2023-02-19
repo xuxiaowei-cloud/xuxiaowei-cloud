@@ -31,7 +31,8 @@ spec:
   selector:
     matchLabels:
       app: nacos
-  replicas: 2
+  # 此处使用一个副本（多副本服务可能无法注册）
+  replicas: 1
   template:
     metadata:
       labels:
