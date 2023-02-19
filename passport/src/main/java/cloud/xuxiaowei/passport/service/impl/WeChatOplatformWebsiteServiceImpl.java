@@ -343,6 +343,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 
 			BeanUtils.copyProperties(accessTokenResponse, websiteUsers);
 
+			websiteUsers.setAppid(appid);
 			websiteUsers.setPrivilege(privilegeStr);
 			websiteUsers.setExpires(expires);
 			websiteUsers.setCreateIp(remoteAddress);
