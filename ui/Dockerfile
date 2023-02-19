@@ -8,3 +8,4 @@ COPY target/classes/git.json /usr/share/nginx/git.json
 EXPOSE 80
 
 ENV TZ=Asia/Shanghai
+ENV LANG=C.UTF-8
