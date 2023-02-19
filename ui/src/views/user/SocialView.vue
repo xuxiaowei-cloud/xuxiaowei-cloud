@@ -105,8 +105,8 @@ configuration().then(response => {
   const msg = response.msg
   if (response.code === settings.okCode) {
     weChatOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-oplatform/website/authorize/${response.data.weChatOplatformWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
-    giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}&binding=true&access_token=${useStore.getAccessToken}`
-    qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}&binding=true&access_token=${useStore.getAccessToken}`
+    giteeUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitee/authorize/${response.data.giteeAppid}?binding=true&access_token=${useStore.getAccessToken}`
+    qqWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/qq/website/authorize/${response.data.qqWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
     weiBoWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/weibo/authorize/${response.data.weiBoWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
     gitlabUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/gitlab/authorize/${response.data.gitlabAppid}?binding=true&access_token=${useStore.getAccessToken}`
     weChatWorkWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/wechat-work/website/authorize/${response.data.weChatWorkWebsiteAppid}/${response.data.weChatWorkWebsiteAgentid}?binding=true&access_token=${useStore.getAccessToken}`
