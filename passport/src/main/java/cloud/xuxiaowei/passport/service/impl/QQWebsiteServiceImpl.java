@@ -50,14 +50,12 @@ import org.springframework.security.oauth2.server.authorization.client.QQWebsite
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
 import org.springframework.security.oauth2.server.authorization.exception.RedirectQQWebsiteException;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectUriQQWebsiteException;
 import org.springframework.security.oauth2.server.authorization.properties.QQWebsiteProperties;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2QQWebsiteEndpointUtils;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -121,16 +119,8 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 	 */
 	@Override
 	public String getRedirectUriByAppid(String appid) throws OAuth2AuthenticationException {
-		QQWebsiteProperties.QQWebsite qqWebsite = getQQWebsiteByAppid(appid);
-		String redirectUriPrefix = qqWebsite.getRedirectUriPrefix();
-
-		if (StringUtils.hasText(redirectUriPrefix)) {
-			return UriUtils.encode(redirectUriPrefix, StandardCharsets.UTF_8);
-		}
-		else {
-			OAuth2Error error = new OAuth2Error(OAuth2QQWebsiteEndpointUtils.ERROR_CODE, "重定向地址前缀不能为空", null);
-			throw new RedirectUriQQWebsiteException(error);
-		}
+		InMemoryQQWebsiteService qqWebsiteService = new InMemoryQQWebsiteService(qqWebsiteProperties);
+		return qqWebsiteService.getRedirectUriByAppid(appid);
 	}
 
 	/**
