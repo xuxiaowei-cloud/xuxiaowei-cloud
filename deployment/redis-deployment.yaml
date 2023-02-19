@@ -28,6 +28,12 @@ spec:
           image: redis:7.0.8
           ports:
             - containerPort: 6379
+          command:
+            - "redis-server"
+          args:
+            # https://hub.docker.com/_/redis
+            # 设置密码
+            - "--requirepass xuxiaowei.com.cn"
           volumeMounts:
             # 时区
             - name: time-zone
