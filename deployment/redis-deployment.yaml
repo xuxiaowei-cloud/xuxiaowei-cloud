@@ -34,7 +34,8 @@ spec:
   selector:
     matchLabels:
       app: redis
-  replicas: 2
+  # 此处使用一个副本（多副本时数据同步存在问题）
+  replicas: 1
   template:
     metadata:
       labels:

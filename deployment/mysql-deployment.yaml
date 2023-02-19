@@ -74,7 +74,8 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  replicas: 2
+  # 此处使用一个副本（多副本时仅有一个副本正常运行，其他副本读取文件时显示被占用）
+  replicas: 1
   template:
     metadata:
       labels:
