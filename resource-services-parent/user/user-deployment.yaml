@@ -6,6 +6,7 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment user-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment user-deployment
 
+# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -14,8 +15,10 @@ metadata:
 spec:
   capacity:
     storage: 10Gi
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
     - ReadWriteMany
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
   nfs:
     # 需要存在此文件夹
     path: /nfs/user/data
