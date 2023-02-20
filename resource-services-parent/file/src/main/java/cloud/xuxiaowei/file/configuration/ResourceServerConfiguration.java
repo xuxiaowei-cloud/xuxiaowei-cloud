@@ -65,6 +65,7 @@ public class ResourceServerConfiguration {
 			web.ignoring().antMatchers("/favicon.ico");
 			web.ignoring().antMatchers(Constants.SWAGGER_UI_PREFIX + "/**");
 			web.ignoring().antMatchers(Constants.DEFAULT_API_DOCS_URL + "/**");
+			web.ignoring().antMatchers(WebMvcConfigurationSupportConfiguration.RESOURCE_HANDLER);
 		};
 	}
 
