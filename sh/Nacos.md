@@ -1,8 +1,11 @@
 # Nacos
 
-- [GitHUb](https://github.com/alibaba/nacos)
+- [GitHub](https://github.com/alibaba/nacos)
+    - [表结构](https://github.com/alibaba/nacos/blob/develop/distribution/conf/mysql-schema.sql)
 - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos)
+    - [表结构](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
 - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos)
+    - [表结构](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
 
 - 本项目使用版本
     - [2.2.0](https://github.com/alibaba/nacos/releases/tag/2.2.0)
