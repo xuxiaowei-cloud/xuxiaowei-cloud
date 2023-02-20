@@ -169,16 +169,18 @@ package:
 shell-package:
   stage: shell-package
   script:
-    - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
-    - echo $GPG_FILE
-    - gpg --import $GPG_FILE
+    # 只能导入一次，否则会报错（开发者自己导入，或者不使用 gpg）
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    # -Pgpg
+    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
     paths:
