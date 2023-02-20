@@ -1,9 +1,9 @@
 #
-# s2 发布网关服务
-s2-gateway:
-  stage: s2-service
+# shell 发布网关服务
+shell-service-gateway:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -44,16 +44,16 @@ s2-gateway:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s2 发布监控（管理）服务
-s2-admin-server:
-  stage: s2-service
+# shell 发布监控（管理）服务
+shell-service-admin-server:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -94,17 +94,17 @@ s2-admin-server:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell
 
 
 #
-# s2 发布登录服务
-s2-passport:
-  stage: s2-service
+# shell 发布登录服务
+shell-service-passport:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -145,16 +145,16 @@ s2-passport:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s2 发布MySQL二进制订阅服务
-s2-canal:
-  stage: s2-service
+# shell 发布MySQL二进制订阅服务
+shell-service-canal:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -197,16 +197,16 @@ s2-canal:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s2 发布用户服务
-s2-user:
-  stage: s2-service
+# shell 发布用户服务
+shell-service-user:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -249,16 +249,16 @@ s2-user:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布主数据服务
-s1-master-data:
-  stage: s2-service
+# shell 发布主数据服务
+shell-service-master-data:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -301,16 +301,16 @@ s1-master-data:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布WebSocket服务
-s1-websocket:
-  stage: s2-service
+# shell 发布WebSocket服务
+shell-service-websocket:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -353,16 +353,16 @@ s1-websocket:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布WebService服务
-s1-webservice:
-  stage: s2-service
+# shell 发布WebService服务
+shell-service-webservice:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -405,16 +405,16 @@ s1-webservice:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布微信小程序服务
-s1-wechat-miniprogram:
-  stage: s2-service
+# shell 发布微信小程序服务
+shell-service-wechat-miniprogram:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -457,16 +457,16 @@ s1-wechat-miniprogram:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布微信公众号服务
-s1-wechat-offiaccount:
-  stage: s2-service
+# shell 发布微信公众号服务
+shell-service-wechat-offiaccount:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -509,16 +509,16 @@ s1-wechat-offiaccount:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布文件服务
-s1-file:
-  stage: s2-service
+# shell 发布文件服务
+shell-service-file:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -561,16 +561,16 @@ s1-file:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s1 发布 XXL Job
-s1-xxl-job-admin:
-  stage: s2-service
+# shell 发布 XXL Job
+shell-service-xxl-job-admin:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
@@ -611,16 +611,16 @@ s1-xxl-job-admin:
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   tags:
-    - s1
+    - shell
   only:
-    - s2
+    - shell
 
 #
-# s2 发布UI服务
-s2-ui:
-  stage: s2-service
+# shell 发布UI服务
+shell-service-ui:
+  stage: shell-service
   needs:
-    - job: s2-package
+    - job: shell-package
       artifacts: true
   script:
     - MODULE='ui'
@@ -631,6 +631,6 @@ s2-ui:
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建发布文件夹完成; fi
     - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
   tags:
-    - s2
+    - shell
   only:
-    - s2
+    - shell

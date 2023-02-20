@@ -1,8 +1,9 @@
 stages:
   - murphysec
   - package
-  - s2-package
-  - s2-service
+  # 使用 shell 执行器
+  - shell-package
+  - shell-service
 
 # murphysec
 murphysec:
@@ -31,12 +32,17 @@ murphysec:
 #
 # package
 package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   stage: package
   image: maven:3.6.3-jdk-8
   script:
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
+    # - SETTINGS_FILE=`find / -name settings.xml`
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
@@ -109,14 +115,19 @@ package:
     - if: $CI_COMMIT_BRANCH == "main"
 
 #
-# s2 打包
-s2-package:
-  stage: s2-package
+# 使用 shell 执行器 打包
+shell-package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: shell-package
   image: maven:3.6.3-jdk-8
   script:
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
+    # - SETTINGS_FILE=`find / -name settings.xml`
     - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
     - echo $SETTINGS_FILE
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
@@ -130,6 +141,7 @@ s2-package:
     - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   artifacts:
+    name: package
     paths:
       - target/*.jar
       - target/*.asc
@@ -142,12 +154,16 @@ s2-package:
       - "*/*/target/*.pom"
       - ui/dist
   only:
-    - s2
+    # 仅在 shell 分支中执行
+    - shell
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    - shell
 
 # 嵌入
 include:
   # 对象储存
   # 已禁用，有需要时才开放此内容
   # - /upload.yml
-  # 服务部署
-  - /service.yml
+  # 使用 shell 执行器 部署服务
+  - /shell-service.yml
