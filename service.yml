@@ -19,7 +19,7 @@ s2-gateway:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -69,7 +69,7 @@ s2-admin-server:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -120,7 +120,7 @@ s2-passport:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -172,7 +172,7 @@ s2-canal:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -224,7 +224,7 @@ s2-user:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -276,7 +276,7 @@ s1-master-data:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -328,7 +328,7 @@ s1-websocket:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -380,7 +380,7 @@ s1-webservice:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -432,7 +432,7 @@ s1-wechat-miniprogram:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -484,7 +484,7 @@ s1-wechat-offiaccount:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -536,7 +536,7 @@ s1-file:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE
@@ -586,7 +586,7 @@ s1-xxl-job-admin:
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
     - SERVICE=/usr/lib/systemd/system/$MODULE.service
     - echo SERVICE：$SERVICE
-    - JAVA_HOME=/software/dragonwell-8.10.11
+    - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
     - echo "" > $SERVICE
     - echo "[Unit]" >> $SERVICE

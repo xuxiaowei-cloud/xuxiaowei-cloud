@@ -27,7 +27,7 @@
     # See the License for the specific language governing permissions and
     # limitations under the License.
     
-    JAVA_HOME=/software/dragonwell-8.10.11
+    JAVA_HOME=/software/dragonwell-8.14.15
     
     cygwin=false
     darwin=false

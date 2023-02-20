@@ -116,8 +116,8 @@
     <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.0&color=blue">
   </a>
 
-  <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-8.10.11_jdk8u322-ga">
-    <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_322-blue.svg"/>
+  <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-standard-8.14.15_jdk8u362-ga">
+    <img alt="JDK" src="https://img.shields.io/badge/JDK-1.8.0_362-blue.svg"/>
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -522,11 +522,11 @@ cloud.xuxiaowei
         10. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
         11. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
         12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
-2. Alibaba dragonwell 8.10.11
-    - [Alibaba_Dragonwell_jdk-8.10.11_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_aarch64_linux.tar.gz)
-    - [Alibaba_Dragonwell_jdk-8.10.11_x64_alpine-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_alpine-linux.tar.gz)
-    - [Alibaba_Dragonwell_jdk-8.10.11_x64-linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x64_linux.tar.gz)
-    - [Alibaba_Dragonwell_jdk-8.10.11_x86_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.10.11/Alibaba_Dragonwell_8.10.11_x86_windows.zip)
+2. Alibaba dragonwell 8.14.15
+    - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
+    - [Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz)
+    - [Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz)
+    - [Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip)
 3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
