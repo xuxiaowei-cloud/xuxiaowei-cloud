@@ -20,6 +20,7 @@ spec:
     - ReadWriteMany
   # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
   nfs:
+    # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
     # 需要存在此文件夹
     path: /nfs/master-data/data
     # 填写你的 NFS（Network File System，网络文件系统） 地址
@@ -73,6 +74,7 @@ spec:
             path: /etc/localtime
         - name: master-data-data-volume
           nfs:
+            # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
             path: /nfs/master-data/data
             server: 192.168.0.12
 
