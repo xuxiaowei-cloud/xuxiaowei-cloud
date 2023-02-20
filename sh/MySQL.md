@@ -197,6 +197,10 @@
                 # 新建数据库
                 CREATE DATABASE test_collation;
                 ```
+                ```sql
+                # 使用数据库
+                use test_collation;
+                ```
                 - 连接到`test_collation`数据库进行查询
                     ```sql
                     # 查看数据库编码与排序
