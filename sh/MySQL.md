@@ -88,6 +88,22 @@
             firewall-cmd --reload
             firewall-cmd --list-all
             ```
+        9. 修改密码策略
+            ```mysql
+            set global validate_password_policy=0;
+            set global validate_password_mixed_case_count=0;
+            set global validate_password_number_count=0;
+            set global validate_password_special_char_count=0;
+            set global validate_password_length=4;
+            ```
+           或
+            ```mysql
+            set global validate_password.policy=0;
+            set global validate_password.mixed_case_count=0;
+            set global validate_password.number_count=0;
+            set global validate_password.special_char_count=0;
+            set global validate_password.length=4;
+            ```
     3. 修改 MySQL 数据储存位置（默认：`/var/lib/mysql`，修改后的位置：`/data/mysql`）
         1. 查看 SELinux 状态
             ```shell
