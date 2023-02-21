@@ -4,6 +4,8 @@ stages:
   # 使用 shell 执行器
   - shell-package
   - shell-service
+  # 使用 docker 执行器
+  - docker-package
 
 # murphysec
 murphysec:
@@ -15,6 +17,7 @@ murphysec:
   image: xuxiaoweicomcn/murphysec:v3.0.1-maven-3.6.3-jdk-8
   script:
     # murphysec 文档：https://www.murphysec.com/docs/guides/scan-scene/cli.html
+    - murphysec -v
     - murphysec auth login $murphysec_token
     - murphysec scan . --log-level info --write-log-to murphysec.log --json --task-id $task_id
   artifacts:
@@ -123,6 +126,7 @@ shell-package:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
     # - echo $GPG_FILE
     # - gpg --import $GPG_FILE
+    - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
@@ -150,6 +154,59 @@ shell-package:
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
+
+#
+# 使用 docker 执行器 打包
+docker-package:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: docker-package
+  image: maven:3.6.3-jdk-8
+  script:
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    - echo $GPG_FILE
+    - gpg --import $GPG_FILE
+    # - SETTINGS_FILE=`find / -name settings.xml`
+    - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
+    - echo $SETTINGS_FILE
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
+    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central,jcenter</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
+    - git --version
+    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
+    - echo 当前分支：$CI_COMMIT_BRANCH
+    - echo 主分支：$CI_DEFAULT_BRANCH
+    - echo 项目路径：$CI_PROJECT_DIR
+    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  artifacts:
+    name: package
+    paths:
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
+      - ui/dist
+  only:
+    # 仅在 docker 分支中执行
+    - docker
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
 
 # 嵌入
 include:
