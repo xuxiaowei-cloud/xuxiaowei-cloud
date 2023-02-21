@@ -120,6 +120,9 @@
                 ```shell
                 systemctl list-unit-files | grep redis_6379.service
                 ```
+                ```shell
+                systemctl is-enabled redis_6379.service
+                ```
             - 关闭开机自启
                 ```shell
                 systemctl disable redis_6379.service

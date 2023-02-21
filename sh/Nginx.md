@@ -115,6 +115,9 @@
             ```shell
             systemctl list-unit-files | grep nginx.service
             ```
+            ```shell
+            systemctl is-enabled nginx.service
+            ```
         - 关闭开机自启
             ```shell
             systemctl disable nginx.service

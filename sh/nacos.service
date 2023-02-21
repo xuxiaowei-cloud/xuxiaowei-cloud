@@ -9,6 +9,7 @@
 # 打开开机自启：systemctl enable nacos.service
 # 关闭开启自启：systemctl disable nacos.service
 # 查看开机自启：systemctl list-unit-files | grep nacos.service
+# 查看开机自启：systemctl is-enabled nacos.service
 #
 # 开放端口
 # firewall-cmd --zone=public --add-port=8848/tcp --permanent

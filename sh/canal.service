@@ -9,6 +9,7 @@
 # 打开开机自启：systemctl enable canal.service
 # 关闭开启自启：systemctl disable canal.service
 # 查看开机自启：systemctl list-unit-files | grep canal.service
+# 查看开机自启：systemctl is-enabled canal.service
 #
 # 开放端口
 # firewall-cmd --zone=public --add-port=11111/tcp --permanent

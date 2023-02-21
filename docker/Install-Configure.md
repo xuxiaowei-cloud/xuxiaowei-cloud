@@ -22,6 +22,7 @@ sudo systemctl status docker.service
 sudo systemctl enable docker.service
 # 查看是否开机自启
 systemctl list-unit-files | grep docker
+systemctl is-enabled docker
 ```
 
 - 其他命令
@@ -163,6 +164,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo systemctl status docker.service
 # 查看是否开机自启（安装完成，默认启动）
 systemctl list-unit-files | grep docker
+systemctl is-enabled docker
 ```
 
 - 修改docker时区
