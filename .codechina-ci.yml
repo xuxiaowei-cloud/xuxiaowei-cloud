@@ -124,6 +124,7 @@ shell-package:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
     # - echo $GPG_FILE
     # - gpg --import $GPG_FILE
+    - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
