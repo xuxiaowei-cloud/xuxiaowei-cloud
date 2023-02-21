@@ -1,3 +1,5 @@
+# 此流水线为 gitlab.com、jihulab.com、自建 gitlab 使用
+
 stages:
   - murphysec
   - package
@@ -261,7 +263,7 @@ docker-package:
       - ui/dist
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
     - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
