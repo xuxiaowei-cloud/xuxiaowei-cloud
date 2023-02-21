@@ -121,7 +121,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=6.2.6&color=blue">
+    <img alt="Redis" src="https://img.shields.io/static/v1?logo=Redis&message=7.0.8&color=blue">
   </a>
 
   <a target="_blank" href="https://www.apache.org/licenses/LICENSE-2.0">

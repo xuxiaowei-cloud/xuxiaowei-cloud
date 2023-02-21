@@ -2,12 +2,12 @@
 
 - 请使用 [Redis](https://github.com/redis/redis)
     - 本项目使用版本
-        - [redis 6.2.6](https://github.com/redis/redis/releases/tag/6.2.6)
-        - [GitHub 下载 redis-6.2.6.tar.gz](https://github.com/redis/redis/archive/refs/tags/6.2.6.tar.gz)
-        - [官网下载 redis-6.2.6.tar.gz](https://download.redis.io/releases/redis-6.2.6.tar.gz)
+        - [redis 7.0.8](https://github.com/redis/redis/releases/tag/7.0.8)
+        - [GitHub 下载 redis-7.0.8.tar.gz](https://github.com/redis/redis/archive/refs/tags/7.0.8.tar.gz)
+        - [官网下载 redis-7.0.8.tar.gz](https://download.redis.io/releases/redis-7.0.8.tar.gz)
     - 解压目录
-        - 解压：`tar -zxvf redis-6.2.6.tar.gz`
-        - /software/redis-6.2.6
+        - 解压：`tar -zxvf redis-7.0.8.tar.gz`
+        - /software/redis-7.0.8
     - CetOS 安装
         ```shell
         # -bash: make: command not found
@@ -47,10 +47,10 @@
         /usr/local/bin/redis-cli
         ```
     - 编写服务脚本
-        1. 复制`/software/redis-6.2.6/redis.conf`到`/etc/redis/redis_server_6379.conf`：
+        1. 复制`/software/redis-7.0.8/redis.conf`到`/etc/redis/redis_server_6379.conf`：
             ```shell
             mkdir -p /etc/redis
-            cp /software/redis-6.2.6/redis.conf /etc/redis/redis_server_6379.conf
+            cp /software/redis-7.0.8/redis.conf /etc/redis/redis_server_6379.conf
             ```
         2. 新建文件`/usr/lib/systemd/system/redis_6379.service`：
             ```shell
@@ -75,9 +75,14 @@
             vim /etc/redis/redis_server_6379.conf
             ```
             ```shell
+            # 不限制客户端IP
             # bind 127.0.0.1 -::1
+            # 关闭保护模式
             protected-mode no
+            # 允许后台运行
             daemonize yes
+            # 设置密码
+            requirepass xuxiaowei.com.cn
             ```
         4. 开放端口
             - CentOS
@@ -110,7 +115,7 @@
             - 设置开机自启
                 ```shell
                 systemctl enable redis_6379.service
-                ```shell
+                ```
             - 查看开机自启
                 ```shell
                 systemctl list-unit-files | grep redis_6379.service

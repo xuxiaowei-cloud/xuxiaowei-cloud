@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull redis:6.2.6
+docker pull redis:7.0.8
 ```
 
 - 创建容器
@@ -35,26 +35,26 @@ docker pull redis:6.2.6
                 ```shell
                 echo $REDIS_PASSWORD
                 ```
-        1. 执行创建命令
+        2. 执行创建命令
             ```shell
             docker run \
             -itd \
             --restart always \
             --privileged=true \
-            --name redis-6.2.6 \
+            --name redis-7.0.8 \
             -p 6379:6379 \
-            -d redis:6.2.6 \
+            -d redis:7.0.8 \
             --requirepass $REDIS_PASSWORD
             ```
-        1. 查看日志
+        3. 查看日志
             ```shell
-            docker logs -f redis-6.2.6
+            docker logs -f redis-7.0.8
             ```
-        1. 进入容器
+        4. 进入容器
             ```shell
-            docker exec -it redis-6.2.6 bash
+            docker exec -it redis-7.0.8 bash
             ```
-        1. 开放端口
+        5. 开放端口
             - CentOS
                 ```shell
                 firewall-cmd --zone=public --add-port=6379/tcp --permanent
