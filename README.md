@@ -438,11 +438,13 @@ cloud.xuxiaowei
         - 不可推送，只能合并
     2. `xuxiaowei`开头的分支
         - 个人分支，按功能`PR`到主分支`main`
-    3. `pages`
+    3. `shell`
+        1. 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
+    4. `pages`
         - 文档分支
-    4. `OAuth2.0`
+    5. `OAuth2.0`
         - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    5. `only-passport`
+    6. `only-passport`
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
 
 ## 参考文档
