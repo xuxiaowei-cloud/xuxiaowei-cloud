@@ -43,9 +43,12 @@ shell-service-gateway:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -93,9 +96,12 @@ shell-service-admin-server:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 
@@ -144,9 +150,12 @@ shell-service-passport:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -196,9 +205,12 @@ shell-service-canal:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -248,9 +260,12 @@ shell-service-user:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -300,9 +315,12 @@ shell-service-master-data:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -352,9 +370,12 @@ shell-service-websocket:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -404,9 +425,12 @@ shell-service-webservice:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -456,9 +480,12 @@ shell-service-wechat-miniprogram:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -508,9 +535,12 @@ shell-service-wechat-offiaccount:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -560,9 +590,12 @@ shell-service-file:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -610,9 +643,12 @@ shell-service-xxl-job-admin:
     - sleep 30 && echo 增加延时
     - sudo systemctl status $MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
 
 #
@@ -630,7 +666,10 @@ shell-service-ui:
     - echo RELEASE_PATH：$RELEASE_PATH
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建发布文件夹完成; fi
     - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
   tags:
-    - shell
-  only:
+    # 仅在 tags 名称为 shell 的执行器上执行
     - shell
