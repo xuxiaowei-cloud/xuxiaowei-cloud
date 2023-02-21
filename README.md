@@ -440,18 +440,18 @@ cloud.xuxiaowei
         - 用于 GitLab Runner 的 kubernetes（k8s） 类型的执行器执行 CI/CD
         - 使用 kubernetes（k8s） 编译代码打包
         - 使用 kubernetes（k8s） 将打包后的jar包制作成docker镜像
-        - 使用 kubernetes（k8s） 进行发包
+        - 使用 kubernetes（k8s） 进行发布
     2. `xuxiaowei`开头的分支
         - 个人分支，按功能`PR`到主分支`main`
     3. `shell`
         - 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
         - 使用 shell 命令编译代码打包
-        - 使用 shell 命令创建 Linux service 服务进行发包
+        - 使用 shell 命令创建 Linux service 服务进行发布
     4. `docker`
         - 用于 GitLab Runner 的 docker 类型的执行器执行 CI/CD
         - 使用 docker 编译代码打包
         - 使用 docker 将打包后的jar包制作成docker镜像
-        - 使用 docker 进行发包
+        - 使用 docker 进行发布
     5. `pages`
         - 文档分支
     6. `OAuth2.0`
@@ -460,9 +460,10 @@ cloud.xuxiaowei
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
     8. 此处未说明的分支，请勿使用
     9. 已上包含 CI/CD 的分支
-        1. 分支内的各阶段，可交替使用，如：使用 kubernetes（k8s） 编译代码打包、将打包后的jar包制作成docker镜像，使用 docker
-           进行发包。如何选择请使用者自行组合。
-        2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用什么类型的执行器执行 CI/CD，就将代码PR到指定的分支。
+        1. 分支内的各阶段，可交替使用，如：使用 docker 编译代码打包、使用 docker 将打包后的jar包制作成docker镜像，使用
+           kubernetes（k8s） 进行发布。如何选择请使用者自行组合。
+        2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用某个分支的某些执行器执行 CI/CD，就将代码 `PR`
+           （推荐使用PR，方便一键回滚代码、将回滚的内容进行恢复） 到指定的分支。
 
 ## 参考文档
 
