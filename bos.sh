@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir .go-bcecli -p
 
 echo "[Defaults]" > .go-bcecli/config

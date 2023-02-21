@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "cos:" > .cos.yaml
 echo "  base:" >> .cos.yaml
 echo "    secretid: $secretid" >> .cos.yaml

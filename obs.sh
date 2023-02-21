@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "根据要储存文件名的特点查找文件（排除.m2文件夹）"
 for file in $(find . -path ./.m2 -prune -o -name *-*-*.pom -o -name *-*-*.jar -o -name *-*-*.*.asc); do
   if [ './.m2' == $file ]; then
