@@ -284,6 +284,7 @@ cloud.xuxiaowei
 | master-data        | 主数据服务                       |                                        | 2201  |
 | file               | 文件服务                        |                                        | 2301  |
 | xxl-job-admin      | XXL Job Admin               |                                        | 5101  |
+|                    |                             |                                        |       |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
 | cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |
 
@@ -439,13 +440,14 @@ cloud.xuxiaowei
     2. `xuxiaowei`开头的分支
         - 个人分支，按功能`PR`到主分支`main`
     3. `shell`
-        1. 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
+        - 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
     4. `pages`
         - 文档分支
     5. `OAuth2.0`
         - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
     6. `only-passport`
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
+    7. 此处未说明的分支，请勿使用
 
 ## 参考文档
 
