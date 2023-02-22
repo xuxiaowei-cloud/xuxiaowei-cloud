@@ -342,7 +342,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		String unionId = systemOauthTokenResponse.getUnionId();
 
 		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
-				.getByAppidAndUserId(appid, userId);
+			.getByAppidAndUserId(appid, userId);
 		// @formatter:off
 		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndOpenId(appid,
 		// 		openId);
@@ -413,7 +413,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 			String openId, Object credentials, String unionid, String accessToken, String refreshToken,
 			String expiresIn) throws OAuth2AuthenticationException {
 		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
-				.getByAppidAndUserId(appid, userId);
+			.getByAppidAndUserId(appid, userId);
 
 		if (alipayOplatformWebsiteUsers == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到支付宝网站应用用户或已被删除", null);

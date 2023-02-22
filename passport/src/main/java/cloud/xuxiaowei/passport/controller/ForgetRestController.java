@@ -376,7 +376,7 @@ public class ForgetRestController {
 		String rsaPrivateKeyBase64 = (String) session.getAttribute(RSA_PRIVATE_KEY_BASE64);
 
 		String token = sessionService
-				.get(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
+			.get(REDIS_RESET_PASSWORD_SMS_CAPTCHA + usersId + ":" + phone + ":" + identification);
 		if (code.equals(token)) {
 			// 重置密码
 			usersService.updatePasswordById(usersId, password, rsaPrivateKeyBase64);

@@ -198,7 +198,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 	public boolean stateValid(HttpServletRequest request, HttpServletResponse response, String appid, String agentid,
 			String code, String state) {
 		String string = sessionService
-				.get(WECHAT_WORK_WEBSITE_STATE_PREFIX + ":" + appid + ":" + agentid + ":" + state);
+			.get(WECHAT_WORK_WEBSITE_STATE_PREFIX + ":" + appid + ":" + agentid + ":" + state);
 		if (!StringUtils.hasText(string)) {
 			Response<?> error = Response.error("非法状态码");
 			ResponseUtils.response(response, error);
@@ -228,7 +228,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 	public String getBinding(HttpServletRequest request, HttpServletResponse response, String appid, String agentid,
 			String code, String state) {
 		String binding = sessionService
-				.get(WECHAT_WORK_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + agentid + ":" + state);
+			.get(WECHAT_WORK_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + agentid + ":" + state);
 		sessionService.remove(WECHAT_WORK_WEBSITE_BINDING_PREFIX + ":" + appid + ":" + agentid + ":" + state);
 		return binding;
 	}
@@ -484,7 +484,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 		if (Boolean.TRUE.toString().equals(binding)) {
 
 			String usersIdStr = sessionService
-					.get(WECHAT_WORK_WEBSITE_USERS_PREFIX + ":" + appid + ":" + agentid + ":" + state);
+				.get(WECHAT_WORK_WEBSITE_USERS_PREFIX + ":" + appid + ":" + agentid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
 			wxWorkWebsiteUsersService.binding(usersId, appid, agentid, openid);

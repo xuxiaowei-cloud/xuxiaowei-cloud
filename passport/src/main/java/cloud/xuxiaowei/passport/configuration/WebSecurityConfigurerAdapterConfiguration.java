@@ -130,7 +130,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		http.oauth2ResourceServer().jwt(oauth2ResourceServer -> {
 			RSAPublicKey rsaPublicKey = cloudJwkKeyProperties.rsaPublicKey();
 			NimbusJwtDecoder.PublicKeyJwtDecoderBuilder publicKeyJwtDecoderBuilder = NimbusJwtDecoder
-					.withPublicKey(rsaPublicKey);
+				.withPublicKey(rsaPublicKey);
 			NimbusJwtDecoder nimbusJwtDecoder = publicKeyJwtDecoderBuilder.build();
 			oauth2ResourceServer.decoder(nimbusJwtDecoder);
 		});
@@ -138,10 +138,10 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		// 异常处理
 		http.exceptionHandling(exceptionHandlingCustomizer -> {
 			exceptionHandlingCustomizer
-					// 访问被拒绝处理程序
-					.accessDeniedHandler(accessDeniedHandler)
-					// 身份验证入口点
-					.authenticationEntryPoint(authenticationEntryPoint);
+				// 访问被拒绝处理程序
+				.accessDeniedHandler(accessDeniedHandler)
+				// 身份验证入口点
+				.authenticationEntryPoint(authenticationEntryPoint);
 		});
 
 		// 用于检索用户进行身份验证的实例
@@ -150,107 +150,141 @@ public class WebSecurityConfigurerAdapterConfiguration {
 		// 路径权限控制
 		http.authorizeHttpRequests((authorize) -> {
 			authorize
-					// 放行端点
-					.antMatchers("/actuator/**").permitAll()
-					// 放行授权路径
-					.antMatchers("/oauth2/authorize").permitAll()
-					// 放行检查Token
-					.antMatchers("/oauth2/check_token").permitAll()
-					// 放行Token
-					.antMatchers("/oauth2/token").permitAll()
-					// OAuth2 撤销端点
-					.antMatchers("/oauth2/revoke").permitAll()
-					// 授权码
-					.antMatchers("/code").permitAll()
-					// 注销登录放行
-					.antMatchers("/signout").permitAll()
-					// 找回密码
-					.antMatchers("/forget").permitAll()
-					// 检查重置密码凭证
-					.antMatchers("/forget/check-reset-password-token").permitAll()
-					// 重置密码
-					.antMatchers("/forget/reset-password").permitAll()
-					// 重置密码（手机验证码）
-					.antMatchers("/forget/reset-type-phone-password").permitAll()
-					// 微信公众号跳转到微信授权页面
-					.antMatchers("/wechat-offiaccount/authorize/*").permitAll()
-					// 微信公众号授权码接收服务
-					.antMatchers("/wechat-offiaccount/code/*").permitAll()
-					// 微信开放平台 网站应用 跳转到微信授权页面
-					.antMatchers("/wechat-oplatform/website/authorize/*").permitAll()
-					// 微信开放平台 网站应用 授权码接收服务
-					.antMatchers("/wechat-oplatform/website/code/*").permitAll()
-					// 码云 Gitee 网站应用 跳转到码云Gitee授权页面
-					.antMatchers("/gitee/authorize/*").permitAll()
-					// 码云 Gitee 网站应用 授权码接收服务
-					.antMatchers("/gitee/code/*").permitAll()
-					// QQ 网站应用 跳转到微信授权页面
-					.antMatchers("/qq/website/authorize/*").permitAll()
-					// QQ 网站应用 授权码接收服务
-					.antMatchers("/qq/website/code/*").permitAll()
-					// 微博 网站应用 跳转到微博授权页面
-					.antMatchers("/weibo/authorize/*").permitAll()
-					// 微博 网站应用 授权码接收服务
-					.antMatchers("/weibo/code/*").permitAll()
-					// GitLab 网站应用 跳转到GitLab授权页面
-					.antMatchers("/gitlab/authorize/*").permitAll()
-					// GitLab 网站应用 授权码接收服务
-					.antMatchers("/gitlab/code/*").permitAll()
-					// 企业微信扫码登录 跳转到企业微信授权页面
-					.antMatchers("/wechat-work/website/authorize/*/*").permitAll()
-					// 企业微信扫码登录 授权码接收服务
-					.antMatchers("/wechat-work/website/code/*/*").permitAll()
-					// Github 登录 跳转到Github授权页面
-					.antMatchers("/github/authorize/*").permitAll()
-					// Github 登录 授权码接收服务
-					.antMatchers("/github/code/*").permitAll()
-					// 钉钉 dingtalk 登录 跳转到 钉钉 dingtalk 授权页面
-					.antMatchers("/dingtalk/authorize/*").permitAll()
-					// 钉钉 dingtalk 登录 授权码接收服务
-					.antMatchers("/dingtalk/code/*").permitAll()
-					// 支付宝 网站应用 登录 跳转到 支付宝 网站应用 授权页面
-					.antMatchers("/alipay-oplatform/website/authorize/*").permitAll()
-					// 支付宝 网站应用 登录 授权码接收服务
-					.antMatchers("/alipay-oplatform/website/code/*").permitAll()
-					// 配置
-					.antMatchers("/configuration").permitAll()
-					// 放行错误地址
-					.antMatchers("/error").permitAll()
-					// 其他路径均需要授权
-					.anyRequest().authenticated();
+				// 放行端点
+				.antMatchers("/actuator/**")
+				.permitAll()
+				// 放行授权路径
+				.antMatchers("/oauth2/authorize")
+				.permitAll()
+				// 放行检查Token
+				.antMatchers("/oauth2/check_token")
+				.permitAll()
+				// 放行Token
+				.antMatchers("/oauth2/token")
+				.permitAll()
+				// OAuth2 撤销端点
+				.antMatchers("/oauth2/revoke")
+				.permitAll()
+				// 授权码
+				.antMatchers("/code")
+				.permitAll()
+				// 注销登录放行
+				.antMatchers("/signout")
+				.permitAll()
+				// 找回密码
+				.antMatchers("/forget")
+				.permitAll()
+				// 检查重置密码凭证
+				.antMatchers("/forget/check-reset-password-token")
+				.permitAll()
+				// 重置密码
+				.antMatchers("/forget/reset-password")
+				.permitAll()
+				// 重置密码（手机验证码）
+				.antMatchers("/forget/reset-type-phone-password")
+				.permitAll()
+				// 微信公众号跳转到微信授权页面
+				.antMatchers("/wechat-offiaccount/authorize/*")
+				.permitAll()
+				// 微信公众号授权码接收服务
+				.antMatchers("/wechat-offiaccount/code/*")
+				.permitAll()
+				// 微信开放平台 网站应用 跳转到微信授权页面
+				.antMatchers("/wechat-oplatform/website/authorize/*")
+				.permitAll()
+				// 微信开放平台 网站应用 授权码接收服务
+				.antMatchers("/wechat-oplatform/website/code/*")
+				.permitAll()
+				// 码云 Gitee 网站应用 跳转到码云Gitee授权页面
+				.antMatchers("/gitee/authorize/*")
+				.permitAll()
+				// 码云 Gitee 网站应用 授权码接收服务
+				.antMatchers("/gitee/code/*")
+				.permitAll()
+				// QQ 网站应用 跳转到微信授权页面
+				.antMatchers("/qq/website/authorize/*")
+				.permitAll()
+				// QQ 网站应用 授权码接收服务
+				.antMatchers("/qq/website/code/*")
+				.permitAll()
+				// 微博 网站应用 跳转到微博授权页面
+				.antMatchers("/weibo/authorize/*")
+				.permitAll()
+				// 微博 网站应用 授权码接收服务
+				.antMatchers("/weibo/code/*")
+				.permitAll()
+				// GitLab 网站应用 跳转到GitLab授权页面
+				.antMatchers("/gitlab/authorize/*")
+				.permitAll()
+				// GitLab 网站应用 授权码接收服务
+				.antMatchers("/gitlab/code/*")
+				.permitAll()
+				// 企业微信扫码登录 跳转到企业微信授权页面
+				.antMatchers("/wechat-work/website/authorize/*/*")
+				.permitAll()
+				// 企业微信扫码登录 授权码接收服务
+				.antMatchers("/wechat-work/website/code/*/*")
+				.permitAll()
+				// Github 登录 跳转到Github授权页面
+				.antMatchers("/github/authorize/*")
+				.permitAll()
+				// Github 登录 授权码接收服务
+				.antMatchers("/github/code/*")
+				.permitAll()
+				// 钉钉 dingtalk 登录 跳转到 钉钉 dingtalk 授权页面
+				.antMatchers("/dingtalk/authorize/*")
+				.permitAll()
+				// 钉钉 dingtalk 登录 授权码接收服务
+				.antMatchers("/dingtalk/code/*")
+				.permitAll()
+				// 支付宝 网站应用 登录 跳转到 支付宝 网站应用 授权页面
+				.antMatchers("/alipay-oplatform/website/authorize/*")
+				.permitAll()
+				// 支付宝 网站应用 登录 授权码接收服务
+				.antMatchers("/alipay-oplatform/website/code/*")
+				.permitAll()
+				// 配置
+				.antMatchers("/configuration")
+				.permitAll()
+				// 放行错误地址
+				.antMatchers("/error")
+				.permitAll()
+				// 其他路径均需要授权
+				.anyRequest()
+				.authenticated();
 		});
 
 		http.formLogin(formLogin -> formLogin
-				// 登录页面地址
-				.loginPage(cloudSecurityProperties.getLoginPageUrl())
-				// 登录请求地址
-				.loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
-				// 身份验证失败处理程序
-				.failureHandler(authenticationFailureHandler)
-				// 登录成功后的处理，重定向到某个地址
-				.successHandler(authenticationSuccessHandler)
-				// 已上地址，允许任何人访问
-				.permitAll());
+			// 登录页面地址
+			.loginPage(cloudSecurityProperties.getLoginPageUrl())
+			// 登录请求地址
+			.loginProcessingUrl(cloudSecurityProperties.getLoginProcessingUrl())
+			// 身份验证失败处理程序
+			.failureHandler(authenticationFailureHandler)
+			// 登录成功后的处理，重定向到某个地址
+			.successHandler(authenticationSuccessHandler)
+			// 已上地址，允许任何人访问
+			.permitAll());
 
 		http.rememberMe(rememberMe -> rememberMe
-				// 查询用户
-				.userDetailsService(userDetailsService)
-				// 记住我参数名
-				.rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter())
-				// 记住我 Cookie 名
-				.rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName())
-				// 记住我域名
-				.rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
-				// 秘钥
-				.key(cloudRememberMeProperties.getKey())
-				// 记住我 Token 有效时间
-				.tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds()));
+			// 查询用户
+			.userDetailsService(userDetailsService)
+			// 记住我参数名
+			.rememberMeParameter(cloudRememberMeProperties.getRememberMeParameter())
+			// 记住我 Cookie 名
+			.rememberMeCookieName(cloudRememberMeProperties.getRememberMeCookieName())
+			// 记住我域名
+			.rememberMeCookieDomain(cloudRememberMeProperties.getRememberMeCookieDomain())
+			// 秘钥
+			.key(cloudRememberMeProperties.getKey())
+			// 记住我 Token 有效时间
+			.tokenValiditySeconds(cloudRememberMeProperties.getTokenValiditySeconds()));
 
 		// CSRF 配置
 		http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
 
 		OAuth2TokenRevocationEndpointFilter sharedObject = http
-				.getSharedObject(OAuth2TokenRevocationEndpointFilter.class);
+			.getSharedObject(OAuth2TokenRevocationEndpointFilter.class);
 
 		return http.build();
 	}

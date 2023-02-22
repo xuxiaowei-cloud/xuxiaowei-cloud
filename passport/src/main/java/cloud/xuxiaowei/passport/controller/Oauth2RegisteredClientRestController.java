@@ -190,7 +190,7 @@ public class Oauth2RegisteredClientRestController {
 			@Valid @RequestBody Oauth2RegisteredClientPageBo oauth2RegisteredClientPageBo) {
 
 		IPage<Oauth2RegisteredClientVo> page = oauth2RegisteredClientService
-				.pageByOauth2RegisteredClientPageBo(oauth2RegisteredClientPageBo);
+			.pageByOauth2RegisteredClientPageBo(oauth2RegisteredClientPageBo);
 
 		return Response.ok(page);
 	}
@@ -283,7 +283,7 @@ public class Oauth2RegisteredClientRestController {
 			@Valid @RequestBody Oauth2RegisteredClientUpdateBo oauth2RegisteredClientUpdateBo) {
 
 		boolean update = oauth2RegisteredClientService
-				.updateByOauth2RegisteredClientUpdateBo(oauth2RegisteredClientUpdateBo);
+			.updateByOauth2RegisteredClientUpdateBo(oauth2RegisteredClientUpdateBo);
 
 		return Response.ok(update);
 	}

@@ -85,10 +85,10 @@ public class AlipayMiniProgramServiceImpl implements AlipayMiniProgramService {
 		InMemoryAlipayMiniProgramService inMemoryAlipayMiniProgramService = new InMemoryAlipayMiniProgramService(
 				alipayMiniProgramProperties);
 		AlipayMiniProgramTokenResponse alipayMiniProgramTokenResponse = inMemoryAlipayMiniProgramService
-				.getAccessTokenResponse(appid, code);
+			.getAccessTokenResponse(appid, code);
 
 		AlipaySystemOauthTokenResponse systemOauthTokenResponse = alipayMiniProgramTokenResponse
-				.getSystemOauthTokenResponse();
+			.getSystemOauthTokenResponse();
 		AlipayUserInfoShareResponse userInfoShareResponse = alipayMiniProgramTokenResponse.getUserInfoShareResponse();
 
 		String userId = userInfoShareResponse.getUserId();

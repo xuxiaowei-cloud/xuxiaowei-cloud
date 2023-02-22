@@ -99,25 +99,25 @@ public class ConfigurationRestController {
 		String alipayOplatformWebsiteAppid = alipayOplatformWebsiteProperties.getDefaultAppid();
 
 		return ResponseMap.ok()
-				// 微信开放平台 网站应用 ID
-				.put("weChatOplatformWebsiteAppid", weChatOplatformWebsiteAppid)
-				// 码云Gitee 网站应用 ID
-				.put("giteeAppid", giteeAppid)
-				// QQ 网站应用 ID
-				.put("qqWebsiteAppid", qqWebsiteAppid)
-				// 微博 网站应用 ID
-				.put("weiBoWebsiteAppid", weiBoWebsiteAppid)
-				// GitLab 网站应用 ID
-				.put("gitlabAppid", gitlabAppid)
-				// 企业微信扫码 网站应用 ID
-				.put("weChatWorkWebsiteAppid", weChatWorkWebsiteAppid)
-				.put("weChatWorkWebsiteAgentid", weChatWorkWebsiteAgentid)
-				// GitHub 网站应用 ID
-				.put("githubAppid", githubAppid)
-				// 钉钉 dingtalk 网站应用 ID
-				.put("dingtalkAppid", dingtalkAppid)
-				// 支付宝 网站应用 ID
-				.put("alipayOplatformWebsiteAppid", alipayOplatformWebsiteAppid);
+			// 微信开放平台 网站应用 ID
+			.put("weChatOplatformWebsiteAppid", weChatOplatformWebsiteAppid)
+			// 码云Gitee 网站应用 ID
+			.put("giteeAppid", giteeAppid)
+			// QQ 网站应用 ID
+			.put("qqWebsiteAppid", qqWebsiteAppid)
+			// 微博 网站应用 ID
+			.put("weiBoWebsiteAppid", weiBoWebsiteAppid)
+			// GitLab 网站应用 ID
+			.put("gitlabAppid", gitlabAppid)
+			// 企业微信扫码 网站应用 ID
+			.put("weChatWorkWebsiteAppid", weChatWorkWebsiteAppid)
+			.put("weChatWorkWebsiteAgentid", weChatWorkWebsiteAgentid)
+			// GitHub 网站应用 ID
+			.put("githubAppid", githubAppid)
+			// 钉钉 dingtalk 网站应用 ID
+			.put("dingtalkAppid", dingtalkAppid)
+			// 支付宝 网站应用 ID
+			.put("alipayOplatformWebsiteAppid", alipayOplatformWebsiteAppid);
 	}
 
 }

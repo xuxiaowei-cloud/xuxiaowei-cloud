@@ -325,8 +325,8 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			throws OAuth2AuthenticationException {
 		InMemoryWeChatOplatformWebsiteService weChatOplatformWebsiteService = new InMemoryWeChatOplatformWebsiteService(
 				weChatOplatformWebsiteProperties);
-		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService.getAccessTokenResponse(
-				appid, code, state, binding, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
+		WeChatOplatformWebsiteTokenResponse accessTokenResponse = weChatOplatformWebsiteService
+			.getAccessTokenResponse(appid, code, state, binding, accessTokenUrl, userinfoUrl, remoteAddress, sessionId);
 
 		String openid = accessTokenResponse.getOpenid();
 
