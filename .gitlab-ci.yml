@@ -51,9 +51,9 @@ package:
   image: maven:3.6.3-jdk-8
   script:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
-    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
-    - echo $GPG_FILE
-    - gpg --import $GPG_FILE
+    # - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
@@ -105,10 +105,10 @@ package:
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST ]];
       then
     # 自建 GitLab 使用 Maven 私库（文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nexus-docker-install）
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings-private.xml && PACKAGE_FLAG=1;
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1;
       else
     # 非自建 GitLab 使用 阿里/腾讯 Maven 镜像
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1;
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings.xml && PACKAGE_FLAG=1;
       fi
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     # 自建 GitLab，打包完成后将打包结果构建成 Docker 镜像并推送到 Docker 私服中，方便后期使用（如：k8s）
@@ -230,9 +230,9 @@ docker-package:
   image: maven:3.6.3-jdk-8
   script:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
-    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
-    - echo $GPG_FILE
-    - gpg --import $GPG_FILE
+    # - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
@@ -242,7 +242,7 @@ docker-package:
     # 配置 Maven 仓库的密码，用于上传 Maven
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
     paths:

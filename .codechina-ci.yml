@@ -44,9 +44,9 @@ package:
   image: maven:3.6.3-jdk-8
   script:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
-    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
-    - echo $GPG_FILE
-    - gpg --import $GPG_FILE
+    # - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
@@ -93,7 +93,7 @@ package:
     # 配置 Maven 仓库的密码，用于上传 Maven
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   # 产物超过 1000M，取消产物上传，节省时间
   #  artifacts:
@@ -167,9 +167,9 @@ docker-package:
   image: maven:3.6.3-jdk-8
   script:
     # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
-    - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
-    - echo $GPG_FILE
-    - gpg --import $GPG_FILE
+    # - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
@@ -179,7 +179,7 @@ docker-package:
     # 配置 Maven 仓库的密码，用于上传 Maven
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
-    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
     paths:
