@@ -47,11 +47,6 @@ package:
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
-    # - SETTINGS_FILE=`find / -name settings.xml`
-    - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
-    - echo $SETTINGS_FILE
-    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central,jcenter</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
@@ -95,7 +90,10 @@ package:
     - echo GitLab实例URL的主机，没有协议或端口：$CI_SERVER_HOST
     - echo 项目的HTTP（S）地址：$CI_PROJECT_URL
     - echo 克隆Git存储库的URL：$CI_REPOSITORY_URL
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    # 配置 Maven 仓库的密码，用于上传 Maven
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   # 产物超过 1000M，取消产物上传，节省时间
   #  artifacts:
@@ -134,8 +132,9 @@ shell-package:
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    # -Pgpg
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    # 在 Shell 执行器中，如果手动导入 gpg，可使用参数 -Pgpg
+    # 在 Shell 执行器中，不指定 settings.xml，可使用系统默认
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   artifacts:
     name: package
@@ -171,18 +170,16 @@ docker-package:
     - GPG_FILE=/builds/xuxiaowei-cloud/xuxiaowei-cloud.tmp/xuxiaowei_0x97A36125_SECRET
     - echo $GPG_FILE
     - gpg --import $GPG_FILE
-    # - SETTINGS_FILE=`find / -name settings.xml`
-    - SETTINGS_FILE=/usr/share/maven/conf/settings.xml
-    - echo $SETTINGS_FILE
-    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>&#" $SETTINGS_FILE
-    - sed -i "s#</mirrors>#<mirror><id>nexus-tencentyun</id><mirrorOf>central,jcenter</mirrorOf><name>Nexus tencentyun</name><url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url></mirror>&#" $SETTINGS_FILE
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
     - echo 当前分支：$CI_COMMIT_BRANCH
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
-    - mvn clean -e -U package source:jar javadoc:jar install -Paliyun -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    # 配置 Maven 仓库的密码，用于上传 Maven
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
+    - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
+    - mvn clean -e -U package source:jar javadoc:jar install -Pgpg -DskipTests -s settings.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
     paths:
