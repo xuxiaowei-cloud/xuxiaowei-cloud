@@ -81,6 +81,128 @@ cloud:
         - POST
         - OPTIONS
 
+
+
+alipay:
+  mini:
+    program:
+      default-role: ${alipay_miniprogram_default_role:alipay_miniprogram}
+      list:
+        - app-id: ${alipay_miniprogram_appid:}
+          private-key: ${alipay_miniprogram_private_key:}
+          alipay-public-key: ${alipay_miniprogram_alipay_public_key:}
+
+---
+
+alipay:
+  oplatform:
+    website:
+      default-role: ${alipay_oplatform_website_default_role:alipay_oplatform_website}
+      list:
+        - app-id: ${alipay_oplatform_website_appid:}
+          private-key: ${alipay_oplatform_website_private_key:}
+          alipay-public-key: ${alipay_oplatform_website_alipay_public_key:}
+          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/alipay-oplatform/website/code
+          client-id: xuxiaowei_client_alipay_oplatform_website_id
+          client-secret: xuxiaowei_client_alipay_oplatform_website_secret
+          token-url-prefix: http://127.0.0.1:${server.port:80}
+          scope: alipay_oplatform_website
+          success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+dingtalk:
+  default-role: ${github_default_role:dingtalk}
+  list:
+    - appid: ${github_appid:}
+      secret: ${github_secret:}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/dingtalk/code
+      client-id: xuxiaowei_client_dingtalk_id
+      client-secret: xuxiaowei_client_dingtalk_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: dingtalk
+      success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+gitee:
+  default-role: ${gitee_default_role:gitee}
+  list:
+    - appid: ${gitee_appid:}
+      secret: ${gitee_secret:}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/code
+      client-id: xuxiaowei_client_gitee_id
+      client-secret: xuxiaowei_client_gitee_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: gitee
+      success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+github:
+  default-role: ${github_default_role:github}
+  list:
+    - appid: ${github_appid:}
+      secret: ${github_secret:}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/github/code
+      client-id: xuxiaowei_client_github_id
+      client-secret: xuxiaowei_client_github_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: github
+      success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+gitlab:
+  default-role: ${gitlab_default_role:gitlab}
+  list:
+    - appid: ${gitlab_appid:}
+      secret: ${gitlab_secret:}
+      domain: ${gitlab_domain:https://gitlab.com}
+      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitlab/code
+      client-id: xuxiaowei_client_gitlab_id
+      client-secret: xuxiaowei_client_gitlab_secret
+      token-url-prefix: http://127.0.0.1:${server.port:80}
+      scope: gitlab
+      success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+qq:
+  mini:
+    program:
+      default-role: ${qq_miniprogram_default_role:qq_miniprogram}
+      list:
+        - appid: ${qq_miniprogram_appid:}
+          secret: ${qq_miniprogram_secret:}
+
+---
+
+qq:
+  website:
+    default-role: ${qq_website_default_role:qq_website}
+    list:
+      - appid: ${qq_website_appid:}
+        secret: ${qq_website_secret:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/code
+        client-id: xuxiaowei_client_qq_website_id
+        client-secret: xuxiaowei_client_qq_website_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: qq_website
+        success-url: http://example.xuxiaowei.cloud:1001/#/
+
+
+
+wechat:
+  mini:
+    program:
+      default-role: ${wechat_miniprogram_default_role:wechat_miniprogram}
+      list:
+        - appid: ${wechat_miniprogram_appid:}
+          secret: ${wechat_miniprogram_secret:}
+
+---
+
 wechat:
   offiaccount:
     default-role: ${wechat_offiaccount_default_role:wechat_offiaccount}
@@ -110,65 +232,6 @@ wechat:
           scope: wechat_oplatform_website
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
-gitee:
-  default-role: ${gitee_default_role:gitee}
-  list:
-    - appid: ${gitee_appid:}
-      secret: ${gitee_secret:}
-      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/code
-      client-id: xuxiaowei_client_gitee_id
-      client-secret: xuxiaowei_client_gitee_secret
-      token-url-prefix: http://127.0.0.1:${server.port:80}
-      scope: gitee
-      success-url: http://example.xuxiaowei.cloud:1001/#/
-qq:
-  website:
-    default-role: ${qq_website_default_role:qq_website}
-    list:
-      - appid: ${qq_website_appid:}
-        secret: ${qq_website_secret:}
-        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/code
-        client-id: xuxiaowei_client_qq_website_id
-        client-secret: xuxiaowei_client_qq_website_secret
-        token-url-prefix: http://127.0.0.1:${server.port:80}
-        scope: qq_website
-        success-url: http://example.xuxiaowei.cloud:1001/#/
----
-
-qq:
-  mini:
-    program:
-      default-role: ${qq_miniprogram_default_role:qq_miniprogram}
-      list:
-        - appid: ${qq_miniprogram_appid:}
-          secret: ${qq_miniprogram_secret:}
-
-weibo:
-  website:
-    default-role: ${weibo_default_role:weibo}
-    list:
-      - appid: ${weibo_appid:}
-        secret: ${weibo_secret:}
-        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/weibo/code
-        client-id: xuxiaowei_client_weibo_id
-        client-secret: xuxiaowei_client_weibo_secret
-        token-url-prefix: http://127.0.0.1:${server.port:80}
-        scope: weibo
-        success-url: http://example.xuxiaowei.cloud:1001/#/
-
-gitlab:
-  default-role: ${gitlab_default_role:gitlab}
-  list:
-    - appid: ${gitlab_appid:}
-      secret: ${gitlab_secret:}
-      domain: ${gitlab_domain:https://gitlab.com}
-      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitlab/code
-      client-id: xuxiaowei_client_gitlab_id
-      client-secret: xuxiaowei_client_gitlab_secret
-      token-url-prefix: http://127.0.0.1:${server.port:80}
-      scope: gitlab
-      success-url: http://example.xuxiaowei.cloud:1001/#/
-
 ---
 
 wechat:
@@ -186,65 +249,17 @@ wechat:
           scope: wechat_work_website
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
----
-
-wechat:
-  mini:
-    program:
-      default-role: ${wechat_miniprogram_default_role:wechat_miniprogram}
-      list:
-        - appid: ${wechat_miniprogram_appid:}
-          secret: ${wechat_miniprogram_secret:}
 
 
-github:
-  default-role: ${github_default_role:github}
-  list:
-    - appid: ${github_appid:}
-      secret: ${github_secret:}
-      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/github/code
-      client-id: xuxiaowei_client_github_id
-      client-secret: xuxiaowei_client_github_secret
-      token-url-prefix: http://127.0.0.1:${server.port:80}
-      scope: github
-      success-url: http://example.xuxiaowei.cloud:1001/#/
-
-
-dingtalk:
-  default-role: ${github_default_role:dingtalk}
-  list:
-    - appid: ${github_appid:}
-      secret: ${github_secret:}
-      redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/dingtalk/code
-      client-id: xuxiaowei_client_dingtalk_id
-      client-secret: xuxiaowei_client_dingtalk_secret
-      token-url-prefix: http://127.0.0.1:${server.port:80}
-      scope: dingtalk
-      success-url: http://example.xuxiaowei.cloud:1001/#/
-
-
-alipay:
-  mini:
-    program:
-      default-role: ${alipay_miniprogram_default_role:alipay_miniprogram}
-      list:
-        - app-id: ${alipay_miniprogram_appid:}
-          private-key: ${alipay_miniprogram_private_key:}
-          alipay-public-key: ${alipay_miniprogram_alipay_public_key:}
-
----
-
-alipay:
-  oplatform:
-    website:
-      default-role: ${alipay_oplatform_website_default_role:alipay_oplatform_website}
-      list:
-        - app-id: ${alipay_oplatform_website_appid:}
-          private-key: ${alipay_oplatform_website_private_key:}
-          alipay-public-key: ${alipay_oplatform_website_alipay_public_key:}
-          redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/alipay-oplatform/website/code
-          client-id: xuxiaowei_client_alipay_oplatform_website_id
-          client-secret: xuxiaowei_client_alipay_oplatform_website_secret
-          token-url-prefix: http://127.0.0.1:${server.port:80}
-          scope: alipay_oplatform_website
-          success-url: http://example.xuxiaowei.cloud:1001/#/
+weibo:
+  website:
+    default-role: ${weibo_default_role:weibo}
+    list:
+      - appid: ${weibo_appid:}
+        secret: ${weibo_secret:}
+        redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/weibo/code
+        client-id: xuxiaowei_client_weibo_id
+        client-secret: xuxiaowei_client_weibo_secret
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        scope: weibo
+        success-url: http://example.xuxiaowei.cloud:1001/#/
