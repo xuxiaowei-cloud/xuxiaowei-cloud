@@ -58,7 +58,7 @@ spec:
             - name: MYSQL_SERVICE_DB_NAME
               value: nacos_config
             - name: MYSQL_SERVICE_DB_PARAM
-              value: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
+              value: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
             - name: MYSQL_SERVICE_USER
               value: root
             - name: MYSQL_SERVICE_PASSWORD
