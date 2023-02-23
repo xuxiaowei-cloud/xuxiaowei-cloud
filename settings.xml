@@ -159,7 +159,7 @@ under the License.
 
     <!-- 腾讯云 Maven 镜像：https://mirrors.cloud.tencent.com/help/maven.html -->
     <mirror>
-      <id>tencentyun</id>
+      <id>tencentyun-setting</id>
       <!--
         仅代理 central、jcenter 仓库，可使用 * 代理所有仓库
         central：https://repo1.maven.org/maven2/
@@ -172,7 +172,7 @@ under the License.
 
     <!-- 腾讯云 Maven 镜像：https://developer.aliyun.com/mvn/guide -->
     <mirror>
-      <id>aliyunmaven</id>
+      <id>aliyunmaven-setting</id>
       <!--
         仅代理 central、jcenter 仓库，可使用 * 代理所有仓库
         central：https://repo1.maven.org/maven2/

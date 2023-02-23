@@ -159,7 +159,7 @@ under the License.
 
     <!-- 自建 Maven 私库：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nexus-docker-install -->
     <mirror>
-      <id>maven-public</id>
+      <id>maven-public-settings-private</id>
       <mirrorOf>*</mirrorOf>
       <name>maven-public</name>
       <url>http://nexus.xuxiaowei.com:8081/repository/maven-public/</url>
