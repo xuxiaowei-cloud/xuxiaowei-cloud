@@ -101,7 +101,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.8&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.9&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -109,7 +109,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2.2.9.RELEASE&color=blue">
+    <img alt="Alibaba Cloud" src="https://img.shields.io/static/v1?logo=Alibaba Cloud&message=2021.0.4.0&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -165,19 +165,19 @@
 
 ### 后端
 
-| 依赖                          | 本项目版本          | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                       |
-|-----------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| spring-boot                 | v2.7.8         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 JDK 8，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a> |
-| spring-cloud                | v2021.0.5      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml">                    |                                                                                                          |
-| spring-cloud-alibaba        | v2.2.9.RELEASE | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionSuffix=RELEASE&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml">                     | 使用的是带 .RELEASE 后缀的版本                                                                                     |
-| spring-boot-admin           | v2.7.10        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml">                                | 限制 JDK 8                                                                                                 |
-| spring-authorization-server | v0.4.1         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 JDK 8                                                                                                 |
-| mybatis                     | v2.3.0         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml">                          | 限制 JDK 8，指 mybatis-spring-boot-starter                                                                   |
-| mybatis-plus                | v3.5.3.1       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml">                                                        |                                                                                                          |
-| dynamic-datasource          | v3.6.1         | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                 |
-| guava                       | v31.1-jre      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                          |
-| fastjson                    | v2.0.24        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                            |
-| hutool                      | v5.8.12        | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                          |
+| 依赖                          | 本项目版本       | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                                   |
+|-----------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| spring-boot                 | v2.7.9      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 JDK 8，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a>             |
+| spring-cloud                | v2021.0.5   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml">                    |                                                                                                                      |
+| spring-cloud-alibaba        | v2021.0.4.0 | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml">                        | 限制 JDK 8，<a href="https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md">Spring Cloud Alibaba</a> |
+| spring-boot-admin           | v2.7.10     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml">                                | 限制 JDK 8                                                                                                             |
+| spring-authorization-server | v0.4.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 JDK 8                                                                                                             |
+| mybatis                     | v2.3.0      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml">                          | 限制 JDK 8，指 mybatis-spring-boot-starter                                                                               |
+| mybatis-plus                | v3.5.3.1    | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml">                                                        |                                                                                                                      |
+| dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                             |
+| guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                      |
+| fastjson                    | v2.0.24     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                        |
+| hutool                      | v5.8.12     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                      |
 
 ### 前端
 
@@ -187,13 +187,13 @@
 | @tauri-apps/api                  | 1.2.0  | <img src="https://img.shields.io/npm/v/@tauri-apps/api">                  |     |
 | @toast-ui/editor                 | 3.2.2  | <img src="https://img.shields.io/npm/v/@toast-ui/editor">                 |     |
 | @wangeditor/editor-for-vue       | 5.1.12 | <img src="https://img.shields.io/npm/v/@wangeditor/editor-for-vue/next">  |     |
-| axios                            | 1.3.3  | <img src="https://img.shields.io/npm/v/axios">                            |     |
+| axios                            | 1.3.4  | <img src="https://img.shields.io/npm/v/axios">                            |     |
 | crypto-js                        | 4.1.1  | <img src="https://img.shields.io/npm/v/crypto-js">                        |     |
 | echarts                          | 5.4.1  | <img src="https://img.shields.io/npm/v/echarts">                          |     |
 | element-plus                     | 2.2.32 | <img src="https://img.shields.io/npm/v/element-plus">                     |     |
 | js-cookie                        | 3.0.1  | <img src="https://img.shields.io/npm/v/js-cookie">                        |     |
 | jsencrypt                        | 3.3.1  | <img src="https://img.shields.io/npm/v/jsencrypt">                        |     |
-| pinia                            | 2.0.30 | <img src="https://img.shields.io/npm/v/pinia">                            |     |
+| pinia                            | 2.0.32 | <img src="https://img.shields.io/npm/v/pinia">                            |     |
 | sockjs-client                    | 1.6.1  | <img src="https://img.shields.io/npm/v/sockjs-client">                    |     |
 | stompjs                          | 2.3.3  | <img src="https://img.shields.io/npm/v/stompjs">                          |     |
 | vue                              | 3.2.47 | <img src="https://img.shields.io/npm/v/vue">                              |     |
@@ -203,8 +203,8 @@
 |                                  |        |                                                                           |     |
 | @tauri-apps/cli                  | 1.2.3  | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                  |     |
 | @types/crypto-js                 | 4.1.1  | <img src="https://img.shields.io/npm/v/@types/crypto-js">                 |     |
-| @typescript-eslint/eslint-plugin | 5.52.0 | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin"> |     |
-| @typescript-eslint/parser        | 5.52.0 | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">        |     |
+| @typescript-eslint/eslint-plugin | 5.53.0 | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin"> |     |
+| @typescript-eslint/parser        | 5.53.0 | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">        |     |
 | @vitejs/plugin-vue               | 4.0.0  | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">               |     |
 | eslint                           | 8.34.0 | <img src="https://img.shields.io/npm/v/eslint">                           |     |
 | eslint-config-standard           | 17.0.0 | <img src="https://img.shields.io/npm/v/eslint-config-standard">           |     |
@@ -215,11 +215,11 @@
 | lint-staged                      | 13.1.2 | <img src="https://img.shields.io/npm/v/lint-staged">                      |     |
 | terser                           | 5.16.4 | <img src="https://img.shields.io/npm/v/terser">                           |     |
 | typescript                       | 4.9.5  | <img src="https://img.shields.io/npm/v/typescript">                       |     |
-| unocss                           | 0.49.7 | <img src="https://img.shields.io/npm/v/unocss">                           |     |
-| unplugin-auto-import             | 0.14.3 | <img src="https://img.shields.io/npm/v/unplugin-auto-import">             |     |
+| unocss                           | 0.50.0 | <img src="https://img.shields.io/npm/v/unocss">                           |     |
+| unplugin-auto-import             | 0.15.0 | <img src="https://img.shields.io/npm/v/unplugin-auto-import">             |     |
 | unplugin-vue-components          | 0.24.0 | <img src="https://img.shields.io/npm/v/unplugin-vue-components">          |     |
-| vite                             | 4.1.2  | <img src="https://img.shields.io/npm/v/vite">                             |     |
-| vue-tsc                          | 1.1.4  | <img src="https://img.shields.io/npm/v/vue-tsc">                          |     |
+| vite                             | 4.1.4  | <img src="https://img.shields.io/npm/v/vite">                             |     |
+| vue-tsc                          | 1.1.7  | <img src="https://img.shields.io/npm/v/vue-tsc">                          |     |
 
 ## 模块
 
