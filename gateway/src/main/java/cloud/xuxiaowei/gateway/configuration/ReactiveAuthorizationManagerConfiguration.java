@@ -4,6 +4,7 @@ import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.core.properties.CloudWhiteListProperties;
 import cloud.xuxiaowei.gateway.filter.web.CorsBeforeWebFilter;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.InetAddressUtils;
 import cloud.xuxiaowei.utils.IpAddressMatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -160,9 +161,11 @@ public class ReactiveAuthorizationManagerConfiguration implements ReactiveAuthor
 		HttpMethod method = request.getMethod();
 		URI uri = request.getURI();
 
-		// 日志中放入请求ID
+		// 日志中放入请求ID、主机名
 		String requestId = request.getId();
+		String hostName = InetAddressUtils.getHostName();
 		MDC.put(Constant.REQUEST_ID, requestId);
+		MDC.put(Constant.HOST_NAME, hostName);
 
 		log.debug("访问：{}：{}", method, uri);
 

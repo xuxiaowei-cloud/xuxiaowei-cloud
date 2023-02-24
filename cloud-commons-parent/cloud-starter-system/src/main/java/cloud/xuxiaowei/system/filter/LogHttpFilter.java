@@ -2,6 +2,7 @@ package cloud.xuxiaowei.system.filter;
 
 import cloud.xuxiaowei.log.service.ILogService;
 import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.InetAddressUtils;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import org.slf4j.MDC;
@@ -68,11 +69,11 @@ public class LogHttpFilter extends HttpFilter {
 		String requestId = req.getHeader(Constant.REQUEST_ID);
 		if (requestId == null) {
 			requestId = UUID.randomUUID().toString();
-			MDC.put(Constant.REQUEST_ID, requestId);
 		}
-		else {
-			MDC.put(Constant.REQUEST_ID, requestId);
-		}
+		// 日志中放入请求ID、主机名
+		String hostName = InetAddressUtils.getHostName();
+		MDC.put(Constant.REQUEST_ID, requestId);
+		MDC.put(Constant.HOST_NAME, hostName);
 
 		HttpSession session = req.getSession();
 		String sessionId = session.getId();

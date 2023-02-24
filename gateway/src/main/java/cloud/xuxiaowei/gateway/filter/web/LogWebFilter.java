@@ -108,9 +108,11 @@ public class LogWebFilter implements WebFilter, Ordered {
 
 	public static void log(ServerHttpRequest request) {
 
-		// 日志中放入请求ID
+		// 日志中放入请求ID、主机名
 		String requestId = request.getId();
+		String hostName = InetAddressUtils.getHostName();
 		MDC.put(Constant.REQUEST_ID, requestId);
+		MDC.put(Constant.HOST_NAME, hostName);
 
 		InetSocketAddress remoteAddress = request.getRemoteAddress();
 		if (remoteAddress != null) {

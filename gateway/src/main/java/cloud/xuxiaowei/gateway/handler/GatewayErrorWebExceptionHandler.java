@@ -174,8 +174,10 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 		// controlled by the withCredentials attribute.
 		headers.setAccessControlAllowCredentials(true);
 
-		// 日志中放入请求ID
+		// 日志中放入请求ID、主机名
+		String hostName = InetAddressUtils.getHostName();
 		MDC.put(Constant.REQUEST_ID, requestId);
+		MDC.put(Constant.HOST_NAME, hostName);
 
 		// 请求中放入用户IP
 		InetSocketAddress remoteAddress = request.getRemoteAddress();

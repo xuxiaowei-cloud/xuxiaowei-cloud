@@ -93,6 +93,11 @@ public class Constant implements Serializable {
 	public static final String REQUEST_ID = "REQUEST_ID";
 
 	/**
+	 * 主机名
+	 */
+	public static final String HOST_NAME = "HOST_NAME";
+
+	/**
 	 * IP
 	 */
 	public static final String IP = "IP";
