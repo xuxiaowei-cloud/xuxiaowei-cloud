@@ -17,7 +17,7 @@ shell-service-gateway:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -34,14 +34,14 @@ shell-service-gateway:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -70,7 +70,7 @@ shell-service-admin-server:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -87,14 +87,14 @@ shell-service-admin-server:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -124,7 +124,7 @@ shell-service-passport:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -141,14 +141,14 @@ shell-service-passport:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -179,7 +179,7 @@ shell-service-canal:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -196,14 +196,14 @@ shell-service-canal:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -234,7 +234,7 @@ shell-service-user:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -251,14 +251,14 @@ shell-service-user:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -289,7 +289,7 @@ shell-service-master-data:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -306,14 +306,14 @@ shell-service-master-data:
     - echo "WantedBy=multi-master-data.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -344,7 +344,7 @@ shell-service-websocket:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -361,14 +361,14 @@ shell-service-websocket:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -399,7 +399,7 @@ shell-service-webservice:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -416,14 +416,14 @@ shell-service-webservice:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -454,7 +454,7 @@ shell-service-wechat-miniprogram:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -471,14 +471,14 @@ shell-service-wechat-miniprogram:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -509,7 +509,7 @@ shell-service-wechat-offiaccount:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -526,14 +526,14 @@ shell-service-wechat-offiaccount:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -564,7 +564,7 @@ shell-service-file:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -581,14 +581,14 @@ shell-service-file:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
@@ -617,7 +617,7 @@ shell-service-xxl-job-admin:
     - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
     - echo APP_NAME：$APP_NAME
     - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
-    - SERVICE=/usr/lib/systemd/system/$MODULE.service
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
     - echo SERVICE：$SERVICE
     - JAVA_HOME=/software/dragonwell-8.14.15
     - echo JAVA_HOME：$JAVA_HOME
@@ -634,14 +634,14 @@ shell-service-xxl-job-admin:
     - echo "WantedBy=multi-user.target" >> $SERVICE
     - echo "" >> $SERVICE
     - echo 创建新启动脚本完成
-    - sudo systemctl enable $MODULE.service && echo 设置开机启动完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
     - sudo systemctl daemon-reload
-    - sudo systemctl restart $MODULE.service && echo 重启项目完成
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
     - MODULE_STATUS=0
     - sleep 30 && echo 增加延时
-    - sudo systemctl status $MODULE.service && MODULE_STATUS=1
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
   rules:
     # 仅在 shell 分支中执行
