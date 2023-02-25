@@ -58,7 +58,7 @@ spec:
               value: sentinel-service:22222
           ports:
             - containerPort: 2301
-            - containerPort: 9008
+            - containerPort: 9009
           volumeMounts:
             # 时区
             - name: time-zone
