@@ -3,6 +3,8 @@
 stages:
   - murphysec
   - package
+  # 在 k8s 所在的服务器上执行
+  - shell-publish-k8s
   # 使用 shell 执行器
   - shell-package
   - shell-service
@@ -175,6 +177,35 @@ package:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行
     - if: $CI_COMMIT_BRANCH == "main"
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+shell-publish-k8s:
+  stage: shell-publish-k8s
+  needs:
+    - job: package
+  script:
+    # -n xuxiaowei-cloud：指定命名空间为 xuxiaowei-cloud
+    # $CI_PIPELINE_ID：当前管道的实例级ID
+    - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/passport-deployment passport=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/ui-deployment ui=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/user-deployment user=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/webservice-deployment webservice=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/websocket-deployment websocket=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 合并到 main 后执行
+    - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    - shell-publish-k8s
 
 #
 # 使用 shell 执行器 打包
