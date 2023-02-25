@@ -213,13 +213,13 @@
 | eslint-plugin-promise            | 6.1.1  | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">            |     |
 | eslint-plugin-vue                | 9.9.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                |     |
 | lint-staged                      | 13.1.2 | <img src="https://img.shields.io/npm/v/lint-staged">                      |     |
-| terser                           | 5.16.4 | <img src="https://img.shields.io/npm/v/terser">                           |     |
+| terser                           | 5.16.5 | <img src="https://img.shields.io/npm/v/terser">                           |     |
 | typescript                       | 4.9.5  | <img src="https://img.shields.io/npm/v/typescript">                       |     |
-| unocss                           | 0.50.0 | <img src="https://img.shields.io/npm/v/unocss">                           |     |
+| unocss                           | 0.50.1 | <img src="https://img.shields.io/npm/v/unocss">                           |     |
 | unplugin-auto-import             | 0.15.0 | <img src="https://img.shields.io/npm/v/unplugin-auto-import">             |     |
 | unplugin-vue-components          | 0.24.0 | <img src="https://img.shields.io/npm/v/unplugin-vue-components">          |     |
 | vite                             | 4.1.4  | <img src="https://img.shields.io/npm/v/vite">                             |     |
-| vue-tsc                          | 1.1.7  | <img src="https://img.shields.io/npm/v/vue-tsc">                          |     |
+| vue-tsc                          | 1.2.0  | <img src="https://img.shields.io/npm/v/vue-tsc">                          |     |
 
 ## 模块
 
