@@ -832,7 +832,7 @@
                         </image>
                         <image>
                             <!--
-                                镜像名称：在版本后面增加了两个数字，用于储存历史记录、快速恢复容器，不需要者请注释掉此 image
+                                镜像名称：在版本后面增加了数字，用于储存历史记录、快速恢复容器（也可使用k8s滚动发布进行恢复）、k8s更改镜像中使用（用于发布），不需要者请注释掉此 image
                                 CI_PIPELINE_ID：代表管道ID，用于确定管道的链接：https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines/${CI_PIPELINE_ID}
                              -->
                             <name>
