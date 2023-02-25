@@ -1,10 +1,10 @@
 package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
-import cloud.xuxiaowei.system.entity.AlipayOplatformWebsiteUsers;
+import cloud.xuxiaowei.system.entity.UsersAlipayOplatformWebsite;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IAlipayOplatformWebsiteUsersService;
+import cloud.xuxiaowei.system.service.IUsersAlipayOplatformWebsiteService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -85,7 +85,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService;
+	private IUsersAlipayOplatformWebsiteService alipayOplatformWebsiteUsersService;
 
 	private SessionService sessionService;
 
@@ -101,7 +101,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 
 	@Autowired
 	public void setAlipayOplatformWebsiteUsersService(
-			IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService) {
+			IUsersAlipayOplatformWebsiteService alipayOplatformWebsiteUsersService) {
 		this.alipayOplatformWebsiteUsersService = alipayOplatformWebsiteUsersService;
 	}
 
@@ -341,7 +341,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		String openId = userInfoShareResponse.getOpenId();
 		String unionId = systemOauthTokenResponse.getUnionId();
 
-		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
+		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = alipayOplatformWebsiteUsersService
 			.getByAppidAndUserId(appid, userId);
 		// @formatter:off
 		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndOpenId(appid,
@@ -350,9 +350,9 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		// 		unionId);
 		// @formatter:on
 
-		if (alipayOplatformWebsiteUsers == null) {
+		if (usersAlipayOplatformWebsite == null) {
 
-			AlipayOplatformWebsiteUsers users = new AlipayOplatformWebsiteUsers();
+			UsersAlipayOplatformWebsite users = new UsersAlipayOplatformWebsite();
 
 			BeanUtils.copyProperties(systemOauthTokenResponse, users);
 			BeanUtils.copyProperties(userInfoShareResponse, users);
@@ -367,12 +367,12 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		}
 		else {
 
-			BeanUtils.copyProperties(systemOauthTokenResponse, alipayOplatformWebsiteUsers);
-			BeanUtils.copyProperties(userInfoShareResponse, alipayOplatformWebsiteUsers);
+			BeanUtils.copyProperties(systemOauthTokenResponse, usersAlipayOplatformWebsite);
+			BeanUtils.copyProperties(userInfoShareResponse, usersAlipayOplatformWebsite);
 
 			// alipayOplatformWebsiteUsers.setExpires(expires);
-			alipayOplatformWebsiteUsers.setUpdateIp(remoteAddress);
-			alipayOplatformWebsiteUsersService.updateById(alipayOplatformWebsiteUsers);
+			usersAlipayOplatformWebsite.setUpdateIp(remoteAddress);
+			alipayOplatformWebsiteUsersService.updateById(usersAlipayOplatformWebsite);
 		}
 
 		// 绑定用户
@@ -412,15 +412,15 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String userId,
 			String openId, Object credentials, String unionid, String accessToken, String refreshToken,
 			String expiresIn) throws OAuth2AuthenticationException {
-		AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService
+		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = alipayOplatformWebsiteUsersService
 			.getByAppidAndUserId(appid, userId);
 
-		if (alipayOplatformWebsiteUsers == null) {
+		if (usersAlipayOplatformWebsite == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到支付宝网站应用用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = alipayOplatformWebsiteUsers.getUsers();
+		Users users = usersAlipayOplatformWebsite.getUsers();
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到支付宝网站应用绑定的用户", null);
 			throw new LoginAuthenticationException(error);

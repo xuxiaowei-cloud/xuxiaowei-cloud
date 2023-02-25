@@ -2,9 +2,9 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.GiteeUsers;
+import cloud.xuxiaowei.system.entity.UsersGitee;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IGiteeUsersService;
+import cloud.xuxiaowei.system.service.IUsersGiteeService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -86,7 +86,7 @@ public class GiteeServiceImpl implements GiteeService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IGiteeUsersService giteeUsersService;
+	private IUsersGiteeService giteeUsersService;
 
 	private SessionService sessionService;
 
@@ -101,7 +101,7 @@ public class GiteeServiceImpl implements GiteeService {
 	}
 
 	@Autowired
-	public void setGiteeUsersService(IGiteeUsersService giteeUsersService) {
+	public void setGiteeUsersService(IUsersGiteeService giteeUsersService) {
 		this.giteeUsersService = giteeUsersService;
 	}
 
@@ -342,9 +342,9 @@ public class GiteeServiceImpl implements GiteeService {
 
 		Integer id = userInfo.getId();
 		String avatarUrl = userInfo.getAvatarUrl();
-		GiteeUsers giteeUsers = giteeUsersService.getByAppidAndId(appid, id);
-		if (giteeUsers == null) {
-			GiteeUsers gitee = new GiteeUsers();
+		UsersGitee usersGitee = giteeUsersService.getByAppidAndId(appid, id);
+		if (usersGitee == null) {
+			UsersGitee gitee = new UsersGitee();
 			BeanUtils.copyProperties(userInfo, gitee);
 			gitee.setAppid(appid);
 			gitee.setAccessToken(accessToken);
@@ -354,12 +354,12 @@ public class GiteeServiceImpl implements GiteeService {
 			giteeUsersService.save(gitee);
 		}
 		else {
-			giteeUsers.setAccessToken(accessToken);
-			giteeUsers.setRefreshToken(refreshToken);
-			giteeUsers.setExpires(expires);
-			giteeUsers.setScope(scope);
-			giteeUsers.setAvatarUrl(avatarUrl);
-			giteeUsersService.updateById(giteeUsers);
+			usersGitee.setAccessToken(accessToken);
+			usersGitee.setRefreshToken(refreshToken);
+			usersGitee.setExpires(expires);
+			usersGitee.setScope(scope);
+			usersGitee.setAvatarUrl(avatarUrl);
+			giteeUsersService.updateById(usersGitee);
 		}
 
 		// 绑定用户
@@ -400,14 +400,14 @@ public class GiteeServiceImpl implements GiteeService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, Integer id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn, String scope)
 			throws OAuth2AuthenticationException {
-		GiteeUsers giteeUsers = giteeUsersService.getByAppidAndId(appid, id);
+		UsersGitee usersGitee = giteeUsersService.getByAppidAndId(appid, id);
 
-		if (giteeUsers == null) {
+		if (usersGitee == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到码云Gitee用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = giteeUsers.getUsers();
+		Users users = usersGitee.getUsers();
 		String username;
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到码云Gitee绑定的用户", null);

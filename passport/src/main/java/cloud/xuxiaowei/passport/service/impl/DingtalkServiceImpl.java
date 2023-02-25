@@ -2,9 +2,9 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.DingtalkUsers;
+import cloud.xuxiaowei.system.entity.UsersDingtalk;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IDingtalkUsersService;
+import cloud.xuxiaowei.system.service.IUsersDingtalkService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -83,7 +83,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IDingtalkUsersService dingtalkUsersService;
+	private IUsersDingtalkService dingtalkUsersService;
 
 	private SessionService sessionService;
 
@@ -98,7 +98,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 	}
 
 	@Autowired
-	public void setDingtalkUsersService(IDingtalkUsersService dingtalkUsersService) {
+	public void setDingtalkUsersService(IUsersDingtalkService dingtalkUsersService) {
 		this.dingtalkUsersService = dingtalkUsersService;
 	}
 
@@ -327,10 +327,10 @@ public class DingtalkServiceImpl implements DingtalkService {
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expireIn);
 		String openId = accessTokenResponse.getOpenId();
 		String unionId = accessTokenResponse.getUnionId();
-		DingtalkUsers dingtalkUsers = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
-		if (dingtalkUsers == null) {
+		UsersDingtalk usersDingtalk = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
+		if (usersDingtalk == null) {
 
-			DingtalkUsers users = new DingtalkUsers();
+			UsersDingtalk users = new UsersDingtalk();
 
 			BeanUtils.copyProperties(accessTokenResponse, users);
 
@@ -344,13 +344,13 @@ public class DingtalkServiceImpl implements DingtalkService {
 		}
 		else {
 
-			BeanUtils.copyProperties(accessTokenResponse, dingtalkUsers);
+			BeanUtils.copyProperties(accessTokenResponse, usersDingtalk);
 
-			dingtalkUsers.setAccessToken(accessToken);
-			dingtalkUsers.setRefreshToken(refreshToken);
-			dingtalkUsers.setExpires(expires);
-			dingtalkUsers.setUpdateIp(remoteAddress);
-			dingtalkUsersService.updateById(dingtalkUsers);
+			usersDingtalk.setAccessToken(accessToken);
+			usersDingtalk.setRefreshToken(refreshToken);
+			usersDingtalk.setExpires(expires);
+			usersDingtalk.setUpdateIp(remoteAddress);
+			dingtalkUsersService.updateById(usersDingtalk);
 		}
 
 		// 绑定用户
@@ -389,14 +389,14 @@ public class DingtalkServiceImpl implements DingtalkService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openId,
 			Object credentials, String unionId, String accessToken, String refreshToken, Long expiresIn)
 			throws OAuth2AuthenticationException {
-		DingtalkUsers dingtalkUsers = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
+		UsersDingtalk usersDingtalk = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
 
-		if (dingtalkUsers == null) {
+		if (usersDingtalk == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到钉钉dingtalk用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = dingtalkUsers.getUsers();
+		Users users = usersDingtalk.getUsers();
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到钉钉dingtalk绑定的用户", null);
 			throw new LoginAuthenticationException(error);

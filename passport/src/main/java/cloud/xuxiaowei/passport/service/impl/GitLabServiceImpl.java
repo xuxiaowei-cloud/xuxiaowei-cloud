@@ -2,9 +2,9 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.GitlabUsers;
+import cloud.xuxiaowei.system.entity.UsersGitlab;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IGitlabUsersService;
+import cloud.xuxiaowei.system.service.IUsersGitlabService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -83,7 +83,7 @@ public class GitLabServiceImpl implements GitLabService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IGitlabUsersService gitlabUsersService;
+	private IUsersGitlabService gitlabUsersService;
 
 	private SessionService sessionService;
 
@@ -98,7 +98,7 @@ public class GitLabServiceImpl implements GitLabService {
 	}
 
 	@Autowired
-	public void setGitlabUsersService(IGitlabUsersService gitlabUsersService) {
+	public void setGitlabUsersService(IUsersGitlabService gitlabUsersService) {
 		this.gitlabUsersService = gitlabUsersService;
 	}
 
@@ -332,10 +332,10 @@ public class GitLabServiceImpl implements GitLabService {
 		String refreshToken = accessTokenResponse.getRefreshToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		GitlabUsers gitlabUsers = gitlabUsersService.getByAppidAndId(appid, id);
-		if (gitlabUsers == null) {
+		UsersGitlab usersGitlab = gitlabUsersService.getByAppidAndId(appid, id);
+		if (usersGitlab == null) {
 
-			GitlabUsers users = new GitlabUsers();
+			UsersGitlab users = new UsersGitlab();
 
 			BeanUtils.copyProperties(userInfo, users);
 
@@ -351,13 +351,13 @@ public class GitLabServiceImpl implements GitLabService {
 		}
 		else {
 
-			BeanUtils.copyProperties(userInfo, gitlabUsers);
+			BeanUtils.copyProperties(userInfo, usersGitlab);
 
-			gitlabUsers.setAccessToken(accessToken);
-			gitlabUsers.setRefreshToken(refreshToken);
-			gitlabUsers.setExpires(expires);
-			gitlabUsers.setUpdateIp(remoteAddress);
-			gitlabUsersService.updateById(gitlabUsers);
+			usersGitlab.setAccessToken(accessToken);
+			usersGitlab.setRefreshToken(refreshToken);
+			usersGitlab.setExpires(expires);
+			usersGitlab.setUpdateIp(remoteAddress);
+			gitlabUsersService.updateById(usersGitlab);
 		}
 
 		// 绑定用户
@@ -397,14 +397,14 @@ public class GitLabServiceImpl implements GitLabService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, int id,
 			Object credentials, String username, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) throws OAuth2AuthenticationException {
-		GitlabUsers gitlabUsers = gitlabUsersService.getByAppidAndId(appid, id);
+		UsersGitlab usersGitlab = gitlabUsersService.getByAppidAndId(appid, id);
 
-		if (gitlabUsers == null) {
+		if (usersGitlab == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到GitLab用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = gitlabUsers.getUsers();
+		Users users = usersGitlab.getUsers();
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到GitLab绑定的用户", null);
 			throw new LoginAuthenticationException(error);

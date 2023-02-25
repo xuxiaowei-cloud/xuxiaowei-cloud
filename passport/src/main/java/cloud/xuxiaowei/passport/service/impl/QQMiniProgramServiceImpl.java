@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.passport.service.impl;
 
-import cloud.xuxiaowei.system.entity.QqMiniprogramUsers;
-import cloud.xuxiaowei.system.service.IQqMiniprogramUsersService;
+import cloud.xuxiaowei.system.entity.UsersQqMiniprogram;
+import cloud.xuxiaowei.system.service.IUsersQqMiniprogramService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -32,7 +32,7 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 
 	private QQMiniProgramProperties qqMiniProgramProperties;
 
-	private IQqMiniprogramUsersService qqMiniprogramUsersService;
+	private IUsersQqMiniprogramService qqMiniprogramUsersService;
 
 	@Autowired
 	public void setQqMiniProgramProperties(QQMiniProgramProperties qqMiniProgramProperties) {
@@ -40,7 +40,7 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 	}
 
 	@Autowired
-	public void setQqMiniprogramUsersService(IQqMiniprogramUsersService qqMiniprogramUsersService) {
+	public void setQqMiniprogramUsersService(IUsersQqMiniprogramService qqMiniprogramUsersService) {
 		this.qqMiniprogramUsersService = qqMiniprogramUsersService;
 	}
 
@@ -74,9 +74,9 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String sessionKey) throws OAuth2AuthenticationException {
 
-		QqMiniprogramUsers qqMiniprogramUsers = qqMiniprogramUsersService.getByAppidAndOpenid(appid, openid);
-		if (qqMiniprogramUsers == null) {
-			QqMiniprogramUsers users = new QqMiniprogramUsers();
+		UsersQqMiniprogram usersQqMiniprogram = qqMiniprogramUsersService.getByAppidAndOpenid(appid, openid);
+		if (usersQqMiniprogram == null) {
+			UsersQqMiniprogram users = new UsersQqMiniprogram();
 			users.setAppid(appid);
 			users.setOpenid(openid);
 			users.setUnionid(unionid);
@@ -85,9 +85,9 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 			qqMiniprogramUsersService.save(users);
 		}
 		else {
-			qqMiniprogramUsers.setSessionKey(sessionKey);
+			usersQqMiniprogram.setSessionKey(sessionKey);
 
-			qqMiniprogramUsersService.updateById(qqMiniprogramUsers);
+			qqMiniprogramUsersService.updateById(usersQqMiniprogram);
 		}
 
 		InMemoryQQMiniProgramService inMemoryQqMiniProgramService = new InMemoryQQMiniProgramService(

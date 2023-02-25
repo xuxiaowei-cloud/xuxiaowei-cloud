@@ -35,7 +35,7 @@ public class Users implements Serializable {
 	/**
 	 * 用户主键，自增
 	 */
-	@TableId(value = "users_id", type = IdType.AUTO)
+	@TableId(value = "users_users_id", type = IdType.AUTO)
 	private Long usersId;
 
 	/**

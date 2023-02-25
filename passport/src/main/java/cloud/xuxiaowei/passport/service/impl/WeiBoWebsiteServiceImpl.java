@@ -3,8 +3,8 @@ package cloud.xuxiaowei.passport.service.impl;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.entity.WeiBoWebsiteUsers;
-import cloud.xuxiaowei.system.service.IWeiBoWebsiteUsersService;
+import cloud.xuxiaowei.system.entity.UsersWeiBoWebsite;
+import cloud.xuxiaowei.system.service.IUsersWeiBoWebsiteService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -85,7 +85,7 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IWeiBoWebsiteUsersService weiBoWebsiteUsersService;
+	private IUsersWeiBoWebsiteService weiBoWebsiteUsersService;
 
 	private SessionService sessionService;
 
@@ -100,7 +100,7 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 	}
 
 	@Autowired
-	public void setWeiBoWebsiteUsersService(IWeiBoWebsiteUsersService weiBoWebsiteUsersService) {
+	public void setWeiBoWebsiteUsersService(IUsersWeiBoWebsiteService weiBoWebsiteUsersService) {
 		this.weiBoWebsiteUsersService = weiBoWebsiteUsersService;
 	}
 
@@ -335,10 +335,10 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 		String accessToken = accessTokenResponse.getAccessToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		WeiBoWebsiteUsers weiBoWebsiteUsers = weiBoWebsiteUsersService.getByAppidAndId(appid, id + "");
-		if (weiBoWebsiteUsers == null) {
+		UsersWeiBoWebsite usersWeiBoWebsite = weiBoWebsiteUsersService.getByAppidAndId(appid, id + "");
+		if (usersWeiBoWebsite == null) {
 
-			WeiBoWebsiteUsers websiteUsers = new WeiBoWebsiteUsers();
+			UsersWeiBoWebsite websiteUsers = new UsersWeiBoWebsite();
 
 			BeanUtils.copyProperties(userInfo, websiteUsers);
 
@@ -351,12 +351,12 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 		}
 		else {
 
-			BeanUtils.copyProperties(userInfo, weiBoWebsiteUsers);
+			BeanUtils.copyProperties(userInfo, usersWeiBoWebsite);
 
-			weiBoWebsiteUsers.setAccessToken(accessToken);
-			weiBoWebsiteUsers.setExpires(expires);
-			weiBoWebsiteUsers.setUpdateIp(remoteAddress);
-			weiBoWebsiteUsersService.updateById(weiBoWebsiteUsers);
+			usersWeiBoWebsite.setAccessToken(accessToken);
+			usersWeiBoWebsite.setExpires(expires);
+			usersWeiBoWebsite.setUpdateIp(remoteAddress);
+			weiBoWebsiteUsersService.updateById(usersWeiBoWebsite);
 		}
 
 		// 绑定用户
@@ -392,7 +392,7 @@ public class WeiBoWebsiteServiceImpl implements WeiBoWebsiteService {
 	public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String uid,
 			Object credentials, String accessToken, Integer expiresIn) throws OAuth2AuthenticationException {
-		WeiBoWebsiteUsers wxOpenWebsiteUsers = weiBoWebsiteUsersService.getByAppidAndId(appid, uid);
+		UsersWeiBoWebsite wxOpenWebsiteUsers = weiBoWebsiteUsersService.getByAppidAndId(appid, uid);
 
 		if (wxOpenWebsiteUsers == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到微博用户或已被删除", null);

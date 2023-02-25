@@ -2,9 +2,9 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.QqWebsiteUsers;
+import cloud.xuxiaowei.system.entity.UsersQqWebsite;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IQqWebsiteUsersService;
+import cloud.xuxiaowei.system.service.IUsersQqWebsiteService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -84,7 +84,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IQqWebsiteUsersService qqWebsiteUsersService;
+	private IUsersQqWebsiteService qqWebsiteUsersService;
 
 	private SessionService sessionService;
 
@@ -99,7 +99,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 	}
 
 	@Autowired
-	public void setQqWebsiteUsersService(IQqWebsiteUsersService qqWebsiteUsersService) {
+	public void setQqWebsiteUsersService(IUsersQqWebsiteService qqWebsiteUsersService) {
 		this.qqWebsiteUsersService = qqWebsiteUsersService;
 	}
 
@@ -429,9 +429,9 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 		qqWebsiteTokenResponse.setVip(userinfoResponse.getVip());
 		qqWebsiteTokenResponse.setFigureurlQq2(userinfoResponse.getFigureurlQq2());
 
-		QqWebsiteUsers qqWebsiteUsers = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
-		if (qqWebsiteUsers == null) {
-			QqWebsiteUsers websiteUsers = new QqWebsiteUsers();
+		UsersQqWebsite usersQqWebsite = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		if (usersQqWebsite == null) {
+			UsersQqWebsite websiteUsers = new UsersQqWebsite();
 			BeanUtils.copyProperties(qqWebsiteTokenResponse, websiteUsers);
 			// websiteUsers.setExpires(expires);
 			websiteUsers.setAppid(qqWebsiteTokenResponse.getClientId());
@@ -440,8 +440,8 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 		}
 		else {
 			// qqWebsiteUsers.setExpires(expires);
-			qqWebsiteUsers.setUpdateIp(remoteAddress);
-			qqWebsiteUsersService.updateById(qqWebsiteUsers);
+			usersQqWebsite.setUpdateIp(remoteAddress);
+			qqWebsiteUsersService.updateById(usersQqWebsite);
 		}
 
 		// 绑定用户
@@ -480,14 +480,14 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn)
 			throws OAuth2AuthenticationException {
-		QqWebsiteUsers qqWebsiteUsers = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersQqWebsite usersQqWebsite = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
 
-		if (qqWebsiteUsers == null) {
+		if (usersQqWebsite == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到QQ用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = qqWebsiteUsers.getUsers();
+		Users users = usersQqWebsite.getUsers();
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到QQ绑定的用户", null);
 			throw new LoginAuthenticationException(error);

@@ -3,8 +3,8 @@ package cloud.xuxiaowei.passport.service.impl;
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.entity.WxOpenWebsiteUsers;
-import cloud.xuxiaowei.system.service.IWxOpenWebsiteUsersService;
+import cloud.xuxiaowei.system.entity.UsersWxOpenWebsite;
+import cloud.xuxiaowei.system.service.IUsersWxOpenWebsiteService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -83,7 +83,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
+	private IUsersWxOpenWebsiteService wxOpenWebsiteUsersService;
 
 	private SessionService sessionService;
 
@@ -98,7 +98,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	}
 
 	@Autowired
-	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
+	public void setWxOpenWebsiteUsersService(IUsersWxOpenWebsiteService wxOpenWebsiteUsersService) {
 		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
 	}
 
@@ -336,10 +336,10 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		ObjectMapper objectMapper = new ObjectMapper();
 		String privilegeStr = objectMapper.writeValueAsString(privilege);
 
-		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
-		if (wxOpenWebsiteUsers == null) {
+		UsersWxOpenWebsite usersWxOpenWebsite = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		if (usersWxOpenWebsite == null) {
 
-			WxOpenWebsiteUsers websiteUsers = new WxOpenWebsiteUsers();
+			UsersWxOpenWebsite websiteUsers = new UsersWxOpenWebsite();
 
 			BeanUtils.copyProperties(accessTokenResponse, websiteUsers);
 
@@ -352,12 +352,12 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		}
 		else {
 
-			BeanUtils.copyProperties(accessTokenResponse, wxOpenWebsiteUsers);
+			BeanUtils.copyProperties(accessTokenResponse, usersWxOpenWebsite);
 
-			wxOpenWebsiteUsers.setPrivilege(privilegeStr);
-			wxOpenWebsiteUsers.setExpires(expires);
-			wxOpenWebsiteUsers.setUpdateIp(remoteAddress);
-			wxOpenWebsiteUsersService.updateById(wxOpenWebsiteUsers);
+			usersWxOpenWebsite.setPrivilege(privilegeStr);
+			usersWxOpenWebsite.setExpires(expires);
+			usersWxOpenWebsite.setUpdateIp(remoteAddress);
+			wxOpenWebsiteUsersService.updateById(usersWxOpenWebsite);
 		}
 
 		// 绑定用户
@@ -397,14 +397,14 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) throws OAuth2AuthenticationException {
-		WxOpenWebsiteUsers wxOpenWebsiteUsers = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersWxOpenWebsite usersWxOpenWebsite = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
 
-		if (wxOpenWebsiteUsers == null) {
+		if (usersWxOpenWebsite == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到微信用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = wxOpenWebsiteUsers.getUsers();
+		Users users = usersWxOpenWebsite.getUsers();
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到微信绑定的用户", null);
 			throw new LoginAuthenticationException(error);

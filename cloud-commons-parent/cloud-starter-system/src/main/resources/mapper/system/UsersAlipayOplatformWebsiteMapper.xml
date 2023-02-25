@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.system.mapper.UsersAlipayOplatformWebsiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.UsersAlipayOplatformWebsite">
+        <id column="users_alipay_oplatform_website_id" property="usersAlipayOplatformWebsiteId" />
+        <result column="appid" property="appid" />
+        <result column="users_id" property="usersId" />
+        <result column="user_id" property="userId" />
+        <result column="union_id" property="unionId" />
+        <result column="open_id" property="openId" />
+        <result column="taobao_id" property="taobaoId" />
+        <result column="age" property="age" />
+        <result column="area" property="area" />
+        <result column="avatar" property="avatar" />
+        <result column="business_scope" property="businessScope" />
+        <result column="cert_no" property="certNo" />
+        <result column="cert_type" property="certType" />
+        <result column="city" property="city" />
+        <result column="college_name" property="collegeName" />
+        <result column="country_code" property="countryCode" />
+        <result column="degree" property="degree" />
+        <result column="display_name" property="displayName" />
+        <result column="email" property="email" />
+        <result column="enrollment_time" property="enrollmentTime" />
+        <result column="ent_license_address" property="entLicenseAddress" />
+        <result column="ent_license_area" property="entLicenseArea" />
+        <result column="ent_license_city" property="entLicenseCity" />
+        <result column="ent_license_province" property="entLicenseProvince" />
+        <result column="firm_agent_person_cert_expiry_date" property="firmAgentPersonCertExpiryDate" />
+        <result column="firm_agent_person_cert_no" property="firmAgentPersonCertNo" />
+        <result column="firm_agent_person_cert_type" property="firmAgentPersonCertType" />
+        <result column="firm_agent_person_name" property="firmAgentPersonName" />
+        <result column="firm_legal_person_cert_expiry_date" property="firmLegalPersonCertExpiryDate" />
+        <result column="firm_legal_person_cert_no" property="firmLegalPersonCertNo" />
+        <result column="firm_legal_person_cert_type" property="firmLegalPersonCertType" />
+        <result column="firm_legal_person_name" property="firmLegalPersonName" />
+        <result column="firm_type" property="firmType" />
+        <result column="gender" property="gender" />
+        <result column="graduation_time" property="graduationTime" />
+        <result column="identity_card_address" property="identityCardAddress" />
+        <result column="identity_card_area" property="identityCardArea" />
+        <result column="identity_card_city" property="identityCardCity" />
+        <result column="identity_card_province" property="identityCardProvince" />
+        <result column="inst_or_corp" property="instOrCorp" />
+        <result column="is_adult" property="isAdult" />
+        <result column="is_balance_frozen" property="isBalanceFrozen" />
+        <result column="is_blocked" property="isBlocked" />
+        <result column="is_certified" property="isCertified" />
+        <result column="is_student_certified" property="isStudentCertified" />
+        <result column="license_expiry_date" property="licenseExpiryDate" />
+        <result column="license_no" property="licenseNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="mobile" property="mobile" />
+        <result column="nick_name" property="nickName" />
+        <result column="organization_code" property="organizationCode" />
+        <result column="person_birthday" property="personBirthday" />
+        <result column="person_birthday_without_year" property="personBirthdayWithoutYear" />
+        <result column="person_cert_expiry_date" property="personCertExpiryDate" />
+        <result column="person_cert_issue_date" property="personCertIssueDate" />
+        <result column="phone" property="phone" />
+        <result column="profession" property="profession" />
+        <result column="province" property="province" />
+        <result column="address" property="address" />
+        <result column="user_name" property="userName" />
+        <result column="user_nation" property="userNation" />
+        <result column="user_status" property="userStatus" />
+        <result column="user_type" property="userType" />
+        <result column="zip" property="zip" />
+        <result column="access_token" property="accessToken" />
+        <result column="auth_start" property="authStart" />
+        <result column="auth_token_type" property="authTokenType" />
+        <result column="expires_in" property="expiresIn" />
+        <result column="re_expires_in" property="reExpiresIn" />
+        <result column="refresh_token" property="refreshToken" />
+        <result column="binding_date" property="bindingDate" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+
+        <association property="users" javaType="cloud.xuxiaowei.system.entity.Users">
+
+            <id column="u_users_id" property="usersId" />
+            <result column="u_username" property="username" />
+            <result column="u_email" property="email" />
+            <result column="u_email_valid" property="emailValid" />
+            <result column="u_phone" property="phone" />
+            <result column="u_phone_valid" property="phoneValid" />
+            <result column="u_nickname" property="nickname" />
+            <result column="u_password" property="password" />
+            <result column="u_sex" property="sex" />
+            <result column="u_sex_label" property="sexLabel" />
+            <result column="u_sex_explain" property="sexExplain" />
+            <result column="u_birthday" property="birthday" />
+            <result column="u_province_code" property="provinceCode" />
+            <result column="u_province_name" property="provinceName" />
+            <result column="u_city_code" property="cityCode" />
+            <result column="u_city_name" property="cityName" />
+            <result column="u_county_code" property="countyCode" />
+            <result column="u_county_name" property="countyName" />
+            <result column="u_town_code" property="townCode" />
+            <result column="u_town_name" property="townName" />
+            <result column="u_village_code" property="villageCode" />
+            <result column="u_village_name" property="villageName" />
+            <result column="u_detail_address" property="detailAddress" />
+            <result column="u_enabled" property="enabled" />
+            <result column="u_account_non_expired" property="accountNonExpired" />
+            <result column="u_credentials_non_expired" property="credentialsNonExpired" />
+            <result column="u_account_non_locked" property="accountNonLocked" />
+            <result column="u_update_date" property="updateDate" />
+            <result column="u_create_date" property="createDate" />
+            <result column="u_deleted" property="deleted" />
+
+            <!-- 权限 -->
+            <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
+                <id column="a_username" property="username" />
+                <id column="a_authority" property="authority" />
+                <result column="a_explain" property="explain" />
+                <result column="a_update_date" property="updateDate" />
+                <result column="a_create_date" property="createDate" />
+            </collection>
+
+        </association>
+
+    </resultMap>
+
+    <!--  -->
+    <select id="getByAppidAndUserId" resultMap="BaseResultMap">
+        SELECT
+            uaow.*,
+            u.users_id AS u_users_id,
+            u.username AS u_username,
+            u.email AS u_email,
+            u.email_valid AS u_email_valid,
+            u.phone AS u_phone,
+            u.phone_valid AS u_phone_valid,
+            u.nickname AS u_nickname,
+            u.`password` AS u_password,
+            u.sex AS u_sex,
+            u.birthday AS u_birthday,
+            u.province_code AS u_province_code,
+            u.city_code AS u_city_code,
+            u.county_code AS u_county_code,
+            u.town_code AS u_town_code,
+            u.village_code AS u_village_code,
+            u.detail_address AS u_detail_address,
+            u.enabled AS u_enabled,
+            u.account_non_expired AS u_account_non_expired,
+            u.credentials_non_expired AS u_credentials_non_expired,
+            u.account_non_locked AS u_account_non_locked,
+            u.create_date AS u_create_date,
+            u.update_date AS u_update_date,
+            u.deleted AS u_deleted,
+            a.username      AS a_username,
+            a.authority     AS a_authority,
+            ay.explain      AS a_explain,
+            a.update_date   AS a_update_date,
+            a.create_date   AS a_create_date
+        FROM
+            users_alipay_oplatform_website AS uaow
+            LEFT JOIN users AS u ON uaow.users_id = u.users_id AND u.deleted = 0
+            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authority as ay ON ay.authority = a.authority
+        WHERE uaow.deleted = 0
+            AND uaow.appid = #{appid}
+            AND uaow.user_id = #{userId}
+    </select>
+</mapper>

@@ -2,9 +2,9 @@ package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import cloud.xuxiaowei.system.entity.Authorities;
-import cloud.xuxiaowei.system.entity.GithubUsers;
+import cloud.xuxiaowei.system.entity.UsersGithub;
 import cloud.xuxiaowei.system.entity.Users;
-import cloud.xuxiaowei.system.service.IGithubUsersService;
+import cloud.xuxiaowei.system.service.IUsersGithubService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Response;
@@ -26,7 +26,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -63,8 +62,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -90,7 +87,7 @@ public class GitHubServiceImpl implements GitHubService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IGithubUsersService githubUsersService;
+	private IUsersGithubService githubUsersService;
 
 	private SessionService sessionService;
 
@@ -105,7 +102,7 @@ public class GitHubServiceImpl implements GitHubService {
 	}
 
 	@Autowired
-	public void setGithubUsersService(IGithubUsersService githubUsersService) {
+	public void setGithubUsersService(IUsersGithubService githubUsersService) {
 		this.githubUsersService = githubUsersService;
 	}
 
@@ -397,11 +394,11 @@ public class GitHubServiceImpl implements GitHubService {
 		String refreshToken = accessTokenResponse.getRefreshToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		GithubUsers githubUsers = githubUsersService.getByAppidAndId(appid, id);
+		UsersGithub usersGithub = githubUsersService.getByAppidAndId(appid, id);
 
-		if (githubUsers == null) {
+		if (usersGithub == null) {
 
-			GithubUsers users = new GithubUsers();
+			UsersGithub users = new UsersGithub();
 
 			BeanUtils.copyProperties(userInfo, users);
 
@@ -416,13 +413,13 @@ public class GitHubServiceImpl implements GitHubService {
 		}
 		else {
 
-			BeanUtils.copyProperties(userInfo, githubUsers);
+			BeanUtils.copyProperties(userInfo, usersGithub);
 
-			githubUsers.setAccessToken(accessToken);
-			githubUsers.setRefreshToken(refreshToken);
-			githubUsers.setExpires(expires);
-			githubUsers.setUpdateIp(remoteAddress);
-			githubUsersService.updateById(githubUsers);
+			usersGithub.setAccessToken(accessToken);
+			usersGithub.setRefreshToken(refreshToken);
+			usersGithub.setExpires(expires);
+			usersGithub.setUpdateIp(remoteAddress);
+			githubUsersService.updateById(usersGithub);
 		}
 
 		// 绑定用户
@@ -462,14 +459,14 @@ public class GitHubServiceImpl implements GitHubService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, int id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn, String scope)
 			throws OAuth2AuthenticationException {
-		GithubUsers githubUsers = githubUsersService.getByAppidAndId(appid, id);
+		UsersGithub usersGithub = githubUsersService.getByAppidAndId(appid, id);
 
-		if (githubUsers == null) {
+		if (usersGithub == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到GitHub用户或已被删除", null);
 			throw new LoginAuthenticationException(error);
 		}
 
-		Users users = githubUsers.getUsers();
+		Users users = usersGithub.getUsers();
 		String username;
 		if (users == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未找到GitHub绑定的用户", null);

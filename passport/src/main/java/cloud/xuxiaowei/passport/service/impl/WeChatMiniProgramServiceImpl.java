@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.passport.service.impl;
 
-import cloud.xuxiaowei.system.entity.WxMaUsers;
-import cloud.xuxiaowei.system.service.IWxMaUsersService;
+import cloud.xuxiaowei.system.entity.UsersWxMa;
+import cloud.xuxiaowei.system.service.IUsersWxMaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -32,7 +32,7 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 
 	private WeChatMiniProgramProperties weChatMiniProgramProperties;
 
-	private IWxMaUsersService wxMaUsersService;
+	private IUsersWxMaService wxMaUsersService;
 
 	@Autowired
 	public void setWeChatMiniProgramProperties(WeChatMiniProgramProperties weChatMiniProgramProperties) {
@@ -40,7 +40,7 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 	}
 
 	@Autowired
-	public void setWxMaUsersService(IWxMaUsersService wxMaUsersService) {
+	public void setWxMaUsersService(IUsersWxMaService wxMaUsersService) {
 		this.wxMaUsersService = wxMaUsersService;
 	}
 
@@ -66,9 +66,9 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String sessionKey) throws OAuth2AuthenticationException {
 
-		WxMaUsers wxMaUsers = wxMaUsersService.getByAppidAndOpenid(appid, openid);
-		if (wxMaUsers == null) {
-			WxMaUsers users = new WxMaUsers();
+		UsersWxMa usersWxMa = wxMaUsersService.getByAppidAndOpenid(appid, openid);
+		if (usersWxMa == null) {
+			UsersWxMa users = new UsersWxMa();
 			users.setAppid(appid);
 			users.setOpenid(openid);
 			users.setUnionid(unionid);
@@ -77,9 +77,9 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 			wxMaUsersService.save(users);
 		}
 		else {
-			wxMaUsers.setSessionKey(sessionKey);
+			usersWxMa.setSessionKey(sessionKey);
 
-			wxMaUsersService.updateById(wxMaUsers);
+			wxMaUsersService.updateById(usersWxMa);
 		}
 
 		InMemoryWeChatMiniProgramService inMemoryWeChatMiniProgramService = new InMemoryWeChatMiniProgramService(

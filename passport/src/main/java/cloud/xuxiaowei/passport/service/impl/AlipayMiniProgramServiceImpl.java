@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.passport.service.impl;
 
-import cloud.xuxiaowei.system.entity.AlipayMiniprogramUsers;
-import cloud.xuxiaowei.system.service.IAlipayMiniprogramUsersService;
+import cloud.xuxiaowei.system.entity.UsersAlipayMiniprogram;
+import cloud.xuxiaowei.system.service.IUsersAlipayMiniprogramService;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +24,10 @@ import java.util.Map;
  * 支付宝小程序 账户服务接口 实现类
  *
  * @author xuxiaowei
- * @since 0.0.1
  * @see RegisteredClientRepository
  * @see InMemoryRegisteredClientRepository
  * @see JdbcRegisteredClientRepository
+ * @since 0.0.1
  */
 @Slf4j
 @Service
@@ -35,7 +35,7 @@ public class AlipayMiniProgramServiceImpl implements AlipayMiniProgramService {
 
 	private AlipayMiniProgramProperties alipayMiniProgramProperties;
 
-	private IAlipayMiniprogramUsersService alipayMiniprogramUsersService;
+	private IUsersAlipayMiniprogramService usersAlipayMiniprogramService;
 
 	@Autowired
 	public void setAlipayMiniProgramProperties(AlipayMiniProgramProperties alipayMiniProgramProperties) {
@@ -43,8 +43,8 @@ public class AlipayMiniProgramServiceImpl implements AlipayMiniProgramService {
 	}
 
 	@Autowired
-	public void setAlipayMiniprogramUsersService(IAlipayMiniprogramUsersService alipayMiniprogramUsersService) {
-		this.alipayMiniprogramUsersService = alipayMiniprogramUsersService;
+	public void setUsersAlipayMiniprogramService(IUsersAlipayMiniprogramService usersAlipayMiniprogramService) {
+		this.usersAlipayMiniprogramService = usersAlipayMiniprogramService;
 	}
 
 	/**
@@ -95,30 +95,30 @@ public class AlipayMiniProgramServiceImpl implements AlipayMiniProgramService {
 		String openId = userInfoShareResponse.getOpenId();
 		String unionId = systemOauthTokenResponse.getUnionId();
 
-		AlipayMiniprogramUsers alipayMiniprogramUsers = alipayMiniprogramUsersService.getByAppidAndUserId(appid,
+		UsersAlipayMiniprogram usersAlipayMiniprogram = usersAlipayMiniprogramService.getByAppidAndUserId(appid,
 				userId);
 		// @formatter:off
-		// AlipayMiniprogramUsers alipayMiniprogramUsers = alipayMiniprogramUsersService.getByAppidAndOpenId(appid,
-		//		openId);
-		// AlipayMiniprogramUsers alipayMiniprogramUsers = alipayMiniprogramUsersService.getByAppidAndUnionId(appid,
-		//		unionId);
+		// UsersAlipayMiniprogram usersAlipayMiniprogram = usersAlipayMiniprogramService.getByAppidAndOpenId(appid,
+		// 		openId);
+		// UsersAlipayMiniprogram usersAlipayMiniprogram = usersAlipayMiniprogramService.getByAppidAndUnionId(appid,
+		// 		unionId);
 		// @formatter:on
 
-		if (alipayMiniprogramUsers == null) {
-			AlipayMiniprogramUsers users = new AlipayMiniprogramUsers();
+		if (usersAlipayMiniprogram == null) {
+			UsersAlipayMiniprogram users = new UsersAlipayMiniprogram();
 			users.setAppid(appid);
 
 			BeanUtils.copyProperties(systemOauthTokenResponse, users);
 			BeanUtils.copyProperties(userInfoShareResponse, users);
 
-			alipayMiniprogramUsersService.save(users);
+			usersAlipayMiniprogramService.save(users);
 		}
 		else {
 
-			BeanUtils.copyProperties(systemOauthTokenResponse, alipayMiniprogramUsers);
-			BeanUtils.copyProperties(userInfoShareResponse, alipayMiniprogramUsers);
+			BeanUtils.copyProperties(systemOauthTokenResponse, usersAlipayMiniprogram);
+			BeanUtils.copyProperties(userInfoShareResponse, usersAlipayMiniprogram);
 
-			alipayMiniprogramUsersService.updateById(alipayMiniprogramUsers);
+			usersAlipayMiniprogramService.updateById(usersAlipayMiniprogram);
 		}
 
 		return alipayMiniProgramTokenResponse;

@@ -23,68 +23,68 @@ public class SocialServiceImpl implements SocialService {
 	@Resource
 	private SocialMapper socialMapper;
 
-	private IWxOpenWebsiteUsersService wxOpenWebsiteUsersService;
+	private IUsersWxOpenWebsiteService usersWxOpenWebsiteService;
 
-	private IGiteeUsersService giteeUsersService;
+	private IUsersGiteeService usersGiteeService;
 
-	private IQqWebsiteUsersService qqWebsiteUsersService;
+	private IUsersQqWebsiteService usersQqWebsiteService;
 
-	private IWeiBoWebsiteUsersService weiBoWebsiteUsersService;
+	private IUsersWeiBoWebsiteService usersWeiBoWebsiteService;
 
-	private IGitlabUsersService gitlabUsersService;
+	private IUsersGitlabService usersGitlabService;
 
-	private IWxWorkWebsiteUsersService wxWorkWebsiteUsersService;
+	private IUsersWxWorkWebsiteService usersWxWorkWebsiteService;
 
-	private IGithubUsersService githubUsersService;
+	private IUsersGithubService usersGithubService;
 
-	private IDingtalkUsersService dingtalkUsersService;
+	private IUsersDingtalkService usersDingtalkService;
 
-	private IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService;
+	private IUsersAlipayOplatformWebsiteService usersAlipayOplatformWebsiteService;
 
 	@Autowired
-	public void setWxOpenWebsiteUsersService(IWxOpenWebsiteUsersService wxOpenWebsiteUsersService) {
-		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
+	public void setUsersWxOpenWebsiteService(IUsersWxOpenWebsiteService usersWxOpenWebsiteService) {
+		this.usersWxOpenWebsiteService = usersWxOpenWebsiteService;
 	}
 
 	@Autowired
-	public void setGiteeUsersService(IGiteeUsersService giteeUsersService) {
-		this.giteeUsersService = giteeUsersService;
+	public void setUsersGiteeService(IUsersGiteeService usersGiteeService) {
+		this.usersGiteeService = usersGiteeService;
 	}
 
 	@Autowired
-	public void setQqWebsiteUsersService(IQqWebsiteUsersService qqWebsiteUsersService) {
-		this.qqWebsiteUsersService = qqWebsiteUsersService;
+	public void setUsersQqWebsiteService(IUsersQqWebsiteService usersQqWebsiteService) {
+		this.usersQqWebsiteService = usersQqWebsiteService;
 	}
 
 	@Autowired
-	public void setWeiBoWebsiteUsersService(IWeiBoWebsiteUsersService weiBoWebsiteUsersService) {
-		this.weiBoWebsiteUsersService = weiBoWebsiteUsersService;
+	public void setUsersWeiBoWebsiteService(IUsersWeiBoWebsiteService usersWeiBoWebsiteService) {
+		this.usersWeiBoWebsiteService = usersWeiBoWebsiteService;
 	}
 
 	@Autowired
-	public void setGitlabUsersService(IGitlabUsersService gitlabUsersService) {
-		this.gitlabUsersService = gitlabUsersService;
+	public void setUsersGitlabService(IUsersGitlabService usersGitlabService) {
+		this.usersGitlabService = usersGitlabService;
 	}
 
 	@Autowired
-	public void setWxWorkWebsiteUsersService(IWxWorkWebsiteUsersService wxWorkWebsiteUsersService) {
-		this.wxWorkWebsiteUsersService = wxWorkWebsiteUsersService;
+	public void setUsersWxWorkWebsiteService(IUsersWxWorkWebsiteService usersWxWorkWebsiteService) {
+		this.usersWxWorkWebsiteService = usersWxWorkWebsiteService;
 	}
 
 	@Autowired
-	public void setGithubUsersService(IGithubUsersService githubUsersService) {
-		this.githubUsersService = githubUsersService;
+	public void setUsersGithubService(IUsersGithubService usersGithubService) {
+		this.usersGithubService = usersGithubService;
 	}
 
 	@Autowired
-	public void setDingtalkUsersService(IDingtalkUsersService dingtalkUsersService) {
-		this.dingtalkUsersService = dingtalkUsersService;
+	public void setUsersDingtalkService(IUsersDingtalkService usersDingtalkService) {
+		this.usersDingtalkService = usersDingtalkService;
 	}
 
 	@Autowired
-	public void setAlipayOplatformWebsiteUsersService(
-			IAlipayOplatformWebsiteUsersService alipayOplatformWebsiteUsersService) {
-		this.alipayOplatformWebsiteUsersService = alipayOplatformWebsiteUsersService;
+	public void setUsersAlipayOplatformWebsiteService(
+			IUsersAlipayOplatformWebsiteService usersAlipayOplatformWebsiteService) {
+		this.usersAlipayOplatformWebsiteService = usersAlipayOplatformWebsiteService;
 	}
 
 	/**
@@ -107,23 +107,23 @@ public class SocialServiceImpl implements SocialService {
 	public boolean unbinding(@NonNull Long usersId, @NonNull String socialCode) {
 		switch (socialCode) {
 			case "1":
-				return wxOpenWebsiteUsersService.unbinding(usersId);
+				return usersWxOpenWebsiteService.unbinding(usersId);
 			case "2":
-				return giteeUsersService.unbinding(usersId);
+				return usersGiteeService.unbinding(usersId);
 			case "3":
-				return qqWebsiteUsersService.unbinding(usersId);
+				return usersQqWebsiteService.unbinding(usersId);
 			case "4":
-				return weiBoWebsiteUsersService.unbinding(usersId);
+				return usersWeiBoWebsiteService.unbinding(usersId);
 			case "5":
-				return gitlabUsersService.unbinding(usersId);
+				return usersGitlabService.unbinding(usersId);
 			case "6":
-				return wxWorkWebsiteUsersService.unbinding(usersId);
+				return usersWxWorkWebsiteService.unbinding(usersId);
 			case "7":
-				return githubUsersService.unbinding(usersId);
+				return usersGithubService.unbinding(usersId);
 			case "8":
-				return dingtalkUsersService.unbinding(usersId);
+				return usersDingtalkService.unbinding(usersId);
 			case "9":
-				return alipayOplatformWebsiteUsersService.unbinding(usersId);
+				return usersAlipayOplatformWebsiteService.unbinding(usersId);
 			default:
 				return false;
 		}

@@ -37,126 +37,126 @@
                 SELECT
                     1 AS social_code,
                     '微信' AS social_name,
-                    wowu.nickname AS nickname,
-                    wowu.headimgurl AS headimgurl,
-                    wowu.binding_date AS binding_date,
+                    uwow.nickname AS nickname,
+                    uwow.headimgurl AS headimgurl,
+                    uwow.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    wx_open_website_users wowu
+                    users_wx_open_website uwow
                 WHERE
-                    wowu.users_id = #{usersId}
+                    uwow.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     2 AS social_code,
                     '码云' AS social_name,
-                    gu.`name` AS nickname,
-                    gu.avatar_url AS headimgurl,
-                    gu.binding_date AS binding_date,
+                    ug.`name` AS nickname,
+                    ug.avatar_url AS headimgurl,
+                    ug.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    gitee_users gu
+                    users_gitee ug
                 WHERE
-                    gu.users_id = #{usersId}
+                    ug.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     3 AS social_code,
                     'QQ' AS social_name,
-                    qwu.nickname AS nickname,
-                    qwu.figureurl_2 AS headimgurl,
-                    qwu.binding_date AS binding_date,
+                    uqw.nickname AS nickname,
+                    uqw.figureurl_2 AS headimgurl,
+                    uqw.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    qq_website_users qwu
+                    users_qq_website uqw
                 WHERE
-                    qwu.users_id = #{usersId}
+                    uqw.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     4 AS social_code,
                     '微博' AS social_name,
-                    wbwu.screen_name AS nickname,
-                    wbwu.profile_image_url AS headimgurl,
-                    wbwu.binding_date AS binding_date,
+                    uwbw.screen_name AS nickname,
+                    uwbw.profile_image_url AS headimgurl,
+                    uwbw.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    wei_bo_website_users wbwu
+                    users_wei_bo_website uwbw
                 WHERE
-                    wbwu.users_id = #{usersId}
+                    uwbw.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     5 AS social_code,
                     'GitLab' AS social_name,
-                    gu.name AS nickname,
-                    gu.avatar_url AS headimgurl,
-                    gu.binding_date AS binding_date,
+                    ug.name AS nickname,
+                    ug.avatar_url AS headimgurl,
+                    ug.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    gitlab_users gu
+                    users_gitlab ug
                 WHERE
-                    gu.users_id = #{usersId}
+                    ug.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     6 AS social_code,
                     '企业微信' AS social_name,
-                    wwwu.name AS nickname,
-                    wwwu.thumb_avatar AS headimgurl,
-                    wwwu.binding_date AS binding_date,
+                    uwww.name AS nickname,
+                    uwww.thumb_avatar AS headimgurl,
+                    uwww.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    wx_work_website_users wwwu
+                    users_wx_work_website uwww
                 WHERE
-                    wwwu.users_id = #{usersId}
+                    uwww.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     7 AS social_code,
                     'GitHub' AS social_name,
-                    gu.name AS nickname,
-                    gu.avatar_url AS headimgurl,
-                    gu.binding_date AS binding_date,
+                    ug.name AS nickname,
+                    ug.avatar_url AS headimgurl,
+                    ug.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    github_users gu
+                    users_github ug
                 WHERE
-                    gu.users_id = #{usersId}
+                    ug.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     8 AS social_code,
                     '钉钉' AS social_name,
-                    du.nick AS nickname,
-                    du.avatar_url AS headimgurl,
-                    du.binding_date AS binding_date,
+                    ud.nick AS nickname,
+                    ud.avatar_url AS headimgurl,
+                    ud.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    dingtalk_users du
+                    users_dingtalk ud
                 WHERE
-                    du.users_id = #{usersId}
+                    ud.users_id = #{usersId}
 
                 UNION ALL
 
                 SELECT
                     9 AS social_code,
                     '支付宝' AS social_name,
-                    aowu.nick_name AS nickname,
-                    aowu.avatar AS headimgurl,
-                    aowu.binding_date AS binding_date,
+                    uaow.nick_name AS nickname,
+                    uaow.avatar AS headimgurl,
+                    uaow.binding_date AS binding_date,
                     1 AS binding
                 FROM
-                    alipay_oplatform_website_users aowu
+                    users_alipay_oplatform_website uaow
                 WHERE
-                    aowu.users_id = #{usersId}
+                    uaow.users_id = #{usersId}
             ) v ON v.social_code = t.social_code
     </select>
 

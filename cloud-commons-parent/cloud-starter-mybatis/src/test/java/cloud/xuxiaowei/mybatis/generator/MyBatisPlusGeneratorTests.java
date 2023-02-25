@@ -46,7 +46,8 @@ class MyBatisPlusGeneratorTests {
 		/**
 		 * 微服务-日志
 		 */
-		XUXIAOWEI_CLOUD_LOG("jdbc:mysql://127.0.0.1:3306/xuxiaowei_cloud_log", "root", "root", "微服务 日志 数据库"),
+		XUXIAOWEI_CLOUD_LOG("jdbc:mysql://127.0.0.1:3306/xuxiaowei_cloud_log", "root", "xuxiaowei.com.cn",
+				"微服务 日志 数据库"),
 
 		;
 
