@@ -55,9 +55,10 @@ spec:
             - name: redis_xuxiaowei_cloud_host
               value: redis-service
             - name: sentinel_dashboard
-              value: sentinel-service
+              value: sentinel-service:22222
           ports:
             - containerPort: 1701
+            - containerPort: 9003
           volumeMounts:
             # 时区
             - name: time-zone
