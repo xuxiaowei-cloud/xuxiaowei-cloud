@@ -27,15 +27,6 @@ spec:
       containers:
         - name: ui
           image: registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT
-          env:
-            - name: nacos_xuxiaowei_cloud_addr
-              value: nacos-service
-            - name: mysql_xuxiaowei_cloud
-              value: mysql-service
-            - name: redis_xuxiaowei_cloud_host
-              value: redis-service
-            - name: sentinel_dashboard
-              value: sentinel-service
           ports:
             - containerPort: 80
 
