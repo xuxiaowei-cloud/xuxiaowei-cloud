@@ -199,7 +199,7 @@ cloud:
 # Canal 配置
 cloud:
   canal:
-    hostname: canal-deployer.example.xuxiaowei.cloud
-    port: 11111
-    destination: example
-    batch-size: 1000
+    hostname: ${canal_hostname:canal-deployer.example.xuxiaowei.cloud}
+    port: ${canal_port:11111}
+    destination: ${canal_destination:example}
+    batch-size: ${canal_batch_size:1000}
