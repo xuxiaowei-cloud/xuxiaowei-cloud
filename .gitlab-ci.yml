@@ -144,6 +144,8 @@ package:
       else
     - echo '不执行 Docker 相关命令';
       fi
+    # 删除本地 Maven 仓库中的产物，以提高缓存速度
+    - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     paths:
       - .m2/repository
