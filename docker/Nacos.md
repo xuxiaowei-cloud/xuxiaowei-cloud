@@ -32,7 +32,7 @@ docker pull nacos/nacos-server:v2.2.0
                 MYSQL_SERVICE_PORT=3306
                 MYSQL_SERVICE_DB_NAME=nacos_config
                 # 默认：characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
-                MYSQL_SERVICE_DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false"
+                MYSQL_SERVICE_DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true"
                 MYSQL_SERVICE_USER=root
                 MYSQL_SERVICE_PASSWORD=xuxiaowei.com.cn
                 ```
