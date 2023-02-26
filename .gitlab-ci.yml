@@ -24,13 +24,11 @@ murphysec:
     - murphysec -v
     - murphysec auth login $murphysec_token
     - murphysec scan . --log-level info --write-log-to murphysec.log --json --task-id $task_id
-  #  cache:
-  #    paths:
-  #      - .m2/repository
-  #      - passport-ui/node/
-  #      - passport-ui/node_modules/
-  #      - ui/node/
-  #      - ui/node_modules/
+  # https://docs.gitlab.cn/jh/ci/yaml/index.html#cache
+  cache:
+    key: murphysec
+    paths:
+      - .m2/repository
   artifacts:
     name: murphysec
     paths:
