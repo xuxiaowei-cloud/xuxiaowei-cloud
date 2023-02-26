@@ -37,6 +37,8 @@ After=syslog.target
 
 [Service]
 Type=oneshot
+# 指定环境变量文件，否则 service 无法读取环境变量，如：JAVA_HOME
+EnvironmentFile=/etc/profile
 ExecStart=/software/nacos-server-2.2.0/bin/startup.sh -m standalone
 ExecStop=/software/nacos-server-2.2.0/bin/shutdown.sh
 ExecReload=/bin/kill -s HUP $MAINPID
