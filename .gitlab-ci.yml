@@ -222,8 +222,8 @@ shell-package:
     - echo 主分支：$CI_DEFAULT_BRANCH
     - echo 项目路径：$CI_PROJECT_DIR
     # 在 Shell 执行器中，如果手动导入 gpg，可使用参数 -Pgpg
-    # 在 Shell 执行器中，不指定 settings.xml，可使用系统默认
-    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings.xml && PACKAGE_FLAG=1
+    # 在 Shell 执行器中，如果不指定 settings.xml，可使用系统默认
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
   cache:
     paths:
