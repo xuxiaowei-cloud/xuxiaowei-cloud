@@ -1,14 +1,17 @@
 # 此流水线为 gitlab.com、jihulab.com、自建 gitlab 使用
 
 stages:
+  # 墨菲安全扫描供应链
   - murphysec
+  # 使用 k8s（也可使用 docker、shell 等执行器，需要能使用 docker 相关命令）构建、制作 docker 镜像、推送到 docker 私服
   - package
-  # 在 k8s 所在的服务器上执行
+  # 在 k8s 所在的服务器上执行项目滚动发布
   - shell-publish-k8s
-  # 使用 shell 执行器
+  # 使用 shell 执行器构建
   - shell-package
+  # 使用 shell 执行器发布
   - shell-service
-  # 使用 docker 执行器
+  # 使用 docker 执行器构建、制作 docker 镜像
   - docker-package
 
 # murphysec
@@ -279,6 +282,33 @@ docker-package:
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     # 删除本地 Maven 仓库中的产物（依赖），以提高缓存速度（本次的产物在下一次使用依赖时是无用的，会重新生成）
     - rm -rf .m2/repository/cloud/xuxiaowei
+    # 使用指定 setting.xml，用于下载依赖
+    - mvn -pl admin-server -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl admin-server -s settings-private.xml docker:push;
+    - mvn -pl gateway -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl gateway -s settings-private.xml docker:push;
+    - mvn -pl passport -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl passport -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/canal -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/canal -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/file -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/file -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/master-data -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/master-data -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/user -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/user -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/webservice -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/webservice -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/websocket -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/websocket -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/wechat-miniprogram -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-miniprogram -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:push;
+    - mvn -pl ui docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl ui -s settings-private.xml docker:push;
+    - mvn -pl xxl-job-admin -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl xxl-job-admin -s settings-private.xml docker:push;
   cache:
     paths:
       - .m2/repository
