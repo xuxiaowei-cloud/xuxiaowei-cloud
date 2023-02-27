@@ -83,7 +83,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersDingtalkService dingtalkUsersService;
+	private IUsersDingtalkService usersDingtalkService;
 
 	private SessionService sessionService;
 
@@ -98,8 +98,8 @@ public class DingtalkServiceImpl implements DingtalkService {
 	}
 
 	@Autowired
-	public void setDingtalkUsersService(IUsersDingtalkService dingtalkUsersService) {
-		this.dingtalkUsersService = dingtalkUsersService;
+	public void setUsersDingtalkService(IUsersDingtalkService usersDingtalkService) {
+		this.usersDingtalkService = usersDingtalkService;
 	}
 
 	@Autowired
@@ -327,7 +327,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expireIn);
 		String openId = accessTokenResponse.getOpenId();
 		String unionId = accessTokenResponse.getUnionId();
-		UsersDingtalk usersDingtalk = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
+		UsersDingtalk usersDingtalk = usersDingtalkService.getByAppidAndOpenId(appid, openId);
 		if (usersDingtalk == null) {
 
 			UsersDingtalk users = new UsersDingtalk();
@@ -340,7 +340,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 			users.setExpires(expires);
 			users.setCreateIp(remoteAddress);
 
-			dingtalkUsersService.save(users);
+			usersDingtalkService.save(users);
 		}
 		else {
 
@@ -350,7 +350,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 			usersDingtalk.setRefreshToken(refreshToken);
 			usersDingtalk.setExpires(expires);
 			usersDingtalk.setUpdateIp(remoteAddress);
-			dingtalkUsersService.updateById(usersDingtalk);
+			usersDingtalkService.updateById(usersDingtalk);
 		}
 
 		// 绑定用户
@@ -359,7 +359,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 			String usersIdStr = sessionService.get(DINGTALK_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			dingtalkUsersService.binding(usersId, appid, openId);
+			usersDingtalkService.binding(usersId, appid, openId);
 		}
 
 		return accessTokenResponse;
@@ -389,7 +389,7 @@ public class DingtalkServiceImpl implements DingtalkService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openId,
 			Object credentials, String unionId, String accessToken, String refreshToken, Long expiresIn)
 			throws OAuth2AuthenticationException {
-		UsersDingtalk usersDingtalk = dingtalkUsersService.getByAppidAndOpenId(appid, openId);
+		UsersDingtalk usersDingtalk = usersDingtalkService.getByAppidAndOpenId(appid, openId);
 
 		if (usersDingtalk == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到钉钉dingtalk用户或已被删除", null);

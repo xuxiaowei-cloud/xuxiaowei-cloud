@@ -93,13 +93,10 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 			throw new CloudRuntimeException("发送短信时，模板传参数处理异常", e);
 		}
 
-		// @formatter:off
-		SendSmsRequest sendSmsRequest = new SendSmsRequest()
-				.setPhoneNumbers(phoneNumbers)
-				.setSignName(cloudAliyunSmsProperties.getSignName())
-				.setTemplateCode(templateCode)
-				.setTemplateParam(json);
-		// @formatter:on
+		SendSmsRequest sendSmsRequest = new SendSmsRequest().setPhoneNumbers(phoneNumbers)
+			.setSignName(cloudAliyunSmsProperties.getSignName())
+			.setTemplateCode(templateCode)
+			.setTemplateParam(json);
 
 		Sms sms = new Sms();
 		sms.setSmsPlatform("1");
@@ -175,14 +172,11 @@ public class AliyunDySmsApiServiceImpl implements AliyunDySmsApiService {
 	public QuerySendDetailsResponse querySendDetails(@NonNull LocalDate sendDate, @NonNull String phoneNumber,
 			@NonNull String bizId, Long currentPage, Long pageSize) {
 
-		// @formatter:off
-		QuerySendDetailsRequest querySendDetailsRequest = new QuerySendDetailsRequest()
-				.setPhoneNumber(phoneNumber)
-				.setBizId(bizId)
-				.setSendDate(DateUtils.format(sendDate, PURE_DATE_PATTERN))
-				.setCurrentPage(currentPage)
-				.setPageSize(pageSize);
-		// @formatter:on
+		QuerySendDetailsRequest querySendDetailsRequest = new QuerySendDetailsRequest().setPhoneNumber(phoneNumber)
+			.setBizId(bizId)
+			.setSendDate(DateUtils.format(sendDate, PURE_DATE_PATTERN))
+			.setCurrentPage(currentPage)
+			.setPageSize(pageSize);
 
 		Client client = client();
 

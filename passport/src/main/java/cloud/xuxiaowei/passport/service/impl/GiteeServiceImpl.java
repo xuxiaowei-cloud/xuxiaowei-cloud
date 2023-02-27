@@ -86,7 +86,7 @@ public class GiteeServiceImpl implements GiteeService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersGiteeService giteeUsersService;
+	private IUsersGiteeService usersGiteeService;
 
 	private SessionService sessionService;
 
@@ -101,8 +101,8 @@ public class GiteeServiceImpl implements GiteeService {
 	}
 
 	@Autowired
-	public void setGiteeUsersService(IUsersGiteeService giteeUsersService) {
-		this.giteeUsersService = giteeUsersService;
+	public void setUsersGiteeService(IUsersGiteeService usersGiteeService) {
+		this.usersGiteeService = usersGiteeService;
 	}
 
 	@Autowired
@@ -342,7 +342,7 @@ public class GiteeServiceImpl implements GiteeService {
 
 		Integer id = userInfo.getId();
 		String avatarUrl = userInfo.getAvatarUrl();
-		UsersGitee usersGitee = giteeUsersService.getByAppidAndId(appid, id);
+		UsersGitee usersGitee = usersGiteeService.getByAppidAndId(appid, id);
 		if (usersGitee == null) {
 			UsersGitee gitee = new UsersGitee();
 			BeanUtils.copyProperties(userInfo, gitee);
@@ -351,7 +351,7 @@ public class GiteeServiceImpl implements GiteeService {
 			gitee.setRefreshToken(refreshToken);
 			gitee.setExpires(expires);
 			gitee.setScope(scope);
-			giteeUsersService.save(gitee);
+			usersGiteeService.save(gitee);
 		}
 		else {
 			usersGitee.setAccessToken(accessToken);
@@ -359,7 +359,7 @@ public class GiteeServiceImpl implements GiteeService {
 			usersGitee.setExpires(expires);
 			usersGitee.setScope(scope);
 			usersGitee.setAvatarUrl(avatarUrl);
-			giteeUsersService.updateById(usersGitee);
+			usersGiteeService.updateById(usersGitee);
 		}
 
 		// 绑定用户
@@ -368,7 +368,7 @@ public class GiteeServiceImpl implements GiteeService {
 			String usersIdStr = sessionService.get(GITEE_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			giteeUsersService.binding(usersId, appid, id);
+			usersGiteeService.binding(usersId, appid, id);
 		}
 
 		return userInfo;
@@ -400,7 +400,7 @@ public class GiteeServiceImpl implements GiteeService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, Integer id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn, String scope)
 			throws OAuth2AuthenticationException {
-		UsersGitee usersGitee = giteeUsersService.getByAppidAndId(appid, id);
+		UsersGitee usersGitee = usersGiteeService.getByAppidAndId(appid, id);
 
 		if (usersGitee == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到码云Gitee用户或已被删除", null);

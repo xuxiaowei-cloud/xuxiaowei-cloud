@@ -32,7 +32,7 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 
 	private QQMiniProgramProperties qqMiniProgramProperties;
 
-	private IUsersQqMiniprogramService qqMiniprogramUsersService;
+	private IUsersQqMiniprogramService usersQqMiniprogramService;
 
 	@Autowired
 	public void setQqMiniProgramProperties(QQMiniProgramProperties qqMiniProgramProperties) {
@@ -40,8 +40,8 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 	}
 
 	@Autowired
-	public void setQqMiniprogramUsersService(IUsersQqMiniprogramService qqMiniprogramUsersService) {
-		this.qqMiniprogramUsersService = qqMiniprogramUsersService;
+	public void setUsersQqMiniprogramService(IUsersQqMiniprogramService usersQqMiniprogramService) {
+		this.usersQqMiniprogramService = usersQqMiniprogramService;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String sessionKey) throws OAuth2AuthenticationException {
 
-		UsersQqMiniprogram usersQqMiniprogram = qqMiniprogramUsersService.getByAppidAndOpenid(appid, openid);
+		UsersQqMiniprogram usersQqMiniprogram = usersQqMiniprogramService.getByAppidAndOpenid(appid, openid);
 		if (usersQqMiniprogram == null) {
 			UsersQqMiniprogram users = new UsersQqMiniprogram();
 			users.setAppid(appid);
@@ -82,12 +82,12 @@ public class QQMiniProgramServiceImpl implements QQMiniProgramService {
 			users.setUnionid(unionid);
 			users.setSessionKey(sessionKey);
 
-			qqMiniprogramUsersService.save(users);
+			usersQqMiniprogramService.save(users);
 		}
 		else {
 			usersQqMiniprogram.setSessionKey(sessionKey);
 
-			qqMiniprogramUsersService.updateById(usersQqMiniprogram);
+			usersQqMiniprogramService.updateById(usersQqMiniprogram);
 		}
 
 		InMemoryQQMiniProgramService inMemoryQqMiniProgramService = new InMemoryQQMiniProgramService(

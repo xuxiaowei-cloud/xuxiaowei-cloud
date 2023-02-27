@@ -137,12 +137,10 @@ public class AuthorizationServerConfiguration {
 
 		RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
 
-		// @formatter:off
 		http.requestMatcher(endpointsMatcher)
-				.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
-				.csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-				.apply(authorizationServerConfigurer);
-		// @formatter:on
+			.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+			.csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
+			.apply(authorizationServerConfigurer);
 
 		// 自定义客户授权
 		authorizationServerConfigurer.tokenEndpoint(tokenEndpointCustomizer -> tokenEndpointCustomizer
@@ -236,12 +234,9 @@ public class AuthorizationServerConfiguration {
 	 */
 	@Bean
 	public JWKSource<SecurityContext> jwkSource() {
-		// @formatter:off
-		RSAKey rsaKey = new RSAKey
-				.Builder(cloudJwkKeyProperties.rsaPublicKey())
-				.privateKey(cloudJwkKeyProperties.privateKey())
-				.build();
-		// @formatter:on
+		RSAKey rsaKey = new RSAKey.Builder(cloudJwkKeyProperties.rsaPublicKey())
+			.privateKey(cloudJwkKeyProperties.privateKey())
+			.build();
 		JWKSet jwkSet = new JWKSet(rsaKey);
 		return new ImmutableJWKSet<>(jwkSet);
 	}

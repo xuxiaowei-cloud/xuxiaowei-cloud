@@ -1,9 +1,9 @@
 package cloud.xuxiaowei.passport.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
-import cloud.xuxiaowei.system.entity.UsersAlipayOplatformWebsite;
 import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
+import cloud.xuxiaowei.system.entity.UsersAlipayOplatformWebsite;
 import cloud.xuxiaowei.system.service.IUsersAlipayOplatformWebsiteService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.utils.CodeEnums;
@@ -85,7 +85,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersAlipayOplatformWebsiteService alipayOplatformWebsiteUsersService;
+	private IUsersAlipayOplatformWebsiteService usersAlipayOplatformWebsiteService;
 
 	private SessionService sessionService;
 
@@ -100,9 +100,9 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 	}
 
 	@Autowired
-	public void setAlipayOplatformWebsiteUsersService(
-			IUsersAlipayOplatformWebsiteService alipayOplatformWebsiteUsersService) {
-		this.alipayOplatformWebsiteUsersService = alipayOplatformWebsiteUsersService;
+	public void setUsersAlipayOplatformWebsiteService(
+			IUsersAlipayOplatformWebsiteService usersAlipayOplatformWebsiteService) {
+		this.usersAlipayOplatformWebsiteService = usersAlipayOplatformWebsiteService;
 	}
 
 	@Autowired
@@ -341,13 +341,13 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 		String openId = userInfoShareResponse.getOpenId();
 		String unionId = systemOauthTokenResponse.getUnionId();
 
-		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = alipayOplatformWebsiteUsersService
+		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = usersAlipayOplatformWebsiteService
 			.getByAppidAndUserId(appid, userId);
 		// @formatter:off
-		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndOpenId(appid,
-		// 		openId);
-		// AlipayOplatformWebsiteUsers alipayOplatformWebsiteUsers = alipayOplatformWebsiteUsersService.getByAppidAndUnionId(appid,
-		// 		unionId);
+		// UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = usersAlipayOplatformWebsiteService
+		// 	.getByAppidAndOpenId(appid, openId);
+		// UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = usersAlipayOplatformWebsiteService
+		// 	.getByAppidAndUnionId(appid, unionId);
 		// @formatter:on
 
 		if (usersAlipayOplatformWebsite == null) {
@@ -363,7 +363,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 			// users.setExpires(expires);
 			users.setCreateIp(remoteAddress);
 
-			alipayOplatformWebsiteUsersService.save(users);
+			usersAlipayOplatformWebsiteService.save(users);
 		}
 		else {
 
@@ -372,7 +372,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 
 			// alipayOplatformWebsiteUsers.setExpires(expires);
 			usersAlipayOplatformWebsite.setUpdateIp(remoteAddress);
-			alipayOplatformWebsiteUsersService.updateById(usersAlipayOplatformWebsite);
+			usersAlipayOplatformWebsiteService.updateById(usersAlipayOplatformWebsite);
 		}
 
 		// 绑定用户
@@ -381,7 +381,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 			String usersIdStr = sessionService.get(ALIPAY_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			alipayOplatformWebsiteUsersService.binding(usersId, appid, userId);
+			usersAlipayOplatformWebsiteService.binding(usersId, appid, userId);
 		}
 
 		return accessTokenResponse;
@@ -412,7 +412,7 @@ public class AlipayOplatformWebsiteServiceImpl implements AlipayOplatformWebsite
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String userId,
 			String openId, Object credentials, String unionid, String accessToken, String refreshToken,
 			String expiresIn) throws OAuth2AuthenticationException {
-		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = alipayOplatformWebsiteUsersService
+		UsersAlipayOplatformWebsite usersAlipayOplatformWebsite = usersAlipayOplatformWebsiteService
 			.getByAppidAndUserId(appid, userId);
 
 		if (usersAlipayOplatformWebsite == null) {

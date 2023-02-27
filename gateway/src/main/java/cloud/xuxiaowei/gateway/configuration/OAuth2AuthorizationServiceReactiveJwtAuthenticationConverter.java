@@ -62,11 +62,9 @@ public class OAuth2AuthorizationServiceReactiveJwtAuthenticationConverter
 			throw new InvalidBearerTokenException(tokenValue + " not found in OAuth2AuthorizationService");
 		}
 
-		// @formatter:off
 		return Objects.requireNonNull(this.jwtGrantedAuthoritiesConverter.convert(jwt))
-				.collectList()
-				.map((authorities) -> new JwtAuthenticationToken(jwt, authorities));
-		// @formatter:on
+			.collectList()
+			.map((authorities) -> new JwtAuthenticationToken(jwt, authorities));
 	}
 
 	public void setJwtGrantedAuthoritiesConverter(

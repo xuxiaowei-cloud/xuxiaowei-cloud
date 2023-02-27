@@ -84,7 +84,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersQqWebsiteService qqWebsiteUsersService;
+	private IUsersQqWebsiteService usersQqWebsiteService;
 
 	private SessionService sessionService;
 
@@ -99,8 +99,8 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 	}
 
 	@Autowired
-	public void setQqWebsiteUsersService(IUsersQqWebsiteService qqWebsiteUsersService) {
-		this.qqWebsiteUsersService = qqWebsiteUsersService;
+	public void setUsersQqWebsiteService(IUsersQqWebsiteService usersQqWebsiteService) {
+		this.usersQqWebsiteService = usersQqWebsiteService;
 	}
 
 	@Autowired
@@ -429,19 +429,19 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 		qqWebsiteTokenResponse.setVip(userinfoResponse.getVip());
 		qqWebsiteTokenResponse.setFigureurlQq2(userinfoResponse.getFigureurlQq2());
 
-		UsersQqWebsite usersQqWebsite = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersQqWebsite usersQqWebsite = usersQqWebsiteService.getByAppidAndOpenid(appid, openid);
 		if (usersQqWebsite == null) {
 			UsersQqWebsite websiteUsers = new UsersQqWebsite();
 			BeanUtils.copyProperties(qqWebsiteTokenResponse, websiteUsers);
 			// websiteUsers.setExpires(expires);
 			websiteUsers.setAppid(qqWebsiteTokenResponse.getClientId());
 			websiteUsers.setCreateIp(remoteAddress);
-			qqWebsiteUsersService.save(websiteUsers);
+			usersQqWebsiteService.save(websiteUsers);
 		}
 		else {
 			// qqWebsiteUsers.setExpires(expires);
 			usersQqWebsite.setUpdateIp(remoteAddress);
-			qqWebsiteUsersService.updateById(usersQqWebsite);
+			usersQqWebsiteService.updateById(usersQqWebsite);
 		}
 
 		// 绑定用户
@@ -450,7 +450,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 			String usersIdStr = sessionService.get(QQ_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			qqWebsiteUsersService.binding(usersId, appid, openid);
+			usersQqWebsiteService.binding(usersId, appid, openid);
 		}
 
 		return qqWebsiteTokenResponse;
@@ -480,7 +480,7 @@ public class QQWebsiteServiceImpl implements QQWebsiteService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn)
 			throws OAuth2AuthenticationException {
-		UsersQqWebsite usersQqWebsite = qqWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersQqWebsite usersQqWebsite = usersQqWebsiteService.getByAppidAndOpenid(appid, openid);
 
 		if (usersQqWebsite == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到QQ用户或已被删除", null);
