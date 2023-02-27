@@ -23,7 +23,10 @@
 <p></p>
 
 <div align="center" style="text-align: center;">
-  基于 JDK 8/11、Spring Boot 2.7.x、OAuth 2.1、Vite 4、Vue 3、Element Plus 的微服务
+    <div>基于 JDK 8/11、Spring Boot 2.7.x、OAuth 2.1、Vite 4、Vue 3、Element Plus 的微服务。</div>
+    <div>支持支付宝、钉钉、码云、GitHub、GitLab、QQ、微信、企业微信、微博等第三方登录。</div>
+    <div>包含 GitLab Runner、kubernetes（k8s）、Docker、Shell 等 CI/CD 流水线进行自动构建、制作 Docker 镜像、发布。</div>
+    <div>永久免费开源。</div>
 </div>
 
 <p></p>
