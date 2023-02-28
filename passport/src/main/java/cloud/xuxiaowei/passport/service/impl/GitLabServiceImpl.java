@@ -83,7 +83,7 @@ public class GitLabServiceImpl implements GitLabService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersGitlabService gitlabUsersService;
+	private IUsersGitlabService usersGitlabService;
 
 	private SessionService sessionService;
 
@@ -98,8 +98,8 @@ public class GitLabServiceImpl implements GitLabService {
 	}
 
 	@Autowired
-	public void setGitlabUsersService(IUsersGitlabService gitlabUsersService) {
-		this.gitlabUsersService = gitlabUsersService;
+	public void setUsersGitlabService(IUsersGitlabService usersGitlabService) {
+		this.usersGitlabService = usersGitlabService;
 	}
 
 	@Autowired
@@ -332,7 +332,7 @@ public class GitLabServiceImpl implements GitLabService {
 		String refreshToken = accessTokenResponse.getRefreshToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		UsersGitlab usersGitlab = gitlabUsersService.getByAppidAndId(appid, id);
+		UsersGitlab usersGitlab = usersGitlabService.getByAppidAndId(appid, id);
 		if (usersGitlab == null) {
 
 			UsersGitlab users = new UsersGitlab();
@@ -347,7 +347,7 @@ public class GitLabServiceImpl implements GitLabService {
 			users.setDomain(domain);
 			users.setId(id);
 
-			gitlabUsersService.save(users);
+			usersGitlabService.save(users);
 		}
 		else {
 
@@ -357,7 +357,7 @@ public class GitLabServiceImpl implements GitLabService {
 			usersGitlab.setRefreshToken(refreshToken);
 			usersGitlab.setExpires(expires);
 			usersGitlab.setUpdateIp(remoteAddress);
-			gitlabUsersService.updateById(usersGitlab);
+			usersGitlabService.updateById(usersGitlab);
 		}
 
 		// 绑定用户
@@ -366,7 +366,7 @@ public class GitLabServiceImpl implements GitLabService {
 			String usersIdStr = sessionService.get(GITLAB_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			gitlabUsersService.binding(usersId, appid, id);
+			usersGitlabService.binding(usersId, appid, id);
 		}
 
 		return accessTokenResponse;
@@ -397,7 +397,7 @@ public class GitLabServiceImpl implements GitLabService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, int id,
 			Object credentials, String username, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) throws OAuth2AuthenticationException {
-		UsersGitlab usersGitlab = gitlabUsersService.getByAppidAndId(appid, id);
+		UsersGitlab usersGitlab = usersGitlabService.getByAppidAndId(appid, id);
 
 		if (usersGitlab == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到GitLab用户或已被删除", null);

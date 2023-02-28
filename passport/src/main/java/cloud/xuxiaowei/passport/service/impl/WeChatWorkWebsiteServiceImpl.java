@@ -86,7 +86,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersWxWorkWebsiteService wxWorkWebsiteUsersService;
+	private IUsersWxWorkWebsiteService usersWxWorkWebsiteService;
 
 	private SessionService sessionService;
 
@@ -101,8 +101,8 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 	}
 
 	@Autowired
-	public void setWxWorkWebsiteUsersService(IUsersWxWorkWebsiteService wxWorkWebsiteUsersService) {
-		this.wxWorkWebsiteUsersService = wxWorkWebsiteUsersService;
+	public void setUsersWxWorkWebsiteService(IUsersWxWorkWebsiteService usersWxWorkWebsiteService) {
+		this.usersWxWorkWebsiteService = usersWxWorkWebsiteService;
 	}
 
 	@Autowired
@@ -457,7 +457,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 			openid = null;
 		}
 
-		UsersWxWorkWebsite usersWxWorkWebsite = wxWorkWebsiteUsersService.getByAppidAndAgentidAndOpenid(appid, agentid,
+		UsersWxWorkWebsite usersWxWorkWebsite = usersWxWorkWebsiteService.getByAppidAndAgentidAndOpenid(appid, agentid,
 				openid);
 		if (usersWxWorkWebsite == null) {
 
@@ -471,13 +471,13 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 			workWebsiteUsers.setAgentid(agentid);
 			workWebsiteUsers.setCreateIp(remoteAddress);
 
-			wxWorkWebsiteUsersService.save(workWebsiteUsers);
+			usersWxWorkWebsiteService.save(workWebsiteUsers);
 		}
 		else {
 
 			usersWxWorkWebsite.setExpires(expires);
 			usersWxWorkWebsite.setUpdateIp(remoteAddress);
-			wxWorkWebsiteUsersService.updateById(usersWxWorkWebsite);
+			usersWxWorkWebsiteService.updateById(usersWxWorkWebsite);
 		}
 
 		// 绑定用户
@@ -487,7 +487,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 				.get(WECHAT_WORK_WEBSITE_USERS_PREFIX + ":" + appid + ":" + agentid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			wxWorkWebsiteUsersService.binding(usersId, appid, agentid, openid);
+			usersWxWorkWebsiteService.binding(usersId, appid, agentid, openid);
 		}
 
 		return accessTokenResponse;
@@ -518,7 +518,7 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 			Map<String, Object> additionalParameters, Object details, String appid, String agentid, String code,
 			String userid, String openid, Object credentials, String unionid, String accessToken, Integer expiresIn)
 			throws OAuth2AuthenticationException {
-		UsersWxWorkWebsite wxOpenWebsiteUsers = wxWorkWebsiteUsersService.getByAppidAndAgentidAndOpenid(appid, agentid,
+		UsersWxWorkWebsite wxOpenWebsiteUsers = usersWxWorkWebsiteService.getByAppidAndAgentidAndOpenid(appid, agentid,
 				openid);
 
 		if (wxOpenWebsiteUsers == null) {

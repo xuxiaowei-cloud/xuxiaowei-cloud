@@ -83,7 +83,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersWxOpenWebsiteService wxOpenWebsiteUsersService;
+	private IUsersWxOpenWebsiteService usersWxOpenWebsiteService;
 
 	private SessionService sessionService;
 
@@ -98,8 +98,8 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	}
 
 	@Autowired
-	public void setWxOpenWebsiteUsersService(IUsersWxOpenWebsiteService wxOpenWebsiteUsersService) {
-		this.wxOpenWebsiteUsersService = wxOpenWebsiteUsersService;
+	public void setUsersWxOpenWebsiteService(IUsersWxOpenWebsiteService usersWxOpenWebsiteService) {
+		this.usersWxOpenWebsiteService = usersWxOpenWebsiteService;
 	}
 
 	@Autowired
@@ -336,7 +336,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 		ObjectMapper objectMapper = new ObjectMapper();
 		String privilegeStr = objectMapper.writeValueAsString(privilege);
 
-		UsersWxOpenWebsite usersWxOpenWebsite = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersWxOpenWebsite usersWxOpenWebsite = usersWxOpenWebsiteService.getByAppidAndOpenid(appid, openid);
 		if (usersWxOpenWebsite == null) {
 
 			UsersWxOpenWebsite websiteUsers = new UsersWxOpenWebsite();
@@ -348,7 +348,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			websiteUsers.setExpires(expires);
 			websiteUsers.setCreateIp(remoteAddress);
 
-			wxOpenWebsiteUsersService.save(websiteUsers);
+			usersWxOpenWebsiteService.save(websiteUsers);
 		}
 		else {
 
@@ -357,7 +357,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			usersWxOpenWebsite.setPrivilege(privilegeStr);
 			usersWxOpenWebsite.setExpires(expires);
 			usersWxOpenWebsite.setUpdateIp(remoteAddress);
-			wxOpenWebsiteUsersService.updateById(usersWxOpenWebsite);
+			usersWxOpenWebsiteService.updateById(usersWxOpenWebsite);
 		}
 
 		// 绑定用户
@@ -366,7 +366,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			String usersIdStr = sessionService.get(WECHAT_OPLATFORM_WEBSITE_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			wxOpenWebsiteUsersService.binding(usersId, appid, openid);
+			usersWxOpenWebsiteService.binding(usersId, appid, openid);
 		}
 
 		return accessTokenResponse;
@@ -397,7 +397,7 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) throws OAuth2AuthenticationException {
-		UsersWxOpenWebsite usersWxOpenWebsite = wxOpenWebsiteUsersService.getByAppidAndOpenid(appid, openid);
+		UsersWxOpenWebsite usersWxOpenWebsite = usersWxOpenWebsiteService.getByAppidAndOpenid(appid, openid);
 
 		if (usersWxOpenWebsite == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到微信用户或已被删除", null);

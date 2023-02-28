@@ -23,7 +23,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -116,11 +119,7 @@ public class SecurityRestController {
 			return Response.error("未找到用户信息");
 		}
 
-		// @formatter:off
-		return ResponseMap.ok()
-				.put("phone", users.getPhone())
-				.put("email", users.getEmail());
-		// @formatter:on
+		return ResponseMap.ok().put("phone", users.getPhone()).put("email", users.getEmail());
 	}
 
 	/**

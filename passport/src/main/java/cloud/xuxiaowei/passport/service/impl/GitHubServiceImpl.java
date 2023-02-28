@@ -87,7 +87,7 @@ public class GitHubServiceImpl implements GitHubService {
 
 	private CloudSecurityProperties cloudSecurityProperties;
 
-	private IUsersGithubService githubUsersService;
+	private IUsersGithubService usersGithubService;
 
 	private SessionService sessionService;
 
@@ -102,8 +102,8 @@ public class GitHubServiceImpl implements GitHubService {
 	}
 
 	@Autowired
-	public void setGithubUsersService(IUsersGithubService githubUsersService) {
-		this.githubUsersService = githubUsersService;
+	public void setUsersGithubService(IUsersGithubService usersGithubService) {
+		this.usersGithubService = usersGithubService;
 	}
 
 	@Autowired
@@ -394,7 +394,7 @@ public class GitHubServiceImpl implements GitHubService {
 		String refreshToken = accessTokenResponse.getRefreshToken();
 		Integer expiresIn = accessTokenResponse.getExpiresIn();
 		LocalDateTime expires = LocalDateTime.now().plusSeconds(expiresIn);
-		UsersGithub usersGithub = githubUsersService.getByAppidAndId(appid, id);
+		UsersGithub usersGithub = usersGithubService.getByAppidAndId(appid, id);
 
 		if (usersGithub == null) {
 
@@ -409,7 +409,7 @@ public class GitHubServiceImpl implements GitHubService {
 			users.setCreateIp(remoteAddress);
 			users.setId(id);
 
-			githubUsersService.save(users);
+			usersGithubService.save(users);
 		}
 		else {
 
@@ -419,7 +419,7 @@ public class GitHubServiceImpl implements GitHubService {
 			usersGithub.setRefreshToken(refreshToken);
 			usersGithub.setExpires(expires);
 			usersGithub.setUpdateIp(remoteAddress);
-			githubUsersService.updateById(usersGithub);
+			usersGithubService.updateById(usersGithub);
 		}
 
 		// 绑定用户
@@ -428,7 +428,7 @@ public class GitHubServiceImpl implements GitHubService {
 			String usersIdStr = sessionService.get(GITHUB_USERS_PREFIX + ":" + appid + ":" + state);
 			long usersId = Long.parseLong(usersIdStr);
 
-			githubUsersService.binding(usersId, appid, id);
+			usersGithubService.binding(usersId, appid, id);
 		}
 
 		return accessTokenResponse;
@@ -459,7 +459,7 @@ public class GitHubServiceImpl implements GitHubService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, int id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn, String scope)
 			throws OAuth2AuthenticationException {
-		UsersGithub usersGithub = githubUsersService.getByAppidAndId(appid, id);
+		UsersGithub usersGithub = usersGithubService.getByAppidAndId(appid, id);
 
 		if (usersGithub == null) {
 			OAuth2Error error = new OAuth2Error(CodeEnums.ERROR.code, "未查询到GitHub用户或已被删除", null);

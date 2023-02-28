@@ -32,7 +32,7 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 
 	private WeChatMiniProgramProperties weChatMiniProgramProperties;
 
-	private IUsersWxMaService wxMaUsersService;
+	private IUsersWxMaService usersWxMaService;
 
 	@Autowired
 	public void setWeChatMiniProgramProperties(WeChatMiniProgramProperties weChatMiniProgramProperties) {
@@ -40,8 +40,8 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 	}
 
 	@Autowired
-	public void setWxMaUsersService(IUsersWxMaService wxMaUsersService) {
-		this.wxMaUsersService = wxMaUsersService;
+	public void setUsersWxMaService(IUsersWxMaService usersWxMaService) {
+		this.usersWxMaService = usersWxMaService;
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 			Map<String, Object> additionalParameters, Object details, String appid, String code, String openid,
 			Object credentials, String unionid, String sessionKey) throws OAuth2AuthenticationException {
 
-		UsersWxMa usersWxMa = wxMaUsersService.getByAppidAndOpenid(appid, openid);
+		UsersWxMa usersWxMa = usersWxMaService.getByAppidAndOpenid(appid, openid);
 		if (usersWxMa == null) {
 			UsersWxMa users = new UsersWxMa();
 			users.setAppid(appid);
@@ -74,12 +74,12 @@ public class WeChatMiniProgramServiceImpl implements WeChatMiniProgramService {
 			users.setUnionid(unionid);
 			users.setSessionKey(sessionKey);
 
-			wxMaUsersService.save(users);
+			usersWxMaService.save(users);
 		}
 		else {
 			usersWxMa.setSessionKey(sessionKey);
 
-			wxMaUsersService.updateById(usersWxMa);
+			usersWxMaService.updateById(usersWxMa);
 		}
 
 		InMemoryWeChatMiniProgramService inMemoryWeChatMiniProgramService = new InMemoryWeChatMiniProgramService(

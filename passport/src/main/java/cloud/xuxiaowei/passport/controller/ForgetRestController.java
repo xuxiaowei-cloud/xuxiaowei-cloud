@@ -152,10 +152,7 @@ public class ForgetRestController {
 
 				email(byUsername);
 
-				// @formatter:off
-				return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email)))
-						.put("type", "email");
-				// @formatter:on
+				return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email))).put("type", "email");
 			}
 			else if (StringUtils.hasText(phone)) {
 
@@ -164,12 +161,10 @@ public class ForgetRestController {
 				// 识别码
 				String identification = phone(byUsername);
 
-				// @formatter:off
 				return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
-						.put("usersId", usersId)
-						.put("identification", identification)
-						.put("type", "phone");
-				// @formatter:on
+					.put("usersId", usersId)
+					.put("identification", identification)
+					.put("type", "phone");
 			}
 			else {
 				return ResponseMap.error("账户未绑定手机号/邮箱");
@@ -182,10 +177,7 @@ public class ForgetRestController {
 
 			email(byEmail);
 
-			// @formatter:off
-			return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email)))
-					.put("type", "email");
-			// @formatter:on
+			return ResponseMap.ok(String.format(EMAIL, DesensitizedUtil.email(email))).put("type", "email");
 		}
 
 		Users byPhone = usersService.getByPhone(username);
@@ -196,12 +188,10 @@ public class ForgetRestController {
 			// 识别码
 			String identification = phone(byPhone);
 
-			// @formatter:off
 			return ResponseMap.ok(String.format(PHONE, DesensitizedUtil.mobilePhone(phone)))
-					.put("usersId", usersId)
-					.put("identification", identification)
-					.put("type", "phone");
-			// @formatter:on
+				.put("usersId", usersId)
+				.put("identification", identification)
+				.put("type", "phone");
 		}
 
 		return Response.error("未找到用户");
