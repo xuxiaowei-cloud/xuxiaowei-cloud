@@ -434,7 +434,8 @@ cloud.xuxiaowei
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
     5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
-    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
+    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+       国内备份仓库，开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)
 
 4. 各分支的作用？
     1. `main`
