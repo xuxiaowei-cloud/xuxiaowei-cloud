@@ -1,4 +1,4 @@
-FROM xuxiaoweicomcn/dragonwell8:8.14.15-Standard
+FROM alibabadragonwell/dragonwell:8-anolis
 
 WORKDIR /home
 
