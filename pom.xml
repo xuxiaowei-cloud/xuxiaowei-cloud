@@ -218,7 +218,7 @@
         <docker.registry>registry.docker.example.xuxiaowei.cloud</docker.registry>
         <!-- docker 上传时的用户名 -->
         <docker.username>admin</docker.username>
-        <!-- docker 上传时的密码 -->
+        <!-- docker 上传时的密码，请使用：-Ddocker.password=xxx 来指定真实密码，请勿将真实密码写在此处 -->
         <docker.password>xuxiaowei</docker.password>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
