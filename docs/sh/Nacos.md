@@ -37,4 +37,4 @@
     os400=false
     ```
 
-- [开机启动脚本](./nacos.service)
+- [开机启动脚本](nacos.service)

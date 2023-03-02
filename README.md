@@ -16,7 +16,7 @@
 
 <div align="center" style="text-align: center;">
     <a target="_blank" href="https://work.weixin.qq.com/gm/75cfc47d6a341047e4b6aca7389bdfa8">
-        <img alt="企业微信群" src="static/wechat-work.jpg" height="100"/>
+        <img alt="企业微信群" src="docs/static/wechat-work.jpg" height="100"/>
     </a>
 </div>
 
@@ -158,12 +158,6 @@
   mvn spring-javaformat:apply
   ```
 
-## [阿里云盘分享](https://www.aliyundrive.com/s/QaUy1DQRkV4)
-
-## [语雀文档](https://www.yuque.com/xuxiaowei-com-cn)
-
-1. [GitLab、kubernetes（k8s）、私库等](https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s)
-
 ## 依赖版本对比
 
 ### 后端
@@ -226,7 +220,7 @@
 
 ## 模块
 
-- [依赖分析](./README-dependencies.md)
+- [依赖分析](./docs/README-dependencies.md)
 
 ```
 cloud.xuxiaowei
@@ -389,53 +383,39 @@ cloud.xuxiaowei
     - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
     - 支付宝网站应用（个人开发适配 OAuth 2.1、支付宝网站应用的授权方式） alipay_oplatform_website
 
-### [kubernetes（k8s）](./deployment)
-
-### [Docker 说明](./docker)
-
-### [常用 exe 说明](./exe)
-
-### [Git](./git)
-
-### [Gitlab Runner](./gitlab-runner)
-
-### [Linux 脚本说明](./sh)
-
-### [SQL](./sql)
-
-### [Windows 脚本说明](./winsw)
-
 ## 仓库与分支？
 
 1. 使用了哪六个仓库？
-    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    2. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
-    3. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    4. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
-    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    1. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
+    4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    5. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    6. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
 
 2. 上述六个仓库以哪个为准？其余仓库何时同步？
-    1. 以 [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
+    1. 以 [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
     2. 其余仓库每日同步
 
 3. 各个仓库的作用？
-    1. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源、Gitee Go流水线
-    2. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06 之前使用 GitLab
+    1. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 供国内用户访问、提问、下载资源、GitLab Runner CI/CD
+       流水线，开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527) 。项目打包、制作 Docker
+       镜像、Kubernetes(k8s) 发布项目
+    2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库（由于不可抗力，将来会关闭 Gitee 的
+       issues，并将历史数据迁移到 [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)）
+    3. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06 之前使用 GitLab
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 自动构建资源（`.jar`、`.jar.asc`
        、`.pom`、`.pom.asc`、`-javadoc.jar`、`-javadoc.jar.asc`、`-sources.jar`、`-sources.jar.asc`），
        自动将资源发布（目前仅[打包](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/blob/main/.gitlab-ci.yml)，未发布）到
        [中央仓库](https://s01.oss.sonatype.org/content/repositories/releases/cloud/xuxiaowei)
-    3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06
+    4. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 2022-06-06
        之后用于替换 [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
        的 [CICD 流水线](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) ，
        [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud) 流水线配额 `2000` 分钟（已申请到内侧资格）
-    4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    5. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
        使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql-analysis.yml)
        每日扫描项目中的 `main` 分支是否存在漏洞
-    5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
-    6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
-       国内备份仓库，开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)
+    6. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) 国内备份仓库
 
 4. 各分支的作用？
     1. `main`
@@ -469,106 +449,12 @@ cloud.xuxiaowei
         2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用某个分支的某些执行器执行 CI/CD，就将代码 `PR`
            （推荐使用PR，方便一键回滚代码、将回滚的内容进行恢复） 到指定的分支。
 
-## 参考文档
-
-1. [alibaba p3c](https://github.com/alibaba/p3c)
-    - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/p3c)
-    - [Gitee 镜像仓库](https://gitee.com/mirrors/P3C)
-2. [十二要素应用宣言](https://12factor.net/zh_cn/)
-
-3. [百度云 BOS](https://cloud.baidu.com/doc/BOS/index.html)
-    1. [安装SDK工具包](https://cloud.baidu.com/doc/BOS/s/4jwvyrq6p)
-    2. [BOS-CMD命令行工具>概述](https://cloud.baidu.com/doc/BOS/s/Sjwvyqetg)
-    3. [安装BOSCMD](https://cloud.baidu.com/doc/BOS/s/qjwvyqegc)
-    4. [配置BOSCMD](https://cloud.baidu.com/doc/BOS/s/Ejwvyqe55)
-4. [腾讯云 COS](https://cloud.tencent.com/document/product/436)
-    1. [快速入门](https://cloud.tencent.com/document/product/436/10199)
-    2. [COSCMD 工具](https://cloud.tencent.com/document/product/436/10976)
-    3. [COSCLI 简介](https://cloud.tencent.com/document/product/436/63143)
-5. [华为云 OBS](https://support.huaweicloud.com/obs/index.html)
-    1. [SDK下载](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0001.html)
-    2. [示例程序](https://support.huaweicloud.com/sdk-java-devg-obs/obs_21_0002.html)
-    3. [下载和安装obsutil](https://support.huaweicloud.com/utiltg-obs/obs_11_0003.html)
-6. [阿里云 OSS](https://help.aliyun.com/product/31815.html)
-    1. [Java SDK快速入门](https://help.aliyun.com/document_detail/195870.html)
-    2. [命令行工具ossutil快速入门](https://help.aliyun.com/document_detail/195960.html)
-
-7. [清华大学开源软件镜像站 CentOS](https://mirror.tuna.tsinghua.edu.cn/help/centos/)
-8. [清华大学开源软件镜像站 Ubuntu](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
-
-9. [阿里云镜像站 CentOS](https://developer.aliyun.com/mirror/centos)
-10. [阿里云镜像站 Ubuntu](https://developer.aliyun.com/mirror/ubuntu)
-
-11. [网易镜像 CentOS](https://mirrors.163.com/.help/centos.html)
-12. [网易镜像 Ubuntu](http://mirrors.163.com/.help/ubuntu.html)
-
-13. [阿里云 Maven 镜像](https://developer.aliyun.com/mirror/maven)
-14. [阿里云云效 使用指南](https://developer.aliyun.com/mvn/guide)
-15. [阿里云云效 文件搜索](https://developer.aliyun.com/mvn/search)
-16. [阿里云云效 仓库文件](https://developer.aliyun.com/mvn/view)
-
-17. [阿里云 NPM](https://developer.aliyun.com/mirror/NPM)
-18. [阿里云 nodejs-release 镜像](https://developer.aliyun.com/mirror/nodejs-release)
-19. [阿里云 mysql 镜像](https://developer.aliyun.com/mirror/mysql)
-20. [阿里云 ubuntu-releases 镜像](https://developer.aliyun.com/mirror/ubuntu-releases)
-21. [阿里云 CentOS 镜像](https://developer.aliyun.com/mirror/centos)
-
-22. [QQ邮箱-如何使用IMAP服务？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=331)
-    1. 登录[QQ邮箱](https://mail.qq.com)
-    2. [设置] --> [帐户] --> [生成授权码](./static/QQ-授权码.png)
-23. [XXL Job](https://www.xuxueli.com/xxl-job)
-24. [WebSocket 路由过滤器](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-websocket-routing-filter)
-25. [网关流量控制](https://sentinelguard.io/zh-cn/docs/api-gateway-flow-control.html)
-26. [阿里云 短信服务](https://dysms.console.aliyun.com/overview)
-    1. [文档](https://next.api.aliyun.com/product/Dysmsapi)
-27. [Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
-28. [提问的智慧](https://gitcode.net/mirrors/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/-/blob/master/README-zh_CN.md)
-
-## 开发工具
-
-1. IDEA 2022.2.3
-    - [Windows 安装版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.exe)
-    - [Windows 解压版](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.win.zip)
-    - [Linux](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.tar.gz)
-    - [Mac dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3.dmg)
-    - [Mac aarch64 dmg](https://download.jetbrains.com.cn/idea/ideaIU-2022.2.3-aarch64.dmg)
-    - [申请开源开发许可证](https://www.jetbrains.com/shop/eform/opensource)
-    - 插件
-        1. [![Alibaba Cloud AI Coding Assistant](./static/plugins/AlibabaCloudAICodingAssistant.png) Alibaba Cloud AI Coding Assistant](https://plugins.jetbrains.com/plugin/17809-alibaba-cloud-ai-coding-assistant)
-        2. [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
-        3. [GenerateSerialVersionUID](https://plugins.jetbrains.com/plugin/185-generateserialversionuid)
-        4. [GenerateAllSetter](https://plugins.jetbrains.com/plugin/9360-generateallsetter)
-        5. [![MurphySec Code Scan](./static/plugins/MurphySecCodeScan.png) MurphySec Code Scan](https://plugins.jetbrains.com/plugin/18274-murphysec-code-scan)
-        6. [![MyBatisX](./static/plugins/MyBatisX.png) MyBatisX](https://plugins.jetbrains.com/plugin/10119-mybatisx)
-        7. [RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit)
-        8. [RoboPOJOGenerator](https://plugins.jetbrains.com/plugin/8634-robopojogenerator)
-        9. [Statistic](https://plugins.jetbrains.com/plugin/4509-statistic)
-        10. [![Translation](./static/plugins/Translation.png) Translation](https://plugins.jetbrains.com/plugin/8579-translation)
-        11. [![Vue.js](./static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
-        12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
-2. Alibaba dragonwell 8.14.15
-    - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
-    - [Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz)
-    - [Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz)
-    - [Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip)
-3. Apache Maven 3.6.3
-    - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
-    - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
-4. node v16.15.1
-    - [nodejs](https://nodejs.org/dist/v16.15.1)
-    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.15.1)
-5. npm 8.3.1
-6. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
-7. SVG转PNG
-    1. https://www.aconvert.com/cn/image/svg-to-png/
-    2. https://svgtopng.com/zh/
-
 ## 鸣谢
 
-1. 感谢 [![墨菲安全](./static/murphysec.png)](https://www.murphysec.com/)
+1. 感谢 [![墨菲安全](./docs/static/murphysec.png)](https://www.murphysec.com/)
    提供安全技术支持，邀请码：[http://xxw.ac.cn/murphysec](http://xxw.ac.cn/murphysec)
-2. 感谢 [![jetbrains](./static/jetbrains.ico)](https://www.jetbrains.com/)
-   提供开发工具 [![IDEA](./static/idea.png)](https://www.jetbrains.com/idea) 的免费授权
+2. 感谢 [![jetbrains](./docs/static/jetbrains.ico)](https://www.jetbrains.com/)
+   提供开发工具 [![IDEA](./docs/static/idea.png)](https://www.jetbrains.com/idea) 的免费授权
 
 ## Stargazers over time
 
