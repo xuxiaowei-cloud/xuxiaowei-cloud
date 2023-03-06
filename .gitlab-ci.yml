@@ -1,8 +1,6 @@
 # 此流水线为 gitlab.com、jihulab.com、自建 gitlab 使用
 
 stages:
-  # 墨菲安全扫描供应链
-  - murphysec
   # 使用 k8s（也可使用 docker、shell 等执行器，需要能使用 docker 相关命令）构建、制作 docker 镜像、推送到 docker 私服
   - package
   # 在 k8s 所在的服务器上执行项目滚动发布

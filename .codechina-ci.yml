@@ -1,7 +1,6 @@
 # 此流水线为 gitcode.net 专用
 
 stages:
-  - murphysec
   - package
   # 使用 shell 执行器
   - shell-package
