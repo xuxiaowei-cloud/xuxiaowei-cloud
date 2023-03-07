@@ -6,7 +6,7 @@
     - 解压目录
         - 解压：`tar -zxvf nginx-1.23.3.tar.gz`
         - /software/nginx-1.23.3
-    - CetOS 安装
+    - CentOS 安装
         ```shell
         # checking for C compiler ... not found
         yum -y install gcc

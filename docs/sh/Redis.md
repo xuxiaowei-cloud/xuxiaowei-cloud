@@ -8,7 +8,7 @@
     - 解压目录
         - 解压：`tar -zxvf redis-7.0.8.tar.gz`
         - /software/redis-7.0.8
-    - CetOS 安装
+    - CentOS 安装
         ```shell
         # -bash: make: command not found
         yum -y install make
