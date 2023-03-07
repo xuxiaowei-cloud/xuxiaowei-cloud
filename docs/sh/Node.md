@@ -21,7 +21,8 @@
             ```shell
             NODE_HOME=/software/node-v16.14.0-linux-x64
             NODE_GLOBAL=$NODE_HOME/node_global
-            export PATH=$NODE_HOME/bin:$NODE_GLOBAL/bin:$PATH
+            PATH=$NODE_HOME/bin:$NODE_GLOBAL/bin:$PATH
+            export NODE_HOME NODE_GLOBAL
             ```
             ```shell
             source /etc/profile
