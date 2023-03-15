@@ -145,6 +145,7 @@
 
 ## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
 
+- [代码贡献说明](https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/how-to-contribute-code)
 - IntelliJ IDEA
   -
   项目添加 [io.spring.javaformat:spring-javaformat-maven-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-maven-plugin)
