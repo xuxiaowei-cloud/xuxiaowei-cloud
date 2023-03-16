@@ -56,15 +56,15 @@ sonarqube-check:
     paths:
       - .sonar/cache
       - .m2/repository
-  script: 
+  script:
     - PRIVATE_SERVER_HOST=xuxiaowei
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST || $KUBERNETES_SERVICE_HOST ]];
       then
     # 自建 GitLab 使用 Maven 私库（文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nexus-docker-install）
-    - mvn verify sonar:sonar -s settings-private.xml
+    - mvn verify sonar:sonar -s settings-private.xml;
       else
     # 非自建 GitLab 使用 阿里/腾讯 Maven 镜像
-    - mvn verify sonar:sonar -s settings.xml
+    - mvn verify sonar:sonar -s settings.xml;
       fi
   allow_failure: true
   only:
