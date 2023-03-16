@@ -44,7 +44,7 @@ public class CloudBlackListProperties {
 		/**
 		 * IP
 		 */
-		private String ip;
+		private List<String> ipList;
 
 		/**
 		 * 服务名

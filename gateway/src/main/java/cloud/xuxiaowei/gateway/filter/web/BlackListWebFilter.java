@@ -90,18 +90,40 @@ public class BlackListWebFilter implements WebFilter, Ordered {
 		for (CloudBlackListProperties.BlackList service : services) {
 			String name = service.getName();
 			List<String> pathList = service.getPathList();
-			for (String p : pathList) {
-				String pattern = name.startsWith("/") ? name : "/" + name;
-				pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
-				boolean match = antPathMatcher.match(pattern, path);
-				if (match) {
-					Response<?> error = Response.error(CodeEnums.X10005.code, CodeEnums.X10005.msg);
-					return ResponseUtils.writeWith(response, error);
+
+			List<String> ips = service.getIpList();
+			for (String ip : ips) {
+				IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
+				boolean matches = ipAddressMatcher.matches(hostAddress);
+				if (matches) {
+					Mono<Void> ipPathMatch = pathMatch(pathList, name, antPathMatcher, path, response);
+					if (ipPathMatch != null) {
+						return ipPathMatch;
+					}
 				}
+			}
+
+			Mono<Void> pathMatch = pathMatch(pathList, name, antPathMatcher, path, response);
+			if (pathMatch != null) {
+				return pathMatch;
 			}
 		}
 
 		return chain.filter(exchange);
+	}
+
+	private Mono<Void> pathMatch(List<String> pathList, String name, AntPathMatcher antPathMatcher, String path,
+			ServerHttpResponse response) {
+		for (String p : pathList) {
+			String pattern = name.startsWith("/") ? name : "/" + name;
+			pattern = p.startsWith("/") ? pattern + p : pattern + "/" + p;
+			boolean match = antPathMatcher.match(pattern, path);
+			if (match) {
+				Response<?> error = Response.error(CodeEnums.X10005.code, CodeEnums.X10005.msg);
+				return ResponseUtils.writeWith(response, error);
+			}
+		}
+		return null;
 	}
 
 }
