@@ -69,11 +69,20 @@ public class Oauth2RegisteredClientRestController {
 		list.add(new OptionVo(AuthorizationGrantType.REFRESH_TOKEN.getValue(), AuthorizationGrantType.REFRESH_TOKEN.getValue()));
 		list.add(new OptionVo(AuthorizationGrantType.CLIENT_CREDENTIALS.getValue(), AuthorizationGrantType.CLIENT_CREDENTIALS.getValue()));
 		list.add(new OptionVo(AuthorizationGrantType.PASSWORD.getValue(), AuthorizationGrantType.PASSWORD.getValue()));
+
+		list.add(new OptionVo(OAuth2AlipayMiniProgramAuthenticationToken.ALIPAY_MINIPROGRAM.getValue(), OAuth2AlipayMiniProgramAuthenticationToken.ALIPAY_MINIPROGRAM.getValue()));
+		list.add(new OptionVo(OAuth2AlipayOplatformWebsiteAuthenticationToken.ALIPAY_OPLATFORM_WEBSITE.getValue(), OAuth2AlipayOplatformWebsiteAuthenticationToken.ALIPAY_OPLATFORM_WEBSITE.getValue()));
+		list.add(new OptionVo(OAuth2DingtalkAuthenticationToken.DINGTALK.getValue(), OAuth2DingtalkAuthenticationToken.DINGTALK.getValue()));
 		list.add(new OptionVo(OAuth2GiteeAuthenticationToken.GITEE.getValue(), OAuth2GiteeAuthenticationToken.GITEE.getValue()));
+		list.add(new OptionVo(OAuth2GitHubAuthenticationToken.GITHUB.getValue(), OAuth2GitHubAuthenticationToken.GITHUB.getValue()));
+		list.add(new OptionVo(OAuth2GitLabAuthenticationToken.GITLAB.getValue(), OAuth2GitLabAuthenticationToken.GITLAB.getValue()));
+		list.add(new OptionVo(OAuth2QQMiniProgramAuthenticationToken.QQ_MINIPROGRAM.getValue(), OAuth2QQMiniProgramAuthenticationToken.QQ_MINIPROGRAM.getValue()));
 		list.add(new OptionVo(OAuth2QQWebsiteAuthenticationToken.QQ_WEBSITE.getValue(), OAuth2QQWebsiteAuthenticationToken.QQ_WEBSITE.getValue()));
 		list.add(new OptionVo(OAuth2WeChatMiniProgramAuthenticationToken.WECHAT_MINIPROGRAM.getValue(), OAuth2WeChatMiniProgramAuthenticationToken.WECHAT_MINIPROGRAM.getValue()));
 		list.add(new OptionVo(OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT.getValue(), OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT.getValue()));
 		list.add(new OptionVo(OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue(), OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue()));
+		list.add(new OptionVo(OAuth2WeChatWorkWebsiteAuthenticationToken.WECHAT_WORK_WEBSITE.getValue(), OAuth2WeChatWorkWebsiteAuthenticationToken.WECHAT_WORK_WEBSITE.getValue()));
+		list.add(new OptionVo(OAuth2WeiBoWebsiteAuthenticationToken.WEIBO_WEBSITE.getValue(), OAuth2WeiBoWebsiteAuthenticationToken.WEIBO_WEBSITE.getValue()));
 		// @formatter:on
 		return Response.ok(list);
 	}
