@@ -92,13 +92,15 @@ public class BlackListWebFilter implements WebFilter, Ordered {
 			List<String> pathList = service.getPathList();
 
 			List<String> ips = service.getIpList();
-			for (String ip : ips) {
-				IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
-				boolean matches = ipAddressMatcher.matches(hostAddress);
-				if (matches) {
-					Mono<Void> ipPathMatch = pathMatch(pathList, name, antPathMatcher, path, response);
-					if (ipPathMatch != null) {
-						return ipPathMatch;
+			if (ips != null) {
+				for (String ip : ips) {
+					IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(ip);
+					boolean matches = ipAddressMatcher.matches(hostAddress);
+					if (matches) {
+						Mono<Void> ipPathMatch = pathMatch(pathList, name, antPathMatcher, path, response);
+						if (ipPathMatch != null) {
+							return ipPathMatch;
+						}
 					}
 				}
 			}
