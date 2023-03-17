@@ -143,46 +143,34 @@ public class AuthorizationServerConfiguration {
 			.apply(authorizationServerConfigurer);
 
 		// 自定义客户授权
+		// @formatter:off
 		authorizationServerConfigurer.tokenEndpoint(tokenEndpointCustomizer -> tokenEndpointCustomizer
 			.accessTokenRequestConverter(new DelegatingAuthenticationConverter(Arrays.asList(
-					// 新增：微信小程序 OAuth2 用于验证授权授予的 {@link
-					// OAuth2WeChatMiniProgramAuthenticationToken}
+					// 新增：微信小程序 OAuth2 用于验证授权授予的 {@link OAuth2WeChatMiniProgramAuthenticationToken}
 					new OAuth2WeChatMiniProgramAuthenticationConverter(),
-					// 新增：微信公众号 OAuth2 用于验证授权授予的 {@link
-					// OAuth2WeChatOffiaccountAuthenticationToken}
+					// 新增：微信公众号 OAuth2 用于验证授权授予的 {@link OAuth2WeChatOffiaccountAuthenticationToken}
 					new OAuth2WeChatOffiaccountAuthenticationConverter(),
-					// 新增：微信开放平台 网站应用 OAuth2 用于验证授权授予的 {@link
-					// OAuth2WeChatOplatformWebsiteAuthenticationToken}
+					// 新增：微信开放平台 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2WeChatOplatformWebsiteAuthenticationToken}
 					new OAuth2WeChatOplatformWebsiteAuthenticationConverter(),
-					// 新增：码云 Gitee 网站应用 OAuth2 用于验证授权授予的 {@link
-					// OAuth2GiteeAuthenticationToken}
+					// 新增：码云 Gitee 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2GiteeAuthenticationToken}
 					new OAuth2GiteeAuthenticationConverter(),
-					// 新增：QQ 网站应用 OAuth2 用于验证授权授予的 {@link
-					// OAuth2QQWebsiteAuthenticationToken}
+					// 新增：QQ 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2QQWebsiteAuthenticationToken}
 					new OAuth2QQWebsiteAuthenticationConverter(),
-					// 新增：微博 网站应用 OAuth2 用于验证授权授予的 {@link
-					// OAuth2WeiBoWebsiteAuthenticationToken}
+					// 新增：微博 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2WeiBoWebsiteAuthenticationToken}
 					new OAuth2WeiBoWebsiteAuthenticationConverter(),
-					// 新增：GitLab 网站应用 OAuth2 用于验证授权授予的 {@link
-					// OAuth2GitLabAuthenticationToken}
+					// 新增：GitLab 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2GitLabAuthenticationToken}
 					new OAuth2GitLabAuthenticationConverter(),
-					// 新增：企业微信扫码登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2WeChatWorkWebsiteAuthenticationToken}
+					// 新增：企业微信扫码登录 OAuth2 用于验证授权授予的 {@link OAuth2WeChatWorkWebsiteAuthenticationToken}
 					new OAuth2WeChatWorkWebsiteAuthenticationConverter(),
-					// 新增：GitHub 登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2GitHubAuthenticationToken}
+					// 新增：GitHub 登录 OAuth2 用于验证授权授予的 {@link OAuth2GitHubAuthenticationToken}
 					new OAuth2GitHubAuthenticationConverter(),
-					// 新增：钉钉 dingtalk 登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2DingtalkAuthenticationToken}
+					// 新增：钉钉 dingtalk 登录 OAuth2 用于验证授权授予的 {@link OAuth2DingtalkAuthenticationToken}
 					new OAuth2DingtalkAuthenticationConverter(),
-					// 新增：QQ小程序 登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2QQMiniProgramAuthenticationToken}
+					// 新增：QQ小程序 登录 OAuth2 用于验证授权授予的 {@link OAuth2QQMiniProgramAuthenticationToken}
 					new OAuth2QQMiniProgramAuthenticationConverter(),
-					// 新增：支付宝小程序 登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2AlipayMiniProgramAuthenticationToken}
+					// 新增：支付宝小程序 登录 OAuth2 用于验证授权授予的 {@link OAuth2AlipayMiniProgramAuthenticationToken}
 					new OAuth2AlipayMiniProgramAuthenticationConverter(),
-					// 新增：支付宝网站应用 登录 OAuth2 用于验证授权授予的 {@link
-					// OAuth2AlipayOplatformWebsiteAuthenticationToken}
+					// 新增：支付宝网站应用 登录 OAuth2 用于验证授权授予的 {@link OAuth2AlipayOplatformWebsiteAuthenticationToken}
 					new OAuth2AlipayOplatformWebsiteAuthenticationConverter(),
 
 					// 默认值：OAuth2 授权码认证转换器
@@ -193,6 +181,7 @@ public class AuthorizationServerConfiguration {
 					new OAuth2ClientCredentialsAuthenticationConverter())))
 			// 用于处理失败的身份验证尝试的策略。
 			.errorResponseHandler(new AccessTokenAuthenticationFailureHandlerImpl()));
+		// @formatter:on
 
 		// 微信小程序 OAuth2 身份验证提供程序
 		new OAuth2WeChatMiniProgramAuthenticationProvider(http);
