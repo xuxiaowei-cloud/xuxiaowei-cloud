@@ -313,7 +313,8 @@ cloud.xuxiaowei
 | 名称               | 地址                                                  | 账户名   | 密码        |
 |------------------|-----------------------------------------------------|-------|-----------|
 | XXL Job          | http://127.0.0.1:5101/xxl-job-admin                 | admin | 123456    |
-| Swagger          | http://127.0.0.1:1101/webjars/swagger-ui/index.html |       |           |
+| 网关 Swagger       | http://127.0.0.1:1101/webjars/swagger-ui/index.html |       |           |
+| 服务 Swagger       | http://127.0.0.1:端口/swagger-ui/index.html           |       |           |
 | docker 守护程序的 URL | http://host.docker.example.xuxiaowei.cloud:2375     |       |           |
 | docker 私库 URL    | registry.docker.example.xuxiaowei.cloud             | admin | xuxiaowei |
 
