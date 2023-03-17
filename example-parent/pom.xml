@@ -2,29 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
-        <groupId>cloud.xuxiaowei</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
+
     <groupId>cloud.xuxiaowei.example</groupId>
     <artifactId>example-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>example-parent</name>
-    <description>示例父模块（独立 pom，不继承于任何服务）</description>
+    <description>示例父模块（独立 pom，不继承于任何服务，此模块唯一的意义就是连接顶层 parent 与 示例项目，一起打包）</description>
     <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud</url>
     <inceptionYear>2022</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
+
+        <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
+        <!-- https://github.com/spring-io/spring-javaformat/ -->
+        <spring-javaformat-maven-plugin.version>0.0.38</spring-javaformat-maven-plugin.version>
+
+        <!-- 打包时跳过单元测试 -->
+        <skipTests>true</skipTests>
+
     </properties>
 
     <modules>
-        <!-- CXF 客户端 -->
+        <!-- CXF 客户端（独立服务） -->
         <module>cxf-client</module>
-        <!-- OAuth 2.0 客户端 -->
+        <!-- OAuth 2.0 客户端（独立服务） -->
         <module>oauth2-client</module>
     </modules>
 
@@ -70,5 +74,30 @@
             <organizationUrl>http://xuxiaowei.com.cn</organizationUrl>
         </developer>
     </developers>
+
+    <build>
+        <plugins>
+            <!--
+                ./mvnw spring-javaformat:apply
+                mvn spring-javaformat:apply
+             -->
+            <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring-javaformat-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
