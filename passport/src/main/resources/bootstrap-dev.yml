@@ -83,183 +83,332 @@ cloud:
 
 
 
+# 支付宝小程序配置
 alipay:
   mini:
     program:
+      # 默认支付宝小程序的权限
       default-role: ${alipay_miniprogram_default_role:alipay_miniprogram}
+      # 支付宝小程序配置列表
       list:
+        # 支付宝小程序 appid
+        # 本系统内的 OAuth 2.1 客户ID、客户秘钥 配置在 支付宝小程序中（为了管理方便与安全起见，请每个第三方使用独立的客户信息）
+        # 需要支持 OAuth 2.1 授权类型：alipay_miniprogram
         - app-id: ${alipay_miniprogram_appid:}
+          # 私钥
           private-key: ${alipay_miniprogram_private_key:}
+          # 支付宝公钥
           alipay-public-key: ${alipay_miniprogram_alipay_public_key:}
 
 ---
 
+# 支付宝网站应用配置
 alipay:
   oplatform:
     website:
+      # 默认 支付宝 网站应用 的权限
       default-role: ${alipay_oplatform_website_default_role:alipay_oplatform_website}
+      # 支付宝 网站应用 配置列表
       list:
+        # 支付宝 网站应用 appid
         - app-id: ${alipay_oplatform_website_appid:}
+          # 私钥
           private-key: ${alipay_oplatform_website_private_key:}
+          # 支付宝公钥
           alipay-public-key: ${alipay_oplatform_website_alipay_public_key:}
+          # 支付宝 网站应用 授权重定向地址的前缀，后面会自动拼接 支付宝 appid
+          # 在支付宝配置重定向地址时，要与 redirect-uri-prefix + "/" + app-id 相同
           redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/alipay-oplatform/website/code
+          # 本系统内的 OAuth 2.1 客户ID
+          # 需要支持 OAuth 2.1 授权类型：alipay_oplatform_website
           client-id: xuxiaowei_client_alipay_oplatform_website_id
+          # 本系统内的 OAuth 2.1 客户秘钥
           client-secret: xuxiaowei_client_alipay_oplatform_website_secret
+          # 授权成功后获取 Token 的地址
           token-url-prefix: http://127.0.0.1:${server.port:80}
+          # 授权范围
           scope: alipay_oplatform_website
+          # 授权成功后重定向地址，可自定实现该功能
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# 钉钉 dingtalk
 dingtalk:
+  # 默认 钉钉 dingtalk 的权限
   default-role: ${github_default_role:dingtalk}
+  # 钉钉 dingtalk 配置列表
   list:
+    # 钉钉 dingtalk appid
     - appid: ${github_appid:}
+      # 钉钉 dingtalk 秘钥
       secret: ${github_secret:}
+      # 钉钉 dingtalk 授权重定向地址的前缀，后面会自动拼接 钉钉 dingtalk appid
+      # 在 钉钉 dingtalk 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/dingtalk/code
+      # 本系统内的 OAuth 2.1 客户ID
+      # 需要支持 OAuth 2.1 授权类型：dingtalk
       client-id: xuxiaowei_client_dingtalk_id
+      # 本系统内的 OAuth 2.1 客户秘钥
       client-secret: xuxiaowei_client_dingtalk_secret
+      # 授权成功后获取 Token 的地址
       token-url-prefix: http://127.0.0.1:${server.port:80}
+      # 授权范围
       scope: dingtalk
+      # 授权成功后重定向地址，可自定实现该功能
       success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# 码云 Gitee 配置
 gitee:
+  # 默认 码云 Gitee 的权限
   default-role: ${gitee_default_role:gitee}
+  # 码云 Gitee 配置列表
   list:
+    # 码云 Gitee appid
     - appid: ${gitee_appid:}
+      # 码云 Gitee 秘钥
       secret: ${gitee_secret:}
+      # 码云 Gitee 授权重定向地址的前缀，后面会自动拼接 码云 Gitee appid
+      # 在 码云 Gitee 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitee/code
+      # 本系统内的 OAuth 2.1 客户ID
+      # 需要支持 OAuth 2.1 授权类型：gitee
       client-id: xuxiaowei_client_gitee_id
+      # 本系统内的 OAuth 2.1 客户秘钥
       client-secret: xuxiaowei_client_gitee_secret
+      # 授权成功后获取 Token 的地址
       token-url-prefix: http://127.0.0.1:${server.port:80}
+      # 授权范围
       scope: gitee
+      # 授权成功后重定向地址，可自定实现该功能
       success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# GitHub
 github:
+  # 默认 GitHub 的权限
   default-role: ${github_default_role:github}
+  # GitHub 配置列表
   list:
+    # GitHub appid
+    # 此处是 GitHub 中 {@link String} 类型的 clientId，并不是 GitHub 中的 {@link Integer} 类型的 appid
     - appid: ${github_appid:}
+      # GitHub 秘钥
       secret: ${github_secret:}
+      # GitHub 授权重定向地址的前缀，后面会自动拼接 GitHub appid
+      # 在 GitHub 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/github/code
+      # 本系统内的 OAuth 2.1 客户ID
+      # 需要支持 OAuth 2.1 授权类型：github
       client-id: xuxiaowei_client_github_id
+      # 本系统内的 OAuth 2.1 客户秘钥
       client-secret: xuxiaowei_client_github_secret
+      # 授权成功后获取 Token 的地址
       token-url-prefix: http://127.0.0.1:${server.port:80}
+      # 授权范围
       scope: github
+      # 授权成功后重定向地址，可自定实现该功能
       success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# GitLab（支持自建 GitLab：自定义 GitLab 的域名）
 gitlab:
+  # 默认 GitLab 的权限
   default-role: ${gitlab_default_role:gitlab}
+  # GitLab 配置列表
   list:
+    # GitLab appid
     - appid: ${gitlab_appid:}
+      # GitLab 秘钥
       secret: ${gitlab_secret:}
+      # 自定义 GitLab 的域名，默认值为：https://gitlab.com
       domain: ${gitlab_domain:https://gitlab.com}
+      # GitLab 授权重定向地址的前缀，后面会自动拼接 GitLab appid
+      # 在 GitLab 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
       redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/gitlab/code
+      # 本系统内的 OAuth 2.1 客户ID
+      # 需要支持 OAuth 2.1 授权类型：gitlab
       client-id: xuxiaowei_client_gitlab_id
+      # 本系统内的 OAuth 2.1 客户秘钥
       client-secret: xuxiaowei_client_gitlab_secret
+      # 授权成功后获取 Token 的地址
       token-url-prefix: http://127.0.0.1:${server.port:80}
+      # 授权范围
       scope: gitlab
+      # 授权成功后重定向地址，可自定实现该功能
       success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# QQ小程序
 qq:
   mini:
     program:
+      # 默认QQ小程序的权限
       default-role: ${qq_miniprogram_default_role:qq_miniprogram}
+      # QQ小程序 配置列表
       list:
+        # QQ小程序 appid
+        # 本系统内的 OAuth 2.1 客户ID、客户秘钥 配置在 QQ小程序中（为了管理方便与安全起见，请每个第三方使用独立的客户信息）
+        # 需要支持 OAuth 2.1 授权类型：qq_miniprogram
         - appid: ${qq_miniprogram_appid:}
+          # QQ小程序 秘钥
           secret: ${qq_miniprogram_secret:}
 
 ---
 
+# QQ网站应用（扫码）
 qq:
   website:
+    # 默认QQ网站应用（扫码）的权限
     default-role: ${qq_website_default_role:qq_website}
+    # QQ网站应用（扫码） 配置列表
     list:
+      # QQ网站应用（扫码） appid
       - appid: ${qq_website_appid:}
+        # QQ网站应用（扫码） 秘钥
         secret: ${qq_website_secret:}
+        # QQ网站应用（扫码） 授权重定向地址的前缀，后面会自动拼接 GitHub appid
+        # 在 QQ网站应用（扫码） 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
         redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/qq/website/code
+        # 本系统内的 OAuth 2.1 客户ID
+        # 需要支持 OAuth 2.1 授权类型：qq_website
         client-id: xuxiaowei_client_qq_website_id
+        # 本系统内的 OAuth 2.1 客户秘钥
         client-secret: xuxiaowei_client_qq_website_secret
+        # 授权成功后获取 Token 的地址
         token-url-prefix: http://127.0.0.1:${server.port:80}
+        # 授权范围
         scope: qq_website
+        # 授权成功后重定向地址，可自定实现该功能
         success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# 微信小程序
 wechat:
   mini:
     program:
+      # 默认 微信小程序 的权限
       default-role: ${wechat_miniprogram_default_role:wechat_miniprogram}
+      # 微信小程序 配置列表
       list:
+        # 微信小程序 appid
+        # 本系统内的 OAuth 2.1 客户ID、客户秘钥 配置在 微信小程序中（为了管理方便与安全起见，请每个第三方使用独立的客户信息）
+        # 需要支持 OAuth 2.1 授权类型：wechat_miniprogram
         - appid: ${wechat_miniprogram_appid:}
+          # 微信小程序 私钥
           secret: ${wechat_miniprogram_secret:}
 
 ---
 
+# 微信公众号
 wechat:
   offiaccount:
+    # 默认 微信公众号 的权限
     default-role: ${wechat_offiaccount_default_role:wechat_offiaccount}
+    # 微信公众号 配置列表
     list:
+      # 微信公众号 appid
       - appid: ${wechat_offiaccount_appid:}
+        # 微信公众号 秘钥
         secret: ${wechat_offiaccount_secret:}
+        # 微信公众号 授权重定向地址的前缀，后面会自动拼接 微信公众号 appid
+        # 在 微信公众号 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
         redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-offiaccount/code
+        # 本系统内的 OAuth 2.1 客户ID
+        # 需要支持 OAuth 2.1 授权类型：wechat_offiaccount
         client-id: xuxiaowei_client_wechat_offiaccount_id
+        # 本系统内的 OAuth 2.1 客户秘钥
         client-secret: xuxiaowei_client_wechat_offiaccount_secret
+        # 授权成功后获取 Token 的地址
         token-url-prefix: http://127.0.0.1:${server.port:80}
+        # 授权范围
         scope: wechat_offiaccount
+        # 授权成功后重定向地址，可自定实现该功能
         success-url: http://example.xuxiaowei.cloud:1001/#/
 
 ---
 
+# 微信开放平台（微信扫码）
 wechat:
   oplatform:
     website:
+      # 默认 微信开放平台（微信扫码） 的权限
       default-role: ${wechat_oplatform_website_default_role:wechat_oplatform_website}
+      # 微信开放平台（微信扫码） 配置列表
       list:
+        # 微信开放平台（微信扫码） appid
         - appid: ${wechat_oplatform_website_appid:}
+          # 微信开放平台（微信扫码） 秘钥
           secret: ${wechat_oplatform_website_secret:}
+          # 微信开放平台（微信扫码） 授权重定向地址的前缀，后面会自动拼接 微信开放平台（微信扫码） appid
+          # 在 微信开放平台（微信扫码） 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
           redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-oplatform/website/code
+          # 本系统内的 OAuth 2.1 客户ID
+          # 需要支持 OAuth 2.1 授权类型：wechat_oplatform_website
           client-id: xuxiaowei_client_wechat_oplatform_id
+          # 本系统内的 OAuth 2.1 客户秘钥
           client-secret: xuxiaowei_client_wechat_oplatform_secret
+          # 授权成功后获取 Token 的地址
           token-url-prefix: http://127.0.0.1:${server.port:80}
+          # 授权范围
           scope: wechat_oplatform_website
+          # 授权成功后重定向地址，可自定实现该功能
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
 ---
 
+# 企业微信
 wechat:
   work:
     website:
+      # 默认 企业微信 的权限
       default-role: ${wechat_work_website_default_role:wechat_work_website}
+      # 企业微信 配置列表
       list:
+        # 企业微信 企业ID appid
         - appid: ${wechat_work_website_appid:}
+          # 企业微信 应用id agentid
           agentid: ${wechat_work_website_agentid:}
+          # 企业微信 秘钥
           secret: ${wechat_work_website_secret:}
+          # 企业微信 授权重定向地址的前缀，后面会自动拼接 企业微信 appid
+          # 在 企业微信 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
           redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/wechat-work/website/code
+          # 本系统内的 OAuth 2.1 客户ID
+          # 需要支持 OAuth 2.1 授权类型：wechat_work_website
           client-id: xuxiaowei_client_wechat_work_website_id
+          # 本系统内的 OAuth 2.1 客户秘钥
           client-secret: xuxiaowei_client_wechat_work_website_secret
+          # 授权成功后获取 Token 的地址
           token-url-prefix: http://127.0.0.1:${server.port:80}
+          # 授权范围
           scope: wechat_work_website
+          # 授权成功后重定向地址，可自定实现该功能
           success-url: http://example.xuxiaowei.cloud:1001/#/
 
 
-
+# 微博
 weibo:
   website:
+    # 默认 微博 的权限
     default-role: ${weibo_default_role:weibo}
+    # 微博 配置列表
     list:
+      # 微博 appid
       - appid: ${weibo_appid:}
+        # 微博 秘钥
         secret: ${weibo_secret:}
+        # 微博 授权重定向地址的前缀，后面会自动拼接 微博 appid
+        # 在 微博 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
         redirect-uri-prefix: http://gateway.example.xuxiaowei.cloud:1101/passport/weibo/code
+        # 本系统内的 OAuth 2.1 客户ID
+        # 需要支持 OAuth 2.1 授权类型：weibo_website
         client-id: xuxiaowei_client_weibo_id
+        # 本系统内的 OAuth 2.1 客户秘钥
         client-secret: xuxiaowei_client_weibo_secret
+        # 授权成功后获取 Token 的地址
         token-url-prefix: http://127.0.0.1:${server.port:80}
+        # 授权范围
         scope: weibo
+        # 授权成功后重定向地址，可自定实现该功能
         success-url: http://example.xuxiaowei.cloud:1001/#/
