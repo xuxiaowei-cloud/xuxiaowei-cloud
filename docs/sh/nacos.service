@@ -21,14 +21,25 @@
 # firewall-cmd --list-all
 #
 # 连接 MySQL 数据库
-# 表结构：nacos-server-2.2.0/conf/nacos-mysql.sql
+# 表结构：nacos-server-2.2.1/conf/nacos-mysql.sql
 # 数据库名：nacos_config
-# 修改：nacos-server-2.2.0/conf/application.properties（注意，一下内容要去掉开头的“#”）
+# 修改：nacos-server-2.2.1/conf/application.properties（注意，一下内容要去掉开头的“#”）
 # spring.datasource.platform=mysql
 # db.num=1
 # db.url.0=jdbc:mysql://192.168.5.4:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 # db.user.0=root
 # db.password.0=root
+#
+# 修改 nacos.core.auth.plugin.nacos.token.secret.key、nacos.core.auth.server.identity.key、nacos.core.auth.server.identity.value
+# 文档：https://nacos.io/zh-cn/docs/v2/guide/user/auth.html
+# 如：
+# 以下值需要自行修改，否则有安全隐患
+# 版本号 2.2.0.1 后无默认值
+# nacos.core.auth.plugin.nacos.token.secret.key=SecretKey012345678901234567890123456789012345678901234567890123456789
+# 版本号 2.2.1 后无默认值
+# nacos.core.auth.server.identity.key=serverIdentity
+# 版本号 2.2.1 后无默认值
+# nacos.core.auth.server.identity.value=security
 #
 
 [Unit]
@@ -39,8 +50,8 @@ After=syslog.target
 Type=oneshot
 # 指定环境变量文件，否则 service 无法读取环境变量，如：JAVA_HOME
 EnvironmentFile=/etc/profile
-ExecStart=/software/nacos-server-2.2.0/bin/startup.sh -m standalone
-ExecStop=/software/nacos-server-2.2.0/bin/shutdown.sh
+ExecStart=/software/nacos-server-2.2.1/bin/startup.sh -m standalone
+ExecStop=/software/nacos-server-2.2.1/bin/shutdown.sh
 ExecReload=/bin/kill -s HUP $MAINPID
 RemainAfterExit=yes
 

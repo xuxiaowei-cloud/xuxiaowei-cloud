@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull nacos/nacos-server:v2.2.0
+docker pull nacos/nacos-server:v2.2.1
 ```
 
 - 创建容器
@@ -35,6 +35,16 @@ docker pull nacos/nacos-server:v2.2.0
                 MYSQL_SERVICE_DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true"
                 MYSQL_SERVICE_USER=root
                 MYSQL_SERVICE_PASSWORD=xuxiaowei.com.cn
+                # 文档：https://nacos.io/zh-cn/docs/v2/guide/user/auth.html
+                # 修改 nacos.core.auth.plugin.nacos.token.secret.key、nacos.core.auth.server.identity.key、nacos.core.auth.server.identity.value
+                # 环境变量名分别为 NACOS_AUTH_TOKEN、NACOS_AUTH_IDENTITY_KEY、NACOS_AUTH_IDENTITY_VALUE
+                # 以下值需要自行修改，否则有安全隐患
+                # 版本号 2.2.0.1 后无默认值
+                NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+                # 版本号 2.2.1 后无默认值
+                NACOS_AUTH_IDENTITY_KEY=serverIdentity
+                # 版本号 2.2.1 后无默认值
+                NACOS_AUTH_IDENTITY_VALUE=security
                 ```
             - 刷新环境变量
                 ```shell
@@ -48,6 +58,9 @@ docker pull nacos/nacos-server:v2.2.0
                 echo $MYSQL_SERVICE_DB_PARAM
                 echo $MYSQL_SERVICE_USER
                 echo $MYSQL_SERVICE_PASSWORD
+                echo $NACOS_AUTH_TOKEN
+                echo $NACOS_AUTH_IDENTITY_KEY
+                echo $NACOS_AUTH_IDENTITY_VALUE
                 ```
 
         2. 执行创建命令
@@ -56,7 +69,7 @@ docker pull nacos/nacos-server:v2.2.0
             -itd \
             --restart always \
             --privileged=true \
-            --name nacos-server-v2.2.0 \
+            --name nacos-server-v2.2.1 \
             -p 8848:8848 \
             -p 9848:9848 \
             -e MODE=standalone \
@@ -67,15 +80,18 @@ docker pull nacos/nacos-server:v2.2.0
             -e MYSQL_SERVICE_DB_PARAM=$MYSQL_SERVICE_DB_PARAM \
             -e MYSQL_SERVICE_USER=$MYSQL_SERVICE_USER \
             -e MYSQL_SERVICE_PASSWORD=$MYSQL_SERVICE_PASSWORD \
-            -d nacos/nacos-server:v2.2.0
+			-e NACOS_AUTH_IDENTITY_KEY=$NACOS_AUTH_IDENTITY_KEY \
+			-e NACOS_AUTH_IDENTITY_VALUE=$NACOS_AUTH_IDENTITY_VALUE \
+			-e NACOS_AUTH_TOKEN=$NACOS_AUTH_TOKEN \
+            -d nacos/nacos-server:v2.2.1
             ```
         3. 查看日志
             ```shell
-            docker logs -f nacos-server-v2.2.0
+            docker logs -f nacos-server-v2.2.1
             ```
         4. 进入容器
             ```shell
-            docker exec -it nacos-server-v2.2.0 bash
+            docker exec -it nacos-server-v2.2.1 bash
             ```
         5. 开放端口
             - CentOS

@@ -8,11 +8,11 @@
     - [表结构](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
 
 - 本项目使用版本
-    - [2.2.0](https://github.com/alibaba/nacos/releases/tag/2.2.0)
-    - [nacos-server-2.2.0.tar.gz](https://github.com/alibaba/nacos/releases/download/2.2.0/nacos-server-2.2.0.tar.gz)
-    - 解压：`tar -zxvf nacos-server-2.2.0.tar.gz`
+    - [2.2.1](https://github.com/alibaba/nacos/releases/tag/2.2.1)
+    - [nacos-server-2.2.1.tar.gz](https://github.com/alibaba/nacos/releases/download/2.2.1/nacos-server-2.2.1.tar.gz)
+    - 解压：`tar -zxvf nacos-server-2.2.1.tar.gz`
     - 安装目录
-        - /software/nacos-server-2.2.0
+        - /software/nacos-server-2.2.1
 - 在 `startup.sh` 文件中添加 `JAVA_HOME`，防止存在多个 Java 环境时启动异常
     ```shell
     #!/bin/bash
