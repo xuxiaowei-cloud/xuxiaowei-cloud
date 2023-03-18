@@ -11,7 +11,7 @@ cloud:
     check-token-uri: https://gateway.example.xuxiaowei.cloud/passport/oauth2/check_token?token=
     redirect-uri: https://gateway.example.xuxiaowei.cloud/passport/code
     consent-page: https://passport.example.xuxiaowei.cloud/passport/oauth2.1/authorize
-    access-token-uri: https://passport/oauth2/token
+    access-token-uri: http://passport/oauth2/token
     scope: snsapi_base
     state-name: STATE_NAME
     home-page: https://example.xuxiaowei.cloud/#/
