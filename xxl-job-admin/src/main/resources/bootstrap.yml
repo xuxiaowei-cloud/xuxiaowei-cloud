@@ -46,11 +46,6 @@ spring:
         server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
         namespace:
-        # 共享配置
-        shared-configs:
-          - dataId: xuxiaowei.${spring.cloud.nacos.config.file-extension}
-            # 是否支持刷新
-            refresh: true
 
 
 ---
