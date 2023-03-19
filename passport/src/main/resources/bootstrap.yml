@@ -261,3 +261,10 @@ cloud:
       access-key-secret: ${aliyun_sms_access_key_secret:}
       sign-name: ${aliyun_sms_sign_name:}
       template-code: ${aliyun_sms_template_code:}
+
+
+springdoc:
+  swagger-ui:
+    # 展开深度
+    default-models-expand-depth: 10
+    default-model-expand-depth: 10
