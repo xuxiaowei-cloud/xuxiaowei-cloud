@@ -262,6 +262,10 @@ cloud:
           - /alipay-oplatform/website/authorize/*
           # 支付宝 网站应用 登录 授权码接收服务
           - /alipay-oplatform/website/code/*
+          # 飞书网页应用 登录 授权页面
+          - /feishu-webpage/authorize/*
+          # 飞书网页应用 授权码接收服务
+          - /feishu-webpage/code/*
           # 配置
           - /configuration
           # springdoc

@@ -96,13 +96,13 @@ alipay:
 # 钉钉 dingtalk
 dingtalk:
   # 默认 钉钉 dingtalk 的权限
-  default-role: ${github_default_role:dingtalk}
+  default-role: ${dingtalk_default_role:dingtalk}
   # 钉钉 dingtalk 配置列表
   list:
     # 钉钉 dingtalk appid
-    - appid: ${github_appid:}
+    - appid: ${dingtalk_appid:}
       # 钉钉 dingtalk 秘钥
-      secret: ${github_secret:}
+      secret: ${dingtalk_secret:}
       # 钉钉 dingtalk 授权重定向地址的前缀，后面会自动拼接 钉钉 dingtalk appid
       # 在 钉钉 dingtalk 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
       redirect-uri-prefix: https://gateway.example.xuxiaowei.cloud/passport/dingtalk/code
@@ -117,6 +117,33 @@ dingtalk:
       scope: dingtalk
       # 授权成功后重定向地址，可自定实现该功能
       success-url: https://example.xuxiaowei.cloud/#/
+
+
+# 飞书 网页应用 配置
+feishu:
+  webpage:
+    # 默认 飞书 网页应用 的权限
+    default-role: ${feishu_webpage_default_role:feishu_webpage}
+    # 飞书 网页应用 配置列表
+    list:
+      # 飞书 网页应用 appid
+      - appid: ${feishu_webpage_appid:cli_a4939922da3b900b}
+        # 飞书 网页应用 秘钥
+        secret: ${feishu_webpage_secret:RDDGu03Eoo7BS6QPy0EKcd4BepXVjnWJ}
+        # 飞书 网页应用 授权重定向地址的前缀，后面会自动拼接 飞书 网页应用 appid
+        # 在 飞书 网页应用 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
+        redirect-uri-prefix: https://gateway.example.xuxiaowei.cloud/passport/feishu-webpage/code
+        # 本系统内的 OAuth 2.1 客户ID
+        # 需要支持 OAuth 2.1 授权类型：feishu_webpage
+        client-id: xuxiaowei_client_feishu_webpage_id
+        # 本系统内的 OAuth 2.1 客户秘钥
+        client-secret: xuxiaowei_client_feishu_webpage_secret
+        # 授权成功后获取 Token 的地址
+        token-url-prefix: http://127.0.0.1:${server.port:80}
+        # 授权范围
+        scope: feishu_webpage
+        # 授权成功后重定向地址，可自定实现该功能
+        success-url: https://example.xuxiaowei.cloud/#/
 
 
 # 码云 Gitee 配置
@@ -228,7 +255,7 @@ qq:
       - appid: ${qq_website_appid:}
         # QQ网站应用（扫码） 秘钥
         secret: ${qq_website_secret:}
-        # QQ网站应用（扫码） 授权重定向地址的前缀，后面会自动拼接 GitHub appid
+        # QQ网站应用（扫码） 授权重定向地址的前缀，后面会自动拼接 QQ网站应用（扫码） appid
         # 在 QQ网站应用（扫码） 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
         redirect-uri-prefix: https://gateway.example.xuxiaowei.cloud/passport/qq/website/code
         # 本系统内的 OAuth 2.1 客户ID
