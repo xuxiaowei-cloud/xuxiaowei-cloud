@@ -56,6 +56,10 @@ sonarqube-check:
     paths:
       - .sonar/cache
       - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
   script:
     - PRIVATE_SERVER_HOST=xuxiaowei
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST || $KUBERNETES_SERVICE_HOST ]];
