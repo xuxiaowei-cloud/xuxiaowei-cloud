@@ -45,6 +45,7 @@ docker pull mysql:8.0.32
             --restart always \
             --privileged=true \
             --name mysql-8.0.32 \
+            -v /etc/localtime:/etc/localtime \
             -v /mysql-data:/var/lib/mysql \
             -p 3306:3306 \
             -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \

@@ -13,6 +13,7 @@ docker pull node:16.14.0
     docker run \
     -itd \
     --restart always \
+    -v /etc/localtime:/etc/localtime \
     --privileged=true \
     --name node-16.14.0 \
     -d node:16.14.0

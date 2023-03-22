@@ -42,6 +42,7 @@ docker pull redis:7.0.8
             --restart always \
             --privileged=true \
             --name redis-7.0.8 \
+            -v /etc/localtime:/etc/localtime \
             -p 6379:6379 \
             -d redis:7.0.8 \
             --requirepass $REDIS_PASSWORD

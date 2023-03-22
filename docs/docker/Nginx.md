@@ -19,6 +19,7 @@ docker pull nginx:1.23.3
         --restart=always \
         --privileged=true \
         -p 80:80 -p 443:443 \
+        -v /etc/localtime:/etc/localtime \
         -v /software/ssl:/software/ssl \
         -v /etc/nginx-1.23.3/conf.d:/etc/nginx/conf.d \
         -v /home/gitlab-runner/node:/home/gitlab-runner/node \

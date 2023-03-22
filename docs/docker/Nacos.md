@@ -72,6 +72,7 @@ docker pull nacos/nacos-server:v2.2.1
             --name nacos-server-v2.2.1 \
             -p 8848:8848 \
             -p 9848:9848 \
+            -v /etc/localtime:/etc/localtime \
             -e MODE=standalone \
             -e SPRING_DATASOURCE_PLATFORM=mysql \
             -e MYSQL_SERVICE_HOST=$MYSQL_SERVICE_HOST \

@@ -48,6 +48,7 @@ systemctl is-enabled docker
     --name httpd-2.4.48 \
     -p 180:80 \
     -p 1443:443 \
+    -v /etc/localtime:/etc/localtime \
     -v /home/data/apache2/htdocs/:/usr/local/apache2/htdocs/ \
     httpd:2.4.48
     ```
