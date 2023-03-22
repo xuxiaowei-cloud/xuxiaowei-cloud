@@ -56,7 +56,7 @@ spec:
             - name: sentinel_dashboard
               value: sentinel-service:22222
           ports:
-            - containerPort: 2201
+            - containerPort: 2101
             - containerPort: 9007
           volumeMounts:
             # 时区
@@ -93,10 +93,10 @@ metadata:
   namespace: xuxiaowei-cloud
 spec:
   ports:
-    - nodePort: 32201
-      port: 2201
+    - nodePort: 32111
+      port: 2101
       protocol: TCP
-      targetPort: 2201
+      targetPort: 2101
   selector:
     app: wechat-offiaccount
   type: NodePort
