@@ -173,7 +173,7 @@ package:
     - mvn -pl resource-services-parent/wechat-miniprogram -s settings-private.xml docker:push;
     - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:push;
-    - mvn -pl ui docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl ui -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl ui -s settings-private.xml docker:push;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:push;
@@ -339,7 +339,7 @@ docker-package:
     - mvn -pl resource-services-parent/wechat-miniprogram -s settings-private.xml docker:push;
     - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl resource-services-parent/wechat-offiaccount -s settings-private.xml docker:push;
-    - mvn -pl ui docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl ui -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl ui -s settings-private.xml docker:push;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:push;
