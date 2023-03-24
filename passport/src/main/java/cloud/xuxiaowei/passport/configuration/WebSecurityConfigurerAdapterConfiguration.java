@@ -226,7 +226,7 @@ public class WebSecurityConfigurerAdapterConfiguration {
 				// 其他路径均需要授权
 				.anyRequest().authenticated();
 		});
-		// @formatter:off
+		// @formatter:on
 
 		http.formLogin(formLogin -> formLogin
 			// 登录页面地址
