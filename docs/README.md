@@ -76,6 +76,8 @@
     1. [文档](https://next.api.aliyun.com/product/Dysmsapi)
 27. [Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
 28. [提问的智慧](https://gitcode.net/mirrors/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/-/blob/master/README-zh_CN.md)
+29. [SpEL 表达式-求值](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-evaluation)
+30. [SpEL 表达式-bean-引用](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-bean-references)
 
 ## 开发工具
 

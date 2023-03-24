@@ -55,7 +55,7 @@ public class Oauth2AuthorizationConsentRestController {
 	 * @return 返回 分页查询结果
 	 */
 	@ControllerAnnotation(description = "分页查询授权同意书")
-	@PreAuthorize("hasAuthority('audit_authorization_consent_read')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization_consent:read')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo) {
