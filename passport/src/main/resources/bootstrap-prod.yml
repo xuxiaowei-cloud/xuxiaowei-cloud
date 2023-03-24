@@ -127,9 +127,9 @@ feishu:
     # 飞书 网页应用 配置列表
     list:
       # 飞书 网页应用 appid
-      - appid: ${feishu_webpage_appid:cli_a4939922da3b900b}
+      - appid: ${feishu_webpage_appid:}
         # 飞书 网页应用 秘钥
-        secret: ${feishu_webpage_secret:RDDGu03Eoo7BS6QPy0EKcd4BepXVjnWJ}
+        secret: ${feishu_webpage_secret:}
         # 飞书 网页应用 授权重定向地址的前缀，后面会自动拼接 飞书 网页应用 appid
         # 在 飞书 网页应用 配置重定向地址时，要与 redirect-uri-prefix + "/" + appid 相同
         redirect-uri-prefix: https://gateway.example.xuxiaowei.cloud/passport/feishu-webpage/code
