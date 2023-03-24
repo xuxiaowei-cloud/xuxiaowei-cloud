@@ -25,7 +25,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.security.interfaces.RSAPublicKey;
 
-import static cloud.xuxiaowei.oauth2.impl.CsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME;
+import static cloud.xuxiaowei.oauth2.matcher.CsrfRequestMatcher.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
 /**
  * Spring Security 配置

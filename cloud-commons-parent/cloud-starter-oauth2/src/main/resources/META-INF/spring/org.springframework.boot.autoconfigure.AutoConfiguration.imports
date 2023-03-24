@@ -2,5 +2,5 @@ cloud.xuxiaowei.oauth2.configuration.BearerTokenResolverConfiguration
 cloud.xuxiaowei.oauth2.configuration.JwtAuthenticationConverterConfiguration
 #cloud.xuxiaowei.oauth2.configuration.PermissionEvaluatorConfiguration
 cloud.xuxiaowei.oauth2.handler.AccessDeniedHandlerImpl
-cloud.xuxiaowei.oauth2.impl.CsrfRequestMatcherImpl
+cloud.xuxiaowei.oauth2.matcher.CsrfRequestMatcher
 cloud.xuxiaowei.oauth2.point.AuthenticationEntryPointImpl

@@ -1,4 +1,4 @@
-package cloud.xuxiaowei.oauth2.impl;
+package cloud.xuxiaowei.oauth2.matcher;
 
 import cloud.xuxiaowei.core.properties.CloudSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ import java.util.List;
  * @see CsrfFilter#DEFAULT_CSRF_MATCHER
  * @since 0.0.1
  */
-@Component(CsrfRequestMatcherImpl.CSRF_REQUEST_MATCHER_BEAN_NAME)
-public class CsrfRequestMatcherImpl implements RequestMatcher {
+@Component(CsrfRequestMatcher.CSRF_REQUEST_MATCHER_BEAN_NAME)
+public class CsrfRequestMatcher implements RequestMatcher {
 
 	public static final String CSRF_REQUEST_MATCHER_BEAN_NAME = "csrfRequestMatcher";
 
