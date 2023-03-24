@@ -129,8 +129,8 @@ public class Response<T> implements Serializable {
 	/**
 	 * 打包后 Maven 坐标版本号
 	 * <p>
-	 * 需要在 org.apache.maven.plugins:maven-jar-plugin 的 configuration > archive >
-	 * manifestEntries > Implementation-Version 添加 ${project.version}
+	 * 需要在 org.apache.maven.plugins:maven-jar-plugin 的 configuration &gt; archive &gt;
+	 * manifestEntries &gt; Implementation-Version 添加 ${project.version}
 	 */
 	@Setter(AccessLevel.NONE)
 	private String implVersion;
