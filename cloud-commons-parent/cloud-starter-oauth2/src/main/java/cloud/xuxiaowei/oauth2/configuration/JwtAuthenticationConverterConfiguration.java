@@ -3,13 +3,21 @@ package cloud.xuxiaowei.oauth2.configuration;
 import cloud.xuxiaowei.utils.Constant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
+import javax.annotation.security.RolesAllowed;
+
 /**
  * 支持 {@link EnableGlobalMethodSecurity}、{@link PreAuthorize}
+ * <p>
+ * {@link RolesAllowed}、{@link Secured}：使用 {@link GrantedAuthorityDefaults} 的 {@link Bean}
+ * 来设置注解的角色前缀（分别需要开启
+ * {@link EnableGlobalMethodSecurity#jsr250Enabled()}、{@link EnableGlobalMethodSecurity#securedEnabled()}）
  *
  * @author xuxiaowei
  * @since 0.0.1
