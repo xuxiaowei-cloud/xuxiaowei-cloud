@@ -1,9 +1,20 @@
 package cloud.xuxiaowei.utils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.slf4j.MDC;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
+
+import static cn.hutool.core.date.DatePattern.NORM_DATETIME_PATTERN;
 
 /**
  * 响应数据
@@ -116,6 +127,28 @@ public class Response<T> implements Serializable {
 	private String requestId;
 
 	/**
+	 * 打包后 Maven 坐标版本号
+	 * <p>
+	 * 需要在 org.apache.maven.plugins:maven-jar-plugin 的 configuration > archive >
+	 * manifestEntries > Implementation-Version 添加 ${project.version}
+	 */
+	@Setter(AccessLevel.NONE)
+	private String implVersion;
+
+	/**
+	 * 打包时的时间
+	 */
+	@Setter(AccessLevel.NONE)
+	private String buildTime;
+
+	/**
+	 * 打包时的时间
+	 */
+	@Setter(AccessLevel.NONE)
+	@JsonFormat(pattern = NORM_DATETIME_PATTERN)
+	private LocalDateTime buildTimeParse;
+
+	/**
 	 * 获取 请求ID
 	 * @return 在请求ID 为 null，返回 MDC 中的 请求ID
 	 */
@@ -124,6 +157,33 @@ public class Response<T> implements Serializable {
 			return MDC.get(Constant.REQUEST_ID);
 		}
 		return this.requestId;
+	}
+
+	public String getImplVersion() {
+		Package pkg = getClass().getPackage();
+		return pkg.getImplementationVersion();
+	}
+
+	public String getBuildTime() {
+		Manifest manifest;
+		try {
+			manifest = new Manifest(getClass().getResourceAsStream(Constant.MF_NAME));
+		}
+		catch (IOException e) {
+			return null;
+		}
+		Attributes attributes = manifest.getMainAttributes();
+		return attributes.getValue(Constant.BUILD_TIME);
+	}
+
+	public LocalDateTime getBuildTimeParse() {
+		try {
+			Instant instant = Instant.parse(getBuildTime());
+			return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 
 }

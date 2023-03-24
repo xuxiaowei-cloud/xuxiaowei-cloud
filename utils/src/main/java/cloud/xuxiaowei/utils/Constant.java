@@ -38,6 +38,16 @@ public class Constant implements Serializable {
 			"=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
 
 	/**
+	 *
+	 */
+	public static final String MF_NAME = "/META-INF/MANIFEST.MF";
+
+	/**
+	 *
+	 */
+	public static final String BUILD_TIME = "Build-Time";
+
+	/**
 	 * 时间戳字段
 	 */
 	public static final String CURRENT_TIME_MILLIS = "currentTimeMillis";
