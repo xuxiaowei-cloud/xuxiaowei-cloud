@@ -71,8 +71,14 @@ sonarqube-check:
     - mvn verify sonar:sonar -s settings.xml;
       fi
   allow_failure: true
-  only:
-    - main
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 合并到 main 后执行
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
 
 #
 # package
