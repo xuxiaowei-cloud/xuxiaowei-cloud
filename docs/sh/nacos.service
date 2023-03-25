@@ -48,8 +48,8 @@ After=syslog.target
 
 [Service]
 Type=oneshot
-# 指定环境变量文件，否则 service 无法读取环境变量，如：JAVA_HOME
-EnvironmentFile=/etc/profile
+# 需要在 startup.sh 文件开头指定 JAVA_HOME 变量，该文件中的 JAVA_HOME 有最高优先级
+# 如果使用环境变量文件 EnvironmentFile，可能会导致无法启动的情况
 ExecStart=/software/nacos-server-2.2.1/bin/startup.sh -m standalone
 ExecStop=/software/nacos-server-2.2.1/bin/shutdown.sh
 ExecReload=/bin/kill -s HUP $MAINPID
