@@ -318,35 +318,7 @@ cloud.xuxiaowei
 | docker 守护程序的 URL | http://host.docker.example.xuxiaowei.cloud:2375     |       |           |
 | docker 私库 URL    | registry.docker.example.xuxiaowei.cloud             | admin | xuxiaowei |
 
-### 权限
-
-| 账户名       | 权限                                 | 说明               |
-|-----------|------------------------------------|------------------|
-| xuxiaowei | audit_authorization_consent_delete | 删除授权同意书          |
-| xuxiaowei | audit_authorization_consent_read   | 查看授权同意书          |
-| xuxiaowei | audit_authorization_delete         | 删除授权记录           |
-| xuxiaowei | audit_authorization_read           | 查看授权记录           |
-| xuxiaowei | clientId_token_delete              | 客户Token 删除权限     |
-| xuxiaowei | dict_add                           | 添加字典权限           |
-| xuxiaowei | dict_delete                        | 删除字典权限           |
-| xuxiaowei | dict_edit                          | 修改字典权限           |
-| xuxiaowei | dict_read                          | 查看字典权限           |
-| xuxiaowei | manage_client_add                  | 管理客户 添加权限        |
-| xuxiaowei | manage_client_delete               | 管理客户 删除权限        |
-| xuxiaowei | manage_client_edit                 | 管理客户 修改权限        |
-| xuxiaowei | manage_client_read                 | 管理客户 读取权限        |
-| xuxiaowei | manage_user_add                    | 管理用户 查询权限        |
-| xuxiaowei | manage_user_authority              | 管理用户 授权权限        |
-| xuxiaowei | manage_user_delete                 | 管理用户 删除权限        |
-| xuxiaowei | manage_user_edit                   | 管理用户 修改权限        |
-| xuxiaowei | manage_user_read                   | 管理用户 查询权限        |
-| xuxiaowei | region_read                        | 查看省市区县镇居委会权限     |
-| xuxiaowei | username_token_delete              | 用户Token 删除权限     |
-| xuxiaowei | user_authorities                   | 查看用户权限           |
-| xuxiaowei | user_details                       | 查看用户详情           |
-| xuxiaowei | user_info                          | 查看用户信息           |
-| xuxiaowei | user_oauth2_oauth2Request          | 查看 oauth2 用户请求   |
-| xuxiaowei | user_oauth2_userAuthentication     | 查看 oauth2 用户身份验证 |
+### [权限](docs/README-authority.md)
 
 ### 客户ID与秘钥
 

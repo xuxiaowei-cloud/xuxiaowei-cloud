@@ -58,7 +58,7 @@ public class DictDataController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "根据字典代码查询字典列表")
-	@PreAuthorize("hasAnyAuthority('dict_read', 'user_info')")
+	@PreAuthorize("hasAnyAuthority('dict_read', 'user:info')")
 	@PostMapping("/{dictCode}")
 	public Response<?> listByDictCode(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("dictCode") String dictCode) {
@@ -74,7 +74,7 @@ public class DictDataController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "根据 字典数据表联合主键 查询")
-	@PreAuthorize("hasAuthority('dict_read')")
+	@PreAuthorize("@ant.hasAuthority('dict:read')")
 	@PostMapping("/getById")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPrimaryKey dictDataPrimaryKey) {
@@ -96,7 +96,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "保存 字典数据")
 	@PostMapping("/save")
-	@PreAuthorize("hasAuthority('dict_add')")
+	@PreAuthorize("@ant.hasAuthority('dict:add')")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataSaveBo dictDataSaveBo) {
 
@@ -114,7 +114,7 @@ public class DictDataController {
 	 */
 	@ControllerAnnotation(description = "更新 字典数据")
 	@PostMapping("/updateById")
-	@PreAuthorize("hasAuthority('dict_edit')")
+	@PreAuthorize("@ant.hasAuthority('dict:edit')")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataUpdateBo dictDataUpdateBo) {
 
@@ -131,7 +131,7 @@ public class DictDataController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "分页查询字典数据")
-	@PreAuthorize("hasAuthority('dict_read')")
+	@PreAuthorize("@ant.hasAuthority('dict:read')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPageBo dictDataPageBo) {
@@ -147,7 +147,7 @@ public class DictDataController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 字典数据表联合主键 删除")
-	@PreAuthorize("hasAuthority('dict_delete')")
+	@PreAuthorize("@ant.hasAuthority('dict:delete')")
 	@PostMapping("/removeById")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody DictDataPrimaryKey dictDataPrimaryKey) {
@@ -165,7 +165,7 @@ public class DictDataController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 字典代码 批量删除")
-	@PreAuthorize("hasAuthority('dict_delete')")
+	@PreAuthorize("@ant.hasAuthority('dict:delete')")
 	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<DictDataPrimaryKey> dictDataPrimaryKeys) {

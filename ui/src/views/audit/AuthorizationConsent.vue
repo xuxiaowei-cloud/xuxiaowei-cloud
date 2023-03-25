@@ -5,7 +5,7 @@
     <el-input class="cloud-el-input" clearable v-model="param.principalName" placeholder="Please input principalName"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('audit_authorization_consent_delete')">删除
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'audit_authorization_consent:delete'">删除
     </el-button>
   </div>
   <el-container>
@@ -14,7 +14,7 @@
       <el-table-column prop="registeredClientId" label="registeredClientId" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="authorities" label="authorities" width="180" :show-overflow-tooltip="true"/>
-      <el-table-column fixed="right" label="Operations" width="100" v-if="hasAuthority('audit_authorization_consent_delete')">
+      <el-table-column fixed="right" label="Operations" width="100" v-permission="'audit_authorization_consent:delete'">
         <template #default="scope">
           <el-button size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
           <el-button size="small" v-else @click="deletePrimaryKey(scope.row.registeredClientId, scope.row.principalName)">Delete
@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 import { page, removeById, removeByIds, Oauth2AuthorizationConsentPrimaryKey } from '../../api/passport/oauth2-authorization-consent'
-import { hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
 import settings from '../../settings'
 import { ElMessage } from 'element-plus'

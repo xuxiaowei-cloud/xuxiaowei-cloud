@@ -43,7 +43,7 @@ public class SocialRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "获取社交绑定")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		Long usersId = SecurityUtils.getUsersId(authentication);
@@ -58,7 +58,7 @@ public class SocialRestController {
 	 * @return 返回 结果
 	 */
 	@ControllerAnnotation(description = "社交解绑")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/unbinding")
 	public Response<?> unbinding(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SocialBo socialBo) {

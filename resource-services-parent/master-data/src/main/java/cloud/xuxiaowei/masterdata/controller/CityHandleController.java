@@ -42,7 +42,7 @@ public class CityHandleController {
 	 * @param cityHandlePageBo 分页参数
 	 * @return 返回 查询结果
 	 */
-	@PreAuthorize("hasAnyAuthority('region_read', 'user_info')")
+	@PreAuthorize("@ant.hasAnyAuthority('region:read', 'user:info')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody CityHandlePageBo cityHandlePageBo) {

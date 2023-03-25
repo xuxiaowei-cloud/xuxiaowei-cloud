@@ -50,7 +50,7 @@ public class Oauth2AuthorizationRestController {
 	 * @return 返回 分页查询结果
 	 */
 	@ControllerAnnotation(description = "分页查询授权")
-	@PreAuthorize("hasAuthority('audit_authorization_read')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization:read')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationPageBo oauth2AuthorizationPageBo) {
@@ -69,7 +69,7 @@ public class Oauth2AuthorizationRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 主键 删除 授权表")
-	@PreAuthorize("hasAuthority('audit_authorization_delete')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization:delete')")
 	@GetMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
@@ -87,7 +87,7 @@ public class Oauth2AuthorizationRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 主键 批量删除 授权表")
-	@PreAuthorize("hasAuthority('audit_authorization_delete')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization:delete')")
 	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<String> ids) {

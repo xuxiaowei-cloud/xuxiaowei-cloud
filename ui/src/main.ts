@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
+import permissionDirective from './utils/permission'
 
 // 防止 ElMessageBox 样式无效
 // 防止 ElMessageBox 的样式在 Table 之下
@@ -30,6 +31,9 @@ app.use(pinia)
 
 // 需要放在 mount 之前
 app.use(router)
+
+// 在 Vue 实例中注册自定义指令
+app.directive('permission', permissionDirective)
 
 app.mount('#app')
 

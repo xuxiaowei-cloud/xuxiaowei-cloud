@@ -12,8 +12,8 @@
     <el-input class="cloud-el-input" clearable v-model="param.remark" placeholder="Please input remark"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('dict_delete')">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-if="hasAuthority('dict_add')">添加</el-button>
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'dict:delete'">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'dict:add'">添加</el-button>
   </div>
 
   <!-- 字典数据 -->
@@ -41,11 +41,10 @@
       <el-table-column prop="updateUsersId" label="updateUsersId" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="updateDate" label="updateDate" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="updateIp" label="updateIp" width="130" :show-overflow-tooltip="true"/>
-      <el-table-column fixed="right" label="Operations" width="140"
-                       v-if="hasAnyAuthority(['dict_delete', 'dict_edit'])">
+      <el-table-column fixed="right" label="Operations" width="140" v-permission="['dict:delete', 'dict:edit']">
         <template #default="scope">
-          <el-button size="small" @click="deleteId(scope.row)" v-if="hasAuthority('dict_delete')">Delete</el-button>
-          <el-button size="small" @click="editId(scope.row)" v-if="hasAuthority('dict_edit')">Edit</el-button>
+          <el-button size="small" @click="deleteId(scope.row)" v-permission="'dict:delete'">Delete</el-button>
+          <el-button size="small" @click="editId(scope.row)" v-permission="'dict:edit'">Edit</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,7 +59,6 @@ import { reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus/es'
 import useClipboard from 'vue-clipboard3'
 import { PrimaryKey, page, removeById, removeByIds } from '../../api/master-data/dict-data'
-import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import settings from '../../settings'
 // 字典数据添加、编辑弹窗内容
 import DictDataDialog from './dialog/DictDataDialog.vue'

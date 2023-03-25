@@ -55,7 +55,7 @@ public class Oauth2AuthorizationConsentRestController {
 	 * @return 返回 分页查询结果
 	 */
 	@ControllerAnnotation(description = "分页查询授权同意书")
-	@PreAuthorize("hasAuthority('audit_authorization_consent_read')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization_consent:read')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo) {
@@ -74,7 +74,7 @@ public class Oauth2AuthorizationConsentRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 主键 删除 授权同意书")
-	@PreAuthorize("hasAuthority('audit_authorization_consent_delete')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization_consent:delete')")
 	@PostMapping("/removeById")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody Oauth2AuthorizationConsentPrimaryKey oauth2AuthorizationConsentPrimaryKey) {
@@ -93,7 +93,7 @@ public class Oauth2AuthorizationConsentRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 主键 批量删除 授权同意书")
-	@PreAuthorize("hasAuthority('audit_authorization_consent_delete')")
+	@PreAuthorize("@ant.hasAuthority('audit_authorization_consent:delete')")
 	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<Oauth2AuthorizationConsentPrimaryKey> oauth2AuthorizationConsentPrimaryKeys) {

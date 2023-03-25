@@ -193,7 +193,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 分页查询结果
 	 */
 	@ControllerAnnotation(description = "分页查询客户")
-	@PreAuthorize("hasAuthority('manage_client_read')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:read')")
 	@PostMapping("/page")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientPageBo oauth2RegisteredClientPageBo) {
@@ -212,7 +212,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 删除 授权码")
-	@PreAuthorize("hasAuthority('manage_client_delete')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:delete')")
 	@GetMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
@@ -230,7 +230,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 删除结果
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 批量删除 授权码")
-	@PreAuthorize("hasAuthority('manage_client_delete')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:delete')")
 	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody List<String> ids) {
@@ -250,7 +250,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 查询结果
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 查询客户")
-	@PreAuthorize("hasAuthority('manage_client_read')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:read')")
 	@GetMapping("/getById/{id}")
 	public Response<?> getById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
@@ -268,7 +268,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 保存结果
 	 */
 	@ControllerAnnotation(description = "保存客户")
-	@PreAuthorize("hasAuthority('manage_client_add')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:add')")
 	@PostMapping("/save")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientSaveBo oauth2RegisteredClientSaveBo) {
@@ -286,7 +286,7 @@ public class Oauth2RegisteredClientRestController {
 	 * @return 返回 更新结果
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 更新客户")
-	@PreAuthorize("hasAuthority('manage_client_edit')")
+	@PreAuthorize("@ant.hasAuthority('manage_client:edit')")
 	@PostMapping("/updateById")
 	public Response<?> updateById(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2RegisteredClientUpdateBo oauth2RegisteredClientUpdateBo) {

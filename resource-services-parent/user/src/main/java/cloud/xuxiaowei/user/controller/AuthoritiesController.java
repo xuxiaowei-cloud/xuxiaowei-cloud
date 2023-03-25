@@ -43,7 +43,7 @@ public class AuthoritiesController {
 	 */
 	@ControllerAnnotation(description = "保存 权限表")
 	@PostMapping("/save")
-	@PreAuthorize("hasAuthority('manage_user_authority')")
+	@PreAuthorize("@ant.hasAuthority('manage_user:authority')")
 	public Response<?> save(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody AuthoritiesSaveBo authoritiesSaveBo) {
 

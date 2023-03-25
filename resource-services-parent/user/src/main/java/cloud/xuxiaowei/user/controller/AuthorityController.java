@@ -46,7 +46,7 @@ public class AuthorityController {
 	 */
 	@ControllerAnnotation(description = "获取 权限与权限说明 字典")
 	@PostMapping("/list")
-	@PreAuthorize("hasAuthority('manage_user_authority')")
+	@PreAuthorize("@ant.hasAuthority('manage_user:authority')")
 	public Response<?> list(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody AuthorityBo authorityBo) {
 
@@ -64,7 +64,7 @@ public class AuthorityController {
 	 */
 	@ControllerAnnotation(description = "获取 权限与权限说明 分页字典")
 	@PostMapping("/page")
-	@PreAuthorize("hasAuthority('manage_user_authority')")
+	@PreAuthorize("@ant.hasAuthority('manage_user:authority')")
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody AuthorityPageBo authorityPageBo) {
 

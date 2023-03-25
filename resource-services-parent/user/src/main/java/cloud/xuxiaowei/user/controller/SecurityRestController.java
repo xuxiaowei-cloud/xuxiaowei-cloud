@@ -109,7 +109,7 @@ public class SecurityRestController {
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 
@@ -131,7 +131,7 @@ public class SecurityRestController {
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新手机号的短信验证码")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/phone")
 	public Response<?> phone(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
 			@Valid @RequestBody SecurityPhoneBo securityPhoneBo) {
@@ -175,7 +175,7 @@ public class SecurityRestController {
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新手机号")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/phone/update")
 	public Response<?> phoneUpdate(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SecurityPhoneUpdateBo securityPhoneUpdateBo) {
@@ -204,7 +204,7 @@ public class SecurityRestController {
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新邮箱的验证码")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/email")
 	public Response<?> email(HttpServletRequest request, HttpServletResponse response, Authentication authentication,
 			@Valid @RequestBody SecurityEmailBo securityEmailBo) {
@@ -278,7 +278,7 @@ public class SecurityRestController {
 	 */
 	@EncryptAnnotation(Encrypt.AesVersion.V1)
 	@ControllerAnnotation(description = "安全设置：修改新邮箱")
-	@PreAuthorize("hasAuthority('user_info')")
+	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/email/update")
 	public Response<?> emailUpdate(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication, @Valid @RequestBody SecurityEmailUpdateBo securityEmailUpdateBo) {

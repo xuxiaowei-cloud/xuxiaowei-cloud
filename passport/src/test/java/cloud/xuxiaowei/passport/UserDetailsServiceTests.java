@@ -42,7 +42,7 @@ public class UserDetailsServiceTests {
 		UserDetails userDetails = User.withDefaultPasswordEncoder()
 			.username("user")
 			.password("password")
-			.authorities("user_info")
+			.authorities("user:info")
 			.build();
 		jdbcUserDetailsManager.createUser(userDetails);
 	}

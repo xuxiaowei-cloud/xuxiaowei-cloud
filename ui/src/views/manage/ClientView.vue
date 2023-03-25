@@ -5,12 +5,11 @@
     <el-input class="cloud-el-input" clearable v-model="param.clientName" placeholder="Please input clientName"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-if="hasAuthority('manage_client_delete')">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-if="hasAuthority('manage_client_add')">添加
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'manage_client:delete'">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'manage_client:add'">添加
     </el-button>
-    <el-button class="cloud-el-username_token_delete" @click="cloudTokenDelete"
-               v-if="hasAuthority('clientId_token_delete')">
-      删除Token
+    <el-button class="cloud-el-manage_client_token_delete" @click="cloudTokenDelete"
+               v-permission="'manage_client:token_delete'">删除Token
     </el-button>
   </div>
 
@@ -98,10 +97,10 @@
       <el-table-column prop="scopes" label="scopes" width="160" :show-overflow-tooltip="true"/>
 
       <el-table-column fixed="right" label="Operations" width="140"
-                       v-if="hasAnyAuthority(['manage_client_delete', 'manage_client_edit', 'manage_client_authority'])">
+                       v-permission="['manage_client:delete', 'manage_client:edit', 'manage_client:authority']">
         <template #default="scope">
-          <el-button size="small" @click="deleteId(scope.row)" v-if="hasAuthority('manage_client_delete')">Delete</el-button>
-          <el-button size="small" @click="editId(scope.row.id)" v-if="hasAuthority('manage_client_edit')">Edit</el-button>
+          <el-button size="small" @click="deleteId(scope.row)" v-permission="'manage_client:delete'">Delete</el-button>
+          <el-button size="small" @click="editId(scope.row.id)" v-permission="'manage_client:edit'">Edit</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -113,7 +112,6 @@
 
 <script setup lang="ts">
 import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
-import { hasAnyAuthority, hasAuthority } from '../../utils/authority'
 import { reactive, ref } from 'vue'
 import settings from '../../settings'
 import useClipboard from 'vue-clipboard3'
@@ -382,7 +380,7 @@ const rowDblClick = async (row: any, column: any, cell: any, event: any) => {
 .cloud-el-reset,
 .cloud-el-remove,
 .cloud-el-add,
-.cloud-el-username_token_delete {
+.cloud-el-manage_client_token_delete {
   margin-left: 5px;
   margin-right: 5px;
 }

@@ -20,7 +20,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/console',
         name: '控制台',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         // 首页不能使用 import
         component: ConsoleView
@@ -30,7 +30,7 @@ export const routes: Array<RouteRecordRaw> = [
         name: '主页一',
         meta: {
           keepAlive: true,
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/home/HomePage1.vue')
       },
@@ -38,7 +38,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/home/homepage2',
         name: '主页二',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/home/HomePage2.vue')
       }
@@ -56,7 +56,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/editor/tui-ui-editor',
         name: 'Tui UI Editor',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('../views/editor/ToastUiEditorView.vue')
       },
@@ -64,7 +64,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/editor/wangeditor',
         name: 'WangEditor',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('../views/editor/WangEditorView.vue')
       }
@@ -82,7 +82,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/master-data/dict',
         name: '字典',
         meta: {
-          authority: ['dict_read']
+          authority: [/^dict:(read|\*)$/]
         },
         component: () => import('../views/master-data/Dict.vue')
       },
@@ -90,7 +90,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/master-data/dict-data',
         name: '字典数据',
         meta: {
-          authority: ['dict_read']
+          authority: [/^dict:(read|\*)$/]
         },
         component: () => import('../views/master-data/DictData.vue')
       },
@@ -98,7 +98,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/master-data/region',
         name: '行政区域',
         meta: {
-          authority: ['region_read']
+          authority: [/^region:(read|\*)$/]
         },
         component: () => import('../views/master-data/Region.vue')
       }
@@ -116,7 +116,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/user/personal',
         name: '个人中心',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/user/PersonalView.vue')
       },
@@ -124,7 +124,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/user/security',
         name: '安全设置',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/user/SecurityView.vue')
       },
@@ -132,7 +132,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/user/social',
         name: '社交绑定',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/user/SocialView.vue')
       },
@@ -140,7 +140,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/user/password',
         name: '密码设置',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         component: () => import('@/views/user/PasswordView.vue')
       }
@@ -158,7 +158,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/manage/user',
         name: '用户管理',
         meta: {
-          authority: ['manage_user_read']
+          authority: [/^manage_user:(read|\*)$/]
         },
         component: () => import('@/views/manage/UserView.vue')
       },
@@ -166,7 +166,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/manage/client',
         name: '客户管理',
         meta: {
-          authority: ['manage_client_read']
+          authority: [/^manage_client:(read|\*)$/]
         },
         component: () => import('@/views/manage/ClientView.vue')
       }
@@ -184,7 +184,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/audit/authorization',
         name: '授权记录',
         meta: {
-          authority: ['audit_authorization_read']
+          authority: [/^audit_authorization:(read|\*)$/]
         },
         component: () => import('@/views/audit/Authorization.vue')
       },
@@ -192,7 +192,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/audit/authorization-consent',
         name: '授权同意书',
         meta: {
-          authority: ['audit_authorization_consent_read']
+          authority: [/^audit_authorization_consent:(read|\*)$/]
         },
         component: () => import('@/views/audit/AuthorizationConsent.vue')
       }
@@ -207,7 +207,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/refresh',
         name: '刷新',
         meta: {
-          authority: ['user_info'],
+          authority: [/^user:(info|\*)$/],
           show: false
         },
         component: () => import('@/views/RefreshView.vue')
@@ -216,7 +216,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/non-authority',
         name: '无权限',
         meta: {
-          authority: ['user_info'],
+          authority: [/^user:(info|\*)$/],
           show: false
         },
         component: () => import('@/views/NonAuthorityView.vue')
@@ -235,7 +235,7 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/about',
         name: '关于',
         meta: {
-          authority: ['user_info']
+          authority: [/^user:(info|\*)$/]
         },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
