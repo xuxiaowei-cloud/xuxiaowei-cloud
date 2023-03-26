@@ -1,3 +1,53 @@
+
+#
+# 使用 shell 执行器 打包
+shell-package:
+  stage: shell-package
+  script:
+    # 只能导入一次，否则会报错（开发者自己导入，或者不使用 gpg）
+    # - GPG_FILE=`find / -name xuxiaowei_0x97A36125_SECRET`
+    # - echo $GPG_FILE
+    # - gpg --import $GPG_FILE
+    - git --version
+    - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    - echo 常量网址（极狐GitLab中文文档）：https://docs.gitlab.cn/jh/ci/variables/predefined_variables.html
+    - echo 当前分支：$CI_COMMIT_BRANCH
+    - echo 主分支：$CI_DEFAULT_BRANCH
+    - echo 项目路径：$CI_PROJECT_DIR
+    # 在 Shell 执行器中，如果手动导入 gpg，可使用参数 -Pgpg
+    # 在 Shell 执行器中，如果不指定 settings.xml，可使用系统默认
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  artifacts:
+    name: package
+    paths:
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
+      - ui/dist
+  rules:
+    # 仅在 shell 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    - shell
+
 #
 # shell 发布网关服务
 shell-service-gateway:
