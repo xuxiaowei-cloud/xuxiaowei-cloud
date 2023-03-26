@@ -58,6 +58,13 @@ spec:
           ports:
             - containerPort: 2001
             - containerPort: 9006
+          command:
+            - "java"
+          args:
+            - "-jar"
+            - "app.jar"
+            # 正式环境
+            - "--spring.profiles.active=prod"
           volumeMounts:
             # 时区
             - name: time-zone
