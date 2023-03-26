@@ -75,6 +75,9 @@ docker-service-gateway:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop gateway || echo '容器不存在'
     - docker rm gateway || echo '容器不存在'
@@ -96,6 +99,9 @@ docker-service-admin-server:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop admin-server || echo '容器不存在'
     - docker rm admin-server || echo '容器不存在'
@@ -117,6 +123,9 @@ docker-service-passport:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop passport || echo '容器不存在'
     - docker rm passport || echo '容器不存在'
@@ -138,6 +147,9 @@ docker-service-canal:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop canal || echo '容器不存在'
     - docker rm canal || echo '容器不存在'
@@ -159,6 +171,9 @@ docker-service-user:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop user || echo '容器不存在'
     - docker rm user || echo '容器不存在'
@@ -180,6 +195,9 @@ docker-service-master-data:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop master-data || echo '容器不存在'
     - docker rm master-data || echo '容器不存在'
@@ -201,6 +219,9 @@ docker-service-websocket:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop websocket || echo '容器不存在'
     - docker rm websocket || echo '容器不存在'
@@ -222,6 +243,9 @@ docker-service-webservice:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop webservice || echo '容器不存在'
     - docker rm webservice || echo '容器不存在'
@@ -243,6 +267,9 @@ docker-service-wechat-miniprogram:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop wechat-miniprogram || echo '容器不存在'
     - docker rm wechat-miniprogram || echo '容器不存在'
@@ -264,6 +291,9 @@ docker-service-wechat-offiaccount:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop wechat-offiaccount || echo '容器不存在'
     - docker rm wechat-offiaccount || echo '容器不存在'
@@ -285,6 +315,9 @@ docker-service-file:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop file || echo '容器不存在'
     - docker rm file || echo '容器不存在'
@@ -306,6 +339,9 @@ docker-service-xxl-job-admin:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop xxl-job-admin || echo '容器不存在'
     - docker rm xxl-job-admin || echo '容器不存在'
@@ -327,6 +363,9 @@ docker-service-ui:
   stage: docker-package
 #  needs:
 #    - job: docker-package
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker stop ui || echo '容器不存在'
     - docker rm ui || echo '容器不存在'
