@@ -227,6 +227,7 @@ shell-publish-k8s:
   script:
     # -n xuxiaowei-cloud：指定命名空间为 xuxiaowei-cloud
     # $CI_PIPELINE_ID：当前管道的实例级ID
+    - kubectl -n xuxiaowei-cloud set image deployment/admin-server-deployment admin-server=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
@@ -236,6 +237,9 @@ shell-publish-k8s:
     - kubectl -n xuxiaowei-cloud set image deployment/user-deployment user=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/webservice-deployment webservice=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/websocket-deployment websocket=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/wechat-miniprogram-deployment wechat-miniprogram=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/wechat-offiaccount-deployment wechat-offiaccount=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/xxl-job-admin-deployment xxl-job-admin=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/xxl-job-admin:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
