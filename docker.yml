@@ -68,3 +68,275 @@ docker-package:
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
+
+#
+# docker 发布网关服务
+docker-service-gateway:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop gateway || echo '容器不存在'
+    - docker rm gateway || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1101:1101 --name gateway -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布监控（管理）服务
+docker-service-admin-server:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop admin-server || echo '容器不存在'
+    - docker rm admin-server || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1201:1201 --name admin-server -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布登录服务
+docker-service-passport:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop passport || echo '容器不存在'
+    - docker rm passport || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1401:1401 --name passport -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布MySQL二进制订阅服务
+docker-service-canal:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop canal || echo '容器不存在'
+    - docker rm canal || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1601:1601 --name canal -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布用户服务
+docker-service-user:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop user || echo '容器不存在'
+    - docker rm user || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1701:1701 --name user -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布主数据服务
+docker-service-master-data:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop master-data || echo '容器不存在'
+    - docker rm master-data || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 2201:2201 --name master-data -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布WebSocket服务
+docker-service-websocket:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop websocket || echo '容器不存在'
+    - docker rm websocket || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1801:1801 --name websocket -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布WebService服务
+docker-service-webservice:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop webservice || echo '容器不存在'
+    - docker rm webservice || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1901:1901 --name webservice -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布微信小程序服务
+docker-service-wechat-miniprogram:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop wechat-miniprogram || echo '容器不存在'
+    - docker rm wechat-miniprogram || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 2001:2001 --name wechat-miniprogram -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布微信公众号服务
+docker-service-wechat-offiaccount:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop wechat-offiaccount || echo '容器不存在'
+    - docker rm wechat-offiaccount || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 2101:2101 --name wechat-offiaccount -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布文件服务
+docker-service-file:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop file || echo '容器不存在'
+    - docker rm file || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 2301:2301 --name file -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布 XXL Job
+docker-service-xxl-job-admin:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop xxl-job-admin || echo '容器不存在'
+    - docker rm xxl-job-admin || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 5101:5101 --name xxl-job-admin -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/xxl-job-admin:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
+
+
+#
+# docker 发布UI服务
+docker-service-ui:
+  stage: docker-service
+#  needs:
+#    - job: docker-package
+  script:
+    - docker stop ui || echo '容器不存在'
+    - docker rm ui || echo '容器不存在'
+    - docker run -itd -v /logs:/logs -p 1001:80 --name ui -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-1055963
+  rules:
+    # 仅在 docker 分支中执行
+    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、gitcode.net 上的流水线
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+  tags:
+    # 仅在 tags 名称为 docker 的执行器上执行
+    - docker
