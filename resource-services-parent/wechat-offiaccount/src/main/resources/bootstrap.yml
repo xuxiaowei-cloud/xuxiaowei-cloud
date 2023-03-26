@@ -58,23 +58,12 @@ spring:
 # 以下配置可放入 nacos 中
 
 
-# 微信小程序配置(必填)
 wx:
-  miniapp:
-    appid: ${wx_miniapp_appid:}
-    secret: ${wx_miniapp_secret:}
-    token: JSON
-    aesKey:
-    msgDataFormat:
-
----
-
-# 微信小程序配置：存储配置redis(可选)
-wx:
-  miniapp:
-    config-storage:
-      type: RedisTemplate
-      key-prefix: wa
+  mp:
+    app-id: ${wechat_offiaccount_appid:}
+    secret: ${wechat_offiaccount_secret:}
+    token:
+    aes-key:
 
 ---
 
