@@ -12,7 +12,7 @@ stages:
   # 使用 docker 执行器构建、制作 docker 镜像
   - docker-package
   # 使用 docker 执行器发布
-  # - docker-service
+  - docker-service
 
 # murphysec
 murphysec:
