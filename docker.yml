@@ -23,8 +23,6 @@ docker-package:
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
     - mvn clean -e -U package source:jar javadoc:jar install -DskipTests -s settings-private.xml && PACKAGE_FLAG=1
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    # 删除本地 Maven 仓库中的产物（依赖），以提高缓存速度（本次的产物在下一次使用依赖时是无用的，会重新生成）
-    - rm -rf .m2/repository/cloud/xuxiaowei
     # 使用指定 setting.xml，用于下载依赖
     - mvn -pl admin-server -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl admin-server -s settings-private.xml docker:push;
@@ -52,6 +50,8 @@ docker-package:
     - mvn -pl ui -s settings-private.xml docker:push;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl xxl-job-admin -s settings-private.xml docker:push;
+    # 删除本地 Maven 仓库中的产物（依赖），以提高缓存速度（本次的产物在下一次使用依赖时是无用的，会重新生成）
+    - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     paths:
       - .m2/repository
