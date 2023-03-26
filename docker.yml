@@ -369,7 +369,7 @@ docker-service-ui:
   script:
     - docker stop ui || echo '容器不存在'
     - docker rm ui || echo '容器不存在'
-    - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1001:80 --name ui -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+    - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1001:80 --name ui -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
   rules:
     # 仅在 docker 分支中执行
     # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
