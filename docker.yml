@@ -72,7 +72,7 @@ docker-package:
 #
 # docker 发布网关服务
 docker-service-gateway:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -93,7 +93,7 @@ docker-service-gateway:
 #
 # docker 发布监控（管理）服务
 docker-service-admin-server:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -114,7 +114,7 @@ docker-service-admin-server:
 #
 # docker 发布登录服务
 docker-service-passport:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -135,7 +135,7 @@ docker-service-passport:
 #
 # docker 发布MySQL二进制订阅服务
 docker-service-canal:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -156,7 +156,7 @@ docker-service-canal:
 #
 # docker 发布用户服务
 docker-service-user:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -177,7 +177,7 @@ docker-service-user:
 #
 # docker 发布主数据服务
 docker-service-master-data:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -198,7 +198,7 @@ docker-service-master-data:
 #
 # docker 发布WebSocket服务
 docker-service-websocket:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -219,7 +219,7 @@ docker-service-websocket:
 #
 # docker 发布WebService服务
 docker-service-webservice:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -240,7 +240,7 @@ docker-service-webservice:
 #
 # docker 发布微信小程序服务
 docker-service-wechat-miniprogram:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -261,7 +261,7 @@ docker-service-wechat-miniprogram:
 #
 # docker 发布微信公众号服务
 docker-service-wechat-offiaccount:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -282,7 +282,7 @@ docker-service-wechat-offiaccount:
 #
 # docker 发布文件服务
 docker-service-file:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -303,7 +303,7 @@ docker-service-file:
 #
 # docker 发布 XXL Job
 docker-service-xxl-job-admin:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
@@ -324,7 +324,7 @@ docker-service-xxl-job-admin:
 #
 # docker 发布UI服务
 docker-service-ui:
-  stage: docker-service
+  stage: docker-package
 #  needs:
 #    - job: docker-package
   script:
