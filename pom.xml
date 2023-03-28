@@ -68,6 +68,10 @@
         <spring-security-oauth2-authorization-server.version>0.4.1
         </spring-security-oauth2-authorization-server.version>
 
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-security-oauth2-authorization-server-redis/ -->
+        <spring-security-oauth2-authorization-server-redis.version>0.1.0-SNAPSHOT
+        </spring-security-oauth2-authorization-server-redis.version>
+
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-oauth2 -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-oauth2/ -->
         <spring-boot-starter-oauth2.version>0.1.0-SNAPSHOT</spring-boot-starter-oauth2.version>
@@ -321,6 +325,13 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
                 <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
+
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-security-oauth2-authorization-server-redis/ -->
+            <dependency>
+                <groupId>cn.com.xuxiaowei.boot</groupId>
+                <artifactId>spring-security-oauth2-authorization-server-redis</artifactId>
+                <version>${spring-security-oauth2-authorization-server-redis.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-oauth2 -->
