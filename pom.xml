@@ -799,7 +799,7 @@
                     <offline>true</offline>
                     <!-- 输出详细内容 -->
                     <!--<verbose>true</verbose>-->
-                    <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
+                    <dateFormatTimeZone>GMT+8</dateFormatTimeZone>
                     <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
                     <format>json</format>
                     <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json
