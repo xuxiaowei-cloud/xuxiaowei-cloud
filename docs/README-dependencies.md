@@ -131,6 +131,7 @@ cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.10:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.10:compile
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.10:test
+│        └──org.springframework.security:spring-security-test:jar:5.7.7:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.10:compile
 │        └──com.alibaba:fastjson:jar:2.0.26:compile
@@ -215,6 +216,8 @@ cloud.xuxiaowei.example:cxf-client:jar:0.0.1-SNAPSHOT
 
 cloud.xuxiaowei.example:oauth2-client:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.10:compile
+│        └──com.nimbusds:nimbus-jose-jwt:jar:9.31:compile
+│        └──org.springframework.security:spring-security-oauth2-jose:jar:5.7.7:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.10:compile
 │        └──org.projectlombok:lombok:jar:1.18.26:compile
 
@@ -259,6 +262,7 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.10:compile
 │        └──org.springframework.boot:spring-boot-starter-thymeleaf:jar:2.7.10:compile
 │        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.1:compile
+│        └──cn.com.xuxiaowei.boot:spring-security-oauth2-authorization-server-redis:jar:0.1.0-SNAPSHOT:compile
 │        └──cn.com.xuxiaowei.boot:spring-boot-starter-oauth2:jar:0.1.0-SNAPSHOT:compile
 │        └──p6spy:p6spy:jar:3.9.1:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile

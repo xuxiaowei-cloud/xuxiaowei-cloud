@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
@@ -29,6 +30,9 @@ class ClientSettingsTests {
 
 		// 如果客户端请求访问时需要授权同意，则设置为true 。这适用于所有交互流程（例如authorization_code和device_code ）。
 		clientSettingsBuilder.requireAuthorizationConsent(true);
+
+		// private_key_jwt、client_secret_jwt 算法
+		clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(MacAlgorithm.HS256);
 
 		ClientSettings clientSettings = clientSettingsBuilder.build();
 		Map<String, Object> settings = clientSettings.getSettings();
