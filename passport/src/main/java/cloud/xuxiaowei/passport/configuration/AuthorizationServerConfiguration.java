@@ -30,7 +30,6 @@ import org.springframework.security.oauth2.server.authorization.web.authenticati
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.Arrays;
 
@@ -108,18 +107,14 @@ public class AuthorizationServerConfiguration {
 	@Order(-1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
 
-		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
+		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = http
+			.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
 
 		authorizationServerConfigurer
 			.authorizationEndpoint(authorizationEndpointCustomizer -> authorizationEndpointCustomizer
 				.consentPage(cloudClientProperties.getConsentPage()));
-
-		RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
-
-		http.requestMatcher(endpointsMatcher)
-			.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
-			.csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-			.apply(authorizationServerConfigurer);
 
 		// 自定义客户授权
 		// @formatter:off
@@ -152,14 +147,15 @@ public class AuthorizationServerConfiguration {
 					// 新增：企业微信扫码登录 OAuth2 用于验证授权授予的 {@link OAuth2WeChatWorkWebsiteAuthenticationToken}
 					new OAuth2WeChatWorkWebsiteAuthenticationConverter(),
 					// 新增：微博 网站应用 OAuth2 用于验证授权授予的 {@link OAuth2WeiBoWebsiteAuthenticationToken}
-					new OAuth2WeiBoWebsiteAuthenticationConverter(),
+					new OAuth2WeiBoWebsiteAuthenticationConverter()
 
-					// 默认值：OAuth2 授权码认证转换器
-					new OAuth2AuthorizationCodeAuthenticationConverter(),
-					// 默认值：OAuth2 刷新令牌认证转换器
-					new OAuth2RefreshTokenAuthenticationConverter(),
-					// 默认值：OAuth2 客户端凭据身份验证转换器
-					new OAuth2ClientCredentialsAuthenticationConverter())))
+					// 默认值：OAuth2 授权码认证转换器，已存在
+					// new OAuth2AuthorizationCodeAuthenticationConverter()
+					// 默认值：OAuth2 刷新令牌认证转换器，已存在
+					// new OAuth2RefreshTokenAuthenticationConverter()
+					// 默认值：OAuth2 客户端凭据身份验证转换器，已存在
+					// new OAuth2ClientCredentialsAuthenticationConverter()
+			)))
 			// 用于处理失败的身份验证尝试的策略。
 			.errorResponseHandler(new AccessTokenAuthenticationFailureHandlerImpl()));
 		// @formatter:on
