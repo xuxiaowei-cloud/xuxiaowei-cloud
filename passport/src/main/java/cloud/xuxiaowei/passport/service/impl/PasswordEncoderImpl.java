@@ -48,6 +48,7 @@ public class PasswordEncoderImpl implements PasswordEncoder {
 			OAuth2WeChatOplatformWebsiteAuthenticationToken.WECHAT_OPLATFORM_WEBSITE.getValue(),
 			OAuth2WeChatWorkWebsiteAuthenticationToken.WECHAT_WORK_WEBSITE.getValue(),
 			OAuth2WeiBoWebsiteAuthenticationToken.WEIBO_WEBSITE.getValue(),
+			OAuth2FeiShuWebPageAuthenticationToken.FEISHU_WEBPAGE.getValue(),
 			AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
 	// @formatter:on
 
