@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.configuration;
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import cloud.xuxiaowei.passport.handler.AccessTokenAuthenticationFailureHandlerImpl;
+import cloud.xuxiaowei.passport.service.impl.ClientPasswordEncoder;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -18,7 +19,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationProvid
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
@@ -105,7 +108,9 @@ public class AuthorizationServerConfiguration {
 	 */
 	@Bean
 	@Order(-1)
-	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http,
+			RegisteredClientRepository registeredClientRepository, OAuth2AuthorizationService authorizationService)
+			throws Exception {
 
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
@@ -192,6 +197,15 @@ public class AuthorizationServerConfiguration {
 		authorizationServerConfigurer.tokenRevocationEndpoint(tokenRevocationEndpointCustomizer -> {
 			// 自定义撤销授权成功后的处理
 			tokenRevocationEndpointCustomizer.revocationResponseHandler(authenticationSuccessHandler);
+		});
+
+		authorizationServerConfigurer.clientAuthentication(clientAuthenticationCustomizer -> {
+			ClientSecretAuthenticationProvider clientSecretAuthenticationProvider = new ClientSecretAuthenticationProvider(
+					registeredClientRepository, authorizationService);
+			ClientPasswordEncoder passwordEncoder = new ClientPasswordEncoder();
+			// 自定义客户密码编辑器
+			clientSecretAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+			clientAuthenticationCustomizer.authenticationProvider(clientSecretAuthenticationProvider);
 		});
 
 		return http.build();
