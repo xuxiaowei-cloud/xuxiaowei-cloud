@@ -421,8 +421,8 @@ cloud.xuxiaowei
 ## 鸣谢
 
 1. 感谢 [![墨菲安全](./docs/static/murphysec.png)](https://www.murphysec.com/) 提供安全技术支持
-2. 感谢 [![jetbrains](./docs/static/jetbrains.ico)](https://www.jetbrains.com/)
-   提供开发工具 [![IDEA](./docs/static/idea.png)](https://www.jetbrains.com/idea) 的免费授权
+2. 感谢 [![jetbrains](./docs/static/jb_beam.svg)](https://www.jetbrains.com/)
+   提供开发工具 [![IDEA](./docs/static/IntelliJ_IDEA_icon.svg)](https://www.jetbrains.com/idea) 的免费授权
 
 ## Stargazers over time
 
