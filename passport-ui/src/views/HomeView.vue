@@ -140,6 +140,7 @@ import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { configuration, login } from '../api/passport'
 import settings from '../settings'
+import Resp from '../api/common'
 
 // 跨域
 const crossDomain = ref<string>('example.xuxiaowei.cloud')
@@ -161,7 +162,7 @@ const dingtalkUrl = ref()
 const alipayOplatformWebsiteUrl = ref()
 const feiShuWebPageUrl = ref()
 
-configuration().then(response => {
+configuration().then((response : Resp<any>) => {
   console.log(response)
   const msg = response.msg
   if (response.code === settings.okCode) {
@@ -206,33 +207,42 @@ const submitCloudForm = () => {
       let token = 'token'
       let password = cloudForm.password
       let rememberMeParameter = 'remember-me'
-      // @ts-ignore
       if (process.env.NODE_ENV === 'production') {
-        // @ts-ignore
-        header = document.head.querySelector('[name=_csrf_header][content]').content
-        // @ts-ignore
-        token = document.head.querySelector('[name=_csrf][content]').content
-        // @ts-ignore
-        const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
-        // @ts-ignore
-        rememberMeParameter = document.head.querySelector('[name=rememberMeParameter][content]').content
-
-        const jsEncrypt = new JSEncrypt()
-        jsEncrypt.setPublicKey(rsaPublicKeyBase64)
-        const encrypt = jsEncrypt.encrypt(password)
-        if (encrypt === false) {
-          ElMessage.error('密码加密失败')
-          return
+        const csrfHeaderHTMLElement = document.head.querySelector('[name=_csrf_header][content]') as HTMLElement | null
+        if (csrfHeaderHTMLElement) {
+          header = csrfHeaderHTMLElement.getAttribute('content') || ''
         }
 
-        password = encrypt
+        const csrfHTMLElement = document.head.querySelector('[name=_csrf][content]') as HTMLElement | null
+        if (csrfHTMLElement) {
+          token = csrfHTMLElement.getAttribute('content') || ''
+        }
+
+        const rsaPublicKeyBase64HTMLElement = document.head.querySelector('[name=rsa_public_key_base64][content]') as HTMLElement | null
+        if (rsaPublicKeyBase64HTMLElement) {
+          const publicKey = rsaPublicKeyBase64HTMLElement.getAttribute('content') || ''
+
+          const jsEncrypt = new JSEncrypt()
+          jsEncrypt.setPublicKey(publicKey)
+          const encrypt = jsEncrypt.encrypt(password)
+          if (encrypt === false) {
+            ElMessage.error('密码加密失败')
+            return
+          }
+
+          password = encrypt
+        }
+
+        const rememberMeParameterHTMLElement = document.head.querySelector('[name=remember_me_parameter][content]') as HTMLElement | null
+        if (rememberMeParameterHTMLElement) {
+          rememberMeParameter = rememberMeParameterHTMLElement.getAttribute('content') || ''
+        }
       }
-      const redirectUri = route.query.redirectUri
+      const redirectUri = route.query.redirectUri as string
 
       // encodeURIComponent()
-      const homePage = route.query.homePage
-      // @ts-ignore
-      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then(response => {
+      const homePage = route.query.homePage as string
+      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
         console.log(response)
         const msg = response.msg
 

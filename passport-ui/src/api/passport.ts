@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import Resp from './common'
 
 /**
  * 登录
@@ -20,13 +21,12 @@ export const login = function (username: string, password: string, rememberMe: s
   formData.append(rememberMeParameter, rememberMe)
   formData.append('redirectUri', redirectUri)
   formData.append('homePage', homePage)
-  const headers = {}
-  // @ts-ignore
+  const headers: Record<string, string> = {}
   headers[header] = token
   return request.post('/passport/login', formData, {
     headers
   }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -35,6 +35,6 @@ export const login = function (username: string, password: string, rememberMe: s
  */
 export const configuration = function () {
   return request.post('/passport/configuration').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

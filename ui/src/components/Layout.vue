@@ -274,8 +274,7 @@ const removeTab = (targetName: string) => {
   location.hash = activeName
 
   const routeRecords = router.getRoutes()
-  for (const i in routeRecords) {
-    const routeRecord = routeRecords[i]
+  for (const routeRecord of routeRecords) {
     if (routeRecord.path === targetName) {
       const components = routeRecord.components
       if (components) {

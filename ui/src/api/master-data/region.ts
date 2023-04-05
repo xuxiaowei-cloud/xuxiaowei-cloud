@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 /**
  * 分页查询区域
@@ -6,6 +7,6 @@ import request from '../../utils/request'
  */
 export const page = function (data: any) {
   return request.post('/master-data/region/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

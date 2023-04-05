@@ -177,7 +177,7 @@ npm i @element-plus/icons-vue @tauri-apps/api @toast-ui/editor @wangeditor/edito
 ```
 
 ```shell
-npm i -D @tauri-apps/cli @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
+npm i -D @tauri-apps/cli @types/crypto-js @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
 ```
 
 ## 其他说明

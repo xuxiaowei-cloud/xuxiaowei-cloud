@@ -1,11 +1,12 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 /**
  * 授权类型选项
  */
 export const grantTypeOptions = function () {
   return request.get('/passport/oauth2-registered-client/grant-type-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -14,7 +15,7 @@ export const grantTypeOptions = function () {
  */
 export const authenticationMethodOptions = function () {
   return request.get('/passport/oauth2-registered-client/authentication-method-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -23,7 +24,7 @@ export const authenticationMethodOptions = function () {
  */
 export const scopeOptions = function () {
   return request.get('/passport/oauth2-registered-client/scope-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -32,7 +33,7 @@ export const scopeOptions = function () {
  */
 export const tokenSigningAlgorithmOptions = function () {
   return request.get('/passport/oauth2-registered-client/token-signing-algorithm-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -41,7 +42,7 @@ export const tokenSigningAlgorithmOptions = function () {
  */
 export const tokenSignatureAlgorithmOptions = function () {
   return request.get('/passport/oauth2-registered-client/token-signature-algorithm-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -50,7 +51,7 @@ export const tokenSignatureAlgorithmOptions = function () {
  */
 export const accessTokenFormatOptions = function () {
   return request.get('/passport/oauth2-registered-client/access-token-format-options').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -60,7 +61,7 @@ export const accessTokenFormatOptions = function () {
  */
 export const page = function (data: any) {
   return request.post('/passport/oauth2-registered-client/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -70,7 +71,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (clientId: number) {
   return request.post('/passport/oauth2-registered-client/removeById/' + clientId).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -80,7 +81,7 @@ export const removeById = function (clientId: number) {
  */
 export const removeByIds = function (clientIds: number[]) {
   return request.post('/passport/oauth2-registered-client/removeByIds', clientIds).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -90,7 +91,7 @@ export const removeByIds = function (clientIds: number[]) {
  */
 export const getById = function (usersId: string) {
   return request.get('/passport/oauth2-registered-client/getById/' + usersId).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -100,7 +101,7 @@ export const getById = function (usersId: string) {
  */
 export const save = function (data: any) {
   return request.post('/passport/oauth2-registered-client/save', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -110,6 +111,6 @@ export const save = function (data: any) {
  */
 export const updateById = function (data: any) {
   return request.post('/passport/oauth2-registered-client/updateById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

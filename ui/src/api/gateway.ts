@@ -5,6 +5,6 @@ import request from '../utils/request'
  */
 export const currentTimeMillis = () => {
   return request.get('/currentTimeMillis').then((response: any) => {
-    return response.data?.data?.currentTimeMillis
+    return response.data?.data?.currentTimeMillis as number
   })
 }

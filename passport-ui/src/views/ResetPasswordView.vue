@@ -31,6 +31,7 @@ import { Key } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { checkResetPasswordToken, resetPassword } from '../api/forget'
 import settings from '../settings'
+import Resp from '../api/common'
 
 const route = useRoute()
 const router = useRouter()
@@ -47,18 +48,22 @@ router.isReady().then(() => {
 
   let header = 'header'
   let token = 'token'
-  // @ts-ignore
   if (process.env.NODE_ENV === 'production') {
-    // @ts-ignore
-    header = document.head.querySelector('[name=_csrf_header][content]').content
-    // @ts-ignore
-    token = document.head.querySelector('[name=_csrf][content]').content
+    const csrfHTMLElementHeaderHTMLElement = document.head.querySelector('[name=_csrfHTMLElement_header][content]') as HTMLElement | null
+    if (csrfHTMLElementHeaderHTMLElement) {
+      header = csrfHTMLElementHeaderHTMLElement.getAttribute('content') || ''
+    }
+
+    const csrfHTMLElement = document.head.querySelector('[name=_csrf][content]') as HTMLElement | null
+    if (csrfHTMLElement) {
+      token = csrfHTMLElement.getAttribute('content') || ''
+    }
   }
 
   checkResetPasswordToken(header, token, {
     usersId: usersId.value,
     resetPasswordToken: resetPasswordToken.value
-  }).then((response: any) => {
+  }).then((response: Resp<any>) => {
     console.log(response)
     if (response.code !== settings.okCode) {
       ElMessage.error(response.msg)
@@ -86,31 +91,38 @@ const submitCloudForm = () => {
       let header = 'header'
       let token = 'token'
       let password = cloudForm.password
-      // @ts-ignore
       if (process.env.NODE_ENV === 'production') {
-        // @ts-ignore
-        header = document.head.querySelector('[name=_csrf_header][content]').content
-        // @ts-ignore
-        token = document.head.querySelector('[name=_csrf][content]').content
-        // @ts-ignore
-        const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
-
-        const jsEncrypt = new JSEncrypt()
-        jsEncrypt.setPublicKey(rsaPublicKeyBase64)
-        const encrypt = jsEncrypt.encrypt(password)
-        if (encrypt === false) {
-          ElMessage.error('密码加密失败')
-          return
+        const csrfHeaderHTMLElement = document.head.querySelector('[name=_csrf_header][content]') as HTMLElement | null
+        if (csrfHeaderHTMLElement) {
+          header = csrfHeaderHTMLElement.getAttribute('content') || ''
         }
 
-        password = encrypt
+        const csrfHTMLElement = document.head.querySelector('[name=_csrf][content]') as HTMLElement | null
+        if (csrfHTMLElement) {
+          token = csrfHTMLElement.getAttribute('content') || ''
+        }
+
+        const rsaPublicKeyBase64HTMLElement = document.head.querySelector('[name=rsa_public_key_base64][content]') as HTMLElement | null
+        if (rsaPublicKeyBase64HTMLElement) {
+          const publicKey = rsaPublicKeyBase64HTMLElement.getAttribute('content') || ''
+
+          const jsEncrypt = new JSEncrypt()
+          jsEncrypt.setPublicKey(publicKey)
+          const encrypt = jsEncrypt.encrypt(password)
+          if (encrypt === false) {
+            ElMessage.error('密码加密失败')
+            return
+          }
+
+          password = encrypt
+        }
       }
 
       resetPassword(header, token, {
         usersId: usersId.value,
         resetPasswordToken: resetPasswordToken.value,
         password
-      }).then((response: any) => {
+      }).then((response: Resp<any>) => {
         console.log(response)
         if (response.code === settings.okCode) {
           ElMessage({

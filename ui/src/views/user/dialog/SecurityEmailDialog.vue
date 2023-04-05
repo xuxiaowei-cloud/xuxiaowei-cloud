@@ -65,7 +65,7 @@ const sms = () => {
       emailRef.value.focus()
     }, 1)
   } else {
-    securityEmail(param.email).then((response: { code: string; data: { identification: string; }; msg: string; }) => {
+    securityEmail(param.email).then((response) => {
       console.log(response)
       if (response.code === settings.okCode) {
         identification.value = response.data?.identification

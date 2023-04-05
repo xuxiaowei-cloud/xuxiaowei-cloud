@@ -56,6 +56,7 @@ service.interceptors.response.use((response: any) => {
   if (response.headers.sign) {
     const jsEncrypt = new JSEncrypt()
     jsEncrypt.setPublicKey(settings.publicKey)
+    // 不能使用 CryptoJS.MD5.toString
     // @ts-ignore
     const verify = jsEncrypt.verify(JSON.stringify(data), response.headers.sign, CryptoJS.MD5)
     if (!verify) {

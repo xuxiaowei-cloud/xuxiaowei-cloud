@@ -75,7 +75,7 @@ npm i @element-plus/icons-vue axios crypto-js element-plus jsencrypt pinia vue-r
 ```
 
 ```
-npm i -D @types/crypto-js @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
+npm i -D @types/crypto-js @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-vue eslint eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise eslint-plugin-vue lint-staged terser typescript unocss unplugin-auto-import unplugin-vue-components vite vue-tsc
 ```
 
 ## 项目说明

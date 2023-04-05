@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 export interface Oauth2AuthorizationConsentPrimaryKey {
   registeredClientId: string,
@@ -11,7 +12,7 @@ export interface Oauth2AuthorizationConsentPrimaryKey {
  */
 export const page = function (data: any) {
   return request.post('/passport/oauth2-authorization-consent/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -21,7 +22,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (data: Oauth2AuthorizationConsentPrimaryKey) {
   return request.post('/passport/oauth2-authorization-consent/removeById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -31,6 +32,6 @@ export const removeById = function (data: Oauth2AuthorizationConsentPrimaryKey) 
  */
 export const removeByIds = function (data: Oauth2AuthorizationConsentPrimaryKey[]) {
   return request.post('/passport/oauth2-authorization-consent/removeByIds', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

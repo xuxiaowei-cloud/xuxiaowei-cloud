@@ -1,11 +1,12 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 /**
  * 查询字典代码列表
  */
 export const list = function () {
   return request.get('/master-data/dict/list').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -15,7 +16,7 @@ export const list = function () {
  */
 export const page = function (data: any) {
   return request.post('/master-data/dict/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -25,7 +26,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (dictCode: string) {
   return request.post('/master-data/dict/removeById/' + dictCode).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -35,7 +36,7 @@ export const removeById = function (dictCode: string) {
  */
 export const removeByIds = function (dictCodes: string[]) {
   return request.post('/master-data/dict/removeByIds', dictCodes).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -45,7 +46,7 @@ export const removeByIds = function (dictCodes: string[]) {
  */
 export const getById = function (dictCode: string) {
   return request.post('/master-data/dict/getById/' + dictCode).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -55,7 +56,7 @@ export const getById = function (dictCode: string) {
  */
 export const save = function (data: any) {
   return request.post('/master-data/dict/save', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -65,6 +66,6 @@ export const save = function (data: any) {
  */
 export const updateById = function (data: any) {
   return request.post('/master-data/dict/updateById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

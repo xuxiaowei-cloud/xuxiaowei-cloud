@@ -61,6 +61,7 @@ import { reactive, ref } from 'vue'
 import { JSEncrypt } from 'jsencrypt'
 import settings from '../settings'
 import { forget, resetTypePhonePassword } from '../api/forget'
+import Resp from '../api/common'
 
 // 主要内容：是否显示
 const main = ref<boolean>(true)
@@ -76,30 +77,34 @@ const cloudFormRef = ref()
 // 重置类型
 const type = ref(null)
 // 重置消息
-const typeMsg = ref(null)
+const typeMsg = ref('')
 
 // 重置用户主键
 const usersId = ref(null)
 // 识别码
 const identification = ref(null)
 
+let header = 'header'
+let token = 'token'
+if (process.env.NODE_ENV === 'production') {
+  const csrfHeaderHTMLElement = document.head.querySelector('[name=_csrf_header][content]') as HTMLElement | null
+  if (csrfHeaderHTMLElement) {
+    header = csrfHeaderHTMLElement.getAttribute('content') || ''
+  }
+
+  const csrfHTMLElement = document.head.querySelector('[name=_csrf][content]') as HTMLElement | null
+  if (csrfHTMLElement) {
+    token = csrfHTMLElement.getAttribute('content') || ''
+  }
+}
+
 // 提交表单
 const submitCloudForm = () => {
   cloudFormRef.value.validate((valid: boolean) => {
     if (valid) {
-      let header = 'header'
-      let token = 'token'
-      // @ts-ignore
-      if (process.env.NODE_ENV === 'production') {
-        // @ts-ignore
-        header = document.head.querySelector('[name=_csrf_header][content]').content
-        // @ts-ignore
-        token = document.head.querySelector('[name=_csrf][content]').content
-      }
-
       forget(header, token, {
         username: cloudForm.username
-      }).then((response: any) => {
+      }).then((response : Resp<any>) => {
         console.log(response)
         if (response.code === settings.okCode) {
           typeMsg.value = response.msg
@@ -129,27 +134,22 @@ const cloudFormTypePhoneRef = ref()
 const submitCloudTypePhoneForm = () => {
   cloudFormTypePhoneRef.value.validate((valid: boolean) => {
     if (valid) {
-      let header = 'header'
-      let token = 'token'
       let password = cloudFormTypePhone.password
-      // @ts-ignore
       if (process.env.NODE_ENV === 'production') {
-        // @ts-ignore
-        header = document.head.querySelector('[name=_csrf_header][content]').content
-        // @ts-ignore
-        token = document.head.querySelector('[name=_csrf][content]').content
-        // @ts-ignore
-        const rsaPublicKeyBase64 = document.head.querySelector('[name=rsa_public_key_base64][content]').content
+        const rsaPublicKeyBase64HTMLElement = document.head.querySelector('[name=rsa_public_key_base64][content]') as HTMLElement | null
+        if (rsaPublicKeyBase64HTMLElement) {
+          const publicKey = rsaPublicKeyBase64HTMLElement.getAttribute('content') || ''
 
-        const jsEncrypt = new JSEncrypt()
-        jsEncrypt.setPublicKey(rsaPublicKeyBase64)
-        const encrypt = jsEncrypt.encrypt(password)
-        if (encrypt === false) {
-          ElMessage.error('密码加密失败')
-          return
+          const jsEncrypt = new JSEncrypt()
+          jsEncrypt.setPublicKey(publicKey)
+          const encrypt = jsEncrypt.encrypt(password)
+          if (encrypt === false) {
+            ElMessage.error('密码加密失败')
+            return
+          }
+
+          password = encrypt
         }
-
-        password = encrypt
       }
 
       resetTypePhonePassword(header, token, {
@@ -157,7 +157,7 @@ const submitCloudTypePhoneForm = () => {
         code: cloudFormTypePhone.code,
         password,
         identification: identification.value
-      }).then((response: any) => {
+      }).then((response: Resp<any>) => {
         console.log(response)
         if (response.code === settings.okCode) {
           ElMessage({

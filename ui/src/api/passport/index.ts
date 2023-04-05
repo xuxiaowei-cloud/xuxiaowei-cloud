@@ -2,6 +2,7 @@ import { ElMessage } from 'element-plus/es'
 import request from '../../utils/request'
 import settings from '../../settings'
 import { useStore } from '../../store'
+import Resp from '../common'
 
 /**
  * 退出登录
@@ -54,7 +55,7 @@ export const signout = function () {
  */
 export const passportReset = function (data: any) {
   return request.post('/passport/password/reset', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -63,6 +64,6 @@ export const passportReset = function (data: any) {
  */
 export const configuration = function () {
   return request.post('/passport/configuration').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

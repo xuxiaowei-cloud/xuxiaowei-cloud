@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import Resp from './common'
 
 /**
  * 忘记密码
@@ -6,14 +7,13 @@ import request from '../utils/request'
  * @param token
  * @param data
  */
-export const forget = function (header: String, token: String, data: any) {
-  const headers = {}
-  // @ts-ignore
+export const forget = function (header: string, token: string, data: any) {
+  const headers: Record<string, string> = {}
   headers[header] = token
   return request.post('/passport/forget', data, {
     headers
   }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -23,14 +23,13 @@ export const forget = function (header: String, token: String, data: any) {
  * @param token
  * @param data
  */
-export const checkResetPasswordToken = function (header: String, token: String, data: any) {
-  const headers = {}
-  // @ts-ignore
+export const checkResetPasswordToken = function (header: string, token: string, data: any) {
+  const headers: Record<string, string> = {}
   headers[header] = token
   return request.post('/passport/forget/check-reset-password-token', data, {
     headers
   }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -40,14 +39,13 @@ export const checkResetPasswordToken = function (header: String, token: String, 
  * @param token
  * @param data
  */
-export const resetPassword = function (header: String, token: String, data: any) {
-  const headers = {}
-  // @ts-ignore
+export const resetPassword = function (header: string, token: string, data: any) {
+  const headers: Record<string, string> = {}
   headers[header] = token
   return request.post('/passport/forget/reset-password', data, {
     headers
   }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -57,13 +55,12 @@ export const resetPassword = function (header: String, token: String, data: any)
  * @param token
  * @param data
  */
-export const resetTypePhonePassword = function (header: String, token: String, data: any) {
-  const headers = {}
-  // @ts-ignore
+export const resetTypePhonePassword = function (header: string, token: string, data: any) {
+  const headers: Record<string, string> = {}
   headers[header] = token
   return request.post('/passport/forget/reset-type-phone-password', data, {
     headers
   }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

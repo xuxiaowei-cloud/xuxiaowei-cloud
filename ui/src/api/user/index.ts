@@ -3,6 +3,7 @@ import { useStore } from '../../store'
 import settings from '../../settings'
 import { ElMessage } from 'element-plus'
 import { AxiosResponse } from 'axios'
+import Resp from '../common'
 
 /**
  * 权限
@@ -79,7 +80,7 @@ export const info = function () {
  */
 export const page = function (data: any) {
   return request.post('/user/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -89,7 +90,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (usersId: number) {
   return request.post('/user/removeById/' + usersId).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -99,7 +100,7 @@ export const removeById = function (usersId: number) {
  */
 export const removeByIds = function (usersIds: number[]) {
   return request.post('/user/removeByIds', usersIds).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -109,7 +110,7 @@ export const removeByIds = function (usersIds: number[]) {
  */
 export const getById = function (usersId: number) {
   return request.post('/user/getById/' + usersId).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -119,7 +120,7 @@ export const getById = function (usersId: number) {
  */
 export const save = function (data: any) {
   return request.post('/user/save', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -129,7 +130,7 @@ export const save = function (data: any) {
  */
 export const update = function (data: any) {
   return request.post('/user/update', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -139,7 +140,7 @@ export const update = function (data: any) {
  */
 export const updateById = function (data: any) {
   return request.post('/user/updateById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -148,7 +149,7 @@ export const updateById = function (data: any) {
  */
 export const authorityList = function () {
   return request.post('/user/authority/list', {}).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -158,7 +159,7 @@ export const authorityList = function () {
  */
 export const saveAuthorities = function (data: any) {
   return request.post('/user/authorities/save', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -167,6 +168,6 @@ export const saveAuthorities = function (data: any) {
  */
 export const codeRsa = function () {
   return request.post('/user/code/rsa').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

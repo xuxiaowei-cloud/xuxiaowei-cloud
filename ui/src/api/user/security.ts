@@ -1,11 +1,12 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 /**
  * 获取安全设置
  */
 export const security = function () {
   return request.post('/user/security').then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -14,7 +15,7 @@ export const security = function () {
  */
 export const securityPhone = function (phone: string) {
   return request.post('/user/security/phone', { phone }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -23,7 +24,7 @@ export const securityPhone = function (phone: string) {
  */
 export const securityPhoneUpdate = function (phone: string, code: string, identification: string) {
   return request.post('/user/security/phone/update', { phone, code, identification }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -32,7 +33,7 @@ export const securityPhoneUpdate = function (phone: string, code: string, identi
  */
 export const securityEmail = function (email: string) {
   return request.post('/user/security/email', { email }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -41,6 +42,6 @@ export const securityEmail = function (email: string) {
  */
 export const securityEmailUpdate = function (email: string, code: string, identification: string) {
   return request.post('/user/security/email/update', { email, code, identification }).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

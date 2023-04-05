@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 export interface PrimaryKey {
   dictCode: string;
@@ -11,7 +12,7 @@ export interface PrimaryKey {
  */
 export const listByDictCode = function (dictCode: string) {
   return request.get('/master-data/dict-data/' + dictCode).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -21,7 +22,7 @@ export const listByDictCode = function (dictCode: string) {
  */
 export const page = function (data: any) {
   return request.post('/master-data/dict-data/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -31,7 +32,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (data: PrimaryKey) {
   return request.post('/master-data/dict-data/removeById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -41,7 +42,7 @@ export const removeById = function (data: PrimaryKey) {
  */
 export const removeByIds = function (data: PrimaryKey[]) {
   return request.post('/master-data/dict-data/removeByIds', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -51,7 +52,7 @@ export const removeByIds = function (data: PrimaryKey[]) {
  */
 export const getById = function (data: PrimaryKey) {
   return request.post('/master-data/dict-data/getById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -61,7 +62,7 @@ export const getById = function (data: PrimaryKey) {
  */
 export const save = function (data: any) {
   return request.post('/master-data/dict-data/save', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -71,6 +72,6 @@ export const save = function (data: any) {
  */
 export const updateById = function (data: any) {
   return request.post('/master-data/dict-data/updateById', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }

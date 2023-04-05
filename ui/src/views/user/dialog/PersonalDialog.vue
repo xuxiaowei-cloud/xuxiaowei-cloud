@@ -250,43 +250,54 @@ const townCodeChange = (townCode: any) => {
 // 初始化数据
 info().then((response: AjaxResponse<UsersVo>) => {
   const usersVo = response?.data
+  const {
+    provinceCode,
+    cityCode,
+    cityName,
+    countyCode,
+    countyName,
+    townCode,
+    townName,
+    villageCode,
+    villageName
+  } = response?.data
 
   // 此方法仅为了防止闪烁
   cityOptions.value.push({
-    provinceCode: usersVo?.provinceCode,
-    cityCode: usersVo?.cityCode,
-    cityName: usersVo?.cityName
+    provinceCode,
+    cityCode,
+    cityName
   })
   // 创建城市选项
-  city(usersVo?.provinceCode)
+  city(provinceCode)
 
   // 此方法仅为了防止闪烁
   countyOptions.value.push({
-    cityCode: usersVo?.cityCode,
-    countyCode: usersVo?.countyCode,
-    countyName: usersVo?.countyName
+    cityCode,
+    countyCode,
+    countyName
   })
   // 创建区/县选项
-  county(usersVo?.cityCode)
+  county(cityCode)
 
   // 此方法仅为了防止闪烁
   townOptions.value.push({
-    countyCode: usersVo?.countyCode,
-    townCode: usersVo?.townCode,
-    townName: usersVo?.townName
+    countyCode,
+    townCode,
+    townName
   })
   // 创建镇选项
-  town(usersVo?.countyCode)
+  town(countyCode)
 
   // 此方法仅为了防止闪烁
   villageOptions.value.push({
-    townCode: usersVo?.townCode,
-    villageCode: usersVo?.villageCode,
-    villageName: usersVo?.villageName,
+    townCode,
+    villageCode,
+    villageName,
     villageTypeCode: ''
   })
   // 创建居委会选项
-  village(usersVo?.townCode)
+  village(townCode)
 
   for (const name in param) {
     // @ts-ignore

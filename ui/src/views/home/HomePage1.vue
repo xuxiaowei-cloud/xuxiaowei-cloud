@@ -13,10 +13,10 @@ console.error('HomePage1.vue')
 router.isReady().then(() => {
   // @ts-ignore
   const matched = router.currentRoute._value.matched
-  for (const i in matched) {
-    if (matched[i].path === router.currentRoute.value.path) {
+  for (const match of matched) {
+    if (match.path === router.currentRoute.value.path) {
       // 重新进入页面，移除 keep-alive 排除
-      useStore.removeKeepAliveExclude(matched[i].components.default.__name)
+      useStore.removeKeepAliveExclude(match.components.default.__name)
     }
   }
 })

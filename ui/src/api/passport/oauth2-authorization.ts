@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import Resp from '../common'
 
 /**
  * 分页查询授权
@@ -6,7 +7,7 @@ import request from '../../utils/request'
  */
 export const page = function (data: any) {
   return request.post('/passport/oauth2-authorization/page', data).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -16,7 +17,7 @@ export const page = function (data: any) {
  */
 export const removeById = function (id: string) {
   return request.post('/passport/oauth2-authorization/removeById/' + id).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
 
@@ -26,6 +27,6 @@ export const removeById = function (id: string) {
  */
 export const removeByIds = function (ids: string[]) {
   return request.post('/passport/oauth2-authorization/removeByIds', ids).then(response => {
-    return response.data
+    return response.data as Resp<any>
   })
 }
