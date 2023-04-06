@@ -16,6 +16,17 @@
 
       <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm">
 
+        <el-form-item label="">
+          <el-select class="cloud-select" clearable filterable v-model="cloudForm.tenantId"
+                     placeholder="请选择租户">
+            <template #prefix>
+              <el-icon><Histogram/></el-icon>
+            </template>
+            <el-option v-for="item in tenantOptions" :key="item.tenantId" :value="item.tenantId"
+                       :label="item.tenantName"/>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="" prop="username" :rules="[{ required: true, message: '用户名必填' }]">
           <el-input v-model.trim="cloudForm.username" :prefix-icon="User" placeholder="用户名"/>
         </el-form-item>
@@ -134,11 +145,12 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { Key, Lock, Unlock, User } from '@element-plus/icons-vue'
+import { Histogram, Key, Lock, Unlock, User } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { configuration, login } from '../api/passport'
+import { pageLogin } from '../api/tenant'
 import settings from '../settings'
 import Resp from '../api/common'
 
@@ -183,9 +195,21 @@ configuration().then((response : Resp<any>) => {
 
 // 表单中的值
 const cloudForm = reactive({
+  tenantId: '',
   username: '',
   password: '',
   rememberMe: []
+})
+
+interface TenantOption {
+  tenantId: number;
+  tenantName: string;
+}
+
+const tenantOptions = ref<TenantOption[]>()
+
+pageLogin({ current: 1, size: 10 }).then(response => {
+  tenantOptions.value = response.data.records
 })
 
 // 密码输入框类型
@@ -242,7 +266,7 @@ const submitCloudForm = () => {
 
       // encodeURIComponent()
       const homePage = route.query.homePage as string
-      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
+      login(cloudForm.tenantId, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
         console.log(response)
         const msg = response.msg
 
@@ -311,6 +335,7 @@ const submitCloudForm = () => {
   }
 
   .cloud-form .el-input,
+  .cloud-form .cloud-select,
   .remember-me,
   .submit-cloud-form {
     /* xs ：输入框、按钮宽度 */
@@ -323,6 +348,7 @@ const submitCloudForm = () => {
 @media only screen and (min-width: 768px) {
 
   .cloud-form .el-input,
+  .cloud-form .cloud-select,
   .remember-me,
   .submit-cloud-form {
     /* 非 xs ：输入框、按钮宽度 */

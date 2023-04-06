@@ -16,9 +16,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import static cloud.xuxiaowei.utils.Constant.TENANT_ID;
 
 /**
  * 用户详情服务 接口实现
@@ -30,9 +34,16 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	private HttpServletRequest request;
+
 	private IUsersService usersService;
 
 	private CloudSecurityProperties cloudSecurityProperties;
+
+	@Autowired
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
 
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
@@ -46,6 +57,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	/**
 	 * 根据 用户 查询用户信息与权限
+	 * <p>
+	 * 请求参数中不存在租户ID时，使用默认值：1
 	 * @param username 用户名
 	 * @return 返回 用户信息与权限
 	 * @throws UsernameNotFoundException 用户名没有找到异常
@@ -53,7 +66,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Users users = usersService.loadUserByUsername(username);
+		String tenantId = request.getParameter(TENANT_ID);
+		if (!StringUtils.hasText(tenantId)) {
+			tenantId = "1";
+		}
+
+		Users users = usersService.loadUserByTenantIdAndUsername(tenantId, username);
 		if (users == null) {
 			throw new LoginUsernameNotFoundException("用户名不存在");
 		}

@@ -1,7 +1,7 @@
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` (`users_id`, `username`, `email`, `email_valid`, `nickname`, `password`, `sex`, `birthday`, `province_code`, `city_code`, `county_code`, `town_code`, `village_code`, `detail_address`, `enabled`, `account_non_expired`, `credentials_non_expired`, `account_non_locked`, `create_date`, `update_date`, `deleted`) VALUES (1, 'xuxiaowei', 'xuxiaowei@xuxiaowei.com.cn', 1, '徐晓伟', '{bcrypt}$2a$10$UEX4P9awppGO0DACKpGbpOmcViKZqbG5ObTOr8viJJvAh1AFOGHkK', '1', '1994-08-5', 37, 3702, 370213, 370213008, 370213008010, 'XX小区 105-1-505', 1, 1, 1, 1, '2022-04-06 17:32:43', '2022-08-25 02:44:39', 0);
+INSERT INTO `users` (`users_id`, `tenant_id`, `username`, `email`, `email_valid`, `phone`, `phone_valid`, `nickname`, `password`, `sex`, `birthday`, `province_code`, `city_code`, `county_code`, `town_code`, `village_code`, `detail_address`, `enabled`, `account_non_expired`, `credentials_non_expired`, `account_non_locked`, `create_date`, `update_date`, `deleted`) VALUES (1, 1, 'xuxiaowei', 'xuxiaowei@xuxiaowei.com.cn', 1, NULL, 0, '徐晓伟', '{bcrypt}$2a$10$f3p6MR3f8Wg724OASVfRqOs6jvmNQdg4aMXxsaepRrlT0zXdgC242', '1', '1994-08-05', 37, 3702, 370213, 370213008, 370213008010, 'XX小区 105-1-505', 1, 1, 1, 1, '2022-04-06 17:32:43', '2023-04-06 19:50:32', 0);
 
 -- ----------------------------
 -- Records of authority
@@ -171,6 +171,11 @@ INSERT INTO `dict_data`(`dict_code`, `dict_data_code`, `dict_data_label`, `dict_
 INSERT INTO `dict_data`(`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('reset_password_type', '2', '用邮件找回密码', NULL, '用邮件找回密码', NULL, NULL, NULL, '1', '2022-09-21 09:04:41', '127.0.0.1', NULL, '2022-09-21 09:19:28', NULL, 0);
 INSERT INTO `dict_data`(`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('reset_password_type', '3', '用手机号找回密码', NULL, '用手机号找回密码', NULL, NULL, NULL, '1', '2022-09-21 09:05:24', '127.0.0.1', NULL, '2022-09-21 09:19:31', NULL, 0);
 INSERT INTO `dict_data`(`dict_code`, `dict_data_code`, `dict_data_label`, `dict_data_sort`, `dict_data_explain`, `external_code_one`, `external_label_one`, `remark`, `create_users_id`, `create_date`, `create_ip`, `update_users_id`, `update_date`, `update_ip`, `deleted`) VALUES ('reset_password_type', '4', '用户重置密码', NULL, '用户重置密码', NULL, NULL, NULL, '1', '2022-09-21 09:18:45', '127.0.0.1', NULL, NULL, NULL, 0);
+
+-- ----------------------------
+-- Records of tenant
+-- ----------------------------
+INSERT INTO `tenant`(`tenant_id`, `tenant_name`, `users_id`, `enabled`, `domain_name`, `remark`, `create_date`, `update_date`, `create_users_id`, `update_users_id`, `create_ip`, `update_ip`, `deleted`) VALUES (1, '徐晓伟工作室（默认）', 1, 1, NULL, NULL, '2023-04-06 19:13:48', '2023-04-06 19:28:56', '1', NULL, '127.0.0.1', NULL, 0);
 
 -- ----------------------------
 -- Records of oauth2_registered_client

@@ -167,4 +167,9 @@ public class Constant implements Serializable {
 	 */
 	public static final String PATCHCA = "patchca";
 
+	/**
+	 * 租户
+	 */
+	public static final String TENANT_ID = "tenantId";
+
 }

@@ -266,6 +266,8 @@ cloud:
           - /feishu-webpage/authorize/*
           # 飞书网页应用 授权码接收服务
           - /feishu-webpage/code/*
+          # 分页查询租户-登录页面
+          - /tenant/page/login
           # 配置
           - /configuration
           # springdoc

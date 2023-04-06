@@ -36,6 +36,16 @@ public interface IUsersService extends IService<Users> {
 	Users loadUserByUsername(String username);
 
 	/**
+	 * 按租户、用户名加载用户及权限（包含用户组权限）
+	 * <p>
+	 * 权限为空已剔除
+	 * @param tenantId 租户ID
+	 * @param username 用户名
+	 * @return 返回 用户信息及权限（包含用户组权限）
+	 */
+	Users loadUserByTenantIdAndUsername(String tenantId, String username);
+
+	/**
 	 * 根据 用户名 查询用户信息、性别、区域地址及权限
 	 * <p>
 	 * 待加入Redis注解进行数据缓存

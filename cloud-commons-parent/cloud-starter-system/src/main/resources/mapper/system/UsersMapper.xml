@@ -94,6 +94,31 @@
             u.username = #{username} AND u.deleted = 0
     </select>
 
+    <!-- 按租户、用户名加载用户及权限（包含用户组权限） -->
+    <select id="loadUserByTenantIdAndUsername" resultMap="BaseResultMap">
+        SELECT
+            <include refid="users_authorities"/>
+        FROM
+            users AS u
+            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authority as ay ON ay.authority = a.authority
+        WHERE
+            u.tenant_id = #{tenantId} AND u.username = #{username} AND u.deleted = 0
+
+        UNION ALL
+
+        SELECT
+            <include refid="users_group_authorities"/>
+        FROM
+            users u
+            LEFT JOIN group_members AS gm ON gm.username = u.username
+            LEFT JOIN `groups` AS g ON g.id = gm.group_id
+            LEFT JOIN group_authorities AS ga ON ga.group_id = g.id
+            LEFT JOIN authority AS ay ON ay.authority = ga.authority
+        WHERE
+            u.tenant_id = #{tenantId} AND u.username = #{username} AND u.deleted = 0
+    </select>
+
     <!-- 根据 用户主键 查询 -->
     <select id="getByUsersId" resultMap="BaseResultMap">
         SELECT

@@ -82,6 +82,26 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Override
 	public Users loadUserByUsername(String username) {
 		Users users = baseMapper.loadUserByUsername(username);
+		authorities(users);
+		return users;
+	}
+
+	/**
+	 * 按租户、用户名加载用户及权限（包含用户组权限）
+	 * <p>
+	 * 权限为空已剔除
+	 * @param tenantId 租户ID
+	 * @param username 用户名
+	 * @return 返回 用户信息及权限（包含用户组权限）
+	 */
+	@Override
+	public Users loadUserByTenantIdAndUsername(String tenantId, String username) {
+		Users users = baseMapper.loadUserByTenantIdAndUsername(tenantId, username);
+		authorities(users);
+		return users;
+	}
+
+	private void authorities(Users users) {
 		if (users != null) {
 			// 去除 authority 为空的情况
 			List<Authorities> list = new ArrayList<>();
@@ -94,7 +114,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 			}
 			users.setAuthoritiesList(list);
 		}
-		return users;
 	}
 
 	/**

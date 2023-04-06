@@ -31,6 +31,16 @@ public interface UsersMapper extends BaseMapper<Users> {
 	Users loadUserByUsername(@Param("username") String username);
 
 	/**
+	 * 按租户、用户名加载用户及权限（包含用户组权限）
+	 * <p>
+	 * 权限为空已剔除
+	 * @param tenantId 租户ID
+	 * @param username 用户名
+	 * @return 返回 用户信息及权限（包含用户组权限）
+	 */
+	Users loadUserByTenantIdAndUsername(@Param("tenantId") String tenantId, @Param("username") String username);
+
+	/**
 	 * 根据 用户主键 查询用户信息及权限
 	 * @param usersId 用户主键
 	 * @return 返回 用户信息及权限

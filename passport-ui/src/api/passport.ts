@@ -3,6 +3,7 @@ import Resp from './common'
 
 /**
  * 登录
+ * @param tenantId 租户ID
  * @param username 用户名
  * @param password 密码
  * @param rememberMe 记住我
@@ -12,10 +13,11 @@ import Resp from './common'
  * @param redirectUri 授权重定向地址
  * @param homePage 登录成功主页
  */
-export const login = function (username: string, password: string, rememberMe: string, header: string, token: string,
+export const login = function (tenantId: string, username: string, password: string, rememberMe: string, header: string, token: string,
   rememberMeParameter: string, redirectUri: string, homePage: string) {
   // 以 form 提交
   const formData = new FormData()
+  formData.append('tenantId', tenantId)
   formData.append('username', username)
   formData.append('password', password)
   formData.append(rememberMeParameter, rememberMe)
