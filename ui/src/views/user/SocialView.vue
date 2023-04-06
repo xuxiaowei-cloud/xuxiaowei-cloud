@@ -2,7 +2,7 @@
   <!-- 引入微信扫码登录：网站内嵌二维码微信登录 JS -->
   <!-- <component :is="'script'" src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"/> -->
   <el-container>
-    <el-table stripe :data="tableData" v-loading="loading" height="620">
+    <el-table stripe :data="tableData" v-loading="loading" height="680">
       <el-table-column prop="socialName" label="socialName" width="200"/>
       <el-table-column prop="nickname" label="nickname" width="200"/>
       <el-table-column prop="headimgurl" label="headimgurl" width="200">
@@ -99,6 +99,7 @@ const weChatWorkWebsiteUrl = ref()
 const githubUrl = ref()
 const dingtalkUrl = ref()
 const alipayOplatformWebsiteUrl = ref()
+const feiShuWebPageUrl = ref()
 
 configuration().then(response => {
   console.log(response)
@@ -113,6 +114,7 @@ configuration().then(response => {
     githubUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/github/authorize/${response.data.githubAppid}?binding=true&access_token=${useStore.getAccessToken}`
     dingtalkUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/dingtalk/authorize/${response.data.dingtalkAppid}?binding=true&access_token=${useStore.getAccessToken}`
     alipayOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/alipay-oplatform/website/authorize/${response.data.alipayOplatformWebsiteAppid}?binding=true&access_token=${useStore.getAccessToken}`
+    feiShuWebPageUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/feishu-webpage/authorize/${response.data.feiShuWebPageAppid}?binding=true&access_token=${useStore.getAccessToken}`
   } else {
     ElMessage.error(msg)
   }
@@ -148,6 +150,9 @@ const binding = (row: { socialCode: string; }) => {
         break
       case '9':
         location.href = alipayOplatformWebsiteUrl.value
+        break
+      case '10':
+        location.href = feiShuWebPageUrl.value
         break
     }
   }

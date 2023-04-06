@@ -32,6 +32,8 @@
                 SELECT 8 AS social_code, '钉钉' AS social_name
                 UNION ALL
                 SELECT 9 AS social_code, '支付宝' AS social_name
+                UNION ALL
+                SELECT 10 AS social_code, '飞书' AS social_name
             ) t
             LEFT JOIN (
                 SELECT
@@ -157,6 +159,21 @@
                     users_alipay_oplatform_website uaow
                 WHERE
                     uaow.users_id = #{usersId}
+
+                UNION ALL
+
+                SELECT
+                    10 AS social_code,
+                    '飞书' AS social_name,
+                    ufw.`name` AS nickname,
+                    ufw.picture AS headimgurl,
+                    ufw.binding_date AS binding_date,
+                    1 AS binding
+                FROM
+                    users_feishu_webpage ufw
+                WHERE
+                    ufw.users_id = #{usersId}
+
             ) v ON v.social_code = t.social_code
     </select>
 

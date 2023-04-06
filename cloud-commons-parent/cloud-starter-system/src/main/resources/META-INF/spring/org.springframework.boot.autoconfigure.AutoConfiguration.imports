@@ -12,6 +12,7 @@ cloud.xuxiaowei.system.service.impl.UserDetailsServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersAlipayMiniprogramServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersAlipayOplatformWebsiteServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersDingtalkServiceImpl
+cloud.xuxiaowei.system.service.impl.UsersFeishuWebpageServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersGiteeServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersGithubServiceImpl
 cloud.xuxiaowei.system.service.impl.UsersGitlabServiceImpl

@@ -214,7 +214,7 @@ const submitCloudTypePhoneForm = () => {
     margin-right: 0;
   }
 
-  /* 表达宽度 */
+  /* 表单宽度 */
   .cloud-form {
     width: 300px;
   }

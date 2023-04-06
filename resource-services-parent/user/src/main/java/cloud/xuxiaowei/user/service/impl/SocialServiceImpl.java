@@ -41,6 +41,8 @@ public class SocialServiceImpl implements SocialService {
 
 	private IUsersAlipayOplatformWebsiteService usersAlipayOplatformWebsiteService;
 
+	private IUsersFeishuWebpageService usersFeishuWebpageService;
+
 	@Autowired
 	public void setUsersWxOpenWebsiteService(IUsersWxOpenWebsiteService usersWxOpenWebsiteService) {
 		this.usersWxOpenWebsiteService = usersWxOpenWebsiteService;
@@ -87,6 +89,11 @@ public class SocialServiceImpl implements SocialService {
 		this.usersAlipayOplatformWebsiteService = usersAlipayOplatformWebsiteService;
 	}
 
+	@Autowired
+	public void setUsersFeishuWebpageService(IUsersFeishuWebpageService usersFeishuWebpageService) {
+		this.usersFeishuWebpageService = usersFeishuWebpageService;
+	}
+
 	/**
 	 * 根据用户主键获取社交绑定
 	 * @param usersId 用户主键
@@ -124,6 +131,8 @@ public class SocialServiceImpl implements SocialService {
 				return usersDingtalkService.unbinding(usersId);
 			case "9":
 				return usersAlipayOplatformWebsiteService.unbinding(usersId);
+			case "10":
+				return usersFeishuWebpageService.unbinding(usersId);
 			default:
 				return false;
 		}
