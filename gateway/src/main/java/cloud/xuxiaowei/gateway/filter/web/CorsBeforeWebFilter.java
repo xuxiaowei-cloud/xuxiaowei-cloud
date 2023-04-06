@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.gateway.filter.web;
 
 import cloud.xuxiaowei.core.properties.CloudCorsProperties;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.reactive.RequestUtils;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class CorsBeforeWebFilter implements WebFilter, Ordered {
 		String origin = RequestUtils.getOrigin(request);
 
 		// origin 为空时的处理
-		if (origin == null || Constant.NULL.equals(origin)) {
+		if (origin == null || Constants.NULL.equals(origin)) {
 			List<String> allowOrginNullList = cloudCorsProperties.getAllowOrginNullList();
 			if (allowOrginNullList != null) {
 				// 解决 form action 提交数据无 origin 跨域问题

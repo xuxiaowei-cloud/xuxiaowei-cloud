@@ -38,7 +38,7 @@ public interface UsersMapper extends BaseMapper<Users> {
 	 * @param username 用户名
 	 * @return 返回 用户信息及权限（包含用户组权限）
 	 */
-	Users loadUserByTenantIdAndUsername(@Param("tenantId") String tenantId, @Param("username") String username);
+	Users loadUserByTenantIdAndUsername(@Param("tenantId") Long tenantId, @Param("username") String username);
 
 	/**
 	 * 根据 用户主键 查询用户信息及权限

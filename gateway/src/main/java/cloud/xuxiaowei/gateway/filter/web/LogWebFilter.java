@@ -111,28 +111,31 @@ public class LogWebFilter implements WebFilter, Ordered {
 		// 日志中放入请求ID、主机名
 		String requestId = request.getId();
 		String hostName = InetAddressUtils.getHostName();
-		MDC.put(Constant.REQUEST_ID, requestId);
-		MDC.put(Constant.HOST_NAME, hostName);
+		MDC.put(MdcConstants.REQUEST_ID, requestId);
+		MDC.put(MdcConstants.HOST_NAME, hostName);
 
 		InetSocketAddress remoteAddress = request.getRemoteAddress();
 		if (remoteAddress != null) {
 			InetAddress address = remoteAddress.getAddress();
 			String hostAddress = address.getHostAddress();
-			MDC.put(Constant.IP, hostAddress);
+			MDC.put(MdcConstants.IP, hostAddress);
 		}
 
 		String authorization = RequestUtils.getAuthorization(request);
 		Map<String, String> payloadMap = SecurityUtils.getPayloadStringMap(authorization);
-		String usersId = payloadMap.get(Constant.USERS_ID);
-		MDC.put(Constant.USERS_ID, usersId);
+		String usersId = payloadMap.get(Constants.USERS_ID);
+		MDC.put(MdcConstants.USERS_ID, usersId);
 
-		String username = payloadMap.get(Constant.USERNAME);
+		String tenantId = payloadMap.get(Constants.TENANT_ID);
+		MDC.put(MdcConstants.TENANT_ID, tenantId);
+
+		String username = payloadMap.get(Constants.USERNAME);
 		String sub = payloadMap.get(JwtClaimNames.SUB);
 		if (StringUtils.hasText(username)) {
-			MDC.put(Constant.NAME, username);
+			MDC.put(MdcConstants.NAME, username);
 		}
 		else if (StringUtils.hasText(sub)) {
-			MDC.put(Constant.NAME, sub);
+			MDC.put(MdcConstants.NAME, sub);
 		}
 	}
 

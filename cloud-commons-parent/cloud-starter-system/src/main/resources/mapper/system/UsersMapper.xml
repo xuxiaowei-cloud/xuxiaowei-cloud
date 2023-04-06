@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Users">
         <id column="users_id" property="usersId" />
+        <result column="tenant_id" property="tenantId" />
         <result column="username" property="username" />
         <result column="email" property="email" />
         <result column="email_valid" property="emailValid" />

@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.user.controller;
 
 import cloud.xuxiaowei.core.properties.CloudPatchcaProperties;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.github.bingoohuang.patchca.custom.ConfigurableCaptchaService;
 import com.github.bingoohuang.patchca.filter.predefined.*;
@@ -190,7 +190,7 @@ public class PatchcaController {
 	 */
 	private void redisStore(String sessionId, String challenge) {
 
-		String key = Constant.PATCHCA + ":" + sessionId;
+		String key = Constants.PATCHCA + ":" + sessionId;
 
 		// 将图片验证码放入Redis中
 		stringRedisTemplate.opsForValue().set(key, challenge, Duration.ofMinutes(cloudPatchcaProperties.getMinutes()));

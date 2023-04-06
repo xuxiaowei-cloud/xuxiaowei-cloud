@@ -5,6 +5,7 @@ import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,6 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-
-import static cloud.xuxiaowei.utils.Constant.TENANT_ID;
 
 /**
  * 用户详情服务 接口实现
@@ -66,9 +65,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		String tenantId = request.getParameter(TENANT_ID);
-		if (!StringUtils.hasText(tenantId)) {
-			tenantId = "1";
+		long tenantId;
+		String tenantIdStr = request.getParameter(Constants.TENANT_ID);
+		if (StringUtils.hasText(tenantIdStr)) {
+			try {
+				tenantId = Long.parseLong(tenantIdStr);
+			}
+			catch (Exception e) {
+				throw new LoginException(CodeEnums.A10012.code, CodeEnums.A10012.msg);
+			}
+		}
+		else {
+			tenantId = 1L;
 		}
 
 		Users users = usersService.loadUserByTenantIdAndUsername(tenantId, username);

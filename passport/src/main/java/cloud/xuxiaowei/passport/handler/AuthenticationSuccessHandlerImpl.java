@@ -5,7 +5,7 @@ import cloud.xuxiaowei.passport.entity.UsersLogin;
 import cloud.xuxiaowei.passport.service.IUsersLoginService;
 import cloud.xuxiaowei.passport.utils.HandlerUtils;
 import cloud.xuxiaowei.system.service.IUsersService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -84,8 +84,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		// 将当前用户ID放入日志中
 		Long usersId = SecurityUtils.getUsersId(authentication);
 
-		MDC.put(Constant.NAME, userName);
-		MDC.put(Constant.USERS_ID, String.valueOf(usersId));
+		MDC.put(MdcConstants.NAME, userName);
+		MDC.put(MdcConstants.USERS_ID, String.valueOf(usersId));
 
 		UsersLogin usersLogin = HandlerUtils.usersLogin(userName, true, request, null);
 		usersLoginService.save(usersLogin);

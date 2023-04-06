@@ -2,7 +2,7 @@ package cloud.xuxiaowei.passport.configuration;
 
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
@@ -65,7 +65,7 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 
 			// 放入用户名
 			String name = principal.getName();
-			claims.claim(Constant.USERNAME, name);
+			claims.claim(Constants.USERNAME, name);
 
 			// 放入用户ID
 			Users users = usersService.getByUsername(name);
@@ -78,7 +78,12 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 				// enable default typing.
 				// See https://github.com/spring-projects/spring-security/issues/4370
 				// for details
-				claims.claim(Constant.USERS_ID, String.valueOf(users.getUsersId()));
+
+				// 用户ID
+				claims.claim(Constants.USERS_ID, String.valueOf(users.getUsersId()));
+
+				// 租户ID
+				claims.claim(Constants.TENANT_ID, String.valueOf(users.getTenantId()));
 			}
 
 			// 用户权限
@@ -91,7 +96,7 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 			authorities.addAll(authorizedScopes);
 
 			// 将合并权限放入 JWT 中
-			claims.claim(Constant.AUTHORITIES, authorities);
+			claims.claim(Constants.AUTHORITIES, authorities);
 
 			/// 微信用户的权限特殊处理
 			// 增加微信特有数据

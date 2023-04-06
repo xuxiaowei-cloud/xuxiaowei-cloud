@@ -3,8 +3,8 @@ package cloud.xuxiaowei.passport.utils;
 import cloud.xuxiaowei.passport.entity.UsersLogin;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
-import cloud.xuxiaowei.utils.Constant;
 import cloud.xuxiaowei.utils.DateUtils;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.exception.ExceptionUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
@@ -47,7 +47,7 @@ public class HandlerUtils {
 		String queryString = request.getQueryString();
 		String headersMap = RequestUtils.getHeadersJson(request);
 		String userAgent = RequestUtils.getUserAgent(request);
-		String requestId = MDC.get(Constant.REQUEST_ID);
+		String requestId = MDC.get(MdcConstants.REQUEST_ID);
 		HttpSession session = request.getSession(false);
 
 		String sessionId;

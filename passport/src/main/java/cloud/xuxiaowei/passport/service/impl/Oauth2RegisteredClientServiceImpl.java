@@ -9,7 +9,7 @@ import cloud.xuxiaowei.passport.mapper.Oauth2RegisteredClientMapper;
 import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.passport.vo.Oauth2RegisteredClientVo;
 import cloud.xuxiaowei.system.service.SessionService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.validation.utils.ValidationUtils;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -332,7 +332,7 @@ public class Oauth2RegisteredClientServiceImpl extends ServiceImpl<Oauth2Registe
 			return null;
 		}
 
-		String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
+		String privateKey = sessionService.getAttr(Constants.PRIVATE_KEY + ":" + code);
 
 		String clientSecretDecrypt;
 		if (StringUtils.hasText(privateKey)) {

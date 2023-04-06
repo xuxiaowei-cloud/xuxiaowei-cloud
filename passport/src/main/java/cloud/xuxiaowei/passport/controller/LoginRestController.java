@@ -2,6 +2,7 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URL;
 import java.util.UUID;
-
-import static cloud.xuxiaowei.utils.Constant.UNDEFINED;
 
 /**
  * 登录
@@ -64,7 +63,7 @@ public class LoginRestController {
 			log.info("使用默认授权重定向地址：{}", redirectUri);
 		}
 
-		if (StringUtils.hasText(homePage) && !UNDEFINED.equals(homePage)) {
+		if (StringUtils.hasText(homePage) && !Constants.UNDEFINED.equals(homePage)) {
 			try {
 				new URL(homePage);
 				log.info("使用登录参数中的登录成功主页地址：{}", homePage);

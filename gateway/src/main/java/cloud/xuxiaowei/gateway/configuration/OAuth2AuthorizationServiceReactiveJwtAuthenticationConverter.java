@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.gateway.configuration;
 
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import org.slf4j.MDC;
 import org.springframework.core.convert.converter.Converter;
@@ -53,8 +53,8 @@ public class OAuth2AuthorizationServiceReactiveJwtAuthenticationConverter
 		// 将当前用户ID放入日志中
 		Long usersId = SecurityUtils.getUsersId(jwt);
 
-		MDC.put(Constant.NAME, userName);
-		MDC.put(Constant.USERS_ID, String.valueOf(usersId));
+		MDC.put(MdcConstants.NAME, userName);
+		MDC.put(MdcConstants.USERS_ID, String.valueOf(usersId));
 
 		String tokenValue = jwt.getTokenValue();
 		OAuth2Authorization authorization = authorizationService.findByToken(tokenValue, OAuth2TokenType.ACCESS_TOKEN);

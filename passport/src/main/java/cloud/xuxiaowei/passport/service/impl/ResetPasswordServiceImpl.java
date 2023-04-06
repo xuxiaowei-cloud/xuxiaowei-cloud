@@ -3,7 +3,7 @@ package cloud.xuxiaowei.passport.service.impl;
 import cloud.xuxiaowei.passport.entity.ResetPassword;
 import cloud.xuxiaowei.passport.mapper.ResetPasswordMapper;
 import cloud.xuxiaowei.passport.service.IResetPasswordService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -43,7 +43,7 @@ public class ResetPasswordServiceImpl extends ServiceImpl<ResetPasswordMapper, R
 		String authorization = RequestUtils.getAuthorization(request);
 		String payload = SecurityUtils.getPayload(authorization);
 		String userAgent = RequestUtils.getUserAgent(request);
-		String requestId = MDC.get(Constant.REQUEST_ID);
+		String requestId = MDC.get(MdcConstants.REQUEST_ID);
 
 		ResetPassword resetPassword = new ResetPassword();
 		resetPassword.setUsersId(usersId);

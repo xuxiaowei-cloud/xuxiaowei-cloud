@@ -10,7 +10,7 @@ import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
 import cloud.xuxiaowei.utils.AssertUtils;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -266,9 +266,9 @@ public class UserRestController {
 		// 获取公钥
 		String publicKey = generate.getPublicKeyBase64();
 		// 识别码
-		String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+		String code = RandomStringUtils.random(6, Joiner.on("").join(Constants.UPPER_CASE_LIST));
 
-		sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
+		sessionService.setAttr(Constants.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 
 		return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
 	}

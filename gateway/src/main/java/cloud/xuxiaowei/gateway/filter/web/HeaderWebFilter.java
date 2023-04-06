@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.gateway.filter.web;
 
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import lombok.Setter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
@@ -51,7 +51,7 @@ public class HeaderWebFilter implements WebFilter, Ordered {
 		String requestId = request.getId();
 
 		LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
-		headersMap.put(Constant.REQUEST_ID, requestId);
+		headersMap.put(MdcConstants.REQUEST_ID, requestId);
 
 		Consumer<HttpHeaders> httpHeaders = httpHeader -> {
 			for (Map.Entry<String, String> entry : headersMap.entrySet()) {

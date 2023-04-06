@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.oauth2.configuration;
 
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.annotation.Secured;
@@ -36,7 +36,7 @@ public class JwtAuthenticationConverterConfiguration {
 	public JwtAuthenticationConverter jwtAuthenticationConverter() {
 		JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 		// 设置Token中获取权限数据的声明名称
-		grantedAuthoritiesConverter.setAuthoritiesClaimName(Constant.AUTHORITIES);
+		grantedAuthoritiesConverter.setAuthoritiesClaimName(Constants.AUTHORITIES);
 		// 设置成无前缀
 		grantedAuthoritiesConverter.setAuthorityPrefix("");
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();

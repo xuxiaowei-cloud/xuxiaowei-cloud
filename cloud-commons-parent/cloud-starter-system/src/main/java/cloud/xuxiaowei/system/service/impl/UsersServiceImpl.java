@@ -10,7 +10,7 @@ import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.AuthorityVo;
 import cloud.xuxiaowei.system.vo.UsersVo;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.validation.utils.ValidationUtils;
@@ -95,7 +95,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 * @return 返回 用户信息及权限（包含用户组权限）
 	 */
 	@Override
-	public Users loadUserByTenantIdAndUsername(String tenantId, String username) {
+	public Users loadUserByTenantIdAndUsername(Long tenantId, String username) {
 		Users users = baseMapper.loadUserByTenantIdAndUsername(tenantId, username);
 		authorities(users);
 		return users;
@@ -303,7 +303,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		if (password == null || Boolean.FALSE.toString().equals(password)) {
 			return null;
 		}
-		String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
+		String privateKey = sessionService.getAttr(Constants.PRIVATE_KEY + ":" + code);
 
 		String passwordDecrypt;
 		if (StringUtils.hasText(privateKey)) {

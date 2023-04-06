@@ -1,6 +1,6 @@
 package cloud.xuxiaowei.mybatis.configuration;
 
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
 	}
 
 	private String ip() {
-		String ip = MDC.get(Constant.IP);
+		String ip = MDC.get(MdcConstants.IP);
 		return ip == null ? "" : ip;
 	}
 
