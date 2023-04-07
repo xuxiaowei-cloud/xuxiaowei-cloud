@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log`  (
   `log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志表，主键，自增',
+  `tenant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `module` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模块，不为空',
   `date` date NOT NULL COMMENT '日期，不为空',
   `year` int NOT NULL COMMENT '年，不为空',

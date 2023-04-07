@@ -35,10 +35,10 @@ public interface IAuthorityService extends IService<Authority> {
 	IPage<Authority> pageByAuthorityPageBo(AuthorityPageBo authorityPageBo);
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
-	Set<AuthorityVo> listByUsername(String username);
+	Set<AuthorityVo> listByUsersId(Long usersId);
 
 }

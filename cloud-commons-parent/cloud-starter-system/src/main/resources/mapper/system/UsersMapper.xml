@@ -38,11 +38,18 @@
 
         <!-- 权限 -->
         <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
-            <id column="a_username" property="username" />
-            <id column="a_authority" property="authority" />
-            <result column="a_explain" property="explain" />
-            <result column="a_update_date" property="updateDate" />
+            <id column="a_authorities_id" property="authoritiesId" />
+            <result column="a_users_id" property="usersId" />
+            <result column="a_authority" property="authority" />
+            <result column="a_remark" property="remark" />
+            <result column="a_create_users_id" property="createUsersId" />
             <result column="a_create_date" property="createDate" />
+            <result column="a_create_ip" property="createIp" />
+            <result column="a_update_users_id" property="updateUsersId" />
+            <result column="a_update_date" property="updateDate" />
+            <result column="a_update_ip" property="updateIp" />
+            <result column="a_deleted" property="deleted" />
+            <result column="a_explain" property="explain" />
         </collection>
 
     </resultMap>
@@ -50,9 +57,9 @@
     <!-- 用户、权限 -->
     <sql id="users_authorities">
         u.*,
-        a.username      AS a_username,
+        a.users_id      AS a_users_id,
         a.authority     AS a_authority,
-        ay.explain      AS a_explain,
+        ay.`explain`      AS a_explain,
         a.update_date   AS a_update_date,
         a.create_date   AS a_create_date
     </sql>
@@ -60,9 +67,9 @@
     <!-- 用户、权限组 -->
     <sql id="users_group_authorities">
         u.*,
-        u.username      AS a_username,
+        u.users_id      AS a_users_id,
         ga.authority    AS a_authority,
-        ay.explain      AS a_explain,
+        ay.`explain`      AS a_explain,
         NULL            AS a_update_date,
         NULL            AS a_create_date
     </sql>
@@ -76,7 +83,7 @@
             <include refid="users_authorities"/>
         FROM
             users AS u
-            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authorities AS a ON u.users_id = a.users_id
             LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE
             u.username = #{username} AND u.deleted = 0
@@ -101,7 +108,7 @@
             <include refid="users_authorities"/>
         FROM
             users AS u
-            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authorities AS a ON u.users_id = a.users_id
             LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE
             u.tenant_id = #{tenantId} AND u.username = #{username} AND u.deleted = 0
@@ -126,7 +133,7 @@
             <include refid="users_authorities"/>
         FROM
             users AS u
-            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authorities AS a ON u.users_id = a.users_id
             LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE
             u.users_id = #{usersId} AND u.deleted = 0
@@ -145,7 +152,7 @@
             vh.village_name
         FROM
             users AS u
-            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authorities AS a ON u.users_id = a.users_id
             LEFT JOIN authority AS ay ON ay.authority = a.authority
             LEFT JOIN dict_data AS dd ON dd.dict_data_code = u.sex AND dd.dict_code = 'sex'
             LEFT JOIN province_handle AS ph ON ph.province_code = u.province_code

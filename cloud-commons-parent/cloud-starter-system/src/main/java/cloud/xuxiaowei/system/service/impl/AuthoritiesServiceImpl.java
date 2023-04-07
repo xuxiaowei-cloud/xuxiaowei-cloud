@@ -41,27 +41,27 @@ public class AuthoritiesServiceImpl extends ServiceImpl<AuthoritiesMapper, Autho
 	}
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
 	@Override
-	public List<Authorities> listByUsername(String username) {
+	public List<Authorities> listByUsersId(Long usersId) {
 		QueryWrapper<Authorities> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq("username", username);
+		queryWrapper.eq("users_id", usersId);
 		return list(queryWrapper);
 	}
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
 	@Override
-	public Set<String> listAuthorityByUsername(String username) {
+	public Set<String> listAuthorityByUsersId(Long usersId) {
 		QueryWrapper<Authorities> queryWrapper = new QueryWrapper<>();
 		queryWrapper.select("authority");
-		queryWrapper.eq("username", username);
+		queryWrapper.eq("users_id", usersId);
 		return new HashSet<>(listObjs(queryWrapper, object -> {
 			if (object == null) {
 				return null;
@@ -81,8 +81,8 @@ public class AuthoritiesServiceImpl extends ServiceImpl<AuthoritiesMapper, Autho
 	@Transactional(rollbackFor = Exception.class)
 	public boolean saveByAuthoritiesSaveBo(AuthoritiesSaveBo authoritiesSaveBo) {
 
-		String username = authoritiesSaveBo.getUsername();
-		Set<String> authorityDatabaseList = listAuthorityByUsername(username);
+		Long usersId = authoritiesSaveBo.getUsersId();
+		Set<String> authorityDatabaseList = listAuthorityByUsersId(usersId);
 
 		Set<String> authorityList = authoritiesSaveBo.getAuthorityList();
 
@@ -97,29 +97,29 @@ public class AuthoritiesServiceImpl extends ServiceImpl<AuthoritiesMapper, Autho
 			for (String add : addSet) {
 				Authorities authorities = new Authorities();
 				authorities.setAuthority(add);
-				authorities.setUsername(username);
+				authorities.setUsersId(usersId);
 				authoritiesList.add(authorities);
 			}
 			boolean saveBatch = authoritiesService.saveBatch(authoritiesList);
 		}
 
 		if (removeSet.size() > 0) {
-			boolean remove = authoritiesService.removeByUsernameAndAuthoritiesList(username, removeSet);
+			boolean remove = authoritiesService.removeByUsersIdAndAuthoritiesList(usersId, removeSet);
 		}
 
 		return true;
 	}
 
 	/**
-	 * 根据 用户名、权限 删除
-	 * @param username 用户名
+	 * 根据 用户ID、权限 删除
+	 * @param usersId 用户ID
 	 * @param authorityList 权限
 	 * @return 返回 删除结果
 	 */
 	@Override
-	public boolean removeByUsernameAndAuthoritiesList(String username, Set<String> authorityList) {
+	public boolean removeByUsersIdAndAuthoritiesList(Long usersId, Set<String> authorityList) {
 		QueryWrapper<Authorities> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq("username", username);
+		queryWrapper.eq("users_id", usersId);
 		queryWrapper.in("authority", authorityList);
 		return remove(queryWrapper);
 	}

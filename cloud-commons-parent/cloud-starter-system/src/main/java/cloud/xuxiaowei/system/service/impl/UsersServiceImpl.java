@@ -236,7 +236,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 			UsersVo usersVo = new UsersVo();
 			BeanUtils.copyProperties(users, usersVo);
 
-			Set<AuthorityVo> authorityList = authorityService.listByUsername(usersVo.getUsername());
+			Set<AuthorityVo> authorityList = authorityService.listByUsersId(usersVo.getUsersId());
 			usersVo.setAuthorityList(authorityList);
 
 			usersVoList.add(usersVo);

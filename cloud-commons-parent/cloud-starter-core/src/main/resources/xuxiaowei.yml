@@ -202,3 +202,48 @@ springdoc:
     # 展开深度
     default-models-expand-depth: 10
     default-model-expand-depth: 10
+
+---
+
+cloud:
+  mybatis-plus:
+    ignore-tables:
+      # 权限与权限说明表
+      - authority
+      # 权限表
+      - authorities
+      # 权限组
+      - groups
+      - "`groups`"
+      - group_authorities
+      - group_members
+      # 省
+      - province_handle
+      # 市
+      - city_handle
+      # 区
+      - county_handle
+      # 镇
+      - town_handle
+      # 居委会
+      - village_handle
+      # 字典
+      - dict
+      # 字典数据
+      - dict_data
+      # 社交用户表
+      - users_alipay_miniprogram
+      - users_alipay_oplatform_website
+      - users_dingtalk
+      - users_feishu_webpage
+      - users_gitee
+      - users_github
+      - users_gitlab
+      - users_login
+      - users_qq_miniprogram
+      - users_qq_website
+      - users_wei_bo_website
+      - users_wx_ma
+      - users_wx_mp
+      - users_wx_open_website
+      - users_wx_work_website
