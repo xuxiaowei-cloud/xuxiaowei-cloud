@@ -16,6 +16,7 @@
         <result column="scopes" property="scopes" />
         <result column="client_settings" property="clientSettings" />
         <result column="token_settings" property="tokenSettings" />
+        <result column="tenant_id" property="tenantId" />
     </resultMap>
 
 </mapper>
