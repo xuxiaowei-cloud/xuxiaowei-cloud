@@ -14,6 +14,9 @@
  Date: 19/02/2023 23:37:03
 */
 
+CREATE database if NOT EXISTS `xuxiaowei_cloud_log` default character set utf8mb4 collate utf8mb4_general_ci;
+use `xuxiaowei_cloud_log`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
