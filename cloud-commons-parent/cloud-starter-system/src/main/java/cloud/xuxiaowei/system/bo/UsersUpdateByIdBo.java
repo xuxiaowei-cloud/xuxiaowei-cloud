@@ -42,7 +42,7 @@ public class UsersUpdateByIdBo implements Serializable {
 	/**
 	 * 昵称，不能为空，唯一键：uk__users__nickname
 	 */
-	@Length(min = 2, max = 10, message = "昵称 长度限制：2-10")
+	@Length(min = 2, max = 16, message = "昵称 长度限制：2-16")
 	@NotEmpty(message = "昵称 不能为空")
 	private String nickname;
 
