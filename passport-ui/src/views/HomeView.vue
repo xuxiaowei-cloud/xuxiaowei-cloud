@@ -203,7 +203,7 @@ const cloudForm = reactive({
 })
 
 interface TenantOption {
-  tenantId: number;
+  tenantId: string;
   tenantName: string;
   clientId: string;
   clientName: string;
@@ -270,11 +270,13 @@ const submitCloudForm = () => {
       // encodeURIComponent()
       const homePage = route.query.homePage as string
 
-      let tenantId = cloudForm.tenantId == '' ? '1' : cloudForm.tenantId
-      for (let tenantOption of tenantOptions.value) {
-        if (tenantOption.tenantId == tenantId) {
-          cloudForm.clientId = tenantOption.clientId
-          break
+      const tenantId = cloudForm.tenantId === '' ? '1' : cloudForm.tenantId
+      if (tenantOptions.value !== undefined) {
+        for (const tenantOption of tenantOptions.value) {
+          if (tenantOption.tenantId === tenantId) {
+            cloudForm.clientId = tenantOption.clientId
+            break
+          }
         }
       }
 

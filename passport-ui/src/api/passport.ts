@@ -15,7 +15,7 @@ import Resp from './common'
  * @param homePage 登录成功主页
  */
 export const login = function (tenantId: string, clientId: string, username: string, password: string, rememberMe: string, header: string, token: string,
-                               rememberMeParameter: string, redirectUri: string, homePage: string) {
+  rememberMeParameter: string, redirectUri: string, homePage: string) {
   // 以 form 提交
   const formData = new FormData()
   formData.append('tenantId', tenantId)
