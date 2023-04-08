@@ -18,6 +18,12 @@
             <el-form-item label="registeredClientId">
               <el-input v-model="props.row.registeredClientId" class="cloud-el-expand-input" disabled/>
             </el-form-item>
+            <el-form-item label="clientId">
+              <el-input v-model="props.row.clientId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="clientName">
+              <el-input v-model="props.row.clientName" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
             <el-form-item label="principalName">
               <el-input v-model="props.row.principalName" class="cloud-el-expand-input" disabled/>
             </el-form-item>
@@ -86,6 +92,8 @@
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="id" label="id" width="100" :show-overflow-tooltip="true"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="150" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientId" label="clientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientName" label="clientName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="accessTokenIssuedAt" label="accessTokenIssuedAt" width="180"/>
       <el-table-column prop="accessTokenExpiresAt" label="accessTokenExpiresAt" width="180"/>

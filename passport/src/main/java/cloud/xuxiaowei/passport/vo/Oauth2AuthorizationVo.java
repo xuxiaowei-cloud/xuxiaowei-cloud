@@ -75,4 +75,8 @@ public class Oauth2AuthorizationVo implements Serializable {
 
 	private String refreshTokenMetadata;
 
+	private String clientId;
+
+	private String clientName;
+
 }

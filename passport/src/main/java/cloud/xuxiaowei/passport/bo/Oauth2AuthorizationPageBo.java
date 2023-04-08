@@ -18,12 +18,12 @@ public class Oauth2AuthorizationPageBo implements Serializable {
 	/**
 	 * 当前页，默认值：1
 	 */
-	private Long current;
+	private long current = 1L;
 
 	/**
 	 * 每页显示条数，默认值：10
 	 */
-	private Long size;
+	private long size = 10L;
 
 	/**
 	 * 客户ID

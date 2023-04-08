@@ -9,11 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,39 +38,18 @@ public class Oauth2AuthorizationServiceImpl extends ServiceImpl<Oauth2Authorizat
 	@Override
 	public IPage<Oauth2AuthorizationVo> pageByOauth2AuthorizationPageBo(
 			Oauth2AuthorizationPageBo oauth2AuthorizationPageBo) {
-		QueryWrapper<Oauth2Authorization> queryWrapper = new QueryWrapper<>();
-		queryWrapper.orderByDesc("access_token_issued_at");
 		Long current = oauth2AuthorizationPageBo.getCurrent();
 		Long size = oauth2AuthorizationPageBo.getSize();
 
-		String registeredClientId = oauth2AuthorizationPageBo.getRegisteredClientId();
-		String principalName = oauth2AuthorizationPageBo.getPrincipalName();
+		int total = baseMapper.countByOauth2AuthorizationPageBo(oauth2AuthorizationPageBo);
+		List<Oauth2AuthorizationVo> records = baseMapper.listByOauth2AuthorizationPageBo(oauth2AuthorizationPageBo);
 
-		if (StringUtils.hasText(registeredClientId)) {
-			queryWrapper.eq("registered_client_id", registeredClientId);
-		}
-		if (StringUtils.hasText(principalName)) {
-			queryWrapper.eq("principal_name", principalName);
-		}
+		IPage<Oauth2AuthorizationVo> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
 
-		IPage<Oauth2Authorization> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
-		page(page, queryWrapper);
+		page.setTotal(total);
+		page.setRecords(records);
 
-		Page<Oauth2AuthorizationVo> oauth2AuthorizationVoPage = new Page<>();
-		BeanUtils.copyProperties(page, oauth2AuthorizationVoPage);
-
-		List<Oauth2AuthorizationVo> oauth2AuthorizationVoList = new ArrayList<>();
-		oauth2AuthorizationVoPage.setRecords(oauth2AuthorizationVoList);
-
-		List<Oauth2Authorization> records = page.getRecords();
-		for (Oauth2Authorization oauth2Authorization : records) {
-			Oauth2AuthorizationVo oauth2AuthorizationVo = new Oauth2AuthorizationVo();
-			BeanUtils.copyProperties(oauth2Authorization, oauth2AuthorizationVo);
-
-			oauth2AuthorizationVoList.add(oauth2AuthorizationVo);
-		}
-
-		return oauth2AuthorizationVoPage;
+		return page;
 	}
 
 	/**

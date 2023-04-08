@@ -12,6 +12,8 @@
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientId" label="clientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientName" label="clientName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="authorities" label="authorities" width="180" :show-overflow-tooltip="true"/>
       <el-table-column fixed="right" label="Operations" width="100" v-permission="'audit_authorization_consent:delete'">

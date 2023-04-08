@@ -247,3 +247,7 @@ cloud:
       - users_wx_mp
       - users_wx_open_website
       - users_wx_work_website
+      # 授权表
+      - oauth2_authorization
+      # 授权同意书表
+      - oauth2_authorization_consent
