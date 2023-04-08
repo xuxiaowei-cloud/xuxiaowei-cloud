@@ -7,10 +7,10 @@
     <el-input class="cloud-el-input" clearable v-model="param.nickname" placeholder="Please input nickname"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'manage_user:delete'">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'manage_user:add'">添加
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^manage_user:(delete|\*)$/">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="/^manage_user:(add|\*)$/">添加
     </el-button>
-    <el-button class="cloud-el-manage_user_token_delete" @click="cloudTokenDelete" v-permission="'manage_user:token_delete'">
+    <el-button class="cloud-el-manage_user_token_delete" @click="cloudTokenDelete" v-permission="/^manage_user:(token_delete|\*)$/">
       删除Token
     </el-button>
   </div>
@@ -60,14 +60,14 @@
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
       <el-table-column fixed="right" label="Operations" width="230"
-                       v-permission="['manage_user:delete', 'manage_user:edit', 'manage_user:authority']">
+                       v-permission="[/^manage_user:(delete|edit|authority|\*)$/]">
         <template #default="scope">
-          <el-button size="small" @click="deleteUsersId(scope.row)" v-permission="'manage_user:delete'">Delete
+          <el-button size="small" @click="deleteUsersId(scope.row)" v-permission="/^manage_user:(delete|\*)$/">Delete
           </el-button>
-          <el-button size="small" @click="editUsersId(scope.row.usersId)" v-permission="'manage_user:edit'">Edit
+          <el-button size="small" @click="editUsersId(scope.row.usersId)" v-permission="/^manage_user:(edit|\*)$/">Edit
           </el-button>
           <el-button size="small" @click="editUsersAuthorityId(scope.row.usersId)"
-                     v-permission="'manage_user:authority'">Authority
+                     v-permission="/^manage_user:(authority|\*)$/">Authority
           </el-button>
         </template>
       </el-table-column>
