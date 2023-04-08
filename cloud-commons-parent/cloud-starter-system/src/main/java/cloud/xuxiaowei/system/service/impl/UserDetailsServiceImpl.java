@@ -6,8 +6,10 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.CodeEnums;
 import cloud.xuxiaowei.utils.Constants;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -65,21 +66,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		long tenantId;
-		String tenantIdStr = request.getParameter(Constants.TENANT_ID);
-		if (StringUtils.hasText(tenantIdStr)) {
-			try {
-				tenantId = Long.parseLong(tenantIdStr);
-			}
-			catch (Exception e) {
-				throw new LoginException(CodeEnums.A10012.code, CodeEnums.A10012.msg);
-			}
-		}
-		else {
-			tenantId = 1L;
-		}
+		String tenantId = request.getParameter(Constants.TENANT_ID);
 
-		Users users = usersService.loadUserByTenantIdAndUsername(tenantId, username);
+		// 设置临时租户ID
+		MDC.put(MdcConstants.TMP_TENANT_ID, tenantId);
+
+		Users users = usersService.loadUserByUsername(username);
 		if (users == null) {
 			throw new LoginUsernameNotFoundException("用户名不存在");
 		}

@@ -251,3 +251,5 @@ cloud:
       - oauth2_authorization
       # 授权同意书表
       - oauth2_authorization_consent
+      # 租户表
+      - tenant
