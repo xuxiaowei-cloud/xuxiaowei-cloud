@@ -23,6 +23,11 @@ public class MdcConstants implements Serializable {
 	public static final String TMP_TENANT_ID = "TMP_TENANT_ID";
 
 	/**
+	 * 忽略拼接多租户条件的临时表名
+	 */
+	public static final String TMP_IGNORE_TABLES = "TMP_IGNORE_TABLES";
+
+	/**
 	 * 用户ID
 	 */
 	public static final String USERS_ID = "USERS_ID";

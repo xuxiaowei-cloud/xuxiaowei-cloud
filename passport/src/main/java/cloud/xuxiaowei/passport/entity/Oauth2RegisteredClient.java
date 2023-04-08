@@ -58,4 +58,8 @@ public class Oauth2RegisteredClient implements Serializable {
 
 	private Long tenantId;
 
+	private String clientType;
+
+	private String config;
+
 }

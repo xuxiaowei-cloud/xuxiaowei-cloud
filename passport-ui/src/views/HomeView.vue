@@ -23,7 +23,7 @@
               <el-icon><Histogram/></el-icon>
             </template>
             <el-option v-for="item in tenantOptions" :key="item.tenantId" :value="item.tenantId"
-                       :label="item.tenantName"/>
+                       :label="item.tenantName + ` - ` + item.clientName"/>
           </el-select>
         </el-form-item>
 
@@ -196,6 +196,7 @@ configuration().then((response : Resp<any>) => {
 // 表单中的值
 const cloudForm = reactive({
   tenantId: '',
+  clientId: '',
   username: '',
   password: '',
   rememberMe: []
@@ -204,11 +205,13 @@ const cloudForm = reactive({
 interface TenantOption {
   tenantId: number;
   tenantName: string;
+  clientId: string;
+  clientName: string;
 }
 
 const tenantOptions = ref<TenantOption[]>()
 
-pageLogin({ current: 1, size: 10 }).then(response => {
+pageLogin({ current: 1, size: 10, clientType: 'web' }).then(response => {
   tenantOptions.value = response.data.records
 })
 
@@ -266,7 +269,16 @@ const submitCloudForm = () => {
 
       // encodeURIComponent()
       const homePage = route.query.homePage as string
-      login(cloudForm.tenantId, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
+
+      let tenantId = cloudForm.tenantId == '' ? '1' : cloudForm.tenantId
+      for (let tenantOption of tenantOptions.value) {
+        if (tenantOption.tenantId == tenantId) {
+          cloudForm.clientId = tenantOption.clientId
+          break
+        }
+      }
+
+      login(tenantId, cloudForm.clientId, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
         console.log(response)
         const msg = response.msg
 

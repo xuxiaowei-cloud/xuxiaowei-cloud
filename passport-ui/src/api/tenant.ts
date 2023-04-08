@@ -5,7 +5,7 @@ import request from '../utils/request'
  * @param data
  */
 export const pageLogin = function (data: any) {
-  return request.get('/passport/tenant/page/login', data).then(response => {
+  return request.post('/passport/tenant/page/login', data).then(response => {
     return response.data
   })
 }

@@ -17,6 +17,8 @@
         <result column="client_settings" property="clientSettings" />
         <result column="token_settings" property="tokenSettings" />
         <result column="tenant_id" property="tenantId" />
+        <result column="client_type" property="clientType" />
+        <result column="config" property="config" />
     </resultMap>
 
 </mapper>

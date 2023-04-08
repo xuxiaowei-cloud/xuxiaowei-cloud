@@ -2,6 +2,7 @@ package cloud.xuxiaowei.mybatis.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudMyBatisPlusProperties;
 import cloud.xuxiaowei.utils.MdcConstants;
+import cloud.xuxiaowei.utils.MdcUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,9 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 	}
 
 	/**
-	 * 租户ID
-	 * @return 返回租户ID，为空时返回默认租户：1
+	 * 获取租户 ID 值表达式，只支持单个 ID 值
+	 * <p>
+	 * @return 租户 ID 值表达式，为空时返回默认租户：1
 	 */
 	@Override
 	public Expression getTenantId() {
@@ -65,6 +67,13 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 		return cloudMyBatisPlusProperties.getTenantIdColumn();
 	}
 
+	/**
+	 * 根据表名判断是否忽略拼接多租户条件
+	 * <p>
+	 * 默认都要进行解析并拼接多租户条件
+	 * @param tableName 表名
+	 * @return 是否忽略, true:表示忽略，false:需要解析并拼接多租户条件
+	 */
 	@Override
 	public boolean ignoreTable(String tableName) {
 		List<String> ignoreTables = cloudMyBatisPlusProperties.getIgnoreTables();
@@ -73,9 +82,23 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 				return true;
 			}
 		}
+
+		List<String> mdcIgnoreTables = MdcUtils.getIgnoreTables();
+		for (String ignoreTable : mdcIgnoreTables) {
+			if (tableName.equals(ignoreTable)) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
+	/**
+	 * 忽略插入租户字段逻辑
+	 * @param columns 插入字段
+	 * @param tenantIdColumn 租户 ID 字段
+	 * @return
+	 */
 	@Override
 	public boolean ignoreInsert(List<Column> columns, String tenantIdColumn) {
 		return TenantLineHandler.super.ignoreInsert(columns, tenantIdColumn);

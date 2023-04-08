@@ -19,4 +19,8 @@ public class TenantLoginVo implements Serializable {
 
 	private String tenantName;
 
+	private String clientId;
+
+	private String clientName;
+
 }

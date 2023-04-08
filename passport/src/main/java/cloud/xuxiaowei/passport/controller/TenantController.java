@@ -6,7 +6,8 @@ import cloud.xuxiaowei.passport.vo.TenantLoginVo;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +35,8 @@ public class TenantController {
 	 * @param tenantPageLoginBo 分页查询租户参数-登录页面
 	 * @return 返回分页结果
 	 */
-	@GetMapping("/page/login")
-	public Response<?> pageLogin(TenantPageLoginBo tenantPageLoginBo) {
+	@PostMapping("/page/login")
+	public Response<?> pageLogin(@RequestBody TenantPageLoginBo tenantPageLoginBo) {
 
 		IPage<TenantLoginVo> page = tenantService.pageByTenantPageLoginBo(tenantPageLoginBo);
 

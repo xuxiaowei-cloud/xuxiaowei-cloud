@@ -1,8 +1,11 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.passport.entity.Oauth2RegisteredClient;
+import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.Constants;
+import cloud.xuxiaowei.utils.MdcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.WeChatMiniProgramAuthenticationToken;
@@ -12,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatMiniProgramParameterNames;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
@@ -29,9 +33,16 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 
 	private IUsersService usersService;
 
+	private IOauth2RegisteredClientService oauth2RegisteredClientService;
+
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
+	}
+
+	@Autowired
+	public void setOauth2RegisteredClientService(IOauth2RegisteredClientService oauth2RegisteredClientService) {
+		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
 	}
 
 	/**
@@ -61,14 +72,26 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 		// 客户权限
 		Set<String> authorizedScopes = context.getAuthorizedScopes();
 
+		RegisteredClient registeredClient = context.getRegisteredClient();
+		String id = registeredClient.getId();
+
+		MdcUtils.putIgnoreTable("oauth2_registered_client");
+		Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getById(id);
+		MdcUtils.clearIgnoreTables();
+
+		Long tenantId = oauth2RegisteredClient.getTenantId();
+
 		if (OAuth2TokenType.ACCESS_TOKEN.equals(tokenType)) {
 
 			// 放入用户名
 			String name = principal.getName();
 			claims.claim(Constants.USERNAME, name);
 
+			MdcUtils.putTmpTenantId(tenantId);
 			// 放入用户ID
 			Users users = usersService.getByUsername(name);
+			MdcUtils.clearTmpTenantId();
+
 			if (users != null) {
 				// The class with java.lang.Long and name of java.lang.Long is not in
 				// the allowlist.

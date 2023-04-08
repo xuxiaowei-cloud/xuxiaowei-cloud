@@ -203,7 +203,7 @@ cloud:
           # 登录失败
           - /login/failure
           # 获取Token
-          - /code
+          - /code/*
           # 授权地址
           - /oauth2/authorize
           # 授权地址

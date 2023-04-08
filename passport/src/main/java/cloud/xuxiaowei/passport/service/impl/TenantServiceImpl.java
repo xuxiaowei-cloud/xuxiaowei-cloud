@@ -5,14 +5,12 @@ import cloud.xuxiaowei.passport.entity.Tenant;
 import cloud.xuxiaowei.passport.mapper.TenantMapper;
 import cloud.xuxiaowei.passport.service.ITenantService;
 import cloud.xuxiaowei.passport.vo.TenantLoginVo;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cloud.xuxiaowei.utils.MdcUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,25 +31,19 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
 	 */
 	@Override
 	public IPage<TenantLoginVo> pageByTenantPageLoginBo(TenantPageLoginBo tenantPageLoginBo) {
-		QueryWrapper<Tenant> queryWrapper = new QueryWrapper<>();
-		queryWrapper.select("tenant_id", "tenant_name");
-		Long current = tenantPageLoginBo.getCurrent();
-		Long size = tenantPageLoginBo.getSize();
-		IPage<Tenant> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
-		page(page, queryWrapper);
+		long current = tenantPageLoginBo.getCurrent();
+		long size = tenantPageLoginBo.getSize();
 
-		IPage<TenantLoginVo> pageVo = new Page<>();
-		BeanUtils.copyProperties(page, pageVo);
+		MdcUtils.putIgnoreTable("oauth2_registered_client");
+		int total = baseMapper.countByTenantPageLoginBo(tenantPageLoginBo);
+		List<TenantLoginVo> records = baseMapper.listByTenantPageLoginBo(tenantPageLoginBo);
+		MdcUtils.clearIgnoreTables();
 
-		List<TenantLoginVo> records = new ArrayList<>();
-		for (Tenant tenant : page.getRecords()) {
-			TenantLoginVo tenantLoginVo = new TenantLoginVo();
-			BeanUtils.copyProperties(tenant, tenantLoginVo);
-			records.add(tenantLoginVo);
-		}
-		pageVo.setRecords(records);
+		IPage<TenantLoginVo> page = new Page<>(current, size);
+		page.setTotal(total);
+		page.setRecords(records);
 
-		return pageVo;
+		return page;
 	}
 
 }

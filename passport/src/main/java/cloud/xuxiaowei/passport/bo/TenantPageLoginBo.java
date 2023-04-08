@@ -15,8 +15,10 @@ public class TenantPageLoginBo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long current;
+	private long current = 1L;
 
-	private Long size;
+	private long size = 10L;
+
+	private String clientType;
 
 }
