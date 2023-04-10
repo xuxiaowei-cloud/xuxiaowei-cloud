@@ -94,15 +94,16 @@ npm i -D @types/crypto-js @types/node @typescript-eslint/eslint-plugin @typescri
 
 2. lint
     - 开发依赖
-        - @vue/cli-plugin-eslint
-        - @vue/cli-service
-        - @vue/eslint-config-standard
-        - eslint
-        - eslint-plugin-import
-        - eslint-plugin-node
-        - eslint-plugin-promise
-        - eslint-plugin-vue
-        - lint-staged
+       - @typescript-eslint/eslint-plugin
+       - @typescript-eslint/parser
+       - @vitejs/plugin-vue
+       - eslint
+       - eslint-config-standard
+       - eslint-plugin-import
+       - eslint-plugin-n
+       - eslint-plugin-promise
+       - eslint-plugin-vue
+       - lint-staged
 
 3. 路由
     - 依赖
