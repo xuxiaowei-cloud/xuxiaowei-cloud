@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.passport.entity.Oauth2RegisteredClient;
+import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -39,6 +41,8 @@ public class CodeRestController {
 
 	private CloudClientProperties cloudClientProperties;
 
+	private IOauth2RegisteredClientService oauth2RegisteredClientService;
+
 	/**
 	 * 在这里只使用 {@link RestTemplate} 而不使用 <code>@FeignClient</code>， 原因是：本服务调用其他服务较少，单独引入
 	 * <code>@FeignClient</code> 并不合适
@@ -48,6 +52,11 @@ public class CodeRestController {
 	@Autowired
 	public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
 		this.cloudClientProperties = cloudClientProperties;
+	}
+
+	@Autowired
+	public void setOauth2RegisteredClientService(IOauth2RegisteredClientService oauth2RegisteredClientService) {
+		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
 	}
 
 	@Autowired
@@ -84,7 +93,20 @@ public class CodeRestController {
 		// 如果不存在，使用数据库里的配置
 		if (client == null) {
 			// 从数据库中读取
+			Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getByClientId(clientId);
 
+			if (oauth2RegisteredClient == null) {
+				Response<?> error = Response.error("无效的客户ID");
+				ResponseUtils.response(response, error);
+				return;
+			}
+
+			client = oauth2RegisteredClient.loadAsConfig();
+			if (client == null) {
+				Response<?> error = Response.error("无效的客户ID配置");
+				ResponseUtils.response(response, error);
+				return;
+			}
 		}
 
 		String stateName = client.getStateName();
