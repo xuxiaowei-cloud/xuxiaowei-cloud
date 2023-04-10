@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.mybatis.configuration;
 
 import cloud.xuxiaowei.core.properties.CloudMyBatisPlusProperties;
+import cloud.xuxiaowei.core.properties.CloudTenantProperties;
 import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.MdcUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
@@ -28,9 +29,16 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 
 	private CloudMyBatisPlusProperties cloudMyBatisPlusProperties;
 
+	private CloudTenantProperties cloudTenantProperties;
+
 	@Autowired
 	public void setCloudMyBatisPlusProperties(CloudMyBatisPlusProperties cloudMyBatisPlusProperties) {
 		this.cloudMyBatisPlusProperties = cloudMyBatisPlusProperties;
+	}
+
+	@Autowired
+	public void setCloudTenantProperties(CloudTenantProperties cloudTenantProperties) {
+		this.cloudTenantProperties = cloudTenantProperties;
 	}
 
 	/**
@@ -57,7 +65,8 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 				}
 			}
 
-			return new LongValue(1);
+			// 从配置文件中获取默认租户并返回
+			return new LongValue(cloudTenantProperties.getDefaultTenantId());
 		}
 		return new LongValue(tenantId);
 	}
