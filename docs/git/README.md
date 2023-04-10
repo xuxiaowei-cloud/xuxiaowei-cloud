@@ -40,6 +40,23 @@ git push --all --progress "gitlab"
 git pull --progress -v --no-rebase "origin"
 ```
 
+## 批量添加远端仓库地址
+
+<details>
+<summary>点击展开</summary>
+git remote add gitee https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitlab https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add jihulab https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add github https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitcode https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitlink https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud.git
+</details>
+
 ## 其他命令
 
 ```shell

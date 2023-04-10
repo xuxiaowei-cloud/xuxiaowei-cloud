@@ -80,12 +80,13 @@ npm create vite@latest ui -- --template vue-ts
 
 2. lint
     - 开发依赖
-        - @vue/cli-plugin-eslint
-        - @vue/cli-service
-        - @vue/eslint-config-standard
+        - @typescript-eslint/eslint-plugin
+        - @typescript-eslint/parser
+        - @vitejs/plugin-vue
         - eslint
+        - eslint-config-standard
         - eslint-plugin-import
-        - eslint-plugin-node
+        - eslint-plugin-n
         - eslint-plugin-promise
         - eslint-plugin-vue
         - lint-staged

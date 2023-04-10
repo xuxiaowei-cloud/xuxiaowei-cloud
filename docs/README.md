@@ -102,6 +102,7 @@
         11. [![Vue.js](static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
         12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
         13. [![Kubernetes](static/plugins/kubernetes.svg) Kubernetes](https://plugins.jetbrains.com/plugin/10485-kubernetes)
+        14. [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
 2. Alibaba dragonwell 8.14.15
     - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
     - [Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz)
@@ -110,11 +111,10 @@
 3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
-4. node v16.15.1
-    - [nodejs](https://nodejs.org/dist/v16.15.1)
-    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.15.1)
-5. npm 8.3.1
-6. @vue/cli-plugin-eslint 5.0.3 Standard、eslint 7.32.0
-7. SVG转PNG
+4. node v16.18.1
+    - [nodejs](https://nodejs.org/dist/v16.18.1)
+    - [aliyun](http://mirrors.aliyun.com/nodejs-release/v16.18.1)
+5. npm 9.1.1
+6. SVG转PNG
     1. https://www.aconvert.com/cn/image/svg-to-png/
     2. https://svgtopng.com/zh/
