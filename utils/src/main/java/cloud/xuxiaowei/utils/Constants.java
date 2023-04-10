@@ -93,6 +93,11 @@ public class Constants implements Serializable {
 	public static final String USERS_ID = "usersId";
 
 	/**
+	 * 超级租户
+	 */
+	public static final String SUPER_TENANT = "superTenant";
+
+	/**
 	 * null 值
 	 */
 	public static final String NULL = "null";

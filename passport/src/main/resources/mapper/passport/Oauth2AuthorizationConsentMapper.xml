@@ -34,6 +34,7 @@
             resultType="cloud.xuxiaowei.passport.vo.Oauth2AuthorizationConsentVo">
         SELECT
             oac.*,
+            orc.tenant_id,
             orc.client_id,
             orc.client_name
         <include refid="page" />

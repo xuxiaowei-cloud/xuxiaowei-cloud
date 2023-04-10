@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.passport.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudTenantProperties;
 import cloud.xuxiaowei.passport.entity.Oauth2RegisteredClient;
 import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.system.entity.Users;
@@ -35,6 +36,8 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 
 	private IOauth2RegisteredClientService oauth2RegisteredClientService;
 
+	private CloudTenantProperties cloudTenantProperties;
+
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
 		this.usersService = usersService;
@@ -43,6 +46,11 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 	@Autowired
 	public void setOauth2RegisteredClientService(IOauth2RegisteredClientService oauth2RegisteredClientService) {
 		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
+	}
+
+	@Autowired
+	public void setCloudTenantProperties(CloudTenantProperties cloudTenantProperties) {
+		this.cloudTenantProperties = cloudTenantProperties;
 	}
 
 	/**
@@ -80,6 +88,17 @@ public class OAuth2TokenCustomizerConfiguration implements OAuth2TokenCustomizer
 		MdcUtils.clearIgnoreTables();
 
 		Long tenantId = oauth2RegisteredClient.getTenantId();
+
+		// 超级租户
+		long[] ignoreAllTableTenantIds = cloudTenantProperties.getIgnoreAllTableTenantIds();
+		boolean superTenant = false;
+		for (long ignoreAllTableTenantId : ignoreAllTableTenantIds) {
+			if (ignoreAllTableTenantId == tenantId) {
+				superTenant = true;
+				break;
+			}
+		}
+		claims.claim(Constants.SUPER_TENANT, superTenant);
 
 		if (OAuth2TokenType.ACCESS_TOKEN.equals(tokenType)) {
 

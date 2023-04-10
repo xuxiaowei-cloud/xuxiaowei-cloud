@@ -47,6 +47,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
       <el-table-column prop="username" label="username" width="100"/>
       <el-table-column prop="email" label="email" width="220" :show-overflow-tooltip="true"/>
@@ -79,11 +80,13 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById, removeByIds } from '../../api/user'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { page, removeById, removeByIds } from '../../api/user'
+import settings from '../../settings'
+import { useStore } from '../../store'
+
 // 用户添加、编辑弹窗内容
 import UserDialog from './dialog/UserDialog.vue'
 // 用户权限管理弹窗内容

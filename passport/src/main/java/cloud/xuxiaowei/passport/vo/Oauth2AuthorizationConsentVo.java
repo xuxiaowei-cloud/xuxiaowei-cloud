@@ -15,6 +15,8 @@ public class Oauth2AuthorizationConsentVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Long tenantId;
+
 	private String registeredClientId;
 
 	private String principalName;

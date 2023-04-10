@@ -38,13 +38,13 @@ public class Oauth2AuthorizationServiceImpl extends ServiceImpl<Oauth2Authorizat
 	@Override
 	public IPage<Oauth2AuthorizationVo> pageByOauth2AuthorizationPageBo(
 			Oauth2AuthorizationPageBo oauth2AuthorizationPageBo) {
-		Long current = oauth2AuthorizationPageBo.getCurrent();
-		Long size = oauth2AuthorizationPageBo.getSize();
+		long current = oauth2AuthorizationPageBo.getCurrent();
+		long size = oauth2AuthorizationPageBo.getSize();
 
 		int total = baseMapper.countByOauth2AuthorizationPageBo(oauth2AuthorizationPageBo);
 		List<Oauth2AuthorizationVo> records = baseMapper.listByOauth2AuthorizationPageBo(oauth2AuthorizationPageBo);
 
-		IPage<Oauth2AuthorizationVo> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
+		IPage<Oauth2AuthorizationVo> page = new Page<>(current, size);
 
 		page.setTotal(total);
 		page.setRecords(records);

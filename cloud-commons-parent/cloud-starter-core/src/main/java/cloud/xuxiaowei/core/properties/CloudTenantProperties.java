@@ -30,6 +30,8 @@ public class CloudTenantProperties {
 	/**
 	 * SQL忽略拼接租户条件的租户ID
 	 * <p>
+	 * 超级租户
+	 * <p>
 	 * 1. 所有人员都是不同租户下的成员
 	 * <p>
 	 * 2. 运维、开发、管理人员所在的租户，可以查看所有数据

@@ -87,6 +87,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="id" label="id" width="100" :show-overflow-tooltip="true"/>
       <el-table-column prop="clientId" label="clientId" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="clientName" label="clientName" width="200" :show-overflow-tooltip="true"/>
@@ -111,11 +112,12 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
+import settings from '../../settings'
+import { useStore } from '../../store'
 // 客户添加、编辑弹窗内容
 import ClientDialog from './dialog/ClientDialog.vue'
 

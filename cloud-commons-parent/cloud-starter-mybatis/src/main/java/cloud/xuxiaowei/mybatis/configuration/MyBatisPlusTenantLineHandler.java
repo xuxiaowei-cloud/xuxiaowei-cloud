@@ -101,6 +101,7 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 			}
 		}
 
+		// 超级租户
 		long[] ignoreAllTableTenantIds = cloudTenantProperties.getIgnoreAllTableTenantIds();
 		Long tenantId = SecurityUtils.getTenantId();
 		// SQL忽略拼接租户条件的租户ID

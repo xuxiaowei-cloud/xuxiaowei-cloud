@@ -90,6 +90,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="id" label="id" width="100" :show-overflow-tooltip="true"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="150" :show-overflow-tooltip="true"/>
       <el-table-column prop="clientId" label="clientId" width="180" :show-overflow-tooltip="true"/>
@@ -116,10 +117,11 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById, removeByIds } from '../../api/passport/oauth2-authorization'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import { ElMessage } from 'element-plus'
+import { page, removeById, removeByIds } from '../../api/passport/oauth2-authorization'
+import settings from '../../settings'
+import { useStore } from '../../store'
 
 // 表格数据
 const tableData = ref([])
