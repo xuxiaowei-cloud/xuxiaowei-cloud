@@ -214,7 +214,7 @@ const tenantId = ref<string>('')
 const clientId = ref<string>('')
 
 interface TenantOption {
-  tenantId: number;
+  tenantId: string;
   tenantName: string;
   clientId: string;
   clientName: string;
@@ -239,12 +239,12 @@ const handleTenantChange = function () {
   }
 
   // 未选择租户时使用默认租户
-  if (tenantId.value == '' || tenantId.value == null) {
+  if (tenantId.value === '' || tenantId.value == null) {
     tenantId.value = defaultTenantId.value
   }
 
   // 未选择租户时使用默认客户
-  if (clientId.value == '' || clientId.value == null) {
+  if (clientId.value === '' || clientId.value == null) {
     clientId.value = defaultClientId.value
   }
 }
