@@ -11,6 +11,7 @@ cloud.xuxiaowei.core.properties.CloudRememberMeProperties
 cloud.xuxiaowei.core.properties.CloudSecurityProperties
 cloud.xuxiaowei.core.properties.CloudSessionProperties
 cloud.xuxiaowei.core.properties.CloudSignProperties
+cloud.xuxiaowei.core.properties.CloudTenantProperties
 cloud.xuxiaowei.core.properties.CloudWebServiceProperties
 cloud.xuxiaowei.core.properties.CloudWebSocketProperties
 cloud.xuxiaowei.core.properties.CloudWhiteListProperties

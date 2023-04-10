@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.passport.controller;
 
+import cloud.xuxiaowei.core.properties.CloudTenantProperties;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class ConfigurationRestController {
 	private AlipayOplatformWebsiteProperties alipayOplatformWebsiteProperties;
 
 	private FeiShuWebPageProperties feiShuWebPageProperties;
+
+	private CloudTenantProperties cloudTenantProperties;
 
 	@Autowired
 	public void setWeChatOplatformWebsiteProperties(WeChatOplatformWebsiteProperties weChatOplatformWebsiteProperties) {
@@ -91,6 +94,11 @@ public class ConfigurationRestController {
 		this.feiShuWebPageProperties = feiShuWebPageProperties;
 	}
 
+	@Autowired
+	public void setCloudTenantProperties(CloudTenantProperties cloudTenantProperties) {
+		this.cloudTenantProperties = cloudTenantProperties;
+	}
+
 	@PostMapping
 	public Response<?> index(HttpServletRequest request, HttpServletResponse response) {
 
@@ -105,6 +113,9 @@ public class ConfigurationRestController {
 		String dingtalkAppid = dingtalkProperties.getDefaultAppid();
 		String alipayOplatformWebsiteAppid = alipayOplatformWebsiteProperties.getDefaultAppid();
 		String feiShuWebPageAppid = feiShuWebPageProperties.getDefaultAppid();
+
+		Long defaultTenantId = cloudTenantProperties.getDefaultTenantId();
+		String defaultClientId = cloudTenantProperties.getDefaultClientId();
 
 		return ResponseMap.ok()
 			// 微信开放平台 网站应用 ID
@@ -127,7 +138,11 @@ public class ConfigurationRestController {
 			// 支付宝 网站应用 ID
 			.put("alipayOplatformWebsiteAppid", alipayOplatformWebsiteAppid)
 			// 飞书网页应用
-			.put("feiShuWebPageAppid", feiShuWebPageAppid);
+			.put("feiShuWebPageAppid", feiShuWebPageAppid)
+			// 默认租户ID
+			.put("defaultTenantId", defaultTenantId)
+			// 默认客户ID
+			.put("defaultClientId", defaultClientId);
 	}
 
 }
