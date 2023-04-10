@@ -69,7 +69,7 @@
         <!-- 用户菜单 -->
         <el-dropdown id="cloud-el-dropdown" @command="handleCommand">
           <span class="el-dropdown-link">
-            {{ nickname }}
+            {{ useStore.getNickname }}
             <el-icon class="el-icon--right">
               <arrow-down/>
             </el-icon>
@@ -291,7 +291,7 @@ const removeTab = (targetName: string) => {
 // 是否折叠菜单
 const isCollapse = ref(useStore.getIsCollapse)
 // 昵称
-const nickname = ref(useStore.getNickname)
+// const nickname = ref(useStore.getNickname)
 
 const handleOpen = (key: number, keyPath: string) => {
   // console.log('handleOpen：', key, keyPath)
@@ -401,7 +401,7 @@ const handleCommand = (command: any, e: any) => {
 
 router.isReady().then(() => {
   // 获取昵称并显示
-  nickname.value = useStore.getNickname
+  // nickname.value = useStore.getNickname
 })
 
 </script>
