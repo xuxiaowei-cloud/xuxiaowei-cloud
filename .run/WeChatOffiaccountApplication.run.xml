@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WeChatOffiaccountApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="wechat-offiaccount" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="cloud.xuxiaowei.wechatoffiaccount.WeChatOffiaccountApplication" />
+    <extension name="com.egoshard.intellij.k8s-runtime-config-plugin">
+      <option name="ENABLED" value="false" />
+      <entries />
+    </extension>
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="true" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="true" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env.dev" />
+      </ENTRIES>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
