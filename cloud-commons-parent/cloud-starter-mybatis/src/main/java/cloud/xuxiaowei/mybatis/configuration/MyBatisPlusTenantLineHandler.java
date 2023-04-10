@@ -86,15 +86,28 @@ public class MyBatisPlusTenantLineHandler implements TenantLineHandler {
 	@Override
 	public boolean ignoreTable(String tableName) {
 		List<String> ignoreTables = cloudMyBatisPlusProperties.getIgnoreTables();
+		// 配置文件（系统设置）中设置要忽略拼接租户条件的表
 		for (String ignoreTable : ignoreTables) {
 			if (tableName.equals(ignoreTable)) {
 				return true;
 			}
 		}
 
+		// 临时性忽略拼接租户条件的表
 		List<String> mdcIgnoreTables = MdcUtils.getIgnoreTables();
 		for (String ignoreTable : mdcIgnoreTables) {
 			if (tableName.equals(ignoreTable)) {
+				return true;
+			}
+		}
+
+		long[] ignoreAllTableTenantIds = cloudTenantProperties.getIgnoreAllTableTenantIds();
+		Long tenantId = SecurityUtils.getTenantId();
+		// SQL忽略拼接租户条件的租户ID
+		// 1. 所有人员都是不同租户下的成员
+		// 2. 运维、开发、管理人员所在的租户，可以查看所有数据
+		for (Long ignoreAllTableTenantId : ignoreAllTableTenantIds) {
+			if (ignoreAllTableTenantId.equals(tenantId)) {
 				return true;
 			}
 		}

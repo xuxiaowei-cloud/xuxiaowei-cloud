@@ -106,7 +106,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 * <p>
 	 * 待加入Redis注解进行数据缓存
 	 * <p>
-	 * 与 {@link IUsersService#getUsersVoByUsername(String)} 可以考虑合并成一个接口
+	 * 与 {@link IUsersService#getUsersVoByUsersId(Long)} 可以考虑合并成一个接口
 	 * @param username 用户名
 	 * @return 返回 用户名 查询用户信息、性别、区域地址及权限
 	 */
@@ -164,13 +164,17 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	/**
-	 * 根据 用户名 查询用户信息、性别、区域地址及权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询用户信息、性别、区域地址及权限
+	 * <p>
+	 * 由于本租户下的用户能看到所有租户的数据，并且不同租户下可以存在相同的用户名，
+	 * <p>
+	 * 所以接口不能使用用户名查询数据，应该使用用户主键查询数据，以避免报错
+	 * @param usersId 用户ID
 	 * @return 返回 用户信息、性别、区域地址及权限
 	 */
 	@Override
-	public UsersVo getUsersVoByUsername(String username) {
-		Users users = baseMapper.getByUsername(username);
+	public UsersVo getUsersVoByUsersId(Long usersId) {
+		Users users = baseMapper.getByUsersId(usersId);
 		return usersToUsersVo(users);
 	}
 

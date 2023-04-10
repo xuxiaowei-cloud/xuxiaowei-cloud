@@ -57,12 +57,6 @@ spring:
 ---
 # 以下配置可放入 nacos 中
 
-# 租户/客户配置
-cloud:
-  tenant:
-    default-tenant-id: 1
-    default-client-id: xuxiaowei_client_id
-
 
 # Thymeleaf 配置
 spring:
