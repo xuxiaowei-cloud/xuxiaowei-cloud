@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class CloudClientProperties {
 	/**
 	 * 客户配置列表
 	 */
-	private List<Client> list;
+	private List<Client> list = new ArrayList<>();
 
 	/**
 	 * 客户配置
