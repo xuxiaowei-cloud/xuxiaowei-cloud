@@ -102,6 +102,7 @@
         11. [![Vue.js](static/plugins/Vue.js.png) Vue.js](https://plugins.jetbrains.com/plugin/9442-vue-js)
         12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
         13. [![Kubernetes](static/plugins/kubernetes.svg) Kubernetes](https://plugins.jetbrains.com/plugin/10485-kubernetes)
+        14. [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
 2. Alibaba dragonwell 8.14.15
     - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
     - [Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz)
