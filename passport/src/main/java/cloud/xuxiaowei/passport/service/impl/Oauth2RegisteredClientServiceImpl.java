@@ -134,6 +134,18 @@ public class Oauth2RegisteredClientServiceImpl extends ServiceImpl<Oauth2Registe
 	}
 
 	/**
+	 * 根据 客户ID 查询客户信息
+	 * @param clientId 客户ID
+	 * @return 返回 客户信息
+	 */
+	@Override
+	public Oauth2RegisteredClient getByClientId(String clientId) {
+		QueryWrapper<Oauth2RegisteredClient> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("client_id", clientId);
+		return getOne(queryWrapper);
+	}
+
+	/**
 	 * 保存 客户
 	 * @param oauth2RegisteredClientSaveBo 客户表 保存参数
 	 * @return 返回 保存结果

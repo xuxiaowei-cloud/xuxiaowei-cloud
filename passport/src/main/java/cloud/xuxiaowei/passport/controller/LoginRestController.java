@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.passport.entity.Oauth2RegisteredClient;
+import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -32,9 +34,16 @@ public class LoginRestController {
 
 	private CloudClientProperties cloudClientProperties;
 
+	private IOauth2RegisteredClientService oauth2RegisteredClientService;
+
 	@Autowired
 	public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
 		this.cloudClientProperties = cloudClientProperties;
+	}
+
+	@Autowired
+	public void setOauth2RegisteredClientService(IOauth2RegisteredClientService oauth2RegisteredClientService) {
+		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
 	}
 
 	/**
@@ -72,6 +81,16 @@ public class LoginRestController {
 		if (client == null) {
 			// 从数据库中读取
 
+			Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getByClientId(clientId);
+
+			if (oauth2RegisteredClient == null) {
+				return Response.error("无效的客户ID");
+			}
+
+			client = oauth2RegisteredClient.loadAsConfig();
+			if (client == null) {
+				return Response.error("无效的客户ID配置");
+			}
 		}
 
 		String state = UUID.randomUUID().toString();
