@@ -16,6 +16,9 @@ class PropertyNamingStrategiesTests {
 	@Test
 	void translate() {
 
+		// 无操作命名法
+		log.info(new PropertyNamingStrategies.LowerCamelCaseStrategy().translate("userName"));
+
 		// 首字母大写的驼峰命名法
 		// "userName" is translated to "UserName"
 		log.info(new PropertyNamingStrategies.UpperCamelCaseStrategy().translate("userName"));
