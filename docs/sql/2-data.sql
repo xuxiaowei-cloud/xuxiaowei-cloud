@@ -64,6 +64,10 @@ INSERT INTO `authorities` VALUES (47, 4, 'audit_authorization:*', NULL, '1', '20
 INSERT INTO `authorities` VALUES (48, 4, 'manage_user:*', NULL, '1', '2023-04-08 17:20:13', '192.168.0.8', NULL, NULL, NULL, 0);
 INSERT INTO `authorities` VALUES (49, 4, 'dict:*', NULL, '1', '2023-04-08 17:20:13', '192.168.0.8', NULL, NULL, NULL, 0);
 INSERT INTO `authorities` VALUES (50, 4, 'manage_client:*', NULL, '1', '2023-04-08 17:20:13', '192.168.0.8', NULL, NULL, NULL, 0);
+INSERT INTO `authorities` VALUES (51, 1, 'manage_tenant:delete', NULL, '', '2023-04-11 20:21:13', '', NULL, NULL, NULL, 0);
+INSERT INTO `authorities` VALUES (52, 1, 'manage_tenant:edit', NULL, '', '2023-04-11 20:21:23', '', NULL, NULL, NULL, 0);
+INSERT INTO `authorities` VALUES (53, 1, 'manage_tenant:read', NULL, '', '2023-04-11 20:21:44', '', NULL, NULL, NULL, 0);
+INSERT INTO `authorities` VALUES (54, 1, 'manage_tenant:add', NULL, '', '2023-04-11 20:23:00', '', NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Records of authority
@@ -85,6 +89,11 @@ INSERT INTO `authority` VALUES ('manage_client:delete', '管理客户 删除权�
 INSERT INTO `authority` VALUES ('manage_client:edit', '管理客户 修改权限');
 INSERT INTO `authority` VALUES ('manage_client:read', '管理客户 读取权限');
 INSERT INTO `authority` VALUES ('manage_client:token_delete', '管理客户 删除Token权限');
+INSERT INTO `authority` VALUES ('manage_tenant:*', '管理租户 所有权限');
+INSERT INTO `authority` VALUES ('manage_tenant:add', '管理租户 添加权限');
+INSERT INTO `authority` VALUES ('manage_tenant:delete', '管理租户 删除权限');
+INSERT INTO `authority` VALUES ('manage_tenant:edit', '管理租户编辑权限');
+INSERT INTO `authority` VALUES ('manage_tenant:read', '管理租户 读取权限');
 INSERT INTO `authority` VALUES ('manage_user:*', '管理用户 所有权限');
 INSERT INTO `authority` VALUES ('manage_user:add', '管理用户 查询权限');
 INSERT INTO `authority` VALUES ('manage_user:authority', '管理用户 授权权限');
@@ -288,8 +297,8 @@ INSERT INTO `oauth2_registered_client` VALUES ('9', 'xuxiaowei_client_wechat_wor
 -- Records of tenant
 -- ----------------------------
 INSERT INTO `tenant` VALUES (1, '徐晓伟工作室（默认）', 1, 1, NULL, NULL, '2023-04-06 19:13:48', '2023-04-06 19:28:56', '1', NULL, '127.0.0.1', NULL, 0);
-INSERT INTO `tenant` VALUES (2, '青岛XX公司', 1, 1, NULL, NULL, '2023-04-08 17:41:53', NULL, '1', NULL, '127.0.0.1', NULL, 0);
-INSERT INTO `tenant` VALUES (3, '上海XX公司', 1, 1, NULL, NULL, '2023-04-08 17:41:53', NULL, '1', NULL, '127.0.0.1', NULL, 0);
+INSERT INTO `tenant` VALUES (2, '青岛XX公司', 3, 1, NULL, NULL, '2023-04-08 17:41:53', NULL, '1', NULL, '127.0.0.1', NULL, 0);
+INSERT INTO `tenant` VALUES (3, '上海XX公司', 4, 1, NULL, NULL, '2023-04-08 17:41:53', NULL, '1', NULL, '127.0.0.1', NULL, 0);
 
 -- ----------------------------
 -- Records of town_handle

@@ -163,6 +163,14 @@ export const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/manage/UserView.vue')
       },
       {
+        path: '/manage/tenant',
+        name: '租户管理',
+        meta: {
+          authority: [/^manage_tenant:(read|\*)$/]
+        },
+        component: () => import('@/views/manage/TenantView.vue')
+      },
+      {
         path: '/manage/client',
         name: '客户管理',
         meta: {

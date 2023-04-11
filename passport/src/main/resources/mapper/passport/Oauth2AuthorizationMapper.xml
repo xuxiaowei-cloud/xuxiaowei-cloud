@@ -50,7 +50,7 @@
         <include refid="page" />
     </select>
 
-    <!-- 分页查询授权的条数 -->
+    <!-- 分页查询授权的内容 -->
     <select id="listByOauth2AuthorizationPageBo"
             resultType="cloud.xuxiaowei.passport.vo.Oauth2AuthorizationVo">
         SELECT

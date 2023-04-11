@@ -22,6 +22,19 @@
     <sql id="page">
         FROM
             tenant t
+        WHERE 1 = 1
+            AND t.deleted = 0
+            <if test="param.tenantId != null">
+                AND t.tenant_id = #{param.tenantId}
+            </if>
+            <if test="param.tenantName != null and param.tenantName != ''">
+                AND t.tenant_name = #{param.tenantName}
+            </if>
+    </sql>
+
+    <sql id="pageLogin">
+        FROM
+            tenant t
                 JOIN oauth2_registered_client orc ON t.tenant_id = orc.tenant_id
         WHERE
             1 = 1
@@ -29,10 +42,25 @@
     </sql>
 
     <!-- 分页查询租户的条数 -->
-    <select id="countByTenantPageLoginBo" resultType="java.lang.Integer">
+    <select id="countByTenantPageBo" resultType="java.lang.Integer">
         SELECT
             count(1)
         <include refid="page" />
+    </select>
+
+    <!-- 分页查询租户的内容 -->
+    <select id="listByTenantPageBo" resultType="cloud.xuxiaowei.passport.vo.TenantVo">
+        SELECT
+            t.*
+        <include refid="page" />
+        LIMIT ${(param.current - 1) * param.size}, ${param.size}
+    </select>
+
+    <!-- 分页查询租户的条数 -->
+    <select id="countByTenantPageLoginBo" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        <include refid="pageLogin" />
     </select>
 
     <!-- 分页查询租户的内容 -->
@@ -42,7 +70,7 @@
             t.tenant_name,
             orc.client_id,
             orc.client_name
-        <include refid="page" />
+        <include refid="pageLogin" />
         LIMIT ${(param.current - 1) * param.size}, ${param.size}
     </select>
 
