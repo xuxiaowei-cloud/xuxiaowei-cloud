@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.validation.configuration;
 
 import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.CloudException;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
@@ -180,8 +180,8 @@ public class ControllerAdviceConfiguration {
 		log.error(String.format("%s：%s：%s：%s", CodeEnums.P00001.msg, message, parameterName, parameterType), exception);
 
 		ResponseMap error = ResponseMap.error(CodeEnums.P00001.code, CodeEnums.P00001.msg);
-		error.put(Constant.PARAMETER_NAME, parameterName);
-		error.put(Constant.PARAMETER_TYPE, parameterType);
+		error.put(Constants.PARAMETER_NAME, parameterName);
+		error.put(Constants.PARAMETER_TYPE, parameterType);
 
 		return error;
 	}

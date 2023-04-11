@@ -140,7 +140,7 @@ public class SecurityRestController {
 		String phone = securityPhoneBo.getPhone();
 
 		// 识别码
-		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constants.UPPER_CASE_LIST));
 
 		// 100000 到 999999 之间的随机数
 		String code = RANDOM.nextInt(900000) + 100000 + "";
@@ -213,7 +213,7 @@ public class SecurityRestController {
 		String email = securityEmailBo.getEmail();
 
 		// 识别码
-		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constants.UPPER_CASE_LIST));
 
 		// 100000 到 999999 之间的随机数
 		String code = RANDOM.nextInt(900000) + 100000 + "";

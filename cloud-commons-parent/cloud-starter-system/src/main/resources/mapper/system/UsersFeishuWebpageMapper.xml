@@ -71,11 +71,18 @@
 
             <!-- 权限 -->
             <collection property="authoritiesList" ofType="cloud.xuxiaowei.system.entity.Authorities">
-                <id column="a_username" property="username" />
-                <id column="a_authority" property="authority" />
-                <result column="a_explain" property="explain" />
-                <result column="a_update_date" property="updateDate" />
+                <id column="a_authorities_id" property="authoritiesId" />
+                <result column="a_users_id" property="usersId" />
+                <result column="a_authority" property="authority" />
+                <result column="a_remark" property="remark" />
+                <result column="a_create_users_id" property="createUsersId" />
                 <result column="a_create_date" property="createDate" />
+                <result column="a_create_ip" property="createIp" />
+                <result column="a_update_users_id" property="updateUsersId" />
+                <result column="a_update_date" property="updateDate" />
+                <result column="a_update_ip" property="updateIp" />
+                <result column="a_deleted" property="deleted" />
+                <result column="a_explain" property="explain" />
             </collection>
 
         </association>
@@ -108,15 +115,32 @@
             u.create_date AS u_create_date,
             u.update_date AS u_update_date,
             u.deleted AS u_deleted,
-            a.username      AS a_username,
-            a.authority     AS a_authority,
-            ay.explain      AS a_explain,
-            a.update_date   AS a_update_date,
-            a.create_date   AS a_create_date
+            a.authorities_id 	AS	a_authorities_id,
+            a.users_id       	AS	a_users_id,
+            a.authority      	AS	a_authority,
+            a.remark         	AS	a_remark,
+            a.create_users_id	AS	a_create_users_id,
+            a.create_date    	AS	a_create_date,
+            a.create_ip      	AS	a_create_ip,
+            a.update_users_id	AS	a_update_users_id,
+            a.update_date    	AS	a_update_date,
+            a.update_ip      	AS	a_update_ip,
+            a.deleted        	AS	a_deleted,
+            a.users_id       	AS	a_users_id,
+            a.authority      	AS	a_authority,
+            a.remark         	AS	a_remark,
+            a.create_users_id	AS	a_create_users_id,
+            a.create_date    	AS	a_create_date,
+            a.create_ip      	AS	a_create_ip,
+            a.update_users_id	AS	a_update_users_id,
+            a.update_date    	AS	a_update_date,
+            a.update_ip      	AS	a_update_ip,
+            a.deleted        	AS	a_deleted,
+            ay.`explain`        AS  a_explain
         FROM
             users_feishu_webpage AS ufw
             LEFT JOIN users AS u ON ufw.users_id = u.users_id AND u.deleted = 0
-            LEFT JOIN authorities AS a ON u.username = a.username
+            LEFT JOIN authorities AS a ON u.users_id = a.users_id
             LEFT JOIN authority as ay ON ay.authority = a.authority
         WHERE ufw.deleted = 0
           AND ufw.appid = #{appid}

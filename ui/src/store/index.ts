@@ -13,6 +13,7 @@ export const useDefineStore = defineStore('store', {
     username: ref<string>(), // 用户名
     nickname: ref<string>(), // 昵称
     authorities: ref<string[]>([]), // 权限
+    superTenant: ref<boolean>(), // 超级租户
     accessToken: ref<string>(), // Token
     payload: ref<string>(), // 有效载荷
     checkTokenTime: ref<number>(), // 检查Token时间
@@ -48,6 +49,13 @@ export const useDefineStore = defineStore('store', {
      */
     getAuthorities (state) {
       return state.authorities
+    },
+    /**
+     * 获取 是否是 超级租户
+     * @param state 单一状态树
+     */
+    getSuperTenant (state) {
+      return state.superTenant
     },
     /**
      * 获取 Token
@@ -129,6 +137,13 @@ export const useDefineStore = defineStore('store', {
      */
     setAuthorities (authorities: string[]) {
       this.authorities = authorities
+    },
+    /**
+     * 设置 是否是 超级租户
+     * @param superTenant 超级租户
+     */
+    setSuperTenant (superTenant: boolean) {
+      this.superTenant = superTenant
     },
     /**
      * 设置 Token
@@ -229,10 +244,13 @@ export const queryToken = function (path: string, query: LocationQuery, router: 
           try {
             const payload = JSON.parse(window.atob(tokenSplit[1]))
             const authorities = payload.authorities
+            const superTenant = payload.superTenant
             console.log('payload', payload)
             console.log('authorities', authorities)
+            console.log('superTenant', superTenant)
             useStore.setPayload(payload)
             useStore.setAuthorities(authorities)
+            useStore.setSuperTenant(superTenant)
           } catch (e) {
             console.error('解密payload时异常', e)
             ElMessage.error('解密payload时异常')

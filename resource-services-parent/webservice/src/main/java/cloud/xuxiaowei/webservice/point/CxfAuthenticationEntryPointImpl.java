@@ -161,7 +161,7 @@ public class CxfAuthenticationEntryPointImpl implements AuthenticationEntryPoint
 			explainElement.setText(authException.getMessage());
 		}
 
-		String requestId = MDC.get(Constant.REQUEST_ID);
+		String requestId = MDC.get(MdcConstants.REQUEST_ID);
 		if (requestId != null) {
 			requestIdElement.setText(requestId);
 		}

@@ -2,7 +2,7 @@ package cloud.xuxiaowei.system.bo;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -18,10 +18,10 @@ public class AuthoritiesSaveBo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 用户名
+	 * 用户ID
 	 */
-	@NotEmpty(message = "用户名 不能为空")
-	private String username;
+	@NotNull(message = "用户ID 不能为空")
+	private Long usersId;
 
 	/**
 	 * 权限

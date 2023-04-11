@@ -213,7 +213,7 @@ public class Oauth2RegisteredClientRestController {
 	 */
 	@ControllerAnnotation(description = "根据 客户主键 删除 授权码")
 	@PreAuthorize("@ant.hasAuthority('manage_client:delete')")
-	@GetMapping("/removeById/{id}")
+	@PostMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
 

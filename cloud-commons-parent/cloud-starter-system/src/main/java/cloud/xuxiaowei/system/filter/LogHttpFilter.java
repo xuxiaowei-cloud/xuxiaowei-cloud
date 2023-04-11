@@ -1,7 +1,8 @@
 package cloud.xuxiaowei.system.filter;
 
 import cloud.xuxiaowei.log.service.ILogService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
+import cloud.xuxiaowei.utils.MdcConstants;
 import cloud.xuxiaowei.utils.InetAddressUtils;
 import cloud.xuxiaowei.utils.RequestUtils;
 import cloud.xuxiaowei.utils.SecurityUtils;
@@ -50,30 +51,33 @@ public class LogHttpFilter extends HttpFilter {
 			throws IOException, ServletException {
 
 		String remoteHost = req.getRemoteHost();
-		MDC.put(Constant.IP, remoteHost);
+		MDC.put(MdcConstants.IP, remoteHost);
 
 		String authorization = RequestUtils.getAuthorization(req);
 		Map<String, String> payloadMap = SecurityUtils.getPayloadStringMap(authorization);
-		String usersId = payloadMap.get(Constant.USERS_ID);
-		MDC.put(Constant.USERS_ID, usersId);
+		String usersId = payloadMap.get(Constants.USERS_ID);
+		MDC.put(MdcConstants.USERS_ID, usersId);
 
-		String username = payloadMap.get(Constant.USERNAME);
+		String tenantId = payloadMap.get(Constants.TENANT_ID);
+		MDC.put(MdcConstants.TENANT_ID, tenantId);
+
+		String username = payloadMap.get(Constants.USERNAME);
 		String sub = payloadMap.get(JwtClaimNames.SUB);
 		if (StringUtils.hasText(username)) {
-			MDC.put(Constant.NAME, username);
+			MDC.put(MdcConstants.NAME, username);
 		}
 		else if (StringUtils.hasText(sub)) {
-			MDC.put(Constant.NAME, sub);
+			MDC.put(MdcConstants.NAME, sub);
 		}
 
-		String requestId = req.getHeader(Constant.REQUEST_ID);
+		String requestId = req.getHeader(MdcConstants.REQUEST_ID);
 		if (requestId == null) {
 			requestId = UUID.randomUUID().toString();
 		}
 		// 日志中放入请求ID、主机名
 		String hostName = InetAddressUtils.getHostName();
-		MDC.put(Constant.REQUEST_ID, requestId);
-		MDC.put(Constant.HOST_NAME, hostName);
+		MDC.put(MdcConstants.REQUEST_ID, requestId);
+		MDC.put(MdcConstants.HOST_NAME, hostName);
 
 		HttpSession session = req.getSession();
 		String sessionId = session.getId();

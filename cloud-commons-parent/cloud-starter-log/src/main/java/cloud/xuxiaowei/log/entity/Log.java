@@ -30,6 +30,11 @@ public class Log implements Serializable {
 	private Long logId;
 
 	/**
+	 * 租户ID
+	 */
+	private String tenantId;
+
+	/**
 	 * 模块，不为空
 	 */
 	private String module;
@@ -87,6 +92,7 @@ public class Log implements Serializable {
 	/**
 	 * headers中authorization
 	 */
+	@TableField("`authorization`")
 	private String authorization;
 
 	/**

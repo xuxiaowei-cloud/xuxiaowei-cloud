@@ -6,8 +6,8 @@
     <el-input class="cloud-el-input" clearable v-model="param.remark" placeholder="Please input remark"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'dict:delete'">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'dict:add'">添加</el-button>
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^dict:(delete|\*)$/">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="/^dict:(add|\*)$/">添加</el-button>
   </div>
 
   <!-- 字典弹窗 -->
@@ -33,10 +33,10 @@
       <el-table-column prop="updateUsersId" label="updateUsersId" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="updateDate" label="updateDate" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="updateIp" label="updateIp" width="130" :show-overflow-tooltip="true"/>
-      <el-table-column fixed="right" label="Operations" width="140" v-permission="['dict:delete', 'dict:edit']">
+      <el-table-column fixed="right" label="Operations" width="140" v-permission="[/^dict:(delete|edit|\*)$/]">
         <template #default="scope">
-          <el-button size="small" @click="deleteId(scope.row)" v-permission="'dict:delete'">Delete</el-button>
-          <el-button size="small" @click="editId(scope.row.dictCode)" v-permission="'dict:edit'">Edit</el-button>
+          <el-button size="small" @click="deleteId(scope.row)" v-permission="/^dict:(delete|\*)$/">Delete</el-button>
+          <el-button size="small" @click="editId(scope.row.dictCode)" v-permission="/^dict:(edit|\*)$/">Edit</el-button>
         </template>
       </el-table-column>
     </el-table>

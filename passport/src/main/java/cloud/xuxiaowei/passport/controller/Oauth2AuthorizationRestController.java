@@ -70,7 +70,7 @@ public class Oauth2AuthorizationRestController {
 	 */
 	@ControllerAnnotation(description = "根据 主键 删除 授权表")
 	@PreAuthorize("@ant.hasAuthority('audit_authorization:delete')")
-	@GetMapping("/removeById/{id}")
+	@PostMapping("/removeById/{id}")
 	public Response<?> removeById(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("id") String id) {
 

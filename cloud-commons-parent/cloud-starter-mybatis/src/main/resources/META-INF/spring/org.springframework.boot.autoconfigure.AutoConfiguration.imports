@@ -1,2 +1,3 @@
 cloud.xuxiaowei.mybatis.configuration.MybatisPlusConfiguration
 cloud.xuxiaowei.mybatis.configuration.MyBatisPlusMetaObjectHandler
+cloud.xuxiaowei.mybatis.configuration.MyBatisPlusTenantLineHandler

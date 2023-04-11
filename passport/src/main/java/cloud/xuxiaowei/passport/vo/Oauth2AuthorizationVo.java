@@ -23,6 +23,8 @@ public class Oauth2AuthorizationVo implements Serializable {
 
 	private String registeredClientId;
 
+	private Long tenantId;
+
 	private String principalName;
 
 	private String authorizationGrantType;
@@ -74,5 +76,9 @@ public class Oauth2AuthorizationVo implements Serializable {
 	private LocalDateTime refreshTokenExpiresAt;
 
 	private String refreshTokenMetadata;
+
+	private String clientId;
+
+	private String clientName;
 
 }

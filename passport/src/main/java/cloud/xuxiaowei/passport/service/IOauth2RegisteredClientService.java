@@ -39,6 +39,13 @@ public interface IOauth2RegisteredClientService extends IService<Oauth2Registere
 	Oauth2RegisteredClientVo getVoById(String id);
 
 	/**
+	 * 根据 客户ID 查询客户信息
+	 * @param clientId 客户ID
+	 * @return 返回 客户信息
+	 */
+	Oauth2RegisteredClient getByClientId(String clientId);
+
+	/**
 	 * 保存 客户
 	 * @param oauth2RegisteredClientSaveBo 客户表 保存参数
 	 * @return 返回 保存结果

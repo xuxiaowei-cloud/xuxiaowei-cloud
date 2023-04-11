@@ -5,16 +5,19 @@
     <el-input class="cloud-el-input" clearable v-model="param.principalName" placeholder="Please input principalName"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'audit_authorization_consent:delete'">删除
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^audit_authorization_consent:(delete|\*)$/">删除
     </el-button>
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientId" label="clientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientName" label="clientName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="authorities" label="authorities" width="180" :show-overflow-tooltip="true"/>
-      <el-table-column fixed="right" label="Operations" width="100" v-permission="'audit_authorization_consent:delete'">
+      <el-table-column fixed="right" label="Operations" width="100" v-permission="/^audit_authorization_consent:(delete|\*)$/">
         <template #default="scope">
           <el-button size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
           <el-button size="small" v-else @click="deletePrimaryKey(scope.row.registeredClientId, scope.row.principalName)">Delete
@@ -29,10 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById, removeByIds, Oauth2AuthorizationConsentPrimaryKey } from '../../api/passport/oauth2-authorization-consent'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import { ElMessage } from 'element-plus'
+import { page, removeById, removeByIds, Oauth2AuthorizationConsentPrimaryKey } from '../../api/passport/oauth2-authorization-consent'
+import settings from '../../settings'
+import { useStore } from '../../store'
 
 // 表格数据
 const tableData = ref([])

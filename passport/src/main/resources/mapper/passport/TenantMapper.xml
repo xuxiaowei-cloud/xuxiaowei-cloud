@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.xuxiaowei.passport.mapper.TenantMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cloud.xuxiaowei.passport.entity.Tenant">
+        <id column="tenant_id" property="tenantId" />
+        <result column="tenant_name" property="tenantName" />
+        <result column="users_id" property="usersId" />
+        <result column="enabled" property="enabled" />
+        <result column="domain_name" property="domainName" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="create_users_id" property="createUsersId" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <sql id="page">
+        FROM
+            tenant t
+                JOIN oauth2_registered_client orc ON t.tenant_id = orc.tenant_id
+        WHERE
+            1 = 1
+          AND orc.client_type = #{param.clientType}
+    </sql>
+
+    <!-- 分页查询租户的条数 -->
+    <select id="countByTenantPageLoginBo" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        <include refid="page" />
+    </select>
+
+    <!-- 分页查询租户的内容 -->
+    <select id="listByTenantPageLoginBo" resultType="cloud.xuxiaowei.passport.vo.TenantLoginVo">
+        SELECT
+            t.tenant_id,
+            t.tenant_name,
+            orc.client_id,
+            orc.client_name
+        <include refid="page" />
+        LIMIT ${(param.current - 1) * param.size}, ${param.size}
+    </select>
+
+</mapper>

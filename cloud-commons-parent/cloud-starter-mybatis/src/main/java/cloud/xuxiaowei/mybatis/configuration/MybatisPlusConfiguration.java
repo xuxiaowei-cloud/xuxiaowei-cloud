@@ -2,9 +2,12 @@ package cloud.xuxiaowei.mybatis.configuration;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -24,6 +27,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("cloud.xuxiaowei.*.mapper.**")
 public class MybatisPlusConfiguration {
 
+	private TenantLineHandler tenantLineHandler;
+
+	@Autowired
+	public void setTenantLineHandler(TenantLineHandler tenantLineHandler) {
+		this.tenantLineHandler = tenantLineHandler;
+	}
+
 	/**
 	 * 新的分页插件、攻击 SQL 阻断解析器，防止全表更新与删除
 	 * <p>
@@ -35,6 +45,9 @@ public class MybatisPlusConfiguration {
 	@Bean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
+		// 租户
+		interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler));
 
 		// 分页拦截器
 		interceptor.addInnerInterceptor(new PaginationInnerInterceptor());

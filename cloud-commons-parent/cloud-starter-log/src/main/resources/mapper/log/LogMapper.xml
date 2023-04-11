@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.log.entity.Log">
         <id column="log_id" property="logId" />
+        <result column="tenant_id" property="tenantId" />
         <result column="module" property="module" />
         <result column="date" property="date" />
         <result column="year" property="year" />

@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.webservice.vo;
 
 import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.MdcConstants;
 import lombok.Data;
 import org.slf4j.MDC;
 
@@ -107,7 +107,7 @@ public class ResponseUserVo implements Serializable {
 	 */
 	public String getRequestId() {
 		if (this.requestId == null) {
-			return MDC.get(Constant.REQUEST_ID);
+			return MDC.get(MdcConstants.REQUEST_ID);
 		}
 		return this.requestId;
 	}

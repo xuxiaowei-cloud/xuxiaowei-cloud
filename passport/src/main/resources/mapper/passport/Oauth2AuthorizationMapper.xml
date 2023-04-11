@@ -30,4 +30,37 @@
         <result column="refresh_token_metadata" property="refreshTokenMetadata" />
     </resultMap>
 
+    <sql id="page">
+        FROM
+            oauth2_authorization oa
+            JOIN oauth2_registered_client orc ON oa.registered_client_id = orc.id
+        WHERE 1 = 1
+        <if test="param.registeredClientId != null and param.registeredClientId != ''">
+            AND oac.registered_client_id = #{param.registeredClientId}
+        </if>
+        <if test="param.principalName != null and param.principalName != ''">
+            AND oac.principal_name = #{param.principalName}
+        </if>
+    </sql>
+
+    <!-- 分页查询授权的条数 -->
+    <select id="countByOauth2AuthorizationPageBo" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        <include refid="page" />
+    </select>
+
+    <!-- 分页查询授权的条数 -->
+    <select id="listByOauth2AuthorizationPageBo"
+            resultType="cloud.xuxiaowei.passport.vo.Oauth2AuthorizationVo">
+        SELECT
+            oa.*,
+            orc.tenant_id,
+            orc.client_id,
+            orc.client_name
+        <include refid="page" />
+        ORDER BY oa.access_token_issued_at DESC
+        LIMIT ${(param.current - 1) * param.size}, ${param.size}
+    </select>
+
 </mapper>

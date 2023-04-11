@@ -10,7 +10,7 @@ import java.util.List;
  * @author xuxiaowei
  * @since 0.0.1
  */
-public class Constant implements Serializable {
+public class Constants implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -90,27 +90,12 @@ public class Constant implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	public static final String USERS_ID = "USERS_ID";
+	public static final String USERS_ID = "usersId";
 
 	/**
-	 * NAME
+	 * 超级租户
 	 */
-	public static final String NAME = "NAME";
-
-	/**
-	 * 请求ID
-	 */
-	public static final String REQUEST_ID = "REQUEST_ID";
-
-	/**
-	 * 主机名
-	 */
-	public static final String HOST_NAME = "HOST_NAME";
-
-	/**
-	 * IP
-	 */
-	public static final String IP = "IP";
+	public static final String SUPER_TENANT = "superTenant";
 
 	/**
 	 * null 值
@@ -166,5 +151,10 @@ public class Constant implements Serializable {
 	 * 图片验证码
 	 */
 	public static final String PATCHCA = "patchca";
+
+	/**
+	 * 租户ID
+	 */
+	public static final String TENANT_ID = "tenantId";
 
 }

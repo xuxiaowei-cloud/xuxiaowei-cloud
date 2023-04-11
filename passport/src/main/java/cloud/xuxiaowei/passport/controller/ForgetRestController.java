@@ -12,7 +12,7 @@ import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.AliyunDySmsApiService;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
@@ -203,7 +203,7 @@ public class ForgetRestController {
 		String phone = user.getPhone();
 
 		// 识别码
-		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+		String identification = RandomStringUtils.random(4, Joiner.on("").join(Constants.UPPER_CASE_LIST));
 
 		// 100000 到 999999 之间的随机数
 		String code = RANDOM.nextInt(900000) + 100000 + "";

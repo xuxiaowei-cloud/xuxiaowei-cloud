@@ -74,7 +74,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 
-		String username = request.getParameter(Constant.USERNAME);
+		String username = request.getParameter(Constants.USERNAME);
 		UsersLogin usersLogin = HandlerUtils.usersLogin(username, false, request, exception);
 		usersLoginService.save(usersLogin);
 

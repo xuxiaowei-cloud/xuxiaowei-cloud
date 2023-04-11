@@ -3,6 +3,7 @@ package cloud.xuxiaowei.passport.service;
 import cloud.xuxiaowei.passport.bo.Oauth2AuthorizationConsentPageBo;
 import cloud.xuxiaowei.passport.bo.Oauth2AuthorizationConsentPrimaryKey;
 import cloud.xuxiaowei.passport.entity.Oauth2AuthorizationConsent;
+import cloud.xuxiaowei.passport.vo.Oauth2AuthorizationConsentVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -28,7 +29,7 @@ public interface IOauth2AuthorizationConsentService extends IService<Oauth2Autho
 	 * @param oauth2AuthorizationConsentPageBo 授权同意书表 分页参数
 	 * @return 返回 分页结果
 	 */
-	IPage<Oauth2AuthorizationConsent> pageByOauth2AuthorizationConsentPageBo(
+	IPage<Oauth2AuthorizationConsentVo> pageByOauth2AuthorizationConsentPageBo(
 			Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo);
 
 	/**

@@ -2,7 +2,7 @@ package cloud.xuxiaowei.gateway.filter.web;
 
 import cloud.xuxiaowei.core.properties.CloudAesProperties;
 import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cn.hutool.crypto.symmetric.AES;
@@ -148,7 +148,7 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 		byte[] ivBytes = cloudAesProperties.getDefaultIv().getBytes();
 
 		// 接口请求中的加密方式（版本）
-		String encrypt = headers.getFirst(Constant.ENCRYPT);
+		String encrypt = headers.getFirst(Constants.ENCRYPT);
 		if (StringUtils.hasText(encrypt)) {
 			// 存在：请求中的加密方式（版本）
 
@@ -217,10 +217,10 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 
 		AES aes = new AES(aesVersion.mode, aesVersion.padding, keyBytes, ivBytes);
 		// 设置解密方式（版本）
-		response.getHeaders().set(Constant.DECRYPT, aesVersion.version);
+		response.getHeaders().set(Constants.DECRYPT, aesVersion.version);
 		// 设置解密秘钥、偏移量（如果为 default，代表使用默认秘钥、偏移量）
 		response.getHeaders()
-			.set(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, clientId == null ? Constant.DEFAULT : clientId);
+			.set(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, clientId == null ? Constants.DEFAULT : clientId);
 
 		log.debug("解密前 body：{}", new String(bytes));
 
@@ -309,7 +309,7 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 	private String checkCurrentTimeMillis(String decryptStr) {
 		if (StringUtils.hasText(decryptStr)) {
 			if (decryptStr.length() < CURRENT_TIME_MILLIS_LENGTH) {
-				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳长度不合法", Constant.CURRENT_TIME_MILLIS);
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳长度不合法", Constants.CURRENT_TIME_MILLIS);
 			}
 
 			String substring = decryptStr.substring(0, CURRENT_TIME_MILLIS_LENGTH);
@@ -319,19 +319,19 @@ public class RequestBodyDecryptWebFilter implements WebFilter, Ordered {
 			}
 			catch (Exception e) {
 				log.error("解密字符串时间戳类型不合法", e);
-				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳类型不合法", Constant.CURRENT_TIME_MILLIS);
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳类型不合法", Constants.CURRENT_TIME_MILLIS);
 			}
 
 			long time = Math.abs(System.currentTimeMillis() - currentTimeMillis);
 
 			// noinspection AlibabaUndefineMagicConstant
 			if (time > cloudAesProperties.getTime() * 1000) {
-				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳不合法", Constant.CURRENT_TIME_MILLIS);
+				throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串时间戳不合法", Constants.CURRENT_TIME_MILLIS);
 			}
 
 		}
 		else {
-			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串不能为空", Constant.CURRENT_TIME_MILLIS);
+			throw new CloudRuntimeException(CodeEnums.ERROR.code, "解密字符串不能为空", Constants.CURRENT_TIME_MILLIS);
 		}
 
 		return decryptStr.substring(CURRENT_TIME_MILLIS_LENGTH);

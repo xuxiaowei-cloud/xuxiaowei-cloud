@@ -2,8 +2,8 @@ package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.passport.bo.Oauth2AuthorizationConsentPageBo;
 import cloud.xuxiaowei.passport.bo.Oauth2AuthorizationConsentPrimaryKey;
-import cloud.xuxiaowei.passport.entity.Oauth2AuthorizationConsent;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationConsentService;
+import cloud.xuxiaowei.passport.vo.Oauth2AuthorizationConsentVo;
 import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.AssertUtils;
 import cloud.xuxiaowei.utils.Response;
@@ -60,7 +60,7 @@ public class Oauth2AuthorizationConsentRestController {
 	public Response<?> page(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo) {
 
-		IPage<Oauth2AuthorizationConsent> page = oauth2AuthorizationConsentService
+		IPage<Oauth2AuthorizationConsentVo> page = oauth2AuthorizationConsentService
 			.pageByOauth2AuthorizationConsentPageBo(oauth2AuthorizationConsentPageBo);
 
 		return Response.ok(page);

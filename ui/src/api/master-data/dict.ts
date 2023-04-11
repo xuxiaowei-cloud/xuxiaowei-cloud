@@ -5,7 +5,7 @@ import Resp from '../common'
  * 查询字典代码列表
  */
 export const list = function () {
-  return request.get('/master-data/dict/list').then(response => {
+  return request.post('/master-data/dict/list').then(response => {
     return response.data as Resp<any>
   })
 }

@@ -68,15 +68,12 @@ const data = ref(authorityData)
 const user : string[] = []
 const userData = reactive(user)
 
-const username = ref(null)
-
 // 初始化用户数据
 if (props.usersId) {
   getById(props.usersId).then(response => {
     if (response.code === settings.okCode) {
       const data = response.data
       if (data) {
-        username.value = data.username
         const authorityList = data.authorityList
         for (const i in authorityList) {
           const team = authorityList[i]
@@ -97,7 +94,7 @@ const emit = defineEmits(['dialogVisibleClose'])
 // 保存
 const cloudSave = () => {
   saveAuthorities({
-    username: username.value,
+    usersId: props.usersId,
     authorityList: rightValue.value
   }).then(response => {
     if (response.code === settings.okCode) {
