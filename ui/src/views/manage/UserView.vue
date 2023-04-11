@@ -7,10 +7,10 @@
     <el-input class="cloud-el-input" clearable v-model="param.nickname" placeholder="Please input nickname"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'manage_user:delete'">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'manage_user:add'">添加
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^manage_user:(delete|\*)$/">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="/^manage_user:(add|\*)$/">添加
     </el-button>
-    <el-button class="cloud-el-manage_user_token_delete" @click="cloudTokenDelete" v-permission="'manage_user:token_delete'">
+    <el-button class="cloud-el-manage_user_token_delete" @click="cloudTokenDelete" v-permission="/^manage_user:(token_delete|\*)$/">
       删除Token
     </el-button>
   </div>
@@ -47,6 +47,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
       <el-table-column prop="username" label="username" width="100"/>
       <el-table-column prop="email" label="email" width="220" :show-overflow-tooltip="true"/>
@@ -60,14 +61,14 @@
       <el-table-column prop="updateDate" label="updateDate" width="160"/>
 
       <el-table-column fixed="right" label="Operations" width="230"
-                       v-permission="['manage_user:delete', 'manage_user:edit', 'manage_user:authority']">
+                       v-permission="[/^manage_user:(delete|edit|authority|\*)$/]">
         <template #default="scope">
-          <el-button size="small" @click="deleteUsersId(scope.row)" v-permission="'manage_user:delete'">Delete
+          <el-button size="small" @click="deleteUsersId(scope.row)" v-permission="/^manage_user:(delete|\*)$/">Delete
           </el-button>
-          <el-button size="small" @click="editUsersId(scope.row.usersId)" v-permission="'manage_user:edit'">Edit
+          <el-button size="small" @click="editUsersId(scope.row.usersId)" v-permission="/^manage_user:(edit|\*)$/">Edit
           </el-button>
           <el-button size="small" @click="editUsersAuthorityId(scope.row.usersId)"
-                     v-permission="'manage_user:authority'">Authority
+                     v-permission="/^manage_user:(authority|\*)$/">Authority
           </el-button>
         </template>
       </el-table-column>
@@ -79,11 +80,13 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById, removeByIds } from '../../api/user'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { page, removeById, removeByIds } from '../../api/user'
+import settings from '../../settings'
+import { useStore } from '../../store'
+
 // 用户添加、编辑弹窗内容
 import UserDialog from './dialog/UserDialog.vue'
 // 用户权限管理弹窗内容

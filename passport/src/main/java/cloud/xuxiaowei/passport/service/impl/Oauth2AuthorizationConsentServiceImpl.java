@@ -5,12 +5,12 @@ import cloud.xuxiaowei.passport.bo.Oauth2AuthorizationConsentPrimaryKey;
 import cloud.xuxiaowei.passport.entity.Oauth2AuthorizationConsent;
 import cloud.xuxiaowei.passport.mapper.Oauth2AuthorizationConsentMapper;
 import cloud.xuxiaowei.passport.service.IOauth2AuthorizationConsentService;
+import cloud.xuxiaowei.passport.vo.Oauth2AuthorizationConsentVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -38,25 +38,20 @@ public class Oauth2AuthorizationConsentServiceImpl
 	 * @return 返回 分页结果
 	 */
 	@Override
-	public IPage<Oauth2AuthorizationConsent> pageByOauth2AuthorizationConsentPageBo(
+	public IPage<Oauth2AuthorizationConsentVo> pageByOauth2AuthorizationConsentPageBo(
 			Oauth2AuthorizationConsentPageBo oauth2AuthorizationConsentPageBo) {
-		QueryWrapper<Oauth2AuthorizationConsent> queryWrapper = new QueryWrapper<>();
-		Long size = oauth2AuthorizationConsentPageBo.getSize();
-		Long current = oauth2AuthorizationConsentPageBo.getCurrent();
+		long size = oauth2AuthorizationConsentPageBo.getSize();
+		long current = oauth2AuthorizationConsentPageBo.getCurrent();
 
-		String registeredClientId = oauth2AuthorizationConsentPageBo.getRegisteredClientId();
-		String principalName = oauth2AuthorizationConsentPageBo.getPrincipalName();
+		int total = baseMapper.countByOauth2AuthorizationConsentPageBo(oauth2AuthorizationConsentPageBo);
+		List<Oauth2AuthorizationConsentVo> records = baseMapper
+			.listByOauth2AuthorizationConsentPageBo(oauth2AuthorizationConsentPageBo);
 
-		if (StringUtils.hasText(registeredClientId)) {
-			queryWrapper.eq("registered_client_id", registeredClientId);
-		}
-		if (StringUtils.hasText(principalName)) {
-			queryWrapper.eq("principal_name", principalName);
-		}
+		IPage<Oauth2AuthorizationConsentVo> page = new Page<>(current, size);
+		page.setTotal(total);
+		page.setRecords(records);
 
-		IPage<Oauth2AuthorizationConsent> page = new Page<>(current == null ? 1 : current, size == null ? 10 : size);
-
-		return page(page, queryWrapper);
+		return page;
 	}
 
 	/**

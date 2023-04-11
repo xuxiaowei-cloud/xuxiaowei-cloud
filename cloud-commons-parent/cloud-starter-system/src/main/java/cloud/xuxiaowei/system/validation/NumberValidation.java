@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.system.validation;
 
 import cloud.xuxiaowei.system.annotation.NumberAnnotation;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForCharSequence;
 
@@ -30,7 +30,7 @@ public class NumberValidation implements ConstraintValidator<NumberAnnotation, S
 			String[] split = value.split("");
 
 			for (String s : split) {
-				if (Constant.NUMBER_LIST.contains(s)) {
+				if (Constants.NUMBER_LIST.contains(s)) {
 					return true;
 				}
 			}

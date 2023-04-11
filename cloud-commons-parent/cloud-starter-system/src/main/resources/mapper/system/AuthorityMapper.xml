@@ -8,15 +8,15 @@
         <result column="explain" property="explain" />
     </resultMap>
 
-    <!-- 根据 用户名 查询权限 -->
-    <select id="listByUsername" resultType="cloud.xuxiaowei.system.vo.AuthorityVo">
+    <!-- 根据 用户ID 查询权限 -->
+    <select id="listByUsersId" resultType="cloud.xuxiaowei.system.vo.AuthorityVo">
         SELECT
             ay.*
         FROM
             authorities a
                 LEFT JOIN authority ay ON a.authority = ay.authority
         WHERE
-            a.username = #{username}
+            a.users_id = #{usersId}
     </select>
 
 </mapper>

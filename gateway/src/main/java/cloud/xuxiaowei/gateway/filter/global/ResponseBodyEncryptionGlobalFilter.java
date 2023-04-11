@@ -4,7 +4,7 @@ import cloud.xuxiaowei.core.properties.CloudAesProperties;
 import cloud.xuxiaowei.core.properties.CloudSignProperties;
 import cloud.xuxiaowei.gateway.filter.web.LogWebFilter;
 import cloud.xuxiaowei.utils.CodeEnums;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.ServiceEnums;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
@@ -141,7 +141,7 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 					}
 
 					// 接口响应中的加密方式（版本）
-					String encrypt = headers.getFirst(Constant.ENCRYPT);
+					String encrypt = headers.getFirst(Constants.ENCRYPT);
 
 					if (StringUtils.hasText(encrypt)) {
 						// 存在：响应中的加密方式（版本）
@@ -191,7 +191,7 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 		Sign sign = SecureUtil.sign(SignAlgorithm.MD5withRSA, cloudSignProperties.getPrivateKey(), null);
 		byte[] signBytes = sign.sign(data);
 		String encode = Base64.encode(signBytes);
-		response.getHeaders().set(Constant.SIGN, encode);
+		response.getHeaders().set(Constants.SIGN, encode);
 	}
 
 	/**
@@ -214,10 +214,10 @@ public class ResponseBodyEncryptionGlobalFilter implements GlobalFilter, Ordered
 		AES aes = new AES(aesVersion.mode, aesVersion.padding, keyBytes, ivBytes);
 
 		// 设置加密版本
-		headers.set(Constant.ENCRYPT, aesVersion.version);
+		headers.set(Constants.ENCRYPT, aesVersion.version);
 		// 暴露响应头（否则 axios 将无法获取）
-		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.ENCRYPT);
-		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constant.SIGN);
+		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constants.ENCRYPT);
+		headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, Constants.SIGN);
 
 		@SuppressWarnings("unchecked")
 		Flux<? extends DataBuffer> fluxDataBuffer = (Flux<? extends DataBuffer>) body;

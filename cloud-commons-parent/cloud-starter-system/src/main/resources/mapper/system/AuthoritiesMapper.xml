@@ -4,10 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cloud.xuxiaowei.system.entity.Authorities">
-        <id column="username" property="username" />
-        <id column="authority" property="authority" />
-        <result column="update_date" property="updateDate" />
+        <id column="authorities_id" property="authoritiesId" />
+        <result column="users_id" property="usersId" />
+        <result column="authority" property="authority" />
+        <result column="remark" property="remark" />
+        <result column="create_users_id" property="createUsersId" />
         <result column="create_date" property="createDate" />
+        <result column="create_ip" property="createIp" />
+        <result column="update_users_id" property="updateUsersId" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_ip" property="updateIp" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>

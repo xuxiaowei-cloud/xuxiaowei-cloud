@@ -154,7 +154,7 @@ public class Response<T> implements Serializable {
 	 */
 	public String getRequestId() {
 		if (this.requestId == null) {
-			return MDC.get(Constant.REQUEST_ID);
+			return MDC.get(MdcConstants.REQUEST_ID);
 		}
 		return this.requestId;
 	}
@@ -167,13 +167,13 @@ public class Response<T> implements Serializable {
 	public String getBuildTime() {
 		Manifest manifest;
 		try {
-			manifest = new Manifest(getClass().getResourceAsStream(Constant.MF_NAME));
+			manifest = new Manifest(getClass().getResourceAsStream(Constants.MF_NAME));
 		}
 		catch (IOException e) {
 			return null;
 		}
 		Attributes attributes = manifest.getMainAttributes();
-		return attributes.getValue(Constant.BUILD_TIME);
+		return attributes.getValue(Constants.BUILD_TIME);
 	}
 
 	public LocalDateTime getBuildTimeParse() {

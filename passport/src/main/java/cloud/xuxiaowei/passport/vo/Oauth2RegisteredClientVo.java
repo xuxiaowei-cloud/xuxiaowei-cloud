@@ -162,4 +162,6 @@ public class Oauth2RegisteredClientVo implements Serializable {
 
 	private String accessTokenFormat;
 
+	private Long tenantId;
+
 }

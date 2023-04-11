@@ -5,7 +5,7 @@
     <el-input class="cloud-el-input" clearable v-model="param.principalName" placeholder="Please input principalName"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'audit_authorization:delete'">删除</el-button>
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^audit_authorization:(delete|\*)$/">删除</el-button>
   </div>
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange">
@@ -17,6 +17,12 @@
             </el-form-item>
             <el-form-item label="registeredClientId">
               <el-input v-model="props.row.registeredClientId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="clientId">
+              <el-input v-model="props.row.clientId" class="cloud-el-expand-input" disabled/>
+            </el-form-item>
+            <el-form-item label="clientName">
+              <el-input v-model="props.row.clientName" class="cloud-el-expand-input" disabled/>
             </el-form-item>
             <el-form-item label="principalName">
               <el-input v-model="props.row.principalName" class="cloud-el-expand-input" disabled/>
@@ -84,8 +90,11 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="id" label="id" width="100" :show-overflow-tooltip="true"/>
       <el-table-column prop="registeredClientId" label="registeredClientId" width="150" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientId" label="clientId" width="180" :show-overflow-tooltip="true"/>
+      <el-table-column prop="clientName" label="clientName" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="principalName" label="principalName" width="130" :show-overflow-tooltip="true"/>
       <el-table-column prop="accessTokenIssuedAt" label="accessTokenIssuedAt" width="180"/>
       <el-table-column prop="accessTokenExpiresAt" label="accessTokenExpiresAt" width="180"/>
@@ -93,7 +102,7 @@
       <el-table-column prop="authorizationGrantType" label="authorizationGrantType" width="190"/>
       <el-table-column prop="refreshTokenExpiresAt" label="refreshTokenExpiresAt" width="180"/>
       <el-table-column prop="refreshTokenIssuedAt" label="refreshTokenIssuedAt" width="180"/>
-      <el-table-column fixed="right" label="Operations" width="100" v-permission="'audit_authorization:delete'">
+      <el-table-column fixed="right" label="Operations" width="100" v-permission="/^audit_authorization:(delete|\*)$/">
         <template #default="scope">
           <el-button size="small" v-if="scope.row.deleted" disabled>Delete</el-button>
           <el-button size="small" v-else @click="deleteId(scope.row.id)">Delete
@@ -108,10 +117,11 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeById, removeByIds } from '../../api/passport/oauth2-authorization'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import { ElMessage } from 'element-plus'
+import { page, removeById, removeByIds } from '../../api/passport/oauth2-authorization'
+import settings from '../../settings'
+import { useStore } from '../../store'
 
 // 表格数据
 const tableData = ref([])

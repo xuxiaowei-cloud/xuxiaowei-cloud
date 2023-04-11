@@ -16,6 +16,17 @@
 
       <el-form class="cloud-form" ref="cloudFormRef" :model="cloudForm">
 
+        <el-form-item label="">
+          <el-select class="cloud-select" clearable filterable v-model="cloudForm.tenantId"
+                     placeholder="请选择租户" @change="handleTenantChange">
+            <template #prefix>
+              <el-icon><Histogram/></el-icon>
+            </template>
+            <el-option v-for="item in tenantOptions" :key="item.tenantId" :value="item.tenantId"
+                       :label="item.tenantName + ` - ` + item.clientName"/>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="" prop="username" :rules="[{ required: true, message: '用户名必填' }]">
           <el-input v-model.trim="cloudForm.username" :prefix-icon="User" placeholder="用户名"/>
         </el-form-item>
@@ -134,11 +145,12 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { Key, Lock, Unlock, User } from '@element-plus/icons-vue'
+import { Histogram, Key, Lock, Unlock, User } from '@element-plus/icons-vue'
 import { JSEncrypt } from 'jsencrypt'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { configuration, login } from '../api/passport'
+import { pageLogin } from '../api/tenant'
 import settings from '../settings'
 import Resp from '../api/common'
 
@@ -161,6 +173,10 @@ const githubUrl = ref()
 const dingtalkUrl = ref()
 const alipayOplatformWebsiteUrl = ref()
 const feiShuWebPageUrl = ref()
+// 默认租户ID
+const defaultTenantId = ref<string>('1')
+// 默认客户ID
+const defaultClientId = ref<string>('1')
 
 configuration().then((response : Resp<any>) => {
   console.log(response)
@@ -176,6 +192,10 @@ configuration().then((response : Resp<any>) => {
     dingtalkUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/dingtalk/authorize/${response.data.dingtalkAppid}`
     alipayOplatformWebsiteUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/alipay-oplatform/website/authorize/${response.data.alipayOplatformWebsiteAppid}`
     feiShuWebPageUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/feishu-webpage/authorize/${response.data.feiShuWebPageAppid}`
+    defaultTenantId.value = response.data.defaultTenantId
+    defaultClientId.value = response.data.defaultClientId
+    tenantId.value = response.data.defaultTenantId
+    clientId.value = response.data.defaultClientId
   } else {
     ElMessage.error(msg)
   }
@@ -183,10 +203,51 @@ configuration().then((response : Resp<any>) => {
 
 // 表单中的值
 const cloudForm = reactive({
+  tenantId: '',
+  clientId: '',
   username: '',
   password: '',
   rememberMe: []
 })
+
+const tenantId = ref<string>('')
+const clientId = ref<string>('')
+
+interface TenantOption {
+  tenantId: string;
+  tenantName: string;
+  clientId: string;
+  clientName: string;
+}
+
+const tenantOptions = ref<TenantOption[]>()
+
+pageLogin({ current: 1, size: 10, clientType: 'web' }).then(response => {
+  tenantOptions.value = response.data.records
+})
+
+const handleTenantChange = function () {
+  // 循环匹配客户ID
+  tenantId.value = cloudForm.tenantId === '' ? defaultTenantId.value : cloudForm.tenantId
+  if (tenantOptions.value !== undefined) {
+    for (const tenantOption of tenantOptions.value) {
+      if (tenantOption.tenantId === tenantId.value) {
+        clientId.value = tenantOption.clientId
+        break
+      }
+    }
+  }
+
+  // 未选择租户时使用默认租户
+  if (tenantId.value === '' || tenantId.value == null) {
+    tenantId.value = defaultTenantId.value
+  }
+
+  // 未选择租户时使用默认客户
+  if (clientId.value === '' || clientId.value == null) {
+    clientId.value = defaultClientId.value
+  }
+}
 
 // 密码输入框类型
 const passwordType = ref('password')
@@ -242,7 +303,8 @@ const submitCloudForm = () => {
 
       // encodeURIComponent()
       const homePage = route.query.homePage as string
-      login(cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
+
+      login(tenantId.value, clientId.value, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
         console.log(response)
         const msg = response.msg
 
@@ -311,6 +373,7 @@ const submitCloudForm = () => {
   }
 
   .cloud-form .el-input,
+  .cloud-form .cloud-select,
   .remember-me,
   .submit-cloud-form {
     /* xs ：输入框、按钮宽度 */
@@ -323,6 +386,7 @@ const submitCloudForm = () => {
 @media only screen and (min-width: 768px) {
 
   .cloud-form .el-input,
+  .cloud-form .cloud-select,
   .remember-me,
   .submit-cloud-form {
     /* 非 xs ：输入框、按钮宽度 */

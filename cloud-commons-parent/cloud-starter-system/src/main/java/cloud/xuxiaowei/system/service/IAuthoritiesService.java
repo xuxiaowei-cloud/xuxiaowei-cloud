@@ -23,18 +23,18 @@ import java.util.Set;
 public interface IAuthoritiesService extends IService<Authorities> {
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
-	List<Authorities> listByUsername(String username);
+	List<Authorities> listByUsersId(Long usersId);
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
-	Set<String> listAuthorityByUsername(String username);
+	Set<String> listAuthorityByUsersId(Long usersId);
 
 	/**
 	 * 根据 用户名、权限 保存
@@ -44,11 +44,11 @@ public interface IAuthoritiesService extends IService<Authorities> {
 	boolean saveByAuthoritiesSaveBo(AuthoritiesSaveBo authoritiesSaveBo);
 
 	/**
-	 * 根据 用户名、权限 删除
-	 * @param username 用户名
+	 * 根据 用户ID、权限 删除
+	 * @param usersId 用户ID
 	 * @param authorityList 权限
 	 * @return 返回 删除结果
 	 */
-	boolean removeByUsernameAndAuthoritiesList(String username, Set<String> authorityList);
+	boolean removeByUsersIdAndAuthoritiesList(Long usersId, Set<String> authorityList);
 
 }

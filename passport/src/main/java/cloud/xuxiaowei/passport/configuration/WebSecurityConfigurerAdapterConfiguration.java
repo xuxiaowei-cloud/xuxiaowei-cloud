@@ -223,6 +223,9 @@ public class WebSecurityConfigurerAdapterConfiguration {
 				// 微博 网站应用 授权码接收服务
 				.antMatchers("/weibo/code/*").permitAll()
 
+				// 分页查询租户-登录页面
+				.antMatchers("/tenant/page/login").permitAll()
+
 				// 其他路径均需要授权
 				.anyRequest().authenticated();
 		});

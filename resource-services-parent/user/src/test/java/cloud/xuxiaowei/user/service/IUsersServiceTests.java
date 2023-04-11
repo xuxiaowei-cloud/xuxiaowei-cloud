@@ -25,11 +25,11 @@ class IUsersServiceTests {
 	private IUsersService usersService;
 
 	/**
-	 * 根据 用户名 查询用户信息、性别、区域地址及权限
+	 * 根据 用户ID 查询用户信息、性别、区域地址及权限
 	 */
 	@Test
-	void getUsersVoByUsername() throws JsonProcessingException {
-		UsersVo usersVo = usersService.getUsersVoByUsername("xuxiaowei");
+	void getUsersVoByUsersId() throws JsonProcessingException {
+		UsersVo usersVo = usersService.getUsersVoByUsersId(1L);
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
 		ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();

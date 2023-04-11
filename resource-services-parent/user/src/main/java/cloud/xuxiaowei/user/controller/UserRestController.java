@@ -9,10 +9,7 @@ import cloud.xuxiaowei.system.bo.UsersUpdateByIdBo;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.system.service.SessionService;
 import cloud.xuxiaowei.system.vo.UsersVo;
-import cloud.xuxiaowei.utils.AssertUtils;
-import cloud.xuxiaowei.utils.Constant;
-import cloud.xuxiaowei.utils.Encrypt;
-import cloud.xuxiaowei.utils.Response;
+import cloud.xuxiaowei.utils.*;
 import cloud.xuxiaowei.utils.map.ResponseMap;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -23,7 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,10 +65,12 @@ public class UserRestController {
 	@ControllerAnnotation(description = "用户信息")
 	@PreAuthorize("@ant.hasAuthority('user:info')")
 	@PostMapping("/info")
-	public Response<?> info(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+	public Response<?> info(HttpServletRequest request, HttpServletResponse response) {
 
-		String name = authentication.getName();
-		UsersVo usersVo = usersService.getUsersVoByUsername(name);
+		Long usersId = SecurityUtils.getUsersId();
+		// 由于本租户下的用户能看到所有租户的数据，并且不同租户下可以存在相同的用户名，
+		// 所以接口不能使用用户名查询数据，应该使用用户主键查询数据，以避免报错
+		UsersVo usersVo = usersService.getUsersVoByUsersId(usersId);
 		if (usersVo == null) {
 			return Response.error();
 		}
@@ -266,9 +268,9 @@ public class UserRestController {
 		// 获取公钥
 		String publicKey = generate.getPublicKeyBase64();
 		// 识别码
-		String code = RandomStringUtils.random(6, Joiner.on("").join(Constant.UPPER_CASE_LIST));
+		String code = RandomStringUtils.random(6, Joiner.on("").join(Constants.UPPER_CASE_LIST));
 
-		sessionService.setAttr(Constant.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
+		sessionService.setAttr(Constants.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 
 		return ResponseMap.ok().put("code", code).put("publicKey", publicKey);
 	}

@@ -9,7 +9,7 @@ import cloud.xuxiaowei.passport.mapper.Oauth2RegisteredClientMapper;
 import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.passport.vo.Oauth2RegisteredClientVo;
 import cloud.xuxiaowei.system.service.SessionService;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import cloud.xuxiaowei.validation.utils.ValidationUtils;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -131,6 +131,18 @@ public class Oauth2RegisteredClientServiceImpl extends ServiceImpl<Oauth2Registe
 		Oauth2RegisteredClientVo oauth2RegisteredClientVo = new Oauth2RegisteredClientVo();
 		BeanUtils.copyProperties(oauth2RegisteredClient, oauth2RegisteredClientVo);
 		return oauth2RegisteredClientVo;
+	}
+
+	/**
+	 * 根据 客户ID 查询客户信息
+	 * @param clientId 客户ID
+	 * @return 返回 客户信息
+	 */
+	@Override
+	public Oauth2RegisteredClient getByClientId(String clientId) {
+		QueryWrapper<Oauth2RegisteredClient> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("client_id", clientId);
+		return getOne(queryWrapper);
 	}
 
 	/**
@@ -332,7 +344,7 @@ public class Oauth2RegisteredClientServiceImpl extends ServiceImpl<Oauth2Registe
 			return null;
 		}
 
-		String privateKey = sessionService.getAttr(Constant.PRIVATE_KEY + ":" + code);
+		String privateKey = sessionService.getAttr(Constants.PRIVATE_KEY + ":" + code);
 
 		String clientSecretDecrypt;
 		if (StringUtils.hasText(privateKey)) {

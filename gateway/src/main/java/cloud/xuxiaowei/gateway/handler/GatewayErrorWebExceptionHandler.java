@@ -176,8 +176,8 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
 		// 日志中放入请求ID、主机名
 		String hostName = InetAddressUtils.getHostName();
-		MDC.put(Constant.REQUEST_ID, requestId);
-		MDC.put(Constant.HOST_NAME, hostName);
+		MDC.put(MdcConstants.REQUEST_ID, requestId);
+		MDC.put(MdcConstants.HOST_NAME, hostName);
 
 		// 请求中放入用户IP
 		InetSocketAddress remoteAddress = request.getRemoteAddress();

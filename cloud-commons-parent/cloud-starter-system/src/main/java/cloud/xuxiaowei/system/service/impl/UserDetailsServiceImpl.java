@@ -5,6 +5,8 @@ import cloud.xuxiaowei.system.entity.Authorities;
 import cloud.xuxiaowei.system.entity.Users;
 import cloud.xuxiaowei.system.service.IUsersService;
 import cloud.xuxiaowei.utils.CodeEnums;
+import cloud.xuxiaowei.utils.Constants;
+import cloud.xuxiaowei.utils.MdcUtils;
 import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cloud.xuxiaowei.utils.exception.login.LoginUsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +33,16 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	private HttpServletRequest request;
+
 	private IUsersService usersService;
 
 	private CloudSecurityProperties cloudSecurityProperties;
+
+	@Autowired
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
 
 	@Autowired
 	public void setUsersService(IUsersService usersService) {
@@ -46,6 +56,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	/**
 	 * 根据 用户 查询用户信息与权限
+	 * <p>
+	 * 请求参数中不存在租户ID时，使用默认值：1
 	 * @param username 用户名
 	 * @return 返回 用户信息与权限
 	 * @throws UsernameNotFoundException 用户名没有找到异常
@@ -53,7 +65,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+		String tenantId = request.getParameter(Constants.TENANT_ID);
+
+		// 设置临时租户ID
+		MdcUtils.putTmpTenantId(tenantId);
 		Users users = usersService.loadUserByUsername(username);
+		MdcUtils.clearTmpTenantId();
+
 		if (users == null) {
 			throw new LoginUsernameNotFoundException("用户名不存在");
 		}

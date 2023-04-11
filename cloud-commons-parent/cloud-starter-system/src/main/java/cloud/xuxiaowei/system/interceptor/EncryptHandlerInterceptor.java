@@ -1,7 +1,7 @@
 package cloud.xuxiaowei.system.interceptor;
 
 import cloud.xuxiaowei.system.annotation.EncryptAnnotation;
-import cloud.xuxiaowei.utils.Constant;
+import cloud.xuxiaowei.utils.Constants;
 import cloud.xuxiaowei.utils.Encrypt;
 import cloud.xuxiaowei.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public class EncryptHandlerInterceptor implements HandlerInterceptor {
 				}
 
 				// 将加密注解放入响应头中
-				response.setHeader(Constant.ENCRYPT, aesVersion.version);
+				response.setHeader(Constants.ENCRYPT, aesVersion.version);
 			}
 		}
 

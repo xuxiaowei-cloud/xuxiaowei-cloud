@@ -72,13 +72,13 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 	}
 
 	/**
-	 * 根据 用户名 查询权限
-	 * @param username 用户名
+	 * 根据 用户ID 查询权限
+	 * @param usersId 用户ID
 	 * @return 返回 权限
 	 */
 	@Override
-	public Set<AuthorityVo> listByUsername(String username) {
-		return baseMapper.listByUsername(username);
+	public Set<AuthorityVo> listByUsersId(Long usersId) {
+		return baseMapper.listByUsersId(usersId);
 	}
 
 }

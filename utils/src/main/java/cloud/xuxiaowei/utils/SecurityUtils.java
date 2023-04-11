@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.utils;
 
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import cloud.xuxiaowei.utils.exception.login.LoginException;
 import cn.hutool.core.codec.Base64;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -54,6 +55,30 @@ public class SecurityUtils {
 			if (principal instanceof Jwt) {
 				Jwt jwt = (Jwt) principal;
 				return jwt.getTokenValue();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * tenantId - 租户ID
+	 * @return 返回 租户ID
+	 */
+	public static Long getTenantId() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		if (authentication != null) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof Jwt) {
+				Jwt jwt = (Jwt) principal;
+				Map<String, Object> claims = jwt.getClaims();
+				Object tenantId = claims.get(Constants.TENANT_ID);
+				try {
+					return Long.parseLong(tenantId.toString());
+				}
+				catch (Exception e) {
+					throw new LoginException(CodeEnums.A10012.code, CodeEnums.A10012.msg);
+				}
 			}
 		}
 		return null;
@@ -179,7 +204,7 @@ public class SecurityUtils {
 	 */
 	public static Long getUsersId(Jwt jwt) {
 		Map<String, Object> claims = jwt.getClaims();
-		Object usersId = claims.get(Constant.USERS_ID);
+		Object usersId = claims.get(Constants.USERS_ID);
 		if (usersId == null) {
 			return null;
 		}

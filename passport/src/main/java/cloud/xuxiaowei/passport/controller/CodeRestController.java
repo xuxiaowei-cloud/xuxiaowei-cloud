@@ -1,6 +1,8 @@
 package cloud.xuxiaowei.passport.controller;
 
 import cloud.xuxiaowei.core.properties.CloudClientProperties;
+import cloud.xuxiaowei.passport.entity.Oauth2RegisteredClient;
+import cloud.xuxiaowei.passport.service.IOauth2RegisteredClientService;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.ResponseUtils;
 import cloud.xuxiaowei.utils.map.ResponseMap;
@@ -14,10 +16,7 @@ import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessT
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +41,8 @@ public class CodeRestController {
 
 	private CloudClientProperties cloudClientProperties;
 
+	private IOauth2RegisteredClientService oauth2RegisteredClientService;
+
 	/**
 	 * 在这里只使用 {@link RestTemplate} 而不使用 <code>@FeignClient</code>， 原因是：本服务调用其他服务较少，单独引入
 	 * <code>@FeignClient</code> 并不合适
@@ -50,6 +52,11 @@ public class CodeRestController {
 	@Autowired
 	public void setCloudClientProperties(CloudClientProperties cloudClientProperties) {
 		this.cloudClientProperties = cloudClientProperties;
+	}
+
+	@Autowired
+	public void setOauth2RegisteredClientService(IOauth2RegisteredClientService oauth2RegisteredClientService) {
+		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
 	}
 
 	@Autowired
@@ -66,12 +73,43 @@ public class CodeRestController {
 	 * @param state 状态码
 	 * @throws IOException 重定向异常
 	 */
-	@GetMapping(params = { OAuth2ParameterNames.CODE, OAuth2ParameterNames.STATE })
+	@GetMapping(value = "{clientId}", params = { OAuth2ParameterNames.CODE, OAuth2ParameterNames.STATE })
 	public void index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(OAuth2ParameterNames.CODE) String code,
+			@PathVariable("clientId") String clientId, @RequestParam(OAuth2ParameterNames.CODE) String code,
 			@RequestParam(OAuth2ParameterNames.STATE) String state) throws IOException {
 
-		String stateName = cloudClientProperties.getStateName();
+		CloudClientProperties.Client client = null;
+
+		// 先获取配置文件中的配置
+		// 与 clientId 对比，如果存在，直接使用
+		List<CloudClientProperties.Client> clientList = cloudClientProperties.getList();
+		for (CloudClientProperties.Client c : clientList) {
+			if (clientId.equals(c.getClientId())) {
+				client = c;
+				break;
+			}
+		}
+
+		// 如果不存在，使用数据库里的配置
+		if (client == null) {
+			// 从数据库中读取
+			Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getByClientId(clientId);
+
+			if (oauth2RegisteredClient == null) {
+				Response<?> error = Response.error("无效的客户ID");
+				ResponseUtils.response(response, error);
+				return;
+			}
+
+			client = oauth2RegisteredClient.loadAsConfig();
+			if (client == null) {
+				Response<?> error = Response.error("无效的客户ID配置");
+				ResponseUtils.response(response, error);
+				return;
+			}
+		}
+
+		String stateName = client.getStateName();
 		String sessionState = session.getAttribute(stateName) + "";
 		session.removeAttribute(stateName);
 		if (!StringUtils.hasText(sessionState) || !sessionState.equals(state)) {
@@ -87,13 +125,13 @@ public class CodeRestController {
 		Map<String, String> map = new HashMap<>(8);
 		map.put(OAuth2ParameterNames.CODE, code);
 		map.put(OAuth2ParameterNames.STATE, state);
-		map.put(OAuth2ParameterNames.CLIENT_ID, cloudClientProperties.getClientId());
-		map.put(OAuth2ParameterNames.CLIENT_SECRET, cloudClientProperties.getClientSecret());
-		map.put(OAuth2ParameterNames.REDIRECT_URI, cloudClientProperties.getRedirectUri());
+		map.put(OAuth2ParameterNames.CLIENT_ID, client.getClientId());
+		map.put(OAuth2ParameterNames.CLIENT_SECRET, client.getClientSecret());
+		map.put(OAuth2ParameterNames.REDIRECT_URI, client.getRedirectUriPrefix() + "/" + clientId);
 
 		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-		String accessTokenUri = cloudClientProperties.accessTokenUri();
+		String accessTokenUri = client.accessTokenUri();
 		@SuppressWarnings("unchecked")
 		Map<String, Object> postForObject = restTemplate.postForObject(accessTokenUri, httpEntity, Map.class, map);
 
@@ -105,7 +143,7 @@ public class CodeRestController {
 		final Object sessionHomePageObj = session.getAttribute(sessionState);
 		session.removeAttribute(sessionState);
 		if (sessionHomePageObj == null) {
-			homePage = cloudClientProperties.getHomePage();
+			homePage = client.getHomePage();
 		}
 		else {
 			try {
@@ -116,7 +154,7 @@ public class CodeRestController {
 			}
 			catch (Exception e) {
 				log.error("非法登录成功主页地址：", e);
-				homePage = cloudClientProperties.getHomePage();
+				homePage = client.getHomePage();
 				log.warn("使用默认登录成功主页地址：{}", homePage);
 			}
 		}
@@ -148,10 +186,10 @@ public class CodeRestController {
 	 * @param state 状态码
 	 * @return 返回 授权失败
 	 */
-	@GetMapping(params = { OAuth2ParameterNames.ERROR, OAuth2ParameterNames.ERROR_DESCRIPTION,
+	@GetMapping(value = "{clientId}", params = { OAuth2ParameterNames.ERROR, OAuth2ParameterNames.ERROR_DESCRIPTION,
 			OAuth2ParameterNames.STATE, OAuth2ParameterNames.ERROR_URI })
 	public Response<?> errorState(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(OAuth2ParameterNames.ERROR) String error,
+			@PathVariable("clientId") String clientId, @RequestParam(OAuth2ParameterNames.ERROR) String error,
 			@RequestParam(OAuth2ParameterNames.ERROR_DESCRIPTION) String errorDescription,
 			@RequestParam(OAuth2ParameterNames.ERROR_URI) String errorUri,
 			@RequestParam(OAuth2ParameterNames.STATE) String state) {

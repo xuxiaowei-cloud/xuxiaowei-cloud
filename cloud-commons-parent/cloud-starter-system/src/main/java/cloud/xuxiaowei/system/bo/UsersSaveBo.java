@@ -25,7 +25,7 @@ public class UsersSaveBo implements Serializable {
 	 */
 	@UsernameExistAnnotation
 	@UsernameLogicAnnotation
-	@Length(min = 2, max = 10, message = "用户名 长度限制：2-10")
+	@Length(min = 2, max = 16, message = "用户名 长度限制：2-16")
 	@NotEmpty(message = "用户名 不能为空")
 	private String username;
 
@@ -48,7 +48,7 @@ public class UsersSaveBo implements Serializable {
 	 */
 	@NicknameExistAnnotation
 	@NicknameLogicAnnotation
-	@Length(min = 2, max = 10, message = "昵称 长度限制：2-10")
+	@Length(min = 2, max = 16, message = "昵称 长度限制：2-16")
 	@NotEmpty(message = "昵称 不能为空")
 	private String nickname;
 

@@ -28,6 +28,11 @@ public class UsersVo implements Serializable {
 	private Long usersId;
 
 	/**
+	 * 租户ID，不为空
+	 */
+	private Long tenantId;
+
+	/**
 	 * 用户名，不能为空，唯一键：uk__users__username
 	 */
 	private String username;

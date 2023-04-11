@@ -5,11 +5,11 @@
     <el-input class="cloud-el-input" clearable v-model="param.clientName" placeholder="Please input clientName"/>
     <el-button class="cloud-el-search" @click="cloudSearch">搜索</el-button>
     <el-button class="cloud-el-reset" @click="cloudClearable">重置</el-button>
-    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="'manage_client:delete'">删除</el-button>
-    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="'manage_client:add'">添加
+    <el-button class="cloud-el-remove" @click="cloudRemove" v-permission="/^manage_client:(delete|\*)$/">删除</el-button>
+    <el-button class="cloud-el-add" @click="cloudAdd" v-permission="/^manage_client:(add|\*)$/">添加
     </el-button>
     <el-button class="cloud-el-manage_client_token_delete" @click="cloudTokenDelete"
-               v-permission="'manage_client:token_delete'">删除Token
+               v-permission="/^manage_client:(token_delete|\*)$/">删除Token
     </el-button>
   </div>
 
@@ -87,6 +87,7 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"/>
+      <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="id" label="id" width="100" :show-overflow-tooltip="true"/>
       <el-table-column prop="clientId" label="clientId" width="160" :show-overflow-tooltip="true"/>
       <el-table-column prop="clientName" label="clientName" width="200" :show-overflow-tooltip="true"/>
@@ -97,10 +98,10 @@
       <el-table-column prop="scopes" label="scopes" width="160" :show-overflow-tooltip="true"/>
 
       <el-table-column fixed="right" label="Operations" width="140"
-                       v-permission="['manage_client:delete', 'manage_client:edit', 'manage_client:authority']">
+                       v-permission="[/^manage_client:(delete|edit|authority|\*)$/]">
         <template #default="scope">
-          <el-button size="small" @click="deleteId(scope.row)" v-permission="'manage_client:delete'">Delete</el-button>
-          <el-button size="small" @click="editId(scope.row.id)" v-permission="'manage_client:edit'">Edit</el-button>
+          <el-button size="small" @click="deleteId(scope.row)" v-permission="/^manage_client:(delete|\*)$/">Delete</el-button>
+          <el-button size="small" @click="editId(scope.row.id)" v-permission="/^manage_client:(edit|\*)$/">Edit</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -111,11 +112,12 @@
 </template>
 
 <script setup lang="ts">
-import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
 import { reactive, ref } from 'vue'
-import settings from '../../settings'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
+import settings from '../../settings'
+import { useStore } from '../../store'
 // 客户添加、编辑弹窗内容
 import ClientDialog from './dialog/ClientDialog.vue'
 

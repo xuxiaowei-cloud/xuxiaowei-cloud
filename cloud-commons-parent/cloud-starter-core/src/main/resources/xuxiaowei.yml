@@ -46,11 +46,11 @@ logging:
     # LOG_LEVEL_PATTERN：日志等级
     # -%5p：宽度
     # PID：线程
-    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{USERS_ID} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{TENANT_ID} %clr(:){faint} %X{USERS_ID} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     # 日志文件格式
     # 默认值："%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     # 增加了：%X{NAME} : %X{IP} : %X{REQUEST_ID} :
-    file: "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{USERS_ID} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+    file: "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{TENANT_ID} : %X{USERS_ID} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     # 日期时间格式
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
 
@@ -202,3 +202,64 @@ springdoc:
     # 展开深度
     default-models-expand-depth: 10
     default-model-expand-depth: 10
+
+---
+
+cloud:
+  mybatis-plus:
+    ignore-tables:
+      # 权限与权限说明表
+      - authority
+      # 权限表
+      - authorities
+      # 权限组
+      - groups
+      - "`groups`"
+      - group_authorities
+      - group_members
+      # 省
+      - province_handle
+      # 市
+      - city_handle
+      # 区
+      - county_handle
+      # 镇
+      - town_handle
+      # 居委会
+      - village_handle
+      # 字典
+      - dict
+      # 字典数据
+      - dict_data
+      # 社交用户表
+      - users_alipay_miniprogram
+      - users_alipay_oplatform_website
+      - users_dingtalk
+      - users_feishu_webpage
+      - users_gitee
+      - users_github
+      - users_gitlab
+      - users_login
+      - users_qq_miniprogram
+      - users_qq_website
+      - users_wei_bo_website
+      - users_wx_ma
+      - users_wx_mp
+      - users_wx_open_website
+      - users_wx_work_website
+      # 授权表
+      - oauth2_authorization
+      # 授权同意书表
+      - oauth2_authorization_consent
+      # 租户表
+      - tenant
+
+---
+
+# 租户/客户配置
+cloud:
+  tenant:
+    default-tenant-id: 1
+    default-client-id: xuxiaowei_client_id
+    ignore-all-table-tenant-ids:
+      - 1
