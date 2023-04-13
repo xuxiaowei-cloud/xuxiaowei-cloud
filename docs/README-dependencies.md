@@ -26,6 +26,7 @@ cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:provided
 │        └──org.springframework:spring-web:jar:5.3.26:provided
 │        └──commons-io:commons-io:jar:2.11.0:provided
+│        └──org.apache.commons:commons-text:jar:1.10.0:provided
 │        └──org.dom4j:dom4j:jar:2.1.4:provided
 │        └──org.projectlombok:lombok:jar:1.18.26:compile
 
@@ -94,6 +95,7 @@ cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.3.0:compile
 │        └──com.baomidou:mybatis-plus-boot-starter:jar:3.5.3.1:compile
 │        └──com.baomidou:dynamic-datasource-spring-boot-starter:jar:3.6.1:compile
@@ -310,6 +312,22 @@ cloud.xuxiaowei:canal:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei:file:jar:0.0.1-SNAPSHOT
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
+│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.7.10:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.10:compile
+│        └──org.projectlombok:lombok:jar:1.18.26:compile
+│        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.10:test
+
+
+cloud.xuxiaowei:generate:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile

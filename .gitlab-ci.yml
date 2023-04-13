@@ -172,6 +172,8 @@ package:
     - mvn -pl resource-services-parent/canal -s settings-private.xml docker:push;
     - mvn -pl resource-services-parent/file -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl resource-services-parent/file -s settings-private.xml docker:push;
+    - mvn -pl resource-services-parent/generate -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/generate -s settings-private.xml docker:push;
     - mvn -pl resource-services-parent/master-data -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - mvn -pl resource-services-parent/master-data -s settings-private.xml docker:push;
     - mvn -pl resource-services-parent/user -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
@@ -235,6 +237,7 @@ shell-publish-k8s:
     - kubectl -n xuxiaowei-cloud set image deployment/admin-server-deployment admin-server=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud set image deployment/generate-deployment generate=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud set image deployment/passport-deployment passport=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-$CI_PIPELINE_ID

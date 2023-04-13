@@ -237,6 +237,7 @@ cloud.xuxiaowei
 │    └──resource-services-parent            // 资源服务父模块
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──file                            // 文件服务
+│        └──generate                        // 代码生成服务
 │        └──master-data                     // 主数据服务
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
@@ -284,6 +285,7 @@ cloud.xuxiaowei
 | wechat-offiaccount | 微信公众号服务                     |                                        | 2101  |
 | master-data        | 主数据服务                       |                                        | 2201  |
 | file               | 文件服务                        |                                        | 2301  |
+| generate           | 代码生成服务                      |                                        | 2401  |
 | xxl-job-admin      | XXL Job Admin               |                                        | 5101  |
 |                    |                             |                                        |       |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 |
@@ -302,6 +304,7 @@ cloud.xuxiaowei
 | wechat-offiaccount | 微信公众号服务       | 9007 |
 | master-data        | 主数据服务         | 9008 |
 | file               | 文件服务          | 9009 |
+| generate           | 代码生成服务        | 9010 |
 
 ### 租户、用户名与密码
 

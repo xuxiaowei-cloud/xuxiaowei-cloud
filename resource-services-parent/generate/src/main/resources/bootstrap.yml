@@ -1,0 +1,67 @@
+# 服务器
+server:
+  # 端口
+  port: ${generate_port:2401}
+#
+# Spring 配置
+spring:
+  application:
+    name: generate
+  # 配置环境
+  profiles:
+    # 激活
+    active:
+      - dev
+  config:
+    import:
+      # 此配置是导入 模块 cloud-starter-core 中的配置，实际使用时，应当导入到 Nacos 中，作为共享配置
+      # （在此处这样使用的目的是所有服务一起使用，并且开发者不必担心Nacos配置未能及时同步到项目中的问题）
+      - optional:xuxiaowei.yml
+  # Cloud 配置
+  cloud:
+    # 网络工具
+    inetutils:
+      # 将被忽略的网络接口的 Java 正则表达式列表。
+      ignored-interfaces:
+        # 正则表达式
+        # 忽略 VMware 虚拟机网卡
+        - VMware.*
+        # 忽略 VirtualBox 虚拟机网卡
+        - VirtualBox.*
+    #
+    # Nacos-配置
+    nacos:
+      # 服务发现
+      discovery:
+        # 服务发现地址
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
+        # 命名空间
+        namespace:
+        # 自定义注册IP（为空时使用程序自动获取本机IP）
+        ip: ${generate_ip:}
+      # 服务配置
+      config:
+        # 配置文件后缀名
+        file-extension: yml
+        # 配置服务器地址
+        server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
+        # 命名空间
+        namespace:
+        # 共享配置
+        shared-configs:
+          - dataId: xuxiaowei.${spring.cloud.nacos.config.file-extension}
+            # 是否支持刷新
+            refresh: true
+
+
+---
+# 以下配置可放入 nacos 中
+
+
+# 流控防护组件
+spring:
+  cloud:
+    sentinel:
+      transport:
+        # 端口冲突时，会自动 +1，直到找到可用端口为止
+        port: ${generate_sentinel_port:9010}
