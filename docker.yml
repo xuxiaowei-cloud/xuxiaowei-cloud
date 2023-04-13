@@ -395,7 +395,7 @@ docker-service-generate:
   script:
     - docker stop generate || echo '容器不存在'
     - docker rm generate || echo '容器不存在'
-    - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2301:2301 --name generate -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+    - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2401:2401 --name generate -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
