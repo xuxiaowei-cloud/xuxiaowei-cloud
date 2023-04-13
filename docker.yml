@@ -61,12 +61,16 @@ docker-package:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -84,12 +88,16 @@ docker-service-gateway:
     - docker stop gateway || echo '容器不存在'
     - docker rm gateway || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1101:1101 --name gateway -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -108,12 +116,16 @@ docker-service-admin-server:
     - docker stop admin-server || echo '容器不存在'
     - docker rm admin-server || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1201:1201 --name admin-server -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -132,12 +144,16 @@ docker-service-passport:
     - docker stop passport || echo '容器不存在'
     - docker rm passport || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1401:1401 --name passport -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -156,12 +172,16 @@ docker-service-canal:
     - docker stop canal || echo '容器不存在'
     - docker rm canal || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1601:1601 --name canal -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -180,12 +200,16 @@ docker-service-user:
     - docker stop user || echo '容器不存在'
     - docker rm user || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1701:1701 --name user -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -204,12 +228,16 @@ docker-service-master-data:
     - docker stop master-data || echo '容器不存在'
     - docker rm master-data || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2201:2201 --name master-data -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -228,12 +256,16 @@ docker-service-websocket:
     - docker stop websocket || echo '容器不存在'
     - docker rm websocket || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1801:1801 --name websocket -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -252,12 +284,16 @@ docker-service-webservice:
     - docker stop webservice || echo '容器不存在'
     - docker rm webservice || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1901:1901 --name webservice -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -276,12 +312,16 @@ docker-service-wechat-miniprogram:
     - docker stop wechat-miniprogram || echo '容器不存在'
     - docker rm wechat-miniprogram || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2001:2001 --name wechat-miniprogram -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -300,12 +340,16 @@ docker-service-wechat-offiaccount:
     - docker stop wechat-offiaccount || echo '容器不存在'
     - docker rm wechat-offiaccount || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2101:2101 --name wechat-offiaccount -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -324,12 +368,16 @@ docker-service-file:
     - docker stop file || echo '容器不存在'
     - docker rm file || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2301:2301 --name file -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -348,12 +396,16 @@ docker-service-generate:
     - docker stop generate || echo '容器不存在'
     - docker rm generate || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2301:2301 --name generate -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -372,12 +424,16 @@ docker-service-xxl-job-admin:
     - docker stop xxl-job-admin || echo '容器不存在'
     - docker rm xxl-job-admin || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 5101:5101 --name xxl-job-admin -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/xxl-job-admin:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -396,12 +452,16 @@ docker-service-ui:
     - docker stop ui || echo '容器不存在'
     - docker rm ui || echo '容器不存在'
     - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 1001:80 --name ui -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 docker 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker

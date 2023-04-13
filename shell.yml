@@ -38,12 +38,16 @@ shell-package:
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
       - ui/dist
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
     # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
     # 此处禁用 gitlab.com
     - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -93,12 +97,16 @@ shell-service-gateway:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -148,12 +156,16 @@ shell-service-admin-server:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -204,12 +216,16 @@ shell-service-passport:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -261,12 +277,16 @@ shell-service-canal:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -318,12 +338,16 @@ shell-service-user:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -375,12 +399,16 @@ shell-service-master-data:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -432,12 +460,16 @@ shell-service-websocket:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -489,12 +521,16 @@ shell-service-webservice:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -546,12 +582,16 @@ shell-service-wechat-miniprogram:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -603,12 +643,16 @@ shell-service-wechat-offiaccount:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -660,12 +704,16 @@ shell-service-file:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -717,12 +765,16 @@ shell-service-generate:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -772,12 +824,16 @@ shell-service-xxl-job-admin:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -797,12 +853,16 @@ shell-service-ui:
     - echo RELEASE_PATH：$RELEASE_PATH
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建发布文件夹完成; fi
     - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com、gitcode.net 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com' && $CI_SERVER_HOST != 'gitcode.net'
-    # 此处禁用 gitlab.com、gitcode.net 上的流水线
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'gitcode.net'
+    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
+    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
+    # 此处禁用 gitlab.com
+    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
+    # PR 到 shell 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
