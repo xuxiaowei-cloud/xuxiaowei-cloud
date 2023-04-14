@@ -1,8 +1,10 @@
 package cloud.xuxiaowei.generate.controller;
 
 import cloud.xuxiaowei.generate.bo.TableBo;
+import cloud.xuxiaowei.generate.bo.TableColumnBo;
 import cloud.xuxiaowei.generate.service.GenerateService;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
+import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -61,6 +63,20 @@ public class GenerateRestController {
 			@Valid @RequestBody TableBo tableBo) {
 		IPage<TableVo> page = generateService.listTables(tableBo);
 		return Response.ok(page);
+	}
+
+	/**
+	 * 列出所有的字段信息
+	 * @param request 请求
+	 * @param response 响应
+	 * @return 返回 所有的字段信息
+	 */
+	@PostMapping("/list-table-columns")
+	@PreAuthorize("@ant.hasAuthority('generate')")
+	public Response<?> listTableColumns(HttpServletRequest request, HttpServletResponse response,
+			@Valid @RequestBody TableColumnBo tableColumnBo) {
+		List<TableColumnVo> tableColumnVos = generateService.listTableColumns(tableColumnBo);
+		return Response.ok(tableColumnVos);
 	}
 
 }

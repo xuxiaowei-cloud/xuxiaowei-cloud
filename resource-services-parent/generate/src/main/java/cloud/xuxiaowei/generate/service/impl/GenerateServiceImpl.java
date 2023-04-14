@@ -2,7 +2,10 @@ package cloud.xuxiaowei.generate.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
 import cloud.xuxiaowei.generate.bo.TableBo;
+import cloud.xuxiaowei.generate.bo.TableColumnBo;
 import cloud.xuxiaowei.generate.service.GenerateService;
+import cloud.xuxiaowei.generate.utils.DatabaseConstants;
+import cloud.xuxiaowei.generate.vo.ColumnVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
@@ -180,14 +183,71 @@ public class GenerateServiceImpl implements GenerateService {
 
 	/**
 	 * 列出所有的字段信息
-	 * @param dataSource 数据源配置
-	 * @param tableNames 表名
+	 * @param tableColumnBo 表字段
 	 * @return 返回
 	 */
 	@Override
-	public List<TableColumnVo> listTableColumns(CloudGenerateProperties.DataSource dataSource,
-			List<String> tableNames) {
-		return null;
+	public List<TableColumnVo> listTableColumns(TableColumnBo tableColumnBo) {
+
+		String jdbcUrl = tableColumnBo.getJdbcUrl();
+		List<String> tableNames = tableColumnBo.getTableNames();
+
+		CloudGenerateProperties.DataSource dataSource = getDataSource(jdbcUrl);
+		if (dataSource == null) {
+			throw new CloudRuntimeException("未找到数据源");
+		}
+
+		List<TableColumnVo> tableColumnVos = new ArrayList<>();
+
+		try (HikariDataSource hikariDataSource = new HikariDataSource()) {
+			hikariDataSource.setDriverClassName(dataSource.getDriverClassName());
+			hikariDataSource.setJdbcUrl(dataSource.getJdbcUrl());
+			hikariDataSource.setUsername(dataSource.getUsername());
+			hikariDataSource.setPassword(dataSource.getPassword());
+
+			try (Connection connection = hikariDataSource.getConnection()) {
+				for (String tableName : tableNames) {
+					PreparedStatement preparedStatement = connection
+						.prepareStatement("SHOW FULL COLUMNS FROM " + tableName);
+					ResultSet resultSet = preparedStatement.executeQuery();
+
+					List<ColumnVo> columnVoList = new ArrayList<>();
+					TableColumnVo tableColumnVo = new TableColumnVo();
+					tableColumnVos.add(tableColumnVo);
+					tableColumnVo.setTableName(tableName);
+					tableColumnVo.setColumnVoList(columnVoList);
+
+					while (resultSet.next()) {
+
+						String field = resultSet.getString(DatabaseConstants.FIELD);
+						String type = resultSet.getString(DatabaseConstants.TYPE);
+						String nullColumn = resultSet.getString(DatabaseConstants.NULL);
+						String key = resultSet.getString(DatabaseConstants.KEY);
+						String defaultColumn = resultSet.getString(DatabaseConstants.DEFAULT);
+						String extra = resultSet.getString(DatabaseConstants.EXTRA);
+						String comment = resultSet.getString(DatabaseConstants.COMMENT);
+
+						ColumnVo columnVo = new ColumnVo();
+						columnVoList.add(columnVo);
+
+						columnVo.setField(field);
+						columnVo.setType(type);
+						columnVo.setNullColumn(nullColumn);
+						columnVo.setKey(key);
+						columnVo.setDefaultColumn(defaultColumn);
+						columnVo.setExtra(extra);
+						columnVo.setComment(comment);
+
+					}
+				}
+			}
+			catch (Exception e) {
+				log.error("列出表：{} 所有的字段信息，连接数据库：{} 异常", tableNames, dataSource.getJdbcUrl(), e);
+				throw new RuntimeException(e);
+			}
+		}
+
+		return tableColumnVos;
 	}
 
 	/**
