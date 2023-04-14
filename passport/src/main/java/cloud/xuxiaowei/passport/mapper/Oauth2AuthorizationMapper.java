@@ -26,14 +26,14 @@ public interface Oauth2AuthorizationMapper extends BaseMapper<Oauth2Authorizatio
 	/**
 	 * 分页查询授权的条数
 	 * @param oauth2AuthorizationPageBo 分页查询参数
-	 * @return 返回 分页查询授权内容
+	 * @return 返回 分页查询授权条数
 	 */
 	int countByOauth2AuthorizationPageBo(@Param("param") Oauth2AuthorizationPageBo oauth2AuthorizationPageBo);
 
 	/**
-	 * 分页查询授权的条数
+	 * 分页查询授权的内容
 	 * @param oauth2AuthorizationPageBo 分页查询参数
-	 * @return 返回 分页查询授权的条数
+	 * @return 返回 分页查询授权的内容
 	 */
 	List<Oauth2AuthorizationVo> listByOauth2AuthorizationPageBo(
 			@Param("param") Oauth2AuthorizationPageBo oauth2AuthorizationPageBo);
