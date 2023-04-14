@@ -1,15 +1,17 @@
 package cloud.xuxiaowei.generate.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
+import cloud.xuxiaowei.generate.bo.GenerateBo;
 import cloud.xuxiaowei.generate.bo.TableBo;
 import cloud.xuxiaowei.generate.bo.TableColumnBo;
-import cloud.xuxiaowei.generate.vo.ColumnVo;
+import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,12 +147,51 @@ class GenerateServiceImplTests {
 		List<TableColumnVo> tableColumnVos = generateService.listTableColumns(tableColumnBo);
 		for (TableColumnVo tableColumnVo : tableColumnVos) {
 			String tableName = tableColumnVo.getTableName();
-			List<ColumnVo> columnVoList = tableColumnVo.getColumnVoList();
+			String tableComment = tableColumnVo.getTableComment();
+			List<ColumnFieldVo> columnFieldVoList = tableColumnVo.getFields();
 			log.info(tableName);
-			for (ColumnVo columnVo : columnVoList) {
-				log.info(String.valueOf(columnVo));
+			log.info(tableComment);
+			for (ColumnFieldVo columnFieldVo : columnFieldVoList) {
+				log.info(String.valueOf(columnFieldVo));
 			}
 		}
+	}
+
+	@Test
+	void generate() {
+		String dataSourceName = "微服务数据库";
+		String driverClassName = "com.mysql.cj.jdbc.Driver";
+		String jdbcUrl = "jdbc:mysql://127.0.0.1/xuxiaowei_cloud?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8";
+		String username = "root";
+		String password = "xuxiaowei.com.cn";
+
+		List<CloudGenerateProperties.DataSource> dataSources = new ArrayList<>();
+		CloudGenerateProperties.DataSource dataSource = new CloudGenerateProperties.DataSource();
+		dataSources.add(dataSource);
+		dataSource.setDataSourceName(dataSourceName);
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setJdbcUrl(jdbcUrl);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
+
+		List<String> tableNames = new ArrayList<>();
+		tableNames.add("users");
+
+		CloudGenerateProperties cloudGenerateProperties = new CloudGenerateProperties();
+		cloudGenerateProperties.setDataSources(dataSources);
+		GenerateBo generateBo = new GenerateBo();
+		BeanUtils.copyProperties(cloudGenerateProperties, generateBo);
+		generateBo.setJdbcUrl(jdbcUrl);
+		generateBo.setTableNames(tableNames);
+		generateBo.setModule("system");
+		generateBo.setAuthor("xuxiaowei");
+		generateBo.setSince("0.0.1");
+
+		GenerateServiceImpl generateService = new GenerateServiceImpl();
+		generateService.setCloudGenerateProperties(cloudGenerateProperties);
+
+		generateService.generate(generateBo);
+
 	}
 
 }

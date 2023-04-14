@@ -5,9 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 代码生成 配置
@@ -34,6 +32,11 @@ public class CloudGenerateProperties {
 	private String folderPath = "/xuxiaowei-cloud-generate";
 
 	/**
+	 * 模板文件夹
+	 */
+	private String templatePath = "/templates";
+
+	/**
 	 * 父包名
 	 */
 	private String basePackage = "cloud.xuxiaowei";
@@ -44,6 +47,40 @@ public class CloudGenerateProperties {
 	private List<String> modules = Arrays.asList("core", "idempotent", "loadbalancer", "log", "mybatis", "oauth2",
 			"openfeign", "redis", "session", "system", "validation", "gateway", "passport", "canal", "file",
 			"masterdata", "user", "webservice", "websocket", "wechatminiprogram", "wechatoffiaccount");
+
+	/**
+	 * 类型
+	 * <p>
+	 * 数据库类型 与 Java类型 对照
+	 */
+	private Map<String, String> typeMap = new HashMap<String, String>() {
+		{
+			put("char", "String");
+			put("text", "String");
+			put("json", "String");
+			put("enum", "String");
+			put("varchar", "String");
+
+			put("bigint", "Long");
+			put("int", "Integer");
+
+			put("date", "LocalDate");
+			put("time", "LocalTime");
+			put("datetime", "LocalDateTime");
+			put("timestamp", "LocalDateTime");
+
+			put("bit", "Boolean");
+			put("tinyint", "Boolean");
+
+			put("decimal", "BigDecimal");
+			put("numeric", "BigDecimal");
+
+			put("blob", "byte[]");
+
+			put("float", "Float");
+			put("double", "Double");
+		}
+	};
 
 	/**
 	 * Controller 包名
@@ -129,6 +166,11 @@ public class CloudGenerateProperties {
 	 * VO 后缀名
 	 */
 	private String voSuffixName = "Vo";
+
+	/**
+	 * lombok 注解
+	 */
+	private boolean lombokModel = true;
 
 	/**
 	 * 数据源

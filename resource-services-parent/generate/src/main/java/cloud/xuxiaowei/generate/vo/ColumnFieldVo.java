@@ -11,19 +11,34 @@ import java.io.Serializable;
  * @since 0.0.1
  */
 @Data
-public class ColumnVo implements Serializable {
+public class ColumnFieldVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 字段名
+	 * 数据库 字段名
 	 */
 	private String field;
 
 	/**
-	 * 字段类型
+	 * 数据库 字段类型
 	 */
 	private String type;
+
+	/**
+	 * Java 属性类型
+	 */
+	private String propertyType;
+
+	/**
+	 * Java 属性名
+	 */
+	private String propertyName;
+
+	/**
+	 * 首字母大写的驼峰命名法，用于生成 Getter/Setter
+	 */
+	private String capitalName;
 
 	/**
 	 * 不为 null

@@ -1,6 +1,7 @@
 package cloud.xuxiaowei.generate.service;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
+import cloud.xuxiaowei.generate.bo.GenerateBo;
 import cloud.xuxiaowei.generate.bo.TableBo;
 import cloud.xuxiaowei.generate.bo.TableColumnBo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
@@ -45,5 +46,11 @@ public interface GenerateService {
 	 * @return 返回
 	 */
 	List<TableColumnVo> listTableColumns(TableColumnBo tableColumnBo);
+
+	/**
+	 * 生成代码
+	 * @param generateBo 生成
+	 */
+	void generate(GenerateBo generateBo);
 
 }

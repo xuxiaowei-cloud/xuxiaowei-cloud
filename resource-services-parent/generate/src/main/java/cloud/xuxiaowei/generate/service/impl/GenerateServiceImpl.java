@@ -1,30 +1,39 @@
 package cloud.xuxiaowei.generate.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
+import cloud.xuxiaowei.generate.bo.GenerateBo;
 import cloud.xuxiaowei.generate.bo.TableBo;
 import cloud.xuxiaowei.generate.bo.TableColumnBo;
 import cloud.xuxiaowei.generate.service.GenerateService;
+import cloud.xuxiaowei.generate.utils.ConvertUtils;
 import cloud.xuxiaowei.generate.utils.DatabaseConstants;
-import cloud.xuxiaowei.generate.vo.ColumnVo;
+import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.base.CaseFormat;
 import com.zaxxer.hikari.HikariDataSource;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 代码生成 服务接口 实现类
@@ -206,16 +215,34 @@ public class GenerateServiceImpl implements GenerateService {
 			hikariDataSource.setPassword(dataSource.getPassword());
 
 			try (Connection connection = hikariDataSource.getConnection()) {
+
+				// 当前连接的数据库名称
+				// SELECT DATABASE();
+				String database = connection.getCatalog();
+
+				Map<String, String> typeMap = cloudGenerateProperties.getTypeMap();
+
 				for (String tableName : tableNames) {
 					PreparedStatement preparedStatement = connection
 						.prepareStatement("SHOW FULL COLUMNS FROM " + tableName);
 					ResultSet resultSet = preparedStatement.executeQuery();
 
-					List<ColumnVo> columnVoList = new ArrayList<>();
+					PreparedStatement tablePreparedStatement = connection.prepareStatement(
+							"SELECT table_comment FROM information_schema.tables WHERE table_schema = ? AND table_name = ?");
+					tablePreparedStatement.setString(1, database);
+					tablePreparedStatement.setString(2, tableName);
+					ResultSet tableResultSet = tablePreparedStatement.executeQuery();
+					tableResultSet.next();
+					String tableComment = tableResultSet.getString(1);
+
+					List<ColumnFieldVo> columnFieldVoList = new ArrayList<>();
 					TableColumnVo tableColumnVo = new TableColumnVo();
 					tableColumnVos.add(tableColumnVo);
 					tableColumnVo.setTableName(tableName);
-					tableColumnVo.setColumnVoList(columnVoList);
+					tableColumnVo.setFields(columnFieldVoList);
+					tableColumnVo.setTableComment(tableComment);
+
+					tableColumnVo.setClassName(WordUtils.capitalizeFully(tableName, '_').replace("_", ""));
 
 					while (resultSet.next()) {
 
@@ -227,16 +254,34 @@ public class GenerateServiceImpl implements GenerateService {
 						String extra = resultSet.getString(DatabaseConstants.EXTRA);
 						String comment = resultSet.getString(DatabaseConstants.COMMENT);
 
-						ColumnVo columnVo = new ColumnVo();
-						columnVoList.add(columnVo);
+						ColumnFieldVo columnFieldVo = new ColumnFieldVo();
+						columnFieldVoList.add(columnFieldVo);
 
-						columnVo.setField(field);
-						columnVo.setType(type);
-						columnVo.setNullColumn(nullColumn);
-						columnVo.setKey(key);
-						columnVo.setDefaultColumn(defaultColumn);
-						columnVo.setExtra(extra);
-						columnVo.setComment(comment);
+						String propertyType = ConvertUtils.fieldTypeToPropertyType(typeMap, type);
+
+						columnFieldVo.setField(field);
+						columnFieldVo.setType(type);
+						columnFieldVo.setPropertyType(propertyType);
+						columnFieldVo.setPropertyName(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field));
+						columnFieldVo.setCapitalName(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, field));
+						columnFieldVo.setNullColumn(nullColumn);
+						columnFieldVo.setKey(key);
+						columnFieldVo.setDefaultColumn(defaultColumn);
+						columnFieldVo.setExtra(extra);
+						columnFieldVo.setComment(comment);
+
+						switch (propertyType) {
+							case "LocalTime":
+								tableColumnVo.setLocalTime(true);
+								break;
+							case "LocalDate":
+								tableColumnVo.setLocalDate(true);
+								break;
+							case "LocalDateTime":
+								tableColumnVo.setLocalDateTime(true);
+								break;
+							default:
+						}
 
 					}
 				}
@@ -248,6 +293,80 @@ public class GenerateServiceImpl implements GenerateService {
 		}
 
 		return tableColumnVos;
+	}
+
+	/**
+	 * 生成代码
+	 * @param generateBo 生成
+	 */
+	@Override
+	public void generate(GenerateBo generateBo) {
+
+		String author = generateBo.getAuthor();
+		String since = generateBo.getSince();
+		String jdbcUrl = generateBo.getJdbcUrl();
+		List<String> tableNames = generateBo.getTableNames();
+		String basePackage = generateBo.getBasePackage();
+		String module = generateBo.getModule();
+
+		TableColumnBo tableColumnBo = new TableColumnBo();
+		tableColumnBo.setTableNames(tableNames);
+		tableColumnBo.setJdbcUrl(jdbcUrl);
+
+		// 表结构
+		List<TableColumnVo> tableColumnVos = listTableColumns(tableColumnBo);
+
+		String templatePath = cloudGenerateProperties.getTemplatePath();
+		String folderPath = cloudGenerateProperties.getFolderPath();
+		String boPackageName = cloudGenerateProperties.getBoPackageName();
+		String boSuffixName = cloudGenerateProperties.getBoSuffixName();
+		Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);
+		configuration.setClassForTemplateLoading(getClass(), templatePath);
+
+		String classPath =
+				// folderPath +
+				"E:\\IdeaProjects\\xuxiaowei-cloud-jihu\\resource-services-parent\\generate" + "/src/main/java/"
+						+ basePackage.replace(".", "/") + "/" + module;
+		String boFolderPath = classPath + File.separator + boPackageName + File.separator;
+		File boFolderFile = new File(boFolderPath);
+		if (!boFolderFile.exists()) {
+			boolean mkdirs = boFolderFile.mkdirs();
+		}
+
+		for (TableColumnVo tableColumnVo : tableColumnVos) {
+
+			String className = tableColumnVo.getClassName();
+			tableColumnVo.setPackageName(basePackage + "." + module + "." + boPackageName);
+			tableColumnVo.setAuthor(author);
+			tableColumnVo.setSince(since);
+			tableColumnVo.setClassName(className + boSuffixName);
+
+			String boTemplateName = "bo.java.ftl";
+
+			Template template;
+			try {
+				template = configuration.getTemplate(boTemplateName);
+			}
+			catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+			File docFile = new File(boFolderPath + className + boSuffixName + ".java");
+			Writer out;
+			try {
+				out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(docFile)));
+			}
+			catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				template.process(tableColumnVo, out);
+			}
+			catch (TemplateException | IOException e) {
+				throw new RuntimeException(e);
+			}
+			System.out.println("成功");
+		}
 	}
 
 	/**

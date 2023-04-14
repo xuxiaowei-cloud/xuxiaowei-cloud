@@ -22,8 +22,63 @@ public class TableColumnVo implements Serializable {
 	private String tableName;
 
 	/**
+	 * 表注释
+	 */
+	private String tableComment;
+
+	/**
+	 * class 名称
+	 */
+	private String className;
+
+	/**
+	 * 包名
+	 */
+	private String packageName;
+
+	/**
+	 * lombok 注解
+	 */
+	private boolean lombokModel;
+
+	/**
+	 * {@link javax.validation.constraints.NotEmpty} 注解
+	 */
+	private boolean notEmpty;
+
+	/**
+	 * {@link javax.validation.constraints.NotNull} 注解
+	 */
+	private boolean notNull;
+
+	/**
+	 * {@link java.time.LocalDate} 注解
+	 */
+	private boolean localDate;
+
+	/**
+	 * {@link java.time.LocalDateTime} 注解
+	 */
+	private boolean localDateTime;
+
+	/**
+	 * {@link java.time.LocalTime} 注解
+	 */
+	private boolean localTime;
+
+	/**
+	 * 作者
+	 */
+	private String author;
+
+	/**
+	 * 版本号
+	 */
+	private String since;
+
+	/**
 	 * 列信息
 	 */
-	private List<ColumnVo> columnVoList;
+	private List<ColumnFieldVo> fields;
 
 }
