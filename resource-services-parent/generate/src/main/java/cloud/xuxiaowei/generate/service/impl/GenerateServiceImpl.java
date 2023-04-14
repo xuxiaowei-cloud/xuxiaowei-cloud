@@ -1,11 +1,14 @@
 package cloud.xuxiaowei.generate.service.impl;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
+import cloud.xuxiaowei.generate.bo.TableBo;
 import cloud.xuxiaowei.generate.service.GenerateService;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -99,29 +102,80 @@ public class GenerateServiceImpl implements GenerateService {
 			}
 
 		}
-		catch (Exception e) {
-			log.error("HikariCP 异常", e);
-			throw new RuntimeException(e);
-		}
 	}
 
 	/**
-	 * 展示所有的表信息
-	 * @param dataSource 数据源配置
-	 * @param current 当前页，默认值：1
-	 * @param size 每页条数，默认值：10
-	 * @param tableName 表名，模糊搜索
-	 * @param tableComment 表注释，模糊搜索
+	 * 列出所有的表信息
+	 * @param tableBo 表
 	 * @return 返回 表信息
 	 */
 	@Override
-	public IPage<TableVo> listTables(CloudGenerateProperties.DataSource dataSource, Long current, Long size,
-			String tableName, String tableComment) {
+	public IPage<TableVo> listTables(TableBo tableBo) {
+		long current = tableBo.getCurrent();
+		long size = tableBo.getSize();
+		String jdbcUrl = tableBo.getJdbcUrl();
+		String tableName = tableBo.getTableName();
+		String tableComment = tableBo.getTableComment();
 
-		current = current == null ? 1 : current;
-		size = size == null ? 10 : size;
+		CloudGenerateProperties.DataSource dataSource = getDataSource(jdbcUrl);
+		if (dataSource == null) {
+			throw new CloudRuntimeException("未找到数据源");
+		}
 
-		return null;
+		Page<TableVo> page = new Page<>(current, size);
+		List<TableVo> records = new ArrayList<>();
+		page.setRecords(records);
+
+		try (HikariDataSource hikariDataSource = new HikariDataSource()) {
+			hikariDataSource.setDriverClassName(dataSource.getDriverClassName());
+			hikariDataSource.setJdbcUrl(dataSource.getJdbcUrl());
+			hikariDataSource.setUsername(dataSource.getUsername());
+			hikariDataSource.setPassword(dataSource.getPassword());
+
+			try (Connection connection = hikariDataSource.getConnection()) {
+
+				// 当前连接的数据库名称
+				// SELECT DATABASE();
+				String database = connection.getCatalog();
+
+				// 当前连接的数据库中的表个数
+				PreparedStatement totalPreparedStatement = connection.prepareStatement(
+						"SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = ? AND table_name LIKE ? AND table_comment LIKE ?");
+				totalPreparedStatement.setString(1, database);
+				totalPreparedStatement.setString(2, "%" + (tableName == null ? "" : tableName) + "%");
+				totalPreparedStatement.setString(3, "%" + (tableComment == null ? "" : tableComment) + "%");
+				ResultSet totalResultSet = totalPreparedStatement.executeQuery();
+				totalResultSet.next();
+				int total = totalResultSet.getInt(1);
+
+				page.setTotal(total);
+
+				// 搜索表
+				PreparedStatement preparedStatement = connection.prepareStatement(
+						"SELECT table_name, table_comment FROM information_schema.tables WHERE table_schema = ? AND table_name LIKE ? AND table_comment LIKE ? LIMIT ? OFFSET ?");
+				preparedStatement.setString(1, database);
+				preparedStatement.setString(2, "%" + (tableName == null ? "" : tableName) + "%");
+				preparedStatement.setString(3, "%" + (tableComment == null ? "" : tableComment) + "%");
+				preparedStatement.setLong(4, size);
+				preparedStatement.setLong(5, (current - 1L) * size);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					TableVo tableVo = new TableVo();
+					tableVo.setJdbcUrl(jdbcUrl);
+					tableVo.setTableName(resultSet.getString("table_name"));
+					tableVo.setTableComment(resultSet.getString("table_comment"));
+					records.add(tableVo);
+				}
+
+			}
+			catch (SQLException e) {
+				log.error("列出所有的表信息，连接数据库：{} 异常", dataSource.getJdbcUrl(), e);
+				throw new RuntimeException(e);
+			}
+
+		}
+
+		return page;
 	}
 
 	/**
@@ -133,6 +187,21 @@ public class GenerateServiceImpl implements GenerateService {
 	@Override
 	public List<TableColumnVo> listTableColumns(CloudGenerateProperties.DataSource dataSource,
 			List<String> tableNames) {
+		return null;
+	}
+
+	/**
+	 * 遍历查找数据源
+	 * @param jdbcUrl JDBC 连接串
+	 * @return 返回 查找到的数据库，可能为空
+	 */
+	private CloudGenerateProperties.DataSource getDataSource(@NonNull String jdbcUrl) {
+		List<CloudGenerateProperties.DataSource> dataSources = cloudGenerateProperties.getDataSources();
+		for (CloudGenerateProperties.DataSource ds : dataSources) {
+			if (jdbcUrl.equals(ds.getJdbcUrl())) {
+				return ds;
+			}
+		}
 		return null;
 	}
 
