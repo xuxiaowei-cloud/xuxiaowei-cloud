@@ -7,6 +7,7 @@ import cloud.xuxiaowei.generate.vo.TableVo;
 import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +43,7 @@ public class GenerateRestController {
 	 * @return 返回 所有的数据源及状态
 	 */
 	@GetMapping("/list-data-source")
+	@PreAuthorize("@ant.hasAuthority('generate')")
 	public Response<?> listDataSource(HttpServletRequest request, HttpServletResponse response) {
 		List<DataSourceVo> dataSourceVos = generateService.listDataSources();
 		return Response.ok(dataSourceVos);
@@ -54,6 +56,7 @@ public class GenerateRestController {
 	 * @return 返回 所有的表信息
 	 */
 	@PostMapping("/list-tables")
+	@PreAuthorize("@ant.hasAuthority('generate')")
 	public Response<?> listTables(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody TableBo tableBo) {
 		IPage<TableVo> page = generateService.listTables(tableBo);
