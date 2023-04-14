@@ -65,3 +65,15 @@ spring:
       transport:
         # 端口冲突时，会自动 +1，直到找到可用端口为止
         port: ${generate_sentinel_port:9010}
+
+# 代码生成
+cloud:
+  generate:
+    data-sources:
+      - data-source-name: 微服务数据库
+        # 注意这里没有使用 p6spy 驱动
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        # 注意这里没有使用 p6spy 连接串
+        jdbcUrl: jdbc:mysql://${mysql_xuxiaowei_cloud:mysql.example.xuxiaowei.cloud:3306}/${mysql_xuxiaowei_database:xuxiaowei_cloud}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+        username: ${mysql_xuxiaowei_cloud_username:root}
+        password: ${mysql_xuxiaowei_cloud_password:xuxiaowei.com.cn}

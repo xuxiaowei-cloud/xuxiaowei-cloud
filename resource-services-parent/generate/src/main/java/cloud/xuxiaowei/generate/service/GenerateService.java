@@ -1,9 +1,11 @@
 package cloud.xuxiaowei.generate.service;
 
 import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
+import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -16,11 +18,17 @@ import java.util.List;
 public interface GenerateService {
 
 	/**
+	 * 列出所有的数据源信息
+	 * @return 返回 数据源信息
+	 */
+	List<DataSourceVo> listDataSources();
+
+	/**
 	 * 测试数据源是否能正常连接
 	 * @param dataSource 数据源配置
-	 * @return 返回 连接结果
+	 * @throws RuntimeException 连接失败时将抛出运行时异常
 	 */
-	boolean test(CloudGenerateProperties.DataSource dataSource);
+	void test(@NonNull CloudGenerateProperties.DataSource dataSource) throws RuntimeException;
 
 	/**
 	 * 列出所有的表信息
