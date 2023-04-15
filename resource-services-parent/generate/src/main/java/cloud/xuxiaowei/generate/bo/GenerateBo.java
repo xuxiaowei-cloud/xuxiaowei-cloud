@@ -54,4 +54,19 @@ public class GenerateBo implements Serializable {
 	 */
 	private String module;
 
+	/**
+	 * lombok 注解
+	 */
+	private boolean lombokModel;
+
+	/**
+	 * BO 包名
+	 */
+	private String boPackageName;
+
+	/**
+	 * BO 后缀名
+	 */
+	private String boSuffixName;
+
 }

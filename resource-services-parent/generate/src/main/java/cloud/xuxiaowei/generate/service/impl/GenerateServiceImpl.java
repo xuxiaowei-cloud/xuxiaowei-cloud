@@ -11,6 +11,7 @@ import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
+import cloud.xuxiaowei.utils.FileUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -34,6 +35,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 代码生成 服务接口 实现类
@@ -298,16 +300,22 @@ public class GenerateServiceImpl implements GenerateService {
 	/**
 	 * 生成代码
 	 * @param generateBo 生成
+	 * @param zipOutputStream 压缩包输出流
+	 * @throws IOException 向压缩包添加文件异常
 	 */
 	@Override
-	public void generate(GenerateBo generateBo) {
+	public void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream) throws IOException {
 
-		String author = generateBo.getAuthor();
-		String since = generateBo.getSince();
-		String jdbcUrl = generateBo.getJdbcUrl();
 		List<String> tableNames = generateBo.getTableNames();
-		String basePackage = generateBo.getBasePackage();
+		String jdbcUrl = generateBo.getJdbcUrl();
 		String module = generateBo.getModule();
+
+		// 创建用于设置模板生成器的参数（第三优先级）
+		CloudGenerateProperties properties = new CloudGenerateProperties();
+		// 将系统默认配置（支持从配置文件中获取），复制到 变量properties 中，用于后面使用（第二优先级）
+		BeanUtils.copyProperties(cloudGenerateProperties, properties);
+		// 将用户传递的参数，复制到 变量properties 中，用于后面使用（第一优先级）
+		BeanUtils.copyProperties(generateBo, properties);
 
 		TableColumnBo tableColumnBo = new TableColumnBo();
 		tableColumnBo.setTableNames(tableNames);
@@ -316,17 +324,17 @@ public class GenerateServiceImpl implements GenerateService {
 		// 表结构
 		List<TableColumnVo> tableColumnVos = listTableColumns(tableColumnBo);
 
-		String templatePath = cloudGenerateProperties.getTemplatePath();
 		String folderPath = cloudGenerateProperties.getFolderPath();
-		String boPackageName = cloudGenerateProperties.getBoPackageName();
-		String boSuffixName = cloudGenerateProperties.getBoSuffixName();
+		String boPackageName = properties.getBoPackageName();
+		String boSuffixName = properties.getBoSuffixName();
 		Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);
-		configuration.setClassForTemplateLoading(getClass(), templatePath);
+		configuration.setClassForTemplateLoading(getClass(), properties.getTemplatePath());
+
+		String modulePath = "/src/main/java/" + properties.getBasePackage().replace(".", "/") + "/" + module;
 
 		String classPath =
 				// folderPath +
-				"E:\\IdeaProjects\\xuxiaowei-cloud-jihu\\resource-services-parent\\generate" + "/src/main/java/"
-						+ basePackage.replace(".", "/") + "/" + module;
+				"E:\\IdeaProjects\\xuxiaowei-cloud-jihu\\resource-services-parent\\generate" + modulePath;
 		String boFolderPath = classPath + File.separator + boPackageName + File.separator;
 		File boFolderFile = new File(boFolderPath);
 		if (!boFolderFile.exists()) {
@@ -336,10 +344,11 @@ public class GenerateServiceImpl implements GenerateService {
 		for (TableColumnVo tableColumnVo : tableColumnVos) {
 
 			String className = tableColumnVo.getClassName();
-			tableColumnVo.setPackageName(basePackage + "." + module + "." + boPackageName);
-			tableColumnVo.setAuthor(author);
-			tableColumnVo.setSince(since);
+			tableColumnVo.setPackageName(properties.getBasePackage() + "." + module + "." + boPackageName);
+			tableColumnVo.setAuthor(properties.getAuthor());
+			tableColumnVo.setSince(properties.getSince());
 			tableColumnVo.setClassName(className + boSuffixName);
+			tableColumnVo.setLombokModel(properties.isLombokModel());
 
 			String boTemplateName = "bo.java.ftl";
 
@@ -351,21 +360,25 @@ public class GenerateServiceImpl implements GenerateService {
 				throw new RuntimeException(e);
 			}
 
-			File docFile = new File(boFolderPath + className + boSuffixName + ".java");
-			Writer out;
-			try {
-				out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(docFile)));
+			String boClassName = className + boSuffixName + ".java";
+			File file = new File(boFolderPath + boClassName);
+			String zipEntryName = modulePath + File.separator + boPackageName + File.separator + boClassName;
+			try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+					OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+					Writer out = new BufferedWriter(outputStreamWriter);) {
+				try {
+					template.process(tableColumnVo, out);
+				}
+				catch (TemplateException | IOException e) {
+					throw new RuntimeException(e);
+				}
+
+				String c = FileUtils.reader(file);
+				FileUtils.write(zipOutputStream, zipEntryName, c);
 			}
 			catch (FileNotFoundException e) {
 				throw new RuntimeException(e);
 			}
-			try {
-				template.process(tableColumnVo, out);
-			}
-			catch (TemplateException | IOException e) {
-				throw new RuntimeException(e);
-			}
-			System.out.println("成功");
 		}
 	}
 

@@ -10,7 +10,9 @@ import cloud.xuxiaowei.generate.vo.TableVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.lang.NonNull;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 代码生成 服务接口
@@ -50,7 +52,9 @@ public interface GenerateService {
 	/**
 	 * 生成代码
 	 * @param generateBo 生成
+	 * @param zipOutputStream 压缩包输出流
+	 * @throws IOException 向压缩包添加文件异常
 	 */
-	void generate(GenerateBo generateBo);
+	void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream) throws IOException;
 
 }

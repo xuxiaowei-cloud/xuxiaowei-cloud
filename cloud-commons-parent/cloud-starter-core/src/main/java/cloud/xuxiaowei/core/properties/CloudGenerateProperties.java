@@ -1,9 +1,12 @@
 package cloud.xuxiaowei.core.properties;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -171,6 +174,29 @@ public class CloudGenerateProperties {
 	 * lombok 注解
 	 */
 	private boolean lombokModel = true;
+
+	/**
+	 * 作者
+	 */
+	private String author = "xuxiaowei";
+
+	/**
+	 * 版本号
+	 */
+	@Getter(AccessLevel.NONE)
+	private String since;
+
+	public String getSince() {
+		if (StringUtils.hasText(since)) {
+			return since;
+		}
+		Package pkg = getClass().getPackage();
+		String version = pkg.getImplementationVersion();
+		if (StringUtils.hasText(version)) {
+			return version;
+		}
+		return "0.0.1";
+	}
 
 	/**
 	 * 数据源

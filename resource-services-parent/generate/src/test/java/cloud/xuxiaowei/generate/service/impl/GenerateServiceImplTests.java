@@ -8,13 +8,20 @@ import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
+import cloud.xuxiaowei.utils.UrlUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 代码生成 服务接口 实现类 测试类
@@ -158,7 +165,7 @@ class GenerateServiceImplTests {
 	}
 
 	@Test
-	void generate() {
+	void generate() throws JsonProcessingException, UnsupportedEncodingException {
 		String dataSourceName = "微服务数据库";
 		String driverClassName = "com.mysql.cj.jdbc.Driver";
 		String jdbcUrl = "jdbc:mysql://127.0.0.1/xuxiaowei_cloud?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8";
@@ -186,12 +193,27 @@ class GenerateServiceImplTests {
 		generateBo.setModule("system");
 		generateBo.setAuthor("xuxiaowei");
 		generateBo.setSince("0.0.1");
+		generateBo.setLombokModel(true);
+		generateBo.setBoSuffixName("Bo");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String value = objectMapper.writeValueAsString(generateBo);
+		log.info(value);
+		log.info(UrlUtils.convertUrlParam(generateBo));
 
 		GenerateServiceImpl generateService = new GenerateServiceImpl();
 		generateService.setCloudGenerateProperties(cloudGenerateProperties);
 
-		generateService.generate(generateBo);
+		try (// 创建输出流
+				FileOutputStream fos = new FileOutputStream("D:\\files.zip");
+				//
+				ZipOutputStream zos = new ZipOutputStream(fos);) {
 
+			generateService.generate(generateBo, zos);
+		}
+		catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
