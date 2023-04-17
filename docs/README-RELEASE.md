@@ -16,6 +16,8 @@
 
 # 版本说明
 
+- 快照版
+    - SNAPSHOT
 - 内侧版
     - alpha
 - 公测版
@@ -28,3 +30,4 @@
     - GA
     - RELEASE
     - Stable
+    - 无后缀名
