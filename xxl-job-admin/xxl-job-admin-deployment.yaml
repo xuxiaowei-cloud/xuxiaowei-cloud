@@ -95,7 +95,7 @@ metadata:
   namespace: xuxiaowei-cloud
 spec:
   ports:
-    - nodePort: 32101
+    - nodePort: 30101
       port: 5101
       protocol: TCP
       targetPort: 5101
