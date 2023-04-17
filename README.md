@@ -264,32 +264,32 @@ cloud.xuxiaowei
 
 ### 端口
 
-| 模块                 | 模块名称                        | 域名（虚拟）                                 | 端口    | kubernetes Service 端口 |
-|--------------------|-----------------------------|----------------------------------------|-------|-----------------------|
-| Nacos              | 注册、配置中心                     | nacos.example.xuxiaowei.cloud          | 8848  | 30848/31848           |
-| MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306  | 30306                 |
-| Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379  | 30379                 |
-| canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111 | 暂未部署                  |
-| sentinel-dashboard | 流控防护组件                      |                                        | 22222 | 32222                 |
-|                    |                             |                                        |       |                       |
-| ui                 | UI                          | example.xuxiaowei.cloud                | 1001  | 30180                 |
-| gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101  | 31101                 |
-| admin-server       | 监控（管理）                      | admin-server.example.xuxiaowei.cloud   | 1201  | 31201                 |
-| passport           | 登录                          | passport.example.xuxiaowei.cloud       | 1401  | 31401                 |
-| passport-ui        | 登录UI                        | passport.example.xuxiaowei.cloud       | 1411  | 放在 passport 中部署       |
-| canal              | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |                                        | 1601  | 31601                 |
-| user               | 用户服务                        |                                        | 1701  | 31701                 |
-| websocket          | WebSocket 服务                |                                        | 1801  | 31801                 |
-| webservice         | WebService 服务               |                                        | 1901  | 31901                 |
-| wechat-miniprogram | 微信小程序服务                     |                                        | 2001  | 32001                 |
-| wechat-offiaccount | 微信公众号服务                     |                                        | 2101  | 32101                 |
-| master-data        | 主数据服务                       |                                        | 2201  | 32201                 |
-| file               | 文件服务                        |                                        | 2301  | 32301                 |
-| generate           | 代码生成服务                      |                                        | 2401  |                       |
-| xxl-job-admin      | XXL Job Admin               |                                        | 5101  | 30101                 |
-|                    |                             |                                        |       |                       |
-| oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 | 以下是仅用于测试的客户端，无需部署     |
-| cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |                       |
+| 模块                 | 模块名称                        | 域名（虚拟）                                 | 端口        | kubernetes Service 端口 |
+|--------------------|-----------------------------|----------------------------------------|-----------|-----------------------|
+| Nacos              | 注册、配置中心                     | nacos.example.xuxiaowei.cloud          | 8848/9848 | 30848/31848           |
+| MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306      | 30306                 |
+| Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379      | 30379                 |
+| canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111     | 暂未部署                  |
+| sentinel-dashboard | 流控防护组件                      |                                        | 22222     | 32222                 |
+|                    |                             |                                        |           |                       |
+| ui                 | UI                          | example.xuxiaowei.cloud                | 1001      | 30180                 |
+| gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101      | 31101                 |
+| admin-server       | 监控（管理）                      | admin-server.example.xuxiaowei.cloud   | 1201      | 31201                 |
+| passport           | 登录                          | passport.example.xuxiaowei.cloud       | 1401      | 31401                 |
+| passport-ui        | 登录UI                        | passport.example.xuxiaowei.cloud       | 1411      | 放在 passport 中部署       |
+| canal              | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |                                        | 1601      | 31601                 |
+| user               | 用户服务                        |                                        | 1701      | 31701                 |
+| websocket          | WebSocket 服务                |                                        | 1801      | 31801                 |
+| webservice         | WebService 服务               |                                        | 1901      | 31901                 |
+| wechat-miniprogram | 微信小程序服务                     |                                        | 2001      | 32001                 |
+| wechat-offiaccount | 微信公众号服务                     |                                        | 2101      | 32101                 |
+| master-data        | 主数据服务                       |                                        | 2201      | 32201                 |
+| file               | 文件服务                        |                                        | 2301      | 32301                 |
+| generate           | 代码生成服务                      |                                        | 2401      | 32401                 |
+| xxl-job-admin      | XXL Job Admin               |                                        | 5101      | 30101                 |
+|                    |                             |                                        |           |                       |
+| oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001     | 以下是仅用于测试的客户端，无需部署     |
+| cxf-client         | CXF 客户端（独立服务）               |                                        | 10002     |                       |
 
 - 流控防护限流端口
 
@@ -304,6 +304,7 @@ cloud.xuxiaowei
 | wechat-offiaccount | 微信公众号服务       | 9007 |
 | master-data        | 主数据服务         | 9008 |
 | file               | 文件服务          | 9009 |
+| generate           | 代码生成服务        | 9010 |
 
 ### 租户、用户名与密码
 
