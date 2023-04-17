@@ -161,6 +161,12 @@ public class CloudGenerateProperties {
 	private String boSuffixName = "Bo";
 
 	/**
+	 * BO 忽略字段名
+	 */
+	private List<String> boIgnorePropertyNames = Arrays.asList("createDate", "updateDate", "createUsersId",
+			"updateUsersId", "createIp", "updateIp", "deleted");
+
+	/**
 	 * VO 包名
 	 */
 	private String voPackageName = "vo";

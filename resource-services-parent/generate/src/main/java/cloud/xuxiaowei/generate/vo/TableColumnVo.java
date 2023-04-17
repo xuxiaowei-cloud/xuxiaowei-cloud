@@ -1,6 +1,9 @@
 package cloud.xuxiaowei.generate.vo;
 
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +28,21 @@ public class TableColumnVo implements Serializable {
 	 * 表注释
 	 */
 	private String tableComment;
+
+	/**
+	 * 表注释（for java）
+	 */
+	private String tableComment4j;
+
+	/**
+	 * BO 忽略字段名
+	 */
+	private List<String> boIgnorePropertyNames;
+
+	/**
+	 * Base Class Name
+	 */
+	private String baseClassName;
 
 	/**
 	 * class 名称
@@ -65,6 +83,21 @@ public class TableColumnVo implements Serializable {
 	 * {@link java.time.LocalTime} 注解
 	 */
 	private boolean localTime;
+
+	/**
+	 * {@link JsonFormat}
+	 */
+	private boolean jsonFormat;
+
+	/**
+	 * {@link DatePattern}
+	 */
+	private boolean datePattern;
+
+	/**
+	 * {@link Length}
+	 */
+	private boolean length;
 
 	/**
 	 * 作者

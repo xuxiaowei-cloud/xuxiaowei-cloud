@@ -65,4 +65,19 @@ public class ColumnFieldVo implements Serializable {
 	 */
 	private String comment;
 
+	/**
+	 * 字段长度
+	 */
+	private Integer length;
+
+	/**
+	 * 验证注解
+	 */
+	private String validation;
+
+	/**
+	 * 验证注解消息
+	 */
+	private String message;
+
 }
