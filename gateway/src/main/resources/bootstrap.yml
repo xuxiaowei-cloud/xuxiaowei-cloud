@@ -74,18 +74,19 @@ spring:
           # 启用 DiscoveryClient 网关集成的标志。
           # 服务自动映射
           enabled: true
-      routes:
-        # 用于地址转换
-        - id: openapi
-          # 转换的地址（当前服务的地址）
-          uri: http://localhost:${server.port}
-          predicates:
-            # 匹配路径
-            - Path=/v3/api-docs/**
-          filters:
-            # 规则
-            # 将 /v3/api-docs/* 转发到 */v3/api-docs
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+#      routes:
+#        # 用于地址转换
+#        # 此处地址转换也可以缺省，将原来的 /v3/api-docs/(?<path>.*) 使用 springdoc.swagger-ui.urls 修改为 /$\{path}/v3/api-docs
+#        - id: openapi
+#          # 转换的地址（当前服务的地址）
+#          uri: http://localhost:${server.port}
+#          predicates:
+#            # 匹配路径
+#            - Path=/v3/api-docs/**
+#          filters:
+#            # 规则
+#            # 将 /v3/api-docs/* 转发到 */v3/api-docs
+#            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 
 #        # 此配置原来默认缺省
 #        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 passport 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 passport 服务）
@@ -138,13 +139,13 @@ springdoc:
     # 使用 springdoc.swagger-ui.urls 配置后，网关路由、GroupedOpenApi 对应的 Bean 将全部失效，即：仅有此处 网关发现服务中的 API doc 有效
     urls:
       - name: passport
-        url: /v3/api-docs/passport
+        url: /passport/v3/api-docs
       - name: user
-        url: /v3/api-docs/user
+        url: /user/v3/api-docs
       - name: master-data
-        url: /v3/api-docs/master-data
+        url: /master-data/v3/api-docs
       - name: file
-        url: /v3/api-docs/file
+        url: /file/v3/api-docs
 
 ---
 
