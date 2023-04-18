@@ -1,4 +1,3 @@
-
 #
 # 使用 shell 执行器 打包
 shell-package:
@@ -739,6 +738,10 @@ shell-service-ui:
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建文件夹完成; fi
     - echo RELEASE_PATH：$RELEASE_PATH
     - if [ ! -f $RELEASE_PATH ]; then sudo mkdir $RELEASE_PATH -p && echo 创建发布文件夹完成; fi
+    # 此处每次发包仅仅是将新打包完成的文件，复制到需要发布的文件夹（除了 index.html、favicon.ico 等文件外，其他 CSS/JS 文件名不同，不会覆盖。随着发布次数变多，发布文件夹可能会非常大）
+    # 历史发布的文件没有删除
+    # 用户刷新页面后使用最新的前端（index.html等）
+    # 如果发包后需要用户立即使用最新前端，需要将历史文件删除后再进行复制（发布后，用户不刷新，对于没有之前没有点击的页面可能会出现404，刷新页面后即可）
     - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
   rules:
     # 仅在 shell 分支中执行
