@@ -195,7 +195,7 @@
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-javadoc/ -->
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-security/ -->
         <!-- https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-webflux-ui/ -->
-        <springdoc.version>1.6.15</springdoc.version>
+        <springdoc.version>1.7.0</springdoc.version>
         <!-- https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc -->
         <!-- https://repo1.maven.org/maven2/com/github/therapi/therapi-runtime-javadoc/ -->
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>

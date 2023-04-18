@@ -17,10 +17,19 @@ import java.util.List;
  *
  * @author xuxiaowei
  * @since 0.0.1
+ * @see <a href=
+ * "https://github.com/springdoc/springdoc-openapi-demos/blob/master/springdoc-openapi-microservices/gateway-service/src/main/java/org/springdoc/demo/services/gateway/GatewayApplication.java">Gateway
+ * Configuration</a>
  */
 @Configuration
 public class SpringdocConfiguration {
 
+	/**
+	 * 注意：官方示例此处有错误
+	 * @see <a href=
+	 * "https://github.com/springdoc/springdoc-openapi-demos/blob/master/springdoc-openapi-microservices/gateway-service/src/main/java/org/springdoc/demo/services/gateway/GatewayApplication.java">Gateway
+	 * Configuration</a>
+	 */
 	@Bean
 	@Lazy(false)
 	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiConfigParameters,

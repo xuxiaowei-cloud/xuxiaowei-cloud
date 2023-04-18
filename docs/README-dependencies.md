@@ -26,6 +26,7 @@ cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
 │        └──ch.qos.logback:logback-classic:jar:1.2.11:provided
 │        └──org.springframework:spring-web:jar:5.3.26:provided
 │        └──commons-io:commons-io:jar:2.11.0:provided
+│        └──org.apache.commons:commons-text:jar:1.10.0:provided
 │        └──org.dom4j:dom4j:jar:2.1.4:provided
 │        └──org.projectlombok:lombok:jar:1.18.26:compile
 
@@ -94,6 +95,7 @@ cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT
 
 
 cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT
+│        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──org.mybatis.spring.boot:mybatis-spring-boot-starter:jar:2.3.0:compile
 │        └──com.baomidou:mybatis-plus-boot-starter:jar:3.5.3.1:compile
 │        └──com.baomidou:dynamic-datasource-spring-boot-starter:jar:3.6.1:compile
@@ -231,7 +233,7 @@ cloud.xuxiaowei:gateway:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-webflux-ui:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-webflux-ui:jar:1.7.0:compile
 │        └──org.springframework.security:spring-security-oauth2-authorization-server:jar:0.4.1:compile
 │        └──org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:2.7.10:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
@@ -254,9 +256,9 @@ cloud.xuxiaowei:passport:jar:0.0.1-SNAPSHOT
 │        └──cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──org.springframework.boot:spring-boot-starter-web:jar:2.7.10:compile
@@ -277,9 +279,9 @@ cloud.xuxiaowei:resource-services-parent:pom:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -297,9 +299,9 @@ cloud.xuxiaowei:canal:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -313,9 +315,9 @@ cloud.xuxiaowei:file:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -329,9 +331,9 @@ cloud.xuxiaowei:master-data:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -346,9 +348,9 @@ cloud.xuxiaowei:user:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -367,9 +369,9 @@ cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -385,9 +387,9 @@ cloud.xuxiaowei:websocket:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -402,9 +404,9 @@ cloud.xuxiaowei:wechat-miniprogram:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
@@ -419,9 +421,9 @@ cloud.xuxiaowei:wechat-offiaccount:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
-│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
-│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.7.0:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.7.0:compile
 │        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
