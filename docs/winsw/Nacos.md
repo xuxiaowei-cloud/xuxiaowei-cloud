@@ -27,6 +27,7 @@
         # 版本号 2.2.1 后无默认值
         # nacos.core.auth.server.identity.value=security
         # v2.2.2 之后，需要设置 nacos.core.auth.enabled=true 才能开启鉴权
+        # 开启鉴权后，微服务注册需要配置用户名、密码，配置参见各个服务的 bootstrap.yml 和 nacos 数据库的 SQL 脚本
         # nacos.core.auth.enabled=true
         ```
 
