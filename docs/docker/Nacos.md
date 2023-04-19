@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull nacos/nacos-server:v2.2.1
+docker pull nacos/nacos-server:v2.2.2
 ```
 
 - 创建容器
@@ -45,6 +45,7 @@ docker pull nacos/nacos-server:v2.2.1
                 NACOS_AUTH_IDENTITY_KEY=serverIdentity
                 # 版本号 2.2.1 后无默认值
                 NACOS_AUTH_IDENTITY_VALUE=security
+                # v2.2.2 之后，需要设置 环境变量 NACOS_AUTH_ENABLE=true 才能开启鉴权
                 ```
             - 刷新环境变量
                 ```shell
@@ -65,11 +66,12 @@ docker pull nacos/nacos-server:v2.2.1
 
         2. 执行创建命令
             ```shell
+            # v2.2.2 之后，需要设置 环境变量 NACOS_AUTH_ENABLE=true 才能开启鉴权
             docker run \
             -itd \
             --restart always \
             --privileged=true \
-            --name nacos-server-v2.2.1 \
+            --name nacos-server-v2.2.2 \
             -p 8848:8848 \
             -p 9848:9848 \
             -v /etc/localtime:/etc/localtime \
@@ -84,15 +86,16 @@ docker pull nacos/nacos-server:v2.2.1
             -e NACOS_AUTH_IDENTITY_KEY=$NACOS_AUTH_IDENTITY_KEY \
             -e NACOS_AUTH_IDENTITY_VALUE=$NACOS_AUTH_IDENTITY_VALUE \
             -e NACOS_AUTH_TOKEN=$NACOS_AUTH_TOKEN \
-            -d nacos/nacos-server:v2.2.1
+            -e NACOS_AUTH_ENABLE=true \
+            -d nacos/nacos-server:v2.2.2
             ```
         3. 查看日志
             ```shell
-            docker logs -f nacos-server-v2.2.1
+            docker logs -f nacos-server-v2.2.2
             ```
         4. 进入容器
             ```shell
-            docker exec -it nacos-server-v2.2.1 bash
+            docker exec -it nacos-server-v2.2.2 bash
             ```
         5. 开放端口
             - CentOS
