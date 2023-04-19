@@ -31,6 +31,8 @@ spring:
     #
     # Nacos 配置
     nacos:
+      username: ${nacos_username:xuxiaowei-cloud}
+      password: ${nacos_password:xuxiaowei.com.cn}
       # 服务发现
       discovery:
         # 服务发现地址
