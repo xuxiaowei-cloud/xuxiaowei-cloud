@@ -321,6 +321,10 @@ cloud:
         path-list:
           # springdoc
           - /v3/api-docs/**
+      - name: generate
+        path-list:
+          # springdoc
+          - /v3/api-docs/**
       - name: webservice
         path-list:
           - /cxf/**
