@@ -76,58 +76,78 @@ spring:
           # 启用 DiscoveryClient 网关集成的标志。
           # 服务自动映射
           enabled: true
-      routes:
-        # 用于地址转换
-        - id: openapi
-          # 转换的地址（当前服务的地址）
-          uri: http://localhost:${server.port}
-          predicates:
-            # 匹配路径
-            - Path=/v3/api-docs/**
-          filters:
-            # 规则
-            # 将 /v3/api-docs/* 转发到 */v3/api-docs
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-        # 此配置原来默认缺省
-        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 passport 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 passport 服务）
-        - id: passport
-          uri: lb://passport
-          predicates:
-            - Path=/passport/**
-          filters:
-            # 规则
-            # 将 /passport/** 转发到 /**
-            - RewritePath=/passport/(?<path>.*), /$\{path}
-        # 此配置原来默认缺省
-        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 user 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 user 服务）
-        - id: user
-          uri: lb://user
-          predicates:
-            - Path=/user/**
-          filters:
-            # 规则
-            # 将 /user/** 转发到 /**
-            - RewritePath=/user/(?<path>.*), /$\{path}
-        # 此配置原来默认缺省
-        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 master-data 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 master-data 服务）
-        - id: master-data
-          uri: lb://master-data
-          predicates:
-            - Path=/master-data/**
-          filters:
-            # 规则
-            # 将 /master-data/** 转发到 /**
-            - RewritePath=/master-data/(?<path>.*), /$\{path}
-        # 此配置原来默认缺省
-        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 file 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 file 服务）
-        - id: file
-          uri: lb://file
-          predicates:
-            - Path=/file/**
-          filters:
-            # 规则
-            # 将 /file/** 转发到 /**
-            - RewritePath=/file/(?<path>.*), /$\{path}
+#      routes:
+#        # 用于地址转换
+#        # 此处地址转换也可以缺省，将原来的 /v3/api-docs/(?<path>.*) 使用 springdoc.swagger-ui.urls 修改为 /$\{path}/v3/api-docs
+#        - id: openapi
+#          # 转换的地址（当前服务的地址）
+#          uri: http://localhost:${server.port}
+#          predicates:
+#            # 匹配路径
+#            - Path=/v3/api-docs/**
+#          filters:
+#            # 规则
+#            # 将 /v3/api-docs/* 转发到 */v3/api-docs
+#            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+#        # 此配置原来默认缺省
+#        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 passport 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 passport 服务）
+#        # 此处是第一种方式配置 网关发现服务中的 API doc（使用 springdoc.swagger-ui.urls 配置后，此处配置将无效）
+#        - id: passport
+#          uri: lb://passport
+#          predicates:
+#            - Path=/passport/**
+#          filters:
+#            # 规则
+#            # 将 /passport/** 转发到 /**
+#            - RewritePath=/passport/(?<path>.*), /$\{path}
+#        # 此配置原来默认缺省
+#        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 user 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 user 服务）
+#        # 此处是第一种方式配置 网关发现服务中的 API doc（使用 springdoc.swagger-ui.urls 配置后，此处配置将无效）
+#        - id: user
+#          uri: lb://user
+#          predicates:
+#            - Path=/user/**
+#          filters:
+#            # 规则
+#            # 将 /user/** 转发到 /**
+#            - RewritePath=/user/(?<path>.*), /$\{path}
+#        # 此配置原来默认缺省
+#        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 master-data 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 master-data 服务）
+#        # 此处是第一种方式配置 网关发现服务中的 API doc（使用 springdoc.swagger-ui.urls 配置后，此处配置将无效）
+#        - id: master-data
+#          uri: lb://master-data
+#          predicates:
+#            - Path=/master-data/**
+#          filters:
+#            # 规则
+#            # 将 /master-data/** 转发到 /**
+#            - RewritePath=/master-data/(?<path>.*), /$\{path}
+#        # 此配置原来默认缺省
+#        # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 file 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 file 服务）
+#        # 此处是第一种方式配置 网关发现服务中的 API doc（使用 springdoc.swagger-ui.urls 配置后，此处配置将无效）
+#        - id: file
+#          uri: lb://file
+#          predicates:
+#            - Path=/file/**
+#          filters:
+#            # 规则
+#            # 将 /file/** 转发到 /**
+#            - RewritePath=/file/(?<path>.*), /$\{path}
+
+springdoc:
+  swagger-ui:
+    # 此处是第二种方式配置 网关发现服务中的 API doc（网友提供）
+    # 使用 springdoc.swagger-ui.urls 配置后，网关路由、GroupedOpenApi 对应的 Bean 将全部失效，即：仅有此处 网关发现服务中的 API doc 有效
+    urls:
+      - name: passport
+        url: /passport/v3/api-docs
+      - name: user
+        url: /user/v3/api-docs
+      - name: master-data
+        url: /master-data/v3/api-docs
+      - name: file
+        url: /file/v3/api-docs
 
 ---
 
