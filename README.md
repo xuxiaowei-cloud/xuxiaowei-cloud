@@ -104,7 +104,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.10&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.11&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -116,7 +116,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.1&color=blue">
+    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.2&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-standard-8.14.15_jdk8u362-ga">
@@ -167,17 +167,18 @@
 
 | 依赖                          | 本项目版本       | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                                             |
 |-----------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| spring-boot                 | v2.7.10     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 Spring Boot 2.x，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a>             |
+| spring-boot                 | v2.7.11     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 Spring Boot 2.x，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a>             |
 | spring-cloud                | v2021.0.6   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml">                    | 限制 Spring Boot 2.x                                                                                                             |
 | spring-cloud-alibaba        | v2021.0.5.0 | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021.0&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml">                      | 限制 Spring Boot 2.x，<a href="https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md">Spring Cloud Alibaba</a> |
 | spring-boot-admin           | v2.7.10     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml">                                | 限制 Spring Boot 2.x                                                                                                             |
-| spring-authorization-server | v0.4.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 Spring Boot 2.x                                                                                                             |
+| spring-authorization-server | v0.4.2      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 Spring Boot 2.x                                                                                                             |
 | mybatis                     | v2.3.0      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml">                          | 限制 Spring Boot 2.x，指 mybatis-spring-boot-starter                                                                               |
 | mybatis-plus                | v3.5.3.1    | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml">                                                        |                                                                                                                                |
 | dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                                       |
+| springdoc                   | 1.7.0       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
 | guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
 | fastjson                    | v2.0.27     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
-| hutool                      | v5.8.16     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
+| hutool                      | v5.8.17     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
 
 ### 前端
 
@@ -237,7 +238,6 @@ cloud.xuxiaowei
 │    └──resource-services-parent            // 资源服务父模块
 │        └──canal                           // 阿里巴巴 MySQL binlog 增量订阅、消费服务
 │        └──file                            // 文件服务
-│        └──generate                        // 代码生成服务
 │        └──master-data                     // 主数据服务
 │        └──user                            // 用户服务
 │        └──websocket                       // WebSocket 服务
@@ -263,33 +263,38 @@ cloud.xuxiaowei
 ```
 
 ### 端口
+- 
 
-| 模块                 | 模块名称                        | 域名（虚拟）                                 | 端口        | kubernetes Service 端口 |
-|--------------------|-----------------------------|----------------------------------------|-----------|-----------------------|
-| Nacos              | 注册、配置中心                     | nacos.example.xuxiaowei.cloud          | 8848/9848 | 30848/31848           |
-| MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306      | 30306                 |
-| Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379      | 30379                 |
-| canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111     | 暂未部署                  |
-| sentinel-dashboard | 流控防护组件                      |                                        | 22222     | 32222                 |
-|                    |                             |                                        |           |                       |
-| ui                 | UI                          | example.xuxiaowei.cloud                | 1001      | 30180                 |
-| gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101      | 31101                 |
-| admin-server       | 监控（管理）                      | admin-server.example.xuxiaowei.cloud   | 1201      | 31201                 |
-| passport           | 登录                          | passport.example.xuxiaowei.cloud       | 1401      | 31401                 |
-| passport-ui        | 登录UI                        | passport.example.xuxiaowei.cloud       | 1411      | 放在 passport 中部署       |
-| canal              | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |                                        | 1601      | 31601                 |
-| user               | 用户服务                        |                                        | 1701      | 31701                 |
-| websocket          | WebSocket 服务                |                                        | 1801      | 31801                 |
-| webservice         | WebService 服务               |                                        | 1901      | 31901                 |
-| wechat-miniprogram | 微信小程序服务                     |                                        | 2001      | 32001                 |
-| wechat-offiaccount | 微信公众号服务                     |                                        | 2101      | 32101                 |
-| master-data        | 主数据服务                       |                                        | 2201      | 32201                 |
-| file               | 文件服务                        |                                        | 2301      | 32301                 |
-| generate           | 代码生成服务                      |                                        | 2401      | 32401                 |
-| xxl-job-admin      | XXL Job Admin               |                                        | 5101      | 30101                 |
-|                    |                             |                                        |           |                       |
-| oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001     | 以下是仅用于测试的客户端，无需部署     |
-| cxf-client         | CXF 客户端（独立服务）               |                                        | 10002     |                       |
+- 注意：本项目主要使用 `IDEA`
+  编写，为了方便，引入了环境变量插件 [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)，[环境变量文件](./.env.dev)
+  ，如果需要调整，请自行修改该文件或删除
+
+| 模块                 | 模块名称                        | 域名（虚拟）                                 | 端口    | kubernetes Service 端口 |
+|--------------------|-----------------------------|----------------------------------------|-------|-----------------------|
+| Nacos              | 注册、配置中心                     | nacos.example.xuxiaowei.cloud          | 8848  | 30848/31848           |
+| MySQL              | 数据库                         | mysql.example.xuxiaowei.cloud          | 3306  | 30306                 |
+| Redis              | 数据库                         | redis.example.xuxiaowei.cloud          | 6379  | 30379                 |
+| canal-deployer     | 阿里巴巴 MySQL binlog 增量订阅&消费组件 | canal-deployer.example.xuxiaowei.cloud | 11111 | 暂未部署                  |
+| sentinel-dashboard | 流控防护组件                      |                                        | 22222 | 32222                 |
+|                    |                             |                                        |       |                       |
+| ui                 | UI                          | example.xuxiaowei.cloud                | 1001  | 30180                 |
+| gateway            | 网关                          | gateway.example.xuxiaowei.cloud        | 1101  | 31101                 |
+| admin-server       | 监控（管理）                      | admin-server.example.xuxiaowei.cloud   | 1201  | 31201                 |
+| passport           | 登录                          | passport.example.xuxiaowei.cloud       | 1401  | 31401                 |
+| passport-ui        | 登录UI                        | passport.example.xuxiaowei.cloud       | 1411  | 放在 passport 中部署       |
+| canal              | 阿里巴巴 MySQL binlog 增量订阅、消费服务 |                                        | 1601  | 31601                 |
+| user               | 用户服务                        |                                        | 1701  | 31701                 |
+| websocket          | WebSocket 服务                |                                        | 1801  | 31801                 |
+| webservice         | WebService 服务               |                                        | 1901  | 31901                 |
+| wechat-miniprogram | 微信小程序服务                     |                                        | 2001  | 32001                 |
+| wechat-offiaccount | 微信公众号服务                     |                                        | 2101  | 32101                 |
+| master-data        | 主数据服务                       |                                        | 2201  | 32201                 |
+| file               | 文件服务                        |                                        | 2301  | 32301                 |
+| generate           | 代码生成服务                      |                                        | 2401  | 32401                 |
+| xxl-job-admin      | XXL Job Admin               |                                        | 5101  | 30101                 |
+|                    |                             |                                        |       |                       |
+| oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 | 以下是仅用于测试的客户端，无需部署     |
+| cxf-client         | CXF 客户端（独立服务）               |                                        | 10002 |                       |
 
 - 流控防护限流端口
 
