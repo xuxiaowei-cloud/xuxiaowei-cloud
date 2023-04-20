@@ -21,9 +21,9 @@
 # firewall-cmd --list-all
 #
 # 连接 MySQL 数据库
-# 表结构：nacos-server-2.2.1/conf/nacos-mysql.sql
+# 表结构：nacos-server-2.2.2/conf/nacos-mysql.sql
 # 数据库名：nacos_config
-# 修改：nacos-server-2.2.1/conf/application.properties（注意，一下内容要去掉开头的“#”）
+# 修改：nacos-server-2.2.2/conf/application.properties（注意，一下内容要去掉开头的“#”）
 # spring.datasource.platform=mysql
 # db.num=1
 # db.url.0=jdbc:mysql://192.168.5.4:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -40,7 +40,9 @@
 # nacos.core.auth.server.identity.key=serverIdentity
 # 版本号 2.2.1 后无默认值
 # nacos.core.auth.server.identity.value=security
-#
+# v2.2.2 之后，需要设置 nacos.core.auth.enabled=true 才能开启鉴权
+# 开启鉴权后，微服务注册需要配置用户名、密码，配置参见各个服务的 bootstrap.yml 和 nacos 数据库的 SQL 脚本
+# nacos.core.auth.enabled=true
 
 [Unit]
 Description=nacos
@@ -50,8 +52,8 @@ After=syslog.target
 Type=oneshot
 # 需要在 startup.sh 文件开头指定 JAVA_HOME 变量，该文件中的 JAVA_HOME 有最高优先级
 # 如果使用环境变量文件 EnvironmentFile，可能会导致无法启动的情况
-ExecStart=/software/nacos-server-2.2.1/bin/startup.sh -m standalone
-ExecStop=/software/nacos-server-2.2.1/bin/shutdown.sh
+ExecStart=/software/nacos-server-2.2.2/bin/startup.sh -m standalone
+ExecStop=/software/nacos-server-2.2.2/bin/shutdown.sh
 ExecReload=/bin/kill -s HUP $MAINPID
 RemainAfterExit=yes
 
