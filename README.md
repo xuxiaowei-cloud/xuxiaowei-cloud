@@ -104,7 +104,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.10&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.11&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
@@ -167,7 +167,7 @@
 
 | 依赖                          | 本项目版本       | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                                             |
 |-----------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| spring-boot                 | v2.7.10     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 Spring Boot 2.x，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a>             |
+| spring-boot                 | v2.7.11     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml">                        | 限制 Spring Boot 2.x，<a href="https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next">点击查看 Spring Boot 3.x.x 的项目</a>             |
 | spring-cloud                | v2021.0.6   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml">                    | 限制 Spring Boot 2.x                                                                                                             |
 | spring-cloud-alibaba        | v2021.0.5.0 | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2021.0&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/cloud/spring-cloud-alibaba-dependencies/maven-metadata.xml">                      | 限制 Spring Boot 2.x，<a href="https://github.com/alibaba/spring-cloud-alibaba/blob/2022.x/README-zh.md">Spring Cloud Alibaba</a> |
 | spring-boot-admin           | v2.7.10     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/de/codecentric/spring-boot-admin-dependencies/maven-metadata.xml">                                | 限制 Spring Boot 2.x                                                                                                             |
