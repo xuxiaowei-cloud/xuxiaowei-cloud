@@ -14,6 +14,8 @@
  Date: 08/04/2023 23:10:41
 */
 
+use `xuxiaowei_cloud`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+CREATE database if NOT EXISTS `xuxiaowei_cloud_nacos` default character set utf8mb4 collate utf8mb4_general_ci;
+use `xuxiaowei_cloud_nacos`;
+
 /******************************************/
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info   */

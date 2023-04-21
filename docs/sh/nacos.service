@@ -22,11 +22,11 @@
 #
 # 连接 MySQL 数据库
 # 表结构：nacos-server-2.2.2/conf/nacos-mysql.sql
-# 数据库名：nacos_config
+# 数据库名：xuxiaowei_cloud_nacos
 # 修改：nacos-server-2.2.2/conf/application.properties（注意，一下内容要去掉开头的“#”）
 # spring.datasource.platform=mysql
 # db.num=1
-# db.url.0=jdbc:mysql://192.168.5.4:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+# db.url.0=jdbc:mysql://192.168.5.4:3306/xuxiaowei_cloud_nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 # db.user.0=root
 # db.password.0=root
 #
