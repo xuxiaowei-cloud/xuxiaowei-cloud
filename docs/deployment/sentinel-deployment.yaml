@@ -19,7 +19,7 @@ spec:
   selector:
     matchLabels:
       app: sentinel
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
