@@ -249,9 +249,9 @@ shell-publish-k8s:
     - mkdir -p /nfs/wechat-offiaccount/logs
     - mkdir -p /nfs/xxl-job-admin/logs
     # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，准备创建 MySQL deployment
-    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ll /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ls /nfs/mysql/init
     - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || cp docs/sql/*.sql /nfs/mysql/init
-    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ll /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ls /nfs/mysql/init
     # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，使用命令根据文件创建 deployment
     - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || kubectl create -f docs/deployment/mysql-deployment.yaml
     # 查看 xuxiaowei-cloud 命名空间是否存在 nacos-deployment，如果不存在，使用命令根据文件创建 deployment
