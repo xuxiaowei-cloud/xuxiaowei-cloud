@@ -6,6 +6,7 @@
     - [表结构](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
 - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos)
     - [表结构](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
+- 推荐使用 [5-xuxiaowei_cloud_nacos.sql](../sql/5-xuxiaowei_cloud_nacos.sql)
 
 - 本项目使用版本
     - [2.2.2](https://github.com/alibaba/nacos/releases/tag/2.2.2)
