@@ -221,7 +221,7 @@
 | unplugin-auto-import             | 0.15.3   | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
 | unplugin-vue-components          | 0.24.1   | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
 | vite                             | 4.3.1    | <img src="https://img.shields.io/npm/v/vite">                               |    |
-| vue-tsc                          | 1.3.6    | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
+| vue-tsc                          | 1.4.4    | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
 
 ## 模块
 
