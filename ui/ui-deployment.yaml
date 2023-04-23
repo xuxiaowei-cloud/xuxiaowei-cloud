@@ -9,10 +9,13 @@
 ---
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # Deployment 名称
   name: ui-deployment
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   selector:
@@ -26,8 +29,10 @@ spec:
     spec:
       containers:
         - name: ui
+          # ui 版本
           image: registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT
           ports:
+            # 容器开放的端口号
             - containerPort: 80
 
 ---
@@ -38,17 +43,28 @@ spec:
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
 # https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
 apiVersion: v1
 kind: Service
 metadata:
+  # Service 名称
   name: ui-service
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
     - nodePort: 30180
       port: 80
       protocol: TCP
       targetPort: 80
   selector:
+    # 将 Service 和 Deployment 关联起来
     app: ui
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
   type: NodePort

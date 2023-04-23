@@ -6,21 +6,26 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment wechat-miniprogram-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment wechat-miniprogram-deployment
 
+# 创建一个持久化卷（Persistent Volume）
 # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  # 持久卷名称
   name: wechat-miniprogram-logs-volume
 spec:
+  # 持久化卷的容量为 10GB
   capacity:
     storage: 10Gi
+  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
   # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
     - ReadWriteMany
+  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
   # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
   nfs:
     # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-    # 需要存在此文件夹
+    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
     path: /nfs/wechat-miniprogram/logs
     # 填写你的 NFS（Network File System，网络文件系统） 地址
     server: 192.168.0.12
@@ -28,10 +33,13 @@ spec:
 ---
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # Deployment 名称
   name: wechat-miniprogram-deployment
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   selector:
@@ -45,7 +53,9 @@ spec:
     spec:
       containers:
         - name: wechat-miniprogram
+          # wechat-miniprogram 版本
           image: registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT
+          # 指定环境变量
           env:
             - name: nacos_xuxiaowei_cloud_addr
               value: nacos-service
@@ -56,33 +66,40 @@ spec:
             - name: sentinel_dashboard
               value: sentinel-service:22222
           ports:
+            # 容器开放的端口号
             - containerPort: 2001
             - containerPort: 9006
+          # 创建容器时的命令
           command:
             - "java"
+          # 创建容器时的参数
           args:
             - "-jar"
             - "app.jar"
             # 正式环境
             - "--spring.profiles.active=prod"
           volumeMounts:
-            # 时区
+            # 挂载主机的时区文件
             - name: time-zone
               mountPath: /etc/localtime
-            # 引用卷的名称
+            # 引用持久卷并挂载到容器
             - name: wechat-miniprogram-logs-volume
               # Wechat Miniprogram 日志目录
               mountPath: /logs
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
       volumes:
-        # 时区
+        # 挂载主机的时区文件
         - name: time-zone
           hostPath:
             path: /etc/localtime
+        # 引用持久卷
         - name: wechat-miniprogram-logs-volume
           nfs:
             # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
             path: /nfs/wechat-miniprogram/logs
+            # NFS 服务器的 IP 地址
+            # 填写你的 NFS（Network File System，网络文件系统） 地址
             server: 192.168.0.12
 
 ---
@@ -93,17 +110,28 @@ spec:
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
 # https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
 apiVersion: v1
 kind: Service
 metadata:
+  # Service 名称
   name: wechat-miniprogram-service
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
     - nodePort: 32001
       port: 2001
       protocol: TCP
       targetPort: 2001
   selector:
+    # 将 Service 和 Deployment 关联起来
     app: wechat-miniprogram
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
   type: NodePort

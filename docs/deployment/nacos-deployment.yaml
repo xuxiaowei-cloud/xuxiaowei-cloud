@@ -1,31 +1,40 @@
 # 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
 # 创建 pod    ：kubectl apply -f nacos-deployment.yaml
 # 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
-# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
+# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
 # 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment nacos-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment nacos-deployment
 
 
 # https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/
-#
+# 创建 Secret
 apiVersion: v1
 kind: Secret
 metadata:
+  # Secret 名称
+  # 注意：此处为冗余写法（相同命名空间、相同名称只会存在一个 Secret）
   name: mysql-password
+  # 命名空间
   namespace: xuxiaowei-cloud
+# Secret 类型 Opaque 用于存储任何基于字节数组的数据
 type: Opaque
 data:
+  # password：Secret 名称为 "mysql-password"，主键为 "password" 的值
+  # 这里的值是经过 base64 编码处理的 MySQL root 用户密码，需要解码才能使用
   # xuxiaowei.com.cn 计算 base64 之后为 eHV4aWFvd2VpLmNvbS5jbg==
   password: eHV4aWFvd2VpLmNvbS5jbg==
 
 ---
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # Deployment 名称
   name: nacos-deployment
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   selector:
@@ -44,7 +53,9 @@ spec:
           # [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
           # [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
           # [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
+          # Nacos 版本
           image: nacos/nacos-server:v2.2.2
+          # 指定环境变量
           env:
             - name: MODE
               value: standalone
@@ -82,15 +93,17 @@ spec:
                   # 此值为默认值；意味着 "mysql-password" 必须存在且包含名为 "password" 的主键
                   optional: false
           ports:
+            # 容器开放的端口号
             - containerPort: 8848
             - containerPort: 9848
           volumeMounts:
-            # 时区
+            # 挂载主机的时区文件
             - name: time-zone
               mountPath: /etc/localtime
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
       volumes:
-        # 时区
+        # 挂载主机的时区文件
         - name: time-zone
           hostPath:
             path: /etc/localtime
@@ -103,13 +116,21 @@ spec:
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
 # https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
 apiVersion: v1
 kind: Service
 metadata:
+  # Service 名称
   name: nacos-service
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
     - name: "8848"
       nodePort: 30848
       port: 8848
@@ -121,5 +142,8 @@ spec:
       protocol: TCP
       targetPort: 9848
   selector:
+    # 将 Service 和 Deployment 关联起来
     app: nacos
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
   type: NodePort

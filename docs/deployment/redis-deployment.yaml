@@ -6,21 +6,26 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment redis-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment redis-deployment
 
+# 创建一个持久化卷（Persistent Volume）
 # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  # 持久卷名称
   name: redis-data-volume
 spec:
+  # 持久化卷的容量为 10GB
   capacity:
     storage: 10Gi
+  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
   # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
     - ReadWriteMany
+  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
   # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
   nfs:
     # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-    # 需要存在此文件夹
+    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
     path: /nfs/redis/data
     # 填写你的 NFS（Network File System，网络文件系统） 地址
     server: 192.168.0.12
@@ -28,10 +33,13 @@ spec:
 ---
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # Deployment 名称
   name: redis-deployment
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   selector:
@@ -47,11 +55,15 @@ spec:
       containers:
         - name: redis
           # https://hub.docker.com/_/redis
+          # Redis 版本
           image: redis:7.0.8
           ports:
+            # 容器开放的端口号
             - containerPort: 6379
+          # 创建容器时的命令
           command:
             - "redis-server"
+          # 创建容器时的参数
           args:
             # https://hub.docker.com/_/redis
             # 设置密码
@@ -59,22 +71,28 @@ spec:
             # AOF
             - "--appendonly yes"
           volumeMounts:
-            # 时区
+            # 挂载主机的时区文件
             - name: time-zone
               mountPath: /etc/localtime
+            # 引用持久卷并挂载到容器
             - name: redis-data-volume
-              # redis 数据目录
+              # Redis 数据目录
               mountPath: /data
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
       volumes:
-        # 时区
+        # 挂载主机的时区文件
         - name: time-zone
           hostPath:
             path: /etc/localtime
+        # 引用持久卷
         - name: redis-data-volume
           nfs:
+            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
             # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
             path: /nfs/redis/data
+            # NFS 服务器的 IP 地址
+            # 填写你的 NFS（Network File System，网络文件系统） 地址
             server: 192.168.0.12
 
 ---
@@ -85,17 +103,28 @@ spec:
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
 # https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
 apiVersion: v1
 kind: Service
 metadata:
+  # Service 名称
   name: redis-service
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
     - nodePort: 30379
       port: 6379
       protocol: TCP
       targetPort: 6379
   selector:
+    # 将 Service 和 Deployment 关联起来
     app: redis
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
   type: NodePort
