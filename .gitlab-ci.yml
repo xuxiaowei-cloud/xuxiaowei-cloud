@@ -314,7 +314,7 @@ shell-publish-k8s:
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment gateway-deployment || kubectl create -f gateway/gateway-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
-    - kubectl -n xuxiaowei-cloud get deployment generate-deployment || kubectl create -f generate/generate-deployment.yaml
+    - kubectl -n xuxiaowei-cloud get deployment generate-deployment || kubectl create -f resource-services-parent/generate/generate-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/generate-deployment generate=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment master-data-deployment || kubectl create -f resource-services-parent/master-data/master-data-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
