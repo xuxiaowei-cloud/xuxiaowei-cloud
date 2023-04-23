@@ -28,7 +28,7 @@ spec:
     # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
     path: /nfs/webservice/logs
     # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 192.168.0.12
+    server: 192.168.0.27
 
 ---
 
@@ -100,7 +100,7 @@ spec:
             path: /nfs/webservice/logs
             # NFS 服务器的 IP 地址
             # 填写你的 NFS（Network File System，网络文件系统） 地址
-            server: 192.168.0.12
+            server: 192.168.0.27
 
 ---
 
