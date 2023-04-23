@@ -23,7 +23,7 @@ spec:
     # 需要存在此文件夹
     path: /nfs/generate/logs
     # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 192.168.0.12
+    server: 192.168.0.27
 
 ---
 
@@ -83,7 +83,7 @@ spec:
           nfs:
             # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
             path: /nfs/generate/logs
-            server: 192.168.0.12
+            server: 192.168.0.27
 
 ---
 
