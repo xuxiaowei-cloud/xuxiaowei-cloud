@@ -233,6 +233,7 @@ shell-publish-k8s:
     # 查看是否存在 xuxiaowei-cloud 命名空间，如果不存在，将会创建
     - kubectl get namespace xuxiaowei-cloud || kubectl create namespace xuxiaowei-cloud
     # 创建 NFS 文件夹
+    - mkdir -p /nfs/mysql/init
     - mkdir -p /nfs/mysql/data
     - mkdir -p /nfs/redis/data
     - mkdir -p /nfs/admin-server/logs
@@ -247,6 +248,10 @@ shell-publish-k8s:
     - mkdir -p /nfs/wechat-miniprogram/logs
     - mkdir -p /nfs/wechat-offiaccount/logs
     - mkdir -p /nfs/xxl-job-admin/logs
+    # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，准备创建 MySQL deployment
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ll /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || cp docs/sql/*.sql /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ll /nfs/mysql/init
     # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，使用命令根据文件创建 deployment
     - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || kubectl create -f docs/deployment/mysql-deployment.yaml
     # 查看 xuxiaowei-cloud 命名空间是否存在 nacos-deployment，如果不存在，使用命令根据文件创建 deployment

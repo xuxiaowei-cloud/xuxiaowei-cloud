@@ -59,6 +59,32 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   # 持久卷名称
+  name: mysql-init-volume
+spec:
+  # 持久化卷的容量为 10GB
+  capacity:
+    storage: 10Gi
+  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
+  accessModes:
+    - ReadWriteMany
+  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
+  nfs:
+    # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
+    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
+    path: /nfs/mysql/init
+    # 填写你的 NFS（Network File System，网络文件系统） 地址
+    server: 192.168.0.27
+
+---
+
+# 创建一个持久化卷（Persistent Volume）
+# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  # 持久卷名称
   name: mysql-data-volume
 spec:
   # 持久化卷的容量为 10GB
@@ -138,6 +164,10 @@ spec:
               # 用于配置 MySQL
               mountPath: /etc/mysql/conf.d/
             # 引用持久卷并挂载到容器
+            - name: mysql-init-volume
+              # MySQL 初始化表结构与数据
+              mountPath: /docker-entrypoint-initdb.d
+            # 引用持久卷并挂载到容器
             - name: mysql-data-volume
               # MySQL 数据目录
               mountPath: /var/lib/mysql
@@ -155,6 +185,15 @@ spec:
             items:
               - key: mysql.cnf
                 path: mysql.cnf
+        # 引用持久卷
+        - name: mysql-init-volume
+          nfs:
+            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
+            # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
+            path: /nfs/mysql/init
+            # NFS 服务器的 IP 地址
+            # 填写你的 NFS（Network File System，网络文件系统） 地址
+            server: 192.168.0.27
         # 引用持久卷
         - name: mysql-data-volume
           nfs:
