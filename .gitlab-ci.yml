@@ -230,20 +230,65 @@ shell-publish-k8s:
   needs:
     - job: package
   script:
+    # 查看是否存在 xuxiaowei-cloud 命名空间，如果不存在，将会创建
+    - kubectl get namespace xuxiaowei-cloud || kubectl create namespace xuxiaowei-cloud
+    # 创建 NFS 文件夹
+    - mkdir -p /nfs/mysql/init
+    - mkdir -p /nfs/mysql/data
+    - mkdir -p /nfs/redis/data
+    - mkdir -p /nfs/admin-server/logs
+    - mkdir -p /nfs/canal/logs
+    - mkdir -p /nfs/file/logs
+    - mkdir -p /nfs/gateway/logs
+    - mkdir -p /nfs/master-data/logs
+    - mkdir -p /nfs/passport/logs
+    - mkdir -p /nfs/user/logs
+    - mkdir -p /nfs/webservice/logs
+    - mkdir -p /nfs/websocket/logs
+    - mkdir -p /nfs/wechat-miniprogram/logs
+    - mkdir -p /nfs/wechat-offiaccount/logs
+    - mkdir -p /nfs/xxl-job-admin/logs
+    # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，准备创建 MySQL deployment
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ls /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || cp docs/sql/*.sql /nfs/mysql/init
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || ls /nfs/mysql/init
+    # 查看 xuxiaowei-cloud 命名空间是否存在 mysql-deployment，如果不存在，使用命令根据文件创建 deployment
+    - kubectl -n xuxiaowei-cloud get deployment mysql-deployment || kubectl create -f docs/deployment/mysql-deployment.yaml
+    # 查看 xuxiaowei-cloud 命名空间是否存在 nacos-deployment，如果不存在，使用命令根据文件创建 deployment
+    - kubectl -n xuxiaowei-cloud get deployment nacos-deployment || kubectl create -f docs/deployment/nacos-deployment.yaml
+    # 查看 xuxiaowei-cloud 命名空间是否存在 redis-deployment，如果不存在，使用命令根据文件创建 deployment
+    - kubectl -n xuxiaowei-cloud get deployment redis-deployment || kubectl create -f docs/deployment/redis-deployment.yaml
+    # 查看 xuxiaowei-cloud 命名空间是否存在 sentinel-deployment，如果不存在，使用命令根据文件创建 deployment
+    - kubectl -n xuxiaowei-cloud get deployment sentinel-deployment || kubectl create -f docs/deployment/sentinel-deployment.yaml
     # -n xuxiaowei-cloud：指定命名空间为 xuxiaowei-cloud
     # $CI_PIPELINE_ID：当前管道的实例级ID
+    # 查看 xuxiaowei-cloud 命名空间是否存在，如果不存在，使用命令根据文件创建 deployment
+    - kubectl -n xuxiaowei-cloud get deployment admin-server-deployment || kubectl create -f admin-server/admin-server-deployment.yaml
+    # 设置镜像的新版本
     - kubectl -n xuxiaowei-cloud set image deployment/admin-server-deployment admin-server=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment canal-deployment || kubectl create -f resource-services-parent/canal/canal-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment file-deployment || kubectl create -f resource-services-parent/file/file-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment gateway-deployment || kubectl create -f gateway/gateway-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment master-data-deployment || kubectl create -f resource-services-parent/master-data/master-data-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment passport-deployment || kubectl create -f passport/passport-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/passport-deployment passport=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment ui-deployment || kubectl create -f ui/ui-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/ui-deployment ui=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment user-deployment || kubectl create -f resource-services-parent/user/user-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/user-deployment user=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment webservice-deployment || kubectl create -f resource-services-parent/webservice/webservice-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/webservice-deployment webservice=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment websocket-deployment || kubectl create -f resource-services-parent/websocket/websocket-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/websocket-deployment websocket=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment wechat-miniprogram-deployment || kubectl create -f resource-services-parent/wechat-miniprogram/wechat-miniprogram-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/wechat-miniprogram-deployment wechat-miniprogram=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment wechat-offiaccount-deployment || kubectl create -f resource-services-parent/wechat-offiaccount/wechat-offiaccount-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/wechat-offiaccount-deployment wechat-offiaccount=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment xxl-job-admin-deployment || kubectl create -f xxl-job-admin/xxl-job-admin-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/xxl-job-admin-deployment xxl-job-admin=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/xxl-job-admin:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
