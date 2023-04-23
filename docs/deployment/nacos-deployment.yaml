@@ -49,7 +49,7 @@ spec:
             - name: MYSQL_SERVICE_PORT
               value: "3306"
             - name: MYSQL_SERVICE_DB_NAME
-              value: nacos_config
+              value: xuxiaowei_cloud_nacos
             - name: MYSQL_SERVICE_DB_PARAM
               value: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
             - name: MYSQL_SERVICE_USER

@@ -15,6 +15,7 @@ docker pull nacos/nacos-server:v2.2.2
             - [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
             - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
             - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
+            - 推荐使用 [5-xuxiaowei_cloud_nacos.sql](../sql/5-xuxiaowei_cloud_nacos.sql)
     - 创建
         1. 设置密码
             - 编辑环境变量文件
@@ -30,7 +31,7 @@ docker pull nacos/nacos-server:v2.2.2
                 MYSQL_SERVICE_HOST=192.168.5.4
                 # 默认：3306
                 MYSQL_SERVICE_PORT=3306
-                MYSQL_SERVICE_DB_NAME=nacos_config
+                MYSQL_SERVICE_DB_NAME=xuxiaowei_cloud_nacos
                 # 默认：characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
                 MYSQL_SERVICE_DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true"
                 MYSQL_SERVICE_USER=root
