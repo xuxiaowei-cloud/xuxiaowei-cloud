@@ -6,26 +6,8 @@
 # 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment nacos-deployment
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment nacos-deployment
 
-
-# https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/
-# 创建 Secret
-apiVersion: v1
-kind: Secret
-metadata:
-  # Secret 名称
-  # 注意：此处为冗余写法（相同命名空间、相同名称只会存在一个 Secret）
-  name: mysql-password
-  # 命名空间
-  namespace: xuxiaowei-cloud
-# Secret 类型 Opaque 用于存储任何基于字节数组的数据
-type: Opaque
-data:
-  # password：Secret 名称为 "mysql-password"，主键为 "password" 的值
-  # 这里的值是经过 base64 编码处理的 MySQL root 用户密码，需要解码才能使用
-  # xuxiaowei.com.cn 计算 base64 之后为 eHV4aWFvd2VpLmNvbS5jbg==
-  password: eHV4aWFvd2VpLmNvbS5jbg==
-
----
+# 需要先创建 mysql-deployment.yaml 成功后，才能创建当前文件
+# 因为当前文件使用了 mysql-password，而 mysql-password 只在 mysql-deployment.yaml 文件中创建
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 # 创建 Deployment
