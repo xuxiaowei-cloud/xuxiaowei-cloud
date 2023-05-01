@@ -7,16 +7,19 @@
 # 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment zipkin-deployment
 
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # Deployment 名称
   name: zipkin-deployment
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   selector:
     matchLabels:
       app: zipkin
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -25,16 +28,19 @@ spec:
       containers:
         - name: zipkin
           # https://hub.docker.com/r/openzipkin/zipkin
+          # zipkin 版本
           image: openzipkin/zipkin:2.24
           ports:
+            # 容器开放的端口号
             - containerPort: 9411
           volumeMounts:
-            # 时区
+            # 挂载主机的时区文件
             - name: time-zone
               mountPath: /etc/localtime
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
       volumes:
-        # 时区
+        # 挂载主机的时区文件
         - name: time-zone
           hostPath:
             path: /etc/localtime
@@ -47,17 +53,28 @@ spec:
 # 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
 
 # https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
 apiVersion: v1
 kind: Service
 metadata:
+  # Service 名称
   name: zipkin-service
+  # 命名空间
   namespace: xuxiaowei-cloud
 spec:
   ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
     - nodePort: 30411
       port: 9411
       protocol: TCP
       targetPort: 9411
   selector:
+    # 将 Service 和 Deployment 关联起来
     app: zipkin
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
   type: NodePort
