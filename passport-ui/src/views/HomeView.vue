@@ -220,7 +220,7 @@ interface TenantOption {
   clientName: string;
 }
 
-const tenantOptions = ref<TenantOption[]>()
+const tenantOptions = ref<TenantOption[]>([])
 
 pageLogin({ current: 1, size: 10, clientType: 'web' }).then(response => {
   tenantOptions.value = response.data.records
