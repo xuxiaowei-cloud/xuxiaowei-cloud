@@ -32,7 +32,7 @@
   <el-container>
     <el-table stripe :data="tableData" v-loading="loading" height="460" @selection-change="handleSelectionChange"
               @cell-dblclick="rowDblClick">
-      <!-- <el-table-column type="expand">
+      <el-table-column type="expand">
         <template #default="props">
           <el-form label-width="260px" v-if="props.row.authorityList.length > 0">
             <div v-for="(item, i) in props.row.authorityList" :key="i">
@@ -45,7 +45,7 @@
             <span>暂无权限</span>
           </div>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column type="selection" width="55"/>
       <el-table-column prop="tenantId" label="tenantId" width="80" v-if="useStore.getSuperTenant"/>
       <el-table-column prop="usersId" label="usersId" width="80"/>
