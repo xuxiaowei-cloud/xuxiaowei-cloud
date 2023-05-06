@@ -22,7 +22,7 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.7.11</spring-boot.version>
+        <spring-boot.version>3.0.6</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
         <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 
