@@ -2,6 +2,7 @@
 # package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
 updates:
@@ -9,6 +10,11 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        # spring-boot 3.0 不支持 JDK 8
+        versions: ["3.x"]
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     schedule:
