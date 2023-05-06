@@ -14,7 +14,7 @@ updates:
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         # spring-boot 3.0 不支持 JDK 8
-        versions: ["2.7.0", "3.0.0"]
+        versions: "[2.7.0, 3.0.0)"
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     schedule:
