@@ -38,7 +38,8 @@ updates:
           - "> 2022"
       - dependency-name: spring-security-oauth2-authorization-server
         # spring-security-oauth2-authorization-server 1.0 不支持 JDK 8
-        versions: [ "1.x" ]
+        versions:
+          - "> 1"
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     schedule:
