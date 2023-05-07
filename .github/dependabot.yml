@@ -22,7 +22,8 @@ updates:
           - "> 4"
       - dependency-name: spring-cloud-dependencies
         # spring-cloud 2022 不支持 JDK 8
-        versions: [ "2022.x" ]
+        versions:
+          - "> 2022"
       - dependency-name: spring-security-oauth2-authorization-server
         # spring-security-oauth2-authorization-server 1.0 不支持 JDK 8
         versions: [ "1.x" ]
