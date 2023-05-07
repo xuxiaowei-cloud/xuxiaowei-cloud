@@ -35,9 +35,9 @@
       <el-table-column type="expand">
         <template #default="props">
           <el-form label-width="260px" v-if="props.row.authorityList.length > 0">
-            <div v-for="authority in props.row.authorityList" :key="authority">
-              <el-form-item :label="authority.authority">
-                <el-input v-model="authority.explain" class="cloud-el-expand-input" disabled/>
+            <div v-for="(item, i) in props.row.authorityList" :key="i">
+              <el-form-item :label="item.authority">
+                <el-input v-model="item.explain" class="cloud-el-expand-input" disabled/>
               </el-form-item>
             </div>
           </el-form>
