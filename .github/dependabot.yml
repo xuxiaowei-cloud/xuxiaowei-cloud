@@ -20,6 +20,18 @@ updates:
         # cxf 4.0 不支持 JDK 8
         versions:
           - "> 4"
+      - dependency-name: org.apache.cxf:cxf-rt-frontend-jaxws
+        # cxf 4.0 不支持 JDK 8
+        versions:
+          - "> 4"
+      - dependency-name: org.apache.cxf:cxf-rt-transports-http
+        # cxf 4.0 不支持 JDK 8
+        versions:
+          - "> 4"
+      - dependency-name: org.apache.cxf:cxf-rt-features-logging
+        # cxf 4.0 不支持 JDK 8
+        versions:
+          - "> 4"
       - dependency-name: spring-cloud-dependencies
         # spring-cloud 2022 不支持 JDK 8
         versions:
