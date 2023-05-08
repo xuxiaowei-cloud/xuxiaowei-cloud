@@ -23,6 +23,14 @@ updates:
         # spring-cloud 2022 不支持 JDK 8
         versions:
           - ">= 2022"
+      - dependency-name: com.alibaba.cloud:spring-cloud-alibaba-dependencies
+        # spring-cloud-alibaba 2022 不支持 JDK 8
+        versions:
+          - ">= 2022"
+      - dependency-name: com.alibaba.cloud:spring-cloud-alibaba-dependencies
+        # spring-cloud-alibaba 2021.1 为命名错误，参见：https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/project-spring-cloud-alibaba-dependencies
+        versions:
+          - "= 2021.1"
       - dependency-name: org.apache.cxf:cxf-rt-frontend-jaxws
         # cxf 4.0 不支持 JDK 8
         versions:
