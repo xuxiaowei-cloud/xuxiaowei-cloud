@@ -45,6 +45,14 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
         java-version: [ 8, 11, 17 ]
         os: [ "ubuntu-latest" ]
+        # 排除
+        exclude:
+          - language: javascript
+            java-version: 11
+            os: ubuntu-latest
+          - language: javascript
+            java-version: 17
+            os: ubuntu-latest
 
     steps:
       # 检出代码
