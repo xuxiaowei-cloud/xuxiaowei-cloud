@@ -13,6 +13,8 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
@@ -55,11 +57,17 @@ updates:
     directory: "/passport-ui"
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
     directory: "/ui"
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
