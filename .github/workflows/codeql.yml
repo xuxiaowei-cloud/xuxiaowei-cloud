@@ -25,6 +25,7 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ${{ matrix.os }}
+    if: ${{ matrix.language == 'javascript' }}
     permissions:
       # Actions权限
       actions: read
