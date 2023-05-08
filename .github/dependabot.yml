@@ -51,3 +51,7 @@ updates:
     directory: "/ui"
     schedule:
       interval: "daily"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
