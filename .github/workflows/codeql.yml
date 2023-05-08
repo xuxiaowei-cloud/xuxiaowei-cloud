@@ -24,7 +24,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     permissions:
       # Actions权限
       actions: read
@@ -44,6 +44,7 @@ jobs:
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
         java-version: [ 8, 11, 17 ]
+        os: [ "ubuntu-latest" ]
 
     steps:
       # 检出代码
@@ -56,7 +57,35 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
-          cache: maven
+
+      - name: Cache modules
+        uses: actions/cache@v3
+        id: cache-modules
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.npm
+            $GITHUB_WORKSPACE/passport-ui/node/
+            $GITHUB_WORKSPACE/passport-ui/node_modules/
+            $GITHUB_WORKSPACE/ui/node/
+            $GITHUB_WORKSPACE/ui/node_modules/
+          key: ${{ matrix.os }}-${{ hashFiles('pom.xml', '**/pom.xml', '**/**/pom.xml', '**/package.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-
+
+      - name: CI ENV
+        id: date
+        # bash, sh, cmd, powershell, pwsh
+        # shell 类型必须为 sh，否则：
+        # $GITHUB_ENV：仅支持 ubuntu、macos
+        # $env:GITHUB_ENV：仅支持 windows
+        shell: sh
+        run: |
+          env
+          echo $GITHUB_RUN_ID
+          echo $GITHUB_JOB-${{ matrix.java-version }}
+          echo "CI_PIPELINE_ID=$GITHUB_RUN_ID" >> $GITHUB_ENV
+          echo "CI_JOB_ID=$GITHUB_JOB-${{ matrix.java-version }}" >> $GITHUB_ENV
 
       # 初始化CodeQL工具
       # Initializes the CodeQL tools for scanning.
