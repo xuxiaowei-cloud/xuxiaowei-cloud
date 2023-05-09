@@ -42,6 +42,7 @@ murphysec:
     # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
       changes:
+        - "docs/**"
         - "**/**.md"
       when: never
     # PR 到 main 分支时预执行
@@ -86,6 +87,7 @@ sonarqube-check:
     # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
       changes:
+        - "docs/**"
         - "**/**.md"
       when: never
     # PR 到 main 分支时预执行
@@ -230,6 +232,7 @@ package:
     # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
       changes:
+        - "docs/**"
         - "**/**.md"
       when: never
     # PR 到 main 分支时预执行
@@ -349,6 +352,7 @@ shell-publish-k8s:
     # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
       changes:
+        - "docs/**"
         - "**/**.md"
       when: never
     # PR 到 main 分支时预执行
