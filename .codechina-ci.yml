@@ -23,9 +23,14 @@ murphysec:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
+    # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
+      changes:
+        - "**/**.md"
+      when: never
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
-    # PR 合并到 main 后执行
+    # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
 
 #
@@ -106,7 +111,12 @@ package:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
+    # PR 到 main 分支时、PR 合并到 main 后、推送到 main 分支时：检测到 .md 文件修改时，不运行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
+      changes:
+        - "**/**.md"
+      when: never
     # PR 到 main 分支时预执行
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
-    # PR 合并到 main 后执行
+    # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
