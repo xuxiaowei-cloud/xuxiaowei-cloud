@@ -1,3 +1,4 @@
+# 测试 paths-ignore
 #
 # 删除 sh 文件中的特殊符号（line 1: $'\r': command not found）：sed -i 's/\r$//' canal.service
 # 位置：/usr/lib/systemd/system/canal.service

@@ -32,7 +32,7 @@
 <p></p>
 
 <div align="center" style="text-align: center;">
-  为简化开发工作、提高生产率、解决常见问题而生
+  为简化开发工作、提高生产率、解决常见问题而生-测试 paths-ignore
 </div>
 
 <p></p>
