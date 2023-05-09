@@ -14,9 +14,17 @@ name: "CodeQL"
 on:
   push:
     branches: [ main ]
+    # 排除路径
+    # https://docs.github.com/zh/actions/using-workflows/workflow-syntax-for-github-actions#%E7%A4%BA%E4%BE%8B%E6%8E%92%E9%99%A4%E8%B7%AF%E5%BE%84
+    paths-ignore:
+      - 'docs/**'
+      - '**/**.md'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/**.md'
   schedule:
     # 每天UTC时间00:00执行
     - cron: '0 0 * * *'
