@@ -177,7 +177,7 @@
 | dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                                       |
 | springdoc                   | 1.7.0       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
 | guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
-| fastjson                    | v2.0.30     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
+| fastjson                    | v2.0.31     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
 | hutool                      | v5.8.18     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
 
 ### 前端
@@ -194,7 +194,7 @@
 | element-plus                     | 2.3.4   | <img src="https://img.shields.io/npm/v/element-plus">                       |    |
 | js-cookie                        | 3.0.5   | <img src="https://img.shields.io/npm/v/js-cookie">                          |    |
 | jsencrypt                        | 3.3.2   | <img src="https://img.shields.io/npm/v/jsencrypt">                          |    |
-| pinia                            | 2.0.35  | <img src="https://img.shields.io/npm/v/pinia">                              |    |
+| pinia                            | 2.0.36  | <img src="https://img.shields.io/npm/v/pinia">                              |    |
 | sockjs-client                    | 1.6.1   | <img src="https://img.shields.io/npm/v/sockjs-client">                      |    |
 | stompjs                          | 2.3.3   | <img src="https://img.shields.io/npm/v/stompjs">                            |    |
 | vue                              | 3.2.47  | <img src="https://img.shields.io/npm/v/vue">                                |    |
@@ -202,20 +202,20 @@
 | vue-echarts                      | 6.5.5   | <img src="https://img.shields.io/npm/v/vue-echarts">                        |    |
 | vue-router                       | 4.1.6   | <img src="https://img.shields.io/npm/v/vue-router">                         |    |
 |                                  |         |                                                                             |    |
-| @tauri-apps/cli                  | 1.3.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
+| @tauri-apps/cli                  | 1.3.1   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
 | @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                   |    |
-| @types/node                      | 20.1.0  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
-| @typescript-eslint/eslint-plugin | 5.59.2  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
-| @typescript-eslint/parser        | 5.59.2  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
+| @types/node                      | 20.1.1  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
+| @typescript-eslint/eslint-plugin | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
+| @typescript-eslint/parser        | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
 | @vitejs/plugin-vue               | 4.2.1   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
 | eslint                           | 8.40.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
 | eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
 | eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">               |    |
 | eslint-plugin-n                  | 15.7.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
 | eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">              |    |
-| eslint-plugin-vue                | 9.11.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
+| eslint-plugin-vue                | 9.11.1  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
 | lint-staged                      | 13.2.2  | <img src="https://img.shields.io/npm/v/lint-staged">                        |    |
-| terser                           | 5.17.1  | <img src="https://img.shields.io/npm/v/terser">                             |    |
+| terser                           | 5.17.2  | <img src="https://img.shields.io/npm/v/terser">                             |    |
 | typescript                       | 5.0.4   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
 | unocss                           | 0.51.12 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
 | unplugin-auto-import             | 0.15.3  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
@@ -375,7 +375,7 @@ cloud.xuxiaowei
     - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
     - 支付宝网站应用（个人开发适配 OAuth 2.1、支付宝网站应用的授权方式） alipay_oplatform_website
 
-## 仓库与分支？
+## 仓库、分支、提交记录
 
 1. 使用了哪六个仓库？
     1. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
@@ -389,7 +389,11 @@ cloud.xuxiaowei
     1. 以 [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
     2. 其余仓库每日同步
 
-3. 各个仓库的作用？
+3. 提交记录中的地址为何不准确？
+    1. 由于本项目使用了多个代码托管平台，并且某些代码托管平台的规则相同，导致提交注释中简写地址不存在或者不匹配，请根据情况区分后到各个平台查看：
+        1. 如：`dependabot[bot] <support@github.com>` 提交的PR，全部都在GitHub平台
+
+4. 各个仓库的作用？
 
 | 仓库地址                                                              | 作用                                                                          | 说明                                                                                                                                                |
 |-------------------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -431,6 +435,24 @@ cloud.xuxiaowei
            kubernetes（k8s） 进行发布。如何选择请使用者自行组合。
         2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用某个分支的某些执行器执行 CI/CD，就将代码 `PR`
            （推荐使用PR，方便一键回滚代码、将回滚的内容进行恢复） 到指定的分支。
+
+## 批量添加远端仓库地址
+
+<details>
+<summary>点击展开</summary>
+
+git remote add gitee https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitlab https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add jihulab https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add github https://github.com/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitcode https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud.git
+
+git remote add gitlink https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud.git
+</details>
 
 ## 鸣谢
 

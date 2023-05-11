@@ -1,4 +1,7 @@
-FROM nginx:1.23.3
+FROM docker.io/library/nginx:1.23.3
+
+# https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#docker
+LABEL org.opencontainers.image.source=https://github.com/nginxinc/docker-nginx
 
 WORKDIR /home
 
