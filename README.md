@@ -197,31 +197,31 @@
 | pinia                            | 2.0.36  | <img src="https://img.shields.io/npm/v/pinia">                              |    |
 | sockjs-client                    | 1.6.1   | <img src="https://img.shields.io/npm/v/sockjs-client">                      |    |
 | stompjs                          | 2.3.3   | <img src="https://img.shields.io/npm/v/stompjs">                            |    |
-| vue                              | 3.2.47  | <img src="https://img.shields.io/npm/v/vue">                                |    |
+| vue                              | 3.3.2   | <img src="https://img.shields.io/npm/v/vue">                                |    |
 | vue-clipboard3                   | 2.0.0   | <img src="https://img.shields.io/npm/v/vue-clipboard3">                     |    |
 | vue-echarts                      | 6.5.5   | <img src="https://img.shields.io/npm/v/vue-echarts">                        |    |
-| vue-router                       | 4.1.6   | <img src="https://img.shields.io/npm/v/vue-router">                         |    |
+| vue-router                       | 4.2.0   | <img src="https://img.shields.io/npm/v/vue-router">                         |    |
 |                                  |         |                                                                             |    |
 | @tauri-apps/cli                  | 1.3.1   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
 | @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                   |    |
-| @types/node                      | 20.1.1  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
+| @types/node                      | 20.1.4  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
 | @typescript-eslint/eslint-plugin | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
 | @typescript-eslint/parser        | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
-| @vitejs/plugin-vue               | 4.2.1   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
+| @vitejs/plugin-vue               | 4.2.3   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
 | eslint                           | 8.40.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
 | eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
 | eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">               |    |
 | eslint-plugin-n                  | 15.7.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
 | eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">              |    |
-| eslint-plugin-vue                | 9.11.1  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
+| eslint-plugin-vue                | 9.12.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
 | lint-staged                      | 13.2.2  | <img src="https://img.shields.io/npm/v/lint-staged">                        |    |
-| terser                           | 5.17.2  | <img src="https://img.shields.io/npm/v/terser">                             |    |
+| terser                           | 5.17.3  | <img src="https://img.shields.io/npm/v/terser">                             |    |
 | typescript                       | 5.0.4   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
 | unocss                           | 0.51.12 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
 | unplugin-auto-import             | 0.15.3  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
 | unplugin-vue-components          | 0.24.1  | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
 | vite                             | 4.3.5   | <img src="https://img.shields.io/npm/v/vite">                               |    |
-| vue-tsc                          | 1.6.4   | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
+| vue-tsc                          | 1.6.5   | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
 
 ## 模块
 
