@@ -45,6 +45,9 @@ murphysec:
     # PR 合并到 main 后执行、推送到 main 分支时
     # 此处禁用 gitlab.com 上的流水线
     - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
+  tags:
+    # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
+    - jihulab
 
 # sonarqube
 sonarqube-check:
@@ -84,6 +87,9 @@ sonarqube-check:
     # PR 合并到 main 后执行、推送到 main 分支时
     # 此处禁用 gitlab.com 上的流水线
     - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
 
 #
 # package
@@ -221,6 +227,9 @@ package:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -340,6 +349,7 @@ shell-publish-k8s:
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
     - shell-publish-k8s
 
 # 嵌入
