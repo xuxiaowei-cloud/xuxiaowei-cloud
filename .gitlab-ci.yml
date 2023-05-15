@@ -92,6 +92,36 @@ sonarqube-check:
     - plugin-kubernetes
 
 #
+# coverage
+coverage:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U package source:jar javadoc:jar install -DskipTests=true -s settings.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 main 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    # PR 合并到 main 后执行、推送到 main 分支时
+    - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
+    - jihulab
+
+#
 # package
 package:
   variables:
