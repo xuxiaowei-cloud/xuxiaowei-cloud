@@ -104,7 +104,7 @@ coverage:
   script:
     - docker info || echo 不存在docker命令
     - ls /var/run/docker.sock || echo 不存在/var/run/docker.sock文件
-    - curl 127.0.0.1:2375
+    - echo $DOCKER_HOST
     - mvn clean -e -U package source:jar javadoc:jar install -DskipTests=true -s settings.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     - mvn -pl admin-server -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
