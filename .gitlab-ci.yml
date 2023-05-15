@@ -102,24 +102,30 @@ coverage:
   services:
     - docker:dind
   script:
-    - docker info || echo 不存在docker命令
-    - ls /var/run/docker.sock || echo 不存在/var/run/docker.sock文件
-    - env
+    - echo $DOCKER_PORT
+    - echo $DOCKER_PORT_2375_TCP
+    - echo $DOCKER_PORT_2375_TCP_PROTO
+    - echo $DOCKER_PORT_2375_TCP_PORT
+    - echo $DOCKER_PORT_2375_TCP_ADDR
+    - echo $DOCKER_PORT_2376_TCP
+    - echo $DOCKER_PORT_2376_TCP_PROTO
+    - echo $DOCKER_PORT_2376_TCP_PORT
+    - echo $DOCKER_PORT_2376_TCP_ADDR
     - mvn clean -e -U package source:jar javadoc:jar install -DskipTests=true -s settings.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - mvn -pl admin-server -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl gateway -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl passport -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/canal -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/file -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/master-data -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/user -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/webservice -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/websocket -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/wechat-miniprogram -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl resource-services-parent/wechat-offiaccount -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl ui -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl xxl-job-admin -s settings.xml docker:build -Ddocker.host=unix:///var/run/docker.sock -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl admin-server -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl gateway -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl passport -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/canal -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/file -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/master-data -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/user -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/webservice -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/websocket -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-miniprogram -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-offiaccount -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl ui -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl xxl-job-admin -s settings.xml docker:build -Ddocker.host=$DOCKER_PORT -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
     - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     paths:
