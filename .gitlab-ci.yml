@@ -26,7 +26,7 @@ murphysec:
     # murphysec 文档：https://www.murphysec.com/docs/guides/scan-scene/cli.html
     - murphysec -v
     - murphysec auth login $murphysec_token
-    - murphysec scan . --log-level info --write-log-to murphysec.log --json --task-id $task_id
+    - murphysec scan . --log-level info --write-log-to murphysec.log --json
   # https://docs.gitlab.cn/jh/ci/yaml/index.html#cache
   cache:
     key: murphysec
