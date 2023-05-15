@@ -21,7 +21,7 @@ murphysec:
     MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   stage: package
   # Docker 镜像开源地址：https://gitee.com/xuxiaowei-com-cn/murphysec
-  image: xuxiaoweicomcn/murphysec:v3.0.1-maven-3.6.3-jdk-8
+  image: xuxiaoweicomcn/murphysec:v3.1.0-maven-3.6.3-jdk-8
   script:
     # murphysec 文档：https://www.murphysec.com/docs/guides/scan-scene/cli.html
     - murphysec -v
