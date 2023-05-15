@@ -371,6 +371,7 @@ cloud.xuxiaowei
     - 钉钉dingtalk扫码（个人开发适配 OAuth 2.1、钉钉dingtalk扫码的授权方式） dingtalk
     - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
     - 支付宝网站应用（个人开发适配 OAuth 2.1、支付宝网站应用的授权方式） alipay_oplatform_website
+    - 飞书网页应用（个人开发适配 OAuth 2.1、飞书网页应用的授权方式） feishu_webpage
 
 ## 仓库、分支、提交记录
 
@@ -392,14 +393,14 @@ cloud.xuxiaowei
 
 4. 各个仓库的作用？
 
-| 仓库地址                                                              | 作用                                                                          | 说明                                                                                                                                                |
-|-------------------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) | 供国内用户访问、提问、下载资源、GitLab Runner CI/CD 流水线打包/制作Docker镜像、Kubernetes(k8s) 发布项目使用 | 开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)                                                                                   |
-| [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)     | 国内备份仓库                                                                      | 由于技术栈（项目使用 GitLab Runner CI/CD 流水线测试与发布）及不可抗力的因素，将来会关闭 Gitee 的 issues，并将历史数据迁移到 [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) |
-| [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库，国外流水线测试                                                              | 免费额度 `400` 分钟，每月后期可能由于免费额度用完而失败                                                                                                                   |
-| [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)    | 国内备份仓库，国内流水线测试                                                              | 流水线配额 `2000` 分钟，申请内侧资格                                                                                                                            |
-| [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库                                                                      | 使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql.yml) 每日扫描项目中的 `main` 分支是否存在漏洞                             |
-| [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) | 国内备份仓库                                                                      |                                                                                                                                                   |
+| 仓库地址                                                              | 作用                                                                          | 说明                                                                                                                                                                                                                                                                    |
+|-------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) | 供国内用户访问、提问、下载资源、GitLab Runner CI/CD 流水线打包/制作Docker镜像、Kubernetes(k8s) 发布项目使用 | 开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)                                                                                                                                                                                                       |
+| [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)     | 国内备份仓库                                                                      | 由于技术栈（项目使用 GitLab Runner CI/CD 流水线测试与发布）及不可抗力的因素，将来会关闭 Gitee 的 issues，并将历史数据迁移到 [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)                                                                                                                     |
+| [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库，国外流水线测试                                                              | 免费额度 `400` 分钟，每月后期可能由于免费额度用完而失败                                                                                                                                                                                                                                       |
+| [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)    | 国内备份仓库，国内流水线测试                                                              | 流水线配额 `2000` 分钟，申请内侧资格                                                                                                                                                                                                                                                |
+| [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库                                                                      | 使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql.yml) 每日扫描项目中的 `main` 分支是否存在漏洞、使用 [dependabot](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/.github/dependabot.yml) 每日扫描项目中的 `main` 分支是否需要升级依赖并创建对应的 `PR` 与 测试 |
+| [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) | 国内备份仓库                                                                      |                                                                                                                                                                                                                                                                       |
 
 1. 各分支的作用？
     1. `main`
