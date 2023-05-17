@@ -405,31 +405,33 @@ cloud.xuxiaowei
 1. 各分支的作用？
     1. `main`
         - 主分支
-        - 用于 GitLab Runner 的 kubernetes（k8s） 类型的执行器执行 CI/CD
+        - 用于在 [极狐GitLab流水线](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 上执行打包/测试/扫描依赖漏洞等
+    2. `k8s`
+        - 用于 GitLab Runner 在 kubernetes（k8s） 类型的执行器执行 CI/CD
         - 使用 kubernetes（k8s） 编译代码打包
         - 使用 kubernetes（k8s） 将打包后的jar包制作成docker镜像
         - 使用 kubernetes（k8s） 进行发布
-    2. `shell`
-        - 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
+    3. `shell`
+        - 用于 GitLab Runner 在 shell 类型的执行器执行 CI/CD
         - 使用 shell 命令编译代码打包
         - 使用 shell 命令创建 Linux service 服务进行发布
         - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
-    3. `docker`
-        - 用于 GitLab Runner 的 docker 类型的执行器执行 CI/CD
+    4. `docker`
+        - 用于 GitLab Runner 在 docker 类型的执行器执行 CI/CD
         - 使用 docker 编译代码打包
         - 使用 docker 将打包后的jar包制作成docker镜像
         - 使用 docker 进行发布
         - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
-    4. `xuxiaowei`开头的分支
+    5. `xuxiaowei`开头的分支
         - 个人分支，按功能`PR`到主分支`main`
-    5. `pages`
+    6. `pages`
         - 文档分支
-    6. `OAuth2.0`
+    7. `OAuth2.0`
         - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    7. `only-passport`
+    8. `only-passport`
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
-    8. 此处未说明的分支，请勿使用
-    9. 已上包含 CI/CD 的分支
+    9. 此处未说明的分支，请勿使用
+    10. 已上包含 CI/CD 的分支
         1. 分支内的各阶段，可交替使用，如：使用 docker 编译代码打包、使用 docker 将打包后的jar包制作成docker镜像，使用
            kubernetes（k8s） 进行发布。如何选择请使用者自行组合。
         2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用某个分支的某些执行器执行 CI/CD，就将代码 `PR`
