@@ -25,6 +25,8 @@ sonarqube-check:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
   tags:
@@ -146,6 +148,8 @@ k8s-package:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
   tags:
@@ -261,6 +265,8 @@ k8s-publish:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
   tags:
