@@ -40,11 +40,9 @@ murphysec:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 main 分支时预执行
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_COMMIT_BRANCH == "main"
   tags:
     # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
     - jihulab
@@ -82,11 +80,9 @@ sonarqube-check:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 main 分支时预执行
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_COMMIT_BRANCH == "main"
   tags:
     # 个人服务器 Runner 标签（仅在个人服务器上执行）
     - plugin-kubernetes
@@ -205,7 +201,7 @@ package:
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings.xml
     - sed -i "s#</servers>#<server><id>ossrh</id><username>$ossrh_user</username><password>$ossrh_pass</password></server>\n&#" settings-private.xml
     # 自建 GitLab 实例 URL 的主机（部分域名）
-    # 在 GitLab、JiHuLab 使用的是 docker+machine 执行器，个人的 Runner 使用的是 kubernetes 执行器，此处仅在 kubernetes 执行器上运行
+    # 在 GitLab、极狐GitLab 使用的是 docker+machine 执行器，个人的 Runner 使用的是 kubernetes 执行器，此处仅在 kubernetes 执行器上运行
     - PRIVATE_SERVER_HOST=xuxiaowei
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST || $KUBERNETES_SERVICE_HOST ]];
       then
@@ -218,7 +214,7 @@ package:
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
     # 自建 GitLab，打包完成后将打包结果构建成 Docker 镜像并推送到 Docker 私服中，方便后期使用（如：k8s）
     # 相关资料：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s
-    # 在 GitLab、JiHuLab 使用的是 docker+machine 执行器，个人的 Runner 使用的是 kubernetes 执行器，此处仅在 kubernetes 执行器上运行
+    # 在 GitLab、极狐GitLab 使用的是 docker+machine 执行器，个人的 Runner 使用的是 kubernetes 执行器，此处仅在 kubernetes 执行器上运行
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST || $KUBERNETES_SERVICE_HOST ]];
       then
     # 使用指定 setting.xml，用于下载依赖
@@ -395,11 +391,9 @@ shell-publish-k8s:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 main 分支时预执行
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
-    # 此处禁用 gitlab.com 上的流水线
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'gitlab.com'
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     # 在 k8s 所在的服务器上执行
