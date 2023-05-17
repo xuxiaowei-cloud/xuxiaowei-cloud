@@ -411,6 +411,7 @@ cloud.xuxiaowei
         - 使用 kubernetes（k8s） 编译代码打包
         - 使用 kubernetes（k8s） 将打包后的jar包制作成docker镜像
         - 使用 kubernetes（k8s） 进行发布
+        - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
     3. `shell`
         - 用于 GitLab Runner 在 shell 类型的执行器执行 CI/CD
         - 使用 shell 命令编译代码打包
