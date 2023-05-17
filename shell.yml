@@ -41,12 +41,7 @@ shell-package:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -100,12 +95,7 @@ shell-service-gateway:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -159,12 +149,7 @@ shell-service-admin-server:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -219,12 +204,7 @@ shell-service-passport:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -280,12 +260,7 @@ shell-service-canal:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -341,12 +316,7 @@ shell-service-user:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -402,12 +372,7 @@ shell-service-master-data:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -463,12 +428,7 @@ shell-service-websocket:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -524,12 +484,7 @@ shell-service-webservice:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -585,12 +540,7 @@ shell-service-wechat-miniprogram:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -646,12 +596,7 @@ shell-service-wechat-offiaccount:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -707,12 +652,7 @@ shell-service-file:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -768,12 +708,7 @@ shell-service-generate:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -827,12 +762,7 @@ shell-service-xxl-job-admin:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell
@@ -860,12 +790,7 @@ shell-service-ui:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "shell" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 shell 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "shell"
+    - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     - shell

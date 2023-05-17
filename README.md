@@ -136,12 +136,12 @@
 
 - xuxiaowei-cloud-next
     - 使用 Spring Boot 3.x.x，将仓库地址后面增加 `-next` 即可（全平台仓库同名）
-        1. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
-        2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
-        3. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
-        4. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)
-        5. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud-next)
-        6. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        1. [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        2. [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        4. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        5. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
+        6. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud-next)
 
 ## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
 
@@ -177,7 +177,7 @@
 | dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                                       |
 | springdoc                   | 1.7.0       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
 | guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
-| fastjson                    | v2.0.31     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
+| fastjson                    | v2.0.32     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
 | hutool                      | v5.8.18     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
 
 ### 前端
@@ -204,23 +204,23 @@
 |                                  |         |                                                                             |    |
 | @tauri-apps/cli                  | 1.3.1   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
 | @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                   |    |
-| @types/node                      | 20.1.4  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
-| @typescript-eslint/eslint-plugin | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
-| @typescript-eslint/parser        | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
+| @types/node                      | 20.1.7  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
+| @typescript-eslint/eslint-plugin | 5.59.6  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
+| @typescript-eslint/parser        | 5.59.6  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
 | @vitejs/plugin-vue               | 4.2.3   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
 | eslint                           | 8.40.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
 | eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
 | eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">               |    |
-| eslint-plugin-n                  | 15.7.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
+| eslint-plugin-n                  | 16.0.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
 | eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">              |    |
-| eslint-plugin-vue                | 9.12.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
+| eslint-plugin-vue                | 9.13.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
 | lint-staged                      | 13.2.2  | <img src="https://img.shields.io/npm/v/lint-staged">                        |    |
-| terser                           | 5.17.3  | <img src="https://img.shields.io/npm/v/terser">                             |    |
+| terser                           | 5.17.4  | <img src="https://img.shields.io/npm/v/terser">                             |    |
 | typescript                       | 5.0.4   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
-| unocss                           | 0.51.12 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
-| unplugin-auto-import             | 0.15.3  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
+| unocss                           | 0.51.13 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
+| unplugin-auto-import             | 0.16.0  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
 | unplugin-vue-components          | 0.24.1  | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
-| vite                             | 4.3.5   | <img src="https://img.shields.io/npm/v/vite">                               |    |
+| vite                             | 4.3.7   | <img src="https://img.shields.io/npm/v/vite">                               |    |
 | vue-tsc                          | 1.6.5   | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
 
 ## 模块
@@ -374,19 +374,20 @@ cloud.xuxiaowei
     - 钉钉dingtalk扫码（个人开发适配 OAuth 2.1、钉钉dingtalk扫码的授权方式） dingtalk
     - 支付宝小程序（个人开发适配 OAuth 2.1、支付宝小程序的授权方式） alipay_miniprogram
     - 支付宝网站应用（个人开发适配 OAuth 2.1、支付宝网站应用的授权方式） alipay_oplatform_website
+    - 飞书网页应用（个人开发适配 OAuth 2.1、飞书网页应用的授权方式） feishu_webpage
 
 ## 仓库、分支、提交记录
 
 1. 使用了哪六个仓库？
-    1. [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    2. [Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    1. [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    2. [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)
     3. [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)
-    4. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    5. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
-    6. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
+    4. [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud)
+    5. [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)
+    6. [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)
 
 2. 上述六个仓库以哪个为准？其余仓库何时同步？
-    1. 以 [JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
+    1. 以 [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) 为准
     2. 其余仓库每日同步
 
 3. 提交记录中的地址为何不准确？
@@ -395,42 +396,46 @@ cloud.xuxiaowei
 
 4. 各个仓库的作用？
 
-| 仓库地址                                                              | 作用                                                                          | 说明                                                                                                                                                |
-|-------------------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) | 供国内用户访问、提问、下载资源、GitLab Runner CI/CD 流水线打包/制作Docker镜像、Kubernetes(k8s) 发布项目使用 | 开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)                                                                                   |
-| [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)     | 国内备份仓库                                                                      | 由于技术栈（项目使用 GitLab Runner CI/CD 流水线测试与发布）及不可抗力的因素，将来会关闭 Gitee 的 issues，并将历史数据迁移到 [极狐 JiHuLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud) |
-| [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库，国外流水线测试                                                              | 免费额度 `400` 分钟，每月后期可能由于免费额度用完而失败                                                                                                                   |
-| [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)    | 国内备份仓库，国内流水线测试                                                              | 流水线配额 `2000` 分钟，申请内侧资格                                                                                                                            |
-| [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库                                                                      | 使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql.yml) 每日扫描项目中的 `main` 分支是否存在漏洞                             |
-| [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) | 国内备份仓库                                                                      |                                                                                                                                                   |
+| 仓库地址                                                              | 作用         | 说明                                                                                                                                                                                                                                                                    |
+|-------------------------------------------------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)  | 国内备份仓库，主仓库 | 供国内用户访问、提问、下载资源、GitLab Runner CI/CD 流水线打包/制作Docker镜像、Kubernetes(k8s)/shell/docker 发布项目使用，开源项目 [免费使用 GitLab Runner](https://forum.gitlab.cn/t/topic/1527)                                                                                                              |
+| [码云 Gitee](https://gitee.com/xuxiaowei-cloud/xuxiaowei-cloud)     | 国内备份仓库     | 已关闭该仓库的流水线，后续仅在 [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 上运行流水线，由于技术栈（项目使用 GitLab Runner CI/CD 流水线测试与发布）及不可抗力的因素，将来会关闭 Gitee 的 issues，并将历史数据迁移到 [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud)                  |
+| [GitCode](https://gitcode.net/xuxiaowei-cloud/xuxiaowei-cloud)    | 国内备份仓库     | 已关闭该仓库的流水线，后续仅在 [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 上运行流水线                                                                                                                                                                   |
+| [GitLink](https://gitlink.org.cn/xuxiaowei-cloud/xuxiaowei-cloud) | 国内备份仓库     |                                                                                                                                                                                                                                                                       |
+| [GitHub](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库     | 使用 [CodeQL](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/actions/workflows/codeql.yml) 每日扫描项目中的 `main` 分支是否存在漏洞、使用 [dependabot](https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/.github/dependabot.yml) 每日扫描项目中的 `main` 分支是否需要升级依赖并创建对应的 `PR` 与 测试 |
+| [GitLab](https://gitlab.com/xuxiaowei-cloud/xuxiaowei-cloud)      | 国外备份仓库     | 已关闭该仓库的流水线，后续仅在 [极狐 GitLab](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 上运行流水线                                                                                                                                                                   |
 
 1. 各分支的作用？
     1. `main`
         - 主分支
-        - 不可推送，只能合并
-        - 用于 GitLab Runner 的 kubernetes（k8s） 类型的执行器执行 CI/CD
+        - 用于在 [极狐GitLab流水线](https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/pipelines) 上执行打包/测试/扫描依赖漏洞等
+    2. `k8s`
+        - 用于 GitLab Runner 在 kubernetes（k8s） 类型的执行器执行 CI/CD
         - 使用 kubernetes（k8s） 编译代码打包
         - 使用 kubernetes（k8s） 将打包后的jar包制作成docker镜像
         - 使用 kubernetes（k8s） 进行发布
-    2. `xuxiaowei`开头的分支
-        - 个人分支，按功能`PR`到主分支`main`
+        - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
     3. `shell`
-        - 用于 GitLab Runner 的 shell 类型的执行器执行 CI/CD
+        - 用于 GitLab Runner 在 shell 类型的执行器执行 CI/CD
         - 使用 shell 命令编译代码打包
         - 使用 shell 命令创建 Linux service 服务进行发布
+        - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
     4. `docker`
-        - 用于 GitLab Runner 的 docker 类型的执行器执行 CI/CD
+        - 用于 GitLab Runner 在 docker 类型的执行器执行 CI/CD
         - 使用 docker 编译代码打包
         - 使用 docker 将打包后的jar包制作成docker镜像
         - 使用 docker 进行发布
-    5. `pages`
+        - 与主分支代码相同（定时同步/测试），流水线根据分支名进行触发
+    5. `xuxiaowei`开头的分支
+        - 个人分支，按功能`PR`到主分支`main`
+    6. `pages`
         - 文档分支
-    6. `OAuth2.0`
+    7. `OAuth2.0`
         - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    7. `only-passport`
+    8. `only-passport`
         - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
-    8. 此处未说明的分支，请勿使用
-    9. 已上包含 CI/CD 的分支
+    9. 此处未说明的分支，请勿使用
+    10. 已上包含 CI/CD 的分支
         1. 分支内的各阶段，可交替使用，如：使用 docker 编译代码打包、使用 docker 将打包后的jar包制作成docker镜像，使用
            kubernetes（k8s） 进行发布。如何选择请使用者自行组合。
         2. 这些分支代码相同，CI/CD 根据分支名进行触发，即：想使用某个分支的某些执行器执行 CI/CD，就将代码 `PR`

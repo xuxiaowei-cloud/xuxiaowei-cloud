@@ -65,12 +65,7 @@ docker-package:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -92,12 +87,7 @@ docker-service-gateway:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -120,12 +110,7 @@ docker-service-admin-server:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -148,12 +133,7 @@ docker-service-passport:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -176,12 +156,7 @@ docker-service-canal:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -204,12 +179,7 @@ docker-service-user:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -232,12 +202,7 @@ docker-service-master-data:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -260,12 +225,7 @@ docker-service-websocket:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -288,12 +248,7 @@ docker-service-webservice:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -316,12 +271,7 @@ docker-service-wechat-miniprogram:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -344,12 +294,7 @@ docker-service-wechat-offiaccount:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -372,16 +317,10 @@ docker-service-file:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
-
 
 #
 # docker 发布代码生成服务
@@ -400,16 +339,10 @@ docker-service-generate:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
-
 
 #
 # docker 发布 XXL Job
@@ -428,12 +361,7 @@ docker-service-xxl-job-admin:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
@@ -456,12 +384,7 @@ docker-service-ui:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 docker 分支中执行
-    # 此处禁用 gitlab.com、jihulab.com 上的流水线，仅在个人搭建的 gitlab 上运行
-    # - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com' && $CI_SERVER_HOST != 'jihulab.com'
-    # 此处禁用 gitlab.com
-    - if: $CI_COMMIT_BRANCH == "docker" && $CI_SERVER_HOST != 'gitlab.com'
-    # PR 到 docker 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "docker"
+    - if: $CI_COMMIT_BRANCH == "docker"
   tags:
     # 仅在 tags 名称为 docker 的执行器上执行
     - docker
