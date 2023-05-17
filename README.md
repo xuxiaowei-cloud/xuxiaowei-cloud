@@ -177,7 +177,7 @@
 | dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                                       |
 | springdoc                   | 1.7.0       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
 | guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
-| fastjson                    | v2.0.31     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
+| fastjson                    | v2.0.32     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
 | hutool                      | v5.8.18     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
 
 ### 前端
@@ -204,23 +204,23 @@
 |                                  |         |                                                                             |    |
 | @tauri-apps/cli                  | 1.3.1   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
 | @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                   |    |
-| @types/node                      | 20.1.4  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
-| @typescript-eslint/eslint-plugin | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
-| @typescript-eslint/parser        | 5.59.5  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
+| @types/node                      | 20.1.7  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
+| @typescript-eslint/eslint-plugin | 5.59.6  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
+| @typescript-eslint/parser        | 5.59.6  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
 | @vitejs/plugin-vue               | 4.2.3   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
 | eslint                           | 8.40.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
 | eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
 | eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">               |    |
-| eslint-plugin-n                  | 15.7.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
+| eslint-plugin-n                  | 16.0.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
 | eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">              |    |
-| eslint-plugin-vue                | 9.12.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
+| eslint-plugin-vue                | 9.13.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
 | lint-staged                      | 13.2.2  | <img src="https://img.shields.io/npm/v/lint-staged">                        |    |
-| terser                           | 5.17.3  | <img src="https://img.shields.io/npm/v/terser">                             |    |
+| terser                           | 5.17.4  | <img src="https://img.shields.io/npm/v/terser">                             |    |
 | typescript                       | 5.0.4   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
-| unocss                           | 0.51.12 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
-| unplugin-auto-import             | 0.15.3  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
+| unocss                           | 0.51.13 | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
+| unplugin-auto-import             | 0.16.0  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
 | unplugin-vue-components          | 0.24.1  | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
-| vite                             | 4.3.5   | <img src="https://img.shields.io/npm/v/vite">                               |    |
+| vite                             | 4.3.7   | <img src="https://img.shields.io/npm/v/vite">                               |    |
 | vue-tsc                          | 1.6.5   | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
 
 ## 模块

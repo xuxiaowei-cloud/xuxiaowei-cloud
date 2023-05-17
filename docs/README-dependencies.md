@@ -34,7 +34,7 @@ cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT
 cloud.xuxiaowei:cloud-commons-parent:pom:0.0.1-SNAPSHOT
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -50,7 +50,7 @@ cloud.xuxiaowei.commons:cloud-starter-core:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -63,7 +63,7 @@ cloud.xuxiaowei.commons:cloud-starter-redis:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -75,7 +75,7 @@ cloud.xuxiaowei.commons:cloud-starter-idempotent:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -88,7 +88,7 @@ cloud.xuxiaowei.commons:cloud-starter-loadbalancer:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -108,7 +108,7 @@ cloud.xuxiaowei.commons:cloud-starter-mybatis:jar:0.0.1-SNAPSHOT
 │        └──com.baomidou:mybatis-plus-extension:jar:3.5.3.1:compile
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -121,7 +121,7 @@ cloud.xuxiaowei.commons:cloud-starter-log:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -136,7 +136,7 @@ cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.security:spring-security-test:jar:5.7.8:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -148,7 +148,7 @@ cloud.xuxiaowei.commons:cloud-starter-openfeign:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -163,7 +163,7 @@ cloud.xuxiaowei.commons:cloud-starter-session-redis:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -177,7 +177,7 @@ cloud.xuxiaowei.commons:cloud-starter-validation:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -201,7 +201,7 @@ cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.11:test
 │        └──org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.1.6:compile
 │        └──org.springframework.boot:spring-boot-starter-actuator:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──cn.hutool:hutool-all:jar:5.8.18:compile
 │        └──cloud.xuxiaowei:utils:jar:0.0.1-SNAPSHOT:compile
 │        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.11:compile
@@ -383,7 +383,7 @@ cloud.xuxiaowei:webservice:jar:0.0.1-SNAPSHOT
 
 cloud.xuxiaowei:websocket:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-websocket:jar:2.7.11:compile
-│        └──com.alibaba:fastjson:jar:2.0.31:compile
+│        └──com.alibaba:fastjson:jar:2.0.32:compile
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
