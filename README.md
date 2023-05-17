@@ -116,7 +116,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-cloud/xuxiaowei-cloud/blob/main/pom.xml">
-    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.4.2&color=blue">
+    <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=1.1.0&color=blue">
   </a>
 
   <a target="_blank" href="https://github.com/alibaba/dragonwell8/releases/tag/dragonwell-standard-8.14.15_jdk8u362-ga">

@@ -65,7 +65,9 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.2
+        <!-- 作者自己迁移/发布到中央仓库的 1.x 版本 -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/io/xuxiaowei/security/spring-security-oauth2-authorization-server/ -->
+        <spring-security-oauth2-authorization-server.version>1.1.0-jdk8-0.0.1-SNAPSHOT
         </spring-security-oauth2-authorization-server.version>
 
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-security-oauth2-authorization-server-redis/ -->
@@ -327,8 +329,10 @@
             <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
             <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
             <!-- https://github.com/spring-projects/spring-authorization-server -->
+            <!-- 作者自己迁移/发布到中央仓库的 1.x 版本 -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/io/xuxiaowei/security/spring-security-oauth2-authorization-server/ -->
             <dependency>
-                <groupId>org.springframework.security</groupId>
+                <groupId>io.xuxiaowei.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
                 <version>${spring-security-oauth2-authorization-server.version}</version>
             </dependency>
