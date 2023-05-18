@@ -30,15 +30,18 @@ updates:
         versions:
           - ">= 2022"
       - dependency-name: com.alibaba.cloud:spring-cloud-alibaba-dependencies
+        # spring-cloud-alibaba 2021.1 为命名错误
+        # 参见：https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/project-spring-cloud-alibaba-dependencies
         # spring-cloud-alibaba 2022 不支持 JDK 8
         # https://oss.sonatype.org/service/local/repositories/releases/archive/com/alibaba/cloud/spring-cloud-starter-alibaba-nacos-config/2022.0.0.0-RC1/spring-cloud-starter-alibaba-nacos-config-2022.0.0.0-RC1.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
         versions:
-          - ">= 2022"
-      - dependency-name: com.alibaba.cloud:spring-cloud-alibaba-dependencies
-        # spring-cloud-alibaba 2021.1 为命名错误
-        # 参见：https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/project-spring-cloud-alibaba-dependencies
-        versions:
           - "= 2021.1"
+          - ">= 2022"
+      - dependency-name: org.mybatis.spring.boot:mybatis-spring-boot-starter
+        # mybatis-spring-boot-starter 3.0 不支持 JDK 8
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/org/mybatis/spring/boot/mybatis-spring-boot-starter/3.0.0/mybatis-spring-boot-starter-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        versions:
+          - ">= 3"
       - dependency-name: org.apache.cxf:cxf-rt-frontend-jaxws
         # cxf 3.6、4.0 不支持 JDK 8
         # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-frontend-jaxws/3.6.0/cxf-rt-frontend-jaxws-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11
