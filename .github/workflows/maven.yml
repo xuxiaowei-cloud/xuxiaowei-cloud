@@ -29,6 +29,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 将代码同步到 极狐GitLab
+      - name: Sync JihuLab
+        run: |
+          # 查看当前分支
+          echo 当前分支：$GITHUB_REF_NAME
+          echo https://jihulab.com/$GITHUB_REPOSITORY.git
+          # 添加远端 极狐GitLab
+          git remote add jihulab https://xuxiaowei-com-cn:${{secrets.JIHULAB_PRIVATE_TOKEN}}@jihulab.com/$GITHUB_REPOSITORY.git
+          # 推动当前分支
+          git push -u jihulab $GITHUB_REF_NAME
+
       # 设置JDK版本
       - name: Set up JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v3
@@ -87,3 +98,28 @@ jobs:
           docker images
           rm -rf /home/runner/.m2/repository/cloud/xuxiaowei
           rm -rf /home/runner/.m2/repository/cn/com/xuxiaowei
+
+
+  sync:
+    name: Sync
+    # 需要所有 build 完成后，才运行
+    needs: build
+    # 仅在推送代码时执行
+    if: github.event_name == 'push'
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ "ubuntu-latest" ]
+
+    steps:
+
+      # 将代码同步到 极狐GitLab
+      - name: Sync JihuLab
+        run: |
+          # 查看当前分支
+          echo 当前分支：$GITHUB_REF_NAME
+          # 添加远端 极狐GitLab
+          git remote add jihulab https://xuxiaowei-com-cn:${{secrets.JIHULAB_PRIVATE_TOKEN}}@jihulab.com/$GITHUB_REPOSITORY.git
+          # 推动当前分支
+          git push -u jihulab $GITHUB_REF_NAME
