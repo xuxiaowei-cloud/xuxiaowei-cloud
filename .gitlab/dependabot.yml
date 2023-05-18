@@ -84,12 +84,16 @@ updates:
       timezone: "Asia/Shanghai"
   - package-ecosystem: "docker"
     directory: "/admin-server"
+    registries:
+      - dockerhub
     schedule:
       interval: "weekly"
       time: "08:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "docker"
     directory: "/ui"
+    registries:
+      - dockerhub
     schedule:
       interval: "weekly"
       time: "08:00"
