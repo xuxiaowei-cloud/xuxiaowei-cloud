@@ -91,7 +91,10 @@ jobs:
 
   sync:
     name: Sync
+    # 需要所有 build 完成后，才运行
     needs: build
+    # 仅在推送代码时执行
+    if: github.event_name == 'push'
     runs-on: ${{ matrix.os }}
 
     strategy:
