@@ -34,8 +34,6 @@ jobs:
         run: |
           # 查看当前分支
           echo 当前分支：$GITHUB_REF_NAME
-          # 切换到当前分支
-          git checkout -b $GITHUB_REF_NAME
           echo https://jihulab.com/$GITHUB_REPOSITORY.git
           # 添加远端 极狐GitLab
           git remote add jihulab https://xuxiaowei-com-cn:${{secrets.JIHULAB_PRIVATE_TOKEN}}@jihulab.com/$GITHUB_REPOSITORY.git
@@ -121,8 +119,6 @@ jobs:
         run: |
           # 查看当前分支
           echo 当前分支：$GITHUB_REF_NAME
-          # 切换到当前分支
-          git checkout -b $GITHUB_REF_NAME
           # 添加远端 极狐GitLab
           git remote add jihulab https://xuxiaowei-com-cn:${{secrets.JIHULAB_PRIVATE_TOKEN}}@jihulab.com/$GITHUB_REPOSITORY.git
           # 推动当前分支
