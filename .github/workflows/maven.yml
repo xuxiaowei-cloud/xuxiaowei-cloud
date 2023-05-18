@@ -43,7 +43,7 @@ jobs:
           # 拉取更新
           git fetch jihulab $GITHUB_REF_NAME:$GITHUB_REF_NAME-fetch
           # 切换分支
-          git checkout $GITHUB_REF_NAME-fetch
+          git checkout jihulab/$GITHUB_REF_NAME-fetch
           # 推动当前分支
           git push -u jihulab $GITHUB_REF_NAME-fetch:$GITHUB_REF_NAME
 
