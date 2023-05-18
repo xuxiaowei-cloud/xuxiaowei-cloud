@@ -88,3 +88,9 @@ updates:
       interval: "weekly"
       time: "08:00"
       timezone: "Asia/Shanghai"
+  - package-ecosystem: "docker"
+    directory: "/ui"
+    schedule:
+      interval: "weekly"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
