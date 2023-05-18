@@ -83,7 +83,7 @@ updates:
       time: "08:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/*/"
     schedule:
       interval: "weekly"
       time: "08:00"
