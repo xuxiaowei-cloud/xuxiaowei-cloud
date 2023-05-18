@@ -40,12 +40,10 @@ jobs:
           echo https://jihulab.com/$GITHUB_REPOSITORY.git
           # 添加远端 极狐GitLab
           git remote add jihulab https://xuxiaowei-com-cn:${{secrets.JIHULAB_PRIVATE_TOKEN}}@jihulab.com/$GITHUB_REPOSITORY.git
-          # 拉取更新
-          git fetch jihulab $GITHUB_REF_NAME:$GITHUB_REF_NAME-fetch
-          # 切换分支
-          git checkout jihulab/$GITHUB_REF_NAME-fetch
+          # 拉取
+          git pull --progress -v --no-rebase jihulab $GITHUB_REF_NAME
           # 推动当前分支
-          git push -u jihulab $GITHUB_REF_NAME-fetch:$GITHUB_REF_NAME
+          git push --progress jihulab $GITHUB_REF_NAME:$GITHUB_REF_NAME
 
       # 设置JDK版本
       - name: Set up JDK ${{ matrix.java-version }}
