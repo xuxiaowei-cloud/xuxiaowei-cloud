@@ -116,3 +116,5 @@ include:
   - /shell.yml
   # 使用 docker 执行器 打包、部署服务
   - /docker.yml
+  # 同步代码
+  - /sync.yml
