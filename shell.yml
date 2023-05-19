@@ -43,7 +43,7 @@ shell-package:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布网关服务
@@ -95,7 +95,7 @@ shell-service-gateway:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布监控（管理）服务
@@ -147,7 +147,7 @@ shell-service-admin-server:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 
 #
@@ -200,7 +200,7 @@ shell-service-passport:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布MySQL二进制订阅服务
@@ -254,7 +254,7 @@ shell-service-canal:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布用户服务
@@ -308,7 +308,7 @@ shell-service-user:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布主数据服务
@@ -362,7 +362,7 @@ shell-service-master-data:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布WebSocket服务
@@ -416,7 +416,7 @@ shell-service-websocket:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布WebService服务
@@ -470,7 +470,7 @@ shell-service-webservice:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布微信小程序服务
@@ -524,7 +524,7 @@ shell-service-wechat-miniprogram:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布微信公众号服务
@@ -578,7 +578,7 @@ shell-service-wechat-offiaccount:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布文件服务
@@ -632,7 +632,7 @@ shell-service-file:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布 XXL Job
@@ -684,7 +684,7 @@ shell-service-xxl-job-admin:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
 
 #
 # shell 发布UI服务
@@ -710,4 +710,4 @@ shell-service-ui:
     - if: $CI_COMMIT_BRANCH == "shell"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
-    - shell
+    - plugin-shell
