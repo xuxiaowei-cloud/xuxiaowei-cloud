@@ -62,7 +62,6 @@ coverage:
   services:
     - docker:dind
   script:
-    - env
     - echo $DOCKER_PORT
     - echo $DOCKER_PORT_2375_TCP
     - echo $DOCKER_PORT_2375_TCP_PROTO
