@@ -237,7 +237,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
         <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
