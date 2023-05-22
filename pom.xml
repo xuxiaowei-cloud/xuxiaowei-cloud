@@ -82,7 +82,7 @@
         <!-- https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot-starter/ -->
         <!-- https://github.com/mybatis/spring-boot-starter -->
         <!-- 从 3.0.0 开始，需要 JDK 17，参见：https://repo1.maven.org/maven2/org/mybatis/spring/boot/mybatis-spring-boot/3.0.0/mybatis-spring-boot-3.0.0.pom -->
-        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.3.1</mybatis-spring-boot-starter.version>
         <!-- MyBatis Plus -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-boot-starter -->
