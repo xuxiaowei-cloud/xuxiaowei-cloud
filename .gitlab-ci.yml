@@ -119,7 +119,7 @@ dependabot:
     # https://docs.gitlab.cn/jh/api/merge_requests.html#%E5%90%88%E5%B9%B6%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82
     - echo "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/merge"
     # PR_TOKEN：需要有合并权限
-    - curl -H "PRIVATE-TOKEN:\ $PR_TOKEN" --request PUT --url "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/merge"
+    - 'curl -H "PRIVATE-TOKEN: $PR_TOKEN" --request PUT --url "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/merge"'
   rules:
     # PR 到 main 分支时预执行 && 作者是 xuxiaowei-com-cn
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" && $GITLAB_USER_LOGIN == 'xuxiaowei-com-cn'
