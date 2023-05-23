@@ -22,14 +22,14 @@
 
         <!-- Spring Boot 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <spring-boot.version>2.7.11</spring-boot.version>
+        <spring-boot.version>2.7.12</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
         <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
         <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
