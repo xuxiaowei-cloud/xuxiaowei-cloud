@@ -195,6 +195,7 @@ k8s-publish:
     # rm -rf /nfs/canal/logs
     # rm -rf /nfs/file/logs
     # rm -rf /nfs/gateway/logs
+    # rm -rf /nfs/generate/logs
     # rm -rf /nfs/master-data/logs
     # rm -rf /nfs/passport/logs
     # rm -rf /nfs/user/logs
@@ -213,6 +214,7 @@ k8s-publish:
     - mkdir -p /nfs/canal/logs
     - mkdir -p /nfs/file/logs
     - mkdir -p /nfs/gateway/logs
+    - mkdir -p /nfs/generate/logs
     - mkdir -p /nfs/master-data/logs
     - mkdir -p /nfs/passport/logs
     - mkdir -p /nfs/user/logs
@@ -245,6 +247,8 @@ k8s-publish:
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment gateway-deployment || kubectl create -f gateway/gateway-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+    - kubectl -n xuxiaowei-cloud get deployment generate-deployment || kubectl create -f resource-services-parent/generate/generate-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/generate-deployment generate=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/generate:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment master-data-deployment || kubectl create -f resource-services-parent/master-data/master-data-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment passport-deployment || kubectl create -f passport/passport-deployment.yaml
