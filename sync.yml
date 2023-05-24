@@ -63,6 +63,7 @@ sync-gitlink:
     - ID_RSA=`find / -name GITLINK_ID_RSA`
     - echo $ID_RSA
     - chmod 600 $ID_RSA
+    - cat $ID_RSA
     - ssh-keygen -p -N '' -m pem -f $ID_RSA
     - eval $(ssh-agent -s)
     - ssh-add $ID_RSA
