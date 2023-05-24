@@ -200,6 +200,13 @@
         <!-- https://repo1.maven.org/maven2/com/github/therapi/therapi-runtime-javadoc/ -->
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
 
+
+        <!-- https://mvnrepository.com/artifact/org.gitlab4j/gitlab4j-api -->
+        <gitlab-api.version>5.2.0</gitlab-api.version>
+        <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+        <github-api.version>1.314</github-api.version>
+
+
         <!-- https://nodejs.org/dist/ -->
         <!-- http://mirrors.aliyun.com/nodejs-release/ -->
         <node.version>v16.18.1</node.version>
@@ -545,6 +552,21 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+
+
+
+            <!-- https://mvnrepository.com/artifact/org.gitlab4j/gitlab4j-api -->
+            <dependency>
+                <groupId>org.gitlab4j</groupId>
+                <artifactId>gitlab4j-api</artifactId>
+                <version>5.2.0</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+            <dependency>
+                <groupId>org.kohsuke</groupId>
+                <artifactId>github-api</artifactId>
+                <version>1.314</version>
             </dependency>
 
 
