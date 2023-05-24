@@ -82,7 +82,7 @@
         <!-- https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot-starter/ -->
         <!-- https://github.com/mybatis/spring-boot-starter -->
         <!-- 从 3.0.0 开始，需要 JDK 17，参见：https://repo1.maven.org/maven2/org/mybatis/spring/boot/mybatis-spring-boot/3.0.0/mybatis-spring-boot-3.0.0.pom -->
-        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.3.1</mybatis-spring-boot-starter.version>
         <!-- MyBatis Plus -->
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-boot-starter -->
@@ -229,7 +229,7 @@
         <!-- https://repo1.maven.org/maven2/io/fabric8/docker-maven-plugin/ -->
         <!-- https://mvnrepository.com/artifact/io.fabric8/docker-maven-plugin -->
         <!-- https://dmp.fabric8.io/ -->
-        <docker-maven-plugin.version>0.42.1</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.43.0</docker-maven-plugin.version>
         <!-- docker 守护程序的 URL -->
         <docker.host>http://host.docker.example.xuxiaowei.cloud:2375</docker.host>
         <!-- docker 私库 -->
@@ -244,7 +244,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
         <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
