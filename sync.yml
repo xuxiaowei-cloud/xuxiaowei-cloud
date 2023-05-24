@@ -65,7 +65,6 @@ sync-gitlink:
     - mkdir -p ~/.ssh
     - cat $ID_RSA > ~/.ssh/gitlink_id_rsa
     - chmod 600 ~/.ssh/gitlink_id_rsa
-    - ssh-keygen -l -f ~/.ssh/gitlink_id_rsa
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/gitlink_id_rsa
     - git config --global user.email $GITLAB_USER_EMAIL
