@@ -62,6 +62,7 @@ sync-gitlink:
   script:
     - ID_RSA=`find / -name GITLINK_ID_RSA`
     - echo $ID_RSA
+    - mkdir -p ~/.ssh
     - cp $ID_RSA ~/.ssh/gitlink_id_rsa
     - chmod 600 ~/.ssh/gitlink_id_rsa
     - eval $(ssh-agent -s)
