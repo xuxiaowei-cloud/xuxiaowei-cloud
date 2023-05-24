@@ -106,6 +106,7 @@ coverage:
     # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
     - jihulab
 
+
 # 嵌入
 include:
   # 对象储存
