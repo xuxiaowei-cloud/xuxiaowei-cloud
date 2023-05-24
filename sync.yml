@@ -58,7 +58,7 @@ sync-gitlink:
   stage: sync
   variables:
     GIT_DEPTH: 0 # 取消浅层克隆
-  image: maven:3.6.3-jdk-8
+  image: bitnami/git:2.40.1
   script:
     - mkdir -p ~/.ssh
     - echo "$GITLINK_ID_RSA" > ~/.ssh/gitlink_id_rsa
