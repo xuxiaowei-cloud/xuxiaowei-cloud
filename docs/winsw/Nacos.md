@@ -48,7 +48,7 @@
     rem See the License for the specific language governing permissions and
     rem limitations under the License.
   
-    set "JAVA_HOME=D:\Program Files\Java\dragonwell-8.14.15"
+    set "JAVA_HOME=D:\Program Files\Java\dragonwell-8.15.16"
     
     if not exist "%JAVA_HOME%\bin\java.exe" echo Please set the JAVA_HOME variable in your environment, We need java(x64)! jdk8 or later is better! & EXIT /B 1
     set "JAVA=%JAVA_HOME%\bin\java.exe"

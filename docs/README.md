@@ -103,11 +103,11 @@
         12. [spring-javaformat-intellij-idea-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin)
         13. [![Kubernetes](static/plugins/kubernetes.svg) Kubernetes](https://plugins.jetbrains.com/plugin/10485-kubernetes)
         14. [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
-2. Alibaba dragonwell 8.14.15
-    - [下载镜像](https://github.com/alibaba/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
-    - [Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_aarch64_linux.tar.gz)
-    - [Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_linux.tar.gz)
-    - [Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.14.15/Alibaba_Dragonwell_Standard_8.14.15_x64_windows.zip)
+2. Alibaba dragonwell 8.15.16
+    - [下载镜像](https://github.com/dragonwell-project/dragonwell8/wiki/%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F(Mirrors-for-download))
+    - [Alibaba_Dragonwell_Standard_8.15.16_aarch64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.15.16/Alibaba_Dragonwell_Standard_8.15.16_aarch64_linux.tar.gz)
+    - [Alibaba_Dragonwell_Standard_8.15.16_x64_linux.tar.gz](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.15.16/Alibaba_Dragonwell_Standard_8.15.16_x64_linux.tar.gz)
+    - [Alibaba_Dragonwell_Standard_8.15.16_x64_windows.zip](https://dragonwell.oss-cn-shanghai.aliyuncs.com/8.15.16/Alibaba_Dragonwell_Standard_8.15.16_x64_windows.zip)
 3. Apache Maven 3.6.3
     - [apache-maven-3.6.3-bin.zip](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
     - [apache-maven-3.6.3-bin.tar.gz](https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz)
