@@ -71,7 +71,7 @@ sync-gitlink:
     - git config --global user.name
     - echo 当前分支：$CI_COMMIT_BRANCH
     - git checkout -b $CI_COMMIT_BRANCH
-    - yes | ssh-keyscan -H code.gitlink.org.cn >> ~/.ssh/known_hosts 2>/dev/null
+    - ssh-keyscan -H code.gitlink.org.cn >> ~/.ssh/known_hosts
     - git remote add gitlink git@code.gitlink.org.cn:$CI_PROJECT_PATH.git
     - git push -u gitlink $CI_COMMIT_BRANCH
   rules:
