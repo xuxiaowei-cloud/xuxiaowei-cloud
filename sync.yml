@@ -60,10 +60,8 @@ sync-gitlink:
     GIT_DEPTH: 0 # 取消浅层克隆
   image: maven:3.6.3-jdk-8
   script:
-    - ID_RSA=`find / -name GITLINK_ID_RSA`
-    - echo $ID_RSA
     - mkdir -p ~/.ssh
-    - cat $ID_RSA > ~/.ssh/gitlink_id_rsa
+    - cat $GITLINK_ID_RSA > ~/.ssh/gitlink_id_rsa
     - chmod 600 ~/.ssh/gitlink_id_rsa
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/gitlink_id_rsa
