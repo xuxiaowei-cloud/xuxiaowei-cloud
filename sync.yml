@@ -64,6 +64,7 @@ sync-gitlink:
     - echo $ID_RSA
     - mkdir -p ~/.ssh
     - cp $ID_RSA ~/.ssh/gitlink_id_rsa
+    - ssh-keygen -l -f ~/.ssh/gitlink_id_rsa
     - chmod 600 ~/.ssh/gitlink_id_rsa
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/gitlink_id_rsa
