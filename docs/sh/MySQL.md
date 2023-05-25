@@ -199,6 +199,8 @@
                 character_set_server=utf8mb4
                 # 指定默认排序
                 collation_server=utf8mb4_general_ci
+                # 最大连接数
+                max_connections=500
                 ```
             2. 重启 MySQL 数据库
                 ```shell

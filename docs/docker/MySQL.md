@@ -53,6 +53,7 @@ docker pull mysql:8.0.32
             --log-bin=mysql-bin \
             --server-id=1 \
             --binlog_expire_logs_seconds=1209600 \
+            --max_connections=500 \
             --character-set-server=utf8mb4 \
             --collation-server=utf8mb4_general_ci
             ```
