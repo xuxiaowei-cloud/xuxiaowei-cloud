@@ -431,10 +431,10 @@ cloud.xuxiaowei
         - 个人分支，按功能`PR`到主分支`main`
     6. `pages`
         - 文档分支
-    7. `OAuth2.0`
-        - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    8. `only-passport`
-        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
+    7. `archive/OAuth2.0`
+        - 归档版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
+    8. `archive/only-passport`
+        - 归档版本分支，删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
     9. 此处未说明的分支，请勿使用
     10. 已上包含 CI/CD 的分支
         1. 分支内的各阶段，可交替使用，如：使用 docker 编译代码打包、使用 docker 将打包后的jar包制作成docker镜像，使用
