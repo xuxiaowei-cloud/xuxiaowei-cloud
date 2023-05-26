@@ -96,7 +96,16 @@ updates:
     directory: "/admin-server"
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
   - package-ecosystem: "docker"
     directory: "/ui"
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
