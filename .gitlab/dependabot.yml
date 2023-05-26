@@ -76,6 +76,7 @@ updates:
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
         versions:
           - ">= 1"
+
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     auto-merge: true
@@ -90,3 +91,12 @@ updates:
       interval: "daily"
       time: "08:00"
       timezone: "Asia/Shanghai"
+
+  - package-ecosystem: "docker"
+    directory: "/admin-server"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "docker"
+    directory: "/ui"
+    schedule:
+      interval: "daily"
