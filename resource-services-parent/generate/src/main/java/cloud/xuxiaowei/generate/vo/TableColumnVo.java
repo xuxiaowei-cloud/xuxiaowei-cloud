@@ -40,14 +40,39 @@ public class TableColumnVo implements Serializable {
 	private List<String> boIgnorePropertyNames;
 
 	/**
-	 * Base Class Name
+	 * VO 忽略字段名
 	 */
-	private String baseClassName;
+	private List<String> voIgnorePropertyNames;
 
 	/**
 	 * class 名称
 	 */
 	private String className;
+
+	/**
+	 * BO 基础 class 名称
+	 */
+	private String boBaseClassName;
+
+	/**
+	 * BO 分页 class 名称
+	 */
+	private String boPageClassName;
+
+	/**
+	 * BO 保存 class 名称
+	 */
+	private String boSaveClassName;
+
+	/**
+	 * BO 更新 class 名称
+	 */
+	private String boUpdateClassName;
+
+	/**
+	 * VO class 名称
+	 */
+	private String voClassName;
 
 	/**
 	 * 包名

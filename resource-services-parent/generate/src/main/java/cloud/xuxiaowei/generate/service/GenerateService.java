@@ -50,11 +50,20 @@ public interface GenerateService {
 	List<TableColumnVo> listTableColumns(TableColumnBo tableColumnBo);
 
 	/**
+	 * 文件夹
+	 * @param cloudGenerateProperties 代码生成配置
+	 * @param fileName 文件名
+	 * @return 返回文件夹
+	 */
+	String filePath(CloudGenerateProperties cloudGenerateProperties, String fileName);
+
+	/**
 	 * 生成代码
 	 * @param generateBo 生成
 	 * @param zipOutputStream 压缩包输出流
+	 * @param filePath 文件夹
 	 * @throws IOException 向压缩包添加文件异常
 	 */
-	void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream) throws IOException;
+	void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream, String filePath) throws IOException;
 
 }

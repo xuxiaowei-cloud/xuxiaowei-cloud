@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = true)
 </#if>
-public class ${className} extends ${baseClassName} {
+public class ${className} extends ${boBaseClassName} {
 
     private static final long serialVersionUID = 1L;
 

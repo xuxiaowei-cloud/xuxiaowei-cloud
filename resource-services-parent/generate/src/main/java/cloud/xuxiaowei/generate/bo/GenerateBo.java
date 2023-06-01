@@ -69,4 +69,9 @@ public class GenerateBo implements Serializable {
 	 */
 	private String boSuffixName;
 
+	/**
+	 * VO 后缀名
+	 */
+	private String voSuffixName;
+
 }

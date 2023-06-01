@@ -8,6 +8,7 @@ import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
+import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.UrlUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,9 +20,12 @@ import org.springframework.beans.BeanUtils;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipOutputStream;
+
+import static cn.hutool.core.date.DatePattern.PURE_DATETIME_PATTERN;
 
 /**
  * 代码生成 服务接口 实现类 测试类
@@ -195,21 +199,27 @@ class GenerateServiceImplTests {
 		generateBo.setSince("0.0.1");
 		generateBo.setLombokModel(true);
 		generateBo.setBoSuffixName("Bo");
+		generateBo.setVoSuffixName("Vo");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String value = objectMapper.writeValueAsString(generateBo);
-		log.info(value);
-		log.info(UrlUtils.convertUrlParam(generateBo));
+		log.info("generateBo JSON：{}", value);
+		log.info("generateBo UrlParam：{}", UrlUtils.convertUrlParam(generateBo));
 
 		GenerateServiceImpl generateService = new GenerateServiceImpl();
 		generateService.setCloudGenerateProperties(cloudGenerateProperties);
 
+		LocalDateTime now = LocalDateTime.now();
+		String fileName = DateUtils.format(now, PURE_DATETIME_PATTERN);
+
+		String filePath = generateService.filePath(cloudGenerateProperties, fileName);
+
 		try (// 创建输出流
-				FileOutputStream fos = new FileOutputStream("D:\\files.zip");
+				FileOutputStream fos = new FileOutputStream(filePath + ".zip");
 				//
 				ZipOutputStream zos = new ZipOutputStream(fos);) {
 
-			generateService.generate(generateBo, zos);
+			generateService.generate(generateBo, zos, filePath);
 		}
 		catch (IOException e) {
 			throw new RuntimeException(e);

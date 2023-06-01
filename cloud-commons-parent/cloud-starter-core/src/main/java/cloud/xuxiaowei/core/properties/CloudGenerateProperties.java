@@ -167,6 +167,11 @@ public class CloudGenerateProperties {
 			"updateUsersId", "createIp", "updateIp", "deleted");
 
 	/**
+	 * VO 忽略字段名
+	 */
+	private List<String> voIgnorePropertyNames = Collections.emptyList();
+
+	/**
 	 * VO 包名
 	 */
 	private String voPackageName = "vo";

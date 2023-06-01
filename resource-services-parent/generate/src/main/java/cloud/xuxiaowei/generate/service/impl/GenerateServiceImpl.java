@@ -11,6 +11,7 @@ import cloud.xuxiaowei.generate.vo.ColumnFieldVo;
 import cloud.xuxiaowei.generate.vo.DataSourceVo;
 import cloud.xuxiaowei.generate.vo.TableColumnVo;
 import cloud.xuxiaowei.generate.vo.TableVo;
+import cloud.xuxiaowei.utils.DateUtils;
 import cloud.xuxiaowei.utils.FileUtils;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -226,6 +227,9 @@ public class GenerateServiceImpl implements GenerateService {
 
 				Map<String, String> typeMap = cloudGenerateProperties.getTypeMap();
 				List<String> boIgnorePropertyNames = cloudGenerateProperties.getBoIgnorePropertyNames();
+				List<String> voIgnorePropertyNames = cloudGenerateProperties.getVoIgnorePropertyNames();
+				String boSuffixName = cloudGenerateProperties.getBoSuffixName();
+				String voSuffixName = cloudGenerateProperties.getVoSuffixName();
 
 				List<String> notNullTypes = Arrays.asList("Long", "Integer");
 
@@ -250,8 +254,20 @@ public class GenerateServiceImpl implements GenerateService {
 					tableColumnVo.setTableComment(tableComment);
 					tableColumnVo.setTableComment4j(tableComment.replace("\r\n", "\r\n * "));
 					tableColumnVo.setBoIgnorePropertyNames(boIgnorePropertyNames);
+					tableColumnVo.setVoIgnorePropertyNames(voIgnorePropertyNames);
 
-					tableColumnVo.setClassName(WordUtils.capitalizeFully(tableName, '_').replace("_", ""));
+					String className = WordUtils.capitalizeFully(tableName, '_').replace("_", "");
+					String boBaseTypeName = "Base";
+					String boPageTypeName = "Page";
+					String boSaveTypeName = "Save";
+					String boUpdateTypeName = "Update";
+
+					tableColumnVo.setClassName(className);
+					tableColumnVo.setBoBaseClassName(className + boBaseTypeName + boSuffixName);
+					tableColumnVo.setBoPageClassName(className + boPageTypeName + boSuffixName);
+					tableColumnVo.setBoSaveClassName(className + boSaveTypeName + boSuffixName);
+					tableColumnVo.setBoUpdateClassName(className + boUpdateTypeName + boSuffixName);
+					tableColumnVo.setVoClassName(className + voSuffixName);
 
 					while (resultSet.next()) {
 
@@ -303,26 +319,8 @@ public class GenerateServiceImpl implements GenerateService {
 
 						}
 
-						if (!boIgnorePropertyNames.contains(propertyName)) {
-							switch (propertyType) {
-								case "LocalTime":
-									tableColumnVo.setLocalTime(true);
-									tableColumnVo.setDatePattern(true);
-									tableColumnVo.setJsonFormat(true);
-									break;
-								case "LocalDate":
-									tableColumnVo.setLocalDate(true);
-									tableColumnVo.setDatePattern(true);
-									tableColumnVo.setJsonFormat(true);
-									break;
-								case "LocalDateTime":
-									tableColumnVo.setLocalDateTime(true);
-									tableColumnVo.setDatePattern(true);
-									tableColumnVo.setJsonFormat(true);
-									break;
-								default:
-							}
-						}
+						local(boIgnorePropertyNames, tableColumnVo, propertyType, propertyName);
+						local(voIgnorePropertyNames, tableColumnVo, propertyType, propertyName);
 
 					}
 				}
@@ -337,13 +335,51 @@ public class GenerateServiceImpl implements GenerateService {
 	}
 
 	/**
+	 * 文件夹
+	 * @param cloudGenerateProperties 代码生成配置
+	 * @param fileName 文件名
+	 * @return 返回文件夹
+	 */
+	@Override
+	public String filePath(CloudGenerateProperties cloudGenerateProperties, String fileName) {
+		LocalDateTime now = LocalDateTime.now();
+		return cloudGenerateProperties.getFolderPath() + File.separator + DateUtils.format(now, "yyyy") + File.separator
+				+ DateUtils.format(now, "MM") + File.separator + fileName;
+	}
+
+	private void local(List<String> boIgnorePropertyNames, TableColumnVo tableColumnVo, String propertyType,
+			String propertyName) {
+		if (!boIgnorePropertyNames.contains(propertyName)) {
+			switch (propertyType) {
+				case "LocalTime":
+					tableColumnVo.setLocalTime(true);
+					tableColumnVo.setDatePattern(true);
+					tableColumnVo.setJsonFormat(true);
+					break;
+				case "LocalDate":
+					tableColumnVo.setLocalDate(true);
+					tableColumnVo.setDatePattern(true);
+					tableColumnVo.setJsonFormat(true);
+					break;
+				case "LocalDateTime":
+					tableColumnVo.setLocalDateTime(true);
+					tableColumnVo.setDatePattern(true);
+					tableColumnVo.setJsonFormat(true);
+					break;
+				default:
+			}
+		}
+	}
+
+	/**
 	 * 生成代码
 	 * @param generateBo 生成
 	 * @param zipOutputStream 压缩包输出流
+	 * @param filePath 文件夹
 	 * @throws IOException 向压缩包添加文件异常
 	 */
 	@Override
-	public void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream) throws IOException {
+	public void generate(GenerateBo generateBo, ZipOutputStream zipOutputStream, String filePath) throws IOException {
 
 		List<String> tableNames = generateBo.getTableNames();
 		String jdbcUrl = generateBo.getJdbcUrl();
@@ -363,25 +399,80 @@ public class GenerateServiceImpl implements GenerateService {
 		// 表结构
 		List<TableColumnVo> tableColumnVos = listTableColumns(tableColumnBo);
 
-		String folderPath = cloudGenerateProperties.getFolderPath();
 		Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);
 		configuration.setClassForTemplateLoading(getClass(), properties.getTemplatePath());
 
 		String modulePath = "/src/main/java/" + properties.getBasePackage().replace(".", "/") + "/" + module;
 
-		LocalDateTime now = LocalDateTime.now();
-
-		String classPath =
-				// folderPath + File.separator + DateUtils.format(now, "yyyy") +
-				// File.separator
-				// + DateUtils.format(now, "MM") + File.separator + DateUtils.format(now,
-				// PURE_DATETIME_PATTERN)
-				// +
-				"E:\\IdeaProjects\\xuxiaowei-cloud-jihu\\resource-services-parent\\generate" + modulePath;
+		String classPath = filePath + modulePath;
 
 		// BO 生成
 		generateBo(classPath, modulePath, module, properties, configuration, tableColumnVos, zipOutputStream);
 
+		// VO 生成
+		generateVo(classPath, modulePath, module, properties, configuration, tableColumnVos, zipOutputStream);
+
+	}
+
+	private void generateVo(String classPath, String modulePath, String module, CloudGenerateProperties properties,
+			Configuration configuration, List<TableColumnVo> tableColumnVos, ZipOutputStream zipOutputStream)
+			throws IOException {
+
+		String voPackageName = properties.getVoPackageName();
+
+		String voFolderPath = classPath + File.separator + voPackageName + File.separator;
+		File voFolderFile = new File(voFolderPath);
+		if (!voFolderFile.exists()) {
+			boolean mkdirs = voFolderFile.mkdirs();
+		}
+
+		String voTemplateName = "vo.java.ftl";
+
+		for (TableColumnVo tableColumnVo : tableColumnVos) {
+
+			// @formatter:off
+			generateVo(tableColumnVo, properties, tableColumnVo.getVoClassName(), voTemplateName, voFolderPath, module, voPackageName, configuration, modulePath, zipOutputStream);
+			// @formatter:on
+		}
+
+	}
+
+	private void generateVo(TableColumnVo tableColumnVo, CloudGenerateProperties properties, String voClassName,
+			String voTemplateName, String voFolderPath, String module, String voPackageName,
+			Configuration configuration, String modulePath, ZipOutputStream zipOutputStream) throws IOException {
+		tableColumnVo.setPackageName(properties.getBasePackage() + "." + module + "." + voPackageName);
+		tableColumnVo.setAuthor(properties.getAuthor());
+		tableColumnVo.setSince(properties.getSince());
+		tableColumnVo.setClassName(voClassName);
+		tableColumnVo.setLombokModel(properties.isLombokModel());
+
+		Template template;
+		try {
+			template = configuration.getTemplate(voTemplateName);
+		}
+		catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		String voClassFileName = voClassName + ".java";
+		File file = new File(voFolderPath + voClassFileName);
+		String zipEntryName = modulePath + File.separator + voPackageName + File.separator + voClassFileName;
+		try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+				OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+				Writer out = new BufferedWriter(outputStreamWriter);) {
+			try {
+				template.process(tableColumnVo, out);
+			}
+			catch (TemplateException | IOException e) {
+				throw new RuntimeException(e);
+			}
+
+			String c = FileUtils.reader(file);
+			FileUtils.write(zipOutputStream, zipEntryName, c);
+		}
+		catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void generateBo(String classPath, String modulePath, String module, CloudGenerateProperties properties,
@@ -389,7 +480,6 @@ public class GenerateServiceImpl implements GenerateService {
 			throws IOException {
 
 		String boPackageName = properties.getBoPackageName();
-		String boSuffixName = properties.getBoSuffixName();
 
 		String boFolderPath = classPath + File.separator + boPackageName + File.separator;
 		File boFolderFile = new File(boFolderPath);
@@ -397,29 +487,18 @@ public class GenerateServiceImpl implements GenerateService {
 			boolean mkdirs = boFolderFile.mkdirs();
 		}
 
-		String boBaseTypeName = "Base";
 		String boBaseTemplateName = "bo-base.java.ftl";
-		String boPageTypeName = "Page";
 		String boPageTemplateName = "bo-page.java.ftl";
-		String boSaveTypeName = "Save";
 		String boSaveTemplateName = "bo-save.java.ftl";
-		String boUpdateTypeName = "Update";
 		String boUpdateTemplateName = "bo-update.java.ftl";
 
 		for (TableColumnVo tableColumnVo : tableColumnVos) {
 
-			String boBaseClassName = tableColumnVo.getClassName() + boBaseTypeName + boSuffixName;
-			String boPageClassName = tableColumnVo.getClassName() + boPageTypeName + boSuffixName;
-			String boSaveClassName = tableColumnVo.getClassName() + boSaveTypeName + boSuffixName;
-			String boUpdateClassName = tableColumnVo.getClassName() + boUpdateTypeName + boSuffixName;
-
-			tableColumnVo.setBaseClassName(boBaseClassName);
-
 			// @formatter:off
-			generateBoCommon(tableColumnVo, properties, boBaseClassName, boBaseTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
-			generateBoCommon(tableColumnVo, properties, boPageClassName, boPageTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
-			generateBoCommon(tableColumnVo, properties, boSaveClassName, boSaveTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
-			generateBoCommon(tableColumnVo, properties, boUpdateClassName, boUpdateTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
+			generateBoCommon(tableColumnVo, properties, tableColumnVo.getBoBaseClassName(), boBaseTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
+			generateBoCommon(tableColumnVo, properties, tableColumnVo.getBoPageClassName(), boPageTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
+			generateBoCommon(tableColumnVo, properties, tableColumnVo.getBoSaveClassName(), boSaveTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
+			generateBoCommon(tableColumnVo, properties, tableColumnVo.getBoUpdateClassName(), boUpdateTemplateName, boFolderPath, module, boPackageName, configuration, modulePath, zipOutputStream);
 			// @formatter:on
 		}
 	}

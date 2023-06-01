@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.generate.controller;
 
+import cloud.xuxiaowei.core.properties.CloudGenerateProperties;
 import cloud.xuxiaowei.generate.bo.GenerateBo;
 import cloud.xuxiaowei.generate.service.GenerateService;
 import cloud.xuxiaowei.utils.DateUtils;
@@ -18,7 +19,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.zip.ZipOutputStream;
 
-import static cn.hutool.core.date.DatePattern.CHINESE_DATE_TIME_PATTERN;
+import static cn.hutool.core.date.DatePattern.PURE_DATETIME_PATTERN;
 import static com.google.common.net.HttpHeaders.CONTENT_DISPOSITION;
 
 /**
@@ -30,7 +31,14 @@ import static com.google.common.net.HttpHeaders.CONTENT_DISPOSITION;
 @Controller
 public class GenerateController {
 
+	private CloudGenerateProperties cloudGenerateProperties;
+
 	private GenerateService generateService;
+
+	@Autowired
+	public void setCloudGenerateProperties(CloudGenerateProperties cloudGenerateProperties) {
+		this.cloudGenerateProperties = cloudGenerateProperties;
+	}
 
 	@Autowired
 	public void setGenerateService(GenerateService generateService) {
@@ -48,15 +56,16 @@ public class GenerateController {
 			@Valid @RequestBody GenerateBo generateBo) throws IOException {
 
 		LocalDateTime now = LocalDateTime.now();
-		String time = DateUtils.format(now, CHINESE_DATE_TIME_PATTERN);
-		String urlChineseEncode = URLEncoder.encode(time, "UTF-8").replaceAll("\\+", "%20");
-		String filename = String.format("\"generate-%s.zip\"", urlChineseEncode);
+		String fileName = DateUtils.format(now, PURE_DATETIME_PATTERN);
+		String urlChineseEncode = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+		String filename = String.format("\"%s.zip\"", urlChineseEncode);
 
 		ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
 		response.setContentType(MediaType.ZIP.toString());
 		response.setHeader(CONTENT_DISPOSITION, "attachment; filename=" + filename);
 
-		generateService.generate(generateBo, zos);
+		String filePath = generateService.filePath(cloudGenerateProperties, fileName);
+		generateService.generate(generateBo, zos, filePath);
 	}
 
 }
