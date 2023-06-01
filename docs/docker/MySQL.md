@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull mysql:8.0.32
+docker pull mysql:8.0.33
 ```
 
 - 创建容器
@@ -44,12 +44,12 @@ docker pull mysql:8.0.32
             -itd \
             --restart always \
             --privileged=true \
-            --name mysql-8.0.32 \
+            --name mysql-8.0.33 \
             -v /etc/localtime:/etc/localtime \
             -v /mysql-data:/var/lib/mysql \
             -p 3306:3306 \
             -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-            -d mysql:8.0.32 \
+            -d mysql:8.0.33 \
             --log-bin=mysql-bin \
             --server-id=1 \
             --binlog_expire_logs_seconds=1209600 \
@@ -63,11 +63,11 @@ docker pull mysql:8.0.32
             ```
         4. 查看日志
             ```shell
-            docker logs -f mysql-8.0.32
+            docker logs -f mysql-8.0.33
             ```
         5. 进入容器
             ```shell
-            docker exec -it mysql-8.0.32 bash
+            docker exec -it mysql-8.0.33 bash
             ```
         6. 开放端口
             - CentOS

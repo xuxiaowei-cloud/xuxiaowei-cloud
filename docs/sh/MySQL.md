@@ -1,7 +1,7 @@
 # MySQL
 
 - 使用版本
-    - MySQL 8.0.32
+    - MySQL 8.0.33
 - [CentOS 8 EOL 寿命终止切换源](https://blog.csdn.net/qq_32596527/article/details/122902901)
 
 - 安装 MySQL
@@ -22,22 +22,22 @@
             ```
         4. CentOS 7 下载 `.rpm` 包
             ```shell
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-plugins-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-common-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-icu-data-files-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-libs-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-libs-compat-8.0.32-1.el7.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-server-8.0.32-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-client-plugins-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-common-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-icu-data-files-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-libs-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-libs-compat-8.0.33-1.el7.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/mysql-community-server-8.0.33-1.el7.x86_64.rpm
             ```
         5. CentOS 8 下载 `.rpm` 包
             ```shell
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-8.0.32-1.el8.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-plugins-8.0.32-1.el8.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-common-8.0.32-1.el8.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-icu-data-files-8.0.32-1.el8.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-libs-8.0.32-1.el8.x86_64.rpm
-            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-server-8.0.32-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-8.0.33-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-client-plugins-8.0.33-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-common-8.0.33-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-icu-data-files-8.0.33-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-libs-8.0.33-1.el8.x86_64.rpm
+            wget https://repo.mysql.com/yum/mysql-8.0-community/el/8/x86_64/mysql-community-server-8.0.33-1.el8.x86_64.rpm
             ```
         6. 卸载maria
             - 查看maria是否安装
