@@ -37,6 +37,8 @@ docker pull nacos/nacos-server:v2.2.2
                 MYSQL_SERVICE_USER=root
                 MYSQL_SERVICE_PASSWORD=xuxiaowei.com.cn
                 # 文档：https://nacos.io/zh-cn/docs/v2/guide/user/auth.html
+                # 是否开启授权
+                NACOS_AUTH_ENABLE=false
                 # 修改 nacos.core.auth.plugin.nacos.token.secret.key、nacos.core.auth.server.identity.key、nacos.core.auth.server.identity.value
                 # 环境变量名分别为 NACOS_AUTH_TOKEN、NACOS_AUTH_IDENTITY_KEY、NACOS_AUTH_IDENTITY_VALUE
                 # 以下值需要自行修改，否则有安全隐患
@@ -61,6 +63,7 @@ docker pull nacos/nacos-server:v2.2.2
                 echo $MYSQL_SERVICE_DB_PARAM
                 echo $MYSQL_SERVICE_USER
                 echo $MYSQL_SERVICE_PASSWORD
+                echo $NACOS_AUTH_ENABLE
                 echo $NACOS_AUTH_TOKEN
                 echo $NACOS_AUTH_IDENTITY_KEY
                 echo $NACOS_AUTH_IDENTITY_VALUE
@@ -89,7 +92,7 @@ docker pull nacos/nacos-server:v2.2.2
             -e NACOS_AUTH_IDENTITY_KEY=$NACOS_AUTH_IDENTITY_KEY \
             -e NACOS_AUTH_IDENTITY_VALUE=$NACOS_AUTH_IDENTITY_VALUE \
             -e NACOS_AUTH_TOKEN=$NACOS_AUTH_TOKEN \
-            -e NACOS_AUTH_ENABLE=true \
+            -e NACOS_AUTH_ENABLE=$NACOS_AUTH_ENABLE \
             -d nacos/nacos-server:v2.2.2
             ```
         3. 查看日志
