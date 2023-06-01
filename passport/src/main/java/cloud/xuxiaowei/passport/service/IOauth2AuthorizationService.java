@@ -6,6 +6,8 @@ import cloud.xuxiaowei.passport.vo.Oauth2AuthorizationVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 授权表。
@@ -41,5 +43,12 @@ public interface IOauth2AuthorizationService extends IService<Oauth2Authorizatio
 	 * @return 返回 删除结果
 	 */
 	boolean removeByPrincipalName(String principalName);
+
+	/**
+	 * 根据 客户ID 批量删除 授权表
+	 * @param registeredClientIds 客户ID
+	 * @return 返回 删除结果
+	 */
+	boolean removeByRegisteredClientIds(List<String> registeredClientIds);
 
 }

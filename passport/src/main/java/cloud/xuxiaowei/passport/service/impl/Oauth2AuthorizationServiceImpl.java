@@ -76,4 +76,16 @@ public class Oauth2AuthorizationServiceImpl extends ServiceImpl<Oauth2Authorizat
 		return remove(queryWrapper);
 	}
 
+	/**
+	 * 根据 客户ID 批量删除 授权表
+	 * @param registeredClientIds 客户ID
+	 * @return 返回 删除结果
+	 */
+	@Override
+	public boolean removeByRegisteredClientIds(List<String> registeredClientIds) {
+		QueryWrapper<Oauth2Authorization> queryWrapper = new QueryWrapper<>();
+		queryWrapper.in("registered_client_id", registeredClientIds);
+		return remove(queryWrapper);
+	}
+
 }
