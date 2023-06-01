@@ -129,7 +129,7 @@ spec:
         - name: mysql
           # https://hub.docker.com/_/mysql
           # MySQL 版本
-          image: mysql:8.0.32
+          image: mysql:8.0.33
           # 指定环境变量
           env:
             # 环境变量：MySQL root 用户的密码
