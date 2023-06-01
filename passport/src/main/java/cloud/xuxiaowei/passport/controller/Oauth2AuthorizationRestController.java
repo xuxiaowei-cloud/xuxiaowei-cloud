@@ -99,4 +99,25 @@ public class Oauth2AuthorizationRestController {
 		return Response.ok(removeByIds);
 	}
 
+	/**
+	 * 根据 客户ID 批量删除 授权表
+	 * @param request 请求
+	 * @param response 响应
+	 * @param registeredClientIds 客户ID
+	 * @return 返回 删除结果
+	 */
+	@ControllerAnnotation(description = "根据 主键 批量删除 授权表")
+	@PreAuthorize("@ant.hasAnyAuthority('audit_authorization:delete', 'manage_client:token_delete')")
+	@PostMapping("/removeByRegisteredClientIds")
+	public Response<?> removeByRegisteredClientIds(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody List<String> registeredClientIds) {
+
+		AssertUtils.sizeNonNull(registeredClientIds, 1, 50, "非法数据长度");
+
+		boolean removeByRegisteredClientIds = oauth2AuthorizationService
+			.removeByRegisteredClientIds(registeredClientIds);
+
+		return Response.ok(removeByRegisteredClientIds);
+	}
+
 }
