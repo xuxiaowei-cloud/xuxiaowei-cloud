@@ -116,7 +116,7 @@
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/google/guava/guava -->
         <!-- https://github.com/google/guava -->
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <!-- https://oss.sonatype.org/content/repositories/public/commons-io/commons-io -->
@@ -140,12 +140,12 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.32</fastjson.version>
+        <fastjson.version>2.0.33</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
         <!-- https://github.com/dromara/hutool -->
-        <hutool-all.version>5.8.18</hutool-all.version>
+        <hutool-all.version>5.8.19</hutool-all.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
@@ -238,6 +238,23 @@
         <docker.username>admin</docker.username>
         <!-- docker 上传时的密码，请使用：-Ddocker.password=xxx 来指定真实密码，请勿将真实密码写在此处 -->
         <docker.password>xuxiaowei</docker.password>
+        <!--
+            构建时使用 -DCI_JAVA_OPTS=xxx 会覆盖此配置
+            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 JAVA_OPTS 中
+            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+            说明：构建时指定环境变量名是 CI_JAVA_OPTS，而docker镜像记录后的名称为 JAVA_OPTS，避免因为重名而造成未知问题
+            不能为空，否则报错
+         -->
+        <CI_JAVA_OPTS>-Xms128m -Xmx256m</CI_JAVA_OPTS>
+        <!--
+            构建时使用 -DCI_APP_OPTS=xxx 会覆盖此配置
+            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 APP_ARGS 中
+            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+            用于放在 java -jar app.jar 最后，用以指定个性化参数
+            说明：构建时指定环境变量名是 CI_APP_ARGS，而docker镜像记录后的名称为 APP_ARGS
+            不能为空，否则报错
+         -->
+        <CI_APP_ARGS>--ci_author=xuxiaowei</CI_APP_ARGS>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -254,7 +271,7 @@
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
@@ -553,7 +570,6 @@
                 <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-
 
 
             <!-- https://mvnrepository.com/artifact/org.gitlab4j/gitlab4j-api -->
@@ -899,6 +915,19 @@
                             CI_JOB_ID：代表作业ID，用于确定作业的链接：https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/-/jobs/${CI_JOB_ID}
                         -->
                         <CI_JOB_ID>${CI_JOB_ID}</CI_JOB_ID>
+                        <!--
+                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 JAVA_OPTS 中
+                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+                            说明：构建时指定环境变量名是 CI_JAVA_OPTS，而docker镜像记录后的名称为 JAVA_OPTS，避免因为重名而造成未知问题
+                         -->
+                        <JAVA_OPTS>${CI_JAVA_OPTS}</JAVA_OPTS>
+                        <!--
+                            可在构建docker镜像时，指定环境变量，指定后，会记录在docker镜像中环境 APP_ARGS 中
+                            如果在启动容器时，不想使用构建时的环境变量，可自行指定
+                            用于放在 java -jar app.jar 最后，用以指定个性化参数
+                            说明：构建时指定环境变量名是 CI_APP_ARGS，而docker镜像记录后的名称为 APP_ARGS
+                         -->
+                        <APP_ARGS>${CI_APP_ARGS}</APP_ARGS>
                     </buildArgs>
                     <images>
                         <image>
