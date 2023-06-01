@@ -75,6 +75,7 @@ updates:
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
         versions:
           - ">= 1"
+
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     schedule:
@@ -87,19 +88,143 @@ updates:
       interval: "daily"
       time: "08:00"
       timezone: "Asia/Shanghai"
+
   - package-ecosystem: "docker"
     directory: "/admin-server"
-    registries:
-      - dockerhub
     schedule:
-      interval: "weekly"
+      interval: "daily"
       time: "08:00"
       timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/gateway"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/passport"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/canal"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/file"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/master-data"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/user"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/webservice"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/websocket"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/wechat-miniprogram"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/resource-services-parent/wechat-offiaccount"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+  - package-ecosystem: "docker"
+    directory: "/xxl-job-admin"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
+    ignore:
+      - dependency-name: alibabadragonwell/dragonwell
+        versions:
+          - ">= 11"
+          - ">= 17"
+
   - package-ecosystem: "docker"
     directory: "/ui"
-    registries:
-      - dockerhub
     schedule:
-      interval: "weekly"
+      interval: "daily"
       time: "08:00"
       timezone: "Asia/Shanghai"

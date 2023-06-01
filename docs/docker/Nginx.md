@@ -5,13 +5,13 @@
 - 拉取镜像
 
 ```shell
-docker pull nginx:1.23.3
+docker pull nginx:1.25.0
 ```
 
 - 创建容器
     - 说明
         1. 将容器内 `/software/ssl` 映射到主机 `/software/ssl`，创建文件夹：`mkdir /software/ssl -p`
-        2. 将容器内 `/etc/nginx/conf.d` 映射到主机 `/etc/nginx-1.23.3/conf.d`，创建文件夹：`mkdir /etc/nginx-1.23.3/conf.d/ -p`
+        2. 将容器内 `/etc/nginx/conf.d` 映射到主机 `/etc/nginx-1.25.0/conf.d`，创建文件夹：`mkdir /etc/nginx-1.25.0/conf.d/ -p`
     - 执行创建命令
         ```shell
         docker run \
@@ -21,26 +21,26 @@ docker pull nginx:1.23.3
         -p 80:80 -p 443:443 \
         -v /etc/localtime:/etc/localtime \
         -v /software/ssl:/software/ssl \
-        -v /etc/nginx-1.23.3/conf.d:/etc/nginx/conf.d \
+        -v /etc/nginx-1.25.0/conf.d:/etc/nginx/conf.d \
         -v /home/gitlab-runner/node:/home/gitlab-runner/node \
-        --name nginx-1.23.3 \
-        -d nginx:1.23.3
+        --name nginx-1.25.0 \
+        -d nginx:1.25.0
       ```
     1. 测试配置
        ```shell
-       docker exec -it nginx-1.23.3 nginx -t
+       docker exec -it nginx-1.25.0 nginx -t
        ```
     2. 重新加载
        ```shell
-       docker exec -it nginx-1.23.3 nginx -s reload
+       docker exec -it nginx-1.25.0 nginx -s reload
        ```
     3. 查看日志
        ```shell
-       docker logs -f nginx-1.23.3
+       docker logs -f nginx-1.25.0
        ```
     4. 进入容器
        ```shell
-       docker exec -it nginx-1.23.3 bash
+       docker exec -it nginx-1.25.0 bash
        ```
     5. 开放端口
         - CentOS

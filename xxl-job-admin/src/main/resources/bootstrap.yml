@@ -33,13 +33,11 @@ spring:
         # 服务发现地址
         server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
-        namespace:
+        namespace: ${nacos_xuxiaowei_cloud_discovery_namespace:}
         # 自定义注册IP（为空时使用程序自动获取本机IP）
-        ip: ${passport_ip:}
-        metadata:
-          management:
-            context-path: ${server.servlet.context-path}/actuator
-            health: /health
+        ip: ${xxl_job_admin_discovery_ip:}
+        # 自定义注册端口（为-1时使用程序启动时的端口）
+        port: ${xxl_job_admin_discovery_port:-1}
       # 服务配置
       config:
         # 配置文件后缀名
@@ -47,7 +45,12 @@ spring:
         # 配置服务器地址
         server-addr: ${nacos_xuxiaowei_cloud_addr:nacos.example.xuxiaowei.cloud:8848}
         # 命名空间
-        namespace:
+        namespace: ${nacos_xuxiaowei_cloud_config_namespace:}
+        # 共享配置
+        shared-configs:
+          - dataId: xuxiaowei.${spring.cloud.nacos.config.file-extension}
+            # 是否支持刷新
+            refresh: true
 
 
 ---
