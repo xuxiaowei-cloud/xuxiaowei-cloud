@@ -1,16 +1,16 @@
 # [Nacos](https://github.com/alibaba/nacos)
 
 - 本项目使用版本
-    - [2.2.2](https://github.com/alibaba/nacos/releases/tag/2.2.2)
-    - [nacos-server-2.2.2.zip](https://github.com/alibaba/nacos/releases/download/2.2.2/nacos-server-2.2.2.zip)
+    - [2.2.3](https://github.com/alibaba/nacos/releases/tag/2.2.3)
+    - [nacos-server-2.2.3.zip](https://github.com/alibaba/nacos/releases/download/2.2.3/nacos-server-2.2.3.zip)
     - 安装目录
-        - D:\Alibaba\nacos-server-2.2.2
+        - D:\Alibaba\nacos-server-2.2.3
         ```
         # 连接 MySQL 数据库
-        # 表结构：nacos-server-2.2.2/conf/nacos-mysql.sql
+        # 表结构：nacos-server-2.2.3/conf/nacos-mysql.sql
         # 推荐使用 [5-xuxiaowei_cloud_nacos.sql](../sql/5-xuxiaowei_cloud_nacos.sql)
         # 数据库名：xuxiaowei_cloud_nacos
-        # 修改：nacos-server-2.2.2/conf/application.properties（注意，一下内容要去掉开头的“#”）
+        # 修改：nacos-server-2.2.3/conf/application.properties（注意，一下内容要去掉开头的“#”）
         # spring.datasource.platform=mysql
         # db.num=1
         # db.url.0=jdbc:mysql://192.168.5.4:3306/xuxiaowei_cloud_nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true

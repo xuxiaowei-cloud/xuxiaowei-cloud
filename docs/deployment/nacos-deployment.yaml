@@ -36,7 +36,7 @@ spec:
           # [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
           # [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
           # Nacos 版本
-          image: nacos/nacos-server:v2.2.2
+          image: nacos/nacos-server:v2.2.3
           # 指定环境变量
           env:
             - name: MODE
