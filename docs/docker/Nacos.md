@@ -12,7 +12,7 @@ docker pull nacos/nacos-server:v2.2.2
     - 说明
         1. 连接 MySQL 时，需要指定连接串、用户名、密码，直接放在命令中存在风险（可使用命令`history`查看历史命令），故将其放在环境变量文件中`/etc/profile`
         2. 表结构
-            - [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql)
+            - [GitHub](https://github.com/alibaba/nacos/blob/develop/distribution/conf/mysql-schema.sql)
             - [GitCode 镜像仓库](https://gitcode.net/mirrors/alibaba/nacos/-/blob/develop/distribution/conf/mysql-schema.sql)
             - [Gitee 镜像仓库](https://gitee.com/mirrors/Nacos/blob/develop/distribution/conf/mysql-schema.sql)
             - 推荐使用 [5-xuxiaowei_cloud_nacos.sql](../sql/5-xuxiaowei_cloud_nacos.sql)
