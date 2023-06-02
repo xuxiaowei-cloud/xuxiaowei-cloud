@@ -79,7 +79,7 @@ export const removeById = function (clientId: number) {
  * 根据 客户主键 删除
  * @param clientIds 客户主键
  */
-export const removeByIds = function (clientIds: number[]) {
+export const removeByIds = function (clientIds: string[]) {
   return request.post('/passport/oauth2-registered-client/removeByIds', clientIds).then(response => {
     return response.data as Resp<any>
   })
