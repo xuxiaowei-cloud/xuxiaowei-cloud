@@ -5,7 +5,7 @@
 - 拉取镜像
 
 ```shell
-docker pull nacos/nacos-server:v2.2.2
+docker pull nacos/nacos-server:v2.2.3
 ```
 
 - 创建容器
@@ -38,6 +38,8 @@ docker pull nacos/nacos-server:v2.2.2
                 MYSQL_SERVICE_PASSWORD=xuxiaowei.com.cn
                 # 文档：https://nacos.io/zh-cn/docs/v2/guide/user/auth.html
                 # 是否开启授权
+                # v2.2.2 之后，需要设置 环境变量 NACOS_AUTH_ENABLE=true 才能开启鉴权
+                # 开启鉴权后，微服务注册需要配置用户名、密码，配置参见各个服务的 bootstrap.yml 和 nacos 数据库的 SQL 脚本
                 NACOS_AUTH_ENABLE=false
                 # 修改 nacos.core.auth.plugin.nacos.token.secret.key、nacos.core.auth.server.identity.key、nacos.core.auth.server.identity.value
                 # 环境变量名分别为 NACOS_AUTH_TOKEN、NACOS_AUTH_IDENTITY_KEY、NACOS_AUTH_IDENTITY_VALUE
@@ -48,8 +50,6 @@ docker pull nacos/nacos-server:v2.2.2
                 NACOS_AUTH_IDENTITY_KEY=serverIdentity
                 # 版本号 2.2.1 后无默认值
                 NACOS_AUTH_IDENTITY_VALUE=security
-                # v2.2.2 之后，需要设置 环境变量 NACOS_AUTH_ENABLE=true 才能开启鉴权
-                # 开启鉴权后，微服务注册需要配置用户名、密码，配置参见各个服务的 bootstrap.yml 和 nacos 数据库的 SQL 脚本
                 ```
             - 刷新环境变量
                 ```shell
@@ -77,7 +77,7 @@ docker pull nacos/nacos-server:v2.2.2
             -itd \
             --restart always \
             --privileged=true \
-            --name nacos-server-v2.2.2 \
+            --name nacos-server-v2.2.3 \
             -p 8848:8848 \
             -p 9848:9848 \
             -v /etc/localtime:/etc/localtime \
@@ -93,15 +93,15 @@ docker pull nacos/nacos-server:v2.2.2
             -e NACOS_AUTH_IDENTITY_VALUE=$NACOS_AUTH_IDENTITY_VALUE \
             -e NACOS_AUTH_TOKEN=$NACOS_AUTH_TOKEN \
             -e NACOS_AUTH_ENABLE=$NACOS_AUTH_ENABLE \
-            -d nacos/nacos-server:v2.2.2
+            -d nacos/nacos-server:v2.2.3
             ```
         3. 查看日志
             ```shell
-            docker logs -f nacos-server-v2.2.2
+            docker logs -f nacos-server-v2.2.3
             ```
         4. 进入容器
             ```shell
-            docker exec -it nacos-server-v2.2.2 bash
+            docker exec -it nacos-server-v2.2.3 bash
             ```
         5. 开放端口
             - CentOS
