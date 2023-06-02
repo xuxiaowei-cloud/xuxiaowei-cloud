@@ -223,13 +223,13 @@ public class Oauth2RegisteredClientRestController {
 	}
 
 	/**
-	 * 根据 客户主键 批量删除 授权码
+	 * 根据 客户主键 批量删除
 	 * @param request 请求
 	 * @param response 响应
 	 * @param ids 客户主键
 	 * @return 返回 删除结果
 	 */
-	@ControllerAnnotation(description = "根据 客户主键 批量删除 授权码")
+	@ControllerAnnotation(description = "根据 客户主键 批量删除")
 	@PreAuthorize("@ant.hasAuthority('manage_client:delete')")
 	@PostMapping("/removeByIds")
 	public Response<?> removeByIds(HttpServletRequest request, HttpServletResponse response,
