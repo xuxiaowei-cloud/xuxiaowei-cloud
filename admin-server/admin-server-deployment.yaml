@@ -67,6 +67,9 @@ spec:
           env:
             - name: nacos_xuxiaowei_cloud_addr
               value: nacos-service
+            - name: APP_ARGS
+              # 正式环境
+              value: --spring.profiles.active=prod
           ports:
             # 容器开放的端口号
             - containerPort: 1201
@@ -108,15 +111,6 @@ spec:
             successThreshold: 1
             # 连续失败的检查次数
             failureThreshold: 3
-          # 创建容器时的命令
-          command:
-            - "java"
-          # 创建容器时的参数
-          args:
-            - "-jar"
-            - "app.jar"
-            # 正式环境
-            - "--spring.profiles.active=prod"
           volumeMounts:
             # 挂载主机的时区文件
             - name: time-zone
