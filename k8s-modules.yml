@@ -13,7 +13,7 @@ k8s-package:cloud-commons-parent:
     - sed -i 's/ossrh/gitlab-maven/g' pom.xml
     - sed -i 's|https://s01.oss.sonatype.org/content/repositories/snapshots|https://jihulab.com/api/v4/projects/26649/packages/maven|g' pom.xml
     - sed -i 's|https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/|https://jihulab.com/api/v4/projects/26649/packages/maven|g' pom.xml
-    - sed -i '/<\/repositories>/i <repository><id>gitlab-maven</id><url>https://jihulab.com/api/v4/projects/26649/packages/maven</url></repository>' pom.xml
+    - sed -i '/<!-- jihulab -->/a \        <repository><id>gitlab-maven<\/id><url>https:\/\/jihulab\.com\/api\/v4\/projects\/26649\/packages\/maven<\/url><\/repository>' pom.xml
     - cat pom.xml
     - mvn clean -e -U -am -pl \
       cloud-commons-parent, \

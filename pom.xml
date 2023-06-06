@@ -1073,6 +1073,9 @@
             </snapshots>
         </repository>
 
+        <!-- 用于添加 极狐GitLab 配置时做定位 -->
+        <!-- jihulab -->
+
     </repositories>
 
 </project>
