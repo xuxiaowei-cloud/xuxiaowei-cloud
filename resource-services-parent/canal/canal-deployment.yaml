@@ -67,6 +67,10 @@ spec:
           env:
             - name: nacos_xuxiaowei_cloud_addr
               value: nacos-service
+            - name: mysql_xuxiaowei_cloud
+              value: mysql-service
+            - name: redis_xuxiaowei_cloud_host
+              value: redis-service
             - name: APP_ARGS
               # 正式环境
               value: --spring.profiles.active=prod
