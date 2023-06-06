@@ -45,7 +45,15 @@ spec:
   selector:
     matchLabels:
       app: admin-server
-  replicas: 1
+  replicas: 2
+  strategy:
+    # 滚动更新
+    type: RollingUpdate
+    rollingUpdate:
+      # 超出所需 replicas 副本数 的最大数量
+      maxSurge: 1
+      # 滚动更新期间允许不可用的最大 replicas 副本数
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -62,6 +70,42 @@ spec:
           ports:
             # 容器开放的端口号
             - containerPort: 1201
+          # 准备就绪探针
+          readinessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              path: /actuator/health/readiness
+              # 应用程序端口号
+              port: 1201
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 10 秒一次检查
+            periodSeconds: 10
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
+          # 活性探针
+          livenessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              path: /actuator/health/liveness
+              # 应用程序端口号
+              port: 1201
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 20 秒一次检查
+            periodSeconds: 20
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
           # 创建容器时的命令
           command:
             - "java"
