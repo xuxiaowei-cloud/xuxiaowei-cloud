@@ -15,6 +15,7 @@ k8s-package:cloud-commons-parent:
     - sed -i '/<!-- jihulab -->/a \        <repository><id>gitlab-maven<\/id><url>https:\/\/jihulab\.com\/api\/v4\/projects\/26649\/packages\/maven<\/url><\/repository>' pom.xml
     - mvn clean -e -U -am -pl cloud-commons-parent,cloud-commons-parent/cloud-starter-core,cloud-commons-parent/cloud-starter-idempotent,cloud-commons-parent/cloud-starter-loadbalancer,cloud-commons-parent/cloud-starter-log,cloud-commons-parent/cloud-starter-mybatis,cloud-commons-parent/cloud-starter-oauth2,cloud-commons-parent/cloud-starter-openfeign,cloud-commons-parent/cloud-starter-redis,cloud-commons-parent/cloud-starter-session-redis,cloud-commons-parent/cloud-starter-system,cloud-commons-parent/cloud-starter-validation package source:jar javadoc:jar deploy -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+    - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
     paths:
@@ -46,6 +47,7 @@ k8s-package:passport:
     - sed -i '/<!-- jihulab -->/a \        <repository><id>gitlab-maven<\/id><url>https:\/\/jihulab\.com\/api\/v4\/projects\/26649\/packages\/maven<\/url><\/repository>' pom.xml
     - mvn clean -e -U -pl passport package -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+    - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
     paths:
