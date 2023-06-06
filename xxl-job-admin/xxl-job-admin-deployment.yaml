@@ -82,7 +82,8 @@ spec:
               # 检查的路径
               # Windows 上使用 /actuator/health
               # k8s 上使用 /actuator/health/readiness
-              path: /actuator/health/readiness
+              # 注意：项目设置了 server.servlet.context-path=/xxl-job-admin，所以要加 /xxl-job-admin 前缀
+              path: /xxl-job-admin/actuator/health/readiness
               # 应用程序端口号
               port: 5101
             # 初始化延迟 30 秒
@@ -102,7 +103,8 @@ spec:
               # 检查的路径
               # Windows 上使用 /actuator/health
               # k8s 上使用 /actuator/health/liveness
-              path: /actuator/health/liveness
+              # 注意：项目设置了 server.servlet.context-path=/xxl-job-admin，所以要加 /xxl-job-admin 前缀
+              path: /xxl-job-admin/actuator/health/liveness
               # 应用程序端口号
               port: 5101
             # 初始化延迟 30 秒
