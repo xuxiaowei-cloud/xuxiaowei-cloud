@@ -29,8 +29,8 @@ class ActuatorTests {
 				// 健康检查路径
 				// Windows 上使用 /actuator/health
 				// k8s 上使用 /actuator/health/readiness、/actuator/health/liveness
-				ResponseEntity<String> entity = restTemplate
-					.getForEntity("http://192.168.0.27:31201/actuator/health", String.class);
+				ResponseEntity<String> entity = restTemplate.getForEntity("http://192.168.0.27:31201/actuator/health",
+						String.class);
 				int statusCodeValue = entity.getStatusCodeValue();
 				if (statusCodeValue == 200) {
 					success++;
