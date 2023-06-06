@@ -178,6 +178,7 @@ k8s-publish:
     # kubectl delete pv gateway-logs-volume
     # kubectl delete pv generate-logs-volume
     # kubectl delete pv master-data-logs-volume
+    # kubectl delete pv mysql-init-volume
     # kubectl delete pv mysql-data-volume
     # kubectl delete pv passport-logs-volume
     # kubectl delete pv redis-data-volume
