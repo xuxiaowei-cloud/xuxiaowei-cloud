@@ -981,6 +981,27 @@
         </profile>
 
         <profile>
+            <!-- 使用 -Pgitlab-maven 激活腾讯云仓库下载依赖 -->
+            <id>gitlab-maven</id>
+            <repositories>
+                <repository>
+                    <id>gitlab-maven</id>
+                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>gitlab-maven</id>
+                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                </repository>
+                <snapshotRepository>
+                    <id>gitlab-maven</id>
+                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
             <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
             <id>gpg</id>
             <build>
@@ -1072,9 +1093,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-
-        <!-- 用于添加 极狐GitLab 配置时做定位 -->
-        <!-- jihulab -->
 
     </repositories>
 
