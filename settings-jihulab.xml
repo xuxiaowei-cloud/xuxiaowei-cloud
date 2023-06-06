@@ -130,6 +130,19 @@ under the License.
       <passphrase>optional; leave empty if not used.</passphrase>
     </server>
     -->
+
+    <server>
+      <id>gitlab-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Job-Token</name>
+            <value>${CI_JOB_TOKEN}</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+
   </servers>
 
   <!-- mirrors
