@@ -56,6 +56,19 @@ k8s-package:passport:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
+  artifacts:
+    name: package
+    paths:
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
+      - ui/dist
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
