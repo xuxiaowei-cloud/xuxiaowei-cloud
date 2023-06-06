@@ -28,3 +28,34 @@ k8s-package:cloud-commons-parent:
     - if: $CI_COMMIT_BRANCH == "k8s-modules/cloud-commons-parent"
   tags:
     - jihulab
+
+#
+# passport
+k8s-package:passport:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    # 26649 是 https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud 的项目ID
+    # 修改为 极狐GitLab Maven 仓库
+    - sed -i 's/ossrh/gitlab-maven/g' pom.xml
+    - sed -i 's|https://s01.oss.sonatype.org/content/repositories/snapshots|https://jihulab.com/api/v4/projects/26649/packages/maven|g' pom.xml
+    - sed -i 's|https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/|https://jihulab.com/api/v4/projects/26649/packages/maven|g' pom.xml
+    - sed -i '/<!-- jihulab -->/a \        <repository><id>gitlab-maven<\/id><url>https:\/\/jihulab\.com\/api\/v4\/projects\/26649\/packages\/maven<\/url><\/repository>' pom.xml
+    - mvn clean -e -U -pl passport package -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
+  tags:
+    - jihulab
