@@ -27,10 +27,11 @@ class ActuatorTests {
 		for (int i = 0; i < 10 * 60 * 60; i++) {
 			try {
 				// 健康检查路径
-				// 这里使用的是 /actuator/health/readiness（为了方便，仅检查一个）
-				// 实际使用时，要设置 /actuator/health/readiness、/actuator/health/liveness
+				// 这里使用的是 /actuator/health（为了方便，仅检查一个）
+				// 实际使用时，要设置：/actuator/health、/actuator/health
+				// 或者使用：/actuator/health/readiness、/actuator/health/liveness
 				ResponseEntity<String> entity = restTemplate
-					.getForEntity("http://192.168.0.27:31201/actuator/health/readiness", String.class);
+					.getForEntity("http://192.168.0.27:31201/actuator/health", String.class);
 				int statusCodeValue = entity.getStatusCodeValue();
 				if (statusCodeValue == 200) {
 					success++;
