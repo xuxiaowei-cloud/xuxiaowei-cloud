@@ -27,7 +27,7 @@ k8s-package:cloud-commons-parent:
       cloud-commons-parent/cloud-starter-redis, \
       cloud-commons-parent/cloud-starter-session-redis, \
       cloud-commons-parent/cloud-starter-system, \
-      cloud-commons-parent/cloud-starter-validation, \
+      cloud-commons-parent/cloud-starter-validation \
       package source:jar javadoc:jar deploy -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
   cache:
