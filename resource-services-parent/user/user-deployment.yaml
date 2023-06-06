@@ -85,8 +85,9 @@ spec:
             # 使用 HTTP GET 方法检查
             httpGet:
               # 检查的路径
-              # 或者：/actuator/health/readiness
-              path: /actuator/health
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/readiness
+              path: /actuator/health/readiness
               # 应用程序端口号
               port: 1701
             # 初始化延迟 30 秒
@@ -104,8 +105,9 @@ spec:
             # 使用 HTTP GET 方法检查
             httpGet:
               # 检查的路径
-              # 或者：/actuator/health/liveness
-              path: /actuator/health
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/liveness
+              path: /actuator/health/liveness
               # 应用程序端口号
               port: 1701
             # 初始化延迟 30 秒
