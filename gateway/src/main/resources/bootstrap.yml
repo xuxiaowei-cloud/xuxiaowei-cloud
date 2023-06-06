@@ -209,6 +209,10 @@ cloud:
       - /webjars/swagger-ui/**
       # springdoc
       - /v3/api-docs/**
+      # 健康检查路径（用于k8s探针/健康检查、滚动发布）
+      - /actuator/health
+      - /actuator/health/liveness
+      - /actuator/health/readiness
     services:
       - name: passport
         path-list:
