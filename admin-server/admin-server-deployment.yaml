@@ -50,9 +50,9 @@ spec:
     # 滚动更新
     type: RollingUpdate
     rollingUpdate:
-      # 超出所需 replicas 副本数 的最大数量
+      # 超出所需 replicas 副本数 的最大数量，默认值为 25%
       maxSurge: 1
-      # 滚动更新期间允许不可用的最大 replicas 副本数
+      # 滚动更新期间允许不可用的最大 replicas 副本数，默认值为 25%
       maxUnavailable: 1
   template:
     metadata:
