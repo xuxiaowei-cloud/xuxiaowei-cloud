@@ -178,6 +178,7 @@ k8s-publish:
     # kubectl delete pv gateway-logs-volume
     # kubectl delete pv generate-logs-volume
     # kubectl delete pv master-data-logs-volume
+    # kubectl delete pv mysql-init-volume
     # kubectl delete pv mysql-data-volume
     # kubectl delete pv passport-logs-volume
     # kubectl delete pv redis-data-volume
@@ -263,6 +264,318 @@ k8s-publish:
     - kubectl -n xuxiaowei-cloud set image deployment/wechat-offiaccount-deployment wechat-offiaccount=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
     - kubectl -n xuxiaowei-cloud get deployment xxl-job-admin-deployment || kubectl create -f xxl-job-admin/xxl-job-admin-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/xxl-job-admin-deployment xxl-job-admin=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/xxl-job-admin:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:admin-server:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/admin-server-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:canal:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/canal-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:file:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/file-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:gateway:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/gateway-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:master-data:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/master-data-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:passport:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/passport-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+##
+## 等待/检查滚动发布
+#k8s-waiting-rollout:ui:
+#  stage: k8s-waiting-rollout
+#  needs:
+#    - job: k8s-publish
+#  script:
+#    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+#    - kubectl -n xuxiaowei-cloud rollout status deployment/ui-deployment
+#  # 超时时间，根据程序启动时间调整
+#  timeout: 600s
+#  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+#  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+#  rules:
+#    # PR 到 k8s 分支时预执行
+#    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+#    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+#    - if: $CI_COMMIT_BRANCH == "k8s"
+#  tags:
+#    # 仅在 tags 名称为 shell 的执行器上执行
+#    # 在 k8s 所在的服务器上执行
+#    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+#    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:user:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/user-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:webservice:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/webservice-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:websocket:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/websocket-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:wechat-miniprogram:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-miniprogram-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:wechat-offiaccount:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-offiaccount-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 k8s 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    # PR 合并到 k8s 后执行、推送到 k8s 分支时
+    - if: $CI_COMMIT_BRANCH == "k8s"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:xxl-job-admin:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/xxl-job-admin-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:

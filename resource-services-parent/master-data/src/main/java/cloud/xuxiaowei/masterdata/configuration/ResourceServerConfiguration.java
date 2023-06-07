@@ -77,18 +77,20 @@ public class ResourceServerConfiguration {
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		// 路径权限控制
+		// @formatter:off
 		http.authorizeHttpRequests((authorize) -> {
 			authorize
 				// 放行端点
-				.antMatchers("/actuator/**")
-				.permitAll()
+				.antMatchers("/actuator/**").permitAll()
+				// # 健康检查路径（此处为冗余配置，用于k8s探针/健康检查、滚动发布）
+				.antMatchers("/actuator/health", "/actuator/health/liveness", "/actuator/health/readiness").permitAll()
 				// 放行错误地址
-				.antMatchers("/error")
-				.permitAll()
+				.antMatchers("/error").permitAll()
 				// 其他路径均需要授权
 				.anyRequest()
 				.authenticated();
 		});
+		// @formatter:on
 
 		// 禁用 form 登录
 		http.formLogin().disable();
