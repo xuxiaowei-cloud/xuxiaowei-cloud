@@ -37,8 +37,8 @@ k8s-package:passport:
   script:
     - mvn clean -e -U -pl passport-ui,passport package install -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - mvn -pl passport -s settings-private.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl passport -s settings-private.xml docker:push;
+    - mvn -pl passport -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl passport -Pgitlab-maven -s settings-jihulab.xml docker:push;
     - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
@@ -48,19 +48,6 @@ k8s-package:passport:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
-  artifacts:
-    name: package
-    paths:
-      - target/*.jar
-      - target/*.asc
-      - target/*.pom
-      - "*/target/*.jar"
-      - "*/target/*.asc"
-      - "*/target/*.pom"
-      - "*/*/target/*.jar"
-      - "*/*/target/*.asc"
-      - "*/*/target/*.pom"
-      - ui/dist
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
