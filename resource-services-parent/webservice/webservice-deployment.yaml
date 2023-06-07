@@ -45,7 +45,15 @@ spec:
   selector:
     matchLabels:
       app: webservice
-  replicas: 1
+  replicas: 2
+  strategy:
+    # 滚动更新
+    type: RollingUpdate
+    rollingUpdate:
+      # 超出所需 replicas 副本数 的最大数量，默认值为 25%
+      maxSurge: 1
+      # 滚动更新期间允许不可用的最大 replicas 副本数，默认值为 25%
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -65,19 +73,53 @@ spec:
               value: redis-service
             - name: sentinel_dashboard
               value: sentinel-service:22222
+            - name: APP_ARGS
+              # 正式环境
+              value: --spring.profiles.active=prod
           ports:
             # 容器开放的端口号
             - containerPort: 1901
             - containerPort: 9005
-          # 创建容器时的命令
-          command:
-            - "java"
-          # 创建容器时的参数
-          args:
-            - "-jar"
-            - "app.jar"
-            # 正式环境
-            - "--spring.profiles.active=prod"
+          # 准备就绪探针
+          readinessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/readiness
+              path: /actuator/health/readiness
+              # 应用程序端口号
+              port: 1901
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 10 秒一次检查
+            periodSeconds: 10
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
+          # 活性探针
+          livenessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/liveness
+              path: /actuator/health/liveness
+              # 应用程序端口号
+              port: 1901
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 20 秒一次检查
+            periodSeconds: 20
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
           volumeMounts:
             # 挂载主机的时区文件
             - name: time-zone
@@ -96,6 +138,7 @@ spec:
         # 引用持久卷
         - name: webservice-logs-volume
           nfs:
+            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
             # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
             path: /nfs/webservice/logs
             # NFS 服务器的 IP 地址

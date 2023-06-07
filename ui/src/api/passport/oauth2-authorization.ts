@@ -30,3 +30,13 @@ export const removeByIds = function (ids: string[]) {
     return response.data as Resp<any>
   })
 }
+
+/**
+ * 根据 客户ID 删除
+ * @param ids 客户ID
+ */
+export const removeByRegisteredClientIds = function (ids: string[]) {
+  return request.post('/passport/oauth2-authorization/removeByRegisteredClientIds', ids).then(response => {
+    return response.data as Resp<any>
+  })
+}
