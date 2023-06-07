@@ -287,7 +287,7 @@ k8s-waiting-rollout:admin-server:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/admin-server-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -311,7 +311,7 @@ k8s-waiting-rollout:canal:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/canal-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -335,7 +335,7 @@ k8s-waiting-rollout:file:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/file-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -359,7 +359,7 @@ k8s-waiting-rollout:gateway:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/gateway-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -383,7 +383,7 @@ k8s-waiting-rollout:master-data:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/master-data-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -407,7 +407,7 @@ k8s-waiting-rollout:passport:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/passport-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -431,7 +431,7 @@ k8s-waiting-rollout:passport:
 #    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
 #    - kubectl -n xuxiaowei-cloud rollout status deployment/ui-deployment
 #  # 超时时间，根据程序启动时间调整
-#  timeout: 300s
+#  timeout: 600s
 #  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
 #  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
 #  rules:
@@ -455,7 +455,7 @@ k8s-waiting-rollout:user:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/user-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -479,7 +479,7 @@ k8s-waiting-rollout:webservice:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/webservice-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -503,7 +503,7 @@ k8s-waiting-rollout:websocket:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/websocket-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -527,7 +527,7 @@ k8s-waiting-rollout:wechat-miniprogram:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-miniprogram-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -551,7 +551,7 @@ k8s-waiting-rollout:wechat-offiaccount:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-offiaccount-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -575,7 +575,7 @@ k8s-waiting-rollout:xxl-job-admin:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/xxl-job-admin-deployment
   # 超时时间，根据程序启动时间调整
-  timeout: 300s
+  timeout: 600s
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
