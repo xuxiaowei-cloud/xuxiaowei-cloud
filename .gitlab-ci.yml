@@ -159,6 +159,8 @@ include:
   # - /upload.yml
   # 使用 k8s 执行器 打包、部署服务
   - /k8s.yml
+  # 使用模块发布（修改单个模块时，仅需要发布单个模块，可节省时间）
+  - /k8s-modules.yml
   # 使用 shell 执行器 打包、部署服务
   - /shell.yml
   # 使用 docker 执行器 打包、部署服务

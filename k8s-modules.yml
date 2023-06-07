@@ -1,0 +1,66 @@
+#
+# cloud-commons-parent
+k8s-package:cloud-commons-parent:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    # 26649 是 https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud 的项目ID
+    # 修改为 极狐GitLab Maven 仓库
+    - mvn clean -e -U -am -pl cloud-commons-parent,cloud-commons-parent/cloud-starter-core,cloud-commons-parent/cloud-starter-idempotent,cloud-commons-parent/cloud-starter-loadbalancer,cloud-commons-parent/cloud-starter-log,cloud-commons-parent/cloud-starter-mybatis,cloud-commons-parent/cloud-starter-oauth2,cloud-commons-parent/cloud-starter-openfeign,cloud-commons-parent/cloud-starter-redis,cloud-commons-parent/cloud-starter-session-redis,cloud-commons-parent/cloud-starter-system,cloud-commons-parent/cloud-starter-validation package source:jar javadoc:jar deploy -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/cloud-commons-parent"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/cloud-commons-parent"
+  tags:
+    - jihulab
+
+#
+# passport
+k8s-package:passport:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl passport-ui,passport package install -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+      - passport-ui/node/
+      - passport-ui/node_modules/
+      - ui/node/
+      - ui/node_modules/
+  artifacts:
+    name: package
+    paths:
+      - target/*.jar
+      - target/*.asc
+      - target/*.pom
+      - "*/target/*.jar"
+      - "*/target/*.asc"
+      - "*/target/*.pom"
+      - "*/*/target/*.jar"
+      - "*/*/target/*.asc"
+      - "*/*/target/*.pom"
+      - ui/dist
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
+  tags:
+    - jihulab
