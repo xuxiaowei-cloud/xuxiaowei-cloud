@@ -153,6 +153,8 @@ public class WebSecurityConfigurerAdapterConfiguration {
 			authorize
 				// 放行端点
 				.antMatchers("/actuator/**").permitAll()
+				// # 健康检查路径（此处为冗余配置，用于k8s探针/健康检查、滚动发布）
+				.antMatchers("/actuator/health", "/actuator/health/liveness", "/actuator/health/readiness").permitAll()
 				// 放行授权路径
 				.antMatchers("/oauth2/authorize").permitAll()
 				// 放行检查Token
