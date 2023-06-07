@@ -7,6 +7,8 @@ stages:
   - k8s-package
   # 在 k8s 所在的服务器上执行项目滚动发布
   - k8s-publish
+  # 等待/检查滚动发布
+  - k8s-waiting-rollout
   # 使用 shell 执行器构建
   - shell-package
   # 使用 shell 执行器发布
