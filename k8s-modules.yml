@@ -101,18 +101,18 @@ k8s-package:canal:
   stage: k8s-package
   image: maven:3.6.3-jdk-8
   script:
-    - mvn clean -e -U -pl canal package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - mvn clean -e -U -pl resource-services-parent/canal package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - mvn -pl canal -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl canal -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - mvn -pl resource-services-parent/canal -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/canal -Pgitlab-maven -s settings-jihulab.xml docker:push;
     - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
     paths:
       - .m2/repository
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/canal"
-    - if: $CI_COMMIT_BRANCH == "k8s-modules/canal"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
   tags:
     # 个人服务器 Runner 标签（仅在个人服务器上执行）
     - plugin-kubernetes
@@ -125,13 +125,13 @@ k8s-publish:canal:
   needs:
     - job: k8s-package:canal
   script:
-    - kubectl -n xuxiaowei-cloud get deployment canal-deployment || kubectl create -f canal/canal-deployment.yaml
+    - kubectl -n xuxiaowei-cloud get deployment canal-deployment || kubectl create -f resource-services-parent/canal/canal-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/canal"
-    - if: $CI_COMMIT_BRANCH == "k8s-modules/canal"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     # 在 k8s 所在的服务器上执行
@@ -152,8 +152,8 @@ k8s-waiting-rollout:canal:
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/canal"
-    - if: $CI_COMMIT_BRANCH == "k8s-modules/canal"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
   tags:
     # 仅在 tags 名称为 shell 的执行器上执行
     # 在 k8s 所在的服务器上执行
@@ -169,10 +169,10 @@ k8s-package:file:
   stage: k8s-package
   image: maven:3.6.3-jdk-8
   script:
-    - mvn clean -e -U -pl file package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - mvn clean -e -U -pl resource-services-parent/file package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
-    - mvn -pl file -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
-    - mvn -pl file -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - mvn -pl resource-services-parent/file -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/file -Pgitlab-maven -s settings-jihulab.xml docker:push;
     - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
@@ -193,7 +193,7 @@ k8s-publish:file:
   needs:
     - job: k8s-package:file
   script:
-    - kubectl -n xuxiaowei-cloud get deployment file-deployment || kubectl create -f file/file-deployment.yaml
+    - kubectl -n xuxiaowei-cloud get deployment file-deployment || kubectl create -f resource-services-parent/file/file-deployment.yaml
     - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
