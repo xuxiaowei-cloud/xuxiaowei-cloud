@@ -15,7 +15,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
     ignore:
@@ -80,20 +80,20 @@ updates:
     directory: "/passport-ui"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
     directory: "/ui"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
 
   - package-ecosystem: "docker"
     directory: "/admin-server"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -104,7 +104,7 @@ updates:
     directory: "/gateway"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -115,7 +115,7 @@ updates:
     directory: "/passport"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -126,7 +126,7 @@ updates:
     directory: "/resource-services-parent/canal"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -137,7 +137,7 @@ updates:
     directory: "/resource-services-parent/file"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -148,7 +148,7 @@ updates:
     directory: "/resource-services-parent/master-data"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -159,7 +159,7 @@ updates:
     directory: "/resource-services-parent/user"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -170,7 +170,7 @@ updates:
     directory: "/resource-services-parent/webservice"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -181,7 +181,7 @@ updates:
     directory: "/resource-services-parent/websocket"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -192,7 +192,7 @@ updates:
     directory: "/resource-services-parent/wechat-miniprogram"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -203,7 +203,7 @@ updates:
     directory: "/resource-services-parent/wechat-offiaccount"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -214,7 +214,7 @@ updates:
     directory: "/xxl-job-admin"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -226,5 +226,5 @@ updates:
     directory: "/ui"
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "20:00"
       timezone: "Asia/Shanghai"

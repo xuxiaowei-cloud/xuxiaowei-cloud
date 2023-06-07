@@ -116,6 +116,7 @@ import { reactive, ref } from 'vue'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { page, removeByIds, removeById } from '../../api/passport/oauth2-registered-client'
+import { removeByRegisteredClientIds } from '../../api/passport/oauth2-authorization'
 import settings from '../../settings'
 import { useStore } from '../../store'
 // 客户添加、编辑弹窗内容
@@ -176,7 +177,7 @@ const tableData = ref([])
 // 多选
 const multipleSelection = ref<any[]>([])
 // 多选主键
-const ids = ref<number[]>([])
+const ids = ref<string[]>([])
 
 // 搜索参数
 const param = reactive({
@@ -316,7 +317,7 @@ const cloudTokenDelete = () => {
       type: 'error'
     })
   } else {
-    removeByIds(ids.value).then(response => {
+    removeByRegisteredClientIds(ids.value).then(response => {
       if (response.code === settings.okCode) {
         ElMessage({
           message: response.msg,
