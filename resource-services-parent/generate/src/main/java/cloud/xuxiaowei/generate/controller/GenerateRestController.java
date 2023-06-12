@@ -43,9 +43,9 @@ public class GenerateRestController {
 	 * @param response 响应
 	 * @return 返回 所有的数据源及状态
 	 */
-	@PostMapping("/list-data-source")
+	@PostMapping("/list-data-sources")
 	@PreAuthorize("@ant.hasAuthority('generate:read')")
-	public Response<?> listDataSource(HttpServletRequest request, HttpServletResponse response) {
+	public Response<?> listDataSources(HttpServletRequest request, HttpServletResponse response) {
 		List<DataSourceVo> dataSourceVos = generateService.listDataSources();
 		return Response.ok(dataSourceVos);
 	}
