@@ -27,6 +27,8 @@
         <module>canal</module>
         <!-- 文件服务 -->
         <module>file</module>
+        <!-- 代码生成服务 -->
+        <module>generate</module>
         <!-- 主数据服务 -->
         <module>master-data</module>
         <!-- 用户服务 -->

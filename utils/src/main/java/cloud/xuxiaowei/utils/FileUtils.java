@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.utils;
 
+import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 文件工具类
@@ -18,6 +20,62 @@ import java.util.zip.ZipFile;
  */
 @Slf4j
 public class FileUtils {
+
+	/**
+	 * 向压缩包中添加文件内容并指定文件名（包含文件路径）
+	 * <p>
+	 * 可以使用下面代码来创建压缩包输出流（注意关闭流）
+	 * <p>
+	 * <code>
+	 *  FileOutputStream fos = new FileOutputStream("D:\\files.zip");
+	 *  ZipOutputStream zos = new ZipOutputStream(fos);
+	 * </code>
+	 * @param zos 压缩包输出流
+	 * @param zipEntryName 压缩包内部文件名（包含文件路径）
+	 * @param text 文件内容
+	 * @throws IOException 向压缩包添加文件异常
+	 */
+	public static void write(ZipOutputStream zos, String zipEntryName, String text) throws IOException {
+		ZipEntry entry = new ZipEntry(zipEntryName);
+		zos.putNextEntry(entry);
+		byte[] bytes = text.getBytes();
+		zos.write(bytes, 0, bytes.length);
+		zos.closeEntry();
+	}
+
+	/**
+	 * 读取文件
+	 * @param file 文件
+	 * @return 返回 文件内容
+	 */
+	public static String reader(File file) {
+		StringBuilder stringBuilder = new StringBuilder();
+		try (// 创建一个新FileReader，给定从中读取文件 。
+				FileReader fileReader = new FileReader(file);
+				// 创建一个使用默认大小输入缓冲器的缓冲字符输入流。
+				BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+			String readLine;
+			// 读取文本行。 的线被认为是由一个进料线中的任何一个被终止（“\n”），回车（“\r”），或回车立即由换行遵循。
+			while ((readLine = bufferedReader.readLine()) != null) {
+				stringBuilder.append(System.lineSeparator()).append(readLine);
+			}
+		}
+		catch (IOException e) {
+			String path = file.getPath();
+			throw new CloudRuntimeException("读取文件异常：{}", path, e);
+		}
+		return stringBuilder.toString();
+	}
+
+	/**
+	 * 读取文件
+	 * @param pathname 文件路径
+	 * @return 返回 文件内容
+	 */
+	public static String reader(String pathname) {
+		File file = new File(pathname);
+		return reader(file);
+	}
 
 	/**
 	 * 根据 URL 路径 下载文件

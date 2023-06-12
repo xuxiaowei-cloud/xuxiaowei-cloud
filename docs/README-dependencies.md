@@ -331,6 +331,22 @@ cloud.xuxiaowei:file:jar:0.0.1-SNAPSHOT
 │        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.12:test
 
 
+cloud.xuxiaowei:generate:jar:0.0.1-SNAPSHOT
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile
+│        └──cloud.xuxiaowei.commons:cloud-starter-oauth2:jar:0.0.1-SNAPSHOT:compile
+│        └──org.springdoc:springdoc-openapi-ui:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-javadoc:jar:1.6.15:compile
+│        └──org.springdoc:springdoc-openapi-security:jar:1.6.15:compile
+│        └──org.apache.commons:commons-lang3:jar:3.12.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.0.5.0:compile
+│        └──com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.0.5.0:compile
+│        └──org.springframework.boot:spring-boot-starter-jdbc:jar:2.7.10:compile
+│        └──org.springframework.boot:spring-boot-configuration-processor:jar:2.7.10:compile
+│        └──org.projectlombok:lombok:jar:1.18.26:compile
+│        └──org.springframework.boot:spring-boot-starter-test:jar:2.7.10:test
+
+
 cloud.xuxiaowei:master-data:jar:0.0.1-SNAPSHOT
 │        └──com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel:jar:2021.0.5.0:compile
 │        └──cloud.xuxiaowei.commons:cloud-starter-system:jar:0.0.1-SNAPSHOT:compile

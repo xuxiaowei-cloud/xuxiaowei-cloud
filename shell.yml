@@ -38,6 +38,8 @@ shell-package:
       - "*/*/target/*.asc"
       - "*/*/target/*.pom"
       - ui/dist
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -90,6 +92,8 @@ shell-service-gateway:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -142,6 +146,8 @@ shell-service-admin-server:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -195,6 +201,8 @@ shell-service-passport:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -249,6 +257,8 @@ shell-service-canal:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -303,6 +313,8 @@ shell-service-user:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -357,6 +369,8 @@ shell-service-master-data:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -411,6 +425,8 @@ shell-service-websocket:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -465,6 +481,8 @@ shell-service-webservice:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -519,6 +537,8 @@ shell-service-wechat-miniprogram:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -573,6 +593,8 @@ shell-service-wechat-offiaccount:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -627,6 +649,64 @@ shell-service-file:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # 仅在 shell 分支中执行
+    - if: $CI_COMMIT_BRANCH == "shell"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    - shell
+
+#
+# shell 发布代码生成服务
+shell-service-generate:
+  stage: shell-service
+  needs:
+    - job: shell-package
+      artifacts: true
+  script:
+    - JAR_PATH=/home/gitlab-runner/jar/$CI_COMMIT_BRANCH
+    - echo JAR_PATH：$JAR_PATH
+    - if [ ! -f $JAR_PATH ]; then sudo mkdir $JAR_PATH -p && echo 创建发布文件夹完成; fi
+    - cd resource-services-parent
+    - pwd
+    - MODULE='generate'
+    - echo MODULE：$MODULE
+    - ARTIFACT_ID=`mvn -e -U help:evaluate -pl $MODULE -Dexpression=project.artifactId -q -DforceStdout`
+    - VERSION=`mvn help:evaluate -pl $MODULE -Dexpression=project.version -q -DforceStdout`
+    - PACKAGING=`mvn help:evaluate -pl $MODULE -Dexpression=project.packaging -q -DforceStdout`
+    - APP_NAME=$ARTIFACT_ID-$VERSION.$PACKAGING
+    - echo APP_NAME：$APP_NAME
+    - cp $MODULE/target/$APP_NAME $JAR_PATH/$APP_NAME && echo 复制新jar包完成
+    - SERVICE=/usr/lib/systemd/system/xxw-$MODULE.service
+    - echo SERVICE：$SERVICE
+    - JAVA_HOME=/software/dragonwell-8.14.15
+    - echo JAVA_HOME：$JAVA_HOME
+    - echo "" > $SERVICE
+    - echo "[Unit]" >> $SERVICE
+    - echo "Description=$MODULE" >> $SERVICE
+    - echo "After=syslog.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Service]" >> $SERVICE
+    - echo "EnvironmentFile=/etc/profile" >> $SERVICE
+    - echo "ExecStart=$JAVA_HOME/bin/java -jar $JAR_PATH/$APP_NAME --spring.profiles.active=prod" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo "[Install]" >> $SERVICE
+    - echo "WantedBy=multi-user.target" >> $SERVICE
+    - echo "" >> $SERVICE
+    - echo 创建新启动脚本完成
+    - sudo systemctl enable xxw-$MODULE.service && echo 设置开机启动完成
+    - sudo systemctl daemon-reload
+    - sudo systemctl restart xxw-$MODULE.service && echo 重启项目完成
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+    - MODULE_STATUS=0
+    - sleep 30 && echo 增加延时
+    - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
+    - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -679,6 +759,8 @@ shell-service-xxl-job-admin:
     - sleep 30 && echo 增加延时
     - sudo systemctl status xxw-$MODULE.service && MODULE_STATUS=1
     - if [ "$MODULE_STATUS" == "1" ]; then echo '延时查看项目状态成功'; else echo '查看项目状态失败' && xxxx; fi
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"
@@ -705,6 +787,8 @@ shell-service-ui:
     # 用户刷新页面后使用最新的前端（index.html等）
     # 如果发包后需要用户立即使用最新前端，需要将历史文件删除后再进行复制（发布后，用户不刷新，对于没有之前没有点击的页面可能会出现404，刷新页面后即可）
     - cp -r ./$MODULE/dist/* $RELEASE_PATH && echo 复制新文件夹完成
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # 仅在 shell 分支中执行
     - if: $CI_COMMIT_BRANCH == "shell"

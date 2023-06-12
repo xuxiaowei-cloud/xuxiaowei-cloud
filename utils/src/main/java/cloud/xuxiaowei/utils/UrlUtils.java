@@ -1,9 +1,15 @@
 package cloud.xuxiaowei.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.lang.NonNull;
 import org.springframework.web.util.UriUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +59,40 @@ public class UrlUtils {
 			url = url.replaceAll(tmp, UriUtils.encode(tmp, StandardCharsets.UTF_8));
 		}
 		return url;
+	}
+
+	/**
+	 * 转 URL 参数
+	 * @param object Object 对象
+	 * @return 返回 URL 参数
+	 * @throws UnsupportedEncodingException URLEncoder 转码异常
+	 */
+	public static String convertUrlParam(@NonNull Object object) throws UnsupportedEncodingException {
+		// 将对象转换成 Map
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> map = objectMapper.convertValue(object, new TypeReference<Map<String, Object>>() {
+		});
+		return convertUrlParam(map);
+	}
+
+	/**
+	 * 转 URL 参数
+	 * @param map Map 对象
+	 * @return 返回 URL 参数
+	 * @throws UnsupportedEncodingException URLEncoder 转码异常
+	 */
+	public static String convertUrlParam(@NonNull Map<String, Object> map) throws UnsupportedEncodingException {
+		// 构建 URL 参数
+		StringBuilder sb = new StringBuilder();
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			String key = URLEncoder.encode(entry.getKey(), "UTF-8");
+			String value = URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8");
+			if (sb.length() > 0) {
+				sb.append("&");
+			}
+			sb.append(key).append("=").append(value.replace("&", "%26"));
+		}
+		return sb.toString();
 	}
 
 }

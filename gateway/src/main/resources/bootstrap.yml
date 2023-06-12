@@ -136,6 +136,17 @@ spring:
 #            # 规则
 #            # 将 /file/** 转发到 /**
 #            - RewritePath=/file/(?<path>.*), /$\{path}
+#          # 此配置原来默认缺省
+#          # 此处添加是为了让网关启动时，自动识别到此服务（如果不进行下方配置，需要先启动 generate 服务后，再启动 gateway 才能在 gateway 的 SpringDoc 中识别到 generate 服务）
+#          - id: generate
+#            uri: lb://generate
+#            predicates:
+#              - Path=/generate/**
+#            filters:
+#              # 规则
+#              # 将 /generate/** 转发到 /**
+#              - RewritePath=/generate/(?<path>.*), /$\{path}
+
 
 springdoc:
   swagger-ui:
@@ -150,6 +161,8 @@ springdoc:
         url: /master-data/v3/api-docs
       - name: file
         url: /file/v3/api-docs
+      - name: generate
+        url: /generate/v3/api-docs
 
 ---
 
@@ -311,6 +324,10 @@ cloud:
           # springdoc
           - /v3/api-docs/**
       - name: file
+        path-list:
+          # springdoc
+          - /v3/api-docs/**
+      - name: generate
         path-list:
           # springdoc
           - /v3/api-docs/**

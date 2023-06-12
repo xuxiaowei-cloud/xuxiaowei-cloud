@@ -267,6 +267,7 @@ cloud.xuxiaowei
 ```
 
 ### 端口
+- 
 
 - 注意：本项目主要使用 `IDEA`
   编写，为了方便，引入了环境变量插件 [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)，[环境变量文件](./.env.dev)
@@ -293,6 +294,7 @@ cloud.xuxiaowei
 | wechat-offiaccount | 微信公众号服务                     |                                        | 2101  | 32101                 |
 | master-data        | 主数据服务                       |                                        | 2201  | 32201                 |
 | file               | 文件服务                        |                                        | 2301  | 32301                 |
+| generate           | 代码生成服务                      |                                        | 2401  | 32401                 |
 | xxl-job-admin      | XXL Job Admin               |                                        | 5101  | 30101                 |
 |                    |                             |                                        |       |                       |
 | oauth2-client      | OAuth 2.0 客户端（独立服务）         |                                        | 10001 | 以下是仅用于测试的客户端，无需部署     |
@@ -311,6 +313,7 @@ cloud.xuxiaowei
 | wechat-offiaccount | 微信公众号服务       | 9007 |
 | master-data        | 主数据服务         | 9008 |
 | file               | 文件服务          | 9009 |
+| generate           | 代码生成服务        | 9010 |
 
 ### 租户、用户名与密码
 

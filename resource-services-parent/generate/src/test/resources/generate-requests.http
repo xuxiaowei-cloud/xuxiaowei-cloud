@@ -1,0 +1,25 @@
+### 列出所有的数据源及状态
+GET http://localhost:2401/list-data-source
+
+### 列出所有的表信息
+POST http://localhost:2401/list-tables
+Content-Type: application/json
+Authorization:
+
+{
+  "jdbcUrl": "jdbc:mysql://127.0.0.1/xuxiaowei_cloud?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8",
+  "tableName": "user",
+  "tableComment": "微信"
+}
+
+### 列出所有的字段信息
+POST http://localhost:2401/list-table-columns
+Content-Type: application/json
+Authorization:
+
+{
+  "jdbcUrl": "jdbc:mysql://127.0.0.1/xuxiaowei_cloud?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8",
+  "tableNames": [
+    "users"
+  ]
+}

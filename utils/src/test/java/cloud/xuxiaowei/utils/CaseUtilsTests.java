@@ -2,6 +2,7 @@ package cloud.xuxiaowei.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.CaseUtils;
+import org.apache.commons.text.WordUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,6 +27,12 @@ class CaseUtilsTests {
 
 		// myfieldname
 		log.info(CaseUtils.toCamelCase(fieldName, false));
+
+		// lowerUnderscore
+		log.info(CaseUtils.toCamelCase("lower_underscore", false, '_'));
+
+		// LowerUnderscore
+		log.info(WordUtils.capitalizeFully("lower_underscore", '_').replace("_", ""));
 	}
 
 }
