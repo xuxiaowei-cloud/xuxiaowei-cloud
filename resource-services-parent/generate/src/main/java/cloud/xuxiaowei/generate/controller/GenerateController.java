@@ -51,7 +51,7 @@ public class GenerateController {
 	 * @param response 响应
 	 */
 	@PostMapping("/generate")
-	@PreAuthorize("@ant.hasAuthority('generate')")
+	@PreAuthorize("@ant.hasAuthority('generate:read')")
 	public void generate(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody GenerateBo generateBo) throws IOException {
 

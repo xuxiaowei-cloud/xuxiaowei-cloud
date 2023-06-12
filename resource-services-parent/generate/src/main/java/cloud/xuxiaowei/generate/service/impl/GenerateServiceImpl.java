@@ -372,7 +372,7 @@ public class GenerateServiceImpl implements GenerateService {
 	}
 
 	/**
-	 * 生成代码
+	 * 代码生成
 	 * @param generateBo 生成
 	 * @param zipOutputStream 压缩包输出流
 	 * @param filePath 文件夹

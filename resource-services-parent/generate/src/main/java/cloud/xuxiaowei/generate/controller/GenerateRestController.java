@@ -10,7 +10,6 @@ import cloud.xuxiaowei.utils.Response;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,8 +43,8 @@ public class GenerateRestController {
 	 * @param response 响应
 	 * @return 返回 所有的数据源及状态
 	 */
-	@GetMapping("/list-data-source")
-	@PreAuthorize("@ant.hasAuthority('generate')")
+	@PostMapping("/list-data-source")
+	@PreAuthorize("@ant.hasAuthority('generate:read')")
 	public Response<?> listDataSource(HttpServletRequest request, HttpServletResponse response) {
 		List<DataSourceVo> dataSourceVos = generateService.listDataSources();
 		return Response.ok(dataSourceVos);
@@ -58,7 +57,7 @@ public class GenerateRestController {
 	 * @return 返回 所有的表信息
 	 */
 	@PostMapping("/list-tables")
-	@PreAuthorize("@ant.hasAuthority('generate')")
+	@PreAuthorize("@ant.hasAuthority('generate:read')")
 	public Response<?> listTables(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody TableBo tableBo) {
 		IPage<TableVo> page = generateService.listTables(tableBo);
@@ -72,7 +71,7 @@ public class GenerateRestController {
 	 * @return 返回 所有的字段信息
 	 */
 	@PostMapping("/list-table-columns")
-	@PreAuthorize("@ant.hasAuthority('generate')")
+	@PreAuthorize("@ant.hasAuthority('generate:read')")
 	public Response<?> listTableColumns(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody TableColumnBo tableColumnBo) {
 		List<TableColumnVo> tableColumnVos = generateService.listTableColumns(tableColumnBo);

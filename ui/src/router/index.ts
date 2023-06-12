@@ -216,11 +216,11 @@ export const routes = [
     children: [
       {
         path: '/utilities/generate',
-        name: '生成代码',
+        name: '代码生成',
         meta: {
           authority: [/^generate:(read|\*)$/]
         },
-        component: () => import('@/views/utilities/GenerateCodeView.vue')
+        component: () => import('@/views/utilities/GenerateView.vue')
       }
     ]
   },

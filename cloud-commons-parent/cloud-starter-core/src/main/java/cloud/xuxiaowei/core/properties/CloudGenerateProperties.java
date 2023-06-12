@@ -30,7 +30,7 @@ public class CloudGenerateProperties {
 	private List<DataSource> dataSources = new ArrayList<>();
 
 	/**
-	 * 生成代码文件夹路径（服务器临时文件储存路径）
+	 * 代码生成文件夹路径（服务器临时文件储存路径）
 	 */
 	private String folderPath = "/xuxiaowei-cloud-generate";
 

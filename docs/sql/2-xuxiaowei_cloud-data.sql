@@ -111,7 +111,7 @@ INSERT INTO `authority` VALUES ('user:details', '查看用户详情');
 INSERT INTO `authority` VALUES ('user:info', '查看用户信息');
 INSERT INTO `authority` VALUES ('user:oauth2_oauth2Request', '查看 oauth2 用户请求');
 INSERT INTO `authority` VALUES ('user:oauth2_userAuthentication', '查看 oauth2 用户身份验证');
-INSERT INTO `authority` VALUES ('generate:read', '生成代码 读取权限');
+INSERT INTO `authority` VALUES ('generate:read', '代码生成 读取权限');
 
 -- ----------------------------
 -- Records of city_handle
