@@ -221,6 +221,14 @@ export const routes = [
           authority: [/^generate:(read|\*)$/]
         },
         component: () => import('@/views/utilities/GenerateCodeView.vue')
+      },
+      {
+        path: '/utilities/generate2',
+        name: '生成代码2',
+        meta: {
+          authority: [/^generate:(read|\*)$/]
+        },
+        component: () => import('@/views/utilities/GenerateCodeView2.vue')
       }
     ]
   },
