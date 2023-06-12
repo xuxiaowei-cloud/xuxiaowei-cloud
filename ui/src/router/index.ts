@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { queryToken } from '../store'
 import { hasAnyAuthority } from '../utils/authority'
 import settings from '../settings'
-import Layout from '../components/Layout.vue'
+import LayoutComponent from '../components/LayoutComponent.vue'
 
 import ConsoleView from '../views/home/ConsoleView.vue'
 
@@ -11,7 +11,7 @@ export const routes = [
     name: '主页',
     path: '',
     redirect: '/console',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'House'
     },
@@ -32,7 +32,7 @@ export const routes = [
           keepAlive: true,
           authority: [/^user:(info|\*)$/]
         },
-        component: () => import('@/views/home/HomePage1.vue')
+        component: () => import('@/views/home/HomePage1View.vue')
       },
       {
         path: '/home/homepage2',
@@ -40,14 +40,14 @@ export const routes = [
         meta: {
           authority: [/^user:(info|\*)$/]
         },
-        component: () => import('@/views/home/HomePage2.vue')
+        component: () => import('@/views/home/HomePage2View.vue')
       }
     ]
   },
   {
     name: '富文本',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'Notebook'
     },
@@ -73,7 +73,7 @@ export const routes = [
   {
     name: '主数据',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'Tickets'
     },
@@ -84,7 +84,7 @@ export const routes = [
         meta: {
           authority: [/^dict:(read|\*)$/]
         },
-        component: () => import('../views/master-data/Dict.vue')
+        component: () => import('../views/master-data/DictView.vue')
       },
       {
         path: '/master-data/dict-data',
@@ -92,7 +92,7 @@ export const routes = [
         meta: {
           authority: [/^dict:(read|\*)$/]
         },
-        component: () => import('../views/master-data/DictData.vue')
+        component: () => import('../views/master-data/DictDataView.vue')
       },
       {
         path: '/master-data/region',
@@ -100,14 +100,14 @@ export const routes = [
         meta: {
           authority: [/^region:(read|\*)$/]
         },
-        component: () => import('../views/master-data/Region.vue')
+        component: () => import('../views/master-data/RegionView.vue')
       }
     ]
   },
   {
     name: '个人中心',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'User'
     },
@@ -149,7 +149,7 @@ export const routes = [
   {
     name: '系统管理',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'Setting'
     },
@@ -183,7 +183,7 @@ export const routes = [
   {
     name: '审计',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'Aim'
     },
@@ -194,7 +194,7 @@ export const routes = [
         meta: {
           authority: [/^audit_authorization:(read|\*)$/]
         },
-        component: () => import('@/views/audit/Authorization.vue')
+        component: () => import('@/views/audit/AuthorizationView.vue')
       },
       {
         path: '/audit/authorization-consent',
@@ -202,14 +202,14 @@ export const routes = [
         meta: {
           authority: [/^audit_authorization_consent:(read|\*)$/]
         },
-        component: () => import('@/views/audit/AuthorizationConsent.vue')
+        component: () => import('@/views/audit/AuthorizationConsentView.vue')
       }
     ]
   },
   {
     name: '其他',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     children: [
       {
         path: '/refresh',
@@ -234,7 +234,7 @@ export const routes = [
   {
     name: '关于',
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     meta: {
       icon: 'Document'
     },
