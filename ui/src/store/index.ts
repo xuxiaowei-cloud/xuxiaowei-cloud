@@ -8,7 +8,6 @@ import { info } from '../api/user'
 
 export const useDefineStore = defineStore('store', {
   state: () => ({ // 单一状态树
-    currentTimeMillis: ref<number>(), // 当前时间戳
     usersId: ref<number>(), // 用户主键
     username: ref<string>(), // 用户名
     nickname: ref<string>(), // 昵称
@@ -103,13 +102,6 @@ export const useDefineStore = defineStore('store', {
     }
   },
   actions: {
-    /**
-     * 设置 当前时间戳
-     * @param currentTimeMillis 当前时间戳
-     */
-    setCurrentTimeMillis (currentTimeMillis: number) {
-      this.currentTimeMillis = currentTimeMillis
-    },
     /**
      * 设置 用户名
      * @param usersId Token

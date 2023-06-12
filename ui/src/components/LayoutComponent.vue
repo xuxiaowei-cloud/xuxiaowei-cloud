@@ -116,6 +116,7 @@
 import { ref, watch } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
 import { useStore } from '../store'
+import { timeStore } from '../store/time'
 import { TabPaneName } from 'element-plus'
 import { hasAnyAuthority } from '../utils/authority'
 import { signout } from '../api/passport'
@@ -144,7 +145,7 @@ setInterval(function () {
 
 watch(() => now.value, (newValue, oldValue) => {
   // 储存当前时间戳
-  useStore.setCurrentTimeMillis(newValue)
+  timeStore.setCurrentTimeMillis(newValue)
 
   const nowDate = new Date(newValue)
   const year = nowDate.getFullYear()
