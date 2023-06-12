@@ -981,7 +981,8 @@
         </profile>
 
         <profile>
-            <!-- 使用 -Pgitlab-maven 激活腾讯云仓库下载依赖 -->
+            <!-- 使用 -Pgitlab-maven 激活 极狐GitLab Maven仓库 下载依赖 -->
+            <!-- 其中 26649 为项目ID，访问 https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud 即可看到 -->
             <id>gitlab-maven</id>
             <repositories>
                 <repository>
