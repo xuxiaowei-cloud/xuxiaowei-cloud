@@ -207,6 +207,24 @@ export const routes = [
     ]
   },
   {
+    name: '实用工具',
+    path: '',
+    component: LayoutComponent,
+    meta: {
+      icon: 'Grid'
+    },
+    children: [
+      {
+        path: '/utilities/generate',
+        name: '生成代码',
+        meta: {
+          authority: [/^generate:(read|\*)$/]
+        },
+        component: () => import('@/views/utilities/GenerateCodeView.vue')
+      }
+    ]
+  },
+  {
     name: '其他',
     path: '',
     component: LayoutComponent,

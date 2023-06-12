@@ -70,6 +70,7 @@ INSERT INTO `authorities` VALUES (51, 1, 'manage_tenant:delete', NULL, '', '2023
 INSERT INTO `authorities` VALUES (52, 1, 'manage_tenant:edit', NULL, '', '2023-04-11 20:21:23', '', NULL, NULL, NULL, 0);
 INSERT INTO `authorities` VALUES (53, 1, 'manage_tenant:read', NULL, '', '2023-04-11 20:21:44', '', NULL, NULL, NULL, 0);
 INSERT INTO `authorities` VALUES (54, 1, 'manage_tenant:add', NULL, '', '2023-04-11 20:23:00', '', NULL, NULL, NULL, 0);
+INSERT INTO `authorities` VALUES (55, 1, 'generate:read', NULL, '1', '2023-06-12 21:30:27', '127.0.0.1', NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Records of authority
@@ -110,6 +111,7 @@ INSERT INTO `authority` VALUES ('user:details', '查看用户详情');
 INSERT INTO `authority` VALUES ('user:info', '查看用户信息');
 INSERT INTO `authority` VALUES ('user:oauth2_oauth2Request', '查看 oauth2 用户请求');
 INSERT INTO `authority` VALUES ('user:oauth2_userAuthentication', '查看 oauth2 用户身份验证');
+INSERT INTO `authority` VALUES ('generate:read', '生成代码 读取权限');
 
 -- ----------------------------
 -- Records of city_handle
