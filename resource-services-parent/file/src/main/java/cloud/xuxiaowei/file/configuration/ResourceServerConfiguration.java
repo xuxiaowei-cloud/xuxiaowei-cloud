@@ -1,5 +1,6 @@
 package cloud.xuxiaowei.file.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudFileProperties;
 import cloud.xuxiaowei.core.properties.CloudJwkKeyProperties;
 import org.springdoc.core.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 
 import static cloud.xuxiaowei.oauth2.matcher.CsrfRequestMatcher.CSRF_REQUEST_MATCHER_BEAN_NAME;
 
@@ -38,6 +40,8 @@ public class ResourceServerConfiguration {
 
 	private RequestMatcher csrfRequestMatcher;
 
+	private CloudFileProperties cloudFileProperties;
+
 	@Autowired
 	public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
 		this.accessDeniedHandler = accessDeniedHandler;
@@ -59,13 +63,24 @@ public class ResourceServerConfiguration {
 		this.csrfRequestMatcher = csrfRequestMatcher;
 	}
 
+	@Autowired
+	public void setCloudFileProperties(CloudFileProperties cloudFileProperties) {
+		this.cloudFileProperties = cloudFileProperties;
+	}
+
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return (web) -> {
 			web.ignoring().antMatchers("/favicon.ico");
 			web.ignoring().antMatchers(Constants.SWAGGER_UI_PREFIX + "/**");
 			web.ignoring().antMatchers(Constants.DEFAULT_API_DOCS_URL + "/**");
-			web.ignoring().antMatchers(WebMvcConfigurationSupportConfiguration.RESOURCE_HANDLER);
+
+			// 将 MVC 配置的项目外文件映射为网络路径的配置加入到 Security 白名单
+			List<CloudFileProperties.MvcConfig> mvcConfigs = cloudFileProperties.getMvcConfigs();
+			for (CloudFileProperties.MvcConfig mvcConfig : mvcConfigs) {
+				String[] resourceHandlers = mvcConfig.getResourceHandlers();
+				web.ignoring().antMatchers(resourceHandlers);
+			}
 		};
 	}
 

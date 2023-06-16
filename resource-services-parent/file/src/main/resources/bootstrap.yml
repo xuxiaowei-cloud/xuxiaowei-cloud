@@ -69,3 +69,13 @@ spring:
       transport:
         # 端口冲突时，会自动 +1，直到找到可用端口为止
         port: ${file_sentinel_port:9009}
+
+cloud:
+  file:
+    mvcConfigs:
+      # 静态资源/网络路径
+      - resourceHandlers:
+          - /file-data/**
+        # 本地资源/磁盘路径
+        resourceLocations:
+          - file:/file-data/
