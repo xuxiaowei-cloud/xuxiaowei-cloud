@@ -195,6 +195,7 @@ k8s-publish:
     # rm -rf /nfs/admin-server/logs
     # rm -rf /nfs/canal/logs
     # rm -rf /nfs/file/logs
+    # rm -rf /nfs/file/data
     # rm -rf /nfs/gateway/logs
     # rm -rf /nfs/master-data/logs
     # rm -rf /nfs/passport/logs
@@ -213,6 +214,7 @@ k8s-publish:
     - mkdir -p /nfs/admin-server/logs
     - mkdir -p /nfs/canal/logs
     - mkdir -p /nfs/file/logs
+    - mkdir -p /nfs/file/data
     - mkdir -p /nfs/gateway/logs
     - mkdir -p /nfs/master-data/logs
     - mkdir -p /nfs/passport/logs
