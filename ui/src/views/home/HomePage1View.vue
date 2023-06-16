@@ -8,7 +8,7 @@ import { useStore } from '../../store'
 
 const router = useRouter()
 
-console.error('HomePage1.vue')
+console.error('HomePage1View.vue')
 
 router.isReady().then(() => {
   // @ts-ignore

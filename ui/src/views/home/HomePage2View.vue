@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 
-console.log('HomePage2.vue')
+console.log('HomePage2View.vue')
 
 </script>
 
