@@ -32,6 +32,13 @@ public class CloudFileProperties {
 	private List<MvcConfig> mvcConfigs = new ArrayList<>();
 
 	/**
+	 * OSS（阿里云对象存储） 配置列表
+	 * <p>
+	 * 默认为空 list
+	 */
+	private List<OssConfig> ossConfigs = new ArrayList<>();
+
+	/**
 	 * MVC 配置
 	 * <p>
 	 * 使用 MVC 配置的项目外文件映射为网络路径的配置
@@ -60,6 +67,38 @@ public class CloudFileProperties {
 		 * Linux 示例：file:/file-data/
 		 */
 		private String[] resourceLocations;
+
+	}
+
+	/**
+	 * OSS（阿里云对象存储） 配置
+	 *
+	 * @see <a href="https://help.aliyun.com/document_detail/608401.html">Java快速入门</a>
+	 * @author xuxiaowei
+	 * @since 0.0.1
+	 */
+	@Data
+	public static class OssConfig {
+
+		/**
+		 * Endpoint以华东1（杭州）为例，其它Region请按实际情况填写
+		 */
+		private String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+
+		/**
+		 * 访问凭证 ID
+		 */
+		private String accessKeyId;
+
+		/**
+		 * 访问凭证 秘钥
+		 */
+		private String accessKeySecret;
+
+		/**
+		 * Bucket 名称，例如 examplebucket
+		 */
+		private String bucketName;
 
 	}
 
