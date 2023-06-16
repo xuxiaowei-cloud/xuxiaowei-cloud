@@ -289,7 +289,7 @@ docker-service-file:
   script:
     - docker stop file || echo '容器不存在'
     - docker rm file || echo '容器不存在'
-    - docker run -itd --restart always -v /logs:/logs -v /etc/hosts:/etc/hosts -p 2301:2301 --name file -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
+    - docker run -itd --restart always -v /logs:/logs -v /file-data:/file-data -v /etc/hosts:/etc/hosts -p 2301:2301 --name file -d registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID java -jar app.jar --spring.profiles.active=prod
   rules:
     # 仅在 docker 分支中执行
     - if: $CI_COMMIT_BRANCH == "docker"
