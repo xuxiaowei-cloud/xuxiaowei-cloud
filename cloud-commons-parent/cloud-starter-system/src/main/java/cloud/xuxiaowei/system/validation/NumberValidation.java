@@ -30,7 +30,7 @@ public class NumberValidation implements ConstraintValidator<NumberAnnotation, S
 			String[] split = value.split("");
 
 			for (String s : split) {
-				if (Constants.NUMBER_LIST.contains(s)) {
+				if (Constants.DIGIT_LIST.contains(s)) {
 					return true;
 				}
 			}

@@ -268,7 +268,7 @@ public class UserRestController {
 		// 获取公钥
 		String publicKey = generate.getPublicKeyBase64();
 		// 识别码
-		String code = RandomStringUtils.random(6, Joiner.on("").join(Constants.UPPER_CASE_LIST));
+		String code = RandomStringUtils.random(6, Constants.UPPER_CASE_LETTERS);
 
 		sessionService.setAttr(Constants.PRIVATE_KEY + ":" + code, privateKey, 1, TimeUnit.HOURS);
 

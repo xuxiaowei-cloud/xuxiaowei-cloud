@@ -72,6 +72,7 @@ spring:
 
 cloud:
   file:
+    # 使用 MVC 配置的项目外文件映射为网络路径的配置
     mvcConfigs:
       # 静态资源/网络路径
       - resourceHandlers:
@@ -79,3 +80,9 @@ cloud:
         # 本地资源/磁盘路径
         resourceLocations:
           - file:/file-data/
+    # 阿里云 OSS 对象储存的配置
+    ossConfigs:
+      - endpoint: https://oss-cn-hangzhou.aliyuncs.com
+        accessKeyId: ${oss_access_key_id:}
+        accessKeySecret: ${oss_access_key_secret:}
+        bucketName: ${oss_bucket_name:}
