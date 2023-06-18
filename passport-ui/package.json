@@ -51,7 +51,7 @@
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "@vitejs/plugin-vue": "4.2.3",
-    "eslint": "8.42.0",
+    "eslint": "8.43.0",
     "eslint-config-standard": "17.1.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-n": "16.0.0",
@@ -64,6 +64,6 @@
     "unplugin-auto-import": "0.16.4",
     "unplugin-vue-components": "0.25.1",
     "vite": "4.3.9",
-    "vue-tsc": "1.6.5"
+    "vue-tsc": "1.8.0"
   }
 }

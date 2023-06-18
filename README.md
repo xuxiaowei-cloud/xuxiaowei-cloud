@@ -165,7 +165,7 @@
 
 ### 后端
 
-- 更新日期：2023-05-24
+- 更新日期：2023-06-16
 
 | 依赖                          | 本项目版本       | 新版                                                                                                                                                                                                                                                        | 说明                                                                                                                             |
 |-----------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -176,55 +176,55 @@
 | spring-authorization-server | v0.4.2      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=0.&metadataUrl=https://s01.oss.sonatype.org/content/repositories/releases/org/springframework/security/spring-security-oauth2-authorization-server/maven-metadata.xml"> | 限制 Spring Boot 2.x                                                                                                             |
 | mybatis                     | v2.3.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=2.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/mybatis/spring/boot/mybatis-spring-boot-starter/maven-metadata.xml">                          | 限制 Spring Boot 2.x，指 mybatis-spring-boot-starter                                                                               |
 | mybatis-plus                | v3.5.3.1    | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/mybatis-plus-boot-starter/maven-metadata.xml">                                                        |                                                                                                                                |
-| dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                                           | 指 dynamic-datasource-spring-boot-starter                                                                                       |
-| springdoc                   | 1.7.0       | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
-| guava                       | v31.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
-| fastjson                    | v2.0.32     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
-| hutool                      | v5.8.18     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
+| dynamic-datasource          | v3.6.1      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&versionPrefix=3.&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/baomidou/dynamic-datasource-spring-boot-starter/maven-metadata.xml">                          | 限制 JDK 8，指 dynamic-datasource-spring-boot-starter                                                                              |
+| springdoc                   | v1.7.0      | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/org/springdoc/springdoc-openapi-ui/maven-metadata.xml">                                                            | 用于生成 API doc，支持从 javadoc 中获取字段注释                                                                                               |
+| guava                       | v32.1-jre   | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/google/guava/guava/maven-metadata.xml">                                                                        |                                                                                                                                |
+| fastjson                    | v2.0.33     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/com/alibaba/fastjson/maven-metadata.xml">                                                                          | 使用的是不带英文后缀的版本                                                                                                                  |
+| hutool                      | v5.8.19     | <img src="https://img.shields.io/maven-metadata/v?label=&color=blue&metadataUrl=https://oss.sonatype.org/content/repositories/releases/cn/hutool/hutool-all/maven-metadata.xml">                                                                          |                                                                                                                                |
 
 ### 前端
 
-- 更新日期：2023-05-24
+- 更新日期：2023-06-16
 
 | 依赖                               | 本项目版本   | 新版                                                                          | 说明 |
 |----------------------------------|---------|-----------------------------------------------------------------------------|----|
 | @element-plus/icons-vue          | 2.1.0   | <img src="https://img.shields.io/npm/v/@element-plus/icons-vue">            |    |
-| @tauri-apps/api                  | 1.3.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/api">                    |    |
+| @tauri-apps/api                  | 1.4.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/api">                    |    |
 | @toast-ui/editor                 | 3.2.2   | <img src="https://img.shields.io/npm/v/@toast-ui/editor">                   |    |
 | @wangeditor/editor-for-vue       | 5.1.12  | <img src="https://img.shields.io/npm/v/@wangeditor/editor-for-vue/next">    |    |
 | axios                            | 1.4.0   | <img src="https://img.shields.io/npm/v/axios">                              |    |
 | crypto-js                        | 4.1.1   | <img src="https://img.shields.io/npm/v/crypto-js">                          |    |
 | echarts                          | 5.4.2   | <img src="https://img.shields.io/npm/v/echarts">                            |    |
-| element-plus                     | 2.3.5   | <img src="https://img.shields.io/npm/v/element-plus">                       |    |
+| element-plus                     | 2.3.6   | <img src="https://img.shields.io/npm/v/element-plus">                       |    |
 | js-cookie                        | 3.0.5   | <img src="https://img.shields.io/npm/v/js-cookie">                          |    |
 | jsencrypt                        | 3.3.2   | <img src="https://img.shields.io/npm/v/jsencrypt">                          |    |
-| pinia                            | 2.1.3   | <img src="https://img.shields.io/npm/v/pinia">                              |    |
+| pinia                            | 2.1.4   | <img src="https://img.shields.io/npm/v/pinia">                              |    |
 | sockjs-client                    | 1.6.1   | <img src="https://img.shields.io/npm/v/sockjs-client">                      |    |
 | stompjs                          | 2.3.3   | <img src="https://img.shields.io/npm/v/stompjs">                            |    |
 | vue                              | 3.3.4   | <img src="https://img.shields.io/npm/v/vue">                                |    |
 | vue-clipboard3                   | 2.0.0   | <img src="https://img.shields.io/npm/v/vue-clipboard3">                     |    |
-| vue-echarts                      | 6.5.5   | <img src="https://img.shields.io/npm/v/vue-echarts">                        |    |
-| vue-router                       | 4.2.1   | <img src="https://img.shields.io/npm/v/vue-router">                         |    |
+| vue-echarts                      | 6.6.0   | <img src="https://img.shields.io/npm/v/vue-echarts">                        |    |
+| vue-router                       | 4.2.2   | <img src="https://img.shields.io/npm/v/vue-router">                         |    |
 |                                  |         |                                                                             |    |
-| @tauri-apps/cli                  | 1.3.1   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
+| @tauri-apps/cli                  | 1.4.0   | <img src="https://img.shields.io/npm/v/@tauri-apps/cli">                    |    |
 | @types/crypto-js                 | 4.1.1   | <img src="https://img.shields.io/npm/v/@types/crypto-js">                   |    |
-| @types/node                      | 20.2.3  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
-| @typescript-eslint/eslint-plugin | 5.59.7  | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
-| @typescript-eslint/parser        | 5.59.7  | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
+| @types/node                      | 20.3.1  | <img src="https://img.shields.io/npm/v/@types/node">                        |    |
+| @typescript-eslint/eslint-plugin | 5.59.11 | <img src="https://img.shields.io/npm/v/@typescript-eslint/eslint-plugin">   |    |
+| @typescript-eslint/parser        | 5.59.11 | <img src="https://img.shields.io/npm/v/@typescript-eslint/parser">          |    |
 | @vitejs/plugin-vue               | 4.2.3   | <img src="https://img.shields.io/npm/v/@vitejs/plugin-vue">                 |    |
-| eslint                           | 8.41.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
-| eslint-config-standard           | 17.0.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
+| eslint                           | 8.42.0  | <img src="https://img.shields.io/npm/v/eslint">                             |    |
+| eslint-config-standard           | 17.1.0  | <img src="https://img.shields.io/npm/v/eslint-config-standard">             |    |
 | eslint-plugin-import             | 2.27.5  | <img src="https://img.shields.io/npm/v/eslint-plugin-import">               |    |
 | eslint-plugin-n                  | 16.0.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-n">                    |    |
 | eslint-plugin-promise            | 6.1.1   | <img src="https://img.shields.io/npm/v/eslint-plugin-promise">              |    |
-| eslint-plugin-vue                | 9.14.0  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
+| eslint-plugin-vue                | 9.14.1  | <img src="https://img.shields.io/npm/v/eslint-plugin-vue">                  |    |
 | lint-staged                      | 13.2.2  | <img src="https://img.shields.io/npm/v/lint-staged">                        |    |
-| terser                           | 5.17.6  | <img src="https://img.shields.io/npm/v/terser">                             |    |
-| typescript                       | 5.0.4   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
-| unocss                           | 0.52.3  | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
-| unplugin-auto-import             | 0.16.2  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
-| unplugin-vue-components          | 0.24.1  | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
-| vite                             | 4.3.8   | <img src="https://img.shields.io/npm/v/vite">                               |    |
+| terser                           | 5.18.0  | <img src="https://img.shields.io/npm/v/terser">                             |    |
+| typescript                       | 5.1.3   | <img src="https://img.shields.io/npm/v/typescript">                         |    |
+| unocss                           | 0.53.1  | <img src="https://img.shields.io/npm/v/unocss?color=blue">                  |    |
+| unplugin-auto-import             | 0.16.4  | <img src="https://img.shields.io/npm/v/unplugin-auto-import?color=blue">    |    |
+| unplugin-vue-components          | 0.25.1  | <img src="https://img.shields.io/npm/v/unplugin-vue-components?color=blue"> |    |
+| vite                             | 4.3.9   | <img src="https://img.shields.io/npm/v/vite">                               |    |
 | vue-tsc                          | 1.6.5   | <img src="https://img.shields.io/npm/v/vue-tsc">                            |    |
 
 ## 模块
@@ -431,10 +431,10 @@ cloud.xuxiaowei
         - 个人分支，按功能`PR`到主分支`main`
     6. `pages`
         - 文档分支
-    7. `OAuth2.0`
-        - 历史版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
-    8. `only-passport`
-        - 删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
+    7. `archive/OAuth2.0`
+        - 归档版本分支，使用 OAuth 2.0 进行授权，后续不再维护（主分支使用 OAuth 2.1）
+    8. `archive/only-passport`
+        - 归档版本分支，删除了`passport-ui`模块，在`passport`中使用`CDN`引入`element-plus`、`vue`进行网页编写（不推荐，后续不再维护）
     9. 此处未说明的分支，请勿使用
     10. 已上包含 CI/CD 的分支
         1. 分支内的各阶段，可交替使用，如：使用 docker 编译代码打包、使用 docker 将打包后的jar包制作成docker镜像，使用
