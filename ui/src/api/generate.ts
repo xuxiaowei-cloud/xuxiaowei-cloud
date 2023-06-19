@@ -17,3 +17,12 @@ export const listTables = (data: any) => {
     return response.data
   })
 }
+
+/**
+ * 列出所有的字段信息
+ */
+export const listTableColumns = (data: any) => {
+  return request.post('/generate/list-table-columns', data).then((response: any) => {
+    return response.data
+  })
+}
