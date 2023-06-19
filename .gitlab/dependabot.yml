@@ -79,6 +79,11 @@ updates:
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
         versions:
           - ">= 1"
+      - dependency-name: com:baomidou:dynamic-datasource-spring-boot-starter
+        # dynamic-datasource-spring-boot-starter 4.0 不支持 JDK 8
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/com/baomidou/dynamic-datasource-spring-boot-starter/4.0.0.B1/dynamic-datasource-spring-boot-starter-4.0.0.B1.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
+        versions:
+          - ">= 4"
 
   - package-ecosystem: "npm"
     directory: "/passport-ui"

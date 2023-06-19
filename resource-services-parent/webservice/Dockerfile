@@ -1,4 +1,7 @@
-FROM docker.io/alibabadragonwell/dragonwell:8-anolis
+# FROM docker.io/alibabadragonwell/dragonwell:8-anolis
+
+# 使用 极狐GitLab 加速镜像构建，网站：https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/container_registry
+FROM registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alibabadragonwell/dragonwell:8-anolis
 
 WORKDIR /home
 
