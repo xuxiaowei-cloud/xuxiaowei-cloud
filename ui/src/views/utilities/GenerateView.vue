@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { ElMessage } from 'element-plus'
-import type { TabPaneName } from 'element-plus'
-import { listDataSources, listTables, listTableColumns } from '../../api/generate'
+import { ElMessage, TabPaneName } from 'element-plus'
+import { listDataSources, listTableColumns, listTables } from '../../api/generate'
 
 import settings from '../../settings'
 
@@ -21,14 +20,28 @@ interface TableOption {
   tableName: string;
 }
 
+interface TableColumn {
+  tableName: string;
+  tableComment: string;
+}
+
+interface EditableTab {
+  title: TabPaneName,
+  name: TabPaneName,
+  content: any
+}
+
 const dataSourceOptions = ref<DataSourceOption[]>([])
-const tableOptionOptions = ref<TableOption[]>([])
-const tableColumnOptionOptions = ref<[]>([])
+const tableOptions = ref<TableOption[]>([])
+const tableColumnOptions = ref<TableColumn[]>([])
 
 const jdbcUrl = ref()
 const dataSourceName = ref('')
 const tableNames = ref<string[]>([])
 const loading = ref(false)
+
+const editableTabsValue = ref()
+const editableTabs = ref<EditableTab[]>([])
 
 watch(() => jdbcUrl.value, (newValue, oldValue) => {
   console.log('jdbcUrl', newValue)
@@ -52,8 +65,20 @@ watch(() => tableNames.value, (newValue, oldValue) => {
   // 列出所有的字段信息
   selectTableColumns(newValue)
 })
+watch(() => tableColumnOptions.value, (newValue, oldValue) => {
+  // 删除全部
+  for (const tab of editableTabs.value) {
+    removeTabs(tab.name)
+  }
 
-listDataSources().then(response => {
+  for (const tableColumn of newValue) {
+    console.log('tableColumn', tableColumn)
+    // 重新添加
+    addTabs(tableColumn.tableName, tableColumn)
+  }
+})
+
+listDataSources().then((response: any) => {
   if (response.code === settings.okCode) {
     dataSourceOptions.value = response.data
   } else {
@@ -67,78 +92,66 @@ listDataSources().then(response => {
 })
 
 const selectTables = (tableName: string) => {
-  listTables({ jdbcUrl: jdbcUrl.value, tableName }).then(response => {
-    if (response.code === settings.okCode) {
-      tableOptionOptions.value = response.data.records
-    } else {
-      ElMessage({
-        message: response.msg,
-        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-        duration: 1500,
-        type: 'error'
-      })
-    }
-  })
+  if (jdbcUrl.value) {
+    listTables({ jdbcUrl: jdbcUrl.value, tableName }).then((response: any) => {
+      if (response.code === settings.okCode) {
+        tableOptions.value = response.data.records
+      } else {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error'
+        })
+      }
+    })
+  }
 }
 
 const selectTableColumns = (tableNames: string[]) => {
-  listTableColumns({ jdbcUrl: jdbcUrl.value, tableNames }).then(response => {
-    if (response.code === settings.okCode) {
-      tableColumnOptionOptions.value = response.data.records
-    } else {
-      ElMessage({
-        message: response.msg,
-        // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
-        duration: 1500,
-        type: 'error'
-      })
-    }
-  })
-}
-let tabIndex = 2
-const editableTabsValue = ref('2')
-const editableTabs = ref([
-  {
-    title: 'Tab 1',
-    name: '1',
-    content: 'Tab 1 content'
-  },
-  {
-    title: 'Tab 2',
-    name: '2',
-    content: 'Tab 2 content'
-  }
-])
-
-const handleTabsEdit = (
-  targetName: TabPaneName | undefined,
-  action: 'remove' | 'add'
-) => {
-  if (action === 'add') {
-    const newTabName = `${++tabIndex}`
-    editableTabs.value.push({
-      title: 'New Tab ' + tabIndex,
-      name: newTabName,
-      content: `New Tab ${tabIndex} content`
+  if (tableNames.length > 0) {
+    listTableColumns({ jdbcUrl: jdbcUrl.value, tableNames }).then((response: any) => {
+      if (response.code === settings.okCode) {
+        tableColumnOptions.value = response.data
+      } else {
+        ElMessage({
+          message: response.msg,
+          // 显示时间，单位为毫秒。设为 0 则不会自动关闭，类型：number，默认值：3000
+          duration: 1500,
+          type: 'error'
+        })
+      }
     })
-    editableTabsValue.value = newTabName
-  } else if (action === 'remove') {
-    const tabs = editableTabs.value
-    let activeName = editableTabsValue.value
-    if (activeName === targetName) {
-      tabs.forEach((tab, index) => {
-        if (tab.name === targetName) {
-          const nextTab = tabs[index + 1] || tabs[index - 1]
-          if (nextTab) {
-            activeName = nextTab.name
-          }
-        }
-      })
-    }
-
-    editableTabsValue.value = activeName
-    editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
+  } else {
+    tableColumnOptions.value = []
   }
+}
+
+const addTabs = (targetName: TabPaneName, tableColumn: TableColumn) => {
+  editableTabs.value.push({
+    title: targetName,
+    name: targetName,
+    content: tableColumn.tableComment
+  })
+  editableTabsValue.value = targetName
+}
+
+const removeTabs = (targetName: TabPaneName) => {
+  const tabs = editableTabs.value
+  let activeName = editableTabsValue.value
+  if (activeName === targetName) {
+    tabs.forEach((tab, index) => {
+      if (tab.name === targetName) {
+        const nextTab = tabs[index + 1] || tabs[index - 1]
+        if (nextTab) {
+          activeName = nextTab.name
+        }
+      }
+    })
+  }
+
+  editableTabsValue.value = activeName
+  editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
 }
 
 </script>
@@ -150,14 +163,14 @@ const handleTabsEdit = (
                  :label="item.dataSourceName"/>
     </el-select>
     <el-select clearable filterable remote reserve-keyword multiple :loading="loading" :remote-method="selectTables"
-               remote-show-suffix v-model="tableNames" placeholder="请选择表">
-      <el-option v-for="item in tableOptionOptions" :key="item.tableName" :value="item.tableName"
-                 :label="item.tableName"/>
+               remote-show-suffix v-model="tableNames" :collapse-tags="true" placeholder="请选择表"
+               :disabled="!jdbcUrl">
+      <el-option v-for="item in tableOptions" :key="item.tableName" :value="item.tableName" :label="item.tableName"/>
     </el-select>
   </div>
 
   <el-container>
-    <el-tabs v-model="editableTabsValue" type="card" editable class="demo-tabs" @edit="handleTabsEdit">
+    <el-tabs v-model="editableTabsValue" type="card" class="table-tabs">
       <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
         {{ item.content }}
       </el-tab-pane>

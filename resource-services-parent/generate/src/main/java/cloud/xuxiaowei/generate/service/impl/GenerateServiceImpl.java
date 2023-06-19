@@ -34,10 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -233,9 +230,20 @@ public class GenerateServiceImpl implements GenerateService {
 
 				List<String> notNullTypes = Arrays.asList("Long", "Integer");
 
+				List<String> list = Collections.singletonList("groups");
+
 				for (String tableName : tableNames) {
-					PreparedStatement preparedStatement = connection
-						.prepareStatement("SHOW FULL COLUMNS FROM " + tableName);
+
+					PreparedStatement preparedStatement;
+
+					if (list.contains(tableName)) {
+						preparedStatement = connection
+							.prepareStatement("SHOW FULL COLUMNS FROM " + String.format("`%s`", tableName));
+					}
+					else {
+						preparedStatement = connection.prepareStatement("SHOW FULL COLUMNS FROM " + tableName);
+					}
+
 					ResultSet resultSet = preparedStatement.executeQuery();
 
 					PreparedStatement tablePreparedStatement = connection.prepareStatement(
