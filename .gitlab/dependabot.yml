@@ -15,11 +15,12 @@ version: 2
 updates:
   - package-ecosystem: "maven" # See documentation for possible values
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    open-pull-requests-limit: 5
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
     ignore:
@@ -88,18 +89,22 @@ updates:
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
+    open-pull-requests-limit: 1
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
     directory: "/ui"
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
+    open-pull-requests-limit: 1
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
 
   - package-ecosystem: "docker"
@@ -107,7 +112,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -119,7 +124,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -131,7 +136,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -143,7 +148,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -155,7 +160,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -167,7 +172,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -179,7 +184,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -191,7 +196,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -203,7 +208,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -215,7 +220,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -227,7 +232,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -239,7 +244,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -252,5 +257,5 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
