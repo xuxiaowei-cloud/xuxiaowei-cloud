@@ -987,17 +987,26 @@
             <repositories>
                 <repository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </repository>
             </repositories>
             <distributionManagement>
                 <repository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </repository>
                 <snapshotRepository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
