@@ -989,6 +989,8 @@
                     <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
                     <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
                     <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <!-- 由于所有代码均在一个git仓库，所以这里可以使用环境变量 -->
+                    <!-- 如果代码拆分后，不是同一个仓库，项目ID请使用固定值（不可使用环境变量） -->
                     <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </repository>
             </repositories>
