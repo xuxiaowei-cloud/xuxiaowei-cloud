@@ -29,6 +29,11 @@ updates:
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-starter-web/3.0.0/spring-boot-starter-web-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
         versions:
           - ">= 3"
+      - dependency-name: org.springframework.boot:spring-boot-maven-plugin
+        # spring-boot 3.0 不支持 JDK 8
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-maven-plugin/3.0.0/spring-boot-maven-plugin-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        versions:
+          - ">= 3"
       - dependency-name: org.springframework.cloud:spring-cloud-dependencies
         # spring-cloud 2022 不支持 JDK 8
         # https://s01.oss.sonatype.org/service/local/repositories/releases/content/org/springframework/cloud/spring-cloud-dependencies/2022.0.2/spring-cloud-dependencies-2022.0.2.pom 继承自 org.springframework.cloud:spring-cloud-dependencies-parent:4.0.2
