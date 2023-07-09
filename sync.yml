@@ -22,6 +22,10 @@ sync-gitee:
     - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
       # 不执行
       when: never
+    # 匹配 docker-images-mirrors 分支
+    - if: $CI_COMMIT_BRANCH == 'docker-images-mirrors'
+      # 不执行
+      when: never
     # 非 PR 时触发
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == null
   retry: 2
@@ -46,6 +50,10 @@ sync-gitcode:
   rules:
     # 匹配以 dependabot 开头的分支
     - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
+      # 不执行
+      when: never
+    # 匹配 docker-images-mirrors 分支
+    - if: $CI_COMMIT_BRANCH == 'docker-images-mirrors'
       # 不执行
       when: never
     # 非 PR 时触发
@@ -84,6 +92,10 @@ sync-gitlink:
     - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
       # 不执行
       when: never
+    # 匹配 docker-images-mirrors 分支
+    - if: $CI_COMMIT_BRANCH == 'docker-images-mirrors'
+      # 不执行
+      when: never
     # 非 PR 时触发
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == null
   retry: 2
@@ -110,6 +122,10 @@ sync-gitlab:
     - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
       # 不执行
       when: never
+    # 匹配 docker-images-mirrors 分支
+    - if: $CI_COMMIT_BRANCH == 'docker-images-mirrors'
+      # 不执行
+      when: never
     # 非 PR 时触发
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == null
   retry: 2
@@ -134,6 +150,10 @@ sync-github:
   rules:
     # 匹配以 dependabot 开头的分支
     - if: $CI_COMMIT_BRANCH =~ /^dependabot*/
+      # 不执行
+      when: never
+    # 匹配 docker-images-mirrors 分支
+    - if: $CI_COMMIT_BRANCH == 'docker-images-mirrors'
       # 不执行
       when: never
     # 非 PR 时触发
