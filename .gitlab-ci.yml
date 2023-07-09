@@ -37,7 +37,7 @@ docker-images-mirrors:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     # 要拉取的镜像名称
-    - IMAGE=nginx:1.25.0
+    - IMAGE=nginx:1.24.0
     # 拉取镜像
     - docker pull $IMAGE
     # 重命名镜像名称
