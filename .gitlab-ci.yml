@@ -17,8 +17,39 @@ stages:
   - docker-package
   # 使用 docker 执行器发布
   - docker-service
+  # docker 镜像加速计划
+  - docker-images-mirrors
   # 代码同步
   - sync
+
+
+# docker 镜像加速计划
+# 参考：https://docs.gitlab.cn/jh/ci/docker/using_docker_build.html
+docker-images-mirrors:
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  stage: docker-images-mirrors
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    # 要拉取的镜像名称
+    - IMAGE=nginx:1.25.0
+    # 拉取镜像
+    - docker pull $IMAGE
+    # 重命名镜像名称
+    - docker tag $IMAGE registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/$IMAGE
+    # 推送镜像名称
+    - docker push registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/$IMAGE
+  only:
+    # 仅在 docker-images-mirrors 分支上运行
+    - docker-images-mirrors
+  tags:
+    - sg-docker
+
 
 # murphysec
 murphysec:
