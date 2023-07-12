@@ -26,70 +26,65 @@ updates:
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         # spring-boot 3.0 不支持 JDK 8
-        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-starter-web/3.0.0/spring-boot-starter-web-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-starter-web/3.0.0/spring-boot-starter-web-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3"
       - dependency-name: org.springframework.boot:spring-boot-maven-plugin
         # spring-boot 3.0 不支持 JDK 8
-        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-maven-plugin/3.0.0/spring-boot-maven-plugin-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-maven-plugin/3.0.0/spring-boot-maven-plugin-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3"
       - dependency-name: org.springframework.cloud:spring-cloud-dependencies
         # spring-cloud 2022 不支持 JDK 8
         # https://s01.oss.sonatype.org/service/local/repositories/releases/content/org/springframework/cloud/spring-cloud-dependencies/2022.0.2/spring-cloud-dependencies-2022.0.2.pom 继承自 org.springframework.cloud:spring-cloud-dependencies-parent:4.0.2
         # https://s01.oss.sonatype.org/service/local/repositories/releases/content/org/springframework/cloud/spring-cloud-starter-bootstrap/4.0.2/spring-cloud-starter-bootstrap-4.0.2.pom 继承自 org.springframework.cloud:spring-cloud-dependencies-parent:4.0.2
-        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/cloud/spring-cloud-starter-bootstrap/4.0.2/spring-cloud-starter-bootstrap-4.0.2.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/cloud/spring-cloud-starter-bootstrap/4.0.2/spring-cloud-starter-bootstrap-4.0.2.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 2022"
       - dependency-name: com.alibaba.cloud:spring-cloud-alibaba-dependencies
         # spring-cloud-alibaba 2021.1 为命名错误
         # 参见：https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/project-spring-cloud-alibaba-dependencies
         # spring-cloud-alibaba 2022 不支持 JDK 8
-        # https://oss.sonatype.org/service/local/repositories/releases/archive/com/alibaba/cloud/spring-cloud-starter-alibaba-nacos-config/2022.0.0.0-RC1/spring-cloud-starter-alibaba-nacos-config-2022.0.0.0-RC1.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/com/alibaba/cloud/spring-cloud-starter-alibaba-nacos-config/2022.0.0.0-RC1/spring-cloud-starter-alibaba-nacos-config-2022.0.0.0-RC1.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - "= 2021.1"
           - ">= 2022"
       - dependency-name: org.mybatis.spring.boot:mybatis-spring-boot-starter
         # mybatis-spring-boot-starter 3.0 不支持 JDK 8
-        # https://oss.sonatype.org/service/local/repositories/releases/archive/org/mybatis/spring/boot/mybatis-spring-boot-starter/3.0.0/mybatis-spring-boot-starter-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/org/mybatis/spring/boot/mybatis-spring-boot-starter/3.0.0/mybatis-spring-boot-starter-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3"
       - dependency-name: org.apache.cxf:cxf-rt-frontend-jaxws
         # cxf 3.6、4.0 不支持 JDK 8
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-frontend-jaxws/3.6.0/cxf-rt-frontend-jaxws-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-frontend-jaxws/4.0.0/cxf-rt-frontend-jaxws-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-frontend-jaxws/3.6.0/cxf-rt-frontend-jaxws-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11（还需参考 java.version）
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-frontend-jaxws/4.0.0/cxf-rt-frontend-jaxws-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3.6"
           - ">= 4"
       - dependency-name: org.apache.cxf:cxf-rt-transports-http
         # cxf 3.6、4.0 不支持 JDK 8
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-transports-http/3.6.0/cxf-rt-transports-http-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-transports-http/4.0.0/cxf-rt-transports-http-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-transports-http/3.6.0/cxf-rt-transports-http-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11（还需参考 java.version）
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-transports-http/4.0.0/cxf-rt-transports-http-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3.6"
           - ">= 4"
       - dependency-name: org.apache.cxf:cxf-rt-features-logging
         # cxf 3.6、4.0 不支持 JDK 8
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-features-logging/3.6.0/cxf-rt-features-logging-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11
-        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-features-logging/4.0.0/cxf-rt-features-logging-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-features-logging/3.6.0/cxf-rt-features-logging-3.6.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 11（还需参考 java.version）
+        # https://repository.apache.org/service/local/repositories/releases/archive/org/apache/cxf/cxf-rt-features-logging/4.0.0/cxf-rt-features-logging-4.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3.6"
           - ">= 4"
       - dependency-name: de.codecentric:spring-boot-admin-dependencies
         # spring-boot-admin 3.0 不支持 JDK 8
-        # https://oss.sonatype.org/service/local/repositories/releases/archive/de/codecentric/spring-boot-admin-starter-server/3.0.0/spring-boot-admin-starter-server-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/de/codecentric/spring-boot-admin-starter-server/3.0.0/spring-boot-admin-starter-server-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17（还需参考 java.version）
         versions:
           - ">= 3"
       - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
         # spring-security-oauth2-authorization-server 1.0 不支持 JDK 8
-        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17（还需参考 java.version）
         versions:
           - ">= 1"
-      - dependency-name: com:baomidou:dynamic-datasource-spring-boot-starter
-        # dynamic-datasource-spring-boot-starter 4.0 不支持 JDK 8
-        # https://oss.sonatype.org/service/local/repositories/releases/archive/com/baomidou/dynamic-datasource-spring-boot-starter/4.0.0.B1/dynamic-datasource-spring-boot-starter-4.0.0.B1.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
-        versions:
-          - ">= 4"
 
   - package-ecosystem: "npm"
     directory: "/passport-ui"
