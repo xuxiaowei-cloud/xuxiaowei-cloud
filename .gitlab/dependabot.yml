@@ -15,17 +15,23 @@ version: 2
 updates:
   - package-ecosystem: "maven" # See documentation for possible values
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    open-pull-requests-limit: 5
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         # spring-boot 3.0 不支持 JDK 8
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-starter-web/3.0.0/spring-boot-starter-web-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.boot:spring-boot-maven-plugin
+        # spring-boot 3.0 不支持 JDK 8
+        # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/boot/spring-boot-maven-plugin/3.0.0/spring-boot-maven-plugin-3.0.0.jar/!/META-INF/MANIFEST.MF 中的 Build-Jdk-Spec 为 17
         versions:
           - ">= 3"
       - dependency-name: org.springframework.cloud:spring-cloud-dependencies
@@ -79,22 +85,31 @@ updates:
         # https://s01.oss.sonatype.org/service/local/repositories/releases/archive/org/springframework/security/spring-security-oauth2-authorization-server/1.0.0/spring-security-oauth2-authorization-server-1.0.0.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
         versions:
           - ">= 1"
+      - dependency-name: com:baomidou:dynamic-datasource-spring-boot-starter
+        # dynamic-datasource-spring-boot-starter 4.0 不支持 JDK 8
+        # https://oss.sonatype.org/service/local/repositories/releases/archive/com/baomidou/dynamic-datasource-spring-boot-starter/4.0.0.B1/dynamic-datasource-spring-boot-starter-4.0.0.B1.jar/!/META-INF/MANIFEST.MF 中的 Created-By 为 17
+        versions:
+          - ">= 4"
 
   - package-ecosystem: "npm"
     directory: "/passport-ui"
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
+    open-pull-requests-limit: 1
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
     directory: "/ui"
     auto-merge: true
-    open-pull-requests-limit: 3
+    # 默认：5
+    # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
+    open-pull-requests-limit: 1
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
 
   - package-ecosystem: "docker"
@@ -102,7 +117,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -114,7 +129,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -126,7 +141,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -138,7 +153,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -150,7 +165,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -162,7 +177,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -174,7 +189,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -186,7 +201,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -198,7 +213,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -210,7 +225,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -222,7 +237,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -234,7 +249,7 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: alibabadragonwell/dragonwell
@@ -247,5 +262,5 @@ updates:
     auto-merge: true
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "04:00"
       timezone: "Asia/Shanghai"

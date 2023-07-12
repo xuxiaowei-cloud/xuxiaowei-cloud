@@ -18,13 +18,351 @@ k8s-package:cloud-commons-parent:
       - .m2/repository
       - passport-ui/node/
       - passport-ui/node_modules/
-      - ui/node/
-      - ui/node_modules/
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/cloud-commons-parent"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/cloud-commons-parent"
   tags:
     - jihulab
+
+#
+# admin-server
+k8s-package:admin-server:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl admin-server package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl admin-server -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl admin-server -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/admin-server"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/admin-server"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:admin-server:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:admin-server
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment admin-server-deployment || kubectl create -f admin-server/admin-server-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/admin-server-deployment admin-server=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/admin-server:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/admin-server"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/admin-server"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:admin-server:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:admin-server
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/admin-server-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/admin-server"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/admin-server"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# canal
+k8s-package:canal:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/canal package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/canal -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/canal -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:canal:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:canal
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment canal-deployment || kubectl create -f resource-services-parent/canal/canal-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/canal-deployment canal=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/canal:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:canal:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:canal
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/canal-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# file
+k8s-package:file:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/file package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/file -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/file -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/file"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/file"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:file:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:file
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment file-deployment || kubectl create -f resource-services-parent/file/file-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/file-deployment file=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/file:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/file"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/file"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:file:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:file
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/file-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/file"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/file"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# gateway
+k8s-package:gateway:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl gateway package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl gateway -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl gateway -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/gateway"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/gateway"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:gateway:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:gateway
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment gateway-deployment || kubectl create -f gateway/gateway-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/gateway-deployment gateway=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/gateway:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/gateway"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/gateway"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:gateway:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:gateway
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/gateway-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/gateway"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/gateway"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# master-data
+k8s-package:master-data:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/master-data package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/master-data -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/master-data -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/master-data"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/master-data"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:master-data:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:master-data
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment master-data-deployment || kubectl create -f resource-services-parent/master-data/master-data-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/master-data-deployment master-data=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/master-data:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/master-data"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/master-data"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:master-data:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:master-data
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/master-data-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/master-data"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/master-data"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
 
 #
 # passport
@@ -36,7 +374,9 @@ k8s-package:passport:
   image: maven:3.6.3-jdk-8
   script:
     - mvn clean -e -U -pl passport-ui,passport package install -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
-    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '发布组件完成'; else echo '发布组件失败' && xxxx; fi
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl passport -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl passport -Pgitlab-maven -s settings-jihulab.xml docker:push;
     - rm -rf .m2/repository/cloud/xuxiaowei
   cache:
     key: "${CI_JOB_NAME}"
@@ -46,21 +386,462 @@ k8s-package:passport:
       - passport-ui/node_modules/
       - ui/node/
       - ui/node_modules/
-  artifacts:
-    name: package
-    paths:
-      - target/*.jar
-      - target/*.asc
-      - target/*.pom
-      - "*/target/*.jar"
-      - "*/target/*.asc"
-      - "*/target/*.pom"
-      - "*/*/target/*.jar"
-      - "*/*/target/*.asc"
-      - "*/*/target/*.pom"
-      - ui/dist
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
   tags:
-    - jihulab
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:passport:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:passport
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment passport-deployment || kubectl create -f passport/passport-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/passport-deployment passport=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/passport:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:passport:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:passport
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/passport-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# ui
+k8s-package:ui:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl ui package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl ui -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl ui -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+      - ui/node/
+      - ui/node_modules/
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/ui"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/ui"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:ui:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:ui
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment ui-deployment || kubectl create -f ui/ui-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/ui-deployment ui=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/ui:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/ui"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/ui"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:ui:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:ui
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/ui-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/ui"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/ui"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# user
+k8s-package:user:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/user package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/user -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/user -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/user"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/user"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:user:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:user
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment user-deployment || kubectl create -f resource-services-parent/user/user-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/user-deployment user=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/user:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/user"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/user"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:user:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:user
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/user-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/user"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/user"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# webservice
+k8s-package:webservice:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/webservice package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/webservice -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/webservice -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/webservice"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/webservice"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:webservice:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:webservice
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment webservice-deployment || kubectl create -f resource-services-parent/webservice/webservice-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/webservice-deployment webservice=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/webservice:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/webservice"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/webservice"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:webservice:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:webservice
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/webservice-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/webservice"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/webservice"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# websocket
+k8s-package:websocket:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/websocket package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/websocket -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/websocket -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/websocket"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/websocket"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:websocket:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:websocket
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment websocket-deployment || kubectl create -f resource-services-parent/websocket/websocket-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/websocket-deployment websocket=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/websocket"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/websocket"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:websocket:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:websocket
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/websocket-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/websocket"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/websocket"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# wechat-miniprogram
+k8s-package:wechat-miniprogram:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/wechat-miniprogram package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/wechat-miniprogram -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-miniprogram -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-miniprogram"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-miniprogram"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:wechat-miniprogram:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:wechat-miniprogram
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment wechat-miniprogram-deployment || kubectl create -f resource-services-parent/wechat-miniprogram/wechat-miniprogram-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/wechat-miniprogram-deployment wechat-miniprogram=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-miniprogram:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-miniprogram"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-miniprogram"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:wechat-miniprogram:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:wechat-miniprogram
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-miniprogram-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-miniprogram"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-miniprogram"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# wechat-offiaccount
+k8s-package:wechat-offiaccount:
+  variables:
+    MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  stage: k8s-package
+  image: maven:3.6.3-jdk-8
+  script:
+    - mvn clean -e -U -pl resource-services-parent/wechat-offiaccount package -Pgitlab-maven -DskipTests -s settings-jihulab.xml && PACKAGE_FLAG=1;
+    - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
+    - mvn -pl resource-services-parent/wechat-offiaccount -Pgitlab-maven -s settings-jihulab.xml docker:build -DCI_PIPELINE_ID=$CI_PIPELINE_ID;
+    - mvn -pl resource-services-parent/wechat-offiaccount -Pgitlab-maven -s settings-jihulab.xml docker:push;
+    - rm -rf .m2/repository/cloud/xuxiaowei
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-offiaccount"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-offiaccount"
+  tags:
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - plugin-kubernetes
+
+#
+# 使用 shell 发布 k8s
+# 在 k8s 所在的服务器上执行
+k8s-publish:wechat-offiaccount:
+  stage: k8s-publish
+  needs:
+    - job: k8s-package:wechat-offiaccount
+  script:
+    - kubectl -n xuxiaowei-cloud get deployment wechat-offiaccount-deployment || kubectl create -f resource-services-parent/wechat-offiaccount/wechat-offiaccount-deployment.yaml
+    - kubectl -n xuxiaowei-cloud set image deployment/wechat-offiaccount-deployment wechat-offiaccount=registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/wechat-offiaccount:0.0.1-SNAPSHOT-$CI_PIPELINE_ID
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-offiaccount"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-offiaccount"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish
+
+#
+# 等待/检查滚动发布
+k8s-waiting-rollout:wechat-offiaccount:
+  stage: k8s-waiting-rollout
+  needs:
+    - job: k8s-publish:wechat-offiaccount
+  script:
+    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
+    - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-offiaccount-deployment
+  # 超时时间，根据程序启动时间调整
+  timeout: 600s
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-offiaccount"
+    - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-offiaccount"
+  tags:
+    # 仅在 tags 名称为 shell 的执行器上执行
+    # 在 k8s 所在的服务器上执行
+    # 个人服务器 Runner 标签（仅在个人服务器上执行）
+    - k8s-publish

@@ -39,7 +39,7 @@
         <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
         <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
         <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
-        <spring-boot.version>2.7.12</spring-boot.version>
+        <spring-boot.version>2.7.13</spring-boot.version>
         <!-- Spring Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/cloud/spring-cloud-dependencies -->
@@ -48,7 +48,7 @@
         <!-- https://github.com/spring-cloud/spring-cloud-gateway -->
         <!-- https://github.com/spring-cloud/spring-cloud-openfeign -->
         <!-- https://github.com/spring-cloud/spring-cloud-circuitbreaker -->
-        <spring-cloud.version>2021.0.7</spring-cloud.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
         <!-- Alibaba Cloud 依赖 -->
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/cloud/spring-cloud-alibaba-dependencies -->
@@ -65,8 +65,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.2
-        </spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.3</spring-security-oauth2-authorization-server.version>
 
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-security-oauth2-authorization-server-redis/ -->
         <spring-security-oauth2-authorization-server-redis.version>0.1.0-SNAPSHOT
@@ -101,7 +100,7 @@
         <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/dynamic-datasource-spring-boot-starter -->
         <!-- https://github.com/baomidou/dynamic-datasource-spring-boot-starter -->
-        <dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
+        <dynamic-datasource-spring-boot-starter.version>4.1.0</dynamic-datasource-spring-boot-starter.version>
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/baomidou/mybatis-plus-extension -->
         <!-- https://github.com/baomidou/mybatis-plus -->
@@ -116,12 +115,12 @@
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/google/guava/guava -->
         <!-- https://github.com/google/guava -->
-        <guava.version>32.0.0-jre</guava.version>
+        <guava.version>32.1.1-jre</guava.version>
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <!-- https://oss.sonatype.org/content/repositories/public/commons-io/commons-io -->
         <!-- https://github.com/apache/commons-io -->
-        <commons-io.version>2.12.0</commons-io.version>
+        <commons-io.version>2.13.0</commons-io.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/commons/commons-lang3 -->
         <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -140,12 +139,12 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <!-- https://oss.sonatype.org/content/repositories/public/com/alibaba/fastjson -->
         <!-- https://github.com/alibaba/fastjson -->
-        <fastjson.version>2.0.33</fastjson.version>
+        <fastjson.version>2.0.35</fastjson.version>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <!-- https://oss.sonatype.org/content/repositories/public/cn/hutool/hutool-all -->
         <!-- https://github.com/dromara/hutool -->
-        <hutool-all.version>5.8.19</hutool-all.version>
+        <hutool-all.version>5.8.20</hutool-all.version>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
@@ -181,11 +180,11 @@
         <!-- 阿里云 短信服务 升级版 SDK Java：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-tea -->
         <!-- https://mvnrepository.com/artifact/com.aliyun/dysmsapi20170525 -->
         <!-- https://repo1.maven.org/maven2/com/aliyun/dysmsapi20170525 -->
-        <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
+        <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <!-- 阿里云 短信服务 升级版 SDK Java（异步）：https://next.api.aliyun.com/api-tools/sdk/Dysmsapi?language=java-async-tea -->
         <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
         <!-- https://repo1.maven.org/maven2/com/aliyun/alibabacloud-dysmsapi20170525/ -->
-        <alibabacloud-dysmsapi20170525.version>2.0.23</alibabacloud-dysmsapi20170525.version>
+        <alibabacloud-dysmsapi20170525.version>2.0.24</alibabacloud-dysmsapi20170525.version>
 
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
@@ -263,7 +262,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
-        <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
+        <license-maven-plugin.version>2.2.0</license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
@@ -277,7 +276,7 @@
         <!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
-        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.13.4</frontend-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
         <!-- https://github.com/spring-io/spring-javaformat/ -->
         <!-- 高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support -->
@@ -576,7 +575,7 @@
             <dependency>
                 <groupId>org.gitlab4j</groupId>
                 <artifactId>gitlab4j-api</artifactId>
-                <version>5.2.0</version>
+                <version>5.3.0</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
             <dependency>
@@ -981,22 +980,34 @@
         </profile>
 
         <profile>
-            <!-- 使用 -Pgitlab-maven 激活腾讯云仓库下载依赖 -->
+            <!-- 使用 -Pgitlab-maven 激活 极狐GitLab Maven仓库 下载依赖 -->
+            <!-- 其中 26649 为项目ID，访问 https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud 即可看到 -->
             <id>gitlab-maven</id>
             <repositories>
                 <repository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <!-- 由于所有代码均在一个git仓库，所以这里可以使用环境变量 -->
+                    <!-- 如果代码拆分后，不是同一个仓库，项目ID请使用固定值（不可使用环境变量） -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </repository>
             </repositories>
             <distributionManagement>
                 <repository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </repository>
                 <snapshotRepository>
                     <id>gitlab-maven</id>
-                    <url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>
+                    <!--<url>https://jihulab.com/api/v4/projects/26649/packages/maven</url>-->
+                    <!-- 使用环境变量 CI_API_V4_URL 替换 GitLab API 接口地址 -->
+                    <!-- 使用环境变量 CI_PROJECT_ID 替换项目ID -->
+                    <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>

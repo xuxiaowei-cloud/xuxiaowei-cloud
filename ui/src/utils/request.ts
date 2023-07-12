@@ -3,6 +3,7 @@ import { ElMessage } from 'element-plus'
 import { JSEncrypt } from 'jsencrypt'
 import CryptoJS from 'crypto-js'
 import { useStore } from '../store'
+import { timeStore } from '../store/time'
 import settings from '../settings'
 import { decrypt, encrypt } from './aes'
 
@@ -32,7 +33,7 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   if (config.method === 'post' || config.method === 'POST') { // POST 请求加密
     const data = config.data
     if (data !== undefined) { // 请求体不为空时，进行加密
-      const currentTimeMillis = useStore.currentTimeMillis || new Date().getTime() // 请求体中添加时间戳变量
+      const currentTimeMillis = timeStore.currentTimeMillis || new Date().getTime() // 请求体中添加时间戳变量
       config.data = { ciphertext: encrypt(settings.key, settings.iv, currentTimeMillis + JSON.stringify(data)) } // 加密数据
       config.headers.encrypt = 'v1' // 加密数据方式（版本）
       // 未提供客户ID，使用默认AES秘钥与偏移量进行加解密
