@@ -72,7 +72,7 @@ k8s-publish:admin-server:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:admin-server:
+k8s-modules-waiting-rollout:admin-server:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:admin-server
@@ -140,7 +140,7 @@ k8s-publish:canal:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:canal:
+k8s-modules-waiting-rollout:canal:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:canal
@@ -208,7 +208,7 @@ k8s-publish:file:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:file:
+k8s-modules-waiting-rollout:file:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:file
@@ -276,7 +276,7 @@ k8s-publish:gateway:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:gateway:
+k8s-modules-waiting-rollout:gateway:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:gateway
@@ -344,7 +344,7 @@ k8s-publish:master-data:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:master-data:
+k8s-modules-waiting-rollout:master-data:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:master-data
@@ -416,7 +416,7 @@ k8s-publish:passport:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:passport:
+k8s-modules-waiting-rollout:passport:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:passport
@@ -486,7 +486,7 @@ k8s-publish:ui:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:ui:
+k8s-modules-waiting-rollout:ui:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:ui
@@ -554,7 +554,7 @@ k8s-publish:user:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:user:
+k8s-modules-waiting-rollout:user:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:user
@@ -622,7 +622,7 @@ k8s-publish:webservice:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:webservice:
+k8s-modules-waiting-rollout:webservice:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:webservice
@@ -690,7 +690,7 @@ k8s-publish:websocket:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:websocket:
+k8s-modules-waiting-rollout:websocket:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:websocket
@@ -758,7 +758,7 @@ k8s-publish:wechat-miniprogram:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:wechat-miniprogram:
+k8s-modules-waiting-rollout:wechat-miniprogram:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:wechat-miniprogram
@@ -826,7 +826,7 @@ k8s-publish:wechat-offiaccount:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:wechat-offiaccount:
+k8s-modules-waiting-rollout:wechat-offiaccount:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:wechat-offiaccount
