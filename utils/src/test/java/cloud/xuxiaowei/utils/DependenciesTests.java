@@ -17,6 +17,14 @@ import java.util.Set;
  * 2. <code>mvn dependency:tree > D:/tree.txt</code>
  * <p>
  * 3. 运行 {@link #main()}
+ * <p>
+ * 其他命令
+ * <p>
+ * 下载 源码 sources：<code>mvn dependency:sources</code>
+ * <p>
+ * 下载 文档 javadoc：<code>mvn dependency:resolve -Dclassifier=javadoc</code>
+ * <p>
+ * 列举插件依赖：<code>mvn dependency:resolve-plugins</code>
  *
  * @author xuxiaowei
  * @since 0.0.1
