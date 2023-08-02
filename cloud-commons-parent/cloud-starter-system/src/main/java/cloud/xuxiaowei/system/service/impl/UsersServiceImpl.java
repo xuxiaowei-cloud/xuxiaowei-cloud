@@ -49,7 +49,7 @@ import java.util.Set;
  */
 @Slf4j
 @Service
-public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
+public class UsersServiceImpl extends SuperServiceImpl<UsersMapper, Users> implements IUsersService {
 
 	private IAuthorityService authorityService;
 

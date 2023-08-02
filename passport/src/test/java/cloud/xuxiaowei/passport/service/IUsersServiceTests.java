@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 /**
  * 用户表 服务类 测试类
  *
@@ -19,6 +21,12 @@ class IUsersServiceTests {
 
 	@Autowired
 	private IUsersService usersService;
+
+	@Test
+	void testTime() {
+		LocalDateTime localDateTime = usersService.testTime();
+		log.info(String.valueOf(localDateTime));
+	}
 
 	/**
 	 * 根据 用户名 查询用户信息及权限

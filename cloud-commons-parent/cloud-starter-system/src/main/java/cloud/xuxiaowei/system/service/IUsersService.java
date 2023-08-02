@@ -24,7 +24,7 @@ import java.util.List;
  * @author xuxiaowei
  * @since 2022-04-04
  */
-public interface IUsersService extends IService<Users> {
+public interface IUsersService extends ISuperService<Users> {
 
 	/**
 	 * 按用户名加载用户及权限（包含用户组权限）
