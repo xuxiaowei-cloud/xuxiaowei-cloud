@@ -55,7 +55,7 @@ docker-images-mirrors:
     # 仅在 docker-images-mirrors 分支上运行
     - docker-images-mirrors
   tags:
-    - sg-docker
+    - jihulab
 
 
 # murphysec
