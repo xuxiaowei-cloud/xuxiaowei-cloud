@@ -30,6 +30,8 @@ docker-images-mirrors:
     DOCKER_TLS_CERTDIR: "/certs"
   stage: docker-images-mirrors
   image: docker:24.0
+  services:
+    - docker:dind
   before_script:
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
