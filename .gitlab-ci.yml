@@ -41,9 +41,9 @@ docker-images-mirrors:
     # 如果现有镜像不存在你需要的，请修改下面的变量：PULL_IMAGE、TAG_IMAGE
     #
     # 要拉取的镜像名称，可不携带域名（如：nginx:1.23.4），可携带域名（如：registry.k8s.io/coredns/coredns:v1.10.0）
-    - PULL_IMAGE=jenkins/jenkins:2.419
+    - PULL_IMAGE=jenkins/jenkins:2.419-jdk11
     # 重命名的镜像名称，不可携带域名（如：registry.k8s.io/coredns/coredns:v1.10.0 镜像在此设置为 coredns/coredns:v1.10.0）
-    - TAG_IMAGE=jenkins/jenkins:2.419
+    - TAG_IMAGE=jenkins/jenkins:2.419-jdk11
     #
     # 以下内容默认即可，不用修改
     #
