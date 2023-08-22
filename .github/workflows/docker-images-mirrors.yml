@@ -1,0 +1,47 @@
+name: Docker Images Mirrors
+
+on:
+  push:
+    branches: [ docker-images-mirrors ]
+
+jobs:
+  mirrors:
+    name: mirrors
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ "ubuntu-latest" ]
+
+    steps:
+      # 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Pull Docker image
+        run: |
+          docker pull --platform=linux/amd64 registry.k8s.io/ingress-nginx/controller:v1.8.0
+          docker pull --platform=linux/arm64 registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.8.0
+          docker images
+
+      # 重命名 Docker 镜像标签
+      - name: Rename Docker images
+        run: |
+          docker tag registry.k8s.io/ingress-nginx/controller:v1.8.0 xuxiaoweicomcn/ingress-nginx-controller:v1.8.0
+          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.8.0 xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0
+          docker images
+
+      # 登录 Docker Hub 并推送 Docker 镜像
+      - name: Push Docker images to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push xuxiaoweicomcn/ingress-nginx-controller:v1.8.0
+          docker push xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0
+          docker images
+          docker logout
