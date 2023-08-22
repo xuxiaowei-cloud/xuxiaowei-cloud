@@ -43,6 +43,8 @@ jobs:
       # 登录 Docker Hub 并推送 Docker 镜像
       - name: Push Docker images to Docker Hub
         run: |
+          platform_tag=${{ matrix.platform }}
+          platform_tag="${platform_tag#*/}"
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker push xuxiaoweicomcn/ingress-nginx-controller:v1.8.0-${platform_tag}
           docker push xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0-${platform_tag}
