@@ -49,7 +49,6 @@ jobs:
           platform_tag="${platform_tag#*/}"
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           echo "${{ secrets.DOCKER_PRIVATE_TOKEN }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin registry.jihulab.com
-          docker login -u $CI_REGISTRY_USER -p $DOCKER_PRIVATE_TOKEN $CI_REGISTRY
           docker push xuxiaoweicomcn/ingress-nginx-controller:v1.8.0-${platform_tag}
           docker push xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0-${platform_tag}
           docker push registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/controller:v1.8.0-${platform_tag}
