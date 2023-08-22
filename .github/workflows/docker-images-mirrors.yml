@@ -12,25 +12,24 @@ jobs:
     strategy:
       matrix:
         os: [ "ubuntu-latest" ]
-        platform: [ "linux/amd64", "linux/arm64" ]
 
     steps:
       # 检出代码
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up QEMU ${{ matrix.platform }}
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        with:
-          platforms: ${{ matrix.platform }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Pull Docker image ${{ matrix.platform }}
+      - name: Pull Docker image
         run: |
-          docker pull --platform=${{ matrix.platform }} registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3
-          docker pull --platform=${{ matrix.platform }} registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b
+          docker pull --platform=linux/arm64 registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3
+          docker pull --platform=linux/arm64 registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b
+          docker pull --platform=linux/amd64 registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3
+          docker pull --platform=linux/amd64 registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b
           docker images
 
       # 重命名 Docker 镜像标签
