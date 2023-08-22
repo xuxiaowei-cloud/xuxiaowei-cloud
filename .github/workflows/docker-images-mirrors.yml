@@ -26,15 +26,15 @@ jobs:
 
       - name: Pull Docker image
         run: |
-          docker pull --platform=linux/amd64 registry.k8s.io/ingress-nginx/controller:v1.8.0
-          docker pull --platform=linux/arm64 registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.8.0
+          docker pull --platform=linux/amd64 registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3
+          docker pull --platform=linux/arm64 registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b
           docker images
 
       # 重命名 Docker 镜像标签
       - name: Rename Docker images
         run: |
-          docker tag registry.k8s.io/ingress-nginx/controller:v1.8.0 xuxiaoweicomcn/ingress-nginx-controller:v1.8.0
-          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.8.0 xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0
+          docker tag registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3 xuxiaoweicomcn/ingress-nginx-controller:v1.8.0
+          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0
           docker images
 
       # 登录 Docker Hub 并推送 Docker 镜像
