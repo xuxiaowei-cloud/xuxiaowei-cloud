@@ -37,9 +37,9 @@ jobs:
           platform_tag=${{ matrix.platform }}
           platform_tag="${platform_tag#*/}"
           docker tag registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3 xuxiaoweicomcn/ingress-nginx-controller:v1.8.0-${platform_tag}
-          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0-${platform_tag}
+          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v20230407-${platform_tag}
           docker tag registry.k8s.io/ingress-nginx/controller@sha256:744ae2afd433a395eeb13dc03d3313facba92e96ad71d9feaafc85925493fee3           registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/controller:v1.8.0-${platform_tag}
-          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/kube-webhook-certgen:v1.8.0-${platform_tag}
+          docker tag registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/kube-webhook-certgen:v20230407-${platform_tag}
           docker images
 
       # 登录 Docker Hub 并推送 Docker 镜像
@@ -50,9 +50,9 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           echo "${{ secrets.DOCKER_PRIVATE_TOKEN }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin registry.jihulab.com
           docker push xuxiaoweicomcn/ingress-nginx-controller:v1.8.0-${platform_tag}
-          docker push xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v1.8.0-${platform_tag}
+          docker push xuxiaoweicomcn/ingress-nginx-kube-webhook-certgen:v20230407-${platform_tag}
           docker push registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/controller:v1.8.0-${platform_tag}
-          docker push registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/kube-webhook-certgen:v1.8.0-${platform_tag}
+          docker push registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/ingress-nginx/kube-webhook-certgen:v20230407-${platform_tag}
           docker images
           docker logout
           docker logout registry.jihulab.com
