@@ -18,6 +18,15 @@ git filter-branch --tree-filter "rm -f 要删除的文件路径" -- --all
 # 推送
 git push -f --all
 # 重新检出克隆，查看文件是否已被删除
+
+# 清理服务器文件、提交记录
+# 以下命令在服务器 git 仓库储存目录下执行
+# gitlab 默认所有仓库储存总文件夹 /var/opt/gitlab/git-data/repositories/@hashed，执行 gitlab-rake gitlab:backup:create 备份数据后，备份日志可以分析出具体项目储存的文件夹
+
+# 标记所有引用中过期的记录，并将它们设为立即过期。引用包括分支（branch）、标签（tag）等。
+git reflog expire --expire=now --all
+# 通过垃圾回收（garbage collection）清理掉已经过期的引用以及与之关联的无效对象。--prune=now 表示立即清理过期的引用，--aggressive 则表示使用更激进的方式进行垃圾回收。
+git gc --prune=now --aggressive
 ```
 
 ## 克隆
