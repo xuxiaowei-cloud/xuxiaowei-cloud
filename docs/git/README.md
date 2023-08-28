@@ -5,6 +5,14 @@
 ```shell
 # 列出 10 个大文件
 git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10
+
+# 根据路径，查看历史提交记录
+# 其中 -n 5 代表显示最近的 5 条记录
+# 其中 --all 代表查看所有分支
+# 其中 -- 代表从路径开始
+# 其中 --follow 代表跟踪文件的重命名和移动操作
+# git log -n 5 --all -- 路径
+
 # 删除文件
 git filter-branch --tree-filter "rm -f 要删除的文件路径" -- --all
 # 推送
