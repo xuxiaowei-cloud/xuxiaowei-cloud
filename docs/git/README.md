@@ -14,7 +14,7 @@ git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 |
 # git log -n 5 --all -- 路径
 
 # 删除文件
-git filter-branch --tree-filter "rm -f 要删除的文件路径" -- --all
+git filter-branch -f --tree-filter "rm -f 要删除的文件路径" -- --all
 # 推送
 git push -f --all
 # 重新检出克隆，查看文件是否已被删除
