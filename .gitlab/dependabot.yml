@@ -19,7 +19,7 @@ updates:
     open-pull-requests-limit: 5
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     # https://docs.github.com/zh/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
@@ -93,7 +93,7 @@ updates:
     # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
     open-pull-requests-limit: 1
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
@@ -103,7 +103,7 @@ updates:
     # 设置为 1，防止 @typescript-eslint/parser、@typescript-eslint/parser 更新时出现冲突
     open-pull-requests-limit: 1
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
 
@@ -111,7 +111,7 @@ updates:
     directory: "/admin-server"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -123,7 +123,7 @@ updates:
     directory: "/gateway"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -135,7 +135,7 @@ updates:
     directory: "/passport"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -147,7 +147,7 @@ updates:
     directory: "/resource-services-parent/canal"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -159,7 +159,7 @@ updates:
     directory: "/resource-services-parent/file"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -171,7 +171,7 @@ updates:
     directory: "/resource-services-parent/master-data"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -183,7 +183,7 @@ updates:
     directory: "/resource-services-parent/user"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -195,7 +195,7 @@ updates:
     directory: "/resource-services-parent/webservice"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -207,7 +207,7 @@ updates:
     directory: "/resource-services-parent/websocket"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -219,7 +219,7 @@ updates:
     directory: "/resource-services-parent/wechat-miniprogram"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -231,7 +231,7 @@ updates:
     directory: "/resource-services-parent/wechat-offiaccount"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -243,7 +243,7 @@ updates:
     directory: "/xxl-job-admin"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
     ignore:
@@ -256,6 +256,6 @@ updates:
     directory: "/ui"
     auto-merge: true
     schedule:
-      interval: "daily"
+      interval: "weekly"
       time: "04:00"
       timezone: "Asia/Shanghai"
