@@ -124,10 +124,10 @@ coverage:
     - if [[ $CI_SERVER_HOST =~ $PRIVATE_SERVER_HOST ]];
       then
     # 自建 GitLab 使用 Maven 私库（文档：https://gitlab-k8s.xuxiaowei.com.cn/gitlab-k8s/docs/nexus/docker-install-nexus）
-    - SETTINGS_FILE_NAME=settings-private.xml
+    - SETTINGS_FILE_NAME=settings-private.xml;
       else
     # 非自建 GitLab 使用 阿里/腾讯 Maven 镜像
-    - SETTINGS_FILE_NAME=settings.xml
+    - SETTINGS_FILE_NAME=settings.xml;
       fi
     - mvn clean -e -U package source:jar javadoc:jar install -DskipTests=true -s $SETTINGS_FILE_NAME && PACKAGE_FLAG=1;
     - if [ "$PACKAGE_FLAG" == "1" ]; then echo '打包完成'; else echo '打包失败' && xxxx; fi
