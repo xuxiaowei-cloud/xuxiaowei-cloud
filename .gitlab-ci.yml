@@ -62,7 +62,10 @@ coverage:
   stage: package
   image: maven:3.6.3-jdk-8
   services:
-    - docker:dind
+    - name: docker:dind
+      variables:
+        # 关闭 TLS
+        DOCKER_TLS_CERTDIR: ""
   script:
     - git --version
     - echo 常量网址：https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
