@@ -62,7 +62,7 @@ coverage:
   stage: package
   image: maven:3.6.3-jdk-8
   services:
-    - name: docker:dind
+    - name: docker:24.0.6-dind
       variables:
         # 关闭 TLS
         DOCKER_TLS_CERTDIR: ""
