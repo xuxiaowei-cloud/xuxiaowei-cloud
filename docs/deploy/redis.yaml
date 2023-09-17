@@ -1,34 +1,15 @@
-# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
-# 创建 pod    ：kubectl apply -f redis-deployment.yaml
-# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
-# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
-# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
-# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment redis-deployment
-# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment redis-deployment
-
-# 创建一个持久化卷（Persistent Volume）
-# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  # 持久卷名称
-  name: redis-data-volume
+  name: redis-data-pvc
+  namespace: xuxiaowei-cloud
 spec:
-  # 持久化卷的容量为 10GB
-  capacity:
-    storage: 10Gi
-  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
-    - ReadWriteMany
-  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
-  nfs:
-    # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-    path: /nfs/redis/data
-    # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 192.168.0.27
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
 
 ---
 
@@ -87,13 +68,8 @@ spec:
             path: /etc/localtime
         # 引用持久卷
         - name: redis-data-volume
-          nfs:
-            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-            # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-            path: /nfs/redis/data
-            # NFS 服务器的 IP 地址
-            # 填写你的 NFS（Network File System，网络文件系统） 地址
-            server: 192.168.0.27
+          persistentVolumeClaim:
+            claimName: redis-data-pvc
 
 ---
 
