@@ -1,11 +1,3 @@
-# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
-# 创建 pod    ：kubectl apply -f mysql-deployment.yaml
-# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
-# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
-# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
-# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment mysql-deployment
-# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment mysql-deployment
-
 # https://kubernetes.io/zh-cn/docs/concepts/configuration/configmap/
 # 查看 描述 ：kubectl -n xuxiaowei-cloud describe configmap mysql-config-map
 apiVersion: v1
@@ -20,16 +12,17 @@ data:
     # 最大连接数
     max_connections=1000
     
-    # 以下内容未启动，使用的是启动参数
-    # log_bin = mysql-bin
-    # server_id = 1
+    # 开启二进制日志
+    log_bin = mysql-bin
+    # ID
+    server_id = 1
     # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
     # MySQL 二进制日志过期时间，单位秒，60 * 60 * 24 * 14 = 1209600
-    # binlog_expire_logs_seconds = 1209600
-    # character_set_server = utf8mb4"
-    # collation_server = utf8mb4_general_ci"
+    binlog_expire_logs_seconds = 1209600
+    character_set_server = utf8mb4
+    collation_server = utf8mb4_general_ci
     # 开启行级日志
-    # binlog_format=ROW
+    binlog_format=ROW
 
 ---
 
@@ -53,55 +46,33 @@ data:
 
 ---
 
-# 创建一个持久化卷（Persistent Volume）
-# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  # 持久卷名称
-  name: mysql-init-volume
+  name: mysql-init-pvc
+  namespace: xuxiaowei-cloud
 spec:
-  # 持久化卷的容量为 10GB
-  capacity:
-    storage: 10Gi
-  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
-    - ReadWriteMany
-  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
-  nfs:
-    # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-    path: /nfs/mysql/init
-    # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 192.168.0.27
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
 
 ---
 
-# 创建一个持久化卷（Persistent Volume）
-# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  # 持久卷名称
-  name: mysql-data-volume
+  name: mysql-data-pvc
+  namespace: xuxiaowei-cloud
 spec:
-  # 持久化卷的容量为 10GB
-  capacity:
-    storage: 10Gi
-  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
-    - ReadWriteMany
-  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
-  nfs:
-    # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-    path: /nfs/mysql/data
-    # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 192.168.0.27
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  volumeMode: Filesystem
 
 ---
 
@@ -143,17 +114,6 @@ spec:
           ports:
             # 容器开放的端口号
             - containerPort: 3306
-          # 创建容器时的参数
-          args:
-            - "--log-bin=mysql-bin"
-            - "--server-id=1"
-            # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
-            # MySQL 二进制日志过期时间，单位秒，60 * 60 * 24 * 14 = 1209600
-            - "--binlog_expire_logs_seconds=1209600"
-            - "--character-set-server=utf8mb4"
-            - "--collation-server=utf8mb4_general_ci"
-            # 开启行级日志
-            - "--binlog-format=ROW"
           volumeMounts:
             # 挂载主机的时区文件
             - name: time-zone
@@ -187,22 +147,12 @@ spec:
                 path: mysql.cnf
         # 引用持久卷
         - name: mysql-init-volume
-          nfs:
-            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-            # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-            path: /nfs/mysql/init
-            # NFS 服务器的 IP 地址
-            # 填写你的 NFS（Network File System，网络文件系统） 地址
-            server: 192.168.0.27
+          persistentVolumeClaim:
+            claimName: mysql-init-pvc
         # 引用持久卷
         - name: mysql-data-volume
-          nfs:
-            # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-            # NFS 文档：https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s/nfs
-            path: /nfs/mysql/data
-            # NFS 服务器的 IP 地址
-            # 填写你的 NFS（Network File System，网络文件系统） 地址
-            server: 192.168.0.27
+          persistentVolumeClaim:
+            claimName: mysql-data-pvc
 
 ---
 

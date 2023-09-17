@@ -49,9 +49,6 @@ murphysec:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
-  tags:
-    # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
-    - jihulab
 
 #
 # coverage
@@ -160,9 +157,6 @@ coverage:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
-  tags:
-    # 极狐 GitLab Runner 标签（仅在极狐GitLab共享Runner上执行）
-    - jihulab
 
 
 # 嵌入
