@@ -157,6 +157,9 @@ k8s-publish:
   stage: k8s-publish
   needs:
     - job: k8s-package
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # -n xuxiaowei-cloud：指定命名空间为 xuxiaowei-cloud
     # $CI_PIPELINE_ID：当前管道的实例级ID
@@ -207,6 +210,9 @@ k8s-waiting-rollout:admin-server:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/admin-server-deployment
@@ -231,6 +237,9 @@ k8s-waiting-rollout:canal:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/canal-deployment
@@ -255,6 +264,9 @@ k8s-waiting-rollout:file:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/file-deployment
@@ -279,6 +291,9 @@ k8s-waiting-rollout:gateway:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/gateway-deployment
@@ -303,6 +318,9 @@ k8s-waiting-rollout:master-data:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/master-data-deployment
@@ -327,6 +345,9 @@ k8s-waiting-rollout:passport:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/passport-deployment
@@ -351,6 +372,9 @@ k8s-waiting-rollout:passport:
 #  stage: k8s-waiting-rollout
 #  needs:
 #    - job: k8s-publish
+#  image: bitnami/kubectl:1.27.4
+#  variables:
+#    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
 #  script:
 #    # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
 #    - kubectl -n xuxiaowei-cloud rollout status deployment/ui-deployment
@@ -375,6 +399,9 @@ k8s-waiting-rollout:user:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/user-deployment
@@ -399,6 +426,9 @@ k8s-waiting-rollout:webservice:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/webservice-deployment
@@ -423,6 +453,9 @@ k8s-waiting-rollout:websocket:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/websocket-deployment
@@ -447,6 +480,9 @@ k8s-waiting-rollout:wechat-miniprogram:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-miniprogram-deployment
@@ -471,6 +507,9 @@ k8s-waiting-rollout:wechat-offiaccount:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/wechat-offiaccount-deployment
@@ -495,6 +534,9 @@ k8s-waiting-rollout:xxl-job-admin:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish
+  image: bitnami/kubectl:1.27.4
+  variables:
+    KUBECONFIG: $RUNNER_TEMP_PROJECT_DIR/KUBECONFIG
   script:
     # 查看滚动发布的状态，如果滚动发布未就绪，命令会等待
     - kubectl -n xuxiaowei-cloud rollout status deployment/xxl-job-admin-deployment
