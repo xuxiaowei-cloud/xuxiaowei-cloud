@@ -2,7 +2,7 @@
 
 
 # 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
-# 创建 pod    ：kubectl apply -f nginx-deployment.yaml
+# 创建 pod    ：kubectl apply -f nginx.yaml
 # 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
 # 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
 # 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash

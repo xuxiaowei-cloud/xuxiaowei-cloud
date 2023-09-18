@@ -1,13 +1,3 @@
-# 创建命名空间  ：kubectl create namespace xuxiaowei-cloud
-# 创建 pod    ：kubectl apply -f ui-deployment.yaml
-# 查看 pod    ：kubectl -n xuxiaowei-cloud get pod -o wide
-# 查看 pod 描述：kubectl -n xuxiaowei-cloud describe pod pod名称
-# 进入 pod    ：kubectl -n xuxiaowei-cloud exec -it pod名称 bash
-# 编辑 pod    ：kubectl -n xuxiaowei-cloud edit deployment ui-deployment
-# 删除 pod    ：kubectl -n xuxiaowei-cloud delete deployment ui-deployment
-
----
-
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 # 创建 Deployment
 apiVersion: apps/v1
