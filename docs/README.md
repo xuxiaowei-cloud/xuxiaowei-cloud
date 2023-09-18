@@ -4,9 +4,9 @@
 
 ## [语雀文档](https://www.yuque.com/xuxiaowei-com-cn)
 
-1. [GitLab、kubernetes（k8s）、私库等](https://www.yuque.com/xuxiaowei-com-cn/gitlab-k8s)
+1. [GitLab、kubernetes（k8s）、私库等](https://gitlab-k8s.xuxiaowei.com.cn/gitlab-k8s)
 
-### [kubernetes（k8s）](deployment)
+### [kubernetes（k8s）](deploy)
 
 ### [Docker 说明](docker)
 

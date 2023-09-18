@@ -1,0 +1,176 @@
+# KEY_FILE=gateway.example.xuxiaowei.cloud.key
+# CERT_FILE=gateway.example.xuxiaowei.cloud.pem
+# CERT_NAME=gateway.example.xuxiaowei.cloud
+# kubectl -n xuxiaowei-cloud create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+
+# kubectl -n xuxiaowei-cloud get secret gateway.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode | openssl x509 -text
+
+# kubectl -n xuxiaowei-cloud get secret gateway.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode > tls.crt
+# kubectl -n xuxiaowei-cloud get secret gateway.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.key}' | base64 --decode > tls.key
+
+# kubectl -n xuxiaowei-cloud get ingress gateway-example-xuxiaowei-cloud
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: xuxiaowei-cloud
+  name: gateway-example-xuxiaowei-cloud
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gateway.example.xuxiaowei.cloud
+      http:
+        paths:
+          - backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 1101
+            path: /
+            pathType: Prefix
+  tls:
+    - secretName: gateway.example.xuxiaowei.cloud
+      hosts:
+        - gateway.example.xuxiaowei.cloud
+
+---
+
+# KEY_FILE=passport.example.xuxiaowei.cloud.key
+# CERT_FILE=passport.example.xuxiaowei.cloud.pem
+# CERT_NAME=passport.example.xuxiaowei.cloud
+# kubectl -n xuxiaowei-cloud create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+
+# kubectl -n xuxiaowei-cloud get secret passport.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode | openssl x509 -text
+
+# kubectl -n xuxiaowei-cloud get secret passport.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode > tls.crt
+# kubectl -n xuxiaowei-cloud get secret passport.example.xuxiaowei.cloud -o jsonpath='{.data.tls\.key}' | base64 --decode > tls.key
+
+# kubectl -n xuxiaowei-cloud get ingress passport-example-xuxiaowei-cloud
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: xuxiaowei-cloud
+  name: passport-example-xuxiaowei-cloud
+  annotations:
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#use-regex
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#rewrite
+    # https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /passport/$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: passport.example.xuxiaowei.cloud
+      http:
+        paths:
+          - backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 1101
+            path: /
+            pathType: Prefix
+  tls:
+    - secretName: passport.example.xuxiaowei.cloud
+      hosts:
+        - passport.example.xuxiaowei.cloud
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: xuxiaowei-cloud
+  name: passport-example-xuxiaowei-cloud-passport
+  annotations:
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#use-regex
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#rewrite
+    # https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /passport/$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: passport.example.xuxiaowei.cloud
+      http:
+        paths:
+          - backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 1101
+            path: /passport(/|$)(.*)
+            pathType: ImplementationSpecific
+  tls:
+    - secretName: passport.example.xuxiaowei.cloud
+      hosts:
+        - passport.example.xuxiaowei.cloud
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: xuxiaowei-cloud
+  name: passport-example-xuxiaowei-cloud-passport-assets
+  annotations:
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#use-regex
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#rewrite
+    # https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /passport/passport-assets/$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: passport.example.xuxiaowei.cloud
+      http:
+        paths:
+          - backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 1101
+            path: /passport-assets(/|$)(.*)
+            pathType: ImplementationSpecific
+  tls:
+    - secretName: passport.example.xuxiaowei.cloud
+      hosts:
+        - passport.example.xuxiaowei.cloud
+
+---
+
+# KEY_FILE=example.xuxiaowei.cloud.key
+# CERT_FILE=example.xuxiaowei.cloud.pem
+# CERT_NAME=example.xuxiaowei.cloud
+# kubectl -n xuxiaowei-cloud create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+
+# kubectl -n xuxiaowei-cloud get secret example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode | openssl x509 -text
+
+# kubectl -n xuxiaowei-cloud get secret example.xuxiaowei.cloud -o jsonpath='{.data.tls\.crt}' | base64 --decode > tls.crt
+# kubectl -n xuxiaowei-cloud get secret example.xuxiaowei.cloud -o jsonpath='{.data.tls\.key}' | base64 --decode > tls.key
+
+# kubectl -n xuxiaowei-cloud get ingress example-xuxiaowei-cloud
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: xuxiaowei-cloud
+  name: example-xuxiaowei-cloud
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: example.xuxiaowei.cloud
+      http:
+        paths:
+          - backend:
+              service:
+                name: ui-service
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - secretName: example.xuxiaowei.cloud
+      hosts:
+        - example.xuxiaowei.cloud
