@@ -2,7 +2,7 @@ name: Docker Images Mirrors
 
 on:
   push:
-    branches: [ docker-images-mirrors ]
+    branches: [ docker-images-mirrors-ingress-nginx ]
 
 jobs:
   mirrors:
