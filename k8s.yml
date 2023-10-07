@@ -25,7 +25,7 @@ sonarqube-check:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 
@@ -146,7 +146,7 @@ k8s-package:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 
@@ -195,7 +195,7 @@ k8s-publish:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -222,7 +222,7 @@ k8s-waiting-rollout:admin-server:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -249,7 +249,7 @@ k8s-waiting-rollout:canal:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -276,7 +276,7 @@ k8s-waiting-rollout:file:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -303,7 +303,7 @@ k8s-waiting-rollout:gateway:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -330,7 +330,7 @@ k8s-waiting-rollout:master-data:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -357,7 +357,7 @@ k8s-waiting-rollout:passport:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -411,7 +411,7 @@ k8s-waiting-rollout:user:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -438,7 +438,7 @@ k8s-waiting-rollout:webservice:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -465,7 +465,7 @@ k8s-waiting-rollout:websocket:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -492,7 +492,7 @@ k8s-waiting-rollout:wechat-miniprogram:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -519,7 +519,7 @@ k8s-waiting-rollout:wechat-offiaccount:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
@@ -546,7 +546,7 @@ k8s-waiting-rollout:xxl-job-admin:
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
     # PR 到 k8s 分支时预执行
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
+    #- if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s"
     # PR 合并到 k8s 后执行、推送到 k8s 分支时
     - if: $CI_COMMIT_BRANCH == "k8s"
 #  tags:
