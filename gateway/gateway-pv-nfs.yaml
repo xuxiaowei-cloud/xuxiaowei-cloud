@@ -4,7 +4,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   # 持久卷名称
-  name: xuxiaowei-cloud-gateway-logs-pv
+  name: xuxiaowei-cloud-gateway-logs-pv-nfs
 spec:
   # 持久化卷的容量为 100Gi
   capacity:

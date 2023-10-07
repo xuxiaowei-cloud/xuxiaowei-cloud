@@ -4,7 +4,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   # 持久卷名称
-  name: xuxiaowei-cloud-admin-server-logs-pv-nfs
+  name: xuxiaowei-cloud-websocket-logs-pv-local
 spec:
   # 持久化卷的容量为 100Gi
   capacity:
@@ -13,21 +13,23 @@ spec:
   # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
   accessModes:
     - ReadWriteMany
-  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
-  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
-  nfs:
-    # NFS 文档：https://gitlab-k8s.xuxiaowei.com.cn/gitlab-k8s/docs/k8s-pv/centos-7-nfs-install
-    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
-    path: /nfs/xuxiaowei-cloud/admin-server/logs
-    # 填写你的 NFS（Network File System，网络文件系统） 地址
-    server: 172.25.25.5
+  local:
+    # 需要文件夹存在
+    path: /xuxiaowei-cloud/websocket-logs-pv-local
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            # kubectl label nodes 储存websocket数据的节点名称 xuxiaowei-cloud-websocket=local-pv
+            # kubectl get node --show-labels
+            - key: xuxiaowei-cloud-websocket
+              operator: In
+              values:
+                - local-pv
   claimRef:
     apiVersion: v1
     kind: PersistentVolumeClaim
-    name: admin-server-logs-pvc
+    name: websocket-logs-pvc
     namespace: xuxiaowei-cloud
-  mountOptions:
-    - hard
-    - nfsvers=4.1
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem
