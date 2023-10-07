@@ -4,7 +4,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   # 持久卷名称
-  name: xuxiaowei-cloud-websocket-logs-pv
+  name: xuxiaowei-cloud-websocket-logs-pv-nfs
 spec:
   # 持久化卷的容量为 100Gi
   capacity:
