@@ -66,6 +66,7 @@
     <!-- 分页查询租户的内容 -->
     <select id="listByTenantPageLoginBo" resultType="cloud.xuxiaowei.passport.vo.TenantLoginVo">
         SELECT
+            orc.id,
             t.tenant_id,
             t.tenant_name,
             orc.client_id,

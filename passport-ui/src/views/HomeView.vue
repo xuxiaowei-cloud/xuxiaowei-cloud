@@ -173,6 +173,8 @@ const githubUrl = ref()
 const dingtalkUrl = ref()
 const alipayOplatformWebsiteUrl = ref()
 const feiShuWebPageUrl = ref()
+// 默认客户主键
+const defaultId = ref<string>('1')
 // 默认租户ID
 const defaultTenantId = ref<string>('1')
 // 默认客户ID
@@ -194,6 +196,7 @@ configuration().then((response : Resp<any>) => {
     feiShuWebPageUrl.value = `${import.meta.env.VITE_APP_BASE_API}/passport/feishu-webpage/authorize/${response.data.feiShuWebPageAppid}`
     defaultTenantId.value = response.data.defaultTenantId
     defaultClientId.value = response.data.defaultClientId
+    id.value = response.data.defaultId
     tenantId.value = response.data.defaultTenantId
     clientId.value = response.data.defaultClientId
   } else {
@@ -203,6 +206,7 @@ configuration().then((response : Resp<any>) => {
 
 // 表单中的值
 const cloudForm = reactive({
+  id: '',
   tenantId: '',
   clientId: '',
   username: '',
@@ -210,10 +214,12 @@ const cloudForm = reactive({
   rememberMe: []
 })
 
+const id = ref<string>('')
 const tenantId = ref<string>('')
 const clientId = ref<string>('')
 
 interface TenantOption {
+  id: string;
   tenantId: string;
   tenantName: string;
   clientId: string;
@@ -233,9 +239,15 @@ const handleTenantChange = function () {
     for (const tenantOption of tenantOptions.value) {
       if (tenantOption.tenantId === tenantId.value) {
         clientId.value = tenantOption.clientId
+        id.value = tenantOption.id
         break
       }
     }
+  }
+
+  // 未选择租户时使用默认租户
+  if (id.value === '' || id.value == null) {
+    id.value = defaultId.value
   }
 
   // 未选择租户时使用默认租户
@@ -304,7 +316,7 @@ const submitCloudForm = () => {
       // encodeURIComponent()
       const homePage = route.query.homePage as string
 
-      login(tenantId.value, clientId.value, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
+      login(id.value, tenantId.value, clientId.value, cloudForm.username, password, cloudForm.rememberMe[0], header, token, rememberMeParameter, redirectUri, homePage).then((response : Resp<any>) => {
         console.log(response)
         const msg = response.msg
 
