@@ -73,7 +73,7 @@
 
         <!-- https://mvnrepository.com/artifact/cn.com.xuxiaowei.boot/spring-boot-starter-oauth2 -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/cn/com/xuxiaowei/boot/spring-boot-starter-oauth2/ -->
-        <spring-boot-starter-oauth2.version>0.1.0-SNAPSHOT</spring-boot-starter-oauth2.version>
+        <spring-boot-starter-oauth2.version>1.0.0-SNAPSHOT</spring-boot-starter-oauth2.version>
 
         <!-- MyBatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
