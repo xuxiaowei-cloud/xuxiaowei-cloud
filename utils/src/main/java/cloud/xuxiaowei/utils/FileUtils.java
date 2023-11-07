@@ -20,6 +20,28 @@ import java.util.zip.ZipFile;
 public class FileUtils {
 
 	/**
+	 * 获取文件大小（含单位）
+	 * @param fileSize 文件原始大小
+	 * @return 文件大小（含单位）
+	 */
+	public static String formatFileSize(long fileSize) {
+		String result;
+		if (fileSize >= 1024 * 1024 * 1024) {
+			result = String.format("%.2fG", (double) fileSize / (1024 * 1024 * 1024));
+		}
+		else if (fileSize >= 1024 * 1024) {
+			result = String.format("%.2fM", (double) fileSize / (1024 * 1024));
+		}
+		else if (fileSize >= 1024) {
+			result = String.format("%.2fK", (double) fileSize / 1024);
+		}
+		else {
+			result = String.format("%d bytes", fileSize);
+		}
+		return result;
+	}
+
+	/**
 	 * 根据 URL 路径 下载文件
 	 * @param urlPath URL
 	 * @param filePath 路径

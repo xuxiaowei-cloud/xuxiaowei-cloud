@@ -5,6 +5,12 @@ server:
 #
 # Spring 配置
 spring:
+  servlet:
+    multipart:
+      # 最大文件大小
+      max-file-size: 1GB
+      # 最大请求大小
+      max-request-size: 1GB
   application:
     name: file
   # 配置环境
@@ -86,3 +92,28 @@ cloud:
         accessKeyId: ${oss_access_key_id:}
         accessKeySecret: ${oss_access_key_secret:}
         bucketName: ${oss_bucket_name:}
+    # 本地上传
+    upload-local-config:
+      # 文件后缀名
+      suffixes:
+        - .jpg
+        - .jpeg
+        - .png
+        - .zip
+        - .rar
+        - .gz
+        - .tar.gz
+        - .tar.xz
+        - .avi
+        - .mp4
+        - .mkv
+        - .wmv
+        - .flv
+      # 1k：1024
+      # 1M：1048576
+      # 1G：1073741824
+      max-size: 1073741824
+      # 静态资源/网络路径
+      resource-handler: /file-data/**
+      # 本地资源/磁盘路径
+      resource-location: file:/file-data/

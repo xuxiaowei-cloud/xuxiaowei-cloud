@@ -39,6 +39,11 @@ public class CloudFileProperties {
 	private List<OssConfig> ossConfigs = new ArrayList<>();
 
 	/**
+	 * 上传本地配置（本地储存配置）
+	 */
+	private UploadLocalConfig uploadLocalConfig;
+
+	/**
 	 * MVC 配置
 	 * <p>
 	 * 使用 MVC 配置的项目外文件映射为网络路径的配置
@@ -99,6 +104,46 @@ public class CloudFileProperties {
 		 * Bucket 名称，例如 examplebucket
 		 */
 		private String bucketName;
+
+	}
+
+	/**
+	 * 上传本地配置（本地储存配置）
+	 *
+	 * @author xuxiaowei
+	 * @since 0.0.1
+	 */
+	@Data
+	public static class UploadLocalConfig {
+
+		/**
+		 * 文件后缀名
+		 */
+		private List<String> suffixes;
+
+		/**
+		 * 最大文件大小
+		 */
+		private long maxSize;
+
+		/**
+		 * 静态资源/网络路径
+		 * <p>
+		 * 需要将此路径加入 Security 白名单
+		 * <p>
+		 * 如：/file-data/**
+		 */
+		private String resourceHandler;
+
+		/**
+		 * 本地资源/磁盘路径
+		 * <p>
+		 * Windows 示例：file:D:\\file-data\\、file:/file-data/（此配置代表当前磁盘根目录下的 /file-data/
+		 * 文件夹）
+		 * <p>
+		 * Linux 示例：file:/file-data/
+		 */
+		private String resourceLocation;
 
 	}
 
