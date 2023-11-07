@@ -40,6 +40,7 @@ import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.DefaultMapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryWeChatOplatformWebsiteService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatOplatformWebsiteService;
@@ -50,6 +51,8 @@ import org.springframework.security.oauth2.server.authorization.exception.Redire
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOplatformWebsiteProperties;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -57,10 +60,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -239,6 +239,8 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 * 获取 OAuth 2.1 授权 Token（如果不想执行此方法后面的内容，可返回 null）
 	 * @param request 请求
 	 * @param response 响应
+	 * @param clientId 客户ID
+	 * @param clientSecret 客户凭证
 	 * @param tokenUrlPrefix 获取 Token URL 前缀
 	 * @param tokenUrl Token URL
 	 * @param uriVariables 参数
@@ -250,11 +252,17 @@ public class WeChatOplatformWebsiteServiceImpl implements WeChatOplatformWebsite
 	 */
 	@Override
 	public OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request,
-			HttpServletResponse response, String tokenUrlPrefix, String tokenUrl, Map<String, String> uriVariables)
-			throws OAuth2AuthenticationException {
+			HttpServletResponse response, String clientId, String clientSecret, String tokenUrlPrefix, String tokenUrl,
+			Map<String, String> uriVariables) throws OAuth2AuthenticationException {
+
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+		httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+		MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>(8);
+		multiValueMap.put(OAuth2ParameterNames.CLIENT_ID, Collections.singletonList(clientId));
+		multiValueMap.put(OAuth2ParameterNames.CLIENT_SECRET, Collections.singletonList(clientSecret));
+
+		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(multiValueMap, httpHeaders);
 		RestTemplate restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
 		messageConverters.add(5, new OAuth2AccessTokenResponseHttpMessageConverter());

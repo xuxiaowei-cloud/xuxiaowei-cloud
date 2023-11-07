@@ -18,6 +18,11 @@ import org.springframework.stereotype.Component;
 public class CloudTenantProperties {
 
 	/**
+	 * 默认客户主键
+	 */
+	private String id;
+
+	/**
 	 * 默认租户ID
 	 */
 	private Long defaultTenantId;

@@ -49,7 +49,12 @@ public class CloudClientProperties {
 		/**
 		 * 授权 Token 地址参数
 		 */
-		public static final String ACCESS_TOKEN_URI_PARAMETER = "?code={code}&client_id={client_id}&client_secret={client_secret}&redirect_uri={redirect_uri}&grant_type=authorization_code";
+		public static final String ACCESS_TOKEN_URI_PARAMETER = "?code={code}&redirect_uri={redirect_uri}&grant_type=authorization_code";
+
+		/**
+		 * 客户主键
+		 */
+		private String id;
 
 		/**
 		 * 客户ID
