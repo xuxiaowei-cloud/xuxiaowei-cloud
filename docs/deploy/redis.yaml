@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-data-pvc
+  namespace: xuxiaowei-cloud
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+
+---
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Deployment 名称
+  name: redis-deployment
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  # 此处使用一个副本（多副本时数据同步存在问题）
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          # https://hub.docker.com/_/redis
+          # Redis 版本
+          image: redis:7.0.8
+          ports:
+            # 容器开放的端口号
+            - containerPort: 6379
+          # 创建容器时的命令
+          command:
+            - "redis-server"
+          # 创建容器时的参数
+          args:
+            # https://hub.docker.com/_/redis
+            # 设置密码
+            - "--requirepass xuxiaowei.com.cn"
+            # AOF
+            - "--appendonly yes"
+          volumeMounts:
+            # 挂载主机的时区文件
+            - name: time-zone
+              mountPath: /etc/localtime
+            # 引用持久卷并挂载到容器
+            - name: redis-data-volume
+              # Redis 数据目录
+              mountPath: /data
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
+      volumes:
+        # 挂载主机的时区文件
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+        # 引用持久卷
+        - name: redis-data-volume
+          persistentVolumeClaim:
+            claimName: redis-data-pvc
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment redis-deployment --type=NodePort --name=redis-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service redis-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service redis-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
+apiVersion: v1
+kind: Service
+metadata:
+  # Service 名称
+  name: redis-service
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
+    - nodePort: 30379
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+  selector:
+    # 将 Service 和 Deployment 关联起来
+    app: redis
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
+  type: NodePort

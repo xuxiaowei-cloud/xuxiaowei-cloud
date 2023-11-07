@@ -1,0 +1,35 @@
+# 创建一个持久化卷（Persistent Volume）
+# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  # 持久卷名称
+  name: xuxiaowei-cloud-admin-server-logs-pv-local
+spec:
+  # 持久化卷的容量为 100Gi
+  capacity:
+    storage: 100Gi
+  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
+  accessModes:
+    - ReadWriteMany
+  local:
+    # 需要文件夹存在
+    path: /xuxiaowei-cloud/admin-server-logs-pv-local
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            # kubectl label nodes 储存AdminServer数据的节点名称 xuxiaowei-cloud-admin-server=local-pv
+            # kubectl get node --show-labels
+            - key: xuxiaowei-cloud-admin-server
+              operator: In
+              values:
+                - local-pv
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: admin-server-logs-pvc
+    namespace: xuxiaowei-cloud
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

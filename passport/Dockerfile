@@ -1,7 +1,7 @@
-# FROM docker.io/alibabadragonwell/dragonwell:8-anolis
+# FROM docker.io/alibabadragonwell/dragonwell:8-anolis-slim
 
-# 使用 极狐GitLab 加速镜像构建，网站：https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud-next/container_registry
-FROM registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alibabadragonwell/dragonwell:8-anolis
+# 使用 极狐GitLab 加速镜像构建，网站：https://jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/container_registry
+FROM registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/alibabadragonwell/dragonwell:8-anolis-slim
 
 WORKDIR /home
 
@@ -13,6 +13,7 @@ ARG ARTIFACT_ID=${ARTIFACT_ID}
 ARG VERSION=${VERSION}
 ARG CI_PIPELINE_ID=${CI_PIPELINE_ID}
 ARG CI_JOB_ID=${CI_JOB_ID}
+ARG JAVA_OPTS=${JAVA_OPTS}
 
 RUN printf "GROUP_ID: %s\n" "$GROUP_ID" \
     && printf "ARTIFACT_ID: %s\n" "$ARTIFACT_ID" \

@@ -1,0 +1,33 @@
+# 创建一个持久化卷（Persistent Volume）
+# https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  # 持久卷名称
+  name: xuxiaowei-cloud-canal-logs-pv-nfs
+spec:
+  # 持久化卷的容量为 100Gi
+  capacity:
+    storage: 100Gi
+  # 持久化卷的访问模式为 ReadWriteMany，即多个 Pod 可以同时进行读写操作
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes
+  accessModes:
+    - ReadWriteMany
+  # 持久化卷的类型为 NFS（Network File System，网络文件系统）
+  # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#nfs
+  nfs:
+    # NFS 文档：https://gitlab-k8s.xuxiaowei.com.cn/gitlab-k8s/docs/k8s-pv/centos-7-nfs-install
+    # NFS 文件系统上的目标路径。需要保证该目录在 NFS 服务器上存在
+    path: /nfs/xuxiaowei-cloud/canal/logs
+    # 填写你的 NFS（Network File System，网络文件系统） 地址
+    server: 172.25.25.5
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: canal-logs-pvc
+    namespace: xuxiaowei-cloud
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

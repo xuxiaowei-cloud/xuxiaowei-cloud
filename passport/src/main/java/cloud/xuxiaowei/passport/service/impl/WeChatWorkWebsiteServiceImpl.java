@@ -55,6 +55,8 @@ import org.springframework.security.oauth2.server.authorization.web.authenticati
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -267,12 +269,17 @@ public class WeChatWorkWebsiteServiceImpl implements WeChatWorkWebsiteService {
 	 */
 	@Override
 	public OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request,
-			HttpServletResponse response, String tokenUrlPrefix, String tokenUrl, Map<String, String> uriVariables)
-			throws OAuth2AuthenticationException {
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+			HttpServletResponse response, String clientId, String clientSecret, String tokenUrlPrefix, String tokenUrl,
+			Map<String, String> uriVariables) throws OAuth2AuthenticationException {
 
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+		MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>(8);
+		multiValueMap.put(OAuth2ParameterNames.CLIENT_ID, Collections.singletonList(clientId));
+		multiValueMap.put(OAuth2ParameterNames.CLIENT_SECRET, Collections.singletonList(clientSecret));
+
+		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(multiValueMap, httpHeaders);
 		RestTemplate restTemplate = new RestTemplate();
 
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();

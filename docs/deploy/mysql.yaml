@@ -1,0 +1,189 @@
+# https://kubernetes.io/zh-cn/docs/concepts/configuration/configmap/
+# 查看 描述 ：kubectl -n xuxiaowei-cloud describe configmap mysql-config-map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config-map
+  # 命名空间
+  namespace: xuxiaowei-cloud
+data:
+  mysql.cnf: |
+    [mysqld]
+    # 最大连接数
+    max_connections=1000
+    
+    # 开启二进制日志
+    log_bin = mysql-bin
+    # ID
+    server_id = 1
+    # expire_logs_days：已过时，推荐使用 binlog_expire_logs_seconds
+    # MySQL 二进制日志过期时间，单位秒，60 * 60 * 24 * 14 = 1209600
+    binlog_expire_logs_seconds = 1209600
+    character_set_server = utf8mb4
+    collation_server = utf8mb4_general_ci
+    # 开启行级日志
+    binlog_format=ROW
+
+---
+
+# https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/
+# 创建 Secret
+apiVersion: v1
+kind: Secret
+metadata:
+  # Secret 名称
+  # 注意：此处为冗余写法（相同命名空间、相同名称只会存在一个 Secret）
+  name: mysql-password
+  # 命名空间
+  namespace: xuxiaowei-cloud
+# Secret 类型 Opaque 用于存储任何基于字节数组的数据
+type: Opaque
+data:
+  # password：Secret 名称为 "mysql-password"，主键为 "password" 的值
+  # 这里的值是经过 base64 编码处理的 MySQL root 用户密码，需要解码才能使用
+  # xuxiaowei.com.cn 计算 base64 之后为 eHV4aWFvd2VpLmNvbS5jbg==
+  password: eHV4aWFvd2VpLmNvbS5jbg==
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-init-pvc
+  namespace: xuxiaowei-cloud
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data-pvc
+  namespace: xuxiaowei-cloud
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  volumeMode: Filesystem
+
+---
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Deployment 名称
+  name: mysql-deployment
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  # 此处使用一个副本（多副本时仅有一个副本正常运行，其他副本读取文件时显示被占用）
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          # https://hub.docker.com/_/mysql
+          # MySQL 版本
+          image: mysql:8.0.32
+          # 指定环境变量
+          env:
+            # 环境变量：MySQL root 用户的密码
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-password
+                  key: password
+                  # 此值为默认值；意味着 "mysql-password" 必须存在且包含名为 "password" 的主键
+                  optional: false
+          ports:
+            # 容器开放的端口号
+            - containerPort: 3306
+          volumeMounts:
+            # 挂载主机的时区文件
+            - name: time-zone
+              mountPath: /etc/localtime
+            # 引用 ConfigMap 创建配置文件
+            - name: mysql-config-volume
+              # 挂载到容器的目录
+              # 用于配置 MySQL
+              mountPath: /etc/mysql/conf.d/
+            # 引用持久卷并挂载到容器
+            - name: mysql-init-volume
+              # MySQL 初始化表结构与数据
+              mountPath: /docker-entrypoint-initdb.d
+            # 引用持久卷并挂载到容器
+            - name: mysql-data-volume
+              # MySQL 数据目录
+              mountPath: /var/lib/mysql
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
+      volumes:
+        # 挂载主机的时区文件
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+        # 引用 ConfigMap 创建配置文件
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-config-map
+            items:
+              - key: mysql.cnf
+                path: mysql.cnf
+        # 引用持久卷
+        - name: mysql-init-volume
+          persistentVolumeClaim:
+            claimName: mysql-init-pvc
+        # 引用持久卷
+        - name: mysql-data-volume
+          persistentVolumeClaim:
+            claimName: mysql-data-pvc
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment mysql-deployment --type=NodePort --name=mysql-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service mysql-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service mysql-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
+apiVersion: v1
+kind: Service
+metadata:
+  # Service 名称
+  name: mysql-service
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
+    - nodePort: 30306
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    # 将 Service 和 Deployment 关联起来
+    app: mysql
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
+  type: NodePort
