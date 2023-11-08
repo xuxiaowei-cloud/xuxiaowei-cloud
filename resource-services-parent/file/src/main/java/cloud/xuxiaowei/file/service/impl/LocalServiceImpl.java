@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,11 @@ public class LocalServiceImpl implements LocalService {
 	 * 正则表达式,表示只允许数字、字母、/ 和 -
 	 */
 	private static final String PATH_REGEX = "^[a-zA-Z0-9/\\-]+$";
+
+	/**
+	 * 多 . 后缀名
+	 */
+	private static final List<String> MULTIPART_SUFFIX_LIST = Arrays.asList(".tar.gz", ".tar.xz");
 
 	private CloudFileProperties cloudFileProperties;
 
@@ -84,12 +90,14 @@ public class LocalServiceImpl implements LocalService {
 			throw new CloudRuntimeException(String.format("文件大小超过限制（%s）：%s", formatFileMaxSize, formatFileSize));
 		}
 
-		String fileExtension;
-		String targz = ".tar.gz";
-		if (originalFileName.endsWith(targz)) {
-			fileExtension = targz;
+		String fileExtension = null;
+		for (String suffix : MULTIPART_SUFFIX_LIST) {
+			if (originalFileName.endsWith(suffix)) {
+				fileExtension = suffix;
+				break;
+			}
 		}
-		else {
+		if (fileExtension == null) {
 			fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		}
 
