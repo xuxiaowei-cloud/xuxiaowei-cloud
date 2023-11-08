@@ -17,25 +17,59 @@ public class Constants implements Serializable {
 	/**
 	 * 数字
 	 */
-	public static final List<String> NUMBER_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+	public static final List<String> DIGIT_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+	/**
+	 * 数字
+	 */
+	public static final String DIGITS = "0123456789";
 
 	/**
 	 * 小写字母
 	 */
-	public static final List<String> LOWER_CASE_LIST = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-			"k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+	public static final List<String> LOWER_CASE_LETTER_LIST = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i",
+			"j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+
+	/**
+	 * 小写字母
+	 */
+	public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 
 	/**
 	 * 大写字母
 	 */
-	public static final List<String> UPPER_CASE_LIST = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-			"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+	public static final List<String> UPPER_CASE_LETTER_LIST = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I",
+			"J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+
+	/**
+	 * 大写字母
+	 */
+	public static final String UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
 	 * 符号
 	 */
-	public static final List<String> SYMBOL = Arrays.asList("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_",
-			"=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
+	public static final List<String> SYMBOL_LIST = Arrays.asList("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-",
+			"_", "=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
+
+	/**
+	 * 符号
+	 */
+	public static final String SYMBOLS = "!@#$%^&*()-_=+[{]};:'\",<.>/?";
+
+	/**
+	 * 字符合集
+	 */
+	public static final List<String> ALL_CHAR_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+			"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+			"v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+			"Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-",
+			"_", "=", "+", "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?");
+
+	/**
+	 * 字符合集
+	 */
+	public static final String ALL_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+[{]};:'\",<.>/?";
 
 	/**
 	 *

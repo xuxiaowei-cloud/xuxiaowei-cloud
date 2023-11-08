@@ -30,7 +30,7 @@ public class SymbolValidation implements ConstraintValidator<SymbolAnnotation, S
 			String[] split = value.split("");
 
 			for (String s : split) {
-				if (Constants.SYMBOL.contains(s)) {
+				if (Constants.SYMBOL_LIST.contains(s)) {
 					return true;
 				}
 			}

@@ -13,6 +13,21 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: file-data-pvc
+  namespace: xuxiaowei-cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  volumeMode: Filesystem
+
+---
+
 # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 # 创建 Deployment
 apiVersion: apps/v1
@@ -109,6 +124,10 @@ spec:
             - name: file-logs-volume
               # file 日志目录
               mountPath: /logs
+            # 引用持久卷并挂载到容器
+            - name: file-data-volume
+              # file 日志目录
+              mountPath: /file-data
       # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
       # 配置挂载的数据卷
       volumes:
@@ -120,6 +139,9 @@ spec:
         - name: file-logs-volume
           persistentVolumeClaim:
             claimName: file-logs-pvc
+        - name: file-data-volume
+          persistentVolumeClaim:
+            claimName: file-data-pvc
 
 ---
 
