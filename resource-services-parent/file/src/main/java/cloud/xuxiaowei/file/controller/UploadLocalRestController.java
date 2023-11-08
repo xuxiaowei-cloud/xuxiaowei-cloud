@@ -5,6 +5,7 @@ import cloud.xuxiaowei.system.annotation.ControllerAnnotation;
 import cloud.xuxiaowei.utils.FileUtils;
 import cloud.xuxiaowei.utils.Response;
 import cloud.xuxiaowei.utils.exception.CloudRuntimeException;
+import cloud.xuxiaowei.utils.map.ResponseMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 上传本地配置（本地储存配置）
+ * 上传文件到本地（本地储存）
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -112,7 +113,13 @@ public class UploadLocalRestController {
 		File folder = new File(parent, path);
 		if (!folder.exists()) {
 			boolean mkdir = folder.mkdir();
-			log.info("文件夹 {} 创建结果：{}", folder.getPath(), mkdir);
+			if (mkdir) {
+				log.info("文件夹 {} 创建结果：{}", folder.getPath(), true);
+			}
+			else {
+				log.error("文件夹 {} 创建结果：{}", folder.getPath(), false);
+				return Response.error("上传时文件夹创建失败");
+			}
 		}
 
 		String fileName = UUID.randomUUID() + fileExtension;
@@ -125,7 +132,23 @@ public class UploadLocalRestController {
 			throw new CloudRuntimeException("储存文件异常", e);
 		}
 
-		return Response.ok();
+		String domain = uploadLocalConfig.getDomain();
+
+		if (domain == null) {
+			domain = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+		}
+
+		String resourceHandler = uploadLocalConfig.getResourceHandler();
+
+		String url;
+		if (resourceHandler.endsWith("**")) {
+			url = domain + resourceHandler.substring(0, resourceHandler.length() - 2) + path + "/" + fileName;
+		}
+		else {
+			url = domain + resourceHandler + path + "/" + fileName;
+		}
+
+		return ResponseMap.ok().put("url", url);
 	}
 
 }

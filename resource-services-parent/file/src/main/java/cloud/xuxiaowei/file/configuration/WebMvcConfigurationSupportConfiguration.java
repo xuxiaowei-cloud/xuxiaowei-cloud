@@ -42,6 +42,13 @@ public class WebMvcConfigurationSupportConfiguration extends WebMvcConfiguration
 		// 没有此配置，将无法访问项目内静态文件，如：src/main/resources/static/favicon.ico
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 
+		// 上传文件至备份时的配置，将本地路径映射为网络路径
+		CloudFileProperties.UploadLocalConfig uploadLocalConfig = cloudFileProperties.getUploadLocalConfig();
+		String resourceHandler = uploadLocalConfig.getResourceHandler();
+		String resourceLocation = uploadLocalConfig.getResourceLocation();
+		registry.addResourceHandler(resourceHandler).addResourceLocations(resourceLocation);
+
+		// 其他项目外静态文件处理，将本地路径映射为网络路径
 		List<CloudFileProperties.MvcConfig> mvcConfigs = cloudFileProperties.getMvcConfigs();
 		for (CloudFileProperties.MvcConfig mvcConfig : mvcConfigs) {
 			String[] resourceHandlers = mvcConfig.getResourceHandlers();

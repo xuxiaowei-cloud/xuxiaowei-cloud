@@ -39,7 +39,7 @@ public class CloudFileProperties {
 	private List<OssConfig> ossConfigs = new ArrayList<>();
 
 	/**
-	 * 上传本地配置（本地储存配置）
+	 * 上传文件到本地配置（本地储存配置）
 	 */
 	private UploadLocalConfig uploadLocalConfig;
 
@@ -108,13 +108,20 @@ public class CloudFileProperties {
 	}
 
 	/**
-	 * 上传本地配置（本地储存配置）
+	 * 上传文件到本地配置（本地储存配置）
 	 *
 	 * @author xuxiaowei
 	 * @since 0.0.1
 	 */
 	@Data
 	public static class UploadLocalConfig {
+
+		/**
+		 * 文件访问域名，上传图片后返回的域名（包含协议、域名、端口、路径前缀等等，用于拼接在上传后的网络路径上）
+		 * <p>
+		 * 为空时代表使用当前服务启动时的域名、端口、项目路径等等
+		 */
+		private String domain;
 
 		/**
 		 * 文件后缀名
