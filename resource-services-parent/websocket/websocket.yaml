@@ -1,0 +1,156 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: websocket-logs-pvc
+  namespace: xuxiaowei-cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  volumeMode: Filesystem
+
+---
+
+# https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
+# 创建 Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Deployment 名称
+  name: websocket-deployment
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  selector:
+    matchLabels:
+      app: websocket
+  replicas: 1
+  strategy:
+    # 滚动更新
+    type: RollingUpdate
+    rollingUpdate:
+      # 超出所需 replicas 副本数 的最大数量，默认值为 25%
+      maxSurge: 1
+      # 滚动更新期间允许不可用的最大 replicas 副本数，默认值为 25%
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: websocket
+    spec:
+      containers:
+        - name: websocket
+          # websocket 版本
+          image: registry.docker.example.xuxiaowei.cloud/cloud.xuxiaowei/websocket:0.0.1-SNAPSHOT
+          # 指定环境变量
+          env:
+            - name: nacos_xuxiaowei_cloud_addr
+              value: nacos-service
+            - name: mysql_xuxiaowei_cloud
+              value: mysql-service
+            - name: redis_xuxiaowei_cloud_host
+              value: redis-service
+            - name: sentinel_dashboard
+              value: sentinel-service:22222
+            - name: APP_ARGS
+              # 正式环境
+              value: --spring.profiles.active=prod
+          ports:
+            # 容器开放的端口号
+            - containerPort: 1801
+            - containerPort: 9004
+          # 准备就绪探针
+          readinessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/readiness
+              path: /actuator/health/readiness
+              # 应用程序端口号
+              port: 1801
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 10 秒一次检查
+            periodSeconds: 10
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
+          # 活性探针
+          livenessProbe:
+            # 使用 HTTP GET 方法检查
+            httpGet:
+              # 检查的路径
+              # Windows 上使用 /actuator/health
+              # k8s 上使用 /actuator/health/liveness
+              path: /actuator/health/liveness
+              # 应用程序端口号
+              port: 1801
+            # 初始化延迟 30 秒
+            initialDelaySeconds: 30
+            # 每隔 20 秒一次检查
+            periodSeconds: 20
+            # 超时时间
+            timeoutSeconds: 5
+            # 连续成功的检查次数
+            successThreshold: 1
+            # 连续失败的检查次数
+            failureThreshold: 3
+          volumeMounts:
+            # 挂载主机的时区文件
+            - name: time-zone
+              mountPath: /etc/localtime
+            # 引用持久卷并挂载到容器
+            - name: websocket-logs-volume
+              # websocket 日志目录
+              mountPath: /logs
+      # https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/
+      # 配置挂载的数据卷
+      volumes:
+        # 挂载主机的时区文件
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+        # 引用持久卷
+        - name: websocket-logs-volume
+          persistentVolumeClaim:
+            claimName: websocket-logs-pvc
+
+---
+
+# 创建 Service（不能指定 nodePort） ：kubectl -n xuxiaowei-cloud expose deployment websocket-deployment --type=NodePort --name=websocket-service
+# 编辑 Service                    ：kubectl -n xuxiaowei-cloud edit service websocket-service
+# 删除 Service                    ：kubectl -n xuxiaowei-cloud delete service websocket-service
+# 查看 pod、Service               ：kubectl -n xuxiaowei-cloud get pod,svc -o wide
+
+# https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
+# 创建 Service
+apiVersion: v1
+kind: Service
+metadata:
+  # Service 名称
+  name: websocket-service
+  # 命名空间
+  namespace: xuxiaowei-cloud
+spec:
+  ports:
+    # NodePort：集群外部对 Service 访问使用的端口（默认范围：30000~32767）
+    # port：Service 内部的端口号
+    # targetPort：暴露的 Deployment 中容器的端口号
+    # protocol：端口协议，TCP 或 UDP
+    # name：仅在存在多个配置时需要填写，如果填写，必须使用字符串（数字需要添加引号）
+    - nodePort: 31801
+      port: 1801
+      protocol: TCP
+      targetPort: 1801
+  selector:
+    # 将 Service 和 Deployment 关联起来
+    app: websocket
+  # NodePort 会将该 Service 暴露到整个集群中的节点上，让外部客户端可以通过节点 IP + NodePort 的方式来访问该 Service
+  # 还有 ClusterIP 和 LoadBalancer 类型，具体可参考文档
+  type: NodePort

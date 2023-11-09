@@ -30,7 +30,7 @@ public class LowerCaseValidation implements ConstraintValidator<LowerCaseAnnotat
 			String[] split = value.split("");
 
 			for (String s : split) {
-				if (Constants.LOWER_CASE_LIST.contains(s)) {
+				if (Constants.LOWER_CASE_LETTER_LIST.contains(s)) {
 					return true;
 				}
 			}

@@ -21,6 +21,28 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class FileUtils {
 
+    /**
+     * 获取文件大小（含单位）
+     * @param fileSize 文件原始大小
+     * @return 文件大小（含单位）
+     */
+    public static String formatFileSize(long fileSize) {
+        String result;
+        if (fileSize >= 1024 * 1024 * 1024) {
+            result = String.format("%.2fG", (double) fileSize / (1024 * 1024 * 1024));
+        }
+        else if (fileSize >= 1024 * 1024) {
+            result = String.format("%.2fM", (double) fileSize / (1024 * 1024));
+        }
+        else if (fileSize >= 1024) {
+            result = String.format("%.2fK", (double) fileSize / 1024);
+        }
+        else {
+            result = String.format("%d bytes", fileSize);
+        }
+        return result;
+    }
+
 	/**
 	 * 向压缩包中添加文件内容并指定文件名（包含文件路径）
 	 * <p>

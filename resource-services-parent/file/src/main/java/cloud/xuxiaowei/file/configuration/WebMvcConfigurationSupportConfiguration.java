@@ -1,10 +1,15 @@
 package cloud.xuxiaowei.file.configuration;
 
+import cloud.xuxiaowei.core.properties.CloudFileProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * Web MVC、拦截器 配置
@@ -15,10 +20,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @Configuration
 public class WebMvcConfigurationSupportConfiguration extends WebMvcConfigurationSupport {
 
-	public static final String RESOURCE_HANDLER = "/uploads/**";
+	private CloudFileProperties cloudFileProperties;
+
+	@Autowired
+	public void setCloudFileProperties(CloudFileProperties cloudFileProperties) {
+		this.cloudFileProperties = cloudFileProperties;
+	}
 
 	/**
 	 * 不处理静态资源后缀名返回的格式
@@ -28,16 +39,32 @@ public class WebMvcConfigurationSupportConfiguration extends WebMvcConfiguration
 	protected void addResourceHandlers(@NotNull ResourceHandlerRegistry registry) {
 
 		// 项目内静态文件处理
+		// 没有此配置，将无法访问项目内静态文件，如：src/main/resources/static/favicon.ico
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+
+		// 上传文件至备份时的配置，将本地路径映射为网络路径
+		CloudFileProperties.UploadLocalConfig uploadLocalConfig = cloudFileProperties.getUploadLocalConfig();
+		String resourceHandler = uploadLocalConfig.getResourceHandler();
+		String resourceLocation = uploadLocalConfig.getResourceLocation();
+		registry.addResourceHandler(resourceHandler).addResourceLocations(resourceLocation);
+
+		// 其他项目外静态文件处理，将本地路径映射为网络路径
+		List<CloudFileProperties.MvcConfig> mvcConfigs = cloudFileProperties.getMvcConfigs();
+		for (CloudFileProperties.MvcConfig mvcConfig : mvcConfigs) {
+			String[] resourceHandlers = mvcConfig.getResourceHandlers();
+			String[] resourceLocations = mvcConfig.getResourceLocations();
+			registry.addResourceHandler(resourceHandlers).addResourceLocations(resourceLocations);
+		}
 
 		// 项目外静态文件处理
 		String osName = System.getProperty("os.name");
+		log.info("当前系统名称：{}", osName);
 		String win = "win";
 		if (osName.toLowerCase().startsWith(win)) {
-			registry.addResourceHandler(RESOURCE_HANDLER).addResourceLocations("file:D:\\uploads\\");
+			log.info("当前系统是 Windows");
 		}
 		else {
-			registry.addResourceHandler(RESOURCE_HANDLER).addResourceLocations("file:/uploads/");
+			log.info("当前系统不是 Windows");
 		}
 
 	}

@@ -30,7 +30,7 @@ public class UpperCaseValidation implements ConstraintValidator<UpperCaseAnnotat
 			String[] split = value.split("");
 
 			for (String s : split) {
-				if (Constants.UPPER_CASE_LIST.contains(s)) {
+				if (Constants.UPPER_CASE_LETTER_LIST.contains(s)) {
 					return true;
 				}
 			}

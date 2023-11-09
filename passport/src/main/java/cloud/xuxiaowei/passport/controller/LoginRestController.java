@@ -52,26 +52,26 @@ public class LoginRestController {
 	 * @param response 响应
 	 * @param session Session，不存在时自动创建
 	 * @param tenantId 租户ID
-	 * @param clientId 客户ID
+	 * @param id 客户主键
 	 * @param redirectUri 授权重定向地址
 	 * @param homePage 主页
 	 * @return 返回 登录成功提示语
 	 */
 	@PostMapping("/success")
 	public Response<?> success(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			String tenantId, String clientId, String redirectUri, String homePage) {
+			String tenantId, String id, String redirectUri, String homePage) {
 
-		if (!StringUtils.hasText(clientId)) {
-			return Response.error("无效的客户ID");
+		if (!StringUtils.hasText(id)) {
+			return Response.error("无效的客户主键");
 		}
 
 		CloudClientProperties.Client client = null;
 
 		// 先获取配置文件中的配置
-		// 与 clientId 对比，如果存在，直接使用
+		// 与 id 对比，如果存在，直接使用
 		List<CloudClientProperties.Client> clientList = cloudClientProperties.getList();
 		for (CloudClientProperties.Client c : clientList) {
-			if (clientId.equals(c.getClientId())) {
+			if (id.equals(c.getId())) {
 				client = c;
 				break;
 			}
@@ -81,15 +81,15 @@ public class LoginRestController {
 		if (client == null) {
 			// 从数据库中读取
 
-			Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getByClientId(clientId);
+			Oauth2RegisteredClient oauth2RegisteredClient = oauth2RegisteredClientService.getById(id);
 
 			if (oauth2RegisteredClient == null) {
-				return Response.error("无效的客户ID");
+				return Response.error("无效的客户主键");
 			}
 
 			client = oauth2RegisteredClient.loadAsConfig();
 			if (client == null) {
-				return Response.error("无效的客户ID配置");
+				return Response.error("无效的客户主键配置");
 			}
 		}
 
@@ -102,7 +102,7 @@ public class LoginRestController {
 			log.info("使用登录参数中的授权重定向地址：{}", redirectUri);
 		}
 		else {
-			redirectUri = client.getRedirectUriPrefix() + "/" + clientId;
+			redirectUri = client.getRedirectUriPrefix() + "/" + id;
 			log.info("使用默认授权重定向地址：{}", redirectUri);
 		}
 

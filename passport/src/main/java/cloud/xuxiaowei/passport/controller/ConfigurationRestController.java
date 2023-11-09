@@ -114,6 +114,7 @@ public class ConfigurationRestController {
 		String alipayOplatformWebsiteAppid = alipayOplatformWebsiteProperties.getDefaultAppid();
 		String feiShuWebPageAppid = feiShuWebPageProperties.getDefaultAppid();
 
+		String id = cloudTenantProperties.getId();
 		Long defaultTenantId = cloudTenantProperties.getDefaultTenantId();
 		String defaultClientId = cloudTenantProperties.getDefaultClientId();
 
@@ -141,6 +142,8 @@ public class ConfigurationRestController {
 			.put("feiShuWebPageAppid", feiShuWebPageAppid)
 			// 默认租户ID
 			.put("defaultTenantId", defaultTenantId)
+			// 默认客户主键
+			.put("defaultId", id)
 			// 默认客户ID
 			.put("defaultClientId", defaultClientId);
 	}

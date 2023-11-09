@@ -45,9 +45,6 @@ k8s-package:admin-server:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/admin-server"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/admin-server"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -72,7 +69,7 @@ k8s-publish:admin-server:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:admin-server:
+k8s-modules-waiting-rollout:admin-server:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:admin-server
@@ -113,9 +110,6 @@ k8s-package:canal:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/canal"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/canal"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -140,7 +134,7 @@ k8s-publish:canal:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:canal:
+k8s-modules-waiting-rollout:canal:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:canal
@@ -181,9 +175,6 @@ k8s-package:file:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/file"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/file"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -208,7 +199,7 @@ k8s-publish:file:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:file:
+k8s-modules-waiting-rollout:file:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:file
@@ -249,9 +240,6 @@ k8s-package:gateway:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/gateway"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/gateway"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -276,7 +264,7 @@ k8s-publish:gateway:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:gateway:
+k8s-modules-waiting-rollout:gateway:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:gateway
@@ -385,9 +373,6 @@ k8s-package:master-data:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/master-data"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/master-data"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -412,7 +397,7 @@ k8s-publish:master-data:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:master-data:
+k8s-modules-waiting-rollout:master-data:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:master-data
@@ -457,9 +442,6 @@ k8s-package:passport:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/passport"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/passport"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -484,7 +466,7 @@ k8s-publish:passport:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:passport:
+k8s-modules-waiting-rollout:passport:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:passport
@@ -527,9 +509,6 @@ k8s-package:ui:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/ui"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/ui"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -554,7 +533,7 @@ k8s-publish:ui:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:ui:
+k8s-modules-waiting-rollout:ui:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:ui
@@ -595,9 +574,6 @@ k8s-package:user:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/user"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/user"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -622,7 +598,7 @@ k8s-publish:user:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:user:
+k8s-modules-waiting-rollout:user:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:user
@@ -663,9 +639,6 @@ k8s-package:webservice:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/webservice"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/webservice"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -690,7 +663,7 @@ k8s-publish:webservice:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:webservice:
+k8s-modules-waiting-rollout:webservice:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:webservice
@@ -731,9 +704,6 @@ k8s-package:websocket:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/websocket"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/websocket"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -758,7 +728,7 @@ k8s-publish:websocket:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:websocket:
+k8s-modules-waiting-rollout:websocket:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:websocket
@@ -799,9 +769,6 @@ k8s-package:wechat-miniprogram:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-miniprogram"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-miniprogram"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -826,7 +793,7 @@ k8s-publish:wechat-miniprogram:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:wechat-miniprogram:
+k8s-modules-waiting-rollout:wechat-miniprogram:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:wechat-miniprogram
@@ -867,9 +834,6 @@ k8s-package:wechat-offiaccount:
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "k8s-modules/resource-services-parent/wechat-offiaccount"
     - if: $CI_COMMIT_BRANCH == "k8s-modules/resource-services-parent/wechat-offiaccount"
-  tags:
-    # 个人服务器 Runner 标签（仅在个人服务器上执行）
-    - plugin-kubernetes
 
 #
 # 使用 shell 发布 k8s
@@ -894,7 +858,7 @@ k8s-publish:wechat-offiaccount:
 
 #
 # 等待/检查滚动发布
-k8s-waiting-rollout:wechat-offiaccount:
+k8s-modules-waiting-rollout:wechat-offiaccount:
   stage: k8s-waiting-rollout
   needs:
     - job: k8s-publish:wechat-offiaccount
