@@ -123,7 +123,7 @@
         <commons-io.version>2.15.0</commons-io.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/commons/commons-lang3 -->
-        <commons-lang3.version>3.13.0</commons-lang3.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/apache/commons/commons-text -->
         <commons-text.version>1.11.0</commons-text.version>
