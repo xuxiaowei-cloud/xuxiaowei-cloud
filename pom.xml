@@ -188,7 +188,7 @@
 
         <!-- 阿里云 OSS 对象储存 https://help.aliyun.com/document_detail/32009.html -->
         <!-- https://mvnrepository.com/artifact/com.aliyun.oss/aliyun-sdk-oss -->
-        <aliyun-sdk-oss.version>3.17.2</aliyun-sdk-oss.version>
+        <aliyun-sdk-oss.version>3.17.4</aliyun-sdk-oss.version>
 
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
